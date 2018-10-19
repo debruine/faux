@@ -1,0 +1,16 @@
+Package: multisim
+Title: Simulate Multiple Related Variables
+Version: 0.0.0.9000
+Authors@R: person("Lisa", "DeBruine", email = "debruine@gmail.com", role = c("aut", "cre"))
+Description: Provides functions for simulating multiple variables with specified relationships.
+Depends:
+    R (>= 3.2.4)
+Imports:
+    MASS
+License: MIT + file LICENSE
+LazyData: true
+Suggests:
+    testthat
+VignetteBuilder: knitr
+RoxygenNote: 6.1.0
+Encoding: UTF-8
