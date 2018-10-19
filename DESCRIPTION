@@ -8,9 +8,10 @@ Depends:
 Imports:
     MASS
 License: MIT + file LICENSE
-LazyData: true
 Suggests:
-    testthat
+    testthat,
+    knitr,
+    rmarkdown
 VignetteBuilder: knitr
 RoxygenNote: 6.1.0
 Encoding: UTF-8
