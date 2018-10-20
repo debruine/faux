@@ -2,18 +2,18 @@
 #'
 #' \code{multirnorm} makes multiple normally distributed vectors with specified relationships
 #'
-#' @param n the number of observations per variable
+#' @param n the number of smaples required
 #' @param vars the number of variables to return
 #' @param cors the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
-#' @param mu the means of the variables (can be a vector of length 1 or vars)
-#' @param sd the standard deviations of the variables (can be a vector of length 1 or vars)
+#' @param mu a vector giving the means of the variables (numeric vector of length 1 or vars)
+#' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
 #' @param varnames optional names for the variables (string vector of length vars)
-#' @param empirical are the above parameters for the population (FALSE) or the sample (TRUE)
+#' @param empirical logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance 
 #' 
 #' @return dataframe of vars vectors
 #' @examples
 #' multirnorm(100, 3, c(0.2, -0.5, 0.5), varnames=c("A", "B", "C"))
-#' #' multirnorm(100, 3, c(1, 0.2, -0.5, 0.2, 1, 0.5, -0.5, 0.5, 1), varnames=c("A", "B", "C"))
+#' multirnorm(100, 3, c(1, 0.2, -0.5, 0.2, 1, 0.5, -0.5, 0.5, 1), varnames=c("A", "B", "C"))
 #' @export
 
 multirnorm <- function(n, vars = 3, cors = 0, mu = 0, sd = 1, 
@@ -32,10 +32,10 @@ multirnorm <- function(n, vars = 3, cors = 0, mu = 0, sd = 1,
   
   # correlation matrix
   if (class(cors) == "numeric" & length(cors) == 1) {
-    if (cors >=0 & cors <=1) {
+    if (cors >=-1 & cors <=1) {
       cors = rep(cors, vars*(vars-1)/2)
     } else {
-      stop("cors must be between 0 and 1")
+      stop("cors must be between -1 and 1")
     }
   }
   
