@@ -6,7 +6,8 @@ Description: Provides functions for simulating multiple variables with specified
 Depends:
     R (>= 3.2.4)
 Imports:
-    MASS
+    MASS,
+    stats
 License: MIT + file LICENSE
 Suggests:
     testthat,
