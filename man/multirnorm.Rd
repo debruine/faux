@@ -8,7 +8,7 @@ multirnorm(n, vars = 3, cors = 0, mu = 0, sd = 1,
   varnames = NULL, empirical = FALSE)
 }
 \arguments{
-\item{n}{the number of smaples required}
+\item{n}{the number of samples required}
 
 \item{vars}{the number of variables to return}
 

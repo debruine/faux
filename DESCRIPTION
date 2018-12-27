@@ -7,6 +7,10 @@ Depends:
     R (>= 3.2.4)
 Imports:
     MASS,
+    dplyr,
+    tidyr,
+    purrr,
+    magrittr,
     stats
 License: MIT + file LICENSE
 Suggests:
@@ -14,5 +18,5 @@ Suggests:
     knitr,
     rmarkdown
 VignetteBuilder: knitr
-RoxygenNote: 6.1.0
+RoxygenNote: 6.1.1
 Encoding: UTF-8

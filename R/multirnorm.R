@@ -2,7 +2,7 @@
 #'
 #' \code{multirnorm} makes multiple normally distributed vectors with specified relationships
 #'
-#' @param n the number of smaples required
+#' @param n the number of samples required
 #' @param vars the number of variables to return
 #' @param cors the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param mu a vector giving the means of the variables (numeric vector of length 1 or vars)
