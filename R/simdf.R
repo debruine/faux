@@ -20,9 +20,7 @@ simdf <- function (dat, n=100, grp_by=NULL) {
       dplyr::bind_cols(numdat) %>%
       dplyr::group_by_at(dplyr::vars(dplyr::one_of(grp_by)))
   } else {
-    grpdat <- numdat %>%
-      dplyr::mutate(simdf_grp_var = 1) %>%
-      dplyr::group_by(simdf_grp_var)
+    grpdat <- numdat
   }
   
   simdat <- grpdat %>%
@@ -39,7 +37,7 @@ simdf <- function (dat, n=100, grp_by=NULL) {
     })) %>%
     dplyr::select(-data) %>%
     tidyr::unnest(newsim) %>%
-    dplyr::select(-dplyr::matches("simdf_grp_var"), dplyr::everything())
+    dplyr::ungroup()
   
   return(simdat)
 }
