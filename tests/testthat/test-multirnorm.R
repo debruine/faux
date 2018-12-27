@@ -2,43 +2,43 @@ context("multirnorm")
 
 test_that("error messages", {
   expect_error( multirnorm(), "argument \"n\" is missing, with no default")
-  expect_error( multirnorm(2), "Error: n must be an integer > 2")
-  expect_error( multirnorm(10.3), "Error: n must be an integer > 2")
-  expect_error( multirnorm("A"), "Error: n must be an integer > 2")
+  expect_error( multirnorm(2), "n must be an integer > 2")
+  expect_error( multirnorm(10.3), "n must be an integer > 2")
+  expect_error( multirnorm("A"), "n must be an integer > 2")
   
   expect_error(
     multirnorm(10, 3, 0, 1:2),
-    "Error: the length of mu must be 1 or vars"
+    "the length of mu must be 1 or vars"
   )
   
   expect_error(
     multirnorm(10, empirical = NA),
-    "Error: empirical must be TRUE or FALSE"
+    "empirical must be TRUE or FALSE"
   )
   
   expect_error(
     multirnorm(10, 3, 0, 1, 1:2),
-    "Error: the length of sd must be 1 or vars"
+    "the length of sd must be 1 or vars"
   )
   expect_error(
     multirnorm(10, 3, matrix("A", 3, 3)),
-    "Error: cors matrix not numeric" 
+    "cors matrix not numeric" 
   )
   expect_error(
     multirnorm(10, 3, matrix(0.5, 4, 2)),
-    "Error: cors matrix wrong dimensions" 
+    "cors matrix wrong dimensions" 
   )
   
   m <- matrix(c(1, .5, .5, .5, 1, .5, .5, .75, 1), 3)
   expect_error( 
     multirnorm(10, 3, m), 
-    "Error: cors matrix not symmetric"
+    "cors matrix not symmetric"
   )
   
   m <- matrix(c(1, .5, .5, .5, 1, .5, .5, .5, 0), 3)
   expect_error(
     multirnorm(10, 3, m),
-    "Error: cors matrix not positive definite"
+    "cors matrix not positive definite"
   )
 })
 

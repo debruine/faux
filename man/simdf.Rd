@@ -4,7 +4,7 @@
 \alias{simdf}
 \title{Simulate an existing dataframe}
 \usage{
-simdf(dat, n = 100, grp_by = NULL)
+simdf(dat, n = 100, grp_by = NULL, empirical = FALSE)
 }
 \arguments{
 \item{dat}{the existing dataframe}
@@ -12,6 +12,8 @@ simdf(dat, n = 100, grp_by = NULL)
 \item{n}{the number of samples to return per group}
 
 \item{grp_by}{an optional list of column names to group by}
+
+\item{empirical}{logical. Passed on to multirnorm}
 }
 \value{
 tibble

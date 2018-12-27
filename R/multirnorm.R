@@ -20,23 +20,23 @@ multirnorm <- function(n, vars = 3, cors = 0, mu = 0, sd = 1,
                        varnames = NULL, empirical = FALSE) {
   # error handling
   if ( !is.numeric(n) || n %% 1 > 0 || n < 3 ) {
-    stop("Error: n must be an integer > 2")
+    stop("n must be an integer > 2")
   }
   
   if (!(empirical  %in% c(TRUE, FALSE))) {
-    stop("Error: empirical must be TRUE or FALSE")
+    stop("empirical must be TRUE or FALSE")
   }
   
   if (length(mu) == 1) {
     mu <- rep(mu, vars)
   } else if (length(mu) != vars) {
-    stop("Error: the length of mu must be 1 or vars");
+    stop("the length of mu must be 1 or vars");
   }
   
   if (length(sd) == 1) {
     sd <- rep(sd, vars)
   } else if (length(sd) != vars) {
-    stop("Error: the length of sd must be 1 or vars");
+    stop("the length of sd must be 1 or vars");
   }
   
   # correlation matrix
@@ -44,19 +44,19 @@ multirnorm <- function(n, vars = 3, cors = 0, mu = 0, sd = 1,
     if (cors >=-1 & cors <=1) {
       cors = rep(cors, vars*(vars-1)/2)
     } else {
-      stop("Error: cors must be between -1 and 1")
+      stop("cors must be between -1 and 1")
     }
   }
   
   if (class(cors) == "matrix") { 
     if (!is.numeric(cors)) {
-      stop("Error: cors matrix not numeric")
+      stop("cors matrix not numeric")
     } else if (dim(cors)[1] != vars || dim(cors)[2] != vars) {
-      stop("Error: cors matrix wrong dimensions")
+      stop("cors matrix wrong dimensions")
     } else if (sum(cors == t(cors)) != (nrow(cors)^2)) {
-      stop("Error: cors matrix not symmetric")
+      stop("cors matrix not symmetric")
     } else if (!matrixcalc::is.positive.definite(cors)) {
-      stop("Error: cors matrix not positive definite")
+      stop("cors matrix not positive definite")
     } else {
       cor_mat <- cors
     }

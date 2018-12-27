@@ -16,9 +16,9 @@
 
 rnormpre <- function (x, rho=0, ymean=0, ysd=1) {
   # error checking
-  if (!is.vector(x)) stop("Error: x must be a vector") 
-  if (!is.numeric(x)) stop("Error: x must be numeric")
-  if (length(x) < 3) stop("Error: x must have length > 2")
+  if (!is.vector(x)) stop("x must be a vector") 
+  if (!is.numeric(x)) stop("x must be numeric")
+  if (length(x) < 3) stop("x must have length > 2")
   
   n <- length(x)
   y <- stats::rnorm(n)

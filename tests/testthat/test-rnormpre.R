@@ -1,12 +1,9 @@
 context("rnormpre")
 
 test_that("error messages", {
-  expect_error( rnormpre(matrix(1:9, 3, 3)), 
-                "Error: x must be a vector" )
-  expect_error( rnormpre(letters), 
-                "Error: x must be numeric" )
-  expect_error( rnormpre(rnorm(2)), 
-                "Error: x must have length > 2" )
+  expect_error( rnormpre(matrix(1:9, 3, 3)), "x must be a vector" )
+  expect_error( rnormpre(letters), "x must be numeric" )
+  expect_error( rnormpre(rnorm(2)), "x must have length > 2" )
 })
 
 test_that("correct default parameters", {

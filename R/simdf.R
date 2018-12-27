@@ -5,6 +5,7 @@
 #' @param dat the existing dataframe
 #' @param n the number of samples to return per group
 #' @param grp_by an optional list of column names to group by
+#' @param empirical logical. Passed on to multirnorm
 #' 
 #' @return tibble
 #' @examples
@@ -12,15 +13,38 @@
 #' iris_species <- simdf(iris, 100, "Species")
 #' @export
 
-simdf <- function (dat, n=100, grp_by=NULL) {
-  numdat <- dplyr::select_if(dat, is.numeric)
-  if (!is.null(grp_by)) {
+simdf <- function (dat, n=100, grp_by=NULL, empirical = FALSE) {
+  # error checking
+  if (is.matrix(dat)) {
+    dat = as.data.frame(dat)
+  } else if (!is.data.frame(dat)) {
+    stop("dat must be a data frame or matrix")
+  }
+  
+  if ( !is.numeric(n) || n %% 1 > 0 || n < 3 ) {
+    stop("n must be an integer > 2")
+  }
+  
+  if (is.null(grp_by)) {
+    grpdat <- dplyr::select_if(dat, is.numeric)
+  } else if (is.character(grp_by)) {
+    numdat <- dat %>%
+      dplyr::select(-dplyr::one_of(grp_by)) %>%
+      dplyr::select_if(is.numeric)
     grpdat <- dat %>%
       dplyr::select(dplyr::one_of(grp_by)) %>%
       dplyr::bind_cols(numdat) %>%
       dplyr::group_by_at(dplyr::vars(dplyr::one_of(grp_by)))
+  } else if (is.numeric(grp_by)) {
+    numdat <- dat %>%
+      dplyr::select(-grp_by) %>%
+      dplyr::select_if(is.numeric)
+    grpdat <- dat %>%
+      dplyr::select(grp_by) %>%
+      dplyr::bind_cols(numdat) %>%
+      dplyr::group_by_at(1:length(grp_by))
   } else {
-    grpdat <- numdat
+    stop("grp_by must be a numeric or character vector")
   }
   
   simdat <- grpdat %>%
@@ -32,7 +56,8 @@ simdf <- function (dat, n=100, grp_by=NULL) {
         cor = stats::cor(data),
         mu = t(dplyr::summarise_all(data, mean)), 
         sd = t(dplyr::summarise_all(data, stats::sd)), 
-        varnames = names(data)
+        varnames = names(data),
+        empirical = empirical
       )
     })) %>%
     dplyr::select(-data) %>%
