@@ -64,11 +64,11 @@ test_that("mean stats are close over 1000 runs", {
   simiris <- purrr::map_df(1:1000, function(i) {
     iris %>%
       simdf(100) %>%
-      checkstats(digits = 10)
+      check_sim_stats(digits = 10)
   })
   
   orig_stats <- iris %>%
-    checkstats(digits = 10) %>%
+    check_sim_stats(digits = 10) %>%
     dplyr::arrange(var) %>%
     as.data.frame()
   

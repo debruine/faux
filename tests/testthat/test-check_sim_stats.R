@@ -1,12 +1,12 @@
-context("checkstats")
+context("check_sim_stats")
 
 test_that("error messages", {
-  expect_error( checkstats("A"), "dat must be a data frame or matrix" )
-  expect_error( checkstats(iris, FALSE), "grp_by must be a numeric or character vector" )
+  expect_error(check_sim_stats("A"), "dat must be a data frame or matrix")
+  expect_error(check_sim_stats(iris, FALSE), "grp_by must be a numeric or character vector")
 })
 
 test_that("correct defaults", {
-  checkiris <- checkstats(iris)
+  checkiris <- check_sim_stats(iris)
   irisnames <- c("var", "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "mean", "sd")
   
   expect_equal(nrow(checkiris), 4)
@@ -15,7 +15,7 @@ test_that("correct defaults", {
 })
 
 test_that("correct defaults with group", {
-  checkiris <- checkstats(iris, "Species")
+  checkiris <- check_sim_stats(iris, "Species")
   irisnames <- c("Species", "var", "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width", "mean", "sd")
   
   expect_equal(nrow(checkiris), 12)

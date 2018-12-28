@@ -47,7 +47,7 @@ dat <- multirnorm(n = 100,
 ```
 
 
-`r checkstats(dat, usekable = T)`
+`r check_sim_stats(dat, usekable = T)`
 Table: Sample stats
 
 ### Specify `cors`
@@ -67,7 +67,7 @@ If you want all the pairs to have the same correlation, just specify a single nu
 bvn <- multirnorm(100, 5, .3, varnames = letters[1:5])
 ```
 
-`r checkstats(bvn, usekable = T)`
+`r check_sim_stats(bvn, usekable = T)`
 Table: Sample stats from a single rho
 
 #### Matrix
@@ -80,7 +80,7 @@ bvn <- multirnorm(100, 4, cmat,
                   varnames = colnames(cmat))
 ```
 
-`r checkstats(bvn, usekable = T)`
+`r check_sim_stats(bvn, usekable = T)`
 Table: Sample stats from a correlation matrix
 
 #### Vector (vars\*vars)
@@ -95,7 +95,7 @@ bvn <- multirnorm(100, 3, cmat,
                   varnames = c("first", "second", "third"))
 ```
 
-`r checkstats(bvn, usekable = T)`
+`r check_sim_stats(bvn, usekable = T)`
 Table: Sample stats from a vars\*vars vector
 
 #### Vector (vars\*(vars-1)/2)
@@ -114,7 +114,7 @@ bvn <- multirnorm(100, 4, cmat,
                   varnames = letters[1:4])
 ```
 
-`r checkstats(bvn, usekable = T)`
+`r check_sim_stats(bvn, usekable = T)`
 Table: Sample stats from a (vars\*(vars-1)/2) vector
 
 ### empirical
@@ -127,5 +127,5 @@ bvn <- multirnorm(100, 5, .3,
                   empirical = T)
 ```
 
-`r checkstats(bvn, usekable = T)`
+`r check_sim_stats(bvn, usekable = T)`
 Table: Sample stats with empirical = TRUE

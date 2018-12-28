@@ -1,6 +1,6 @@
 #' Check table stats
 #'
-#' \code{checkstats} Generates a table of the correlations and means of numeric columns in a data frame
+#' \code{check_sim_stats} Generates a table of the correlations and means of numeric columns in a data frame
 #'
 #' @param dat the existing dataframe
 #' @param grp_by an optional list of column names to group by
@@ -9,10 +9,10 @@
 #' 
 #' @return tibble or kable
 #' @examples
-#' checkstats(iris, "Species")
+#' check_sim_stats(iris, "Species")
 #' @export
 
-checkstats <- function(dat, grp_by = NULL, digits = 2, usekable = FALSE) {
+check_sim_stats <- function(dat, grp_by = NULL, digits = 2, usekable = FALSE) {
   grpdat <- select_num_grp(dat, grp_by)
   grpvars <- dplyr::group_vars(grpdat)
   numvars <- names(grpdat)[!names(grpdat) %in% grpvars]
