@@ -7,6 +7,7 @@ Depends:
     R (>= 3.2.4)
 Imports:
     MASS,
+    lme4,
     dplyr,
     tidyr,
     purrr,
@@ -22,3 +23,4 @@ Suggests:
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Encoding: UTF-8
+LazyData: true
