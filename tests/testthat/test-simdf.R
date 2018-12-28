@@ -21,13 +21,15 @@ test_that("correct specified parameters", {
     dplyr::select_if(is.numeric)
   cors <- cor(dat)
   means <- dplyr::summarise_all(dat, mean)
-  sds <- dplyr::summarise_all(dat, sd)
+  sds <- dplyr::summarise_all(dat, sd) %>%
+    as.data.frame()
   
   newdf <- simdf(iris, n, NULL, TRUE)
   newdat <- dplyr::select_if(newdf, is.numeric)
   newcors <- cor(newdat)
   newmeans <- dplyr::summarise_all(newdat, mean)
-  newsds <- dplyr::summarise_all(newdat, sd)
+  newsds <- dplyr::summarise_all(newdat, sd) %>%
+    as.data.frame()
   
   expect_equal(nrow(newdf), n)
   expect_equal(ncol(newdf), 4)
@@ -35,7 +37,7 @@ test_that("correct specified parameters", {
   
   expect_equal(cors, newcors)
   expect_equal(means, newmeans)
-  #expect_equal(sds, newsds)
+  expect_equal(sds, newsds)
 })
 
 test_that("grouping by col name", {
