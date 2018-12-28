@@ -12,6 +12,7 @@ Imports:
     purrr,
     magrittr,
     matrixcalc,
+    tibble,
     stats
 License: MIT + file LICENSE
 Suggests:

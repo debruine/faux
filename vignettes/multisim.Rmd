@@ -1,10 +1,10 @@
 ---
-title: "multisim examples"
+title: "Introduction to multisim"
 author: "Lisa DeBruine"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Introduction to multisim}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -14,10 +14,44 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(dplyr)
+library(tidyr)
+library(purrr)
 library(multisim)
 ```
 
-## Specify `cors`
+
+It is useful to be able to simulate data with a specified structure. The `multisim` package provides some functions to make this process easier.
+
+
+## multirnorm
+
+This function makes multiple normally distributed vectors with specified parameters and relationships. 
+
+For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where where A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25. A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5.
+
+```{r set-seed, include=FALSE}
+set.seed(200)
+```
+
+
+```{r multirnorm-example}
+
+dat <- multirnorm(n = 100, 
+                  cors = c(0.5, 0.5, 0.25), 
+                  mu = c(0, 20, 20),
+                  sd = c(1, 5, 5),
+                  varnames = c("A", "B", "C"),
+                  empirical = FALSE)
+
+```
+
+
+`r checkstats(dat, usekable = T)`
+Table: Sample stats
+
+### Specify `cors`
+
 You can specify the correlations in one of four ways:
 
 * A single r for all pairs
@@ -25,7 +59,7 @@ You can specify the correlations in one of four ways:
 * A vars\*vars length vector
 * A vars\*(vars-1)/2 length vector
 
-### One Number
+#### One Number
 
 If you want all the pairs to have the same correlation, just specify a single number. 
 
@@ -33,9 +67,10 @@ If you want all the pairs to have the same correlation, just specify a single nu
 bvn <- multirnorm(100, 5, .3, varnames = letters[1:5])
 ```
 
-`r knitr::kable(cor(bvn))`
+`r checkstats(bvn, usekable = T)`
+Table: Sample stats from a single rho
 
-### Matrix
+#### Matrix
 
 If you already have a correlation matrix, such as the output of `cor()`, you can specify the simulated data with that.
 
@@ -45,9 +80,10 @@ bvn <- multirnorm(100, 4, cmat,
                   varnames = colnames(cmat))
 ```
 
-`r knitr::kable(cor(bvn))`
+`r checkstats(bvn, usekable = T)`
+Table: Sample stats from a correlation matrix
 
-### Vector (vars\*vars)
+#### Vector (vars\*vars)
 
 You can specify your correlation matrix by hand as a vars\*vars length vector, which will include the correlations of 1 down the diagonal.
 
@@ -59,9 +95,10 @@ bvn <- multirnorm(100, 3, cmat,
                   varnames = c("first", "second", "third"))
 ```
 
-`r knitr::kable(cor(bvn))`
+`r checkstats(bvn, usekable = T)`
+Table: Sample stats from a vars\*vars vector
 
-### Vector (vars\*(vars-1)/2)
+#### Vector (vars\*(vars-1)/2)
 
 You can specify your correlation matrix by hand as a vars\*(vars-1)/2 length vector, skipping the diagonal and lower left duplicate values.
 
@@ -77,13 +114,18 @@ bvn <- multirnorm(100, 4, cmat,
                   varnames = letters[1:4])
 ```
 
-`r knitr::kable(cor(bvn))`
+`r checkstats(bvn, usekable = T)`
+Table: Sample stats from a (vars\*(vars-1)/2) vector
 
-## empirical
+### empirical
+
+If you want your samples to have the *exact* correlations, means, and SDs you entered, set `empirical` to TRUE.
+
 ```{r}
 bvn <- multirnorm(100, 5, .3, 
                   varnames = letters[1:5], 
                   empirical = T)
 ```
 
-`r knitr::kable(cor(bvn))`
+`r checkstats(bvn, usekable = T)`
+Table: Sample stats with empirical = TRUE

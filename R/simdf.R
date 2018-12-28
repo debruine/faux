@@ -26,8 +26,11 @@ simdf <- function (dat, n=100, grp_by=NULL, empirical = FALSE) {
   }
   
   if (is.null(grp_by)) {
-    grpdat <- dplyr::select_if(dat, is.numeric)
-  } else if (is.character(grp_by)) {
+    numdat <- dplyr::select_if(dat, is.numeric)
+    grpdat <- numdat
+  } else if (is.numeric(grp_by) || is.character(grp_by)) {
+    if (is.numeric(grp_by)) grp_by <- names(dat)[grp_by]
+    
     numdat <- dat %>%
       dplyr::select(-dplyr::one_of(grp_by)) %>%
       dplyr::select_if(is.numeric)
@@ -35,14 +38,6 @@ simdf <- function (dat, n=100, grp_by=NULL, empirical = FALSE) {
       dplyr::select(dplyr::one_of(grp_by)) %>%
       dplyr::bind_cols(numdat) %>%
       dplyr::group_by_at(dplyr::vars(dplyr::one_of(grp_by)))
-  } else if (is.numeric(grp_by)) {
-    numdat <- dat %>%
-      dplyr::select(-grp_by) %>%
-      dplyr::select_if(is.numeric)
-    grpdat <- dat %>%
-      dplyr::select(grp_by) %>%
-      dplyr::bind_cols(numdat) %>%
-      dplyr::group_by_at(1:length(grp_by))
   } else {
     stop("grp_by must be a numeric or character vector")
   }

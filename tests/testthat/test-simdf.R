@@ -20,14 +20,16 @@ test_that("correct specified parameters", {
   dat <- tibble::as_tibble(iris) %>%
     dplyr::select_if(is.numeric)
   cors <- cor(dat)
-  means <- dplyr::summarise_all(dat, mean)
+  means <- dplyr::summarise_all(dat, mean) %>%
+    as.data.frame()
   sds <- dplyr::summarise_all(dat, sd) %>%
     as.data.frame()
   
   newdf <- simdf(iris, n, NULL, TRUE)
   newdat <- dplyr::select_if(newdf, is.numeric)
   newcors <- cor(newdat)
-  newmeans <- dplyr::summarise_all(newdat, mean)
+  newmeans <- dplyr::summarise_all(newdat, mean) %>%
+    as.data.frame()
   newsds <- dplyr::summarise_all(newdat, sd) %>%
     as.data.frame()
   
@@ -54,4 +56,27 @@ test_that("grouping by col number", {
   expect_equal(nrow(newdf), 60)
   expect_equal(ncol(newdf), 5)
   expect_equal(names(newdf) %>% sort(), names(iris) %>% sort())
+})
+
+test_that("mean stats are close over 1000 runs", {
+  skip_on_cran()
+  
+  simiris <- purrr::map_df(1:1000, function(i) {
+    iris %>%
+      simdf(100) %>%
+      checkstats(digits = 10)
+  })
+  
+  orig_stats <- iris %>%
+    checkstats(digits = 10) %>%
+    dplyr::arrange(var) %>%
+    as.data.frame()
+  
+  sim_stats <- simiris %>% 
+    dplyr::group_by(var) %>%
+    dplyr::summarise_all(mean) %>%
+    dplyr::arrange(var) %>%
+    as.data.frame()
+  
+  expect_equal(orig_stats, sim_stats, tolerance = 0.02)
 })
