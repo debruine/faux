@@ -1,4 +1,4 @@
 library(testthat)
-library(multisim)
+library(ersatz)
 
-test_check("multisim")
+test_check("ersatz")

@@ -15,3 +15,4 @@ test_that("specified dv and IDs", {
   expect_equal(nrow(s10), 100)
   expect_equal(ncol(s10), 5)
 })
+

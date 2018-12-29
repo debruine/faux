@@ -24,7 +24,7 @@ simdf <- function (dat, n=100, grp_by=NULL, empirical = FALSE) {
   simdat <- grpdat %>%
     tidyr::nest() %>%
     dplyr::mutate(newsim = purrr::map(data, function(data) {
-      multirnorm(
+      rnorm_multi(
         n = n, 
         vars = ncol(data), 
         cor = stats::cor(data),

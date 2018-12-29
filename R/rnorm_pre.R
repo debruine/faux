@@ -1,6 +1,6 @@
 #' Correlated Normal Vector
 #'
-#' \code{rnormpre} Produces a random normally distributed vector with the specified correlation to an existing vector
+#' \code{rnorm_pre} Produces a random normally distributed vector with the specified correlation to an existing vector
 #'
 #' @param x the existing vector
 #' @param rho desired correlation between existing and returned vectors
@@ -10,11 +10,11 @@
 #' @return vector
 #' @examples
 #' v1 <- rnorm(10)
-#' v2 <- rnormpre(v1, 0.5, 0, 1)
+#' v2 <- rnorm_pre(v1, 0.5, 0, 1)
 #' cor(v1, v2)
 #' @export
 
-rnormpre <- function (x, rho=0, ymean=0, ysd=1) {
+rnorm_pre <- function (x, rho=0, ymean=0, ysd=1) {
   # error checking
   if (!is.vector(x)) stop("x must be a vector") 
   if (!is.numeric(x)) stop("x must be numeric")

@@ -34,9 +34,9 @@ simdf_mixed <- function(dat, sub_n = 100, item_n = 25,
   grand_i <- lme4::fixef(mod)
   
   sds <- lme4::VarCorr(mod) %>% as.data.frame()
-  sub_i_sd <- filter(sds, grp == sub_id) %>% pull(sdcor)
-  item_i_sd <- filter(sds, grp == item_id) %>% pull(sdcor)
-  error_sd <- filter(sds, grp == "Residual") %>% pull(sdcor)
+  sub_i_sd <- dplyr::filter(sds, grp == sub_id) %>% dplyr::pull(sdcor)
+  item_i_sd <- dplyr::filter(sds, grp == item_id) %>% dplyr::pull(sdcor)
+  error_sd <- dplyr::filter(sds, grp == "Residual") %>% dplyr::pull(sdcor)
   
   # sample subject random intercepts -------------------------------------------
   new_sub <- tibble::tibble(

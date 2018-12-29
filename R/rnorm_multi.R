@@ -1,6 +1,6 @@
 #' Multiple Normally Distributed Vectors
 #'
-#' \code{multirnorm} makes multiple normally distributed vectors with specified relationships
+#' \code{rnorm_multi} makes multiple normally distributed vectors with specified relationships
 #'
 #' @param n the number of samples required
 #' @param vars the number of variables to return
@@ -12,11 +12,11 @@
 #' 
 #' @return dataframe of vars vectors
 #' @examples
-#' multirnorm(100, 3, c(0.2, -0.5, 0.5), varnames=c("A", "B", "C"))
-#' multirnorm(100, 3, c(1, 0.2, -0.5, 0.2, 1, 0.5, -0.5, 0.5, 1), varnames=c("A", "B", "C"))
+#' rnorm_multi(100, 3, c(0.2, -0.5, 0.5), varnames=c("A", "B", "C"))
+#' rnorm_multi(100, 3, c(1, 0.2, -0.5, 0.2, 1, 0.5, -0.5, 0.5, 1), varnames=c("A", "B", "C"))
 #' @export
 
-multirnorm <- function(n, vars = 3, cors = 0, mu = 0, sd = 1, 
+rnorm_multi <- function(n, vars = 3, cors = 0, mu = 0, sd = 1, 
                        varnames = NULL, empirical = FALSE) {
   # error handling
   if ( !is.numeric(n) || n %% 1 > 0 || n < 3 ) {
