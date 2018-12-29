@@ -1,4 +1,4 @@
-Package: ersatz
+Package: faux
 Title: Simulation Functions
 Version: 0.0.0.9000
 Authors@R: person("Lisa", "DeBruine", email = "debruine@gmail.com", role = c("aut", "cre"))

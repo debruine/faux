@@ -1,4 +1,4 @@
 library(testthat)
-library(ersatz)
+library(faux)
 
-test_check("ersatz")
+test_check("faux")

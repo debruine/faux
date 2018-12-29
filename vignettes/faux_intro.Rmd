@@ -1,10 +1,10 @@
 ---
-title: "Introduction to ersatz"
+title: "Introduction to faux"
 author: "Lisa DeBruine"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Introduction to ersatz}
+  %\VignetteIndexEntry{Introduction to faux}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,11 +17,11 @@ knitr::opts_chunk$set(
 library(dplyr)
 library(tidyr)
 library(purrr)
-library(ersatz)
+library(faux)
 ```
 
 
-It is useful to be able to simulate data with a specified structure. The `ersatz` package provides some functions to make this process easier.
+It is useful to be able to simulate data with a specified structure. The `faux` package provides some functions to make this process easier.
 
 
 ## rnorm_multi
