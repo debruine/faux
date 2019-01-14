@@ -12,7 +12,6 @@ Imports:
     tidyr,
     purrr,
     magrittr,
-    matrixcalc,
     tibble,
     stats
 License: MIT + file LICENSE

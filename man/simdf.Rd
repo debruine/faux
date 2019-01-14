@@ -13,7 +13,7 @@ simdf(dat, n = 100, grp_by = NULL, empirical = FALSE)
 
 \item{grp_by}{an optional list of column names to group by}
 
-\item{empirical}{logical. Passed on to multirnorm}
+\item{empirical}{logical. Passed on to rnorm_multi}
 }
 \value{
 tibble

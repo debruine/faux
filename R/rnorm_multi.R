@@ -55,8 +55,6 @@ rnorm_multi <- function(n, vars = 3, cors = 0, mu = 0, sd = 1,
       stop("cors matrix wrong dimensions")
     } else if (sum(cors == t(cors)) != (nrow(cors)^2)) {
       stop("cors matrix not symmetric")
-    } else if (!matrixcalc::is.positive.definite(cors)) {
-      stop("cors matrix not positive definite")
     } else {
       cor_mat <- cors
     }
@@ -83,6 +81,13 @@ rnorm_multi <- function(n, vars = 3, cors = 0, mu = 0, sd = 1,
         }
       }
     }
+  }
+  
+  # check matrix is positive definite
+  tol <- 1e-08
+  ev <- eigen(cor_mat, only.values = TRUE)$values
+  if (sum(ev < tol)) {
+    stop("correlation matrix not positive definite")
   }
   
   sigma <- (sd %*% t(sd)) * cor_mat

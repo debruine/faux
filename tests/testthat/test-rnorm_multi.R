@@ -38,7 +38,13 @@ test_that("error messages", {
   m <- matrix(c(1, .5, .5, .5, 1, .5, .5, .5, 0), 3)
   expect_error(
     rnorm_multi(10, 3, m),
-    "cors matrix not positive definite"
+    "correlation matrix not positive definite"
+  )
+  
+  cors <- c(-0.06826927, -0.89756943, -0.45636273)
+  expect_error(
+    rnorm_multi(10, 3, cors),
+    "correlation matrix not positive definite"
   )
 })
 

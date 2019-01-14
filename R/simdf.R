@@ -5,7 +5,7 @@
 #' @param dat the existing dataframe
 #' @param n the number of samples to return per group
 #' @param grp_by an optional list of column names to group by
-#' @param empirical logical. Passed on to multirnorm
+#' @param empirical logical. Passed on to rnorm_multi
 #' 
 #' @return tibble
 #' @examples
