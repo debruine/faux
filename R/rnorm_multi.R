@@ -12,7 +12,7 @@
 #' 
 #' @return dataframe of vars vectors
 #' @examples
-#' rnorm_multi(100, 3, c(0.2, -0.5, 0.5), varnames=c("A", "B", "C"))
+#' rnorm_multi(100, 3, c(0.2, 0.4, 0.5), varnames=c("A", "B", "C"))
 #' rnorm_multi(100, 3, c(1, 0.2, -0.5, 0.2, 1, 0.5, -0.5, 0.5, 1), varnames=c("A", "B", "C"))
 #' @export
 
@@ -62,6 +62,7 @@ rnorm_multi <- function(n, vars = 3, cors = 0, mu = 0, sd = 1,
     cor_mat <- matrix(cors, vars)
   } else if (length(cors) == vars*(vars-1)/2) {
     # generate full matrix from vector of upper right triangle
+    
     cor_mat <- matrix(nrow=vars, ncol = vars)
     upcounter = 1
     lowcounter = 1
@@ -70,14 +71,19 @@ rnorm_multi <- function(n, vars = 3, cors = 0, mu = 0, sd = 1,
         if (row == col) {
           # diagonal
           cor_mat[row, col] = 1
-        } else if (row < col) {
-          # upper right triangle
-          cor_mat[row, col] = cors[upcounter]
-          upcounter <- upcounter + 1
-        } else {
+        } else if (row > col) {
           # lower left triangle
           cor_mat[row, col] = cors[lowcounter]
           lowcounter <- lowcounter + 1
+        }
+      }
+    }
+    for (row in 1:vars) {
+      for (col in 1:vars) {
+        if (row < col) {
+          # upper right triangle
+          cor_mat[row, col] = cors[upcounter]
+          upcounter <- upcounter + 1
         }
       }
     }

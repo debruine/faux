@@ -29,6 +29,6 @@ dataframe of vars vectors
 \code{rnorm_multi} makes multiple normally distributed vectors with specified relationships
 }
 \examples{
-rnorm_multi(100, 3, c(0.2, -0.5, 0.5), varnames=c("A", "B", "C"))
+rnorm_multi(100, 3, c(0.2, 0.4, 0.5), varnames=c("A", "B", "C"))
 rnorm_multi(100, 3, c(1, 0.2, -0.5, 0.2, 1, 0.5, -0.5, 0.5, 1), varnames=c("A", "B", "C"))
 }
