@@ -9,10 +9,10 @@ It is useful to be able to simulate data with a specified structure. The
 ## Installation
 
 You can install the released version of faux from
-[CRAN](https://CRAN.R-project.org) with:
+[GitHub](https://github.com/debruine/faux) with:
 
 ``` r
-install.packages("faux")
+devtools::install_github("debruine/faux")
 ```
 
 ## Examples
