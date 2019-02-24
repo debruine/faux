@@ -84,7 +84,7 @@ cormat <- function(cors = 0, vars = 3) {
 #' @param cors the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param mu a vector giving the means of the variables (numeric vector of length 1 or vars)
 #' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
-#' @param varnames optional names for the variables (string vector of length vars)
+#' @param varnames optional names for the variables (string vector of length vars) defaults if cors is a matrix with column names
 #' @param empirical logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance 
 #' 
 #' @return dataframe of vars vectors
@@ -124,6 +124,9 @@ rnorm_multi <- function(n, vars = 3, cors = 0, mu = 0, sd = 1,
   
   if (length(varnames) == vars) {
     names(df) <- varnames
+  } else if (!is.null(colnames(cor_mat))) {
+    # if cors was a matrix with names, use that
+    names(df) <- colnames(cor_mat)
   }
   
   df

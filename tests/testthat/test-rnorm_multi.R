@@ -73,3 +73,10 @@ test_that("correct default parameters with empirical = TRUE", {
   expect_equal(means, data.frame(X1 = 0, X2 = 0, X3 = 0))
   expect_equal(sds, data.frame(X1 = 1, X2 = 1, X3 = 1))
 })
+
+test_that("default matrix names", {
+  cmat <- cor(iris[,1:4])
+  dat <- rnorm_multi(10, vars = 4, cors = cmat)
+  
+  expect_equal(colnames(dat), colnames(cmat))
+})

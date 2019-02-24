@@ -18,7 +18,7 @@ rnorm_multi(n, vars = 3, cors = 0, mu = 0, sd = 1,
 
 \item{sd}{the standard deviations of the variables (numeric vector of length 1 or vars)}
 
-\item{varnames}{optional names for the variables (string vector of length vars)}
+\item{varnames}{optional names for the variables (string vector of length vars) defaults if cors is a matrix with column names}
 
 \item{empirical}{logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance}
 }
