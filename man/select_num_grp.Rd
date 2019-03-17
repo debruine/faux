@@ -4,18 +4,20 @@
 \alias{select_num_grp}
 \title{Select grouping and numeric columns and group}
 \usage{
-select_num_grp(dat, grp_by = NULL)
+select_num_grp(dat, grp_by = NULL, cols = NULL)
 }
 \arguments{
 \item{dat}{the existing dataframe}
 
 \item{grp_by}{an optional list of column names to group by}
+
+\item{cols}{an optional list of column names to return (default of NULL returns all numeric columns)}
 }
 \value{
 tibble
 }
 \description{
-\code{select_num_grp} Select grouping and numeric columns and group
+\code{select_num_grp} Select grouping and (optionally specified) numeric columns and group
 }
 \examples{
 select_num_grp(iris, "Species")
