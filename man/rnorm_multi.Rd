@@ -5,7 +5,7 @@
 \title{Multiple Normally Distributed Vectors}
 \usage{
 rnorm_multi(n, vars = 3, cors = 0, mu = 0, sd = 1,
-  varnames = NULL, empirical = FALSE)
+  varnames = NULL, empirical = FALSE, as.matrix = FALSE)
 }
 \arguments{
 \item{n}{the number of samples required}
@@ -21,6 +21,8 @@ rnorm_multi(n, vars = 3, cors = 0, mu = 0, sd = 1,
 \item{varnames}{optional names for the variables (string vector of length vars) defaults if cors is a matrix with column names}
 
 \item{empirical}{logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance}
+
+\item{as_matrix}{logical. If true, returns}
 }
 \value{
 dataframe of vars vectors

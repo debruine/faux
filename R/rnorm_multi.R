@@ -66,13 +66,30 @@ cormat <- function(cors = 0, vars = 3) {
   }
   
   # check matrix is positive definite
-  tol <- 1e-08
-  ev <- eigen(cor_mat, only.values = TRUE)$values
-  if (sum(ev < tol)) {
+  if (!is_pos_def(cor_mat)) {
     stop("correlation matrix not positive definite")
   }
   
   return(cor_mat)
+}
+
+#' Check a Matrix is Positive Definite
+#'
+#' \code{is_pos_def} makes a correlation matrix from a vector
+#'
+#' @param cor_mat a correlation matrix
+#' @param tol the tolerance for comparing eigenvalues to 0
+#' 
+#' @return logical value 
+#' @examples
+#' is_pos_def(matrix(c(1, .5, .5, 1), 2)) # returns TRUE
+#' is_pos_def(matrix(c(1, .9, .9, 
+#'                    .9, 1, -.2, 
+#'                    .9, -.2, 1), 3)) # returns FALSE
+#' @export
+is_pos_def <- function(cor_mat, tol=1e-08) {
+  ev <- eigen(cor_mat, only.values = TRUE)$values
+  sum(ev < tol) == 0
 }
 
 #' Multiple Normally Distributed Vectors
@@ -86,6 +103,7 @@ cormat <- function(cors = 0, vars = 3) {
 #' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
 #' @param varnames optional names for the variables (string vector of length vars) defaults if cors is a matrix with column names
 #' @param empirical logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance 
+#' @param as_matrix logical. If true, returns 
 #' 
 #' @return dataframe of vars vectors
 #' @examples
@@ -94,7 +112,9 @@ cormat <- function(cors = 0, vars = 3) {
 #' @export
 
 rnorm_multi <- function(n, vars = 3, cors = 0, mu = 0, sd = 1, 
-                       varnames = NULL, empirical = FALSE) {
+                       varnames = NULL, 
+                       empirical = FALSE, 
+                       as.matrix = FALSE) {
   # error handling
   if ( !is.numeric(n) || n %% 1 > 0 || n < 3 ) {
     stop("n must be an integer > 2")
@@ -123,12 +143,12 @@ rnorm_multi <- function(n, vars = 3, cors = 0, mu = 0, sd = 1,
   df <- data.frame(bvn)
   
   if (length(varnames) == vars) {
-    names(df) <- varnames
+    colnames(bvn) <- varnames
   } else if (!is.null(colnames(cor_mat))) {
     # if cors was a matrix with names, use that
-    names(df) <- colnames(cor_mat)
+    colnames(bvn) <- colnames(cor_mat)
   }
   
-  df
+  if (as.matrix) bvn else data.frame(bvn)
 }
 

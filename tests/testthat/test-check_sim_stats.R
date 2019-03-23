@@ -22,3 +22,12 @@ test_that("correct defaults with group", {
   expect_equal(ncol(checkiris), 8)
   expect_equal(names(checkiris), irisnames)
 })
+
+test_that("is_pos_def", {
+  expect_equal(is_pos_def(matrix(c(1, .5, .5, 1), 2)), TRUE)
+  
+  bad_matrix <- matrix(c(1, .9, .9, 
+                        .9, 1, -.2,
+                        .9, -.2, 1), 3)
+  expect_equal(is_pos_def(bad_matrix), FALSE)
+})

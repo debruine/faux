@@ -3,6 +3,7 @@
 export("%>%")
 export(check_sim_stats)
 export(cormat)
+export(is_pos_def)
 export(rnorm_multi)
 export(rnorm_pre)
 export(select_num_grp)
