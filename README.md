@@ -226,7 +226,7 @@ Simulated iris dataset (rounded)
 
 Not all correlation matrices are possible. For example, if variables A and B are correlated with r = 1.0, then the correlation between A and C can only be exactly equal to the correlation between B and C.
 
-The function `pos_def_limits()` lets you know what the range of values is for a correlation matrix with one missing value. The correlation values are entered just from the top right triangle of the matrix, with a single `NA` for the missing value.
+The function `pos_def_limits()` lets you know what the possible range of values is for the missing value in a correlation matrix with one missing value. The correlation values are entered just from the top right triangle of the matrix, with a single `NA` for the missing value.
 
 ``` r
 lims <- pos_def_limits(.8, .2, NA)
@@ -250,7 +250,7 @@ lims <- pos_def_limits(.8, .2,  0,
 |:----|:----|
 | NA  | NA  |
 
-If you have a full matrix and want to know if it positive definite, you can use the following code:
+If you have a full matrix and want to know if it is positive definite, you can use the following code:
 
 ``` r
 c(.2, .3, .4, .2,
