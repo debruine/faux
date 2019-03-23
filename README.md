@@ -273,7 +273,7 @@ matrix(c(1, .3, -.9, .2,
 
 ### check\_sim\_stats
 
-If yu want to check your simulated stats or just describe an existing dataset, use `check_sim_stats()`.
+If you want to check your simulated stats or just describe an existing dataset, use `check_sim_stats()`.
 
 ``` r
 check_sim_stats(iris)
