@@ -19,7 +19,7 @@ check_sim_stats <- function(dat, grp_by = NULL, digits = 2, usekable = FALSE) {
   
   descriptives <- dplyr::bind_rows(
     dplyr::summarise_all(grpdat, mean) %>% dplyr::mutate(stat = "mean"),
-    dplyr::summarise_all(grpdat, sd) %>% dplyr::mutate(stat = "sd")
+    dplyr::summarise_all(grpdat, ~sd(.)) %>% dplyr::mutate(stat = "sd")
   ) %>%
     tidyr::gather(var, val, dplyr::one_of(numvars)) %>%
     dplyr::mutate(val = round(val, digits)) %>%
@@ -32,7 +32,8 @@ check_sim_stats <- function(dat, grp_by = NULL, digits = 2, usekable = FALSE) {
     })) %>%
     dplyr::select(-multisim_data) %>%
     tidyr::unnest(multisim_cor) %>%
-    dplyr::left_join(descriptives, by = c(grp_by, "var"))
+    dplyr::left_join(descriptives, by = c(grp_by, "var")) %>%
+    dplyr::select(tidyselect::one_of(c(grp_by, "var", numvars, "mean", "sd")))
     
   if (usekable) {
     return(knitr::kable(stats))
