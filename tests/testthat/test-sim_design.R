@@ -11,6 +11,26 @@ test_that("error messages", {
   expect_error(sim_design(list(), "1"), list_err)
 })
 
+test_that("simple test", {
+  between <- list(
+    "B" = c("B1", "B2")
+  )
+  within <- list(
+    "W" = c("W1", "W2")
+  )
+  mu <- list(
+    "B1" = c(10, 20),
+    "B2" = c(10, 30)
+  )
+  
+  df <- sim_design(within, between, 50, .25, mu, 4, TRUE)
+  check_sim_stats(df, grp_by = "B")
+  
+  expect_equal(nrow(df), 100)
+  expect_equal(ncol(df), 4)
+  expect_equal(names(df), c("sub_id", "B", "W1", "W2"))
+})
+
 test_that("works", {
   
   between <- list(
