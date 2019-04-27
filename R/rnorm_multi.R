@@ -9,7 +9,7 @@
 #' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
 #' @param varnames optional names for the variables (string vector of length vars) defaults if cors is a matrix with column names
 #' @param empirical logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance 
-#' @param as_matrix logical. If true, returns 
+#' @param as.matrix logical. If true, returns a matrix
 #' 
 #' @return dataframe of vars vectors
 #' @examples

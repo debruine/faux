@@ -22,7 +22,7 @@ rnorm_multi(n, vars = 3, cors = 0, mu = 0, sd = 1,
 
 \item{empirical}{logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance}
 
-\item{as_matrix}{logical. If true, returns}
+\item{as.matrix}{logical. If true, returns a matrix}
 }
 \value{
 dataframe of vars vectors
