@@ -1,25 +1,39 @@
 #' Generate Data from Design (NOT DONE!!!)
 #'
-#' \code{sim_design} generates a dataframe with a sepcified within and between design
+#' \code{sim_design} generates a dataframe with a specified within and between design
 #'
+#' @param within a list of the within-subject factors
+#' @param between a list of the between-subject factors
 #' @param n the number of samples required
 #' @param cors the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param mu a vector giving the means of the variables (numeric vector of length 1 or vars)
 #' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
 #' @param empirical logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance 
-#' @param interactive 
 #' 
 #' @return dataframe
 #' 
+#' @export
+#' 
 sim_design <- function(within = list(), between = list(), 
                        n = 100, cors = 0, mu = 0, sd = 1, 
-                       empirical = FALSE, interactive = FALSE) {
+                       empirical = FALSE) {
   # error checking
   if (!is.list(within) || !is.list(between)) {
     stop("within and between must be lists")
   } else if (length(within) == 0 && length(between) == 0) {
     stop("You must specify at least one factor")
   }
+  
+  # if within or between factors are named vectors, 
+  # use their names as column names and values as labels for plots
+  fix_name_labels <- function(x) {
+    if (is.null(names(x))) { names(x) <- x }
+    x
+  }
+  between_labels <- purrr::map(between, fix_name_labels)
+  between <- lapply(between_labels, names)
+  within_labels <- purrr::map(within, fix_name_labels)
+  within <- lapply(within_labels, names)
   
   # TODO: make sure all levels are unique within factors
   
@@ -31,17 +45,19 @@ sim_design <- function(within = list(), between = list(),
   cells_all <- do.call(expand.grid, c(within, between)) %>%
     tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
   
+  # convert n, mu and sd from vector/list formats
+  cell_n <-  get_mu_sd(n, cells_b, cells_w, "Ns")
+  cell_mu <- get_mu_sd(mu, cells_b, cells_w, "means")
+  cell_sd <- get_mu_sd(sd, cells_b, cells_w, "SDs")
+  
   # create empty data frame with correct structure
   between_combos <- length(cells_b)
   within_combos <- length(cells_w)
   
-  sub_n <- n * between_combos
+  sub_n <- sum(cell_n[1,])
   max_digits <- floor(log10(sub_n))+1
   sub_id <- paste0("S",formatC(1:sub_n, width = max_digits, flag = "0"))
   
-  # convert mu and sd from vector/list formats
-  mu2 <- get_mu_sd(mu, cells_b, cells_w, "means")
-  sd2 <- get_mu_sd(sd, cells_b, cells_w, "SDs")
   cors2 <- list()
   for (cell in cells_b) {
     cell_cor <- if(is.list(cors)) cors[[cell]] else cors
@@ -49,9 +65,9 @@ sim_design <- function(within = list(), between = list(),
   }
   
   for (cell in cells_b) {
-    cell_vars <- rnorm_multi(n, within_combos, cors2[[cell]], 
-                          mu2[[cell]], sd2[[cell]], 
-                          cells_w, empirical) %>%
+    cell_vars <- rnorm_multi(cell_n[1,cell], within_combos, cors2[[cell]], 
+                             cell_mu[[cell]], cell_sd[[cell]], 
+                             cells_w, empirical) %>%
       dplyr::mutate("btwn" = cell)
     
     if (cell == cells_b[1]) { 
@@ -79,10 +95,11 @@ sim_design <- function(within = list(), between = list(),
 #' @param param the mu or sd
 #' @param cells_b a list of between-subject cell combinations
 #' @param cells_w a list of within-subject cells combinations
+#' @param type the name of the parameter (for error messages)
 #' 
 #' @return a data frame 
 #' 
-get_mu_sd <- function (param, cells_b, cells_w, type = "mean") {
+get_mu_sd <- function (param, cells_b, cells_w, type = "this parameter") {
   w_n <- length(cells_w)
   b_n <- length(cells_b)
   all_n <- b_n*w_n
@@ -92,13 +109,17 @@ get_mu_sd <- function (param, cells_b, cells_w, type = "mean") {
     # add param in right order
     for (f in cells_b) {
       if (length(param[[f]]) == 1) { 
-        param[[f]] <- rep(param[[f]], w_n)
+        new_param <- rep(param[[f]], w_n)
       } else if (length(param[[f]]) != w_n) {
         stop("The number of ", type, " for cell ", f, 
              " is not correct. Please specify either 1 or a vector of ", 
              w_n, " per cell")
+      } else if (setdiff(cells_w, names(param[[f]])) %>% length() == 0) {
+        new_param <- param[[f]][cells_w] # add named parameters in the right order
+      } else {
+        new_param <- param[[f]] # parameters are not or incorrectly named, add in this order
       }
-      param2 <- c(param2, param[[f]])
+      param2 <- c(param2, new_param)
     }
   } else if (is.numeric(param)) {
     if (length(param) == 1) { 

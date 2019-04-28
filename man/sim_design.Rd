@@ -5,9 +5,13 @@
 \title{Generate Data from Design (NOT DONE!!!)}
 \usage{
 sim_design(within = list(), between = list(), n = 100, cors = 0,
-  mu = 0, sd = 1, empirical = FALSE, interactive = FALSE)
+  mu = 0, sd = 1, empirical = FALSE)
 }
 \arguments{
+\item{within}{a list of the within-subject factors}
+
+\item{between}{a list of the between-subject factors}
+
 \item{n}{the number of samples required}
 
 \item{cors}{the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)}
@@ -17,12 +21,10 @@ sim_design(within = list(), between = list(), n = 100, cors = 0,
 \item{sd}{the standard deviations of the variables (numeric vector of length 1 or vars)}
 
 \item{empirical}{logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance}
-
-\item{interactive}{}
 }
 \value{
 dataframe
 }
 \description{
-\code{sim_design} generates a dataframe with a sepcified within and between design
+\code{sim_design} generates a dataframe with a specified within and between design
 }

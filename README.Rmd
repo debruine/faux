@@ -251,3 +251,69 @@ check_sim_stats(iris,
                 digits = 3, 
                 usekable = TRUE)
 ```
+
+
+### sim_design
+
+Simulate data by specifying a design structure.
+
+**This function is under development and should be carefully checked!**
+
+First, list your between-subject and within-subject factors. You can specify them like this:
+
+```{r}
+between <- list(
+  "pet" = c("cat", "dog")
+)
+within <- list(
+  "time" = c("day", "night")
+)
+```
+
+Or like this:
+
+```{r}
+between <- list(
+  "pet" = c(cat = "Is a cat person", dog = "Is a dog person")
+)
+within <- list(
+  "time" = c(day = "Tested during the day", night = "Tested at night")
+)
+```
+
+Specify the means and standard deviations for each cell like this. The levels of the between-subject factors are the list names and the levels of the within-subject factors are the vector names. 
+
+```{r}
+mu <- list(
+  cat = c(day = 10, night = 20),
+  dog = c(day = 10, night = 30)
+)
+
+sd <- list(
+  cat = c(day = 3, night = 3),
+  dog = c(day = 3, night = 3)
+)
+```
+
+If you want the same value for each group, you can just specify a single number (e.g., `sd <- 3`).
+
+Set the correlation for each between-cell. Here, we only have two levels of one within-subject factor, so can only set one correlation per between-cell.
+
+```{r}
+cors <- list(
+  cat = .5,
+  dog = .6
+)
+```
+
+Set `n` to the cell size. If you set `empirical = TRUE`, you will get the *exact* means, SDs and correlations you specified. If you set `empirical = FALSE` or omit that argument, your data will be sampled from a population with those parameters, but your dataset will not have exactly those values (just on average).
+
+```{r}
+df <- sim_design(within, between, n = 100, 
+                 cors = cors, mu = mu, sd = sd,
+                 empirical = TRUE)
+```
+
+`r check_sim_stats(df, grp_by = "pet", usekable = TRUE)`
+
+

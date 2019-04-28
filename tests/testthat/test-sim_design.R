@@ -1,5 +1,6 @@
 context("test-sim_design")
 
+# error messages ----
 test_that("error messages", {
   factors_err <- "You must specify at least one factor"
   expect_error(sim_design(), factors_err)
@@ -11,24 +12,219 @@ test_that("error messages", {
   expect_error(sim_design(list(), "1"), list_err)
 })
 
-test_that("simple test", {
+# 2w*2b basic ----
+# uses ordering for within specification (not labels)
+test_that("2w*2b basic", {
   between <- list(
     "B" = c("B1", "B2")
   )
   within <- list(
     "W" = c("W1", "W2")
   )
+  n <- list(
+    "B1" = 60,
+    "B2" = 40
+  )
   mu <- list(
     "B1" = c(10, 20),
     "B2" = c(10, 30)
   )
+  sd <- list(
+    "B1" = c(3, 4),
+    "B2" = c(5, 6)
+  )
+  r <- list(
+    "B1" = .2,
+    "B2" = .5
+  )
   
-  df <- sim_design(within, between, 50, .25, mu, 4, TRUE)
-  check_sim_stats(df, grp_by = "B")
+  df <- sim_design(within, between, n, r, mu, sd, TRUE)
+  chk <- check_sim_stats(df, grp_by = "B")
+  
+  comp <- tibble::tribble(
+    ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
+    "B1", 60, "W1", 1,     0.2,    10,     3,
+    "B1", 60, "W2", 0.2,   1,      20,     4,
+    "B2", 40, "W1", 1,     0.5,    10,     5,
+    "B2", 40, "W2", 0.5,   1,      30,     6
+  )
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
   expect_equal(names(df), c("sub_id", "B", "W1", "W2"))
+  expect_equal(chk, comp)
+})
+
+# 2w*2b alt ----
+# uses alternative specification for factors
+test_that("2w*2b alt", {
+  between <- list(
+    "B" = c(B1 = "First between level", B2 = "Second between level")
+  )
+
+  within <- list(
+    "W" = c(W1 = "First within level", W2 = "Second within level")
+  )
+  n <- list(
+    B1 = 60,
+    B2 = 40
+  )
+  mu <- list(
+    B1 = c(10, 20),
+    B2 = c(10, 30)
+  )
+  sd <- list(
+    B1 = c(3, 4),
+    B2 = c(5, 6)
+  )
+  r <- list(
+    B1 = .2,
+    B2 = .5
+  )
+  
+  df <- sim_design(within, between, n, r, mu, sd, TRUE)
+  chk <- check_sim_stats(df, grp_by = "B")
+  
+  comp <- tibble::tribble(
+    ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
+    "B1", 60, "W1", 1,     0.2,    10,     3,
+    "B1", 60, "W2", 0.2,   1,      20,     4,
+    "B2", 40, "W1", 1,     0.5,    10,     5,
+    "B2", 40, "W2", 0.5,   1,      30,     6
+  )
+  
+  expect_equal(nrow(df), 100)
+  expect_equal(ncol(df), 4)
+  expect_equal(names(df), c("sub_id", "B", "W1", "W2"))
+  expect_equal(chk, comp)
+})
+
+
+# 2w*2b within order ----
+# change ordering of 
+test_that("2w*2b within order", {
+  between <- list(
+    "B" = c("B1", "B2")
+  )
+  within <- list(
+    "W" = c("W1", "W2")
+  )
+  
+  mu <- list(
+    B2 = c(W2 = 30, W1 = 10),
+    B1 = c(W2 = 20, W1 = 10)
+  )
+  #get_mu_sd(mu, between[["B"]], within[["W"]])
+  
+  sd <- list(
+    "B1" = c(W2 = 4, W1 = 3),
+    "B2" = c(W2 = 6, W1 = 5)
+  )
+  
+  df <- sim_design(within, between, 50, .5, mu, sd, TRUE)
+  check_sim_stats(df, grp_by = "B")
+  
+  chk <- check_sim_stats(df, grp_by = "B")
+  comp <- tibble::tribble(
+    ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
+    "B1", 50, "W1", 1,     0.5,    10,     3,
+    "B1", 50, "W2", 0.5,   1,      20,     4,
+    "B2", 50, "W1", 1,     0.5,    10,     5,
+    "B2", 50, "W2", 0.5,   1,      30,     6
+  )
+  
+  expect_equal(nrow(df), 100)
+  expect_equal(ncol(df), 4)
+  expect_equal(names(df), c("sub_id", "B", "W1", "W2"))
+  expect_equal(chk, comp)
+})
+
+
+# 2w*2b order ----
+# change order of named list items
+test_that("2w*2b order", {
+  between <- list(
+    "B" = c("B1", "B2")
+  )
+  within <- list(
+    "W" = c("W1", "W2")
+  )
+  # if you try to specify n for each level of W, it will just use the first level
+  # TODO: add a warning for this
+  n <- list(
+    "B2" = 40,
+    "B1" = 60
+  )
+  mu <- list(
+    "B2" = c(W1 = 10, W2 = 30),
+    "B1" = c(W1 = 10, W2 = 20)
+  )
+  sd <- list(
+    "B2" = c(W1 = 5, W2 = 6),
+    "B1" = c(W1 = 3, W2 = 4)
+  )
+  r <- list(
+    "B2" = .5,
+    "B1" = .2
+  )
+  
+  df <- sim_design(within, between, n, r, mu, sd, TRUE)
+  check_sim_stats(df, grp_by = "B")
+  
+  chk <- check_sim_stats(df, grp_by = "B")
+  comp <- tibble::tribble(
+    ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
+    "B1", 60, "W1", 1,     0.2,    10,     3,
+    "B1", 60, "W2", 0.2,   1,      20,     4,
+    "B2", 40, "W1", 1,     0.5,    10,     5,
+    "B2", 40, "W2", 0.5,   1,      30,     6
+  )
+  
+  expect_equal(nrow(df), 100)
+  expect_equal(ncol(df), 4)
+  expect_equal(names(df), c("sub_id", "B", "W1", "W2"))
+  expect_equal(chk, comp)
+})
+
+test_that("2w*2b*2b", {
+  between <- list(
+    A = c("A1", "A2"),
+    B = c("B1", "B2")
+  )
+  within <- list(
+    W = c("W1", "W2")
+  )
+  n <- list(
+    A1_B1 = 50,
+    A2_B1 = 50,
+    A1_B2 = 50,
+    A2_B2 = 50
+  )
+  mu <- list(
+    A1_B1 = c(W1 = 10, W2 = 20),
+    A2_B1 = c(W1 = 30, W2 = 40),
+    A1_B2 = c(W1 = 50, W2 = 60),
+    A2_B2 = c(W1 = 70, W2 = 80)
+  )
+  sd <- list(
+    A1_B1 = c(W1 = 3, W2 = 4),
+    A2_B1 = c(W1 = 5, W2 = 6),
+    A1_B2 = c(W1 = 7, W2 = 8),
+    A2_B2 = c(W1 = 9, W2 = 10)
+  )
+  r <- list(
+    A1_B1 = .1,
+    A2_B1 = .2,
+    A1_B2 = .3,
+    A2_B2 = .4
+  )
+  
+  df <- sim_design(within, between, n, r, mu, sd, TRUE)
+  check_sim_stats(df, grp_by = c("A", "B"))
+  
+  expect_equal(nrow(df), 200)
+  expect_equal(ncol(df), 5)
+  expect_equal(names(df), c("sub_id", "A", "B", "W1", "W2"))
 })
 
 test_that("works", {

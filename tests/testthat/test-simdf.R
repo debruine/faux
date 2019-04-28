@@ -58,25 +58,25 @@ test_that("grouping by col number", {
   expect_equal(names(newdf) %>% sort(), names(iris) %>% sort())
 })
 
-test_that("mean stats are close over 1000 runs", {
-  skip_on_cran()
-  
-  simiris <- purrr::map_df(1:1000, function(i) {
-    iris %>%
-      simdf(100) %>%
-      check_sim_stats(digits = 10)
-  })
-  
-  orig_stats <- iris %>%
-    check_sim_stats(digits = 10) %>%
-    dplyr::arrange(var) %>%
-    as.data.frame()
-  
-  sim_stats <- simiris %>% 
-    dplyr::group_by(var) %>%
-    dplyr::summarise_all(mean) %>%
-    dplyr::arrange(var) %>%
-    as.data.frame()
-  
-  expect_equal(orig_stats, sim_stats, tolerance = 0.02)
-})
+# test_that("mean stats are close over 1000 runs", {
+#   skip_on_cran()
+#   
+#   simiris <- purrr::map_df(1:1000, function(i) {
+#     iris %>%
+#       simdf(100) %>%
+#       check_sim_stats(digits = 10)
+#   })
+#   
+#   orig_stats <- iris %>%
+#     check_sim_stats(digits = 10) %>%
+#     dplyr::arrange(var) %>%
+#     as.data.frame()
+#   
+#   sim_stats <- simiris %>% 
+#     dplyr::group_by(var) %>%
+#     dplyr::summarise_all(mean) %>%
+#     dplyr::arrange(var) %>%
+#     as.data.frame()
+#   
+#   expect_equal(orig_stats, sim_stats, tolerance = 0.02)
+# })

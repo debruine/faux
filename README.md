@@ -38,11 +38,11 @@ dat <- rnorm_multi(n = 100,
                   empirical = FALSE)
 ```
 
-| var |     A|     B|     C|   mean|    sd|
-|:----|-----:|-----:|-----:|------:|-----:|
-| A   |  1.00|  0.45|  0.49|   0.03|  0.99|
-| B   |  0.45|  1.00|  0.33|  20.01|  4.89|
-| C   |  0.49|  0.33|  1.00|  19.76|  4.02|
+|    n| var |     A|     B|     C|   mean|    sd|
+|----:|:----|-----:|-----:|-----:|------:|-----:|
+|  100| A   |  1.00|  0.45|  0.49|   0.03|  0.99|
+|  100| B   |  0.45|  1.00|  0.33|  20.01|  4.89|
+|  100| C   |  0.49|  0.33|  1.00|  19.76|  4.02|
 
 #### Specify `cors`
 
@@ -61,13 +61,13 @@ If you want all the pairs to have the same correlation, just specify a single nu
 bvn <- rnorm_multi(100, 5, .3, varnames = letters[1:5])
 ```
 
-| var |     a|     b|     c|     d|     e|   mean|    sd|
-|:----|-----:|-----:|-----:|-----:|-----:|------:|-----:|
-| a   |  1.00|  0.35|  0.22|  0.45|  0.37|  -0.04|  1.09|
-| b   |  0.35|  1.00|  0.19|  0.36|  0.28|  -0.05|  0.83|
-| c   |  0.22|  0.19|  1.00|  0.26|  0.20|   0.01|  1.08|
-| d   |  0.45|  0.36|  0.26|  1.00|  0.24|   0.00|  1.00|
-| e   |  0.37|  0.28|  0.20|  0.24|  1.00|   0.04|  0.97|
+|    n| var |     a|     b|     c|     d|     e|   mean|    sd|
+|----:|:----|-----:|-----:|-----:|-----:|-----:|------:|-----:|
+|  100| a   |  1.00|  0.35|  0.22|  0.45|  0.37|  -0.04|  1.09|
+|  100| b   |  0.35|  1.00|  0.19|  0.36|  0.28|  -0.05|  0.83|
+|  100| c   |  0.22|  0.19|  1.00|  0.26|  0.20|   0.01|  1.08|
+|  100| d   |  0.45|  0.36|  0.26|  1.00|  0.24|   0.00|  1.00|
+|  100| e   |  0.37|  0.28|  0.20|  0.24|  1.00|   0.04|  0.97|
 
 ##### Matrix
 
@@ -79,12 +79,12 @@ bvn <- rnorm_multi(100, 4, cmat,
                   varnames = colnames(cmat))
 ```
 
-| var          |  Sepal.Length|  Sepal.Width|  Petal.Length|  Petal.Width|   mean|    sd|
-|:-------------|-------------:|------------:|-------------:|------------:|------:|-----:|
-| Sepal.Length |          1.00|        -0.10|          0.88|         0.83|  -0.01|  1.05|
-| Sepal.Width  |         -0.10|         1.00|         -0.38|        -0.29|  -0.19|  1.09|
-| Petal.Length |          0.88|        -0.38|          1.00|         0.96|  -0.01|  1.02|
-| Petal.Width  |          0.83|        -0.29|          0.96|         1.00|  -0.05|  0.98|
+|    n| var          |  Sepal.Length|  Sepal.Width|  Petal.Length|  Petal.Width|   mean|    sd|
+|----:|:-------------|-------------:|------------:|-------------:|------------:|------:|-----:|
+|  100| Sepal.Length |          1.00|        -0.10|          0.88|         0.83|  -0.01|  1.05|
+|  100| Sepal.Width  |         -0.10|         1.00|         -0.38|        -0.29|  -0.19|  1.09|
+|  100| Petal.Length |          0.88|        -0.38|          1.00|         0.96|  -0.01|  1.02|
+|  100| Petal.Width  |          0.83|        -0.29|          0.96|         1.00|  -0.05|  0.98|
 
 ##### Vector (vars\*vars)
 
@@ -98,11 +98,11 @@ bvn <- rnorm_multi(100, 3, cmat,
                   varnames = c("first", "second", "third"))
 ```
 
-| var    |  first|  second|  third|   mean|    sd|
-|:-------|------:|-------:|------:|------:|-----:|
-| first  |   1.00|    0.33|   0.45|  -0.12|  1.01|
-| second |   0.33|    1.00|  -0.04|  -0.01|  1.04|
-| third  |   0.45|   -0.04|   1.00|  -0.11|  1.00|
+|    n| var    |  first|  second|  third|   mean|    sd|
+|----:|:-------|------:|-------:|------:|------:|-----:|
+|  100| first  |   1.00|    0.33|   0.45|  -0.12|  1.01|
+|  100| second |   0.33|    1.00|  -0.04|  -0.01|  1.04|
+|  100| third  |   0.45|   -0.04|   1.00|  -0.11|  1.00|
 
 ##### Vector (vars\*(vars-1)/2)
 
@@ -120,12 +120,12 @@ bvn <- rnorm_multi(100, 4, cmat,
                   varnames = letters[1:4])
 ```
 
-| var |     a|     b|      c|      d|   mean|    sd|
-|:----|-----:|-----:|------:|------:|------:|-----:|
-| a   |  1.00|  0.35|   0.55|   0.50|  -0.13|  1.01|
-| b   |  0.35|  1.00|   0.16|   0.09|  -0.10|  1.05|
-| c   |  0.55|  0.16|   1.00|  -0.21|  -0.19|  0.91|
-| d   |  0.50|  0.09|  -0.21|   1.00|   0.12|  0.97|
+|    n| var |     a|     b|      c|      d|   mean|    sd|
+|----:|:----|-----:|-----:|------:|------:|------:|-----:|
+|  100| a   |  1.00|  0.35|   0.55|   0.50|  -0.13|  1.01|
+|  100| b   |  0.35|  1.00|   0.16|   0.09|  -0.10|  1.05|
+|  100| c   |  0.55|  0.16|   1.00|  -0.21|  -0.19|  0.91|
+|  100| d   |  0.50|  0.09|  -0.21|   1.00|   0.12|  0.97|
 
 #### empirical
 
@@ -137,13 +137,13 @@ bvn <- rnorm_multi(100, 5, .3,
                   empirical = T)
 ```
 
-| var |    a|    b|    c|    d|    e|  mean|   sd|
-|:----|----:|----:|----:|----:|----:|-----:|----:|
-| a   |  1.0|  0.3|  0.3|  0.3|  0.3|     0|    1|
-| b   |  0.3|  1.0|  0.3|  0.3|  0.3|     0|    1|
-| c   |  0.3|  0.3|  1.0|  0.3|  0.3|     0|    1|
-| d   |  0.3|  0.3|  0.3|  1.0|  0.3|     0|    1|
-| e   |  0.3|  0.3|  0.3|  0.3|  1.0|     0|    1|
+|    n| var |    a|    b|    c|    d|    e|  mean|   sd|
+|----:|:----|----:|----:|----:|----:|----:|-----:|----:|
+|  100| a   |  1.0|  0.3|  0.3|  0.3|  0.3|     0|    1|
+|  100| b   |  0.3|  1.0|  0.3|  0.3|  0.3|     0|    1|
+|  100| c   |  0.3|  0.3|  1.0|  0.3|  0.3|     0|    1|
+|  100| d   |  0.3|  0.3|  0.3|  1.0|  0.3|     0|    1|
+|  100| e   |  0.3|  0.3|  0.3|  0.3|  1.0|     0|    1|
 
 ### simdf
 
@@ -277,13 +277,13 @@ If you want to check your simulated stats or just describe an existing dataset, 
 
 ``` r
 check_sim_stats(iris)
-#> # A tibble: 4 x 7
-#>   var         Sepal.Length Sepal.Width Petal.Length Petal.Width  mean    sd
-#>   <chr>              <dbl>       <dbl>        <dbl>       <dbl> <dbl> <dbl>
-#> 1 Sepal.Leng…         1          -0.12         0.87        0.82  5.84  0.83
-#> 2 Sepal.Width        -0.12        1           -0.43       -0.37  3.06  0.44
-#> 3 Petal.Leng…         0.87       -0.43         1           0.96  3.76  1.77
-#> 4 Petal.Width         0.82       -0.37         0.96        1     1.2   0.76
+#> # A tibble: 4 x 8
+#>       n var   Sepal.Length Sepal.Width Petal.Length Petal.Width  mean    sd
+#>   <dbl> <chr>        <dbl>       <dbl>        <dbl>       <dbl> <dbl> <dbl>
+#> 1   150 Sepa…         1          -0.12         0.87        0.82  5.84  0.83
+#> 2   150 Sepa…        -0.12        1           -0.43       -0.37  3.06  0.44
+#> 3   150 Peta…         0.87       -0.43         1           0.96  3.76  1.77
+#> 4   150 Peta…         0.82       -0.37         0.96        1     1.2   0.76
 ```
 
 You can also group your data and change the digits to round. Display the table using `knitr::kable()` by setting `usekable` to `TRUE` (remember to set `results='asis'` in the chunk header.
@@ -295,17 +295,85 @@ check_sim_stats(iris,
                 usekable = TRUE)
 ```
 
-| Species    | var          |  Sepal.Length|  Sepal.Width|  Petal.Length|  Petal.Width|   mean|     sd|
-|:-----------|:-------------|-------------:|------------:|-------------:|------------:|------:|------:|
-| setosa     | Sepal.Length |         1.000|        0.743|         0.267|        0.278|  5.006|  0.352|
-| setosa     | Sepal.Width  |         0.743|        1.000|         0.178|        0.233|  3.428|  0.379|
-| setosa     | Petal.Length |         0.267|        0.178|         1.000|        0.332|  1.462|  0.174|
-| setosa     | Petal.Width  |         0.278|        0.233|         0.332|        1.000|  0.246|  0.105|
-| versicolor | Sepal.Length |         1.000|        0.526|         0.754|        0.546|  5.936|  0.516|
-| versicolor | Sepal.Width  |         0.526|        1.000|         0.561|        0.664|  2.770|  0.314|
-| versicolor | Petal.Length |         0.754|        0.561|         1.000|        0.787|  4.260|  0.470|
-| versicolor | Petal.Width  |         0.546|        0.664|         0.787|        1.000|  1.326|  0.198|
-| virginica  | Sepal.Length |         1.000|        0.457|         0.864|        0.281|  6.588|  0.636|
-| virginica  | Sepal.Width  |         0.457|        1.000|         0.401|        0.538|  2.974|  0.322|
-| virginica  | Petal.Length |         0.864|        0.401|         1.000|        0.322|  5.552|  0.552|
-| virginica  | Petal.Width  |         0.281|        0.538|         0.322|        1.000|  2.026|  0.275|
+| Species    |    n| var          |  Sepal.Length|  Sepal.Width|  Petal.Length|  Petal.Width|   mean|     sd|
+|:-----------|----:|:-------------|-------------:|------------:|-------------:|------------:|------:|------:|
+| setosa     |   50| Sepal.Length |         1.000|        0.743|         0.267|        0.278|  5.006|  0.352|
+| setosa     |   50| Sepal.Width  |         0.743|        1.000|         0.178|        0.233|  3.428|  0.379|
+| setosa     |   50| Petal.Length |         0.267|        0.178|         1.000|        0.332|  1.462|  0.174|
+| setosa     |   50| Petal.Width  |         0.278|        0.233|         0.332|        1.000|  0.246|  0.105|
+| versicolor |   50| Sepal.Length |         1.000|        0.526|         0.754|        0.546|  5.936|  0.516|
+| versicolor |   50| Sepal.Width  |         0.526|        1.000|         0.561|        0.664|  2.770|  0.314|
+| versicolor |   50| Petal.Length |         0.754|        0.561|         1.000|        0.787|  4.260|  0.470|
+| versicolor |   50| Petal.Width  |         0.546|        0.664|         0.787|        1.000|  1.326|  0.198|
+| virginica  |   50| Sepal.Length |         1.000|        0.457|         0.864|        0.281|  6.588|  0.636|
+| virginica  |   50| Sepal.Width  |         0.457|        1.000|         0.401|        0.538|  2.974|  0.322|
+| virginica  |   50| Petal.Length |         0.864|        0.401|         1.000|        0.322|  5.552|  0.552|
+| virginica  |   50| Petal.Width  |         0.281|        0.538|         0.322|        1.000|  2.026|  0.275|
+
+### sim\_design
+
+Simulate data by specifying a design structure.
+
+**This function is under development and should be carefully checked!**
+
+First, list your between-subject and within-subject factors. You can specify them like this:
+
+``` r
+between <- list(
+  "pet" = c("cat", "dog")
+)
+within <- list(
+  "time" = c("day", "night")
+)
+```
+
+Or like this:
+
+``` r
+between <- list(
+  "pet" = c(cat = "Is a cat person", dog = "Is a dog person")
+)
+within <- list(
+  "time" = c(day = "Tested during the day", night = "Tested at night")
+)
+```
+
+Specify the means and standard deviations for each cell like this. The levels of the between-subject factors are the list names and the levels of the within-subject factors are the vector names.
+
+``` r
+mu <- list(
+  cat = c(day = 10, night = 20),
+  dog = c(day = 10, night = 30)
+)
+
+sd <- list(
+  cat = c(day = 3, night = 3),
+  dog = c(day = 3, night = 3)
+)
+```
+
+If you want the same value for each group, you can just specify a single number (e.g., `sd <- 3`).
+
+Set the correlation for each between-cell. Here, we only have two levels of one within-subject factor, so can only set one correlation per between-cell.
+
+``` r
+cors <- list(
+  cat = .5,
+  dog = .6
+)
+```
+
+Set `n` to the cell size. If you set `empirical = TRUE`, you will get the *exact* means, SDs and correlations you specified. If you set `empirical = FALSE` or omit that argument, your data will be sampled from a population with those parameters, but your dataset will not have exactly those values (just on average).
+
+``` r
+df <- sim_design(within, between, n = 100, 
+                 cors = cors, mu = mu, sd = sd,
+                 empirical = TRUE)
+```
+
+| pet |    n| var   |  day|  night|  mean|   sd|
+|:----|----:|:------|----:|------:|-----:|----:|
+| cat |  100| day   |  1.0|    0.5|    10|    3|
+| cat |  100| night |  0.5|    1.0|    20|    3|
+| dog |  100| day   |  1.0|    0.6|    10|    3|
+| dog |  100| night |  0.6|    1.0|    30|    3|
