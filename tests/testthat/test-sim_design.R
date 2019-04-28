@@ -101,7 +101,6 @@ test_that("2w*2b alt", {
 
 
 # 2w*2b within order ----
-# change ordering of 
 test_that("2w*2b within order", {
   between <- list(
     "B" = c("B1", "B2")
@@ -227,6 +226,41 @@ test_that("2w*2b*2b", {
   expect_equal(names(df), c("sub_id", "A", "B", "W1", "W2"))
 })
 
+# long format ----
+test_that("long", {
+  between <- list(
+    "B" = c("B1", "B2"),
+    "A" = c("A2", "A1")
+  )
+  within <- list(
+    "W" = c("W1", "W2"),
+    "C" = c("C2", "C1"),
+    "N" = c("N2", "N1")
+  )
+  
+  df <- sim_design(within, between, 100, .5, 0, 1, TRUE, TRUE)
+  
+  expect_equal(nrow(df), 3200)
+  expect_equal(ncol(df), 7)
+  expect_equal(names(df), c("sub_id", "B", "A", "W", "C", "N", "val"))
+})
+
+# complex names ----
+test_that("complex names", {
+  between <- list(
+    "My first between factor" = c("Factor B1 L1", "Factor B1 L2"),
+    "My second between factor" = c("Factor B2 L1", "Factor B2 L2")
+  )
+  within <- list(
+    "My first within factor" = c("Factor W1 L1", "Factor W1 L2"),
+    "My second within factor" = c("Factor W2 L1", "Factor W2 L2")
+  )
+  
+  df_long <- sim_design(within, between, 10, .5, 0, 1, TRUE, TRUE)
+  df_wide <- sim_design(within, between, 10, .5, 0, 1, TRUE, FALSE)
+})
+
+# other stuff ----
 test_that("works", {
   
   between <- list(
