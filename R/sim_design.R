@@ -75,8 +75,24 @@ sim_design <- function(within = list(), between = list(),
   df_wide
 }
 
+#' Fix name labels
+#' 
+#' Fixes if a factor list does not have named levels or has special characters in the names
+#' 
+#' @param x the list to fix
+#' 
+#' @return the fixed list
+#'
+fix_name_labels <- function(x) {
+  if (is.null(names(x))) { names(x) <- x }
+  nm <- names(x)
+  # get rid of non-word characters and underscores because they mess up separate
+  names(x) <- gsub("(\\W|_)", ".", nm) 
+  x
+}
 
-#' Convert mu or sd
+
+#' Convert parameter
 #' 
 #' Converts parameter specification from vector or list format
 #' 
@@ -184,13 +200,6 @@ check_design <- function(within = list(), between = list(),
   
   # if within or between factors are named vectors, 
   # use their names as column names and values as labels for plots
-  fix_name_labels <- function(x) {
-    if (is.null(names(x))) { names(x) <- x }
-    nm <- names(x)
-    # get rid of non-word characters and underscores because they mess up separate
-    names(x) <- gsub("(\\W|_)", ".", nm) 
-    x
-  }
   between_labels <- purrr::map(between, fix_name_labels)
   between <- lapply(between_labels, names)
   within_labels <- purrr::map(within, fix_name_labels)
