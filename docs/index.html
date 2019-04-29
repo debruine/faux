@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
       </span>
     </div>
 
@@ -53,9 +53,21 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/faux_intro.html">Introduction to faux</a>
+      <a href="articles/intro.html">Introduction to faux</a>
+    </li>
+    <li>
+      <a href="articles/rnorm_multi.html">Simulate Correlated Variables</a>
+    </li>
+    <li>
+      <a href="articles/sim_design.html">Simulate by Design</a>
+    </li>
+    <li>
+      <a href="articles/simdf.html">Simulate from Existing Data</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="news/index.html">Changelog</a>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right"></ul>
@@ -81,28 +93,30 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of faux from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages</a></span>(<span class="st">"faux"</span>)</a></code></pre></div>
+<p>You can install the released version of faux from <a href="https://github.com/debruine/faux">GitHub</a> with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"debruine/faux"</span>)</code></pre></div>
 </div>
 <div id="examples" class="section level2">
 <h2 class="hasAnchor">
 <a href="#examples" class="anchor"></a>Examples</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(faux)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyverse)
+<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(faux)</code></pre></div>
 <div id="rnorm_multi" class="section level3">
 <h3 class="hasAnchor">
 <a href="#rnorm_multi" class="anchor"></a>rnorm_multi</h3>
 <p>This function makes multiple normally distributed vectors with specified parameters and relationships.</p>
 <p>For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where where A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25. A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">dat &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dt">n =</span> <span class="dv">100</span>, </a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">                  <span class="dt">cors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>), </a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">                  <span class="dt">mu =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">20</span>),</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">                  <span class="dt">sd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>),</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">                  <span class="dt">varnames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>),</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7">                  <span class="dt">empirical =</span> <span class="ot">FALSE</span>)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+dat &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dt">n =</span> <span class="dv">100</span>, 
+                  <span class="dt">cors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>), 
+                  <span class="dt">mu =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">20</span>),
+                  <span class="dt">sd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>),
+                  <span class="dt">varnames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>),
+                  <span class="dt">empirical =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <table class="table table">
 <caption>Sample stats</caption>
 <thead><tr class="header">
+<th align="right">n</th>
 <th align="left">var</th>
 <th align="right">A</th>
 <th align="right">B</th>
@@ -112,6 +126,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">A</td>
 <td align="right">1.00</td>
 <td align="right">0.45</td>
@@ -120,6 +135,7 @@
 <td align="right">0.99</td>
 </tr>
 <tr class="even">
+<td align="right">100</td>
 <td align="left">B</td>
 <td align="right">0.45</td>
 <td align="right">1.00</td>
@@ -128,6 +144,7 @@
 <td align="right">4.89</td>
 </tr>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">C</td>
 <td align="right">0.49</td>
 <td align="right">0.33</td>
@@ -152,10 +169,11 @@
 <h5 class="hasAnchor">
 <a href="#one-number" class="anchor"></a>One Number</h5>
 <p>If you want all the pairs to have the same correlation, just specify a single number.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">bvn &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">5</span>, <span class="fl">.3</span>, <span class="dt">varnames =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bvn &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">5</span>, .<span class="dv">3</span>, <span class="dt">varnames =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</code></pre></div>
 <table class="table table">
 <caption>Sample stats from a single rho</caption>
 <thead><tr class="header">
+<th align="right">n</th>
 <th align="left">var</th>
 <th align="right">a</th>
 <th align="right">b</th>
@@ -167,6 +185,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">a</td>
 <td align="right">1.00</td>
 <td align="right">0.35</td>
@@ -177,6 +196,7 @@
 <td align="right">1.09</td>
 </tr>
 <tr class="even">
+<td align="right">100</td>
 <td align="left">b</td>
 <td align="right">0.35</td>
 <td align="right">1.00</td>
@@ -187,6 +207,7 @@
 <td align="right">0.83</td>
 </tr>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">c</td>
 <td align="right">0.22</td>
 <td align="right">0.19</td>
@@ -197,6 +218,7 @@
 <td align="right">1.08</td>
 </tr>
 <tr class="even">
+<td align="right">100</td>
 <td align="left">d</td>
 <td align="right">0.45</td>
 <td align="right">0.36</td>
@@ -207,6 +229,7 @@
 <td align="right">1.00</td>
 </tr>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">e</td>
 <td align="right">0.37</td>
 <td align="right">0.28</td>
@@ -223,12 +246,13 @@
 <h5 class="hasAnchor">
 <a href="#matrix" class="anchor"></a>Matrix</h5>
 <p>If you already have a correlation matrix, such as the output of <code><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor()</a></code>, you can specify the simulated data with that.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">cmat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(iris[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2">bvn &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">4</span>, cmat, </a>
-<a class="sourceLine" id="cb5-3" data-line-number="3">                  <span class="dt">varnames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(cmat))</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cmat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(iris[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])
+bvn &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">4</span>, cmat, 
+                  <span class="dt">varnames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(cmat))</code></pre></div>
 <table class="table table">
 <caption>Sample stats from a correlation matrix</caption>
 <thead><tr class="header">
+<th align="right">n</th>
 <th align="left">var</th>
 <th align="right">Sepal.Length</th>
 <th align="right">Sepal.Width</th>
@@ -239,6 +263,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">Sepal.Length</td>
 <td align="right">1.00</td>
 <td align="right">-0.10</td>
@@ -248,6 +273,7 @@
 <td align="right">1.05</td>
 </tr>
 <tr class="even">
+<td align="right">100</td>
 <td align="left">Sepal.Width</td>
 <td align="right">-0.10</td>
 <td align="right">1.00</td>
@@ -257,6 +283,7 @@
 <td align="right">1.09</td>
 </tr>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">Petal.Length</td>
 <td align="right">0.88</td>
 <td align="right">-0.38</td>
@@ -266,6 +293,7 @@
 <td align="right">1.02</td>
 </tr>
 <tr class="even">
+<td align="right">100</td>
 <td align="left">Petal.Width</td>
 <td align="right">0.83</td>
 <td align="right">-0.29</td>
@@ -281,14 +309,15 @@
 <h5 class="hasAnchor">
 <a href="#vector-varsvars" class="anchor"></a>Vector (vars*vars)</h5>
 <p>You can specify your correlation matrix by hand as a vars*vars length vector, which will include the correlations of 1 down the diagonal.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">cmat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="fl">.3</span>, <span class="fl">.5</span>,</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2">          <span class="fl">.3</span>, <span class="dv">1</span>, <span class="dv">0</span>,</a>
-<a class="sourceLine" id="cb6-3" data-line-number="3">          <span class="fl">.5</span>, <span class="dv">0</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb6-4" data-line-number="4">bvn &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">3</span>, cmat, </a>
-<a class="sourceLine" id="cb6-5" data-line-number="5">                  <span class="dt">varnames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"first"</span>, <span class="st">"second"</span>, <span class="st">"third"</span>))</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cmat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, .<span class="dv">3</span>, .<span class="dv">5</span>,
+          .<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>,
+          .<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)
+bvn &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">3</span>, cmat, 
+                  <span class="dt">varnames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"first"</span>, <span class="st">"second"</span>, <span class="st">"third"</span>))</code></pre></div>
 <table class="table table">
 <caption>Sample stats from a vars*vars vector</caption>
 <thead><tr class="header">
+<th align="right">n</th>
 <th align="left">var</th>
 <th align="right">first</th>
 <th align="right">second</th>
@@ -298,6 +327,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">first</td>
 <td align="right">1.00</td>
 <td align="right">0.33</td>
@@ -306,6 +336,7 @@
 <td align="right">1.01</td>
 </tr>
 <tr class="even">
+<td align="right">100</td>
 <td align="left">second</td>
 <td align="right">0.33</td>
 <td align="right">1.00</td>
@@ -314,6 +345,7 @@
 <td align="right">1.04</td>
 </tr>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">third</td>
 <td align="right">0.45</td>
 <td align="right">-0.04</td>
@@ -328,18 +360,19 @@
 <h5 class="hasAnchor">
 <a href="#vector-varsvars-12" class="anchor"></a>Vector (vars*(vars-1)/2)</h5>
 <p>You can specify your correlation matrix by hand as a vars*(vars-1)/2 length vector, skipping the diagonal and lower left duplicate values.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">rho1_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="fl">.3</span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2">rho1_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="fl">.5</span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3">rho1_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="fl">.5</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4">rho2_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="fl">.2</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5">rho2_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6">rho3_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="fl">-.3</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7">cmat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(rho1_<span class="dv">2</span>, rho1_<span class="dv">3</span>, rho1_<span class="dv">4</span>, rho2_<span class="dv">3</span>, rho2_<span class="dv">4</span>, rho3_<span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb7-8" data-line-number="8">bvn &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">4</span>, cmat, </a>
-<a class="sourceLine" id="cb7-9" data-line-number="9">                  <span class="dt">varnames =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">rho1_<span class="dv">2</span> &lt;-<span class="st"> </span>.<span class="dv">3</span>
+rho1_<span class="dv">3</span> &lt;-<span class="st"> </span>.<span class="dv">5</span>
+rho1_<span class="dv">4</span> &lt;-<span class="st"> </span>.<span class="dv">5</span>
+rho2_<span class="dv">3</span> &lt;-<span class="st"> </span>.<span class="dv">2</span>
+rho2_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="dv">0</span>
+rho3_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="op">-</span>.<span class="dv">3</span>
+cmat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(rho1_<span class="dv">2</span>, rho1_<span class="dv">3</span>, rho1_<span class="dv">4</span>, rho2_<span class="dv">3</span>, rho2_<span class="dv">4</span>, rho3_<span class="dv">4</span>)
+bvn &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">4</span>, cmat, 
+                  <span class="dt">varnames =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</code></pre></div>
 <table class="table table">
 <caption>Sample stats from a (vars*(vars-1)/2) vector</caption>
 <thead><tr class="header">
+<th align="right">n</th>
 <th align="left">var</th>
 <th align="right">a</th>
 <th align="right">b</th>
@@ -350,6 +383,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">a</td>
 <td align="right">1.00</td>
 <td align="right">0.35</td>
@@ -359,6 +393,7 @@
 <td align="right">1.01</td>
 </tr>
 <tr class="even">
+<td align="right">100</td>
 <td align="left">b</td>
 <td align="right">0.35</td>
 <td align="right">1.00</td>
@@ -368,6 +403,7 @@
 <td align="right">1.05</td>
 </tr>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">c</td>
 <td align="right">0.55</td>
 <td align="right">0.16</td>
@@ -377,6 +413,7 @@
 <td align="right">0.91</td>
 </tr>
 <tr class="even">
+<td align="right">100</td>
 <td align="left">d</td>
 <td align="right">0.50</td>
 <td align="right">0.09</td>
@@ -393,12 +430,13 @@
 <h4 class="hasAnchor">
 <a href="#empirical" class="anchor"></a>empirical</h4>
 <p>If you want your samples to have the <em>exact</em> correlations, means, and SDs you entered, set <code>empirical</code> to TRUE.</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">bvn &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">5</span>, <span class="fl">.3</span>, </a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">                  <span class="dt">varnames =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], </a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">                  <span class="dt">empirical =</span> T)</a></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bvn &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">5</span>, .<span class="dv">3</span>, 
+                  <span class="dt">varnames =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], 
+                  <span class="dt">empirical =</span> T)</code></pre></div>
 <table class="table table">
 <caption>Sample stats with empirical = TRUE</caption>
 <thead><tr class="header">
+<th align="right">n</th>
 <th align="left">var</th>
 <th align="right">a</th>
 <th align="right">b</th>
@@ -410,6 +448,7 @@
 </tr></thead>
 <tbody>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">a</td>
 <td align="right">1.0</td>
 <td align="right">0.3</td>
@@ -420,6 +459,7 @@
 <td align="right">1</td>
 </tr>
 <tr class="even">
+<td align="right">100</td>
 <td align="left">b</td>
 <td align="right">0.3</td>
 <td align="right">1.0</td>
@@ -430,6 +470,7 @@
 <td align="right">1</td>
 </tr>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">c</td>
 <td align="right">0.3</td>
 <td align="right">0.3</td>
@@ -440,6 +481,7 @@
 <td align="right">1</td>
 </tr>
 <tr class="even">
+<td align="right">100</td>
 <td align="left">d</td>
 <td align="right">0.3</td>
 <td align="right">0.3</td>
@@ -450,6 +492,7 @@
 <td align="right">1</td>
 </tr>
 <tr class="odd">
+<td align="right">100</td>
 <td align="left">e</td>
 <td align="right">0.3</td>
 <td align="right">0.3</td>
@@ -462,6 +505,341 @@
 </tbody>
 </table>
 </div>
+</div>
+<div id="simdf" class="section level3">
+<h3 class="hasAnchor">
+<a href="#simdf" class="anchor"></a>simdf</h3>
+<p>This function produces a dataframe with the same distributions and correlations as an existing dataframe. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).</p>
+<p>For example, here is the relationship between speed and distance in the built-in dataset <code>cars</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cars <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(speed, dist)) <span class="op">+</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"lm"</span>)</code></pre></div>
+<div class="figure">
+<img src="reference/figures/README-plot-cars-orig-1.png" alt="Original cars dataset" width="100%"><p class="caption">
+Original cars dataset
+</p>
+</div>
+<p>You can create a new sample with the same parameters and 500 rows with the code <code><a href="reference/simdf.html">simdf(cars, 500)</a></code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/simdf.html">simdf</a></span>(cars, <span class="dv">500</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(speed, dist)) <span class="op">+</span><span class="st"> </span>
+<span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"lm"</span>)</code></pre></div>
+<div class="figure">
+<img src="reference/figures/README-plot-cars-sim-1.png" alt="Simulated cars dataset" width="100%"><p class="caption">
+Simulated cars dataset
+</p>
+</div>
+<div id="grouping-variables" class="section level4">
+<h4 class="hasAnchor">
+<a href="#grouping-variables" class="anchor"></a>Grouping Variables</h4>
+<p>You can also optionally add grouping variables. For example, here is the relationship between sepal length and width in the built-in dataset <code>iris</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Sepal.Width, Sepal.Length, <span class="dt">color =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"lm"</span>)</code></pre></div>
+<div class="figure">
+<img src="reference/figures/README-plot-iris-orig-1.png" alt="Original iris dataset" width="100%"><p class="caption">
+Original iris dataset
+</p>
+</div>
+<p>And here is a new sample with 50 observations of each species, made with the code <code><a href="reference/simdf.html">simdf(iris, 100, "Species")</a></code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/simdf.html">simdf</a></span>(iris, <span class="dv">50</span>, <span class="st">"Species"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Sepal.Width, Sepal.Length, <span class="dt">color =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"lm"</span>)</code></pre></div>
+<div class="figure">
+<img src="reference/figures/README-plot-iris-sim-1.png" alt="Simulated iris dataset" width="100%"><p class="caption">
+Simulated iris dataset
+</p>
+</div>
+<p>For now, the function only creates new variables sampled from a continuous normal distribution. I hope to add in other sampling distributions in the future. So you’d need to do any rounding or truncating yourself.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/simdf.html">simdf</a></span>(iris, <span class="dv">50</span>, <span class="st">"Species"</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, round, <span class="dv">1</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Sepal.Width, Sepal.Length, <span class="dt">color =</span> Species)) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"lm"</span>)</code></pre></div>
+<div class="figure">
+<img src="reference/figures/README-plot-iris-sim-round-1.png" alt="Simulated iris dataset (rounded)" width="100%"><p class="caption">
+Simulated iris dataset (rounded)
+</p>
+</div>
+</div>
+</div>
+<div id="pos_def_limits" class="section level3">
+<h3 class="hasAnchor">
+<a href="#pos_def_limits" class="anchor"></a>pos_def_limits</h3>
+<p>Not all correlation matrices are possible. For example, if variables A and B are correlated with r = 1.0, then the correlation between A and C can only be exactly equal to the correlation between B and C.</p>
+<p>The function <code><a href="reference/pos_def_limits.html">pos_def_limits()</a></code> lets you know what the possible range of values is for the missing value in a correlation matrix with one missing value. The correlation values are entered just from the top right triangle of the matrix, with a single <code>NA</code> for the missing value.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lims &lt;-<span class="st"> </span><span class="kw"><a href="reference/pos_def_limits.html">pos_def_limits</a></span>(.<span class="dv">8</span>, .<span class="dv">2</span>, <span class="ot">NA</span>)</code></pre></div>
+<table class="table table">
+<thead><tr class="header">
+<th align="right">min</th>
+<th align="right">max</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="right">-0.427</td>
+<td align="right">0.747</td>
+</tr></tbody>
+</table>
+<p>For example, if r<sub>AB</sub> = 0.8 and r<sub>AC</sub> = 0.2, then -0.427 &lt;= r<sub>BC</sub> &lt;= 0.747.</p>
+<p>If you enter a correlation matrix that contains impossible combinations, your limits will be <code>NA</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lims &lt;-<span class="st"> </span><span class="kw"><a href="reference/pos_def_limits.html">pos_def_limits</a></span>(.<span class="dv">8</span>, .<span class="dv">2</span>,  <span class="dv">0</span>,
+                          <span class="op">-</span>.<span class="dv">5</span>, <span class="ot">NA</span>,
+                               .<span class="dv">2</span>)</code></pre></div>
+<table class="table table">
+<thead><tr class="header">
+<th align="left">min</th>
+<th align="left">max</th>
+</tr></thead>
+<tbody><tr class="odd">
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr></tbody>
+</table>
+<p>If you have a full matrix and want to know if it is positive definite, you can use the following code:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(.<span class="dv">2</span>, .<span class="dv">3</span>, .<span class="dv">4</span>, .<span class="dv">2</span>,
+      .<span class="dv">3</span>, <span class="op">-</span>.<span class="dv">1</span>, .<span class="dv">2</span>,
+           .<span class="dv">4</span>, .<span class="dv">5</span>,
+               .<span class="dv">3</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="reference/cormat_from_triangle.html">cormat_from_triangle</a></span>() <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="reference/is_pos_def.html">is_pos_def</a></span>()
+<span class="co">#&gt; [1] TRUE</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/matrix">matrix</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, .<span class="dv">3</span>, <span class="op">-</span>.<span class="dv">9</span>, .<span class="dv">2</span>,
+        .<span class="dv">3</span>,  <span class="dv">1</span>,  .<span class="dv">4</span>, .<span class="dv">5</span>,
+       <span class="op">-</span>.<span class="dv">9</span>, .<span class="dv">4</span>,   <span class="dv">1</span>, .<span class="dv">3</span>,
+        .<span class="dv">2</span>, .<span class="dv">5</span>,  .<span class="dv">3</span>,  <span class="dv">1</span>), <span class="dv">4</span>) <span class="op">%&gt;%</span>
+<span class="st">  </span><span class="kw"><a href="reference/is_pos_def.html">is_pos_def</a></span>()
+<span class="co">#&gt; [1] FALSE</span></code></pre></div>
+</div>
+<div id="check_sim_stats" class="section level3">
+<h3 class="hasAnchor">
+<a href="#check_sim_stats" class="anchor"></a>check_sim_stats</h3>
+<p>If you want to check your simulated stats or just describe an existing dataset, use <code><a href="reference/check_sim_stats.html">check_sim_stats()</a></code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/check_sim_stats.html">check_sim_stats</a></span>(iris)
+<span class="co">#&gt; # A tibble: 4 x 8</span>
+<span class="co">#&gt;       n var   Sepal.Length Sepal.Width Petal.Length Petal.Width  mean    sd</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   150 Sepa…         1          -0.12         0.87        0.82  5.84  0.83</span>
+<span class="co">#&gt; 2   150 Sepa…        -0.12        1           -0.43       -0.37  3.06  0.44</span>
+<span class="co">#&gt; 3   150 Peta…         0.87       -0.43         1           0.96  3.76  1.77</span>
+<span class="co">#&gt; 4   150 Peta…         0.82       -0.37         0.96        1     1.2   0.76</span></code></pre></div>
+<p>You can also group your data and change the digits to round. Display the table using <code><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">knitr::kable()</a></code> by setting <code>usekable</code> to <code>TRUE</code> (remember to set <code>results='asis'</code> in the chunk header.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/check_sim_stats.html">check_sim_stats</a></span>(iris, 
+                <span class="dt">grp_by =</span> <span class="st">"Species"</span>, 
+                <span class="dt">digits =</span> <span class="dv">3</span>, 
+                <span class="dt">usekable =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<table class="table table">
+<thead><tr class="header">
+<th align="left">Species</th>
+<th align="right">n</th>
+<th align="left">var</th>
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="right">50</td>
+<td align="left">Sepal.Length</td>
+<td align="right">1.000</td>
+<td align="right">0.743</td>
+<td align="right">0.267</td>
+<td align="right">0.278</td>
+<td align="right">5.006</td>
+<td align="right">0.352</td>
+</tr>
+<tr class="even">
+<td align="left">setosa</td>
+<td align="right">50</td>
+<td align="left">Sepal.Width</td>
+<td align="right">0.743</td>
+<td align="right">1.000</td>
+<td align="right">0.178</td>
+<td align="right">0.233</td>
+<td align="right">3.428</td>
+<td align="right">0.379</td>
+</tr>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="right">50</td>
+<td align="left">Petal.Length</td>
+<td align="right">0.267</td>
+<td align="right">0.178</td>
+<td align="right">1.000</td>
+<td align="right">0.332</td>
+<td align="right">1.462</td>
+<td align="right">0.174</td>
+</tr>
+<tr class="even">
+<td align="left">setosa</td>
+<td align="right">50</td>
+<td align="left">Petal.Width</td>
+<td align="right">0.278</td>
+<td align="right">0.233</td>
+<td align="right">0.332</td>
+<td align="right">1.000</td>
+<td align="right">0.246</td>
+<td align="right">0.105</td>
+</tr>
+<tr class="odd">
+<td align="left">versicolor</td>
+<td align="right">50</td>
+<td align="left">Sepal.Length</td>
+<td align="right">1.000</td>
+<td align="right">0.526</td>
+<td align="right">0.754</td>
+<td align="right">0.546</td>
+<td align="right">5.936</td>
+<td align="right">0.516</td>
+</tr>
+<tr class="even">
+<td align="left">versicolor</td>
+<td align="right">50</td>
+<td align="left">Sepal.Width</td>
+<td align="right">0.526</td>
+<td align="right">1.000</td>
+<td align="right">0.561</td>
+<td align="right">0.664</td>
+<td align="right">2.770</td>
+<td align="right">0.314</td>
+</tr>
+<tr class="odd">
+<td align="left">versicolor</td>
+<td align="right">50</td>
+<td align="left">Petal.Length</td>
+<td align="right">0.754</td>
+<td align="right">0.561</td>
+<td align="right">1.000</td>
+<td align="right">0.787</td>
+<td align="right">4.260</td>
+<td align="right">0.470</td>
+</tr>
+<tr class="even">
+<td align="left">versicolor</td>
+<td align="right">50</td>
+<td align="left">Petal.Width</td>
+<td align="right">0.546</td>
+<td align="right">0.664</td>
+<td align="right">0.787</td>
+<td align="right">1.000</td>
+<td align="right">1.326</td>
+<td align="right">0.198</td>
+</tr>
+<tr class="odd">
+<td align="left">virginica</td>
+<td align="right">50</td>
+<td align="left">Sepal.Length</td>
+<td align="right">1.000</td>
+<td align="right">0.457</td>
+<td align="right">0.864</td>
+<td align="right">0.281</td>
+<td align="right">6.588</td>
+<td align="right">0.636</td>
+</tr>
+<tr class="even">
+<td align="left">virginica</td>
+<td align="right">50</td>
+<td align="left">Sepal.Width</td>
+<td align="right">0.457</td>
+<td align="right">1.000</td>
+<td align="right">0.401</td>
+<td align="right">0.538</td>
+<td align="right">2.974</td>
+<td align="right">0.322</td>
+</tr>
+<tr class="odd">
+<td align="left">virginica</td>
+<td align="right">50</td>
+<td align="left">Petal.Length</td>
+<td align="right">0.864</td>
+<td align="right">0.401</td>
+<td align="right">1.000</td>
+<td align="right">0.322</td>
+<td align="right">5.552</td>
+<td align="right">0.552</td>
+</tr>
+<tr class="even">
+<td align="left">virginica</td>
+<td align="right">50</td>
+<td align="left">Petal.Width</td>
+<td align="right">0.281</td>
+<td align="right">0.538</td>
+<td align="right">0.322</td>
+<td align="right">1.000</td>
+<td align="right">2.026</td>
+<td align="right">0.275</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="sim_design" class="section level3">
+<h3 class="hasAnchor">
+<a href="#sim_design" class="anchor"></a>sim_design</h3>
+<p>Simulate data by specifying a design structure.</p>
+<p><strong>This function is under development and should be carefully checked!</strong></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">between &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"pet"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>))
+within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"time"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"day"</span>, <span class="st">"night"</span>))
+mu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(
+  <span class="dt">cat =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">10</span>, <span class="dv">20</span>),
+  <span class="dt">dog =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">15</span>, <span class="dv">25</span>),
+  <span class="dt">row.names =</span> within<span class="op">$</span>time
+)
+df &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">cors =</span> <span class="fl">0.5</span>, <span class="dt">mu =</span> mu, <span class="dt">sd =</span> <span class="dv">5</span>)</code></pre></div>
+<table class="table table">
+<thead><tr class="header">
+<th align="left">pet</th>
+<th align="right">n</th>
+<th align="left">var</th>
+<th align="right">day</th>
+<th align="right">night</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">cat</td>
+<td align="right">100</td>
+<td align="left">day</td>
+<td align="right">1.00</td>
+<td align="right">0.55</td>
+<td align="right">10.39</td>
+<td align="right">4.69</td>
+</tr>
+<tr class="even">
+<td align="left">cat</td>
+<td align="right">100</td>
+<td align="left">night</td>
+<td align="right">0.55</td>
+<td align="right">1.00</td>
+<td align="right">19.78</td>
+<td align="right">4.67</td>
+</tr>
+<tr class="odd">
+<td align="left">dog</td>
+<td align="right">100</td>
+<td align="left">day</td>
+<td align="right">1.00</td>
+<td align="right">0.46</td>
+<td align="right">15.02</td>
+<td align="right">4.18</td>
+</tr>
+<tr class="even">
+<td align="left">dog</td>
+<td align="right">100</td>
+<td align="left">night</td>
+<td align="right">0.46</td>
+<td align="right">1.00</td>
+<td align="right">24.79</td>
+<td align="right">4.74</td>
+</tr>
+</tbody>
+</table>
+<p><img src="reference/figures/README-unnamed-chunk-9-1.png" width="100%"></p>
 </div>
 </div>
 </div>
