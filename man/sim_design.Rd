@@ -5,7 +5,7 @@
 \title{Generate Data from Design (NOT DONE!!!)}
 \usage{
 sim_design(within = list(), between = list(), n = 100, cors = 0,
-  mu = 0, sd = 1, empirical = FALSE)
+  mu = 0, sd = 1, empirical = FALSE, frame_long = FALSE)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -21,6 +21,8 @@ sim_design(within = list(), between = list(), n = 100, cors = 0,
 \item{sd}{the standard deviations of the variables (numeric vector of length 1 or vars)}
 
 \item{empirical}{logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance}
+
+\item{frame_long}{Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format}
 }
 \value{
 dataframe

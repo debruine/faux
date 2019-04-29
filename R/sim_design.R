@@ -39,26 +39,57 @@ sim_design <- function(within = list(), between = list(),
   within_labels <- purrr::map(within, fix_name_labels)
   within <- lapply(within_labels, names)
   
-  
-  # TODO: make sure all levels are unique within factors
-  
-  # define columns and factors
   within_factors <- names(within)
   between_factors <- names(between)
-  cells_w <- do.call(expand.grid, within) %>%
-    tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
-  cells_b <- do.call(expand.grid, between) %>%
-    tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
+  
+  # handle no w/in or btwn
+  tmpvar_name <- ".tmpvar."
+  if (length(between_factors) == 0) between_factors <- tmpvar_name
+  if (length(within_factors) == 0) within_factors <- tmpvar_name 
+  
+  # check for duplicate factor names
+  factor_overlap <- intersect(within_factors, between_factors)
+  if (length(factor_overlap)) {
+    stop("You have multiple factors with the same name (", 
+         paste(factor_overlap, collapse = ", "),
+         "). Please give all factors unique names.")
+  }
+  
+  # check for duplicate level names within any factor
+  dupes <- c(within, between) %>%
+    lapply(duplicated) %>%
+    lapply(sum) %>%
+    lapply(as.logical) %>%
+    unlist()
+  
+  if (sum(dupes)) {
+    dupelevels <- c(within, between) %>% 
+      names() %>% 
+      magrittr::extract(dupes) %>% 
+      paste(collapse = ", ")
+    stop("You have duplicate levels for factor(s): ", dupelevels)
+  }
+  
+  # define columns
+  if (length(within) == 0) {
+    cells_w = "val"
+  } else {
+    cells_w <- do.call(expand.grid, within) %>%
+      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
+  }
+  if (length(between) == 0) {
+    cells_b = tmpvar_name
+  } else {
+    cells_b <- do.call(expand.grid, between) %>%
+      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
+  }
   cells_all <- do.call(expand.grid, c(within, between)) %>%
     tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
-  
+
   # convert n, mu and sd from vector/list formats
-  cell_n <-  get_mu_sd(n, cells_b, cells_w, "Ns")
-  cell_mu <- get_mu_sd(mu, cells_b, cells_w, "means")
-  cell_sd <- get_mu_sd(sd, cells_b, cells_w, "SDs")
-  
-  between_combos <- length(cells_b)
-  within_combos <- length(cells_w)
+  cell_n <-  convert_param(n, cells_b, cells_w, "Ns")
+  cell_mu <- convert_param(mu, cells_b, cells_w, "means")
+  cell_sd <- convert_param(sd, cells_b, cells_w, "SDs")
   
   # figure out number of subjects and their IDs
   sub_n <- sum(cell_n[1,])
@@ -66,18 +97,29 @@ sim_design <- function(within = list(), between = list(),
   sub_id <- paste0("S",formatC(1:sub_n, width = max_digits, flag = "0"))
   
   # set up cell correlations from cors (number, vector, matrix or list styles)
-  cell_cors <- list()
-  for (cell in cells_b) {
-    cell_cor <- if(is.list(cors)) cors[[cell]] else cors
-    cell_cors[[cell]] <- cormat(cell_cor, within_combos) 
+  if (length(within)) {
+    cell_cors <- list()
+    for (cell in cells_b) {
+      cell_cor <- if(is.list(cors)) cors[[cell]] else cors
+      cell_cors[[cell]] <- cormat(cell_cor, length(cells_w)) 
+    }
   }
   
   # simulate data for each between-cell
   for (cell in cells_b) {
-    cell_vars <- rnorm_multi(cell_n[1,cell], within_combos, cell_cors[[cell]], 
-                             cell_mu[[cell]], cell_sd[[cell]], 
-                             cells_w, empirical) %>%
-      dplyr::mutate("btwn" = cell)
+    if (length(within)) {
+      cell_vars <- rnorm_multi(
+        cell_n[1,cell], length(cells_w), cell_cors[[cell]], 
+        cell_mu[[cell]], cell_sd[[cell]], cells_w, empirical
+      ) %>%
+        dplyr::mutate("btwn" = cell)
+    } else {
+      # fully between design (TODO: make empirical or add n=1 to rnorm_multi)
+      cell_vars <- data.frame(
+       "val" = rnorm(cell_n[1,cell], cell_mu[[cell]], cell_sd[[cell]])
+      ) %>%
+        dplyr::mutate("btwn" = cell)
+    }
     
     # add cell values to df
     if (cell == cells_b[1]) { 
@@ -88,21 +130,26 @@ sim_design <- function(within = list(), between = list(),
   }
   
   # set column order
-  col_order <- c("sub_id", between_factors, cells_w)
+  col_order <- c("sub_id", between_factors, cells_w) %>%
+    setdiff(tmpvar_name)
   
   # create wide dataframe
   df_wide <- df %>%
     tidyr::separate("btwn", between_factors, sep = "_") %>%
     dplyr::mutate("sub_id" = sub_id) %>%
+    dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
     dplyr::select(tidyselect::one_of(col_order))
   
-  if (frame_long == TRUE) {
-    col_order <- c("sub_id", between_factors, within_factors, "val")
+  if (frame_long == TRUE && length(within)) {
+    # not necessary for fully between designs
+    col_order <- c("sub_id", between_factors, within_factors, "val") %>%
+      setdiff(tmpvar_name)
     
     df_long <- df_wide %>%
       tidyr::gather("w_in", "val", tidyselect::one_of(cells_w)) %>%
       tidyr::separate("w_in", within_factors, sep = "_") %>%
-      dplyr::select(tidyselect::one_of(col_order))
+      dplyr::select(tidyselect::one_of(col_order)) %>%
+      dplyr::mutate_at(c(between_factors, within_factors), ~as.factor(.))
     
     return(df_long)
   }
@@ -113,19 +160,36 @@ sim_design <- function(within = list(), between = list(),
 
 #' Convert mu or sd
 #' 
-#' Checks mu and sd specification from vector or list format
+#' Converts parameter specification from vector or list format
 #' 
-#' @param param the mu or sd
+#' @param param the parameter (mu, sd, or n)
 #' @param cells_b a list of between-subject cell combinations
 #' @param cells_w a list of within-subject cells combinations
 #' @param type the name of the parameter (for error messages)
 #' 
 #' @return a data frame 
 #' 
-get_mu_sd <- function (param, cells_b, cells_w, type = "this parameter") {
+convert_param <- function (param, cells_b, cells_w, type = "this parameter") {
   w_n <- length(cells_w)
   b_n <- length(cells_b)
   all_n <- b_n*w_n
+  
+  if (is.data.frame(param)) { # convert to list first
+    # check for row/column confusion
+    cols_are_w <- setdiff(names(param), cells_w) %>% length() == 0
+    rows_are_b <- setdiff(rownames(param), cells_b) %>% length() == 0
+    if (cols_are_w && rows_are_b) {
+      param <- t(param)
+    }
+    
+    cols_are_b <- setdiff(names(param), cells_b) %>% length() == 0
+    rows_are_w <- setdiff(rownames(param), cells_w) %>% length() == 0
+    if (cols_are_b && rows_are_w) {
+      param <- as.list(param) %>%  lapply(magrittr::set_names, rownames(param))
+    } else {
+      stop("The ", type, " dataframe is misspecified.")
+    }
+  }
   
   if (is.list(param)) {
     param2 <- c()
@@ -144,6 +208,21 @@ get_mu_sd <- function (param, cells_b, cells_w, type = "this parameter") {
       }
       param2 <- c(param2, new_param)
     }
+    
+    if (length(cells_b) == 0) { # no between-subject factors
+      message("no between-subject factors")
+      if (length(param) == 1) { 
+        param2 <- rep(param, w_n)
+      } else if (length(param) != w_n) {
+        stop("The number of ", type, 
+             " is not correct. Please specify either 1 or a vector of ", 
+             w_n, " per cell")
+      } else if (setdiff(cells_w, names(param)) %>% length() == 0) {
+        param2 <- param[cells_w] # add named parameters in the right order
+      } else {
+        param2 <- param # parameters are not or incorrectly named, add in this order
+      }
+    }
   } else if (is.numeric(param)) {
     if (length(param) == 1) { 
       param2 <- rep(param, all_n) 
@@ -161,3 +240,4 @@ get_mu_sd <- function (param, cells_b, cells_w, type = "this parameter") {
   
   dd
 }
+
