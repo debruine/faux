@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Select grouping and numeric columns and group — select_num_grp" />
 
-<meta property="og:description" content="select_num_grp Select grouping and numeric columns and group" />
+<meta property="og:description" content="select_num_grp Select grouping and (optionally specified) numeric columns and group" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
       </span>
     </div>
 
@@ -86,9 +86,21 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/faux_intro.html">Introduction to faux</a>
+      <a href="../articles/intro.html">Introduction to faux</a>
+    </li>
+    <li>
+      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
+    </li>
+    <li>
+      <a href="../articles/sim_design.html">Simulate by Design</a>
+    </li>
+    <li>
+      <a href="../articles/simdf.html">Simulate from Existing Data</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -113,11 +125,11 @@
 
     <div class="ref-description">
     
-    <p><code>select_num_grp</code> Select grouping and numeric columns and group</p>
+    <p><code>select_num_grp</code> Select grouping and (optionally specified) numeric columns and group</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>select_num_grp</span>(<span class='no'>dat</span>, <span class='kw'>grp_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>select_num_grp</span>(<span class='no'>dat</span>, <span class='kw'>grp_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -129,6 +141,10 @@
     <tr>
       <th>grp_by</th>
       <td><p>an optional list of column names to group by</p></td>
+    </tr>
+    <tr>
+      <th>cols</th>
+      <td><p>an optional list of column names to return (default of NULL returns all numeric columns)</p></td>
     </tr>
     </table>
     

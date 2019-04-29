@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
       </span>
     </div>
 
@@ -86,9 +86,21 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/faux_intro.html">Introduction to faux</a>
+      <a href="../articles/intro.html">Introduction to faux</a>
+    </li>
+    <li>
+      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
+    </li>
+    <li>
+      <a href="../articles/sim_design.html">Simulate by Design</a>
+    </li>
+    <li>
+      <a href="../articles/simdf.html">Simulate from Existing Data</a>
     </li>
   </ul>
+</li>
+<li>
+  <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
       
@@ -118,7 +130,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>rnorm_multi</span>(<span class='no'>n</span>, <span class='kw'>vars</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>cors</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>varnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>varnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>as.matrix</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,11 +157,15 @@
     </tr>
     <tr>
       <th>varnames</th>
-      <td><p>optional names for the variables (string vector of length vars)</p></td>
+      <td><p>optional names for the variables (string vector of length vars) defaults if cors is a matrix with column names</p></td>
     </tr>
     <tr>
       <th>empirical</th>
       <td><p>logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance</p></td>
+    </tr>
+    <tr>
+      <th>as.matrix</th>
+      <td><p>logical. If true, returns a matrix</p></td>
     </tr>
     </table>
     

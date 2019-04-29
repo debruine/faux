@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Articles • faux</title>
+<title>Simulate Data from Design — sim_design • faux</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,10 @@
 
 
 
-<meta property="og:title" content="Articles" />
+<meta property="og:title" content="Simulate Data from Design — sim_design" />
+
+<meta property="og:description" content="sim_design generates a dataframe with a specified within and between design" />
+<meta name="twitter:card" content="summary" />
 
 
 
@@ -47,7 +50,7 @@
   </head>
 
   <body>
-    <div class="container template-article-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -115,20 +118,71 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Articles</h1>
+    <h1>Simulate Data from Design</h1>
+    
+    <div class="hidden name"><code>sim_design.Rd</code></div>
     </div>
 
-    <div class="section ">
-      <h3>All vignettes</h3>
-      <p class="section-desc"></p>
-
-      <ul>
-        <li><a href="intro.html">Introduction to faux</a></li>
-        <li><a href="rnorm_multi.html">Simulate Correlated Variables</a></li>
-        <li><a href="sim_design.html">Simulate by Design</a></li>
-        <li><a href="simdf.html">Simulate from Existing Data</a></li>
-      </ul>
+    <div class="ref-description">
+    
+    <p><code>sim_design</code> generates a dataframe with a specified within and between design</p>
+    
     </div>
+
+    <pre class="usage"><span class='fu'>sim_design</span>(<span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>cors</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>frame_long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>within</th>
+      <td><p>a list of the within-subject factors</p></td>
+    </tr>
+    <tr>
+      <th>between</th>
+      <td><p>a list of the between-subject factors</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>the number of samples required</p></td>
+    </tr>
+    <tr>
+      <th>cors</th>
+      <td><p>the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)</p></td>
+    </tr>
+    <tr>
+      <th>mu</th>
+      <td><p>a vector giving the means of the variables (numeric vector of length 1 or vars)</p></td>
+    </tr>
+    <tr>
+      <th>sd</th>
+      <td><p>the standard deviations of the variables (numeric vector of length 1 or vars)</p></td>
+    </tr>
+    <tr>
+      <th>empirical</th>
+      <td><p>logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance</p></td>
+    </tr>
+    <tr>
+      <th>frame_long</th>
+      <td><p>Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>dataframe</p>
+    
+
+  </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+    <h2>Contents</h2>
+    <ul class="nav nav-pills nav-stacked">
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+          </ul>
+
   </div>
 </div>
 
