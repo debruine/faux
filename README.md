@@ -316,64 +316,22 @@ Simulate data by specifying a design structure.
 
 **This function is under development and should be carefully checked!**
 
-First, list your between-subject and within-subject factors. You can specify them like this:
-
 ``` r
-between <- list(
-  "pet" = c("cat", "dog")
+between <- list("pet" = c("cat", "dog"))
+within <- list("time" = c("day", "night"))
+mu <- data.frame(
+  cat = c(10, 20),
+  dog = c(15, 25),
+  row.names = within$time
 )
-within <- list(
-  "time" = c("day", "night")
-)
+df <- sim_design(within, between, n = 100, cors = 0.5, mu = mu, sd = 5)
 ```
 
-Or like this:
+| pet |    n| var   |   day|  night|   mean|    sd|
+|:----|----:|:------|-----:|------:|------:|-----:|
+| cat |  100| day   |  1.00|   0.55|  10.39|  4.69|
+| cat |  100| night |  0.55|   1.00|  19.78|  4.67|
+| dog |  100| day   |  1.00|   0.46|  15.02|  4.18|
+| dog |  100| night |  0.46|   1.00|  24.79|  4.74|
 
-``` r
-between <- list(
-  "pet" = c(cat = "Is a cat person", dog = "Is a dog person")
-)
-within <- list(
-  "time" = c(day = "Tested during the day", night = "Tested at night")
-)
-```
-
-Specify the means and standard deviations for each cell like this. The levels of the between-subject factors are the list names and the levels of the within-subject factors are the vector names.
-
-``` r
-mu <- list(
-  cat = c(day = 10, night = 20),
-  dog = c(day = 10, night = 30)
-)
-
-sd <- list(
-  cat = c(day = 3, night = 3),
-  dog = c(day = 3, night = 3)
-)
-```
-
-If you want the same value for each group, you can just specify a single number (e.g., `sd <- 3`).
-
-Set the correlation for each between-cell. Here, we only have two levels of one within-subject factor, so can only set one correlation per between-cell.
-
-``` r
-cors <- list(
-  cat = .5,
-  dog = .6
-)
-```
-
-Set `n` to the cell size. If you set `empirical = TRUE`, you will get the *exact* means, SDs and correlations you specified. If you set `empirical = FALSE` or omit that argument, your data will be sampled from a population with those parameters, but your dataset will not have exactly those values (just on average).
-
-``` r
-df <- sim_design(within, between, n = 100, 
-                 cors = cors, mu = mu, sd = sd,
-                 empirical = TRUE)
-```
-
-| pet |    n| var   |  day|  night|  mean|   sd|
-|:----|----:|:------|----:|------:|-----:|----:|
-| cat |  100| day   |  1.0|    0.5|    10|    3|
-| cat |  100| night |  0.5|    1.0|    20|    3|
-| dog |  100| day   |  1.0|    0.6|    10|    3|
-| dog |  100| night |  0.6|    1.0|    30|    3|
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />

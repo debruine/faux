@@ -14,14 +14,211 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(purrr)
 library(faux)
+theme_set(theme_bw())
 ```
 
 
 It is useful to be able to simulate data with a specified structure. The `faux` package provides some functions to make this process easier.
+
+## sim_design
+
+This function creates a dataset with a specific between- and within-subjects design. 
+
+Here is a quick example.
+
+```{r}
+between <- list("pet" = c("cat", "dog"))
+within <- list("time" = c("day", "night"))
+mu <- data.frame(
+  cat = c(10, 20),
+  dog = c(15, 25),
+  row.names = within$time
+)
+df <- sim_design(within, between, n = 100, cors = 0.5, mu = mu, sd = 5)
+```
+
+```{r echo = FALSE, result='asis'}
+check_sim_stats(df, grp_by = "pet", usekable = TRUE)
+```
+
+```{r, echo = FALSE, fig.width = 8, fig.height = 4}
+gather(df, time, val, day:night) %>%
+  ggplot(aes(pet, val, fill = pet)) +
+  geom_violin(show.legend = FALSE) +
+  geom_boxplot(width = .2, fill = "white", show.legend = FALSE) +
+  facet_grid(~time) +
+  scale_fill_manual(values = c("dodgerblue", "red"))
+```
+
+### Spcification of design parameters
+
+#### Factor and level names
+
+First, list your between-subject and within-subject factors. You can specify them like this:
+
+```{r}
+between <- list(
+  "pet" = c("cat", "dog")
+)
+within <- list(
+  "time" = c("day", "night")
+)
+```
+
+Or like this:
+
+```{r}
+between <- list(
+  pet = c(cat = "Is a cat person", dog = "Is a dog person")
+)
+within <- list(
+  time = c(day = "Tested during the day", night = "Tested at night")
+)
+```
+
+The long name for factor levels isn't used yet, but will be used in future functions that create a codebook or plots.
+
+#### N, mean, SD
+
+You can specify the Ns, means and standard deviations for each cell as a single number, vector, list, or data frame. 
+
+You usually want to specify `n` as a single number. This is N per cell, not total sample size.
+
+```{r}
+n <- 100 # n per cell, not total
+```
+
+The levels of the between-subject factors are the list names and the levels of the within-subject factors are the vector names. 
+
+```{r}
+mu <- list(
+  cat = c(day = 10, night = 20),
+  dog = c(day = 10, night = 30)
+)
+```
+
+Alternatively, you can specify them as dataframes.
+
+```{r}
+sd <- data.frame(
+  cat = c(3, 4),
+  dog = c(3, 5),
+  row.names = c("day", "night")
+)
+```
+
+```{r, echo = FALSE, results='asis'}
+knitr::kable(sd)
+```
+
+
+#### Correlations
+
+If you have any within-subject factors, you need to set the correlation for each between-cell. Here, we only have two levels of one within-subject factor, so can only set one correlation per between-cell.
+
+```{r}
+cors <- list(
+  cat = .5,
+  dog = .6
+)
+```
+
+If you set `empirical = TRUE`, you will get the *exact* means, SDs and correlations you specified. If you set `empirical = FALSE` or omit that argument, your data will be sampled from a population with those parameters, but your dataset will not have exactly those values (just on average).
+
+```{r}
+df <- sim_design(within, between, n = 100, 
+                 cors = cors, mu = mu, sd = sd,
+                 empirical = TRUE)
+```
+
+`r check_sim_stats(df, grp_by = "pet", usekable = TRUE)`
+
+### More factors
+
+Here is a 2w\*3w\*2b\*2b example. When you have multiple within or between factors, you need to specify parameters by cell. Cell names are the level names, in the order they are listed in the `within` or `between` arguments, separated by underscores. 
+
+Foe example, if you have one within-subject factor of condition with levels `con` and `inc`, and another within-subject factor of version wiith levels `easy`, `med`, and `hard`, your cell lables will be: `con_easy`, `inc_easy`, `con_med`, `inc_med`, `con_hard`, and `inc_hard`.
+
+If you have any characters in your level names except letters and numbers, they will be replaced by a full stop (e.g., `my super-good level_name` will become `my.super.good.level.name`).
+
+```{r}
+within <- list(
+  condition = c(con = "Mean of congruent trials", inc = "Mean of incongruent trials"),
+  version = c(easy = "Easy", med = "Medium", hard = "Difficult")
+)
+
+between <- list(
+  experience = c(novice = "Novice", expert = "Expert"),
+  time = c(day = "Before 5pm", night = "After 5pm")
+)
+
+mu <- data.frame(
+  row.names = c("con_easy", "inc_easy", "con_med", "inc_med", "con_hard", "inc_hard"),
+  novice_day = c(10, 15, 12, 17, 14, 19),
+  novice_night = c(11, 16, 13, 18, 15, 20),
+  expert_day = c(9, 14, 11, 16, 13, 18),
+  expert_night = c(10, 15, 12, 17, 14, 19)
+)
+```
+
+You can set the correlation for each between-cell to a single number.
+
+```{r}
+cors <- list(
+  novice_day = 0.3,
+  novice_night = 0.2,
+  expert_day = 0.5,
+  expert_night = 0.4
+)
+```
+
+Or you can set the full correlation matrix with a vector or matrix (see section [Specify cors](#spec_cors) below). Since we have 6 within-cells, this is a 6x6 matrix or a vector of the upper right 15 values.
+
+```{r}
+# upper right triangle correlation specification
+# inc and con have r = 0.5 within each difficultly level, 0.2 otherwise
+#   ce,  ie,  cm,  im,  ch,  ih
+r <-  c(0.5, 0.2, 0.2, 0.2, 0.2, #con_easy
+             0.2, 0.2, 0.2, 0.2, #inc_easy
+                  0.5, 0.2, 0.2, #con_med
+                       0.2, 0.2, #inc_med
+                            0.5) #con_hard
+                                 #inc_hard
+
+cors <- list(
+  novice_day = r,
+  novice_night = r,
+  expert_day = r,
+  expert_night = r
+)
+```
+
+You can set `frame_long = TRUE` to return the data frame in long format, which is usually easier for plotting. 
+
+```{r}
+df <- sim_design(within, between, n = 100, cors = cors, mu = mu, sd = 2, frame_long = TRUE)
+```
+
+
+```{r, echo = FALSE, fig.width = 8, fig.height = 5}
+df %>%
+  mutate(version = forcats::fct_relevel(version, names(within$version))) %>%
+  mutate(condition = forcats::fct_relevel(condition, names(within$condition))) %>%
+  mutate(experience = forcats::fct_relevel(experience, names(between$experience))) %>%
+  mutate(time = forcats::fct_relevel(time, names(between$time))) %>%
+  ggplot(aes(version, val, fill = condition, grp = condition)) +
+  geom_violin(show.legend = FALSE) +
+  geom_boxplot(width = .2, fill = "white", 
+               position = position_dodge(width = 0.9), 
+               show.legend = FALSE) +
+  facet_grid(time~experience) +
+  scale_fill_manual(values = c("dodgerblue", "red"))
+```
 
 
 ## rnorm_multi
@@ -50,7 +247,7 @@ dat <- rnorm_multi(n = 100,
 `r check_sim_stats(dat, usekable = T)`
 Table: Sample stats
 
-### Specify `cors`
+### Specify `cors` {#spec_cors}
 
 You can specify the correlations in one of four ways:
 

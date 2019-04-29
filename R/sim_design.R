@@ -59,15 +59,15 @@ convert_param <- function (param, cells_b, cells_w, type = "this parameter") {
   
   if (is.data.frame(param)) { # convert to list first
     # check for row/column confusion
-    cols_are_w <- setdiff(names(param), cells_w) %>% length() == 0
-    rows_are_b <- setdiff(rownames(param), cells_b) %>% length() == 0
-    if (cols_are_w && rows_are_b) {
-      param <- t(param)
-    }
-    
     cols_are_b <- setdiff(names(param), cells_b) %>% length() == 0
     rows_are_w <- setdiff(rownames(param), cells_w) %>% length() == 0
+    cols_are_w <- setdiff(names(param), cells_w) %>% length() == 0
+    rows_are_b <- setdiff(rownames(param), cells_b) %>% length() == 0
     if (cols_are_b && rows_are_w) {
+      # check this first in case rows and cols are the same labels
+      param <- as.list(param) %>%  lapply(magrittr::set_names, rownames(param))
+    } else if (cols_are_w && rows_are_b) {
+      param <- t(param) %>% as.data.frame()
       param <- as.list(param) %>%  lapply(magrittr::set_names, rownames(param))
     } else {
       stop("The ", type, " dataframe is misspecified.")
@@ -134,7 +134,6 @@ convert_param <- function (param, cells_b, cells_w, type = "this parameter") {
 #' @param cors the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param mu a vector giving the means of the variables (numeric vector of length 1 or vars)
 #' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
-#' @param tempvar_name the name to assign placeholders when there are no within or no between factors
 #' 
 #' @return list
 #' 
@@ -217,8 +216,8 @@ check_design <- function(within = list(), between = list(),
   sub_id <- paste0("S",formatC(1:sub_n, width = max_digits, flag = "0"))
   
   # set up cell correlations from cors (number, vector, matrix or list styles)
+  cell_cors <- list()
   if (length(within)) {
-    cell_cors <- list()
     for (cell in cells_b) {
       cell_cor <- if(is.list(cors)) cors[[cell]] else cors
       cell_cors[[cell]] <- cormat(cell_cor, length(cells_w)) 
@@ -252,7 +251,7 @@ check_design <- function(within = list(), between = list(),
 #' 
 #' @return dataframe
 sim_design_ <- function(design, empirical = FALSE, frame_long = FALSE) {
-  list2env(design, envir = environment(sim_design_))
+  list2env(design, envir = environment())
   
   # simulate data for each between-cell
   for (cell in cells_b) {
@@ -291,6 +290,11 @@ sim_design_ <- function(design, empirical = FALSE, frame_long = FALSE) {
     dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
     dplyr::select(tidyselect::one_of(col_order))
   
+  # FIX: put factors in order
+  #for (f in between_factors) {
+  #  df_wide[[f]] <- factor(df_wide[[f]], levels = between[[f]])
+  #}
+  
   if (frame_long == TRUE && length(within)) {
     # not necessary for fully between designs
     col_order <- c("sub_id", between_factors, within_factors, "val") %>%
@@ -300,7 +304,12 @@ sim_design_ <- function(design, empirical = FALSE, frame_long = FALSE) {
       tidyr::gather("w_in", "val", tidyselect::one_of(cells_w)) %>%
       tidyr::separate("w_in", within_factors, sep = "_") %>%
       dplyr::select(tidyselect::one_of(col_order)) %>%
-      dplyr::mutate_at(c(between_factors, within_factors), ~as.factor(.))
+      dplyr::mutate_at(within_factors, ~as.factor(.))
+    
+    #FIX: put factors in order
+    #for (f in within_factors) {
+    #  df_long[[f]] <- factor(df_long[[f]], levels = within[[f]])
+    #}
     
     return(df_long)
   }

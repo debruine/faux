@@ -19,12 +19,17 @@ check_design(within = list(), between = list(), n = 100, cors = 0,
 \item{mu}{a vector giving the means of the variables (numeric vector of length 1 or vars)}
 
 \item{sd}{the standard deviations of the variables (numeric vector of length 1 or vars)}
-
-\item{tempvar_name}{the name to assign placeholders when there are no within or no between factors}
 }
 \value{
 list
 }
 \description{
 \code{check_design} validates the specified within and between design
+}
+\examples{
+
+within <- list(time = c("day", "night"))
+between <- list(pet = c("dog", "cat"))
+design <- check_design(within, between)
+
 }

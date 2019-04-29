@@ -11,17 +11,17 @@ test_that("error messages", {
   expect_error(sim_design("1"), list_err)
   expect_error(sim_design(list(), "1"), list_err)
   
-  factor_name_err <- "You have multiple factors with the same name (A). Please give all factors unique names."
+  factor_name_err <- "You have multiple factors with the same name \\(A\\). Please give all factors unique names."
   within <- list("A" = c("A1", "A2"))
   between <- list("A" = c("A1", "A2"))
   expect_error(sim_design(within, between), factor_name_err)
   
-  level_err <- "You have duplicate levels for factor(s): A, C, B, D"
+  level_err <- "You have duplicate levels for factor\\(s\\): A, C, B, D"
   within <- list("A" = c("yes", "yes"), "C" = c("C1", "C1"))
   between <- list("B" = c("B1", "B1"), "D" = c("D1", "D1"))
   expect_error(sim_design(within, between), level_err)
   
-  level_err <- "You have duplicate levels for factor(s): A, B"
+  level_err <- "You have duplicate levels for factor\\(s\\): A, B"
   within <- list("A" = c("yes", "yes"), "C" = c("C1", "C2"))
   between <- list("B" = c("yes", "yes"), "D" = c("D1", "D2"))
   expect_error(sim_design(within, between), level_err)
@@ -189,12 +189,12 @@ test_that("2w*2b alt", {
     B1 = c(3, 4),
     B2 = c(5, 6)
   )
-  r <- list(
+  cors <- list(
     B1 = .2,
     B2 = .5
   )
   
-  df <- sim_design(within, between, n, r, mu, sd, TRUE)
+  df <- sim_design(within, between, n, cors, mu, sd, TRUE)
   chk <- check_sim_stats(df, grp_by = "B")
   
   comp <- tibble::tribble(
@@ -453,57 +453,3 @@ test_that("works", {
   expect_equal(ncol(df), 7)
   expect_equal(names(df), c("sub_id", "B", "A", "W1_C2", "W2_C2", "W1_C1", "W2_C1"))
 })
-
-# speed ----
-test_that("speed tests", {
-  library(tidyverse)
-  within <- list(
-    "A" = c("A1", "A2")
-  )
-  
-  between <- list(
-    "B" = c("B1", "B2")
-  )
-  
-  mu <- list(
-    "B1" = c(10, 10),
-    "B2" = c(10, 10)
-  )
-  
-  func <- function(i) {
-    utils::setTxtProgressBar(pb, i)
-    df <- sim_design(within, between, n = 20, mu = mu, frame_long = TRUE)
-    suppressMessages(
-      anova <- afex::aov_4(val~B*(A|sub_id), data = df, check_contrasts = TRUE)
-    )
-    anova$anova_table %>%
-      tibble::as_tibble(rownames = "factor")
-  }
-  
-  reps <- 2
-  pb <- txtProgressBar(max = reps)
-  timestamp()
-  sims <- purrr::map_df(1:reps, func)
-  timestamp()
-  close(pb)
-  
-  alpha <- 0.05
-  
-  power <- sims %>%
-    dplyr::group_by(factor) %>%
-    dplyr::summarise(power = mean(`Pr(>F)` < alpha))
-  
-  sims %>%
-    select(factor, p = `Pr(>F)`) %>%
-    ggplot(aes(p, fill = factor)) +
-    facet_grid(~factor) +
-    geom_histogram(binwidth = alpha, color = "black", boundary = 0)
-  
-  
-    
-})
-
-##------ Sun Apr 28 20:43:15 2019 ------##
-#   df <- purrr::map(1:1e4, ~sim_design(within, between, n = 20))
-##------ Sun Apr 28 20:44:48 2019 ------##
-
