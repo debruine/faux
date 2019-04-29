@@ -263,10 +263,12 @@ sim_design_ <- function(design, empirical = FALSE, frame_long = FALSE) {
       ) %>%
         dplyr::mutate("btwn" = cell)
     } else {
-      # fully between design (TODO: make empirical or add n=1 to rnorm_multi)
-      cell_vars <- data.frame(
-        "val" = rnorm(cell_n[1,cell], cell_mu[[cell]], cell_sd[[cell]])
-      ) %>%
+      # fully between design
+      val <- MASS::mvrnorm(n = cell_n[1,cell], 
+                           mu = cell_mu[[cell]], 
+                           Sigma = cell_sd[[cell]] %*% t(cell_sd[[cell]]), 
+                           empirical = empirical)
+      cell_vars <- data.frame("val" = val)  %>%
         dplyr::mutate("btwn" = cell)
     }
     

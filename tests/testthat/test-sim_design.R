@@ -81,20 +81,20 @@ test_that("2b", {
   )
   within <- list()
   
-  df <- sim_design(within, between, n = 1e4, empirical = TRUE)
+  df <- sim_design(within, between, n = 100, empirical = TRUE)
   chk <- check_sim_stats(df, grp_by = "B")
   
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~val, ~mean, ~sd,
-    "B1", 10000, "val", 1,   0,     1,
-    "B2", 10000, "val", 1,   0,     1
+    "B1", 100, "val", 1,   0,     1,
+    "B2", 100, "val", 1,   0,     1
   ) %>%
     dplyr::mutate(B = as.factor(B))
   
-  expect_equal(nrow(df), 2e4)
+  expect_equal(nrow(df), 200)
   expect_equal(ncol(df), 3)
   expect_equal(names(df), c("sub_id", "B", "val"))
-  expect_equal(as.data.frame(chk), as.data.frame(comp), tolerance = .05)
+  expect_equal(as.data.frame(chk), as.data.frame(comp))
 })
 
 # 2b*2b ----
@@ -105,22 +105,22 @@ test_that("2b*2b", {
   )
   within <- list()
   
-  df <- sim_design(within, between, n = 1e4, empirical = TRUE)
+  df <- sim_design(within, between, n = 100, empirical = TRUE)
   chk <- check_sim_stats(df, grp_by = c("A","B"))
   
   comp <- tibble::tribble(
     ~A, ~B, ~n, ~var, ~val, ~mean, ~sd,
-    "A1", "B1", 10000, "val", 1,   0,     1,
-    "A2", "B1", 10000, "val", 1,   0,     1,
-    "A1", "B2", 10000, "val", 1,   0,     1,
-    "A2", "B2", 10000, "val", 1,   0,     1
+    "A1", "B1", 100, "val", 1,   0,     1,
+    "A2", "B1", 100, "val", 1,   0,     1,
+    "A1", "B2", 100, "val", 1,   0,     1,
+    "A2", "B2", 100, "val", 1,   0,     1
   ) %>%
     dplyr::mutate(A = as.factor(A), B = as.factor(B))
   
-  expect_equal(nrow(df), 4e4)
+  expect_equal(nrow(df), 400)
   expect_equal(ncol(df), 4)
   expect_equal(names(df), c("sub_id", "A", "B", "val"))
-  expect_equal(as.data.frame(chk), as.data.frame(comp), tolerance = .05)
+  expect_equal(as.data.frame(chk), as.data.frame(comp))
 })
 
 # 2w*2b basic ----
