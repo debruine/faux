@@ -15,3 +15,4 @@ the fixed list
 \description{
 Fixes if a factor list does not have named levels or has special characters in the names
 }
+\keyword{internal}

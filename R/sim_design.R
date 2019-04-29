@@ -1,4 +1,4 @@
-#' Generate Data from Design (NOT DONE!!!)
+#' Simulate Data from Design
 #'
 #' \code{sim_design} generates a dataframe with a specified within and between design
 #'
@@ -31,7 +31,8 @@ sim_design <- function(within = list(), between = list(),
 #' @param x the list to fix
 #' 
 #' @return the fixed list
-#'
+#' @keywords internal
+#' 
 fix_name_labels <- function(x) {
   if (is.null(names(x))) { names(x) <- x }
   nm <- names(x)
@@ -250,6 +251,8 @@ check_design <- function(within = list(), between = list(),
 #' @param frame_long Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format
 #' 
 #' @return dataframe
+#' @keywords internal
+#' 
 sim_design_ <- function(design, empirical = FALSE, frame_long = FALSE) {
   list2env(design, envir = environment())
   
