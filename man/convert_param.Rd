@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim_design.R
 \name{convert_param}
 \alias{convert_param}
-\title{Convert mu or sd}
+\title{Convert parameter}
 \usage{
 convert_param(param, cells_b, cells_w, type = "this parameter")
 }

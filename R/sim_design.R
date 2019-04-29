@@ -18,61 +18,10 @@
 sim_design <- function(within = list(), between = list(), 
                        n = 100, cors = 0, mu = 0, sd = 1, 
                        empirical = FALSE, frame_long = FALSE) {
-
-  tmpvar_name <- ".tmpvar."
-  design <- check_design(within, between, n, cors, mu, sd, tmpvar_name)
-  list2env(design, envir = environment(sim_design))
-  
-  # simulate data for each between-cell
-  for (cell in cells_b) {
-    if (length(within)) {
-      cell_vars <- rnorm_multi(
-        cell_n[1,cell], length(cells_w), cell_cors[[cell]], 
-        cell_mu[[cell]], cell_sd[[cell]], cells_w, empirical
-      ) %>%
-        dplyr::mutate("btwn" = cell)
-    } else {
-      # fully between design (TODO: make empirical or add n=1 to rnorm_multi)
-      cell_vars <- data.frame(
-       "val" = rnorm(cell_n[1,cell], cell_mu[[cell]], cell_sd[[cell]])
-      ) %>%
-        dplyr::mutate("btwn" = cell)
-    }
-    
-    # add cell values to df
-    if (cell == cells_b[1]) { 
-      df <- cell_vars # first cell sets up the df
-    } else {
-      df <- dplyr::bind_rows(df, cell_vars)
-    }
-  }
-  
-  # set column order
-  col_order <- c("sub_id", between_factors, cells_w) %>%
-    setdiff(tmpvar_name)
-  
-  # create wide dataframe
-  df_wide <- df %>%
-    tidyr::separate("btwn", between_factors, sep = "_") %>%
-    dplyr::mutate("sub_id" = sub_id) %>%
-    dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
-    dplyr::select(tidyselect::one_of(col_order))
-  
-  if (frame_long == TRUE && length(within)) {
-    # not necessary for fully between designs
-    col_order <- c("sub_id", between_factors, within_factors, "val") %>%
-      setdiff(tmpvar_name)
-    
-    df_long <- df_wide %>%
-      tidyr::gather("w_in", "val", tidyselect::one_of(cells_w)) %>%
-      tidyr::separate("w_in", within_factors, sep = "_") %>%
-      dplyr::select(tidyselect::one_of(col_order)) %>%
-      dplyr::mutate_at(c(between_factors, within_factors), ~as.factor(.))
-    
-    return(df_long)
-  }
-  
-  df_wide
+  # check the design is specified correctly
+  design <- check_design(within, between, n, cors, mu, sd)
+  # simulate the data
+  sim_design_(design, empirical = empirical, frame_long = frame_long)
 }
 
 #' Fix name labels
@@ -190,7 +139,7 @@ convert_param <- function (param, cells_b, cells_w, type = "this parameter") {
 #' @return list
 #' 
 check_design <- function(within = list(), between = list(), 
-                         n = 100, cors = 0, mu = 0, sd = 1, tmpvar_name = ".tmpvar.") {
+                         n = 100, cors = 0, mu = 0, sd = 1) {
   # error checking
   if (!is.list(within) || !is.list(between)) {
     stop("within and between must be lists")
@@ -209,8 +158,8 @@ check_design <- function(within = list(), between = list(),
   between_factors <- names(between)
   
   # handle no w/in or btwn
-  if (length(between_factors) == 0) between_factors <- tmpvar_name
-  if (length(within_factors) == 0) within_factors <- tmpvar_name 
+  if (length(between_factors) == 0) between_factors <- ".tmpvar."
+  if (length(within_factors) == 0) within_factors <- ".tmpvar." 
   
   # check for duplicate factor names
   factor_overlap <- intersect(within_factors, between_factors)
@@ -243,7 +192,7 @@ check_design <- function(within = list(), between = list(),
       tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
   }
   if (length(between) == 0) {
-    cells_b = tmpvar_name
+    cells_b = ".tmpvar."
   } else {
     cells_b <- do.call(expand.grid, between) %>%
       tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
@@ -282,4 +231,68 @@ check_design <- function(within = list(), between = list(),
     cells_b = cells_b,
     sub_id = sub_id
   )
+}
+
+#' Simulate Data from Design
+#'
+#' \code{sim_from_design} generates a dataframe with a specified design
+#'
+#' @param design A list of design parameters created by check_design()
+#' @param empirical logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance 
+#' @param frame_long Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format
+#' 
+#' @return dataframe
+sim_design_ <- function(design, empirical = FALSE, frame_long = FALSE) {
+  list2env(design, envir = environment(sim_design_))
+  
+  # simulate data for each between-cell
+  for (cell in cells_b) {
+    if (length(within)) {
+      cell_vars <- rnorm_multi(
+        cell_n[1,cell], length(cells_w), cell_cors[[cell]], 
+        cell_mu[[cell]], cell_sd[[cell]], cells_w, empirical
+      ) %>%
+        dplyr::mutate("btwn" = cell)
+    } else {
+      # fully between design (TODO: make empirical or add n=1 to rnorm_multi)
+      cell_vars <- data.frame(
+        "val" = rnorm(cell_n[1,cell], cell_mu[[cell]], cell_sd[[cell]])
+      ) %>%
+        dplyr::mutate("btwn" = cell)
+    }
+    
+    # add cell values to df
+    if (cell == cells_b[1]) { 
+      df <- cell_vars # first cell sets up the df
+    } else {
+      df <- dplyr::bind_rows(df, cell_vars)
+    }
+  }
+  
+  # set column order
+  col_order <- c("sub_id", between_factors, cells_w) %>%
+    setdiff(".tmpvar.")
+  
+  # create wide dataframe
+  df_wide <- df %>%
+    tidyr::separate("btwn", between_factors, sep = "_") %>%
+    dplyr::mutate("sub_id" = sub_id) %>%
+    dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
+    dplyr::select(tidyselect::one_of(col_order))
+  
+  if (frame_long == TRUE && length(within)) {
+    # not necessary for fully between designs
+    col_order <- c("sub_id", between_factors, within_factors, "val") %>%
+      setdiff(".tmpvar.")
+    
+    df_long <- df_wide %>%
+      tidyr::gather("w_in", "val", tidyselect::one_of(cells_w)) %>%
+      tidyr::separate("w_in", within_factors, sep = "_") %>%
+      dplyr::select(tidyselect::one_of(col_order)) %>%
+      dplyr::mutate_at(c(between_factors, within_factors), ~as.factor(.))
+    
+    return(df_long)
+  }
+  
+  df_wide
 }

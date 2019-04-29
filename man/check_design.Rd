@@ -5,7 +5,7 @@
 \title{Validate design}
 \usage{
 check_design(within = list(), between = list(), n = 100, cors = 0,
-  mu = 0, sd = 1, tmpvar_name = ".tmpvar.")
+  mu = 0, sd = 1)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
