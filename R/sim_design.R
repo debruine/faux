@@ -138,6 +138,14 @@ convert_param <- function (param, cells_b, cells_w, type = "this parameter") {
 #' 
 #' @return list
 #' 
+#' @examples 
+#' 
+#' within <- list(time = c("day", "night"))
+#' between <- list(pet = c("dog", "cat"))
+#' design <- check_design(within, between)
+#' 
+#' @export
+#' 
 check_design <- function(within = list(), between = list(), 
                          n = 100, cors = 0, mu = 0, sd = 1) {
   # error checking
@@ -223,6 +231,7 @@ check_design <- function(within = list(), between = list(),
     within_factors = within_factors,
     between_factors = between_factors,
     within_labels = within_labels,
+    between_labels = between_labels,
     cell_n = cell_n,
     cell_mu = cell_mu,
     cell_sd = cell_sd,
