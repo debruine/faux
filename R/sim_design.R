@@ -18,92 +18,10 @@
 sim_design <- function(within = list(), between = list(), 
                        n = 100, cors = 0, mu = 0, sd = 1, 
                        empirical = FALSE, frame_long = FALSE) {
-  # error checking
-  if (!is.list(within) || !is.list(between)) {
-    stop("within and between must be lists")
-  } else if (length(within) == 0 && length(between) == 0) {
-    stop("You must specify at least one factor")
-  }
-  
-  # if within or between factors are named vectors, 
-  # use their names as column names and values as labels for plots
-  fix_name_labels <- function(x) {
-    if (is.null(names(x))) { names(x) <- x }
-    nm <- names(x)
-    # get rid of non-word characters and underscores because they mess up separate
-    names(x) <- gsub("(\\W|_)", ".", nm) 
-    x
-  }
-  between_labels <- purrr::map(between, fix_name_labels)
-  between <- lapply(between_labels, names)
-  within_labels <- purrr::map(within, fix_name_labels)
-  within <- lapply(within_labels, names)
-  
-  within_factors <- names(within)
-  between_factors <- names(between)
-  
-  # handle no w/in or btwn
-  tmpvar_name <- ".tmpvar."
-  if (length(between_factors) == 0) between_factors <- tmpvar_name
-  if (length(within_factors) == 0) within_factors <- tmpvar_name 
-  
-  # check for duplicate factor names
-  factor_overlap <- intersect(within_factors, between_factors)
-  if (length(factor_overlap)) {
-    stop("You have multiple factors with the same name (", 
-         paste(factor_overlap, collapse = ", "),
-         "). Please give all factors unique names.")
-  }
-  
-  # check for duplicate level names within any factor
-  dupes <- c(within, between) %>%
-    lapply(duplicated) %>%
-    lapply(sum) %>%
-    lapply(as.logical) %>%
-    unlist()
-  
-  if (sum(dupes)) {
-    dupelevels <- c(within, between) %>% 
-      names() %>% 
-      magrittr::extract(dupes) %>% 
-      paste(collapse = ", ")
-    stop("You have duplicate levels for factor(s): ", dupelevels)
-  }
-  
-  # define columns
-  if (length(within) == 0) {
-    cells_w = "val"
-  } else {
-    cells_w <- do.call(expand.grid, within) %>%
-      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
-  }
-  if (length(between) == 0) {
-    cells_b = tmpvar_name
-  } else {
-    cells_b <- do.call(expand.grid, between) %>%
-      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
-  }
-  cells_all <- do.call(expand.grid, c(within, between)) %>%
-    tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
 
-  # convert n, mu and sd from vector/list formats
-  cell_n <-  convert_param(n, cells_b, cells_w, "Ns")
-  cell_mu <- convert_param(mu, cells_b, cells_w, "means")
-  cell_sd <- convert_param(sd, cells_b, cells_w, "SDs")
-  
-  # figure out number of subjects and their IDs
-  sub_n <- sum(cell_n[1,])
-  max_digits <- floor(log10(sub_n))+1
-  sub_id <- paste0("S",formatC(1:sub_n, width = max_digits, flag = "0"))
-  
-  # set up cell correlations from cors (number, vector, matrix or list styles)
-  if (length(within)) {
-    cell_cors <- list()
-    for (cell in cells_b) {
-      cell_cor <- if(is.list(cors)) cors[[cell]] else cors
-      cell_cors[[cell]] <- cormat(cell_cor, length(cells_w)) 
-    }
-  }
+  tmpvar_name <- ".tmpvar."
+  design <- check_design(within, between, n, cors, mu, sd, tmpvar_name)
+  list2env(design, envir = environment(sim_design))
   
   # simulate data for each between-cell
   for (cell in cells_b) {
@@ -241,3 +159,118 @@ convert_param <- function (param, cells_b, cells_w, type = "this parameter") {
   dd
 }
 
+#' Validate design
+#'
+#' \code{check_design} validates the specified within and between design
+#'
+#' @param within a list of the within-subject factors
+#' @param between a list of the between-subject factors
+#' @param n the number of samples required
+#' @param cors the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
+#' @param mu a vector giving the means of the variables (numeric vector of length 1 or vars)
+#' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
+#' @param tempvar_name the name to assign placeholders when there are no within or no between factors
+#' 
+#' @return list
+#' 
+check_design <- function(within = list(), between = list(), 
+                         n = 100, cors = 0, mu = 0, sd = 1, tmpvar_name = ".tmpvar.") {
+  # error checking
+  if (!is.list(within) || !is.list(between)) {
+    stop("within and between must be lists")
+  } else if (length(within) == 0 && length(between) == 0) {
+    stop("You must specify at least one factor")
+  }
+  
+  # if within or between factors are named vectors, 
+  # use their names as column names and values as labels for plots
+  fix_name_labels <- function(x) {
+    if (is.null(names(x))) { names(x) <- x }
+    nm <- names(x)
+    # get rid of non-word characters and underscores because they mess up separate
+    names(x) <- gsub("(\\W|_)", ".", nm) 
+    x
+  }
+  between_labels <- purrr::map(between, fix_name_labels)
+  between <- lapply(between_labels, names)
+  within_labels <- purrr::map(within, fix_name_labels)
+  within <- lapply(within_labels, names)
+  
+  within_factors <- names(within)
+  between_factors <- names(between)
+  
+  # handle no w/in or btwn
+  if (length(between_factors) == 0) between_factors <- tmpvar_name
+  if (length(within_factors) == 0) within_factors <- tmpvar_name 
+  
+  # check for duplicate factor names
+  factor_overlap <- intersect(within_factors, between_factors)
+  if (length(factor_overlap)) {
+    stop("You have multiple factors with the same name (", 
+         paste(factor_overlap, collapse = ", "),
+         "). Please give all factors unique names.")
+  }
+  
+  # check for duplicate level names within any factor
+  dupes <- c(within, between) %>%
+    lapply(duplicated) %>%
+    lapply(sum) %>%
+    lapply(as.logical) %>%
+    unlist()
+  
+  if (sum(dupes)) {
+    dupelevels <- c(within, between) %>% 
+      names() %>% 
+      magrittr::extract(dupes) %>% 
+      paste(collapse = ", ")
+    stop("You have duplicate levels for factor(s): ", dupelevels)
+  }
+  
+  # define columns
+  if (length(within) == 0) {
+    cells_w = "val"
+  } else {
+    cells_w <- do.call(expand.grid, within) %>%
+      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
+  }
+  if (length(between) == 0) {
+    cells_b = tmpvar_name
+  } else {
+    cells_b <- do.call(expand.grid, between) %>%
+      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
+  }
+  
+  # convert n, mu and sd from vector/list formats
+  cell_n <-  convert_param(n, cells_b, cells_w, "Ns")
+  cell_mu <- convert_param(mu, cells_b, cells_w, "means")
+  cell_sd <- convert_param(sd, cells_b, cells_w, "SDs")
+  
+  # figure out number of subjects and their IDs
+  sub_n <- sum(cell_n[1,])
+  max_digits <- floor(log10(sub_n))+1
+  sub_id <- paste0("S",formatC(1:sub_n, width = max_digits, flag = "0"))
+  
+  # set up cell correlations from cors (number, vector, matrix or list styles)
+  if (length(within)) {
+    cell_cors <- list()
+    for (cell in cells_b) {
+      cell_cor <- if(is.list(cors)) cors[[cell]] else cors
+      cell_cors[[cell]] <- cormat(cell_cor, length(cells_w)) 
+    }
+  }
+  
+  list(
+    within = within,
+    between = between,
+    within_factors = within_factors,
+    between_factors = between_factors,
+    within_labels = within_labels,
+    cell_n = cell_n,
+    cell_mu = cell_mu,
+    cell_sd = cell_sd,
+    cell_cors = cell_cors,
+    cells_w = cells_w,
+    cells_b = cells_b,
+    sub_id = sub_id
+  )
+}
