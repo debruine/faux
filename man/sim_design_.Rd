@@ -19,3 +19,4 @@ dataframe
 \description{
 \code{sim_from_design} generates a dataframe with a specified design
 }
+\keyword{internal}

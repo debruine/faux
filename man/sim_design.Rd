@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim_design.R
 \name{sim_design}
 \alias{sim_design}
-\title{Generate Data from Design (NOT DONE!!!)}
+\title{Simulate Data from Design}
 \usage{
 sim_design(within = list(), between = list(), n = 100, cors = 0,
   mu = 0, sd = 1, empirical = FALSE, frame_long = FALSE)
