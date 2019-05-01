@@ -20,6 +20,7 @@ sim_design <- function(within = list(), between = list(),
                        empirical = FALSE, frame_long = FALSE) {
   # check the design is specified correctly
   design <- check_design(within, between, n, cors, mu, sd)
+  
   # simulate the data
   sim_design_(design, empirical = empirical, frame_long = frame_long)
 }
@@ -148,7 +149,19 @@ convert_param <- function (param, cells_b, cells_w, type = "this parameter") {
 #' 
 check_design <- function(within = list(), between = list(), 
                          n = 100, cors = 0, mu = 0, sd = 1) {
-  # error checking
+  # name anonymous factors
+  if (is.numeric(within) && within %in% 2:10 %>% mean() == 1) { # vector of level numbers
+    within_names <- LETTERS[1:length(within)]
+    within <- purrr::map2(within_names, within, ~paste0(.x, 1:.y))
+    names(within) <- within_names
+  }
+  if (is.numeric(between) && between %in% 2:10 %>% mean() == 1) { # vector of level numbers
+    between_names <- LETTERS[(length(within)+1):(length(within)+length(between))]
+    between <- purrr::map2(between_names, between, ~paste0(.x, 1:.y))
+    names(between) <- between_names
+  }
+  
+  # check factor specification
   if (!is.list(within) || !is.list(between)) {
     stop("within and between must be lists")
   } else if (length(within) == 0 && length(between) == 0) {
@@ -213,8 +226,7 @@ check_design <- function(within = list(), between = list(),
   
   # figure out number of subjects and their IDs
   sub_n <- sum(cell_n[1,])
-  max_digits <- floor(log10(sub_n))+1
-  sub_id <- paste0("S",formatC(1:sub_n, width = max_digits, flag = "0"))
+  sub_id <- make_id(sub_n)
   
   # set up cell correlations from cors (number, vector, matrix or list styles)
   cell_cors <- list()

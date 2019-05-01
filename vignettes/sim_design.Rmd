@@ -84,6 +84,17 @@ within <- list(
 
 The long name for factor levels isn't used yet, but will be used in future functions that create a codebook or plots.
 
+If you don't feel like naming your factors and levels, you can just put in a vector of levels. So you can make a quick 2w\*2w\*2b withthe following code.
+
+```{r}
+df <- sim_design(within = c(2,2), between = c(2), n = 5)
+```
+
+`r knitr::kable(df)`
+
+
+
+
 ### N, mean, SD
 
 You can specify the Ns, means and standard deviations for each cell as a single number, vector, list, or data frame. 

@@ -6,44 +6,55 @@ library(tidyverse)
 
 
 within <- list(
-  "W" = c("W1", "W2")
+  "W" = c("W1", "W2"),
+  "X" = c("X1", "X2")
 )
 
-between <- list(
-  "B" = c("B1", "B2")
-)
+between <- list()
 
-mu <- list(
-  "B1" = c(10, 10),
-  "B2" = c(10, 10)
-)
+mu <- c(W1_X1 = 10, W1_X2 = 12, W2_X1 = 10, W2_X2 = 10)
 
-anova_func <- function(i) {
-  utils::setTxtProgressBar(pb, i)
-  df <- sim_design(within, between, n = 20, mu = mu, frame_long = TRUE)
-  aov <- aov(val~B*W+Error(sub_id/W), data = df, contrasts = NULL) %>% 
-    summary() %>% 
-    unclass()
+
+anova_func <- function(i, v = "afex") {
+  #utils::setTxtProgressBar(pb, i)
+  df <- sim_design(within, between, n = 20, mu = mu, sd = 4, frame_long = TRUE)
   
-  b <- aov[[1]][[1]] %>% tibble::as_tibble(rownames = "term")
-  w <- aov[[2]][[1]] %>% tibble::as_tibble(rownames = "term")
-  b$`den Df` <- b$Df[length(b$Df)]
-  w$`den Df` <- w$Df[length(w$Df)]
+  if (v == "afex") {
+    afex::aov_4(val~(X*W|sub_id), data = df, return = "aov") %>%
+      broom::tidy()
+  } else if (v == "aov") {
+    aov(val~(X*W)+Error(sub_id/(X*W)), data = df, contrasts = NULL) %>%
+      broom::tidy()
+  }
+}
+
+anova_func2 <- function(i) {
+  df <- sim_design(within, between, n = 20, mu = mu, sd = 4, frame_long = TRUE)
   
-  dplyr::bind_rows(b, w) %>%
-    dplyr::filter(term != "Residuals") %>%
-    dplyr::mutate(term = trimws(term)) %>%
-    dplyr::select(`term`, `num Df` = `Df`, `den Df`, 
-                  `Sum Sq`, `Mean Sq`, `F` = `F value`, 
-                  `p` = `Pr(>F)`)
+  aov(val~(X*W)+Error(sub_id/(X*W)), data = df, contrasts = NULL) %>%
+      broom::tidy()
 }
 
 reps <- 10000
-pb <- txtProgressBar(max = reps)
-timestamp()
-sims <- purrr::map_df(1:reps, anova_func)
-timestamp()
-close(pb)
+#pb <- utils::txtProgressBar(max = reps)
+system.time(
+  sims_afex <- purrr::map_df(1:reps, anova_func, v = "afex")
+)
+system.time(
+  sims_aov <- purrr::map_df(1:reps, anova_func, v = "aov")
+)
+#close(pb)
+
+sims_afex %>%
+  filter(term != "Residuals") %>%
+  group_by(term) %>%
+  summarise(power = mean(p.value < .05))
+
+sims_aov %>%
+  filter(term != "Residuals") %>%
+  group_by(term) %>%
+  summarise(power = mean(p.value < .05))
+
 
 alpha <- 0.05
 

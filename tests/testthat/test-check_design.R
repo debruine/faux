@@ -59,3 +59,32 @@ test_that("design spec", {
   
   expect_equal(names(design), design_elements)
 })
+
+test_that("anon factors", {
+  design <- check_design(c(2, 4), c(2, 2))
+  
+  w <- list(
+    A = c("A1", "A2"),
+    B = c("B1", "B2", "B3", "B4")
+  )
+  
+  b <- list(
+    C = c("C1","C2"),
+    D = c("D1", "D2")
+  )
+  
+  expect_equal(design$within, w)
+  expect_equal(design$between, b)
+})
+
+test_that("make_id", {
+  expect_equal(make_id(10), c("S01", "S02", "S03", "S04", "S05", 
+                              "S06", "S07", "S08", "S09", "S10"))
+  
+  expect_equal(make_id(10, "SUB"), c("SUB01", "SUB02", "SUB03", "SUB04", "SUB05", 
+                                     "SUB06", "SUB07", "SUB08", "SUB09", "SUB10"))
+  
+  expect_equal(make_id(100)[[1]], "S001")
+  expect_equal(make_id(1000)[[1]], "S0001")
+  expect_equal(make_id(1000, "pokemon_")[[1]], "pokemon_0001")
+})

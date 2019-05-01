@@ -31,3 +31,17 @@ test_that("is_pos_def", {
                         .9, -.2, 1), 3)
   expect_equal(is_pos_def(bad_matrix), FALSE)
 })
+
+
+test_that("long", {
+  iris_long <- iris %>%
+    dplyr::mutate(id = make_id(nrow(.), "I")) %>%
+    tidyr::gather(var, val, Sepal.Length:Petal.Width) %>%
+    tidyr::separate(var, c("Feature", "Measure"))
+
+  iris_wide <- long2wide(iris_long, within = c("Feature", "Measure"), 
+                         between = "Species", dv = "val", id = "id")
+  
+  check_sim_stats(iris_long, within = c("Feature", "Measure"), 
+                  between = "Species", dv = "val", id = "id")
+})

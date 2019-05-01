@@ -111,6 +111,14 @@ check_sim_stats(iris,
                 usekable = TRUE)
 ```
 
+### make_id
+
+It is useful for IDs for random effects (e.g., subjects or stimuli) to be character strings (so you don't accidentally include them as fixed effects) with the same length s(o you can sort them in order like S01, S02,..., S10 rather than S1, S10, S2, ...) This function returns a list of IDs that have the same string length and a specified prefix.
+
+```{r}
+make_id(n = 10, prefix = "ITEM_")
+```
+
 
 ### pos_def_limits
 
@@ -135,6 +143,8 @@ lims <- pos_def_limits(.8, .2,  0,
 ```
 
 `r knitr::kable(lims)`
+
+### is_pos_def() 
 
 If you have a full matrix and want to know if it is positive definite, you can use the following code:
 

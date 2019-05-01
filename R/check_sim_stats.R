@@ -11,8 +11,17 @@
 #' @examples
 #' check_sim_stats(iris, "Species")
 #' @export
+#' 
 
-check_sim_stats <- function(dat, grp_by = NULL, digits = 2, usekable = FALSE) {
+check_sim_stats <- function(dat, within = c(), between = c(), dv = c(), id = c(),
+                            digits = 2, usekable = FALSE, grp_by = between) {
+  
+  if (length(within) && length(dv) && length(id)) {
+    # convert long to wide
+    dat <- long2wide(dat, within, between, dv, id) %>%
+      dplyr::select(-tidyselect::one_of(id))
+  }
+  
   grpdat <- select_num_grp(dat, grp_by)
   grpvars <- dplyr::group_vars(grpdat)
   numvars <- names(grpdat)[!names(grpdat) %in% grpvars]
@@ -27,7 +36,7 @@ check_sim_stats <- function(dat, grp_by = NULL, digits = 2, usekable = FALSE) {
     tidyr::spread(stat, val)
   
   stats <- grpdat %>%
-    tidyr::nest(dplyr::one_of(numvars), .key = "multisim_data") %>%
+    tidyr::nest(tidyselect::one_of(numvars), .key = "multisim_data") %>%
     dplyr::mutate(multisim_cor = purrr::map(multisim_data, function(d) {
       cor(d) %>% round(digits) %>% tibble::as_tibble(rownames = "var")
     })) %>%
@@ -41,4 +50,16 @@ check_sim_stats <- function(dat, grp_by = NULL, digits = 2, usekable = FALSE) {
   } else {
     return(stats)
   }
+}
+
+
+#' Long to wide format
+#' 
+long2wide <- function(dat, within = c(), between = c(), dv = c(), id = c()) {
+  dat %>%
+    dplyr::select(tidyselect::one_of(c(between, within, dv, id))) %>%
+    tidyr::unite(".tmpwithin.", tidyselect::one_of(within))  %>%
+    dplyr::group_by_at(dplyr::vars(tidyselect::one_of(between))) %>%
+    tidyr::spread(".tmpwithin.", !!quo(dv)) %>%
+    dplyr::ungroup()
 }
