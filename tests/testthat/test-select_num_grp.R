@@ -2,7 +2,7 @@ context("select_num_grp")
 
 test_that("error messages", {
   expect_error(select_num_grp("A"), "dat must be a data frame or matrix")
-  expect_error(select_num_grp(iris, FALSE), "grp_by must be a numeric or character vector")
+  expect_error(select_num_grp(iris, FALSE), "between must be a numeric or character vector")
 })
 
 test_that("correct defaults", {

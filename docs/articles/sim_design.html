@@ -53,16 +53,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/intro.html">Introduction to faux</a>
-    </li>
-    <li>
       <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
     </li>
     <li>
       <a href="../articles/sim_design.html">Simulate by Design</a>
     </li>
     <li>
-      <a href="../articles/simdf.html">Simulate from Existing Data</a>
+      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
     </li>
   </ul>
 </li>
@@ -85,7 +82,7 @@
       <h1>Simulate by Design</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2019-04-29</h4>
+            <h4 class="date">2019-05-01</h4>
       
       
       <div class="hidden name"><code>sim_design.Rmd</code></div>
@@ -179,6 +176,100 @@ within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
   <span class="dt">time =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dt">day =</span> <span class="st">"Tested during the day"</span>, <span class="dt">night =</span> <span class="st">"Tested at night"</span>)
 )</code></pre></div>
 <p>The long name for factor levels isn’t used yet, but will be used in future functions that create a codebook or plots.</p>
+<p>If you don’t feel like naming your factors and levels, you can just put in a vector of levels. So you can make a quick 2w*2w*2b withthe following code.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="dt">within =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">between =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>), <span class="dt">n =</span> <span class="dv">5</span>)</code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">sub_id</th>
+<th align="left">C</th>
+<th align="right">A1_B1</th>
+<th align="right">A2_B1</th>
+<th align="right">A1_B2</th>
+<th align="right">A2_B2</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">S01</td>
+<td align="left">C1</td>
+<td align="right">0.1561683</td>
+<td align="right">-0.3062499</td>
+<td align="right">-2.9189938</td>
+<td align="right">1.4686767</td>
+</tr>
+<tr class="even">
+<td align="left">S02</td>
+<td align="left">C1</td>
+<td align="right">0.2957720</td>
+<td align="right">0.0918673</td>
+<td align="right">-1.3125791</td>
+<td align="right">1.2485948</td>
+</tr>
+<tr class="odd">
+<td align="left">S03</td>
+<td align="left">C1</td>
+<td align="right">0.1196982</td>
+<td align="right">2.1077554</td>
+<td align="right">-0.7807512</td>
+<td align="right">-1.3847227</td>
+</tr>
+<tr class="even">
+<td align="left">S04</td>
+<td align="left">C1</td>
+<td align="right">-0.3682321</td>
+<td align="right">-1.1357070</td>
+<td align="right">-0.2189245</td>
+<td align="right">0.0516151</td>
+</tr>
+<tr class="odd">
+<td align="left">S05</td>
+<td align="left">C1</td>
+<td align="right">-2.7198911</td>
+<td align="right">-1.0483726</td>
+<td align="right">0.8062674</td>
+<td align="right">0.0170679</td>
+</tr>
+<tr class="even">
+<td align="left">S06</td>
+<td align="left">C2</td>
+<td align="right">0.7930322</td>
+<td align="right">1.7506883</td>
+<td align="right">-1.4776848</td>
+<td align="right">-1.0363013</td>
+</tr>
+<tr class="odd">
+<td align="left">S07</td>
+<td align="left">C2</td>
+<td align="right">-0.3230935</td>
+<td align="right">-0.4719880</td>
+<td align="right">1.0368359</td>
+<td align="right">2.1271924</td>
+</tr>
+<tr class="even">
+<td align="left">S08</td>
+<td align="left">C2</td>
+<td align="right">-0.0863936</td>
+<td align="right">-0.3977303</td>
+<td align="right">-0.5621365</td>
+<td align="right">0.2723021</td>
+</tr>
+<tr class="odd">
+<td align="left">S09</td>
+<td align="left">C2</td>
+<td align="right">1.6151919</td>
+<td align="right">1.0392466</td>
+<td align="right">-0.6035584</td>
+<td align="right">-0.3109535</td>
+</tr>
+<tr class="even">
+<td align="left">S10</td>
+<td align="left">C2</td>
+<td align="right">0.9005048</td>
+<td align="right">-0.8744312</td>
+<td align="right">-0.5389020</td>
+<td align="right">-0.4465484</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="n-mean-sd" class="section level3">
 <h3 class="hasAnchor">
@@ -329,7 +420,7 @@ cors &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocume
 )</code></pre></div>
 <p>You can set <code>frame_long = TRUE</code> to return the data frame in long format, which is usually easier for plotting.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">cors =</span> cors, <span class="dt">mu =</span> mu, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">frame_long =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-16-1.png" width="768"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
 </div>
   </div>
 

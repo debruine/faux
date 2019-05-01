@@ -4,12 +4,19 @@
 \alias{check_sim_stats}
 \title{Check table stats}
 \usage{
-check_sim_stats(dat, grp_by = NULL, digits = 2, usekable = FALSE)
+check_sim_stats(dat, between = c(), within = c(), dv = c(),
+  id = c(), digits = 2, usekable = FALSE)
 }
 \arguments{
 \item{dat}{the existing dataframe}
 
-\item{grp_by}{an optional list of column names to group by}
+\item{between}{a vector of column names for between-subject factors}
+
+\item{within}{a vector of column names for within-subject factors (if data is long)}
+
+\item{dv}{the column name of the dv (if data is long)}
+
+\item{id}{the column name(s) of the subject ID (if data is long)}
 
 \item{digits}{how many digits to round to (default = 2)}
 

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simulate Data from Design — sim_design_ • faux</title>
+<title>Simulate an existing dataframe — sim_df • faux</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Simulate Data from Design — sim_design_" />
+<meta property="og:title" content="Simulate an existing dataframe — sim_df" />
 
-<meta property="og:description" content="sim_from_design generates a dataframe with a specified design" />
+<meta property="og:description" content="sim_df Produces a dataframe with the same distributions and correlations as an existing dataframe. Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,41 +115,53 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Simulate Data from Design</h1>
+    <h1>Simulate an existing dataframe</h1>
     
-    <div class="hidden name"><code>sim_design_.Rd</code></div>
+    <div class="hidden name"><code>sim_df.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>sim_from_design</code> generates a dataframe with a specified design</p>
+    <p><code>sim_df</code> Produces a dataframe with the same distributions and correlations as an existing dataframe. Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sim_design_</span>(<span class='no'>design</span>, <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>frame_long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sim_df</span>(<span class='no'>dat</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(),
+  <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>design</th>
-      <td><p>A list of design parameters created by check_design()</p></td>
+      <th>dat</th>
+      <td><p>the existing dataframe</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>the number of samples to return per group</p></td>
+    </tr>
+    <tr>
+      <th>between</th>
+      <td><p>a list of the between-subject factors</p></td>
+    </tr>
+    <tr>
+      <th>within</th>
+      <td><p>a list of the within-subject factors</p></td>
     </tr>
     <tr>
       <th>empirical</th>
-      <td><p>logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance</p></td>
-    </tr>
-    <tr>
-      <th>frame_long</th>
-      <td><p>Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format</p></td>
+      <td><p>logical. Passed on to rnorm_multi</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>dataframe</p>
+    <p>tibble</p>
     
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='no'>iris100</span> <span class='kw'>&lt;-</span> <span class='fu'>sim_df</span>(<span class='no'>iris</span>, <span class='fl'>100</span>)
+<span class='no'>iris_species</span> <span class='kw'>&lt;-</span> <span class='fu'>sim_df</span>(<span class='no'>iris</span>, <span class='fl'>100</span>, <span class='st'>"Species"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -157,7 +169,9 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-          </ul>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
