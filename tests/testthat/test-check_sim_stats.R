@@ -41,7 +41,15 @@ test_that("long", {
 
   iris_wide <- long2wide(iris_long, within = c("Feature", "Measure"), 
                          between = "Species", dv = "val", id = "id")
+  inames <- c("Species", "id", "Petal_Length", "Petal_Width", "Sepal_Length", "Sepal_Width")
+  testthat::expect_equal(names(iris_wide), inames)
+  testthat::expect_equal(nrow(iris_wide), 150)
   
-  check_sim_stats(iris_long, within = c("Feature", "Measure"), 
-                  between = "Species", dv = "val", id = "id")
+  long <- check_sim_stats(iris_long, within = c("Feature", "Measure"), 
+                          between = "Species", dv = "val", id = "id")
+  
+  wide <- check_sim_stats(iris, between = "Species")
+  
+  
+  testthat::expect_equal(nrow(long), nrow(wide))
 })

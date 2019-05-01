@@ -55,6 +55,18 @@ check_sim_stats <- function(dat, within = c(), between = c(), dv = c(), id = c()
 
 #' Long to wide format
 #' 
+#' Converts data from long format to wide
+#' 
+#' @param dat the long data frame to convert
+#' @param within the names of the within column(s)
+#' @param between the names of between column(s) (optional)
+#' @param dv the name of the DV (value) column
+#' @param id the names of the column(s) for grouping observations
+#' 
+#' @return the data frame in wide format
+#' 
+#' @export
+#' 
 long2wide <- function(dat, within = c(), between = c(), dv = c(), id = c()) {
   dat %>%
     dplyr::select(tidyselect::one_of(c(between, within, dv, id))) %>%

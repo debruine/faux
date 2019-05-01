@@ -4,16 +4,17 @@
 \alias{check_sim_stats}
 \title{Check table stats}
 \usage{
-check_sim_stats(dat, grp_by = NULL, digits = 2, usekable = FALSE)
+check_sim_stats(dat, within = c(), between = c(), dv = c(),
+  id = c(), digits = 2, usekable = FALSE, grp_by = between)
 }
 \arguments{
 \item{dat}{the existing dataframe}
 
-\item{grp_by}{an optional list of column names to group by}
-
 \item{digits}{how many digits to round to (default = 2)}
 
 \item{usekable}{logical. If TRUE, output with knitr::kable}
+
+\item{grp_by}{an optional list of column names to group by}
 }
 \value{
 tibble or kable
