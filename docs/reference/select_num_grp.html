@@ -86,16 +86,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/intro.html">Introduction to faux</a>
-    </li>
-    <li>
       <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
     </li>
     <li>
       <a href="../articles/sim_design.html">Simulate by Design</a>
     </li>
     <li>
-      <a href="../articles/simdf.html">Simulate from Existing Data</a>
+      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
     </li>
   </ul>
 </li>
@@ -129,7 +126,7 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>select_num_grp</span>(<span class='no'>dat</span>, <span class='kw'>grp_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>select_num_grp</span>(<span class='no'>dat</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>cols</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,7 +136,7 @@
       <td><p>the existing dataframe</p></td>
     </tr>
     <tr>
-      <th>grp_by</th>
+      <th>between</th>
       <td><p>an optional list of column names to group by</p></td>
     </tr>
     <tr>

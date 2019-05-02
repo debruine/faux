@@ -82,7 +82,7 @@ test_that("2b", {
   within <- list()
   
   df <- sim_design(within, between, n = 100, empirical = TRUE)
-  chk <- check_sim_stats(df, grp_by = "B")
+  chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~val, ~mean, ~sd,
@@ -106,7 +106,7 @@ test_that("2b*2b", {
   within <- list()
   
   df <- sim_design(within, between, n = 100, empirical = TRUE)
-  chk <- check_sim_stats(df, grp_by = c("A","B"))
+  chk <- check_sim_stats(df, between = c("A","B"))
   
   comp <- tibble::tribble(
     ~A, ~B, ~n, ~var, ~val, ~mean, ~sd,
@@ -150,7 +150,7 @@ test_that("2w*2b basic", {
   )
   
   df <- sim_design(within, between, n, r, mu, sd, TRUE)
-  chk <- check_sim_stats(df, grp_by = "B")
+  chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
@@ -195,7 +195,7 @@ test_that("2w*2b alt", {
   )
   
   df <- sim_design(within, between, n, cors, mu, sd, TRUE)
-  chk <- check_sim_stats(df, grp_by = "B")
+  chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
@@ -234,9 +234,9 @@ test_that("2w*2b within order", {
   )
   
   df <- sim_design(within, between, 50, .5, mu, sd, TRUE)
-  check_sim_stats(df, grp_by = "B")
+  check_sim_stats(df, between = "B")
   
-  chk <- check_sim_stats(df, grp_by = "B")
+  chk <- check_sim_stats(df, between = "B")
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
     "B1", 50, "W1", 1,     0.5,    10,     3,
@@ -282,9 +282,9 @@ test_that("2w*2b order", {
   )
   
   df <- sim_design(within, between, n, r, mu, sd, TRUE)
-  check_sim_stats(df, grp_by = "B")
+  check_sim_stats(df, between = "B")
   
-  chk <- check_sim_stats(df, grp_by = "B")
+  chk <- check_sim_stats(df, between = "B")
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
     "B1", 60, "W1", 1,     0.2,    10,     3,
@@ -334,7 +334,7 @@ test_that("2w*2b*2b", {
   )
   
   df <- sim_design(within, between, n, r, mu, sd, TRUE)
-  check_sim_stats(df, grp_by = c("A", "B"))
+  check_sim_stats(df, between = c("A", "B"))
   
   expect_equal(nrow(df), 200)
   expect_equal(ncol(df), 5)

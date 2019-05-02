@@ -1,14 +1,14 @@
-context("simdf")
+context("sim_df")
 
 test_that("error messages", {
-  expect_error( simdf("A"), "dat must be a data frame or matrix" )
-  expect_error( simdf(iris, "A"), "n must be an integer > 2" )
-  expect_error( simdf(iris, 2), "n must be an integer > 2" )
-  expect_error( simdf(iris, 10, FALSE), "grp_by must be a numeric or character vector" )
+  expect_error( sim_df("A"), "dat must be a data frame or matrix" )
+  expect_error( sim_df(iris, "A"), "n must be an integer > 2" )
+  expect_error( sim_df(iris, 2), "n must be an integer > 2" )
+  expect_error( sim_df(iris, 10, FALSE), "between must be a numeric or character vector" )
 })
 
 test_that("correct default parameters", {
-  newdf <- simdf(iris)
+  newdf <- sim_df(iris)
 
   expect_equal(nrow(newdf), 100)
   expect_equal(ncol(newdf), 4)
@@ -25,7 +25,7 @@ test_that("correct specified parameters", {
   sds <- dplyr::summarise_all(dat, sd) %>%
     as.data.frame()
   
-  newdf <- simdf(iris, n, NULL, TRUE)
+  newdf <- sim_df(iris, n, c(), c(), TRUE)
   newdat <- dplyr::select_if(newdf, is.numeric)
   newcors <- cor(newdat)
   newmeans <- dplyr::summarise_all(newdat, mean) %>%
@@ -43,7 +43,7 @@ test_that("correct specified parameters", {
 })
 
 test_that("grouping by col name", {
-  newdf <- simdf(iris, 20, "Species")
+  newdf <- sim_df(iris, 20, "Species")
   
   expect_equal(nrow(newdf), 60)
   expect_equal(ncol(newdf), 5)
@@ -51,7 +51,7 @@ test_that("grouping by col name", {
 })
 
 test_that("grouping by col number", {
-  newdf <- simdf(iris, 20, 5)
+  newdf <- sim_df(iris, 20, 5)
   
   expect_equal(nrow(newdf), 60)
   expect_equal(ncol(newdf), 5)
@@ -63,7 +63,7 @@ test_that("grouping by col number", {
 #   
 #   simiris <- purrr::map_df(1:1000, function(i) {
 #     iris %>%
-#       simdf(100) %>%
+#       sim_df(100) %>%
 #       check_sim_stats(digits = 10)
 #   })
 #   

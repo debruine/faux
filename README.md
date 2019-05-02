@@ -1,226 +1,126 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-faux
-====
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental) <!-- badges: end -->
 
 It is useful to be able to simulate data with a specified structure. The `faux` package provides some functions to make this process easier.
 
-Installation
+sim\_design
+-----------
+
+This function creates a dataset with a specific between- and within-subjects design. [see vignette](sim_design.html)
+
+For example, the following creates a 2w\*2b design with 100 observations in each cell. The between-subject factor is `pet` with twolevels of `cat` and `dog`. The within-subject factor is `time` with two levels of `day` and `night`. The mean for the `cat_day` cell is 10, the mean for the `cat_night` cell is 20, the mean for the `dog_day` cell is 15, and the mean for the `dog_night` cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set `empirical = FALSE` to sample from a population with these values).
+
+``` r
+between <- list("pet" = c("cat", "dog"))
+within <- list("time" = c("day", "night"))
+mu <- data.frame(
+  cat = c(10, 20),
+  dog = c(15, 25),
+  row.names = within$time
+)
+df <- sim_design(within, between, 
+                 n = 100, cors = 0.5, mu = mu, sd = 5,
+                 empirical = TRUE)
+```
+
+| pet |    n| var   |  day|  night|  mean|   sd|
+|:----|----:|:------|----:|------:|-----:|----:|
+| cat |  100| day   |  1.0|    0.5|    10|    5|
+| cat |  100| night |  0.5|    1.0|    20|    5|
+| dog |  100| day   |  1.0|    0.5|    15|    5|
+| dog |  100| night |  0.5|    1.0|    25|    5|
+
+rnorm\_multi
 ------------
 
-You can install the released version of faux from [GitHub](https://github.com/debruine/faux) with:
-
-``` r
-devtools::install_github("debruine/faux")
-```
-
-Examples
---------
-
-``` r
-library(tidyverse)
-library(faux)
-```
-
-### rnorm\_multi
-
-This function makes multiple normally distributed vectors with specified parameters and relationships.
+This function makes multiple normally distributed vectors with specified parameters and relationships.[see vignette](rnorm_multi.html)
 
 For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where where A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25. A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5.
 
 ``` r
 
-dat <- rnorm_multi(n = 100, 
-                  cors = c(0.5, 0.5, 0.25), 
-                  mu = c(0, 20, 20),
-                  sd = c(1, 5, 5),
-                  varnames = c("A", "B", "C"),
-                  empirical = FALSE)
+dat <- rnorm_multi(
+  n = 100, 
+  cors = c(0.5, 0.5, 0.25), 
+  mu = c(0, 20, 20),
+  sd = c(1, 5, 5),
+  varnames = c("A", "B", "C"),
+  empirical = FALSE
+)
 ```
 
 |    n| var |     A|     B|     C|   mean|    sd|
 |----:|:----|-----:|-----:|-----:|------:|-----:|
-|  100| A   |  1.00|  0.45|  0.49|   0.03|  0.99|
-|  100| B   |  0.45|  1.00|  0.33|  20.01|  4.89|
-|  100| C   |  0.49|  0.33|  1.00|  19.76|  4.02|
+|  100| A   |  1.00|  0.62|  0.46|  -0.05|  1.08|
+|  100| B   |  0.62|  1.00|  0.19|  19.95|  5.38|
+|  100| C   |  0.46|  0.19|  1.00|  19.81|  5.15|
 
-#### Specify `cors`
+sim\_df
+-------
 
-You can specify the correlations in one of four ways:
+This function produces a dataframe with the same distributions and correlations as an existing dataframe. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). [see vignette](sim_df.html)
 
--   A single r for all pairs
--   A vars by vars matrix
--   A vars\*vars length vector
--   A vars\*(vars-1)/2 length vector
-
-##### One Number
-
-If you want all the pairs to have the same correlation, just specify a single number.
+For example, the following code creates a new sample from the built-in dataset `iris` with 50 observations of each species.
 
 ``` r
-bvn <- rnorm_multi(100, 5, .3, varnames = letters[1:5])
+new_iris <- sim_df(iris, 50, "Species") 
 ```
 
-|    n| var |     a|     b|     c|     d|     e|   mean|    sd|
-|----:|:----|-----:|-----:|-----:|-----:|-----:|------:|-----:|
-|  100| a   |  1.00|  0.35|  0.22|  0.45|  0.37|  -0.04|  1.09|
-|  100| b   |  0.35|  1.00|  0.19|  0.36|  0.28|  -0.05|  0.83|
-|  100| c   |  0.22|  0.19|  1.00|  0.26|  0.20|   0.01|  1.08|
-|  100| d   |  0.45|  0.36|  0.26|  1.00|  0.24|   0.00|  1.00|
-|  100| e   |  0.37|  0.28|  0.20|  0.24|  1.00|   0.04|  0.97|
+![Simulated iris dataset](README_files/figure-markdown_github/plot-iris-sim-1.png)
 
-##### Matrix
+Additional functions
+--------------------
 
-If you already have a correlation matrix, such as the output of `cor()`, you can specify the simulated data with that.
+### check\_sim\_stats
+
+If you want to check your simulated stats or just describe an existing dataset, use `check_sim_stats()`.
 
 ``` r
-cmat <- cor(iris[,1:4])
-bvn <- rnorm_multi(100, 4, cmat, 
-                  varnames = colnames(cmat))
+check_sim_stats(iris)
+#> # A tibble: 4 x 8
+#>       n var   Sepal.Length Sepal.Width Petal.Length Petal.Width  mean    sd
+#>   <dbl> <chr>        <dbl>       <dbl>        <dbl>       <dbl> <dbl> <dbl>
+#> 1   150 Sepa…         1          -0.12         0.87        0.82  5.84  0.83
+#> 2   150 Sepa…        -0.12        1           -0.43       -0.37  3.06  0.44
+#> 3   150 Peta…         0.87       -0.43         1           0.96  3.76  1.77
+#> 4   150 Peta…         0.82       -0.37         0.96        1     1.2   0.76
 ```
 
-|    n| var          |  Sepal.Length|  Sepal.Width|  Petal.Length|  Petal.Width|   mean|    sd|
-|----:|:-------------|-------------:|------------:|-------------:|------------:|------:|-----:|
-|  100| Sepal.Length |          1.00|        -0.10|          0.88|         0.83|  -0.01|  1.05|
-|  100| Sepal.Width  |         -0.10|         1.00|         -0.38|        -0.29|  -0.19|  1.09|
-|  100| Petal.Length |          0.88|        -0.38|          1.00|         0.96|  -0.01|  1.02|
-|  100| Petal.Width  |          0.83|        -0.29|          0.96|         1.00|  -0.05|  0.98|
-
-##### Vector (vars\*vars)
-
-You can specify your correlation matrix by hand as a vars\*vars length vector, which will include the correlations of 1 down the diagonal.
+You can also group your data and change the digits to round. Display the table using `knitr::kable()` by setting `usekable` to `TRUE` (remember to set `results='asis'` in the chunk header.
 
 ``` r
-cmat <- c(1, .3, .5,
-          .3, 1, 0,
-          .5, 0, 1)
-bvn <- rnorm_multi(100, 3, cmat, 
-                  varnames = c("first", "second", "third"))
+check_sim_stats(iris, 
+                between = "Species", 
+                digits = 3, 
+                usekable = TRUE)
 ```
 
-|    n| var    |  first|  second|  third|   mean|    sd|
-|----:|:-------|------:|-------:|------:|------:|-----:|
-|  100| first  |   1.00|    0.33|   0.45|  -0.12|  1.01|
-|  100| second |   0.33|    1.00|  -0.04|  -0.01|  1.04|
-|  100| third  |   0.45|   -0.04|   1.00|  -0.11|  1.00|
+| Species    |    n| var          |  Sepal.Length|  Sepal.Width|  Petal.Length|  Petal.Width|   mean|     sd|
+|:-----------|----:|:-------------|-------------:|------------:|-------------:|------------:|------:|------:|
+| setosa     |   50| Sepal.Length |         1.000|        0.743|         0.267|        0.278|  5.006|  0.352|
+| setosa     |   50| Sepal.Width  |         0.743|        1.000|         0.178|        0.233|  3.428|  0.379|
+| setosa     |   50| Petal.Length |         0.267|        0.178|         1.000|        0.332|  1.462|  0.174|
+| setosa     |   50| Petal.Width  |         0.278|        0.233|         0.332|        1.000|  0.246|  0.105|
+| versicolor |   50| Sepal.Length |         1.000|        0.526|         0.754|        0.546|  5.936|  0.516|
+| versicolor |   50| Sepal.Width  |         0.526|        1.000|         0.561|        0.664|  2.770|  0.314|
+| versicolor |   50| Petal.Length |         0.754|        0.561|         1.000|        0.787|  4.260|  0.470|
+| versicolor |   50| Petal.Width  |         0.546|        0.664|         0.787|        1.000|  1.326|  0.198|
+| virginica  |   50| Sepal.Length |         1.000|        0.457|         0.864|        0.281|  6.588|  0.636|
+| virginica  |   50| Sepal.Width  |         0.457|        1.000|         0.401|        0.538|  2.974|  0.322|
+| virginica  |   50| Petal.Length |         0.864|        0.401|         1.000|        0.322|  5.552|  0.552|
+| virginica  |   50| Petal.Width  |         0.281|        0.538|         0.322|        1.000|  2.026|  0.275|
 
-##### Vector (vars\*(vars-1)/2)
+### make\_id
 
-You can specify your correlation matrix by hand as a vars\*(vars-1)/2 length vector, skipping the diagonal and lower left duplicate values.
+It is useful for IDs for random effects (e.g., subjects or stimuli) to be character strings (so you don't accidentally include them as fixed effects) with the same length s(o you can sort them in order like S01, S02,..., S10 rather than S1, S10, S2, ...) This function returns a list of IDs that have the same string length and a specified prefix.
 
 ``` r
-rho1_2 <- .3
-rho1_3 <- .5
-rho1_4 <- .5
-rho2_3 <- .2
-rho2_4 <- 0
-rho3_4 <- -.3
-cmat <- c(rho1_2, rho1_3, rho1_4, rho2_3, rho2_4, rho3_4)
-bvn <- rnorm_multi(100, 4, cmat, 
-                  varnames = letters[1:4])
+make_id(n = 10, prefix = "ITEM_")
+#>  [1] "ITEM_01" "ITEM_02" "ITEM_03" "ITEM_04" "ITEM_05" "ITEM_06" "ITEM_07"
+#>  [8] "ITEM_08" "ITEM_09" "ITEM_10"
 ```
-
-|    n| var |     a|     b|      c|      d|   mean|    sd|
-|----:|:----|-----:|-----:|------:|------:|------:|-----:|
-|  100| a   |  1.00|  0.35|   0.55|   0.50|  -0.13|  1.01|
-|  100| b   |  0.35|  1.00|   0.16|   0.09|  -0.10|  1.05|
-|  100| c   |  0.55|  0.16|   1.00|  -0.21|  -0.19|  0.91|
-|  100| d   |  0.50|  0.09|  -0.21|   1.00|   0.12|  0.97|
-
-#### empirical
-
-If you want your samples to have the *exact* correlations, means, and SDs you entered, set `empirical` to TRUE.
-
-``` r
-bvn <- rnorm_multi(100, 5, .3, 
-                  varnames = letters[1:5], 
-                  empirical = T)
-```
-
-|    n| var |    a|    b|    c|    d|    e|  mean|   sd|
-|----:|:----|----:|----:|----:|----:|----:|-----:|----:|
-|  100| a   |  1.0|  0.3|  0.3|  0.3|  0.3|     0|    1|
-|  100| b   |  0.3|  1.0|  0.3|  0.3|  0.3|     0|    1|
-|  100| c   |  0.3|  0.3|  1.0|  0.3|  0.3|     0|    1|
-|  100| d   |  0.3|  0.3|  0.3|  1.0|  0.3|     0|    1|
-|  100| e   |  0.3|  0.3|  0.3|  0.3|  1.0|     0|    1|
-
-### simdf
-
-This function produces a dataframe with the same distributions and correlations as an existing dataframe. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).
-
-For example, here is the relationship between speed and distance in the built-in dataset `cars`.
-
-``` r
-cars %>%
-  ggplot(aes(speed, dist)) + 
-  geom_point() +
-  geom_smooth(method = "lm")
-```
-
-<img src="man/figures/README-plot-cars-orig-1.png" alt="Original cars dataset" width="100%" />
-<p class="caption">
-Original cars dataset
-</p>
-
-You can create a new sample with the same parameters and 500 rows with the code `simdf(cars, 500)`.
-
-``` r
-simdf(cars, 500) %>%
-  ggplot(aes(speed, dist)) + 
-    geom_point() +
-    geom_smooth(method = "lm")
-```
-
-<img src="man/figures/README-plot-cars-sim-1.png" alt="Simulated cars dataset" width="100%" />
-<p class="caption">
-Simulated cars dataset
-</p>
-
-#### Grouping Variables
-
-You can also optionally add grouping variables. For example, here is the relationship between sepal length and width in the built-in dataset `iris`.
-
-``` r
-iris %>%
-  ggplot(aes(Sepal.Width, Sepal.Length, color = Species)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-```
-
-<img src="man/figures/README-plot-iris-orig-1.png" alt="Original iris dataset" width="100%" />
-<p class="caption">
-Original iris dataset
-</p>
-
-And here is a new sample with 50 observations of each species, made with the code `simdf(iris, 100, "Species")`.
-
-``` r
-simdf(iris, 50, "Species") %>%
-  ggplot(aes(Sepal.Width, Sepal.Length, color = Species)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-```
-
-<img src="man/figures/README-plot-iris-sim-1.png" alt="Simulated iris dataset" width="100%" />
-<p class="caption">
-Simulated iris dataset
-</p>
-
-For now, the function only creates new variables sampled from a continuous normal distribution. I hope to add in other sampling distributions in the future. So you'd need to do any rounding or truncating yourself.
-
-``` r
-simdf(iris, 50, "Species") %>%
-  mutate_if(is.numeric, round, 1) %>%
-  ggplot(aes(Sepal.Width, Sepal.Length, color = Species)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-```
-
-<img src="man/figures/README-plot-iris-sim-round-1.png" alt="Simulated iris dataset (rounded)" width="100%" />
-<p class="caption">
-Simulated iris dataset (rounded)
-</p>
 
 ### pos\_def\_limits
 
@@ -250,6 +150,8 @@ lims <- pos_def_limits(.8, .2,  0,
 |:----|:----|
 | NA  | NA  |
 
+### is\_pos\_def()
+
 If you have a full matrix and want to know if it is positive definite, you can use the following code:
 
 ``` r
@@ -270,68 +172,3 @@ matrix(c(1, .3, -.9, .2,
   is_pos_def()
 #> [1] FALSE
 ```
-
-### check\_sim\_stats
-
-If you want to check your simulated stats or just describe an existing dataset, use `check_sim_stats()`.
-
-``` r
-check_sim_stats(iris)
-#> # A tibble: 4 x 8
-#>       n var   Sepal.Length Sepal.Width Petal.Length Petal.Width  mean    sd
-#>   <dbl> <chr>        <dbl>       <dbl>        <dbl>       <dbl> <dbl> <dbl>
-#> 1   150 Sepa…         1          -0.12         0.87        0.82  5.84  0.83
-#> 2   150 Sepa…        -0.12        1           -0.43       -0.37  3.06  0.44
-#> 3   150 Peta…         0.87       -0.43         1           0.96  3.76  1.77
-#> 4   150 Peta…         0.82       -0.37         0.96        1     1.2   0.76
-```
-
-You can also group your data and change the digits to round. Display the table using `knitr::kable()` by setting `usekable` to `TRUE` (remember to set `results='asis'` in the chunk header.
-
-``` r
-check_sim_stats(iris, 
-                grp_by = "Species", 
-                digits = 3, 
-                usekable = TRUE)
-```
-
-| Species    |    n| var          |  Sepal.Length|  Sepal.Width|  Petal.Length|  Petal.Width|   mean|     sd|
-|:-----------|----:|:-------------|-------------:|------------:|-------------:|------------:|------:|------:|
-| setosa     |   50| Sepal.Length |         1.000|        0.743|         0.267|        0.278|  5.006|  0.352|
-| setosa     |   50| Sepal.Width  |         0.743|        1.000|         0.178|        0.233|  3.428|  0.379|
-| setosa     |   50| Petal.Length |         0.267|        0.178|         1.000|        0.332|  1.462|  0.174|
-| setosa     |   50| Petal.Width  |         0.278|        0.233|         0.332|        1.000|  0.246|  0.105|
-| versicolor |   50| Sepal.Length |         1.000|        0.526|         0.754|        0.546|  5.936|  0.516|
-| versicolor |   50| Sepal.Width  |         0.526|        1.000|         0.561|        0.664|  2.770|  0.314|
-| versicolor |   50| Petal.Length |         0.754|        0.561|         1.000|        0.787|  4.260|  0.470|
-| versicolor |   50| Petal.Width  |         0.546|        0.664|         0.787|        1.000|  1.326|  0.198|
-| virginica  |   50| Sepal.Length |         1.000|        0.457|         0.864|        0.281|  6.588|  0.636|
-| virginica  |   50| Sepal.Width  |         0.457|        1.000|         0.401|        0.538|  2.974|  0.322|
-| virginica  |   50| Petal.Length |         0.864|        0.401|         1.000|        0.322|  5.552|  0.552|
-| virginica  |   50| Petal.Width  |         0.281|        0.538|         0.322|        1.000|  2.026|  0.275|
-
-### sim\_design
-
-Simulate data by specifying a design structure.
-
-**This function is under development and should be carefully checked!**
-
-``` r
-between <- list("pet" = c("cat", "dog"))
-within <- list("time" = c("day", "night"))
-mu <- data.frame(
-  cat = c(10, 20),
-  dog = c(15, 25),
-  row.names = within$time
-)
-df <- sim_design(within, between, n = 100, cors = 0.5, mu = mu, sd = 5)
-```
-
-| pet |    n| var   |   day|  night|   mean|    sd|
-|:----|----:|:------|-----:|------:|------:|-----:|
-| cat |  100| day   |  1.00|   0.55|  10.39|  4.69|
-| cat |  100| night |  0.55|   1.00|  19.78|  4.67|
-| dog |  100| day   |  1.00|   0.46|  15.02|  4.18|
-| dog |  100| night |  0.46|   1.00|  24.79|  4.74|
-
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />

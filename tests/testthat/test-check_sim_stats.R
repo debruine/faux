@@ -2,7 +2,7 @@ context("check_sim_stats")
 
 test_that("error messages", {
   expect_error(check_sim_stats("A"), "dat must be a data frame or matrix")
-  expect_error(check_sim_stats(iris, FALSE), "grp_by must be a numeric or character vector")
+  expect_error(check_sim_stats(iris, FALSE), "between must be a numeric or character vector")
 })
 
 test_that("correct defaults", {
@@ -34,11 +34,18 @@ test_that("is_pos_def", {
 
 
 test_that("long", {
+  df_long <- sim_design(2,2, frame_long = TRUE)
+  df_wide <- long2wide(df_long, "B", "A", "val", "sub_id")
+  
+  expect_equal(names(df_wide), c("sub_id", "B", "A1", "A2"))
+  expect_equal(nrow(df_wide), 200)
+  
   iris_long <- iris %>%
     dplyr::mutate(id = make_id(nrow(.), "I")) %>%
     tidyr::gather(var, val, Sepal.Length:Petal.Width) %>%
     tidyr::separate(var, c("Feature", "Measure"))
 
+<<<<<<< HEAD
   iris_wide <- long2wide(iris_long, within = c("Feature", "Measure"), 
                          between = "Species", dv = "val", id = "id")
   inames <- c("Species", "id", "Petal_Length", "Petal_Width", "Sepal_Length", "Sepal_Width")
@@ -52,4 +59,21 @@ test_that("long", {
   
   
   testthat::expect_equal(nrow(long), nrow(wide))
+=======
+  iris_wide <- long2wide(iris_long, between = "Species", 
+                         within = c("Feature", "Measure"), 
+                         dv = "val", id = "id")
+  iris_wide_names <- c("id", "Species", "Petal_Length", "Petal_Width", "Sepal_Length", "Sepal_Width")
+  
+  expect_equal(names(iris_wide), iris_wide_names)
+  expect_equal(nrow(iris_wide), 150)
+  
+  chk <- check_sim_stats(iris_long, between = "Species", 
+                         within = c("Feature", "Measure"), 
+                         dv = "val", id = "id")
+  
+  expect_equal(nrow(chk), 12)
+  expect_equal(names(chk), c("Species", "n", "var", "Petal_Length", "Petal_Width", 
+                             "Sepal_Length", "Sepal_Width", "mean", "sd"))
+>>>>>>> 2e6b53215a76edb725bd2a55068d6181d5594185
 })
