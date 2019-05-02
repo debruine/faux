@@ -1,6 +1,6 @@
 #' Generate a sample with random intercepts for subjects and items
 #'
-#' \code{simdf_mixed} Produces a dataframe with the same distributions of by-subject and by-item random intercepts as an existing dataframe
+#' \code{sim_mixed_df} Produces a dataframe with the same distributions of by-subject and by-item random intercepts as an existing dataframe
 #'
 #' @param dat the existing dataframe
 #' @param sub_n the number of subjects to simulate
@@ -11,10 +11,10 @@
 #' 
 #' @return tibble
 #' @examples
-#' \donttest{simdf_mixed(faceratings, 10, 10, "rating", "rater_id", "face_id")}
+#' \donttest{sim_mixed_df(faceratings, 10, 10, "rating", "rater_id", "face_id")}
 #' @export
 
-simdf_mixed <- function(dat, sub_n = 100, item_n = 25, 
+sim_mixed_df <- function(dat, sub_n = 100, item_n = 25, 
                         dv = 1, sub_id = 2, item_id = 3) {
   # error checking -------------------------------------------------------------
   if (is.matrix(dat)) {

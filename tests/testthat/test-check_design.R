@@ -51,11 +51,11 @@ test_that("design spec", {
     "B2" = .5
   )
   
-  design <- check_design(within, between, n, r, mu, sd)
+  design <- check_design(within, between, n, mu, sd, r)
   
   design_elements <- c("within", "between", "within_factors", "between_factors", 
-                       "within_labels", "between_labels", "cell_n", "cell_mu", "cell_sd", 
-                       "cell_cors", "cells_w", "cells_b", "sub_id")
+                       "within_labels", "between_labels", "cell_n", "cell_mu", "cell_sd",
+                       "cell_r", "cells_w", "cells_b", "sub_id")
   
   expect_equal(names(design), design_elements)
 })

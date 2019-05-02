@@ -25,7 +25,7 @@ test_that("correct specified parameters", {
   sds <- dplyr::summarise_all(dat, sd) %>%
     as.data.frame()
   
-  newdf <- sim_df(iris, n, c(), c(), TRUE)
+  newdf <- sim_df(iris, n, c(), TRUE)
   newdat <- dplyr::select_if(newdf, is.numeric)
   newcors <- cor(newdat)
   newmeans <- dplyr::summarise_all(newdat, mean) %>%

@@ -21,7 +21,7 @@ check_sim_stats <- function(dat, between = c(), within = c(), dv = c(), id = c()
   
   if (length(within) && length(dv) && length(id)) {
     # convert long to wide
-    dat <- long2wide(dat, between, within, dv, id) %>%
+    dat <- long2wide(dat, within, between, dv, id) %>%
       dplyr::select(-tidyselect::one_of(id))
   }
   
@@ -53,48 +53,4 @@ check_sim_stats <- function(dat, between = c(), within = c(), dv = c(), id = c()
   } else {
     return(stats)
   }
-}
-
-
-#' Long to wide format
-
-#' Converts a table from long to wide format
-#'
-#' @param dat the existing dataframe in long format
-#' @param between a vector of column names for between-subject factors
-#' @param within a vector of column names for within-subject factors
-#' @param dv the column name of the dv
-#' @param id the column name(s) of the subject ID
-#' 
-#' @return tibble in wide format
-#' @examples
-#' 
-#' df_long <- sim_design(2,2, frame_long = TRUE)
-#' df_wide <- long2wide(df_long, "B", "A", "val", "sub_id")
-#' 
-#' @export
-#' 
-<<<<<<< HEAD
-#' Converts data from long format to wide
-#' 
-#' @param dat the long data frame to convert
-#' @param within the names of the within column(s)
-#' @param between the names of between column(s) (optional)
-#' @param dv the name of the DV (value) column
-#' @param id the names of the column(s) for grouping observations
-#' 
-#' @return the data frame in wide format
-#' 
-#' @export
-#' 
-long2wide <- function(dat, within = c(), between = c(), dv = c(), id = c()) {
-=======
-long2wide <- function(dat, between = c(), within = c(), dv = c(), id = c()) {
->>>>>>> 2e6b53215a76edb725bd2a55068d6181d5594185
-  dat %>%
-    dplyr::select(tidyselect::one_of(c(id, between, within, dv))) %>%
-    tidyr::unite(".tmpwithin.", tidyselect::one_of(within))  %>%
-    dplyr::group_by_at(dplyr::vars(tidyselect::one_of(between))) %>%
-    tidyr::spread(".tmpwithin.", !!dplyr::quo(dv)) %>%
-    dplyr::ungroup()
 }

@@ -26,7 +26,7 @@ test_that("correct specified parameters", {
   rho <- runif(1) * sample(c(-1, 1), 1)
   ymean <- rnorm(1, 0, 100)
   ysd <- runif(1, 0.001, 100)
-  v2 <- rnorm_pre(v1, rho, ymean, ysd)
+  v2 <- rnorm_pre(v1, ymean, ysd, rho)
   
   testrho <- cor(v1, v2)
   testymean <- mean(v2)

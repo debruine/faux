@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -126,15 +126,15 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>sim_df</span>(<span class='no'>dat</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(),
-  <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'>sim_df</span>(<span class='no'>dat</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>grp_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dat</th>
-      <td><p>the existing dataframe</p></td>
+      <td><p>the existing dataframe (must be in wide format)</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -142,15 +142,15 @@
     </tr>
     <tr>
       <th>between</th>
-      <td><p>a list of the between-subject factors</p></td>
-    </tr>
-    <tr>
-      <th>within</th>
-      <td><p>a list of the within-subject factors</p></td>
+      <td><p>a list of the between-subject columns</p></td>
     </tr>
     <tr>
       <th>empirical</th>
       <td><p>logical. Passed on to rnorm_multi</p></td>
+    </tr>
+    <tr>
+      <th>grp_by</th>
+      <td><p>(deprecated; use between)</p></td>
     </tr>
     </table>
     
@@ -161,7 +161,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>iris100</span> <span class='kw'>&lt;-</span> <span class='fu'>sim_df</span>(<span class='no'>iris</span>, <span class='fl'>100</span>)
-<span class='no'>iris_species</span> <span class='kw'>&lt;-</span> <span class='fu'>sim_df</span>(<span class='no'>iris</span>, <span class='fl'>100</span>, <span class='st'>"Species"</span>)</div></pre>
+<span class='no'>iris_species</span> <span class='kw'>&lt;-</span> <span class='fu'>sim_df</span>(<span class='no'>iris</span>, <span class='fl'>100</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='st'>"Species"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

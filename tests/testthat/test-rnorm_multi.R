@@ -6,9 +6,16 @@ test_that("error messages", {
   expect_error(rnorm_multi(10.3), "n must be an integer > 2")
   expect_error(rnorm_multi("A"), "n must be an integer > 2")
   
+  expect_warning(rnorm_multi(100, 3, cors = .5), "cors is deprecated, please use r")
+  
+  expect_error(
+    rnorm_multi(10, 3, 1:2),
+    "the length of mu must be 1 or vars"
+  )
+  
   expect_error(
     rnorm_multi(10, 3, 0, 1:2),
-    "the length of mu must be 1 or vars"
+    "the length of sd must be 1 or vars"
   )
   
   expect_error(
@@ -17,33 +24,29 @@ test_that("error messages", {
   )
   
   expect_error(
-    rnorm_multi(10, 3, 0, 1, 1:2),
-    "the length of sd must be 1 or vars"
-  )
-  expect_error(
-    rnorm_multi(10, 3, matrix("A", 3, 3)),
+    rnorm_multi(10, 3, 0, 1, matrix("A", 3, 3)),
     "cors matrix not numeric" 
   )
   expect_error(
-    rnorm_multi(10, 3, matrix(0.5, 4, 2)),
+    rnorm_multi(10, 3, 0, 1, matrix(0.5, 4, 2)),
     "cors matrix wrong dimensions" 
   )
   
   m <- matrix(c(1, .5, .5, .5, 1, .5, .5, .75, 1), 3)
   expect_error( 
-    rnorm_multi(10, 3, m), 
+    rnorm_multi(10, 3, 0, 1, m), 
     "cors matrix not symmetric"
   )
   
   m <- matrix(c(1, .5, .5, .5, 1, .5, .5, .5, 0), 3)
   expect_error(
-    rnorm_multi(10, 3, m),
+    rnorm_multi(10, 3, 0, 1, m),
     "correlation matrix not positive definite"
   )
   
   cors <- c(-0.06826927, -0.89756943, -0.45636273)
   expect_error(
-    rnorm_multi(10, 3, cors),
+    rnorm_multi(10, 3, 0, 1, cors),
     "correlation matrix not positive definite"
   )
 })
@@ -51,7 +54,7 @@ test_that("error messages", {
 test_that("correct default parameters", {
   n <- 1e5
   dat <- rnorm_multi(n)
-  cors <- cor(dat)
+  r <- cor(dat)
   means <- dplyr::summarise_all(dat, mean)
   sds <- dplyr::summarise_all(dat, sd)
   
@@ -64,7 +67,7 @@ test_that("correct default parameters", {
 test_that("correct default parameters with empirical = TRUE", {
   n <- 50
   dat <- rnorm_multi(n, empirical = TRUE)
-  cors <- cor(dat)
+  r <- cor(dat)
   means <- dplyr::summarise_all(dat, mean)
   sds <- dplyr::summarise_all(dat, sd)
   
@@ -76,7 +79,7 @@ test_that("correct default parameters with empirical = TRUE", {
 
 test_that("default matrix names", {
   cmat <- cor(iris[,1:4])
-  dat <- rnorm_multi(10, vars = 4, cors = cmat)
+  dat <- rnorm_multi(10, vars = 4, r = cmat)
   
   expect_equal(colnames(dat), colnames(cmat))
 })

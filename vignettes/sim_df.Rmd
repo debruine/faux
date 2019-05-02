@@ -44,9 +44,9 @@ sim_df(cars, 500) %>%
     geom_smooth(method = "lm")
 ```
 
-#### Grouping Variables
+## Between-subject variables
 
-You can also optionally add grouping variables. For example, here is the relationship between sepal length and width in the built-in dataset `iris`.
+You can also optionally add between-subject variables. For example, here is the relationship between sepal length and width in the built-in dataset `iris`.
 
 ```{r plot-iris-orig, fig.cap="Original iris dataset"}
 iris %>%
@@ -64,6 +64,17 @@ sim_df(iris, 50, "Species") %>%
   geom_smooth(method = "lm")
 ```
 
+## Empirical
+
+Set `empirical = TRUE` to return a data frame with *exactly* the same means, SDs, and correlations as the original dataset.
+
+```{r}
+exact_iris <- sim_df(iris, 50, between = "Species", empirical = TRUE)
+```
+
+
+## Rounding
+
 For now, the function only creates new variables sampled from a continuous normal distribution. I hope to add in other sampling distributions in the future. So you'd need to do any rounding or truncating yourself.
 
 ```{r plot-iris-sim-round, fig.cap="Simulated iris dataset (rounded)"}
@@ -73,3 +84,4 @@ sim_df(iris, 50, "Species") %>%
   geom_point() +
   geom_smooth(method = "lm")
 ```
+

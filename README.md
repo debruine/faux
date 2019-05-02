@@ -8,7 +8,7 @@ It is useful to be able to simulate data with a specified structure. The `faux` 
 sim\_design
 -----------
 
-This function creates a dataset with a specific between- and within-subjects design. [see vignette](sim_design.html)
+This function creates a dataset with a specific between- and within-subjects design. [see vignette](articles/sim_design.html)
 
 For example, the following creates a 2w\*2b design with 100 observations in each cell. The between-subject factor is `pet` with twolevels of `cat` and `dog`. The within-subject factor is `time` with two levels of `day` and `night`. The mean for the `cat_day` cell is 10, the mean for the `cat_night` cell is 20, the mean for the `dog_day` cell is 15, and the mean for the `dog_night` cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set `empirical = FALSE` to sample from a population with these values).
 
@@ -21,7 +21,7 @@ mu <- data.frame(
   row.names = within$time
 )
 df <- sim_design(within, between, 
-                 n = 100, cors = 0.5, mu = mu, sd = 5,
+                 n = 100, mu = mu, sd = 5, r = .5,
                  empirical = TRUE)
 ```
 
@@ -35,17 +35,17 @@ df <- sim_design(within, between,
 rnorm\_multi
 ------------
 
-This function makes multiple normally distributed vectors with specified parameters and relationships.[see vignette](rnorm_multi.html)
+This function makes multiple normally distributed vectors with specified parameters and relationships.[see vignette](articles/rnorm_multi.html)
 
-For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where where A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25. A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5.
+For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5. A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25.
 
 ``` r
 
 dat <- rnorm_multi(
   n = 100, 
-  cors = c(0.5, 0.5, 0.25), 
   mu = c(0, 20, 20),
   sd = c(1, 5, 5),
+  r = c(0.5, 0.5, 0.25), 
   varnames = c("A", "B", "C"),
   empirical = FALSE
 )
@@ -60,7 +60,7 @@ dat <- rnorm_multi(
 sim\_df
 -------
 
-This function produces a dataframe with the same distributions and correlations as an existing dataframe. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). [see vignette](sim_df.html)
+This function produces a dataframe with the same distributions and correlations as an existing dataframe. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). [see vignette](articles/sim_df.html)
 
 For example, the following code creates a new sample from the built-in dataset `iris` with 50 observations of each species.
 

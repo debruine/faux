@@ -6,7 +6,7 @@ cells_b <- c("B1_C1", "B2_C1", "B1_C2", "B2_C2")
 # single number ---
 testthat::test_that("single number", {
   param <- 3
-  cp <- convert_param(param, cells_b, cells_w) %>%
+  cp <- convert_param(param, cells_w, cells_b) %>%
     unlist() %>% magrittr::equals(param) %>% sum()
   expect_equal(cp, 16)
 })
@@ -19,7 +19,7 @@ testthat::test_that("list of single numbers", {
     "B1_C2" = 3, 
     "B2_C2" = 4
   )
-  cp <- convert_param(param, cells_b, cells_w) %>% unlist() %>% unname()
+  cp <- convert_param(param, cells_w, cells_b) %>% unlist() %>% unname()
   expect_equal(cp, rep(1:4, each = 4))
 })
 
@@ -27,7 +27,7 @@ testthat::test_that("list of single numbers", {
 # unnamed vector of cells ----
 testthat::test_that("unnamed vector of cells", {
   param <- rep(1:4, each = 4)
-  cp <- convert_param(param, cells_b, cells_w) %>% unlist() %>% unname()
+  cp <- convert_param(param, cells_w, cells_b) %>% unlist() %>% unname()
   expect_equal(cp, param)
 })
 
@@ -40,7 +40,7 @@ testthat::test_that("list of unnamed vectors", {
     "B1_C2" = 9:12,
     "B2_C2" = 13:16
   )
-  cp <- convert_param(param, cells_b, cells_w) %>% unlist() %>% unname()
+  cp <- convert_param(param, cells_w, cells_b) %>% unlist() %>% unname()
   expect_equal(cp, 1:16)
 })
 
@@ -53,7 +53,7 @@ testthat::test_that("list of named vectors", {
     "B1_C2" = c("W1_X1" = 9, "W2_X1" = 10, "W1_X2" = 11, "W2_X2" = 12),
     "B2_C2" = c("W1_X1" = 13, "W2_X1" = 14, "W1_X2" = 15, "W2_X2" = 16)
   )
-  cp <- convert_param(param, cells_b, cells_w) %>% unlist() %>% unname()
+  cp <- convert_param(param, cells_w, cells_b) %>% unlist() %>% unname()
   expect_equal(cp, 1:16)
 })
 
@@ -65,7 +65,7 @@ testthat::test_that("list of disordered named vectors", {
     "B2_C1" = c("W1_X1" = 5, "W1_X2" = 7, "W2_X1" = 6, "W2_X2" = 8),
     "B2_C2" = c("W1_X1" = 13, "W1_X2" = 15, "W2_X1" = 14, "W2_X2" = 16)
   )
-  cp <- convert_param(param, cells_b, cells_w) %>% unlist() %>% unname()
+  cp <- convert_param(param, cells_w, cells_b) %>% unlist() %>% unname()
   expect_equal(cp, 1:16)
 })
 
@@ -83,7 +83,7 @@ testthat::test_that("as data frame", {
   
   as.list(param) %>%  lapply(magrittr::set_names, rownames(param))
   
-  cp <- convert_param(param, cells_b, cells_w) %>% unlist() %>% unname()
+  cp <- convert_param(param, cells_w, cells_b) %>% unlist() %>% unname()
   expect_equal(cp, 1:16)
   
 })
@@ -99,7 +99,7 @@ testthat::test_that("backwards data frame", {
     magrittr::set_names(cells_w) %>%
     magrittr::set_rownames(cells_b)
   
-  cp <- convert_param(param, cells_b, cells_w) %>% unlist() %>% unname()
+  cp <- convert_param(param, cells_w, cells_b) %>% unlist() %>% unname()
   expect_equal(cp, 1:16)
   
 })

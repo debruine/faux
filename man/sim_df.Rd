@@ -4,19 +4,19 @@
 \alias{sim_df}
 \title{Simulate an existing dataframe}
 \usage{
-sim_df(dat, n = 100, between = c(), within = c(),
-  empirical = FALSE)
+sim_df(dat, n = 100, between = c(), empirical = FALSE,
+  grp_by = NULL)
 }
 \arguments{
-\item{dat}{the existing dataframe}
+\item{dat}{the existing dataframe (must be in wide format)}
 
 \item{n}{the number of samples to return per group}
 
-\item{between}{a list of the between-subject factors}
-
-\item{within}{a list of the within-subject factors}
+\item{between}{a list of the between-subject columns}
 
 \item{empirical}{logical. Passed on to rnorm_multi}
+
+\item{grp_by}{(deprecated; use between)}
 }
 \value{
 tibble
@@ -26,5 +26,5 @@ tibble
 }
 \examples{
 iris100 <- sim_df(iris, 100)
-iris_species <- sim_df(iris, 100, "Species")
+iris_species <- sim_df(iris, 100, between = "Species")
 }

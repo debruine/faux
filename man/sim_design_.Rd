@@ -9,7 +9,7 @@ sim_design_(design, empirical = FALSE, frame_long = FALSE)
 \arguments{
 \item{design}{A list of design parameters created by check_design()}
 
-\item{empirical}{logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance}
+\item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 
 \item{frame_long}{Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format}
 }
@@ -17,6 +17,6 @@ sim_design_(design, empirical = FALSE, frame_long = FALSE)
 dataframe
 }
 \description{
-\code{sim_from_design} generates a dataframe with a specified design
+\code{sim_design_} generates a dataframe with a specified design
 }
 \keyword{internal}

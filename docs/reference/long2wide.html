@@ -6,8 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Long to wide format
-Converts a table from long to wide format — long2wide • faux</title>
+<title>Long to wide format — long2wide • faux</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -31,11 +30,9 @@ Converts a table from long to wide format — long2wide • faux</title>
 
 
 
-<meta property="og:title" content="Long to wide format
-Converts a table from long to wide format — long2wide" />
+<meta property="og:title" content="Long to wide format — long2wide" />
 
-<meta property="og:description" content="Long to wide format
-Converts a table from long to wide format" />
+<meta property="og:description" content="Converts data from long format to wide" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -66,7 +63,7 @@ Converts a table from long to wide format" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -118,55 +115,49 @@ Converts a table from long to wide format" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Long to wide format
-Converts a table from long to wide format</h1>
+    <h1>Long to wide format</h1>
     
     <div class="hidden name"><code>long2wide.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Long to wide format
-Converts a table from long to wide format</p>
+    <p>Converts data from long format to wide</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>long2wide</span>(<span class='no'>dat</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>dv</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>())</pre>
+    <pre class="usage"><span class='fu'>long2wide</span>(<span class='no'>dat</span>, <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>dv</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>dat</th>
-      <td><p>the existing dataframe in long format</p></td>
-    </tr>
-    <tr>
-      <th>between</th>
-      <td><p>a vector of column names for between-subject factors</p></td>
+      <td><p>the long data frame to convert</p></td>
     </tr>
     <tr>
       <th>within</th>
-      <td><p>a vector of column names for within-subject factors</p></td>
+      <td><p>the names of the within column(s)</p></td>
+    </tr>
+    <tr>
+      <th>between</th>
+      <td><p>the names of between column(s) (optional)</p></td>
     </tr>
     <tr>
       <th>dv</th>
-      <td><p>the column name of the dv</p></td>
+      <td><p>the name of the DV (value) column</p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>the column name(s) of the subject ID</p></td>
+      <td><p>the names of the column(s) for grouping observations</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>tibble in wide format</p>
+    <p>the data frame in wide format</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='no'>df_long</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sim_design.html'>sim_design</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>, <span class='kw'>frame_long</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='no'>df_wide</span> <span class='kw'>&lt;-</span> <span class='fu'>long2wide</span>(<span class='no'>df_long</span>, <span class='st'>"B"</span>, <span class='st'>"A"</span>, <span class='st'>"val"</span>, <span class='st'>"sub_id"</span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -174,9 +165,7 @@ Converts a table from long to wide format</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>

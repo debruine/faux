@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <h1>Simulate from Existing Data</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2019-05-01</h4>
+            <h4 class="date">2019-05-02</h4>
       
       
       <div class="hidden name"><code>sim_df.Rmd</code></div>
@@ -112,10 +112,10 @@ Original cars dataset
 Simulated cars dataset
 </p>
 </div>
-<div id="grouping-variables" class="section level4">
-<h4 class="hasAnchor">
-<a href="#grouping-variables" class="anchor"></a>Grouping Variables</h4>
-<p>You can also optionally add grouping variables. For example, here is the relationship between sepal length and width in the built-in dataset <code>iris</code>.</p>
+<div id="between-subject-variables" class="section level2">
+<h2 class="hasAnchor">
+<a href="#between-subject-variables" class="anchor"></a>Between-subject variables</h2>
+<p>You can also optionally add between-subject variables. For example, here is the relationship between sepal length and width in the built-in dataset <code>iris</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">iris <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Sepal.Width, Sepal.Length, <span class="dt">color =</span> Species)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
@@ -135,6 +135,16 @@ Original iris dataset
 Simulated iris dataset
 </p>
 </div>
+</div>
+<div id="empirical" class="section level2">
+<h2 class="hasAnchor">
+<a href="#empirical" class="anchor"></a>Empirical</h2>
+<p>Set <code>empirical = TRUE</code> to return a data frame with <em>exactly</em> the same means, SDs, and correlations as the original dataset.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">exact_iris &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_df.html">sim_df</a></span>(iris, <span class="dv">50</span>, <span class="dt">between =</span> <span class="st">"Species"</span>, <span class="dt">empirical =</span> <span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="rounding" class="section level2">
+<h2 class="hasAnchor">
+<a href="#rounding" class="anchor"></a>Rounding</h2>
 <p>For now, the function only creates new variables sampled from a continuous normal distribution. I hope to add in other sampling distributions in the future. So you’d need to do any rounding or truncating yourself.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/sim_df.html">sim_df</a></span>(iris, <span class="dv">50</span>, <span class="st">"Species"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, round, <span class="dv">1</span>) <span class="op">%&gt;%</span>
@@ -150,6 +160,15 @@ Simulated iris dataset (rounded)
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+        <div id="tocnav">
+      <h2 class="hasAnchor">
+<a href="#tocnav" class="anchor"></a>Contents</h2>
+      <ul class="nav nav-pills nav-stacked">
+<li><a href="#between-subject-variables">Between-subject variables</a></li>
+      <li><a href="#empirical">Empirical</a></li>
+      <li><a href="#rounding">Rounding</a></li>
+      </ul>
+</div>
       </div>
 
 </div>

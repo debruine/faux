@@ -4,16 +4,16 @@
 \alias{rnorm_pre}
 \title{Correlated Normal Vector}
 \usage{
-rnorm_pre(x, rho = 0, ymean = 0, ysd = 1)
+rnorm_pre(x, mu = 0, sd = 1, r = 0)
 }
 \arguments{
 \item{x}{the existing vector}
 
-\item{rho}{desired correlation between existing and returned vectors}
+\item{mu}{desired mean of returned vector}
 
-\item{ymean}{desired mean of returned vector}
+\item{sd}{desired SD of returned vector}
 
-\item{ysd}{desired SD of returned vector}
+\item{r}{desired correlation between existing and returned vectors}
 }
 \value{
 vector
@@ -23,6 +23,6 @@ vector
 }
 \examples{
 v1 <- rnorm(10)
-v2 <- rnorm_pre(v1, 0.5, 0, 1)
+v2 <- rnorm_pre(v1, 0, 1, 0.5)
 cor(v1, v2)
 }
