@@ -5,7 +5,7 @@
 \title{Simulate Data from Design}
 \usage{
 sim_design(within = list(), between = list(), n = 100, mu = 0,
-  sd = 1, r = 0, empirical = FALSE, frame_long = FALSE)
+  sd = 1, r = 0, empirical = FALSE, long = FALSE)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -22,11 +22,11 @@ sim_design(within = list(), between = list(), n = 100, mu = 0,
 
 \item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 
-\item{frame_long}{Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format}
+\item{long}{Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format}
 }
 \value{
-dataframe
+a tbl
 }
 \description{
-\code{sim_design} generates a dataframe with a specified within and between design
+\code{sim_design()} generates a data table with a specified within and between design.
 }

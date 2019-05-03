@@ -395,6 +395,23 @@ Simulated iris dataset
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/make_id.html">make_id</a></span>(<span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">prefix =</span> <span class="st">"ITEM_"</span>)
 <span class="co">#&gt;  [1] "ITEM_01" "ITEM_02" "ITEM_03" "ITEM_04" "ITEM_05" "ITEM_06" "ITEM_07"</span>
 <span class="co">#&gt;  [8] "ITEM_08" "ITEM_09" "ITEM_10"</span></code></pre></div>
+<p>You can also manually set the number of digits and set <code>n</code> to a range of integers.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/make_id.html">make_id</a></span>(<span class="dt">n =</span> <span class="dv">10</span><span class="op">:</span><span class="dv">20</span>, <span class="dt">digits =</span> <span class="dv">3</span>)
+<span class="co">#&gt;  [1] "S010" "S011" "S012" "S013" "S014" "S015" "S016" "S017" "S018" "S019"</span>
+<span class="co">#&gt; [11] "S020"</span></code></pre></div>
+</div>
+<div id="long2wide" class="section level3">
+<h3 class="hasAnchor">
+<a href="#long2wide" class="anchor"></a>long2wide</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">between &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"pet"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>))
+within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"time"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"day"</span>, <span class="st">"night"</span>))
+df_long &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">long =</span> <span class="ot">TRUE</span>)
+
+df_wide &lt;-<span class="st"> </span><span class="kw"><a href="reference/long2wide.html">long2wide</a></span>(df_long, 
+                     <span class="dt">within =</span> <span class="st">"time"</span>, 
+                     <span class="dt">between =</span> <span class="st">"pet"</span>, 
+                     <span class="dt">dv =</span> <span class="st">"val"</span>, 
+                     <span class="dt">id =</span> <span class="st">"sub_id"</span>)</code></pre></div>
 </div>
 <div id="pos_def_limits" class="section level3">
 <h3 class="hasAnchor">

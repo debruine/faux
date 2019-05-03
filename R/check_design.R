@@ -15,7 +15,7 @@
 #' 
 #' within <- list(time = c("day", "night"))
 #' between <- list(pet = c("dog", "cat"))
-#' design <- check_design(within, between)
+#' check_design(within, between)
 #' 
 #' @export
 #' 
@@ -116,12 +116,12 @@ check_design <- function(within = list(), between = list(),
     between_factors = between_factors,
     within_labels = within_labels,
     between_labels = between_labels,
+    cells_w = cells_w,
+    cells_b = cells_b,
     cell_n = cell_n,
     cell_mu = cell_mu,
     cell_sd = cell_sd,
     cell_r = cell_r,
-    cells_w = cells_w,
-    cells_b = cells_b,
     sub_id = sub_id
   )
 }
@@ -209,3 +209,115 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
   
   dd
 }
+
+
+#' Get design from long data
+#' 
+#' Makes a best guess at the design of a long-format data frame. 
+#' Finds all columns that contain a single value per unit of analysis (between factors), 
+#' all columns that contain the same values per unit of analysis (within factors), and 
+#' all columns that differ over units of analysis (dv, continuous factors)
+#' 
+#' @param .data the data frame (in long format)
+#' @param id the column name(s) that identify a unit of analysis
+#' @param dv the column name that identifies the DV
+#' 
+#' @return the data frame in long format
+#' 
+#' @export
+#'
+get_design_long <- function(.data, id = "sub_id", dv = "val") {
+  between_factors <- .data %>%
+    dplyr::group_by_at(dplyr::vars(tidyselect::one_of(id))) %>%
+    dplyr::summarise_all(dplyr::n_distinct) %>%
+    dplyr::ungroup() %>%
+    dplyr::select(-tidyselect::one_of(id)) %>%
+    dplyr::summarise_all(max) %>%
+    dplyr::select_if(~ . == 1) %>%
+    names()
+  
+  within_factors <- .data %>%
+    dplyr::select(-tidyselect::one_of(between_factors)) %>%
+    dplyr::group_by_at(dplyr::vars(tidyselect::one_of(id))) %>%
+    dplyr::summarise_all(paste0, collapse = ",") %>%
+    dplyr::ungroup() %>%
+    dplyr::select(-tidyselect::one_of(id)) %>%
+    dplyr::summarise_all(dplyr::n_distinct) %>%
+    dplyr::select_if(~ . == 1) %>%
+    names()
+  
+  within <- .data %>%
+    dplyr::select(tidyselect::one_of(within_factors)) %>%
+    dplyr::mutate_all(as.factor) %>%
+    dplyr::summarise_all(~levels(.) %>% paste0(collapse = ".|.")) %>%
+    as.list() %>%
+    sapply(strsplit, split=".|.", fixed = TRUE)
+  
+  between <- .data %>%
+    dplyr::select(tidyselect::one_of(between_factors)) %>%
+    dplyr::mutate_all(as.factor) %>%
+    dplyr::summarise_all(~levels(.) %>% paste0(collapse = ".|.")) %>%
+    as.list() %>%
+    sapply(strsplit, split=".|.", fixed = TRUE)
+  
+  between_labels <- purrr::map(between, fix_name_labels)
+  within_labels <- purrr::map(within, fix_name_labels)
+  
+  cells_b <- do.call(expand.grid, between) %>%
+    tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
+  
+  cells_w <- do.call(expand.grid, within) %>%
+    tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
+  
+  # get n, mu, sd, r per cell
+  chk <- check_sim_stats(.data, between_factors, within_factors, dv, id)
+  
+  n <- chk %>%
+    tidyr::unite(".within", tidyselect::one_of(between_factors)) %>%
+    dplyr::select(.within, var, n) %>%
+    tidyr::spread(var, n) %>%
+    tibble::column_to_rownames(".within")
+  
+  mu <- chk %>%
+    tidyr::unite(".within", tidyselect::one_of(between_factors)) %>%
+    dplyr::select(.within, var, mean) %>%
+    tidyr::spread(var, mean) %>%
+    tibble::column_to_rownames(".within")
+  
+  sd <- chk %>%
+    tidyr::unite(".within", tidyselect::one_of(between_factors)) %>%
+    dplyr::select(.within, var, sd) %>%
+    tidyr::spread(var, sd) %>%
+    tibble::column_to_rownames(".within")
+  
+  cors <- chk %>%
+    tidyr::unite(".between", tidyselect::one_of(between_factors)) %>%
+    dplyr::select(tidyselect::one_of(c(".between", "var", cells_w))) %>%
+    dplyr::mutate(var = forcats::fct_relevel(var, cells_w)) %>%
+    dplyr::arrange(var) %>%
+    dplyr::group_by(.between) %>%
+    tidyr::nest(.key = "r") %>%
+    as.list() 
+  
+  r <- purrr::map(cors$r, ~tibble::column_to_rownames(., "var"))
+  names(r) <- cors$.between
+   
+  design <- list(
+    within = within,
+    between = between,
+    within_factors = within_factors,
+    between_factors = between_factors,
+    within_labels = within_labels,
+    between_labels = between_labels,
+    cells_w = cells_w,
+    cells_b = cells_b,
+    cell_n = n,
+    cell_mu = mu,
+    cell_sd = sd,
+    cell_r = r,
+    sub_id = id
+  )
+  
+  design
+}
+

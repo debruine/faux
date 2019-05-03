@@ -32,7 +32,7 @@
 
 <meta property="og:title" content="Simulate an existing dataframe — sim_df" />
 
-<meta property="og:description" content="sim_df Produces a dataframe with the same distributions and correlations as an existing dataframe. Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now)." />
+<meta property="og:description" content="sim_df Produces a data table with the same distributions and correlations as an existing data table Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now)." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -122,19 +122,19 @@
 
     <div class="ref-description">
     
-    <p><code>sim_df</code> Produces a dataframe with the same distributions and correlations as an existing dataframe. Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).</p>
+    <p><code>sim_df</code> Produces a data table with the same distributions and correlations as an existing data table Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>sim_df</span>(<span class='no'>dat</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+    <pre class="usage"><span class='fu'>sim_df</span>(<span class='no'>.data</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>grp_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>dat</th>
-      <td><p>the existing dataframe (must be in wide format)</p></td>
+      <th>.data</th>
+      <td><p>the existing tbl (must be in wide format)</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -156,7 +156,7 @@
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>tibble</p>
+    <p>a tbl</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

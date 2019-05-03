@@ -126,18 +126,22 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>make_id</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"S"</span>)</pre>
+    <pre class="usage"><span class='fu'>make_id</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"S"</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>n</th>
-      <td><p>the number of IDs to generate</p></td>
+      <td><p>the number of IDs to generate (or a vector of numbers)</p></td>
     </tr>
     <tr>
       <th>prefix</th>
       <td><p>the letter prefix to the number</p></td>
+    </tr>
+    <tr>
+      <th>digits</th>
+      <td><p>the number of digits to use for the numeric part. Only used if this is larger than the number of digits in n.</p></td>
     </tr>
     </table>
     
@@ -151,7 +155,9 @@
 <span class='fu'>make_id</span>(<span class='fl'>20</span>, <span class='st'>"SUBJECT_"</span>)</div><div class='output co'>#&gt;  [1] "SUBJECT_01" "SUBJECT_02" "SUBJECT_03" "SUBJECT_04" "SUBJECT_05"
 #&gt;  [6] "SUBJECT_06" "SUBJECT_07" "SUBJECT_08" "SUBJECT_09" "SUBJECT_10"
 #&gt; [11] "SUBJECT_11" "SUBJECT_12" "SUBJECT_13" "SUBJECT_14" "SUBJECT_15"
-#&gt; [16] "SUBJECT_16" "SUBJECT_17" "SUBJECT_18" "SUBJECT_19" "SUBJECT_20"</div><div class='input'>
+#&gt; [16] "SUBJECT_16" "SUBJECT_17" "SUBJECT_18" "SUBJECT_19" "SUBJECT_20"</div><div class='input'><span class='fu'>make_id</span>(<span class='fl'>10</span>:<span class='fl'>30</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt;  [1] "S010" "S011" "S012" "S013" "S014" "S015" "S016" "S017" "S018" "S019"
+#&gt; [11] "S020" "S021" "S022" "S023" "S024" "S025" "S026" "S027" "S028" "S029"
+#&gt; [21] "S030"</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

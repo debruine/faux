@@ -208,12 +208,12 @@ r <- list(
 )
 ```
 
-You can set `frame_long = TRUE` to return the data frame in long format, which is usually easier for plotting. 
+You can set `long = TRUE` to return the data frame in long format, which is usually easier for plotting. 
 
 ```{r}
 df <- sim_design(within, between, n = 100, 
                  mu = mu, sd = 2, r = r, 
-                 frame_long = TRUE)
+                 long = TRUE)
 ```
 
 

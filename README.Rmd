@@ -120,6 +120,29 @@ It is useful for IDs for random effects (e.g., subjects or stimuli) to be charac
 make_id(n = 10, prefix = "ITEM_")
 ```
 
+You can also manually set the number of digits and set `n` to a range of integers.
+
+```{r}
+make_id(n = 10:20, digits = 3)
+```
+
+
+### long2wide
+
+```{r}
+between <- list("pet" = c("cat", "dog"))
+within <- list("time" = c("day", "night"))
+df_long <- sim_design(within, between, long = TRUE)
+
+df_wide <- long2wide(df_long, 
+                     within = "time", 
+                     between = "pet", 
+                     dv = "val", 
+                     id = "sub_id")
+```
+
+
+
 
 ### pos_def_limits
 

@@ -1,6 +1,6 @@
 #' Simulate Data from Design
 #'
-#' \code{sim_design} generates a dataframe with a specified within and between design
+#' \code{sim_design()} generates a data table with a specified within and between design.
 #'
 #' @param within a list of the within-subject factors
 #' @param between a list of the between-subject factors
@@ -9,21 +9,21 @@
 #' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
 #' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
-#' @param frame_long Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format
+#' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' 
-#' @return dataframe
+#' @return a tbl
 #' 
 #' @export
 #' 
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
-                       empirical = FALSE, frame_long = FALSE) {
+                       empirical = FALSE, long = FALSE) {
   # check the design is specified correctly
   design <- check_design(within = within, between = between, 
                          n = n, mu = mu, sd = sd, r = r)
   
   # simulate the data
-  sim_design_(design, empirical = empirical, frame_long = frame_long)
+  sim_design_(design, empirical = empirical, long = long)
 }
 
 #' Fix name labels
@@ -45,16 +45,16 @@ fix_name_labels <- function(x) {
 
 #' Simulate Data from Design
 #'
-#' \code{sim_design_} generates a dataframe with a specified design
+#' \code{sim_design_} generates a data table with a specified design
 #'
 #' @param design A list of design parameters created by check_design()
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
-#' @param frame_long Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format
+#' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' 
-#' @return dataframe
+#' @return a tbl
 #' @keywords internal
 #' 
-sim_design_ <- function(design, empirical = FALSE, frame_long = FALSE) {
+sim_design_ <- function(design, empirical = FALSE, long = FALSE) {
   list2env(design, envir = environment())
   
   # simulate data for each between-cell
@@ -100,7 +100,7 @@ sim_design_ <- function(design, empirical = FALSE, frame_long = FALSE) {
   #  df_wide[[f]] <- factor(df_wide[[f]], levels = between[[f]])
   #}
   
-  if (frame_long == TRUE && length(within)) {
+  if (long == TRUE && length(within)) {
     # not necessary for fully between designs
     col_order <- c("sub_id", between_factors, within_factors, "val") %>%
       setdiff(".tmpvar.")

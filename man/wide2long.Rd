@@ -4,21 +4,25 @@
 \alias{wide2long}
 \title{Wide to long format}
 \usage{
-wide2long(dat, within_factors = c(), within_cols = c(),
+wide2long(.data, within_factors = c(), within_cols = c(),
   sep = "[^[:alnum:]]+")
 }
 \arguments{
-\item{dat}{the wide data frame to convert}
+\item{.data}{the tbl in wide format}
 
-\item{sep}{Separator between columns (see tidyr::separate)}
+\item{within_factors}{the names of the within factors}
 
-\item{within}{the names of the within factors}
+\item{within_cols}{the names (or indices) of the within-subject (value) columns}
 
-\item{dv}{the names of the DV (value) columns}
+\item{sep}{Separator for within-columns (see tidyr::separate)}
 }
 \value{
-the data frame in long format
+a tbl in long format
 }
 \description{
 Converts data from wide format to long
+}
+\examples{
+wide2long(iris, c("Feature", "Measure"), 1:4)
+
 }

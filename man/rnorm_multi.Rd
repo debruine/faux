@@ -27,12 +27,13 @@ rnorm_multi(n, vars = 3, mu = 0, sd = 1, r = 0, varnames = NULL,
 \item{cors}{(deprecated; use r)}
 }
 \value{
-dataframe of vars vectors
+a tbl of vars vectors
 }
 \description{
-\code{rnorm_multi} makes multiple normally distributed vectors with specified relationships
+\code{rnorm_multi()} makes multiple normally distributed vectors with specified relationships.
 }
 \examples{
-rnorm_multi(100, 3, c(0.2, 0.4, 0.5), varnames=c("A", "B", "C"))
-rnorm_multi(100, 3, c(1, 0.2, -0.5, 0.2, 1, 0.5, -0.5, 0.5, 1), varnames=c("A", "B", "C"))
+rnorm_multi(100, 3, 0, 1, c(0.2, 0.4, 0.5), varnames=c("A", "B", "C"))
+rnorm_multi(100, 3, 0, 1, c(1, 0.2, -0.5, 0.2, 1, 0.5, -0.5, 0.5, 1), varnames=c("A", "B", "C"))
+
 }

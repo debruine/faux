@@ -56,7 +56,7 @@ test_that("correct default parameters", {
   dat <- rnorm_multi(n)
   r <- cor(dat)
   means <- dplyr::summarise_all(dat, mean)
-  sds <- dplyr::summarise_all(dat, sd)
+  sds <- dplyr::summarise_all(dat, stats::sd)
   
   expect_equal(nrow(dat), n)
   expect_equal(ncol(dat), 3)
@@ -69,7 +69,7 @@ test_that("correct default parameters with empirical = TRUE", {
   dat <- rnorm_multi(n, empirical = TRUE)
   r <- cor(dat)
   means <- dplyr::summarise_all(dat, mean)
-  sds <- dplyr::summarise_all(dat, sd)
+  sds <- dplyr::summarise_all(dat, stats::sd)
   
   expect_equal(nrow(dat), n)
   expect_equal(ncol(dat), 3)

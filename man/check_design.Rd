@@ -30,6 +30,6 @@ list
 
 within <- list(time = c("day", "night"))
 between <- list(pet = c("dog", "cat"))
-design <- check_design(within, between)
+check_design(within, between)
 
 }

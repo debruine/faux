@@ -4,11 +4,11 @@
 \alias{sim_df}
 \title{Simulate an existing dataframe}
 \usage{
-sim_df(dat, n = 100, between = c(), empirical = FALSE,
+sim_df(.data, n = 100, between = c(), empirical = FALSE,
   grp_by = NULL)
 }
 \arguments{
-\item{dat}{the existing dataframe (must be in wide format)}
+\item{.data}{the existing tbl (must be in wide format)}
 
 \item{n}{the number of samples to return per group}
 
@@ -19,10 +19,10 @@ sim_df(dat, n = 100, between = c(), empirical = FALSE,
 \item{grp_by}{(deprecated; use between)}
 }
 \value{
-tibble
+a tbl
 }
 \description{
-\code{sim_df} Produces a dataframe with the same distributions and correlations as an existing dataframe. Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).
+\code{sim_df} Produces a data table with the same distributions and correlations as an existing data table Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).
 }
 \examples{
 iris100 <- sim_df(iris, 100)

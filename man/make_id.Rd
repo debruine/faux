@@ -4,12 +4,14 @@
 \alias{make_id}
 \title{Make ID}
 \usage{
-make_id(n = 100, prefix = "S")
+make_id(n = 100, prefix = "S", digits = 0)
 }
 \arguments{
-\item{n}{the number of IDs to generate}
+\item{n}{the number of IDs to generate (or a vector of numbers)}
 
 \item{prefix}{the letter prefix to the number}
+
+\item{digits}{the number of digits to use for the numeric part. Only used if this is larger than the number of digits in n.}
 }
 \value{
 a vector of IDs
@@ -20,5 +22,6 @@ Make IDs with fixed length and a letter prefix for random effects (e.g., S001, S
 \examples{
 
 make_id(20, "SUBJECT_")
+make_id(10:30, digits = 3)
 
 }

@@ -35,7 +35,7 @@ df <- sim_design(within, between,
 rnorm\_multi
 ------------
 
-This function makes multiple normally distributed vectors with specified parameters and relationships.[see vignette](articles/rnorm_multi.html)
+This function makes multiple normally distributed vectors with specified parameters and relationships. [see vignette](articles/rnorm_multi.html)
 
 For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5. A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25.
 
@@ -120,6 +120,28 @@ It is useful for IDs for random effects (e.g., subjects or stimuli) to be charac
 make_id(n = 10, prefix = "ITEM_")
 #>  [1] "ITEM_01" "ITEM_02" "ITEM_03" "ITEM_04" "ITEM_05" "ITEM_06" "ITEM_07"
 #>  [8] "ITEM_08" "ITEM_09" "ITEM_10"
+```
+
+You can also manually set the number of digits and set `n` to a range of integers.
+
+``` r
+make_id(n = 10:20, digits = 3)
+#>  [1] "S010" "S011" "S012" "S013" "S014" "S015" "S016" "S017" "S018" "S019"
+#> [11] "S020"
+```
+
+### long2wide
+
+``` r
+between <- list("pet" = c("cat", "dog"))
+within <- list("time" = c("day", "night"))
+df_long <- sim_design(within, between, long = TRUE)
+
+df_wide <- long2wide(df_long, 
+                     within = "time", 
+                     between = "pet", 
+                     dv = "val", 
+                     id = "sub_id")
 ```
 
 ### pos\_def\_limits

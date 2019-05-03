@@ -6,3 +6,8 @@
 # faux 0.0.0.9005
 
 * Bug fixes for `sim_design()` (failed when within or between factor number was 0)
+
+# faux 0.0.0.9006
+
+* Changes to argument order and names (more consistent, but may break old scripts)
+* Updated vignettes

@@ -4,10 +4,11 @@
 \alias{long2wide}
 \title{Long to wide format}
 \usage{
-long2wide(dat, within = c(), between = c(), dv = c(), id = c())
+long2wide(.data, within = c(), between = c(), dv = "val",
+  id = "sub_id")
 }
 \arguments{
-\item{dat}{the long data frame to convert}
+\item{.data}{the tbl in long format}
 
 \item{within}{the names of the within column(s)}
 
@@ -18,8 +19,13 @@ long2wide(dat, within = c(), between = c(), dv = c(), id = c())
 \item{id}{the names of the column(s) for grouping observations}
 }
 \value{
-the data frame in wide format
+a tbl in wide format
 }
 \description{
 Converts data from long format to wide
+}
+\examples{
+df_long <- sim_design(2, 2, long = TRUE)
+long2wide(df_long, "A", "B", "val", "sub_id")
+
 }

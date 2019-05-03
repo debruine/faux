@@ -4,11 +4,11 @@
 \alias{check_sim_stats}
 \title{Check table stats}
 \usage{
-check_sim_stats(dat, between = c(), within = c(), dv = c(),
+check_sim_stats(.data, between = c(), within = c(), dv = c(),
   id = c(), digits = 2, usekable = FALSE)
 }
 \arguments{
-\item{dat}{the existing dataframe}
+\item{.data}{the existing tbl}
 
 \item{between}{a vector of column names for between-subject factors}
 
@@ -23,7 +23,7 @@ check_sim_stats(dat, between = c(), within = c(), dv = c(),
 \item{usekable}{logical. If TRUE, output with knitr::kable}
 }
 \value{
-tibble or kable
+a tbl or kable
 }
 \description{
 \code{check_sim_stats} Generates a table of the correlations and means of numeric columns in a data frame

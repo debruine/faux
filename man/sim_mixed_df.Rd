@@ -4,11 +4,11 @@
 \alias{sim_mixed_df}
 \title{Generate a sample with random intercepts for subjects and items}
 \usage{
-sim_mixed_df(dat, sub_n = 100, item_n = 25, dv = 1, sub_id = 2,
+sim_mixed_df(.data, sub_n = 100, item_n = 25, dv = 1, sub_id = 2,
   item_id = 3)
 }
 \arguments{
-\item{dat}{the existing dataframe}
+\item{.data}{the existing tbl}
 
 \item{sub_n}{the number of subjects to simulate}
 
@@ -21,10 +21,10 @@ sim_mixed_df(dat, sub_n = 100, item_n = 25, dv = 1, sub_id = 2,
 \item{item_id}{the column name or index for the item IDs}
 }
 \value{
-tibble
+a tbl
 }
 \description{
-\code{sim_mixed_df} Produces a dataframe with the same distributions of by-subject and by-item random intercepts as an existing dataframe
+\code{sim_mixed_df()} produces a data table with the same distributions of by-subject and by-item random intercepts as an existing data table.
 }
 \examples{
 \donttest{sim_mixed_df(faceratings, 10, 10, "rating", "rater_id", "face_id")}

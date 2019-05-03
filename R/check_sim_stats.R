@@ -2,7 +2,7 @@
 #'
 #' \code{check_sim_stats} Generates a table of the correlations and means of numeric columns in a data frame
 #'
-#' @param dat the existing dataframe
+#' @param .data the existing tbl
 #' @param between a vector of column names for between-subject factors
 #' @param within a vector of column names for within-subject factors (if data is long)
 #' @param dv the column name of the dv (if data is long)
@@ -10,22 +10,22 @@
 #' @param digits how many digits to round to (default = 2)
 #' @param usekable logical. If TRUE, output with knitr::kable
 #' 
-#' @return tibble or kable
+#' @return a tbl or kable
 #' @examples
 #' check_sim_stats(iris, "Species")
 #' @export
 #' 
 
-check_sim_stats <- function(dat, between = c(), within = c(), dv = c(), id = c(),
+check_sim_stats <- function(.data, between = c(), within = c(), dv = c(), id = c(),
                             digits = 2, usekable = FALSE) {
   
   if (length(within) && length(dv) && length(id)) {
     # convert long to wide
-    dat <- long2wide(dat, within, between, dv, id) %>%
+    .data <- long2wide(.data, within, between, dv, id) %>%
       dplyr::select(-tidyselect::one_of(id))
   }
   
-  grpdat <- select_num_grp(dat, between)
+  grpdat <- select_num_grp(.data, between)
   grpvars <- dplyr::group_vars(grpdat)
   numvars <- names(grpdat)[!names(grpdat) %in% grpvars]
   
