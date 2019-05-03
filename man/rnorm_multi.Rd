@@ -4,33 +4,36 @@
 \alias{rnorm_multi}
 \title{Multiple Normally Distributed Vectors}
 \usage{
-rnorm_multi(n, vars = 3, cors = 0, mu = 0, sd = 1,
-  varnames = NULL, empirical = FALSE, as.matrix = FALSE)
+rnorm_multi(n, vars = 3, mu = 0, sd = 1, r = 0, varnames = NULL,
+  empirical = FALSE, as.matrix = FALSE, cors = NULL)
 }
 \arguments{
 \item{n}{the number of samples required}
 
 \item{vars}{the number of variables to return}
 
-\item{cors}{the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)}
-
 \item{mu}{a vector giving the means of the variables (numeric vector of length 1 or vars)}
 
 \item{sd}{the standard deviations of the variables (numeric vector of length 1 or vars)}
 
-\item{varnames}{optional names for the variables (string vector of length vars) defaults if cors is a matrix with column names}
+\item{r}{the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)}
 
-\item{empirical}{logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance}
+\item{varnames}{optional names for the variables (string vector of length vars) defaults if r is a matrix with column names}
+
+\item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 
 \item{as.matrix}{logical. If true, returns a matrix}
+
+\item{cors}{(deprecated; use r)}
 }
 \value{
-dataframe of vars vectors
+a tbl of vars vectors
 }
 \description{
-\code{rnorm_multi} makes multiple normally distributed vectors with specified relationships
+\code{rnorm_multi()} makes multiple normally distributed vectors with specified relationships.
 }
 \examples{
-rnorm_multi(100, 3, c(0.2, 0.4, 0.5), varnames=c("A", "B", "C"))
-rnorm_multi(100, 3, c(1, 0.2, -0.5, 0.2, 1, 0.5, -0.5, 0.5, 1), varnames=c("A", "B", "C"))
+rnorm_multi(100, 3, 0, 1, c(0.2, 0.4, 0.5), varnames=c("A", "B", "C"))
+rnorm_multi(100, 3, 0, 1, c(1, 0.2, -0.5, 0.2, 1, 0.5, -0.5, 0.5, 1), varnames=c("A", "B", "C"))
+
 }

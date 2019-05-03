@@ -2,18 +2,30 @@
 #'
 #' \code{check_sim_stats} Generates a table of the correlations and means of numeric columns in a data frame
 #'
-#' @param dat the existing dataframe
-#' @param grp_by an optional list of column names to group by
+#' @param .data the existing tbl
+#' @param between a vector of column names for between-subject factors
+#' @param within a vector of column names for within-subject factors (if data is long)
+#' @param dv the column name of the dv (if data is long)
+#' @param id the column name(s) of the subject ID (if data is long)
 #' @param digits how many digits to round to (default = 2)
 #' @param usekable logical. If TRUE, output with knitr::kable
 #' 
-#' @return tibble or kable
+#' @return a tbl or kable
 #' @examples
 #' check_sim_stats(iris, "Species")
 #' @export
+#' 
 
-check_sim_stats <- function(dat, grp_by = NULL, digits = 2, usekable = FALSE) {
-  grpdat <- select_num_grp(dat, grp_by)
+check_sim_stats <- function(.data, between = c(), within = c(), dv = c(), id = c(),
+                            digits = 2, usekable = FALSE) {
+  
+  if (length(within) && length(dv) && length(id)) {
+    # convert long to wide
+    .data <- long2wide(.data, within, between, dv, id) %>%
+      dplyr::select(-tidyselect::one_of(id))
+  }
+  
+  grpdat <- select_num_grp(.data, between)
   grpvars <- dplyr::group_vars(grpdat)
   numvars <- names(grpdat)[!names(grpdat) %in% grpvars]
   
@@ -27,14 +39,14 @@ check_sim_stats <- function(dat, grp_by = NULL, digits = 2, usekable = FALSE) {
     tidyr::spread(stat, val)
   
   stats <- grpdat %>%
-    tidyr::nest(dplyr::one_of(numvars), .key = "multisim_data") %>%
+    tidyr::nest(tidyselect::one_of(numvars), .key = "multisim_data") %>%
     dplyr::mutate(multisim_cor = purrr::map(multisim_data, function(d) {
       cor(d) %>% round(digits) %>% tibble::as_tibble(rownames = "var")
     })) %>%
     dplyr::select(-multisim_data) %>%
     tidyr::unnest(multisim_cor) %>%
-    dplyr::left_join(descriptives, by = c(grp_by, "var")) %>%
-    dplyr::select(tidyselect::one_of(c(grp_by, "n", "var", numvars, "mean", "sd")))
+    dplyr::left_join(descriptives, by = c(between, "var")) %>%
+    dplyr::select(tidyselect::one_of(c(between, "n", "var", numvars, "mean", "sd")))
     
   if (usekable) {
     return(knitr::kable(stats))

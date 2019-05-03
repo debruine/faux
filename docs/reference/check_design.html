@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -86,16 +86,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/intro.html">Introduction to faux</a>
-    </li>
-    <li>
       <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
     </li>
     <li>
       <a href="../articles/sim_design.html">Simulate by Design</a>
     </li>
     <li>
-      <a href="../articles/simdf.html">Simulate from Existing Data</a>
+      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
     </li>
   </ul>
 </li>
@@ -129,8 +126,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>check_design</span>(<span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>cors</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>)</pre>
+    <pre class="usage"><span class='fu'>check_design</span>(<span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -148,16 +145,16 @@
       <td><p>the number of samples required</p></td>
     </tr>
     <tr>
-      <th>cors</th>
-      <td><p>the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)</p></td>
-    </tr>
-    <tr>
       <th>mu</th>
       <td><p>a vector giving the means of the variables (numeric vector of length 1 or vars)</p></td>
     </tr>
     <tr>
       <th>sd</th>
       <td><p>the standard deviations of the variables (numeric vector of length 1 or vars)</p></td>
+    </tr>
+    <tr>
+      <th>r</th>
+      <td><p>the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)</p></td>
     </tr>
     </table>
     
@@ -170,7 +167,90 @@
     <pre class="examples"><div class='input'>
 <span class='no'>within</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"day"</span>, <span class='st'>"night"</span>))
 <span class='no'>between</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>pet</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"dog"</span>, <span class='st'>"cat"</span>))
-<span class='no'>design</span> <span class='kw'>&lt;-</span> <span class='fu'>check_design</span>(<span class='no'>within</span>, <span class='no'>between</span>)</div></pre>
+<span class='fu'>check_design</span>(<span class='no'>within</span>, <span class='no'>between</span>)</div><div class='output co'>#&gt; $within
+#&gt; $within$time
+#&gt; [1] "day"   "night"
+#&gt; 
+#&gt; 
+#&gt; $between
+#&gt; $between$pet
+#&gt; [1] "dog" "cat"
+#&gt; 
+#&gt; 
+#&gt; $within_factors
+#&gt; [1] "time"
+#&gt; 
+#&gt; $between_factors
+#&gt; [1] "pet"
+#&gt; 
+#&gt; $within_labels
+#&gt; $within_labels$time
+#&gt;     day   night 
+#&gt;   "day" "night" 
+#&gt; 
+#&gt; 
+#&gt; $between_labels
+#&gt; $between_labels$pet
+#&gt;   dog   cat 
+#&gt; "dog" "cat" 
+#&gt; 
+#&gt; 
+#&gt; $cell_n
+#&gt;       dog cat
+#&gt; day   100 100
+#&gt; night 100 100
+#&gt; 
+#&gt; $cell_mu
+#&gt;       dog cat
+#&gt; day     0   0
+#&gt; night   0   0
+#&gt; 
+#&gt; $cell_sd
+#&gt;       dog cat
+#&gt; day     1   1
+#&gt; night   1   1
+#&gt; 
+#&gt; $cell_r
+#&gt; $cell_r$dog
+#&gt;      [,1] [,2]
+#&gt; [1,]    1    0
+#&gt; [2,]    0    1
+#&gt; 
+#&gt; $cell_r$cat
+#&gt;      [,1] [,2]
+#&gt; [1,]    1    0
+#&gt; [2,]    0    1
+#&gt; 
+#&gt; 
+#&gt; $cells_w
+#&gt; [1] "day"   "night"
+#&gt; 
+#&gt; $cells_b
+#&gt; [1] "dog" "cat"
+#&gt; 
+#&gt; $sub_id
+#&gt;   [1] "S001" "S002" "S003" "S004" "S005" "S006" "S007" "S008" "S009" "S010"
+#&gt;  [11] "S011" "S012" "S013" "S014" "S015" "S016" "S017" "S018" "S019" "S020"
+#&gt;  [21] "S021" "S022" "S023" "S024" "S025" "S026" "S027" "S028" "S029" "S030"
+#&gt;  [31] "S031" "S032" "S033" "S034" "S035" "S036" "S037" "S038" "S039" "S040"
+#&gt;  [41] "S041" "S042" "S043" "S044" "S045" "S046" "S047" "S048" "S049" "S050"
+#&gt;  [51] "S051" "S052" "S053" "S054" "S055" "S056" "S057" "S058" "S059" "S060"
+#&gt;  [61] "S061" "S062" "S063" "S064" "S065" "S066" "S067" "S068" "S069" "S070"
+#&gt;  [71] "S071" "S072" "S073" "S074" "S075" "S076" "S077" "S078" "S079" "S080"
+#&gt;  [81] "S081" "S082" "S083" "S084" "S085" "S086" "S087" "S088" "S089" "S090"
+#&gt;  [91] "S091" "S092" "S093" "S094" "S095" "S096" "S097" "S098" "S099" "S100"
+#&gt; [101] "S101" "S102" "S103" "S104" "S105" "S106" "S107" "S108" "S109" "S110"
+#&gt; [111] "S111" "S112" "S113" "S114" "S115" "S116" "S117" "S118" "S119" "S120"
+#&gt; [121] "S121" "S122" "S123" "S124" "S125" "S126" "S127" "S128" "S129" "S130"
+#&gt; [131] "S131" "S132" "S133" "S134" "S135" "S136" "S137" "S138" "S139" "S140"
+#&gt; [141] "S141" "S142" "S143" "S144" "S145" "S146" "S147" "S148" "S149" "S150"
+#&gt; [151] "S151" "S152" "S153" "S154" "S155" "S156" "S157" "S158" "S159" "S160"
+#&gt; [161] "S161" "S162" "S163" "S164" "S165" "S166" "S167" "S168" "S169" "S170"
+#&gt; [171] "S171" "S172" "S173" "S174" "S175" "S176" "S177" "S178" "S179" "S180"
+#&gt; [181] "S181" "S182" "S183" "S184" "S185" "S186" "S187" "S188" "S189" "S190"
+#&gt; [191] "S191" "S192" "S193" "S194" "S195" "S196" "S197" "S198" "S199" "S200"
+#&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

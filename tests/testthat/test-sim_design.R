@@ -82,7 +82,7 @@ test_that("2b", {
   within <- list()
   
   df <- sim_design(within, between, n = 100, empirical = TRUE)
-  chk <- check_sim_stats(df, grp_by = "B")
+  chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~val, ~mean, ~sd,
@@ -106,7 +106,7 @@ test_that("2b*2b", {
   within <- list()
   
   df <- sim_design(within, between, n = 100, empirical = TRUE)
-  chk <- check_sim_stats(df, grp_by = c("A","B"))
+  chk <- check_sim_stats(df, between = c("A","B"))
   
   comp <- tibble::tribble(
     ~A, ~B, ~n, ~var, ~val, ~mean, ~sd,
@@ -149,8 +149,8 @@ test_that("2w*2b basic", {
     "B2" = .5
   )
   
-  df <- sim_design(within, between, n, r, mu, sd, TRUE)
-  chk <- check_sim_stats(df, grp_by = "B")
+  df <- sim_design(within, between, n, mu, sd, r, TRUE)
+  chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
@@ -189,13 +189,13 @@ test_that("2w*2b alt", {
     B1 = c(3, 4),
     B2 = c(5, 6)
   )
-  cors <- list(
+  r <- list(
     B1 = .2,
     B2 = .5
   )
   
-  df <- sim_design(within, between, n, cors, mu, sd, TRUE)
-  chk <- check_sim_stats(df, grp_by = "B")
+  df <- sim_design(within, between, n, mu, sd, r, TRUE)
+  chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
@@ -233,10 +233,10 @@ test_that("2w*2b within order", {
     "B2" = c(W2 = 6, W1 = 5)
   )
   
-  df <- sim_design(within, between, 50, .5, mu, sd, TRUE)
-  check_sim_stats(df, grp_by = "B")
+  df <- sim_design(within, between, 50, mu, sd, .5, TRUE)
+  check_sim_stats(df, between = "B")
   
-  chk <- check_sim_stats(df, grp_by = "B")
+  chk <- check_sim_stats(df, between = "B")
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
     "B1", 50, "W1", 1,     0.5,    10,     3,
@@ -281,10 +281,10 @@ test_that("2w*2b order", {
     "B1" = .2
   )
   
-  df <- sim_design(within, between, n, r, mu, sd, TRUE)
-  check_sim_stats(df, grp_by = "B")
+  df <- sim_design(within, between, n, mu, sd, r, TRUE)
+  check_sim_stats(df, between = "B")
   
-  chk <- check_sim_stats(df, grp_by = "B")
+  chk <- check_sim_stats(df, between = "B")
   comp <- tibble::tribble(
     ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
     "B1", 60, "W1", 1,     0.2,    10,     3,
@@ -333,8 +333,8 @@ test_that("2w*2b*2b", {
     A2_B2 = .4
   )
   
-  df <- sim_design(within, between, n, r, mu, sd, TRUE)
-  check_sim_stats(df, grp_by = c("A", "B"))
+  df <- sim_design(within, between, n, mu, sd, r, TRUE)
+  check_sim_stats(df, between = c("A", "B"))
   
   expect_equal(nrow(df), 200)
   expect_equal(ncol(df), 5)
@@ -353,7 +353,7 @@ test_that("long", {
     "N" = c("N2", "N1")
   )
   
-  df <- sim_design(within, between, 100, .5, 0, 1, TRUE, TRUE)
+  df <- sim_design(within, between, 100, 0, 1, .5, TRUE, TRUE)
   
   expect_equal(nrow(df), 3200)
   expect_equal(ncol(df), 7)
@@ -371,8 +371,8 @@ test_that("complex names", {
     "My second within factor" = c("Factor_W2_L1", "Factor_W2_L2")
   )
   
-  df_long <- sim_design(within, between, 10, .5, 0, 1, TRUE, TRUE)
-  df_wide <- sim_design(within, between, 10, .5, 0, 1, TRUE, FALSE)
+  df_long <- sim_design(within, between, 10, 0, 1, .5, TRUE, TRUE)
+  df_wide <- sim_design(within, between, 10, 0, 1, .5, TRUE, FALSE)
   
   long_names <- c("sub_id", "My first between factor", "My second between factor", 
                   "My first within factor", "My second within factor",  "val")
@@ -394,8 +394,8 @@ test_that("complex names", {
     time2 = c("day", "night")
   )
   
-  df_long <- sim_design(within, between, 10, .5, 0, 1, TRUE, TRUE)
-  df_wide <- sim_design(within, between, 10, .5, 0, 1, TRUE, FALSE)
+  df_long <- sim_design(within, between, 10, 0, 1, .5, TRUE, TRUE)
+  df_wide <- sim_design(within, between, 10, 0, 1, .5, TRUE, FALSE)
                         
   long_names <- c("sub_id", "pets", "pets2", "time", "time2",  "val")
   wide_names <- c("sub_id", "pets", "pets2", "day_day", "night_day", "day_night", "night_night")
@@ -436,7 +436,7 @@ test_that("works", {
                .3, .5, .6,  1)
   mat <- matrix(long_cor, nrow = 4)
   
-  cors = list(
+  r = list(
     "B1_A2" = triangle,
     "B1_A1" = long_cor,
     "B2_A1" = mat,
@@ -446,7 +446,7 @@ test_that("works", {
   n = 100
   empirical = TRUE
 
-  df <- sim_design(within, between, n, cors, mu, sd, empirical)
+  df <- sim_design(within, between, n, mu, sd, r, empirical)
   check_sim_stats(df, c("B", "A"))
   
   expect_equal(nrow(df), 400)

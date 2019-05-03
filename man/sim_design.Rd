@@ -4,8 +4,8 @@
 \alias{sim_design}
 \title{Simulate Data from Design}
 \usage{
-sim_design(within = list(), between = list(), n = 100, cors = 0,
-  mu = 0, sd = 1, empirical = FALSE, frame_long = FALSE)
+sim_design(within = list(), between = list(), n = 100, mu = 0,
+  sd = 1, r = 0, empirical = FALSE, long = FALSE)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -14,19 +14,19 @@ sim_design(within = list(), between = list(), n = 100, cors = 0,
 
 \item{n}{the number of samples required}
 
-\item{cors}{the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)}
-
 \item{mu}{a vector giving the means of the variables (numeric vector of length 1 or vars)}
 
 \item{sd}{the standard deviations of the variables (numeric vector of length 1 or vars)}
 
-\item{empirical}{logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance}
+\item{r}{the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)}
 
-\item{frame_long}{Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format}
+\item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
+
+\item{long}{Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format}
 }
 \value{
-dataframe
+a tbl
 }
 \description{
-\code{sim_design} generates a dataframe with a specified within and between design
+\code{sim_design()} generates a data table with a specified within and between design.
 }

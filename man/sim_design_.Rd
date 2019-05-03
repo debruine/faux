@@ -4,19 +4,19 @@
 \alias{sim_design_}
 \title{Simulate Data from Design}
 \usage{
-sim_design_(design, empirical = FALSE, frame_long = FALSE)
+sim_design_(design, empirical = FALSE, long = FALSE)
 }
 \arguments{
 \item{design}{A list of design parameters created by check_design()}
 
-\item{empirical}{logical. If true, mu, sd and cors specify the empirical not population mean, sd and covariance}
+\item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 
-\item{frame_long}{Whether the returned dataframe is in wide (default = FALSE) or long (TRUE) format}
+\item{long}{Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format}
 }
 \value{
-dataframe
+a tbl
 }
 \description{
-\code{sim_from_design} generates a dataframe with a specified design
+\code{sim_design_} generates a data table with a specified design
 }
 \keyword{internal}

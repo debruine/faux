@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9005</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
       </span>
     </div>
 
@@ -53,16 +53,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/intro.html">Introduction to faux</a>
-    </li>
-    <li>
       <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
     </li>
     <li>
       <a href="../articles/sim_design.html">Simulate by Design</a>
     </li>
     <li>
-      <a href="../articles/simdf.html">Simulate from Existing Data</a>
+      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
     </li>
   </ul>
 </li>
@@ -85,7 +82,7 @@
       <h1>Simulate Correlated Variables</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2019-04-29</h4>
+            <h4 class="date">2019-05-03</h4>
       
       
       <div class="hidden name"><code>rnorm_multi.Rmd</code></div>
@@ -98,12 +95,12 @@
 <div id="quick-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-example" class="anchor"></a>Quick example</h2>
-<p>For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where where A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25. A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5.</p>
+<p>For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5. A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dt">n =</span> <span class="dv">100</span>, 
-                  <span class="dt">cors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>), 
                   <span class="dt">mu =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">0</span>, <span class="dv">20</span>, <span class="dv">20</span>),
                   <span class="dt">sd =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">5</span>),
+                  <span class="dt">r =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span>), 
                   <span class="dt">varnames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>),
                   <span class="dt">empirical =</span> <span class="ot">FALSE</span>)</code></pre></div>
 <table class="table">
@@ -147,10 +144,9 @@ dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_m
 </tr>
 </tbody>
 </table>
-<div id="spec_cors" class="section level3">
+<div id="spec_r" class="section level3">
 <h3 class="hasAnchor">
-<a href="#spec_cors" class="anchor"></a>Specify <code>cors</code>
-</h3>
+<a href="#spec_r" class="anchor"></a>Specify correlations</h3>
 <p>You can specify the correlations in one of four ways:</p>
 <ul>
 <li>A single r for all pairs</li>
@@ -162,7 +158,7 @@ dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_m
 <h4 class="hasAnchor">
 <a href="#one-number" class="anchor"></a>One Number</h4>
 <p>If you want all the pairs to have the same correlation, just specify a single number.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">5</span>, .<span class="dv">3</span>, <span class="dt">varnames =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">3</span>, <span class="dt">varnames =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>])</code></pre></div>
 <table class="table">
 <caption>Sample stats from a single rho</caption>
 <thead><tr class="header">
@@ -240,7 +236,7 @@ dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_m
 <a href="#matrix" class="anchor"></a>Matrix</h4>
 <p>If you already have a correlation matrix, such as the output of <code><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor()</a></code>, you can specify the simulated data with that.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cmat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(iris[,<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])
-bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">4</span>, cmat, 
+bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>, cmat, 
                   <span class="dt">varnames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/colnames">colnames</a></span>(cmat))</code></pre></div>
 <table class="table">
 <caption>Sample stats from a correlation matrix</caption>
@@ -305,7 +301,7 @@ bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_m
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">cmat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">1</span>, .<span class="dv">3</span>, .<span class="dv">5</span>,
           .<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">0</span>,
           .<span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>)
-bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">3</span>, cmat, 
+bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">3</span>, <span class="dv">0</span>, <span class="dv">1</span>, cmat, 
                   <span class="dt">varnames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"first"</span>, <span class="st">"second"</span>, <span class="st">"third"</span>))</code></pre></div>
 <table class="table">
 <caption>Sample stats from a vars*vars vector</caption>
@@ -360,7 +356,7 @@ rho2_<span class="dv">3</span> &lt;-<span class="st"> </span>.<span class="dv">2
 rho2_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="dv">0</span>
 rho3_<span class="dv">4</span> &lt;-<span class="st"> </span><span class="op">-</span>.<span class="dv">3</span>
 cmat &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(rho1_<span class="dv">2</span>, rho1_<span class="dv">3</span>, rho1_<span class="dv">4</span>, rho2_<span class="dv">3</span>, rho2_<span class="dv">4</span>, rho3_<span class="dv">4</span>)
-bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">4</span>, cmat, 
+bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">4</span>, <span class="dv">0</span>, <span class="dv">1</span>, cmat, 
                   <span class="dt">varnames =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">4</span>])</code></pre></div>
 <table class="table">
 <caption>Sample stats from a (vars*(vars-1)/2) vector</caption>
@@ -423,7 +419,7 @@ bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_m
 <h3 class="hasAnchor">
 <a href="#empirical" class="anchor"></a>empirical</h3>
 <p>If you want your samples to have the <em>exact</em> correlations, means, and SDs you entered, set <code>empirical</code> to TRUE.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">5</span>, .<span class="dv">3</span>, 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span>(<span class="dv">100</span>, <span class="dv">5</span>, <span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">3</span>, 
                   <span class="dt">varnames =</span> letters[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>], 
                   <span class="dt">empirical =</span> T)</code></pre></div>
 <table class="table">
@@ -499,6 +495,43 @@ bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_m
 </table>
 </div>
 </div>
+<div id="pre-existing-variable" class="section level2">
+<h2 class="hasAnchor">
+<a href="#pre-existing-variable" class="anchor"></a>Pre-existing variable</h2>
+<p>Us <code><a href="../reference/rnorm_pre.html">rnorm_pre()</a></code> to create a vector with a specified correlation to a pre-existing variable. The following code creates a vector called <code>sl.5</code> with a mean of 10, SD of 2 and a correaltion of r = 0.5 to the <code>Sepal.Length</code> column in the built-in dataset <code>iris</code>. This function only creates a vector with the <em>exact</em> parameters specified.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">sl &lt;-<span class="st"> </span>iris<span class="op">$</span>Sepal.Length
+
+sl.<span class="fl">5.</span>v1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span>(sl, <span class="dt">mu =</span> <span class="dv">10</span>, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">r =</span> <span class="fl">0.5</span>)
+sl.<span class="fl">5.</span>v2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span>(sl, <span class="dt">mu =</span> <span class="dv">10</span>, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">r =</span> <span class="fl">0.5</span>)</code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th></th>
+<th align="right">sl</th>
+<th align="right">sl.5.v1</th>
+<th align="right">sl.5.v2</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>sl</td>
+<td align="right">1.0</td>
+<td align="right">0.5000000</td>
+<td align="right">0.5000000</td>
+</tr>
+<tr class="even">
+<td>sl.5.v1</td>
+<td align="right">0.5</td>
+<td align="right">1.0000000</td>
+<td align="right">0.1765035</td>
+</tr>
+<tr class="odd">
+<td>sl.5.v2</td>
+<td align="right">0.5</td>
+<td align="right">0.1765035</td>
+<td align="right">1.0000000</td>
+</tr>
+</tbody>
+</table>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -507,6 +540,7 @@ bvn &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_m
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
 <li><a href="#quick-example">Quick example</a></li>
+      <li><a href="#pre-existing-variable">Pre-existing variable</a></li>
       </ul>
 </div>
       </div>

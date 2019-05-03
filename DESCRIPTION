@@ -1,8 +1,8 @@
 Package: faux
 Title: Simulation Functions
-Version: 0.0.0.9005
-Date: 2019-04-29
-Authors@R: person("Lisa", "DeBruine", email = "debruine@gmail.com", role = c("aut", "cre"))
+Version: 0.0.0.9006
+Date: 2019-05-02
+Authors@R: person(given = "Lisa", family = "DeBruine", role = c("aut", "cre"), email = "debruine@gmail.com", comment = c(ORCID = "0000-0002-7523-5539"))
 Description: Provides functions for simulating multiple variables with specified relationships.
 Depends:
     R (>= 3.2.4)
@@ -19,7 +19,7 @@ Imports:
     ggplot2
 License: MIT + file LICENSE
 Suggests:
-    testthat,
+    testthat (>= 2.1.0),
     knitr,
     rmarkdown
 VignetteBuilder: knitr
