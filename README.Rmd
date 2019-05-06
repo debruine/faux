@@ -37,6 +37,8 @@ You can install the newest version of faux from [GitHub](https://github.com/debr
 devtools::install_github("debruine/faux")
 ```
 
+[![DOI](https://zenodo.org/badge/163506566.svg)](https://zenodo.org/badge/latestdoi/163506566)
+
 ## sim_design
 
 This function creates a dataset with a specific between- and within-subjects design. [see vignette](https://debruine.github.io/faux/articles/sim_design.html)
