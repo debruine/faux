@@ -33,14 +33,17 @@ test_that("2w", {
     "W" = c("W1", "W2")
   )
   between <- list()
+  mu <- c(1, 2)
+  sd <- c(1, 2)
+  r <- 0.3
   
-  df <- sim_design(within, between, empirical = TRUE)
+  df <- sim_design(within, between, mu = mu, sd = sd, r = r, empirical = TRUE)
   chk <- check_sim_stats(df)
   
   comp <- tibble::tribble(
-    ~n, ~var, ~W1, ~W2, ~mean, ~sd,
-    100, "W1", 1,   0,    0,     1,
-    100, "W2", 0,   1,    0,     1
+    ~n, ~var,  ~W1, ~W2, ~mean, ~sd,
+    100, "W1", 1.0, 0.3,     1,   1,
+    100, "W2", 0.3, 1.0,     2,   2
   )
   
   expect_equal(nrow(df), 100)
@@ -80,14 +83,15 @@ test_that("2b", {
     "B" = c("B1", "B2")
   )
   within <- list()
+  mu <- c(1, 2)
   
-  df <- sim_design(within, between, n = 100, empirical = TRUE)
+  df <- sim_design(within, between, n = 100, mu = mu, empirical = TRUE)
   chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
-    ~B, ~n, ~var, ~val, ~mean, ~sd,
-    "B1", 100, "val", 1,   0,     1,
-    "B2", 100, "val", 1,   0,     1
+    ~B,    ~n,  ~var, ~val, ~mean, ~sd,
+    "B1", 100, "val",    1,     1,   1,
+    "B2", 100, "val",    1,     2,   1
   ) %>%
     dplyr::mutate(B = as.factor(B))
   
@@ -226,7 +230,6 @@ test_that("2w*2b within order", {
     B2 = c(W2 = 30, W1 = 10),
     B1 = c(W2 = 20, W1 = 10)
   )
-  #get_mu_sd(mu, between[["B"]], within[["W"]])
   
   sd <- list(
     "B1" = c(W2 = 4, W1 = 3),
@@ -452,4 +455,20 @@ test_that("works", {
   expect_equal(nrow(df), 400)
   expect_equal(ncol(df), 7)
   expect_equal(names(df), c("sub_id", "B", "A", "W1_C2", "W2_C2", "W1_C1", "W2_C1"))
+})
+
+# label order ----
+test_that("label order", {
+  within <- list(
+    pets = c("ferret", "dog", "cat")
+  )
+  between <- list(
+    time = c("night", "day")
+  )
+  df <- sim_design(within, between, long = TRUE)
+  
+  expect_true(is.factor(df$pets))
+  expect_true(is.factor(df$time))
+  expect_equal(levels(df$pets), c("ferret", "dog", "cat"))
+  expect_equal(levels(df$time), c("night", "day"))
 })

@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
 
@@ -82,7 +82,7 @@
       <h1>Simulate by Design</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2019-05-03</h4>
+            <h4 class="date">2019-05-06</h4>
       
       
       <div class="hidden name"><code>sim_design.Rmd</code></div>
@@ -95,7 +95,7 @@
 <div id="quick-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-example" class="anchor"></a>Quick example</h2>
-<p>For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is <code>pet</code> with twolevels of <code>cat</code> and <code>dog</code>. The within-subject factor is <code>time</code> with two levels of <code>day</code> and <code>night</code>. The mean for the <code>cat_day</code> cell is 10, the mean for the <code>cat_night</code> cell is 20, the mean for the <code>dog_day</code> cell is 15, and the mean for the <code>dog_night</code> cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set <code>empirical = FALSE</code> to sample from a population with these values).</p>
+<p>For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is <code>pet</code> with twolevels of <code>cat</code> and <code>dog</code>. The within-subject factor is <code>time</code> with two levels of <code>day</code> and <code>night</code>. The mean for the <code>cat_day</code> cell is 10, the mean for the <code>cat_night</code> cell is 20, the mean for the <code>dog_day</code> cell is 15, and the mean for the <code>dog_night</code> cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set <code>empirical = FALSE</code> to sample from a population with these values). Set <code>plot = TRUE</code> to show a plot of means and SDs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">between &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"pet"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>))
 within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"time"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"day"</span>, <span class="st">"night"</span>))
 mu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(
@@ -103,7 +103,9 @@ mu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocument
   <span class="dt">dog =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">15</span>, <span class="dv">25</span>),
   <span class="dt">row.names =</span> within<span class="op">$</span>time
 )
-df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mu =</span> mu, <span class="dt">sd =</span> <span class="dv">5</span>, <span class="dt">r =</span> <span class="fl">0.5</span>, <span class="dt">empirical =</span> <span class="ot">TRUE</span>)</code></pre></div>
+df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mu =</span> mu, <span class="dt">sd =</span> <span class="dv">5</span>, <span class="dt">r =</span> <span class="fl">0.5</span>, 
+                 <span class="dt">empirical =</span> <span class="ot">TRUE</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-1-1.png" width="768"></p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">pet</th>
@@ -162,7 +164,8 @@ df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_desi
 <h3 class="hasAnchor">
 <a href="#factor-and-level-names" class="anchor"></a>Factor and level names</h3>
 <p>If you don’t feel like naming your factors and levels, you can just put in a vector of levels. So you can make a quick 2w*3w*2b with the following code.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="dt">within =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">between =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>), <span class="dt">n =</span> <span class="dv">5</span>, <span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>, <span class="dt">r =</span> <span class="fl">0.5</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="dt">within =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">between =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>), 
+                 <span class="dt">n =</span> <span class="dv">5</span>, <span class="dt">mu =</span> <span class="dv">0</span>, <span class="dt">sd =</span> <span class="dv">1</span>, <span class="dt">r =</span> <span class="fl">0.5</span>)</code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">sub_id</th>
@@ -178,102 +181,102 @@ df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_desi
 <tr class="odd">
 <td align="left">S01</td>
 <td align="left">C1</td>
-<td align="right">-2.7038494</td>
-<td align="right">-2.0031140</td>
-<td align="right">-1.2463619</td>
-<td align="right">0.2395364</td>
-<td align="right">-0.3551418</td>
-<td align="right">-0.6613917</td>
+<td align="right">-0.5766912</td>
+<td align="right">0.0856008</td>
+<td align="right">0.9838375</td>
+<td align="right">-0.0126229</td>
+<td align="right">-1.5528052</td>
+<td align="right">0.0167980</td>
 </tr>
 <tr class="even">
 <td align="left">S02</td>
 <td align="left">C1</td>
-<td align="right">-0.2574224</td>
-<td align="right">-2.5189879</td>
-<td align="right">-0.0945284</td>
-<td align="right">-1.0963883</td>
-<td align="right">-0.9231602</td>
-<td align="right">-0.8312929</td>
+<td align="right">1.3673109</td>
+<td align="right">1.8875275</td>
+<td align="right">1.5626066</td>
+<td align="right">1.9393848</td>
+<td align="right">0.7511418</td>
+<td align="right">2.1436454</td>
 </tr>
 <tr class="odd">
 <td align="left">S03</td>
 <td align="left">C1</td>
-<td align="right">0.9326960</td>
-<td align="right">0.5741398</td>
-<td align="right">0.9461607</td>
-<td align="right">1.5174811</td>
-<td align="right">0.1336817</td>
-<td align="right">2.2414371</td>
+<td align="right">0.0834231</td>
+<td align="right">-1.0287178</td>
+<td align="right">-0.6225890</td>
+<td align="right">0.3070957</td>
+<td align="right">1.5900014</td>
+<td align="right">0.8677457</td>
 </tr>
 <tr class="even">
 <td align="left">S04</td>
 <td align="left">C1</td>
-<td align="right">-0.2846845</td>
-<td align="right">-0.0003843</td>
-<td align="right">-0.4205892</td>
-<td align="right">0.1429045</td>
-<td align="right">0.7309652</td>
-<td align="right">-0.4047417</td>
+<td align="right">-1.3635503</td>
+<td align="right">-1.2068872</td>
+<td align="right">-0.7472159</td>
+<td align="right">-2.2844708</td>
+<td align="right">-1.3691766</td>
+<td align="right">-1.9300476</td>
 </tr>
 <tr class="odd">
 <td align="left">S05</td>
 <td align="left">C1</td>
-<td align="right">0.0261954</td>
-<td align="right">0.5607634</td>
-<td align="right">-1.2736072</td>
-<td align="right">-1.0107932</td>
-<td align="right">1.3337995</td>
-<td align="right">0.2854269</td>
+<td align="right">0.0874826</td>
+<td align="right">-0.4472125</td>
+<td align="right">0.0760042</td>
+<td align="right">0.2692548</td>
+<td align="right">0.6108916</td>
+<td align="right">0.1959173</td>
 </tr>
 <tr class="even">
 <td align="left">S06</td>
 <td align="left">C2</td>
-<td align="right">-0.9116783</td>
-<td align="right">-1.0939985</td>
-<td align="right">-1.0655517</td>
-<td align="right">-0.9173210</td>
-<td align="right">-1.4847558</td>
-<td align="right">-2.5493564</td>
+<td align="right">-0.4425274</td>
+<td align="right">0.7653733</td>
+<td align="right">0.7165515</td>
+<td align="right">-0.7536628</td>
+<td align="right">0.0169834</td>
+<td align="right">-0.3760313</td>
 </tr>
 <tr class="odd">
 <td align="left">S07</td>
 <td align="left">C2</td>
-<td align="right">-0.0690060</td>
-<td align="right">0.4741805</td>
-<td align="right">0.3974194</td>
-<td align="right">-0.1888221</td>
-<td align="right">0.0963150</td>
-<td align="right">1.4528341</td>
+<td align="right">1.1250722</td>
+<td align="right">1.0306602</td>
+<td align="right">-0.0446920</td>
+<td align="right">0.8599006</td>
+<td align="right">-0.3464750</td>
+<td align="right">0.2145361</td>
 </tr>
 <tr class="even">
 <td align="left">S08</td>
 <td align="left">C2</td>
-<td align="right">-0.4591101</td>
-<td align="right">0.8723573</td>
-<td align="right">-0.2708937</td>
-<td align="right">-0.6212891</td>
-<td align="right">1.3480380</td>
-<td align="right">0.9535270</td>
+<td align="right">-0.0299556</td>
+<td align="right">1.0819144</td>
+<td align="right">1.1454149</td>
+<td align="right">0.9607333</td>
+<td align="right">0.3288986</td>
+<td align="right">1.7718617</td>
 </tr>
 <tr class="odd">
 <td align="left">S09</td>
 <td align="left">C2</td>
-<td align="right">0.1287775</td>
-<td align="right">-0.3451130</td>
-<td align="right">-0.5767718</td>
-<td align="right">-1.8759247</td>
-<td align="right">-0.8973256</td>
-<td align="right">-1.1960685</td>
+<td align="right">0.5363877</td>
+<td align="right">1.1655595</td>
+<td align="right">0.7289594</td>
+<td align="right">0.4044498</td>
+<td align="right">0.5081634</td>
+<td align="right">1.5661115</td>
 </tr>
 <tr class="even">
 <td align="left">S10</td>
 <td align="left">C2</td>
-<td align="right">1.0623320</td>
-<td align="right">1.0175079</td>
-<td align="right">-0.1675100</td>
-<td align="right">0.5620579</td>
-<td align="right">0.7513321</td>
-<td align="right">0.7814270</td>
+<td align="right">-0.5297062</td>
+<td align="right">-2.1894619</td>
+<td align="right">-2.2085771</td>
+<td align="right">-1.3405989</td>
+<td align="right">-1.4645263</td>
+<td align="right">-1.5222258</td>
 </tr>
 </tbody>
 </table>

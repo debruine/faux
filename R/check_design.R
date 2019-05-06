@@ -8,6 +8,7 @@
 #' @param mu a vector giving the means of the variables (numeric vector of length 1 or vars)
 #' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
 #' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
+#' @param plot whether to show a plot of the design
 #' 
 #' @return list
 #' 
@@ -20,7 +21,7 @@
 #' @export
 #' 
 check_design <- function(within = list(), between = list(), 
-                         n = 100, mu = 0, sd = 1, r = 0) {
+                         n = 100, mu = 0, sd = 1, r = 0, plot = TRUE) {
   # name anonymous factors
   if (is.numeric(within) && within %in% 2:10 %>% mean() == 1) { # vector of level numbers
     within_names <- LETTERS[1:length(within)]
@@ -42,20 +43,11 @@ check_design <- function(within = list(), between = list(),
   
   # if within or between factors are named vectors, 
   # use their names as column names and values as labels for plots
-  between_labels <- purrr::map(between, fix_name_labels)
-  between <- lapply(between_labels, names)
-  within_labels <- purrr::map(within, fix_name_labels)
-  within <- lapply(within_labels, names)
-  
-  within_factors <- names(within)
-  between_factors <- names(between)
-  
-  # handle no w/in or btwn
-  if (length(between_factors) == 0) between_factors <- ".tmpvar."
-  if (length(within_factors) == 0) within_factors <- ".tmpvar." 
+  between <- purrr::map(between, fix_name_labels)
+  within <- purrr::map(within, fix_name_labels)
   
   # check for duplicate factor names
-  factor_overlap <- intersect(within_factors, between_factors)
+  factor_overlap <- intersect(names(within), names(between))
   if (length(factor_overlap)) {
     stop("You have multiple factors with the same name (", 
          paste(factor_overlap, collapse = ", "),
@@ -78,52 +70,61 @@ check_design <- function(within = list(), between = list(),
   }
   
   # define columns
-  if (length(within) == 0) {
-    cells_w = "val"
-  } else {
-    cells_w <- do.call(expand.grid, within) %>%
-      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
-  }
-  if (length(between) == 0) {
-    cells_b = ".tmpvar."
-  } else {
-    cells_b <- do.call(expand.grid, between) %>%
-      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
-  }
+  cells_w <- cell_combos(within)
+  cells_b <- cell_combos(between) 
   
   # convert n, mu and sd from vector/list formats
   cell_n  <- convert_param(n,  cells_w, cells_b, "Ns")
   cell_mu <- convert_param(mu, cells_w, cells_b, "means")
   cell_sd <- convert_param(sd, cells_w, cells_b, "SDs")
   
-  # figure out number of subjects and their IDs
-  sub_n <- sum(cell_n[1,])
-  sub_id <- make_id(sub_n)
-  
   # set up cell correlations from r (number, vector, matrix or list styles)
   cell_r <- list()
   if (length(within)) {
     for (cell in cells_b) {
       cell_cor <- if(is.list(r)) r[[cell]] else r
-      cell_r[[cell]] <- cormat(cell_cor, length(cells_w)) 
+      mat <- cormat(cell_cor, length(cells_w))
+      rownames(mat) <- cells_w
+      colnames(mat) <- cells_w
+      cell_r[[cell]] <- mat
     }
   }
   
-  list(
+  design <- list(
     within = within,
     between = between,
-    within_factors = within_factors,
-    between_factors = between_factors,
-    within_labels = within_labels,
-    between_labels = between_labels,
     cells_w = cells_w,
     cells_b = cells_b,
     cell_n = cell_n,
     cell_mu = cell_mu,
     cell_sd = cell_sd,
-    cell_r = cell_r,
-    sub_id = sub_id
+    cell_r = cell_r
   )
+  
+  if (plot) { plot_design(design) %>% print() }
+  
+  invisible(design)
+}
+
+#' Cell combos
+#' 
+#' Creates wide cell combination names, such as A1_B1, A2_B1, A1_B2, A2_B2.
+#' 
+#' @param factors A list of factors
+#' 
+#' @return a list
+#' @keywords internal
+#' 
+cell_combos <- function(factors) {
+  if (length(factors) == 0) {
+    cells = "val"
+  } else {
+    cells <- lapply(factors, names) %>%
+      do.call(expand.grid, .) %>%
+      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
+  }
+  
+  cells
 }
 
 #' Convert parameter
@@ -203,121 +204,9 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
     }
   }
   
-  dd <- matrix(param2, ncol = b_n) %>% as.data.frame()
-  names(dd) <- cells_b
+  dd <- matrix(param2, ncol = b_n)
+  colnames(dd) <- cells_b
   rownames(dd) <- cells_w
   
-  dd
+  t(dd) %>% as.data.frame()
 }
-
-
-#' Get design from long data
-#' 
-#' Makes a best guess at the design of a long-format data frame. 
-#' Finds all columns that contain a single value per unit of analysis (between factors), 
-#' all columns that contain the same values per unit of analysis (within factors), and 
-#' all columns that differ over units of analysis (dv, continuous factors)
-#' 
-#' @param .data the data frame (in long format)
-#' @param id the column name(s) that identify a unit of analysis
-#' @param dv the column name that identifies the DV
-#' 
-#' @return the data frame in long format
-#' 
-#' @export
-#'
-get_design_long <- function(.data, id = "sub_id", dv = "val") {
-  between_factors <- .data %>%
-    dplyr::group_by_at(dplyr::vars(tidyselect::one_of(id))) %>%
-    dplyr::summarise_all(dplyr::n_distinct) %>%
-    dplyr::ungroup() %>%
-    dplyr::select(-tidyselect::one_of(id)) %>%
-    dplyr::summarise_all(max) %>%
-    dplyr::select_if(~ . == 1) %>%
-    names()
-  
-  within_factors <- .data %>%
-    dplyr::select(-tidyselect::one_of(between_factors)) %>%
-    dplyr::group_by_at(dplyr::vars(tidyselect::one_of(id))) %>%
-    dplyr::summarise_all(paste0, collapse = ",") %>%
-    dplyr::ungroup() %>%
-    dplyr::select(-tidyselect::one_of(id)) %>%
-    dplyr::summarise_all(dplyr::n_distinct) %>%
-    dplyr::select_if(~ . == 1) %>%
-    names()
-  
-  within <- .data %>%
-    dplyr::select(tidyselect::one_of(within_factors)) %>%
-    dplyr::mutate_all(as.factor) %>%
-    dplyr::summarise_all(~levels(.) %>% paste0(collapse = ".|.")) %>%
-    as.list() %>%
-    sapply(strsplit, split=".|.", fixed = TRUE)
-  
-  between <- .data %>%
-    dplyr::select(tidyselect::one_of(between_factors)) %>%
-    dplyr::mutate_all(as.factor) %>%
-    dplyr::summarise_all(~levels(.) %>% paste0(collapse = ".|.")) %>%
-    as.list() %>%
-    sapply(strsplit, split=".|.", fixed = TRUE)
-  
-  between_labels <- purrr::map(between, fix_name_labels)
-  within_labels <- purrr::map(within, fix_name_labels)
-  
-  cells_b <- do.call(expand.grid, between) %>%
-    tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
-  
-  cells_w <- do.call(expand.grid, within) %>%
-    tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
-  
-  # get n, mu, sd, r per cell
-  chk <- check_sim_stats(.data, between_factors, within_factors, dv, id)
-  
-  n <- chk %>%
-    tidyr::unite(".within", tidyselect::one_of(between_factors)) %>%
-    dplyr::select(.within, var, n) %>%
-    tidyr::spread(var, n) %>%
-    tibble::column_to_rownames(".within")
-  
-  mu <- chk %>%
-    tidyr::unite(".within", tidyselect::one_of(between_factors)) %>%
-    dplyr::select(.within, var, mean) %>%
-    tidyr::spread(var, mean) %>%
-    tibble::column_to_rownames(".within")
-  
-  sd <- chk %>%
-    tidyr::unite(".within", tidyselect::one_of(between_factors)) %>%
-    dplyr::select(.within, var, sd) %>%
-    tidyr::spread(var, sd) %>%
-    tibble::column_to_rownames(".within")
-  
-  cors <- chk %>%
-    tidyr::unite(".between", tidyselect::one_of(between_factors)) %>%
-    dplyr::select(tidyselect::one_of(c(".between", "var", cells_w))) %>%
-    dplyr::mutate(var = forcats::fct_relevel(var, cells_w)) %>%
-    dplyr::arrange(var) %>%
-    dplyr::group_by(.between) %>%
-    tidyr::nest(.key = "r") %>%
-    as.list() 
-  
-  r <- purrr::map(cors$r, ~tibble::column_to_rownames(., "var"))
-  names(r) <- cors$.between
-   
-  design <- list(
-    within = within,
-    between = between,
-    within_factors = within_factors,
-    between_factors = between_factors,
-    within_labels = within_labels,
-    between_labels = between_labels,
-    cells_w = cells_w,
-    cells_b = cells_b,
-    cell_n = n,
-    cell_mu = mu,
-    cell_sd = sd,
-    cell_r = r,
-    sub_id = id
-  )
-  
-  design
-}
-

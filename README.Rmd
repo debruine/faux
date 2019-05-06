@@ -27,16 +27,24 @@ set.seed(200)
 ```
 
 
-It is useful to be able to simulate data with a specified structure. The `faux` package provides some functions to make this process easier.
+It is useful to be able to simulate data with a specified structure. The `faux` package provides some functions to make this process easier. See the [package website](https://debruine.github.io/faux/) for more details.
+
+## Installation
+
+You can install the newest version of faux from [GitHub](https://github.com/debruine/faux) with:
+
+``` r
+devtools::install_github("debruine/faux")
+```
 
 ## sim_design
 
-This function creates a dataset with a specific between- and within-subjects design. [see vignette](articles/sim_design.html)
+This function creates a dataset with a specific between- and within-subjects design. [see vignette](https://debruine.github.io/faux/articles/sim_design.html)
 
-For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is `pet` with twolevels of `cat` and `dog`. The within-subject factor is `time` with two levels of `day` and `night`. The mean for the `cat_day` cell is 10, the mean for the `cat_night` cell is 20, the mean for the `dog_day` cell is 15, and the mean for the `dog_night` cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set `empirical = FALSE` to sample from a population with these values).
+For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is `pet` with twolevels of `cat` and `dog`. The within-subject factor is `time` with two levels of `day` and `night`. The mean for the `cat_day` cell is 10, the mean for the `cat_night` cell is 20, the mean for the `dog_day` cell is 15, and the mean for the `dog_night` cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set `empirical = FALSE` to sample from a population with these values). Set `plot = TRUE` to show a plot of means and SDs.
 
 
-```{r}
+```{r, fig.width = 8, fig.height = 4}
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
 mu <- data.frame(
@@ -46,7 +54,7 @@ mu <- data.frame(
 )
 df <- sim_design(within, between, 
                  n = 100, mu = mu, sd = 5, r = .5,
-                 empirical = TRUE)
+                 empirical = TRUE, plot = TRUE)
 ```
 
 `r check_sim_stats(df, between = "pet", usekable = TRUE)`
@@ -54,7 +62,7 @@ Table: Sample `sim_design()` stats
 
 ## rnorm_multi
 
-This function makes multiple normally distributed vectors with specified parameters and relationships. [see vignette](articles/rnorm_multi.html)
+This function makes multiple normally distributed vectors with specified parameters and relationships. [see vignette](https://debruine.github.io/faux/articles/rnorm_multi.html)
 
 For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5. A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25.
 
@@ -78,7 +86,7 @@ Table: Sample `rnorm_multi()` stats
 
 ## sim_df
 
-This function produces a dataframe with the same distributions and correlations as an existing dataframe. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). [see vignette](articles/sim_df.html)
+This function produces a dataframe with the same distributions and correlations as an existing dataframe. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). [see vignette](https://debruine.github.io/faux/articles/sim_df.html)
 
 For example, the following code creates a new sample from the built-in dataset `iris` with 50 observations of each species.
 

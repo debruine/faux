@@ -10,6 +10,7 @@
 #' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
+#' @param plot whether to show a plot of the design
 #' 
 #' @return a tbl
 #' 
@@ -17,10 +18,10 @@
 #' 
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
-                       empirical = FALSE, long = FALSE) {
+                       empirical = FALSE, long = FALSE, plot = FALSE) {
   # check the design is specified correctly
   design <- check_design(within = within, between = between, 
-                         n = n, mu = mu, sd = sd, r = r)
+                         n = n, mu = mu, sd = sd, r = r, plot = plot)
   
   # simulate the data
   sim_design_(design, empirical = empirical, long = long)
@@ -57,20 +58,33 @@ fix_name_labels <- function(x) {
 sim_design_ <- function(design, empirical = FALSE, long = FALSE) {
   list2env(design, envir = environment())
   
+  # get factor names
+  within_factors <- names(within)
+  between_factors <- names(between)
+  
+  # handle no w/in or btwn
+  if (length(between_factors) == 0) between_factors <- ".tmpvar."
+  if (length(within_factors) == 0)  within_factors  <- ".tmpvar." 
+  
+  # figure out number of subjects and their IDs
+  sub_n <- sum(cell_n[,1])
+  sub_id <- make_id(sub_n)
+  
   # simulate data for each between-cell
   for (cell in cells_b) {
     if (length(within)) {
       cell_vars <- rnorm_multi(
-        cell_n[1,cell], length(cells_w), 
-        cell_mu[[cell]], cell_sd[[cell]], cell_r[[cell]], 
-        cells_w, empirical
+        n = cell_n[cell,1], vars = length(cells_w), 
+        mu = cell_mu[cell,], sd = cell_sd[cell,], r = cell_r[[cell]], 
+        varnames = cells_w, empirical = empirical
       ) %>%
         dplyr::mutate("btwn" = cell)
     } else {
       # fully between design
-      val <- MASS::mvrnorm(n = cell_n[1,cell], 
-                           mu = cell_mu[[cell]], 
-                           Sigma = cell_sd[[cell]] %*% t(cell_sd[[cell]]), 
+      sd2 <- cell_sd[cell,] %>% as.matrix() %>% as.vector()
+      val <- MASS::mvrnorm(n = cell_n[cell,1], 
+                           mu = cell_mu[cell,] %>% as.matrix() %>% as.vector(), 
+                           Sigma = sd2 %*% t(sd2), 
                            empirical = empirical)
       cell_vars <- data.frame("val" = val)  %>%
         dplyr::mutate("btwn" = cell)
@@ -95,10 +109,11 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE) {
     dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
     dplyr::select(tidyselect::one_of(col_order))
   
-  # FIX: put factors in order
-  #for (f in between_factors) {
-  #  df_wide[[f]] <- factor(df_wide[[f]], levels = between[[f]])
-  #}
+  # put factors in order
+  factors_to_order <- setdiff(between_factors, ".tmpvar.")
+  for (f in factors_to_order) {
+    df_wide[[f]] <- factor(df_wide[[f]], levels = names(between[[f]]))
+  }
   
   if (long == TRUE && length(within)) {
     # not necessary for fully between designs
@@ -111,10 +126,11 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE) {
       dplyr::select(tidyselect::one_of(col_order)) %>%
       dplyr::mutate_at(within_factors, ~as.factor(.))
     
-    #FIX: put factors in order
-    #for (f in within_factors) {
-    #  df_long[[f]] <- factor(df_long[[f]], levels = within[[f]])
-    #}
+    # put factors in order
+    factors_to_order <- setdiff(within_factors, ".tmpvar.")
+    for (f in factors_to_order) {
+      df_long[[f]] <- factor(df_long[[f]], levels = names(within[[f]]))
+    }
     
     return(df_long)
   }

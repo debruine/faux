@@ -43,12 +43,18 @@ rnorm_multi <- function(n, vars = 3, mu = 0, sd = 1, r = 0,
     mu <- rep(mu, vars)
   } else if (length(mu) != vars) {
     stop("the length of mu must be 1 or vars");
+  } else {
+    # get rid of names
+    mu <- as.matrix(mu) %>% as.vector()
   }
   
   if (length(sd) == 1) {
     sd <- rep(sd, vars)
   } else if (length(sd) != vars) {
     stop("the length of sd must be 1 or vars");
+  } else {
+    # get rid of names
+    sd <- as.matrix(sd) %>% as.vector()
   }
   
   cor_mat <- cormat(r, vars)

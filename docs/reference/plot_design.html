@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Pipe operator — %&gt;% • faux</title>
+<title>Plot design — plot_design • faux</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Pipe operator — %&gt;%" />
+<meta property="og:title" content="Plot design — plot_design" />
 
-<meta property="og:description" content="See magrittr::%&amp;gt;% for details." />
+<meta property="og:description" content="plot_design() plots the specified within and between design" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -115,25 +115,57 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Pipe operator</h1>
+    <h1>Plot design</h1>
     
-    <div class="hidden name"><code>pipe.Rd</code></div>
+    <div class="hidden name"><code>plot_design.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>See <code>magrittr::%&gt;%</code> for details.</p>
+    <p><code>plot_design()</code> plots the specified within and between design</p>
     
     </div>
 
-    <pre class="usage"><span class='no'>lhs</span> <span class='kw'>%&gt;%</span> <span class='no'>rhs</span></pre>
-        
+    <pre class="usage"><span class='fu'>plot_design</span>(<span class='no'>design</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"sub_id"</span>, <span class='kw'>dv</span> <span class='kw'>=</span> <span class='st'>"val"</span>)</pre>
+    
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>design</th>
+      <td><p>A list of design parameters created by check_design() or a data tbl (in long format)</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>the column name(s) that identify a unit of analysis</p></td>
+    </tr>
+    <tr>
+      <th>dv</th>
+      <td><p>the column name that identifies the DV</p></td>
+    </tr>
+    </table>
+    
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
+    <p>plot</p>
+    
+
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>within</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"day"</span>, <span class='st'>"night"</span>))
+<span class='no'>between</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>pet</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"dog"</span>, <span class='st'>"cat"</span>))
+<span class='fu'><a href='check_design.html'>check_design</a></span>(<span class='no'>within</span>, <span class='no'>between</span>) <span class='kw'>%&gt;%</span> <span class='fu'>plot_design</span>()</div><div class='img'><img src='plot_design-1.png' alt='' width='700' height='433' /></div><div class='img'><img src='plot_design-2.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
-                </ul>
+      <li><a href="#arguments">Arguments</a></li>
+      
+      <li><a href="#value">Value</a></li>
+      
+      <li><a href="#examples">Examples</a></li>
+    </ul>
 
   </div>
 </div>
