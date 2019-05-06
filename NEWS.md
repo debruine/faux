@@ -11,3 +11,10 @@
 
 * Changes to argument order and names (more consistent, but may break old scripts)
 * Updated vignettes
+
+# faux 0.0.0.9007
+
+* Added a plot option to `check_design()` and `sim_design()`
+* Design lists returned by `check_design()` have a more consistent format 
+    - n, mu, and sd are all data frames with between-cells as rows and within-cells as columns
+    - `within` and `between` are named lists; factors and labels are no longer separately named

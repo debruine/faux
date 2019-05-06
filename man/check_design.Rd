@@ -5,7 +5,7 @@
 \title{Validate design}
 \usage{
 check_design(within = list(), between = list(), n = 100, mu = 0,
-  sd = 1, r = 0)
+  sd = 1, r = 0, plot = TRUE)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -19,6 +19,8 @@ check_design(within = list(), between = list(), n = 100, mu = 0,
 \item{sd}{the standard deviations of the variables (numeric vector of length 1 or vars)}
 
 \item{r}{the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)}
+
+\item{plot}{whether to show a plot of the design}
 }
 \value{
 list

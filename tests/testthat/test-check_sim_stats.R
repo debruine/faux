@@ -35,35 +35,3 @@ test_that("is_pos_def", {
                         .9, -.2, 1), 3)
   expect_equal(is_pos_def(bad_matrix), FALSE)
 })
-
-
-# get_design_long ----
-test_that("get_design_long", {
-  df_long <- sim_design(2, 2, n = 10, mu = 5, sd = 2, r = 0.5, long = TRUE, empirical = TRUE)
-  d <- get_design_long(df_long)
-  
-  n <- data.frame(A1 = c(10, 10), A2 = c(10, 10), row.names = c("B1", "B2"))
-  mu <- data.frame(A1 = c(5, 5), A2 = c(5, 5), row.names = c("B1", "B2"))
-  sd <- data.frame(A1 = c(2, 2), A2 = c(2, 2), row.names = c("B1", "B2"))
-  r <- data.frame(A1 = c(1, .5), A2 = c(.5, 1), row.names = c("A1", "A2"))
-  
-  expect_equal(d$within, list(A = c("A1", "A2")))
-  expect_equal(d$between, list(B = c("B1", "B2")))
-  expect_equal(d$within_factors, "A")
-  expect_equal(d$between_factors, "B")
-  expect_equal(d$cell_n, n)
-  expect_equal(d$cell_mu, mu)
-  expect_equal(d$cell_sd, sd)
-  expect_equal(d$cell_r$B1, r)
-  expect_equal(d$cell_r$B2, r)
-  
-  df_long <- sim_design(c(2, 2, 2), c(2, 2, 2), long = TRUE, empirical = TRUE)
-  d <- get_design_long(df_long)
-  
-  expect_equal(d$within_factors, c("A", "B", "C"))
-  expect_equal(d$between_factors, c("D", "E", "F"))
-  expect_equal(d$cell_n  %>% sum(), 6400)
-  expect_equal(d$cell_mu %>% sum(), 0)
-  expect_equal(d$cell_sd %>% sum(), 64)
-  expect_equal(d$cell_r[[1]] %>% sum(), 8)
-})

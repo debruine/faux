@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
       </span>
     </div>
 
@@ -85,12 +85,18 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 <!-- badges: start -->
 
-<p>It is useful to be able to simulate data with a specified structure. The <code>faux</code> package provides some functions to make this process easier.</p>
+<p>It is useful to be able to simulate data with a specified structure. The <code>faux</code> package provides some functions to make this process easier. See the <a href="https://debruine.github.io/faux/">package website</a> for more details.</p>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>You can install the newest version of faux from <a href="https://github.com/debruine/faux">GitHub</a> with:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"debruine/faux"</span>)</code></pre></div>
+</div>
 <div id="sim_design" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sim_design" class="anchor"></a>sim_design</h2>
-<p>This function creates a dataset with a specific between- and within-subjects design. <a href="articles/sim_design.html">see vignette</a></p>
-<p>For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is <code>pet</code> with twolevels of <code>cat</code> and <code>dog</code>. The within-subject factor is <code>time</code> with two levels of <code>day</code> and <code>night</code>. The mean for the <code>cat_day</code> cell is 10, the mean for the <code>cat_night</code> cell is 20, the mean for the <code>dog_day</code> cell is 15, and the mean for the <code>dog_night</code> cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set <code>empirical = FALSE</code> to sample from a population with these values).</p>
+<p>This function creates a dataset with a specific between- and within-subjects design. <a href="https://debruine.github.io/faux/articles/sim_design.html">see vignette</a></p>
+<p>For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is <code>pet</code> with twolevels of <code>cat</code> and <code>dog</code>. The within-subject factor is <code>time</code> with two levels of <code>day</code> and <code>night</code>. The mean for the <code>cat_day</code> cell is 10, the mean for the <code>cat_night</code> cell is 20, the mean for the <code>dog_day</code> cell is 15, and the mean for the <code>dog_night</code> cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set <code>empirical = FALSE</code> to sample from a population with these values). Set <code>plot = TRUE</code> to show a plot of means and SDs.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">between &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"pet"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>))
 within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"time"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"day"</span>, <span class="st">"night"</span>))
 mu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(
@@ -100,7 +106,8 @@ mu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocument
 )
 df &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_design.html">sim_design</a></span>(within, between, 
                  <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mu =</span> mu, <span class="dt">sd =</span> <span class="dv">5</span>, <span class="dt">r =</span> .<span class="dv">5</span>,
-                 <span class="dt">empirical =</span> <span class="ot">TRUE</span>)</code></pre></div>
+                 <span class="dt">empirical =</span> <span class="ot">TRUE</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-1-1.png" width="768"></p>
 <table class="table table">
 <caption>Sample <code><a href="reference/sim_design.html">sim_design()</a></code> stats</caption>
 <thead><tr class="header">
@@ -155,7 +162,7 @@ df &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_design.
 <div id="rnorm_multi" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rnorm_multi" class="anchor"></a>rnorm_multi</h2>
-<p>This function makes multiple normally distributed vectors with specified parameters and relationships. <a href="articles/rnorm_multi.html">see vignette</a></p>
+<p>This function makes multiple normally distributed vectors with specified parameters and relationships. <a href="https://debruine.github.io/faux/articles/rnorm_multi.html">see vignette</a></p>
 <p>For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5. A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
 dat &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_multi.html">rnorm_multi</a></span>(
@@ -182,28 +189,28 @@ dat &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_mult
 <td align="right">100</td>
 <td align="left">A</td>
 <td align="right">1.00</td>
-<td align="right">0.62</td>
-<td align="right">0.46</td>
-<td align="right">-0.05</td>
-<td align="right">1.08</td>
+<td align="right">0.36</td>
+<td align="right">0.50</td>
+<td align="right">0.15</td>
+<td align="right">0.96</td>
 </tr>
 <tr class="even">
 <td align="right">100</td>
 <td align="left">B</td>
-<td align="right">0.62</td>
+<td align="right">0.36</td>
 <td align="right">1.00</td>
-<td align="right">0.19</td>
-<td align="right">19.95</td>
-<td align="right">5.38</td>
+<td align="right">0.18</td>
+<td align="right">19.37</td>
+<td align="right">5.20</td>
 </tr>
 <tr class="odd">
 <td align="right">100</td>
 <td align="left">C</td>
-<td align="right">0.46</td>
-<td align="right">0.19</td>
+<td align="right">0.50</td>
+<td align="right">0.18</td>
 <td align="right">1.00</td>
-<td align="right">19.81</td>
-<td align="right">5.15</td>
+<td align="right">20.56</td>
+<td align="right">5.29</td>
 </tr>
 </tbody>
 </table>
@@ -211,7 +218,7 @@ dat &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_mult
 <div id="sim_df" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sim_df" class="anchor"></a>sim_df</h2>
-<p>This function produces a dataframe with the same distributions and correlations as an existing dataframe. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). <a href="articles/sim_df.html">see vignette</a></p>
+<p>This function produces a dataframe with the same distributions and correlations as an existing dataframe. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). <a href="https://debruine.github.io/faux/articles/sim_df.html">see vignette</a></p>
 <p>For example, the following code creates a new sample from the built-in dataset <code>iris</code> with 50 observations of each species.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">new_iris &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_df.html">sim_df</a></span>(iris, <span class="dv">50</span>, <span class="st">"Species"</span>) </code></pre></div>
 <div class="figure">
