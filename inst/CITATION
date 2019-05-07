@@ -1,0 +1,13 @@
+citHeader("To cite faux in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "Faux  (beta) (Version v0.0.0.9007-beta)",
+  author   = "Lisa DeBruine",
+  doi      = "10.5281/zenodo.2669587",
+  publisher = "Zenodo",
+  year     = "2019",
+  month    = "May",
+  url      = "https://debruine.github.io/faux/",
+  textVersion = paste("Lisa DeBruine (2019, May 6). debruine/faux: Faux (beta) (Version v0.0.0.9007-beta). Zenodo. http://doi.org/10.5281/zenodo.2669587")
+)
