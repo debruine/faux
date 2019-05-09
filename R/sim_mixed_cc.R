@@ -35,10 +35,10 @@ sim_mixed_cc <- function(sub_n = 100, item_n = 20, grand_i = 0, sub_sd = 1, item
     dplyr::left_join(new_sub, by = "sub_id") %>%
     dplyr::left_join(new_item, by = "item_id") %>%
     dplyr::mutate(
+      grand_i = grand_i,
       err = stats::rnorm(nrow(.), 0, error_sd),
       val = grand_i + sub_i + item_i + err
-    ) %>%
-    dplyr::select(sub_id, item_id, val)
+    )
   
   new_obs
 }

@@ -5,7 +5,7 @@ test_that("default settings", {
   s10 <- sim_mixed_df(faceratings, 10, 10)
   
   expect_equal(nrow(s10), 100)
-  expect_equal(ncol(s10), 5)
+  expect_equal(ncol(s10), 3)
 })
 
 test_that("specified dv and IDs", {
@@ -13,6 +13,6 @@ test_that("specified dv and IDs", {
   s10 <- sim_mixed_df(faceratings, 10, 10, "rating", "rater_id", "face_id")
   
   expect_equal(nrow(s10), 100)
-  expect_equal(ncol(s10), 5)
+  expect_equal(ncol(s10), 3)
 })
 

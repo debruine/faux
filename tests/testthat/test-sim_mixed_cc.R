@@ -20,17 +20,3 @@ test_that("default", {
     broom.mixed::tidy(effects = "ran_pars")
 })
 
-library(ggplot2)
-
-sim_cc <- function() {
-  data <- sim_mixed_cc(100, 100, 0, 1, 1, 2)
-  
-  lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = data) %>%
-    broom.mixed::tidy(effects = "ran_pars") %>%
-    ti
-}
-
-sims <- purrr::map_df(1:100, ~sim_cc())
-
-ggplot(sims, aes(estimate, color = group)) +
-  geom_density()

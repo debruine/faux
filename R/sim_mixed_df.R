@@ -34,29 +34,11 @@ sim_mixed_df <- function(.data, sub_n = 100, item_n = 25,
   grand_i <- lme4::fixef(mod)
   
   sds <- lme4::VarCorr(mod) %>% as.data.frame()
-  sub_i_sd <- dplyr::filter(sds, grp == sub_id) %>% dplyr::pull(sdcor)
-  item_i_sd <- dplyr::filter(sds, grp == item_id) %>% dplyr::pull(sdcor)
+  sub_sd <- dplyr::filter(sds, grp == sub_id) %>% dplyr::pull(sdcor)
+  item_sd <- dplyr::filter(sds, grp == item_id) %>% dplyr::pull(sdcor)
   error_sd <- dplyr::filter(sds, grp == "Residual") %>% dplyr::pull(sdcor)
   
-  # sample subject random intercepts -------------------------------------------
-  new_sub <- tibble::tibble(
-    sub_id = 1:sub_n,
-    sub_i = stats::rnorm(sub_n, 0, sub_i_sd)
-  )
-  
-  # sample item random intercepts ----------------------------------------------
-  new_item <- tibble::tibble(
-    item_id = 1:item_n,
-    item_i = stats::rnorm(item_n, 0, item_i_sd)
-  )
-  
-  new_obs <- expand.grid(
-    sub_id = new_sub$sub_id,
-    item_id = new_item$item_id
-  ) %>%
-    dplyr::left_join(new_sub, by = "sub_id") %>%
-    dplyr::left_join(new_item, by = "item_id") %>%
-    dplyr::mutate(dv = grand_i + sub_i + item_i + stats::rnorm(nrow(.), 0, error_sd))
+  new_obs <- sim_mixed_cc(sub_n, item_n, grand_i, sub_sd, item_sd, error_sd)
   
   new_obs
 }

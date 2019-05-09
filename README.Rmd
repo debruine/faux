@@ -62,6 +62,49 @@ df <- sim_design(within, between,
 `r check_sim_stats(df, between = "pet", usekable = TRUE)`
 Table: Sample `sim_design()` stats
 
+## sim_df
+
+This function produces a data table with the same distributions and correlations as an existing data table. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). [see vignette](https://debruine.github.io/faux/articles/sim_df.html)
+
+For example, the following code creates a new sample from the built-in dataset `iris` with 50 observations of each species.
+
+```{r}
+new_iris <- sim_df(iris, 50, "Species") 
+```
+
+```{r plot-iris-sim, echo = FALSE, fig.cap="Simulated iris dataset"}
+new_iris %>%
+  ggplot(aes(Sepal.Width, Sepal.Length, color = Species)) +
+  geom_point() +
+  geom_smooth(method = "lm")
+```
+
+## sim_mixed_cc
+
+This function produces a data table for a basic cross-classified design with random intercepts for subjects and items. 
+
+For example, the following code produces the data for 100 subjects responding to 50 items where the response has an overall mean (`grand_i`) of 10. Subjects vary in their average response with an SD of 1, items vary in their average response with an SD of 2, and the residual error term has an SD of 3.
+
+```{r}
+dat <- sim_mixed_cc(
+  sub_n = 100,   # subject sample size
+  item_n = 50,  # item sample size
+  grand_i = 10,  # overall mean of the score
+  sub_sd = 1,   # SD of subject random intercepts
+  item_sd = 2,  # SD of item random intercepts
+  error_sd = 3  # SD of residual error
+)
+```
+
+You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.
+
+```{r, results='asis'}
+lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
+  broom.mixed::tidy() %>%
+  knitr::kable(digits = 3)
+```
+
+
 ## rnorm_multi
 
 This function makes multiple normally distributed vectors with specified parameters and relationships. [see vignette](https://debruine.github.io/faux/articles/rnorm_multi.html)
@@ -86,22 +129,7 @@ dat <- rnorm_multi(
 Table: Sample `rnorm_multi()` stats
 
 
-## sim_df
 
-This function produces a dataframe with the same distributions and correlations as an existing dataframe. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). [see vignette](https://debruine.github.io/faux/articles/sim_df.html)
-
-For example, the following code creates a new sample from the built-in dataset `iris` with 50 observations of each species.
-
-```{r}
-new_iris <- sim_df(iris, 50, "Species") 
-```
-
-```{r plot-iris-sim, echo = FALSE, fig.cap="Simulated iris dataset"}
-new_iris %>%
-  ggplot(aes(Sepal.Width, Sepal.Length, color = Species)) +
-  geom_point() +
-  geom_smooth(method = "lm")
-```
 
 ## Additional functions
 
