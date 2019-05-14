@@ -472,3 +472,15 @@ test_that("label order", {
   expect_equal(levels(df$pets), c("ferret", "dog", "cat"))
   expect_equal(levels(df$time), c("night", "day"))
 })
+
+# seed ----
+test_that("seed", {
+  df1 <- sim_design(within = 2, n = 10, seed = 1)
+  df2 <- sim_design(within = 2, n = 10, seed = 1)
+  
+  expect_equal(df1, df2)
+  
+  df3 <- sim_design(within = 2, n = 10, seed = 90210)
+  
+  expect_true(!identical(df1, df3))
+})

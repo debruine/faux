@@ -4,21 +4,23 @@
 \alias{sim_mixed_df}
 \title{Generate a sample with random intercepts for subjects and items}
 \usage{
-sim_mixed_df(.data, sub_n = 100, item_n = 25, dv = 1, sub_id = 2,
-  item_id = 3)
+sim_mixed_df(.data, sub_n = NULL, item_n = NULL, dv = 1,
+  sub_id = 2, item_id = 3, seed = NULL)
 }
 \arguments{
 \item{.data}{the existing tbl}
 
-\item{sub_n}{the number of subjects to simulate}
+\item{sub_n}{the number of subjects to simulate (if NULL, returns data for the same subjects)}
 
-\item{item_n}{the number of items to simulate}
+\item{item_n}{the number of items to simulate (if NULL, returns data for the same items)}
 
 \item{dv}{the column name or index containing the DV}
 
 \item{sub_id}{the column name or index for the subject IDs}
 
 \item{item_id}{the column name or index for the item IDs}
+
+\item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 }
 \value{
 a tbl

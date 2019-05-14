@@ -4,7 +4,7 @@
 \alias{sim_design_}
 \title{Simulate Data from Design}
 \usage{
-sim_design_(design, empirical = FALSE, long = FALSE)
+sim_design_(design, empirical = FALSE, long = FALSE, seed = NULL)
 }
 \arguments{
 \item{design}{A list of design parameters created by check_design()}
@@ -12,6 +12,8 @@ sim_design_(design, empirical = FALSE, long = FALSE)
 \item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 
 \item{long}{Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format}
+
+\item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 }
 \value{
 a tbl

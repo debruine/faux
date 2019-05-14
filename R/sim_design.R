@@ -11,6 +11,7 @@
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' @param plot whether to show a plot of the design
+#' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' 
 #' @return a tbl
 #' 
@@ -18,13 +19,14 @@
 #' 
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
-                       empirical = FALSE, long = FALSE, plot = FALSE) {
+                       empirical = FALSE, long = FALSE, 
+                       plot = FALSE, seed = NULL) {
   # check the design is specified correctly
   design <- check_design(within = within, between = between, 
                          n = n, mu = mu, sd = sd, r = r, plot = plot)
   
   # simulate the data
-  sim_design_(design, empirical = empirical, long = long)
+  sim_design_(design, empirical = empirical, long = long, seed = seed)
 }
 
 #' Fix name labels
@@ -51,11 +53,13 @@ fix_name_labels <- function(x) {
 #' @param design A list of design parameters created by check_design()
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
+#' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' 
 #' @return a tbl
 #' @keywords internal
 #' 
-sim_design_ <- function(design, empirical = FALSE, long = FALSE) {
+sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
+  set.seed(seed)
   list2env(design, envir = environment())
   
   # get factor names

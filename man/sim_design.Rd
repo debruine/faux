@@ -5,7 +5,8 @@
 \title{Simulate Data from Design}
 \usage{
 sim_design(within = list(), between = list(), n = 100, mu = 0,
-  sd = 1, r = 0, empirical = FALSE, long = FALSE, plot = FALSE)
+  sd = 1, r = 0, empirical = FALSE, long = FALSE, plot = FALSE,
+  seed = NULL)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -25,6 +26,8 @@ sim_design(within = list(), between = list(), n = 100, mu = 0,
 \item{long}{Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format}
 
 \item{plot}{whether to show a plot of the design}
+
+\item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 }
 \value{
 a tbl
