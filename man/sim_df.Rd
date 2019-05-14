@@ -5,7 +5,7 @@
 \title{Simulate an existing dataframe}
 \usage{
 sim_df(.data, n = 100, between = c(), empirical = FALSE,
-  grp_by = NULL)
+  seed = NULL, grp_by = NULL)
 }
 \arguments{
 \item{.data}{the existing tbl (must be in wide format)}
@@ -15,6 +15,8 @@ sim_df(.data, n = 100, between = c(), empirical = FALSE,
 \item{between}{a list of the between-subject columns}
 
 \item{empirical}{logical. Passed on to rnorm_multi}
+
+\item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 
 \item{grp_by}{(deprecated; use between)}
 }

@@ -19,7 +19,9 @@ library(faux)
 library(tidyverse)
 ```
 
-The function `sim_mixed_cc()` produces a data table for a basic cross-classified design with random intercepts for subjects and items. 
+## sim_mixed_cc
+
+This function produces a data table for a basic cross-classified design with random intercepts for subjects and items. 
 
 For example, the following code produces the data for 100 subjects responding to 50 items where the response has an overall mean (`grand_i`) of 10. Subjects vary in their average response with an SD of 1, items vary in their average response with an SD of 2, and the residual error term has an SD of 3.
 
@@ -42,48 +44,32 @@ lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = dat_cc) %>%
   knitr::kable(digits = 3)
 ```
 
-You can also add effects to this intercept model. For example, you can add a between-subjects factor of condition (A or B) that has an efect size of 0.5 and a within-item factor of time (pre or post) that has an effect size of 0.25.
-
-```{r}
-
-# set up between-subject factor
-sub <- data.frame(
-  sub_id = unique(dat_cc$sub_id)
-) %>%
-  mutate(condition = rep(c("A", "B"), length.out = nrow(.)))
-
-# set up within- factors
-trials <- expand.grid(
-  sub_id = sub$sub_id,
-  item_id = unique(dat_cc$item_id),
-  time = c("pre", "post")
-)
-
-condition_effect <- 0.5
-time_effect <- 0.25
-
-# add subject and cc data to trials
-sim_dat <- trials %>%
-  left_join(sub, by = "sub_id") %>%
-  left_join(dat_cc, by = c("sub_id", "item_id")) %>%
-  mutate(
-    condition.e = recode(condition, "A" = -0.5, "B" = 0.5),
-    time.e = recode(time, "pre" = -0.5, "post" = 0.5),
-    err = rnorm(nrow(.), 0, sd(dat_cc$err)), # redo the error term
-    dv = grand_i + sub_i + item_i + err + 
-      (condition.e * condition_effect) + 
-      (time.e * time_effect)
-  )
-
-```
-Add time and condition to your model. Try changing the effect sizes and see how the estimate changes.
+For example, changing `grand_i` to 0 changes the estimate for the fixed effect of the intercept `(Intercept)`. Changing `sub_sd` to 1.5 and `item_sd` to 3 change the estimate for the SD of their corresponding random effects. Changing `error_sd` to 10 changes the estimate from the Residual SD. 
 
 ```{r, results='asis'}
-lme4::lmer(dv ~ 1 + time.e + condition.e + 
-             (1 | sub_id) + 
-             (1 | item_id), 
-           data = sim_dat) %>%
+dat_cc <- sim_mixed_cc(100, 50, 0, 1.5, 3, 10)
+
+lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = dat_cc) %>%
   broom.mixed::tidy() %>%
   knitr::kable(digits = 3)
 ```
+
+## sim_mixed_df
+
+This function uses `lme4::lmer()` to get subject, item and error SDs from an existing dataset and simulates a new dataset with the specified number of subjects and items with distributions drawn from the example data.
+
+This example uses the `faceratings` dataset from this package to simulate 100 new subjects viewing 50 new faces.
+
+```{r, eval = FALSE}
+
+new_dat <- sim_mixed_df(faux::faceratings, 
+                        sub_n = 100, 
+                        item_n = 50, 
+                        dv = "rating", 
+                        sub_id = "rater_id", 
+                        item_id = "face_id")
+
+```
+
+
 

@@ -16,8 +16,13 @@
 #' 
 #' within <- list(time = c("day", "night"))
 #' between <- list(pet = c("dog", "cat"))
-#' check_design(within, between)
+#' mu <- list(dog = 10, cat = 5)
+#' check_design(within, between, mu = mu)
 #' 
+#' between <- list(language = c("dutch", "thai"),
+#'                 pet = c("dog", "cat"))
+#' mu <- list(dutch_dog = 12, thai_dog = 8, dutch_cat = 7, thai_cat = 3)
+#' check_design(within, between, mu = mu)
 #' @export
 #' 
 check_design <- function(within = list(), between = list(), 

@@ -20,3 +20,15 @@ test_that("default", {
     broom.mixed::tidy(effects = "ran_pars")
 })
 
+# seed ----
+test_that("seed", {
+  df1 <- sim_mixed_cc(20, 20, seed = 1)
+  df2 <- sim_mixed_cc(20, 20, seed = 1)
+  
+  expect_equal(df1, df2)
+  
+  df3 <- sim_mixed_cc(20, 20, seed = 90210)
+  
+  expect_true(!identical(df1, df3))
+})
+

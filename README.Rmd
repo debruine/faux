@@ -2,10 +2,11 @@
 output: github_document
 always_allow_html: yes
 ---
-
+<!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
+[![DOI](https://zenodo.org/badge/163506566.svg)](https://zenodo.org/badge/latestdoi/163506566)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
@@ -37,13 +38,20 @@ You can install the newest version of faux from [GitHub](https://github.com/debr
 devtools::install_github("debruine/faux")
 ```
 
-[![DOI](https://zenodo.org/badge/163506566.svg)](https://zenodo.org/badge/latestdoi/163506566)
+* [sim_design](#sim_design)
+* [sim_df](#sim_df)
+* [sim_mixed_cc](#sim_mixed_cc)
+* [sim_mixed_df](#sim_mixed_df)
+* [rnorm_multi](#rnorm_multi)
+* [rnorm_pre](#rnorm_pre)
+* [additional functions](#add_func)
+
 
 ## sim_design
 
 This function creates a dataset with a specific between- and within-subjects design. [see vignette](https://debruine.github.io/faux/articles/sim_design.html)
 
-For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is `pet` with twolevels of `cat` and `dog`. The within-subject factor is `time` with two levels of `day` and `night`. The mean for the `cat_day` cell is 10, the mean for the `cat_night` cell is 20, the mean for the `dog_day` cell is 15, and the mean for the `dog_night` cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set `empirical = FALSE` to sample from a population with these values). Set `plot = TRUE` to show a plot of means and SDs.
+For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is `pet` with two levels (`cat` and `dog`). The within-subject factor is `time` with two levels (`day` and `night`). The mean for the `cat_day` cell is 10, the mean for the `cat_night` cell is 20, the mean for the `dog_day` cell is 15, and the mean for the `dog_night` cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set `empirical = FALSE` to sample from a population with these values). Set `plot = TRUE` to show a plot of means and SDs.
 
 
 ```{r, fig.width = 8, fig.height = 4}
@@ -69,7 +77,7 @@ This function produces a data table with the same distributions and correlations
 For example, the following code creates a new sample from the built-in dataset `iris` with 50 observations of each species.
 
 ```{r}
-new_iris <- sim_df(iris, 50, "Species") 
+new_iris <- sim_df(iris, 50, between = "Species") 
 ```
 
 ```{r plot-iris-sim, echo = FALSE, fig.cap="Simulated iris dataset"}
@@ -87,9 +95,9 @@ For example, the following code produces the data for 100 subjects responding to
 
 ```{r}
 dat <- sim_mixed_cc(
-  sub_n = 100,   # subject sample size
+  sub_n = 100,  # subject sample size
   item_n = 50,  # item sample size
-  grand_i = 10,  # overall mean of the score
+  grand_i = 10, # overall mean of the score
   sub_sd = 1,   # SD of subject random intercepts
   item_sd = 2,  # SD of item random intercepts
   error_sd = 3  # SD of residual error
@@ -102,6 +110,21 @@ You can then see how changing these numbers affects the random effects in an int
 lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
   broom.mixed::tidy() %>%
   knitr::kable(digits = 3)
+```
+
+## sim_mixed_df
+
+This function uses `lme4::lmer()` to get subject, item and error SDs from an existing dataset and simulates a new dataset with the specified number of subjects and items with distributions drawn from the example data.
+
+```{r, eval = FALSE}
+
+new_dat <- sim_mixed_df(faceratings, 
+                        sub_n = 100, 
+                        item_n = 50, 
+                        dv = "rating", 
+                        sub_id = "rater_id", 
+                        item_id = "face_id")
+
 ```
 
 
@@ -129,9 +152,47 @@ dat <- rnorm_multi(
 Table: Sample `rnorm_multi()` stats
 
 
+## rnorm_pre
+
+This function creates a vector that has a specified correlation with an existing vector. 
+
+```{r rnormpre-example}
+# create a pre-existing vector x
+x <- rnorm(100, 0, 1)
+
+# create a vector y with exactly mean=0, sd=1, and r(x,y)=0.5
+y <- rnorm_pre(x, mu = 0, sd = 1, r = 0.5, empirical = TRUE)
+
+list(
+  mean = mean(y),
+  sd = sd(y),
+  r = cor(x,y)
+) %>% str()
+
+```
 
 
-## Additional functions
+If `empirical = FALSE` (the default), this resulting vector is sampled from a population with the specified parameters (but won't have *exactly* those properties).
+
+```{r, echo=FALSE, fig.cap = "Distribution of 1000 samples from rnorm_pre"}
+samp  <- purrr::map_df(
+  1:1000, 
+  ~ {y <- rnorm_pre(x, mu = 0, sd = 1, r = 0.5, empirical = FALSE)
+    list(r = cor(x, y),
+         mu = mean(y),
+         sd = sd(y)) }
+)
+
+samp %>%
+  mutate(id = row_number()) %>%
+  gather(statistic, val, r:sd) %>%
+  ggplot(aes(val, fill = statistic)) + 
+  geom_density(alpha = 0.5) +
+  theme(legend.position = c(0.05, .85))
+```
+
+
+## Additional functions {#add_func}
 
 ### check_sim_stats
 
@@ -206,7 +267,7 @@ lims <- pos_def_limits(.8, .2,  0,
 
 `r knitr::kable(lims)`
 
-### is_pos_def() 
+### is_pos_def
 
 If you have a full matrix and want to know if it is positive definite, you can use the following code:
 

@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9007</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
       </span>
     </div>
 
@@ -93,6 +93,9 @@
     </li>
     <li>
       <a href="../articles/sim_df.html">Simulate from Existing Data</a>
+    </li>
+    <li>
+      <a href="../articles/sim_mixed.html">sim_mixed</a>
     </li>
   </ul>
 </li>
@@ -132,7 +135,7 @@
     </div>
 
     <pre class="usage"><span class='fu'>sim_df</span>(<span class='no'>.data</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>grp_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>grp_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,6 +155,10 @@
     <tr>
       <th>empirical</th>
       <td><p>logical. Passed on to rnorm_multi</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>a single value, interpreted as an integer, or NULL (see set.seed)</p></td>
     </tr>
     <tr>
       <th>grp_by</th>

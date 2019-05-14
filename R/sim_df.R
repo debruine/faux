@@ -6,6 +6,7 @@
 #' @param n the number of samples to return per group
 #' @param between a list of the between-subject columns
 #' @param empirical logical. Passed on to rnorm_multi
+#' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param grp_by (deprecated; use between)
 #' 
 #' @return a tbl
@@ -14,7 +15,10 @@
 #' iris_species <- sim_df(iris, 100, between = "Species")
 #' @export
 
-sim_df <- function (.data, n = 100, between = c(), empirical = FALSE, grp_by = NULL) {
+sim_df <- function (.data, n = 100, between = c(), 
+                    empirical = FALSE, seed = NULL, grp_by = NULL) {
+  set.seed(seed)
+  
   # error checking
   if ( !is.numeric(n) || n %% 1 > 0 || n < 3 ) {
     stop("n must be an integer > 2")

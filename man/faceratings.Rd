@@ -14,7 +14,7 @@
   \item{face_sex}{face's sex (female, male)}
   \item{face_age}{face's age (in years)}
   \item{face_eth}{face's ethnic group}
-  \item{rating}{attractiveness rating on a scale from 1 (much less attractiven than average) to 7 (much more attractive than average)}
+  \item{rating}{attractiveness rating on a scale from 1 (much less attractive than average) to 7 (much more attractive than average)}
 }}
 \source{
 \url{https://figshare.com/articles/Face_Research_Lab_London_Set/5047666}

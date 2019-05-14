@@ -4,7 +4,7 @@
 \alias{rnorm_pre}
 \title{Correlated Normal Vector}
 \usage{
-rnorm_pre(x, mu = 0, sd = 1, r = 0)
+rnorm_pre(x, mu = 0, sd = 1, r = 0, empirical = FALSE)
 }
 \arguments{
 \item{x}{the existing vector}
@@ -14,6 +14,8 @@ rnorm_pre(x, mu = 0, sd = 1, r = 0)
 \item{sd}{desired SD of returned vector}
 
 \item{r}{desired correlation between existing and returned vectors}
+
+\item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 }
 \value{
 vector
