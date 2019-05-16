@@ -23,3 +23,10 @@
 
 * added `sim_mixed_cc()` to simulate null cross-classified mixed effect designs by subject, item and error SDs
 * `sim_design()`, `sim_df()`, `sim_mixed_cc()` and `sim_mixed_df()` take a `seed` argument now for reproducible datasets
+
+# faux 0.0.0.9009
+
+* Bug fix for `long2wide()` (handle designs with no between or no within factors)
+* `sim_df()` returns subject IDs and takes data in long format
+* Renamed `check_sim_stats()` to `get_params()`, which now returns the design
+* Added interactive option to `sim_design()`

@@ -1,6 +1,6 @@
-#' Check table stats
+#' Check table parameters
 #'
-#' \code{check_sim_stats} Generates a table of the correlations and means of numeric columns in a data frame
+#' \code{get_params} Generates a table of the correlations and means of numeric columns in a data frame
 #'
 #' @param .data the existing tbl
 #' @param between a vector of column names for between-subject factors
@@ -12,11 +12,11 @@
 #' 
 #' @return a tbl or kable
 #' @examples
-#' check_sim_stats(iris, "Species")
+#' get_stats(iris, "Species")
 #' @export
 #' 
 
-check_sim_stats <- function(.data, between = c(), within = c(), dv = c(), id = c(),
+get_params <- function(.data, between = c(), within = c(), dv = "val", id = "sub_id",
                             digits = 2, usekable = FALSE) {
   
   if (length(within) && length(dv) && length(id)) {
@@ -49,8 +49,12 @@ check_sim_stats <- function(.data, between = c(), within = c(), dv = c(), id = c
     dplyr::select(tidyselect::one_of(c(between, "n", "var", numvars, "mean", "sd")))
     
   if (usekable) {
-    return(knitr::kable(stats))
-  } else {
-    return(stats)
+    print(knitr::kable(stats))
   }
+  
+  invisible(stats)
 }
+
+#' @rdname get_params
+#' @export
+check_sim_stats <- get_params

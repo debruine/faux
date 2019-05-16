@@ -5,7 +5,7 @@ test_that("error messages", {
   expect_error( sim_df("A"), ".data must be a data frame or matrix" )
   expect_error( sim_df(iris, "A"), "n must be an integer > 2" )
   expect_error( sim_df(iris, 2), "n must be an integer > 2" )
-  expect_error( sim_df(iris, 10, FALSE), "between must be a numeric or character vector" )
+  expect_error( sim_df(iris, 10, between = FALSE), "between must be a numeric or character vector" )
 })
 
 # default parameters ----
@@ -13,8 +13,8 @@ test_that("default parameters", {
   newdf <- sim_df(iris)
 
   expect_equal(nrow(newdf), 100)
-  expect_equal(ncol(newdf), 4)
-  expect_equal(names(newdf), names(iris)[1:4])
+  expect_equal(ncol(newdf), 5)
+  expect_equal(names(newdf)[2:5], names(iris)[1:4])
 })
 
 # specified parameters ----
@@ -29,7 +29,7 @@ test_that("specified parameters", {
     as.data.frame()
   
   # unnamed arguments in order
-  newdf <- sim_df(iris, n, c(), TRUE)
+  newdf <- sim_df(iris, n, empirical = TRUE)
   newdat <- dplyr::select_if(newdf, is.numeric)
   newcors <- cor(newdat)
   newmeans <- dplyr::summarise_all(newdat, mean) %>%
@@ -38,8 +38,8 @@ test_that("specified parameters", {
     as.data.frame()
   
   expect_equal(nrow(newdf), n)
-  expect_equal(ncol(newdf), 4)
-  expect_equal(names(newdf), names(iris)[1:4])
+  expect_equal(ncol(newdf), 5)
+  expect_equal(names(newdf)[2:5], names(iris)[1:4])
   
   expect_equal(cors, newcors)
   expect_equal(means, newmeans)
@@ -55,8 +55,8 @@ test_that("specified parameters", {
     as.data.frame()
   
   expect_equal(nrow(newdf), n)
-  expect_equal(ncol(newdf), 4)
-  expect_equal(names(newdf), names(iris)[1:4])
+  expect_equal(ncol(newdf), 5)
+  expect_equal(names(newdf)[2:5], names(iris)[1:4])
   
   expect_equal(cors, newcors)
   expect_equal(means, newmeans)
@@ -66,20 +66,38 @@ test_that("specified parameters", {
 
 # grouping by name ----
 test_that("grouping by name", {
-  newdf <- sim_df(iris, 20, "Species")
+  newdf <- sim_df(iris, 20, between = "Species")
   
   expect_equal(nrow(newdf), 60)
-  expect_equal(ncol(newdf), 5)
-  expect_equal(names(newdf) %>% sort(), names(iris) %>% sort())
+  expect_equal(ncol(newdf), 6)
+  expect_equal(names(newdf)[2:6] %>% sort(), names(iris) %>% sort())
 })
 
 # grouping by col number ----
 test_that("grouping by col number", {
-  newdf <- sim_df(iris, 20, 5)
+  newdf <- sim_df(iris, 20, between = 5)
   
   expect_equal(nrow(newdf), 60)
-  expect_equal(ncol(newdf), 5)
-  expect_equal(names(newdf) %>% sort(), names(iris) %>% sort())
+  expect_equal(ncol(newdf), 6)
+  expect_equal(names(newdf)[2:6] %>% sort(), names(iris) %>% sort())
+})
+
+# within ----
+test_that("within", {
+  long_iris <- wide2long(
+    iris,
+    within_factors = c("feature", "dimension"),
+    within_cols = c("Petal.Length", "Petal.Width", "Sepal.Length", "Sepal.Width"),
+    dv = "value",
+    id = "id"
+  )
+  
+  newdf <- sim_df(long_iris, 20, 
+                  within = c("feature", "dimension"),
+                  between = "Species",
+                  dv = "value", id = "id")
+  
+  expect_equal(names(newdf), c("id", "Species", "Petal_Length", "Petal_Width", "Sepal_Length", "Sepal_Width" ))
 })
 
 # test_that("mean stats are close over 1000 runs", {
@@ -104,3 +122,4 @@ test_that("grouping by col number", {
 #   
 #   expect_equal(orig_stats, sim_stats, tolerance = 0.02)
 # })
+

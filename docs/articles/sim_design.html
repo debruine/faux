@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
       <h1>Simulate by Design</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2019-05-14</h4>
+            <h4 class="date">2019-05-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/sim_design.Rmd"><code>vignettes/sim_design.Rmd</code></a></small>
       <div class="hidden name"><code>sim_design.Rmd</code></div>
@@ -116,55 +116,14 @@ mu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocument
 df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mu =</span> mu, <span class="dt">sd =</span> <span class="dv">5</span>, <span class="dt">r =</span> <span class="fl">0.5</span>, 
                  <span class="dt">empirical =</span> <span class="ot">TRUE</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="sim_design_files/figure-html/unnamed-chunk-1-1.png" width="768"></p>
-<table class="table">
-<thead><tr class="header">
-<th align="left">pet</th>
-<th align="right">n</th>
-<th align="left">var</th>
-<th align="right">day</th>
-<th align="right">night</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">cat</td>
-<td align="right">100</td>
-<td align="left">day</td>
-<td align="right">1.0</td>
-<td align="right">0.5</td>
-<td align="right">10</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">cat</td>
-<td align="right">100</td>
-<td align="left">night</td>
-<td align="right">0.5</td>
-<td align="right">1.0</td>
-<td align="right">20</td>
-<td align="right">5</td>
-</tr>
-<tr class="odd">
-<td align="left">dog</td>
-<td align="right">100</td>
-<td align="left">day</td>
-<td align="right">1.0</td>
-<td align="right">0.5</td>
-<td align="right">15</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
-<td align="left">dog</td>
-<td align="right">100</td>
-<td align="left">night</td>
-<td align="right">0.5</td>
-<td align="right">1.0</td>
-<td align="right">25</td>
-<td align="right">5</td>
-</tr>
-</tbody>
-</table>
+<pre><code>#&gt; 
+#&gt; 
+#&gt; pet      n  var      day   night   mean   sd
+#&gt; ----  ----  ------  ----  ------  -----  ---
+#&gt; cat    100  day      1.0     0.5     10    5
+#&gt; cat    100  night    0.5     1.0     20    5
+#&gt; dog    100  day      1.0     0.5     15    5
+#&gt; dog    100  night    0.5     1.0     25    5</code></pre>
 <p><img src="sim_design_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
 </div>
 <div id="specification-of-design-parameters" class="section level2">
@@ -191,102 +150,102 @@ df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_desi
 <tr class="odd">
 <td align="left">S01</td>
 <td align="left">C1</td>
-<td align="right">-1.0066670</td>
-<td align="right">-0.4737511</td>
-<td align="right">-0.1543886</td>
-<td align="right">-1.2309518</td>
-<td align="right">-0.7066414</td>
-<td align="right">-1.5326464</td>
+<td align="right">2.6387318</td>
+<td align="right">0.2541093</td>
+<td align="right">1.8381641</td>
+<td align="right">1.1131593</td>
+<td align="right">1.0021244</td>
+<td align="right">0.9598467</td>
 </tr>
 <tr class="even">
 <td align="left">S02</td>
 <td align="left">C1</td>
-<td align="right">-0.9215229</td>
-<td align="right">-0.2218187</td>
-<td align="right">-1.1626493</td>
-<td align="right">-0.0926757</td>
-<td align="right">1.2546813</td>
-<td align="right">-0.0223669</td>
+<td align="right">0.9208403</td>
+<td align="right">-0.0677094</td>
+<td align="right">-0.6145891</td>
+<td align="right">0.7262731</td>
+<td align="right">0.8272607</td>
+<td align="right">-0.5043013</td>
 </tr>
 <tr class="odd">
 <td align="left">S03</td>
 <td align="left">C1</td>
-<td align="right">0.3205287</td>
-<td align="right">0.4946496</td>
-<td align="right">-0.4952893</td>
-<td align="right">-0.3273147</td>
-<td align="right">0.8445937</td>
-<td align="right">0.5031472</td>
+<td align="right">-0.6961621</td>
+<td align="right">0.7452736</td>
+<td align="right">-0.9380590</td>
+<td align="right">0.1838607</td>
+<td align="right">-0.7822513</td>
+<td align="right">-0.0670938</td>
 </tr>
 <tr class="even">
 <td align="left">S04</td>
 <td align="left">C1</td>
-<td align="right">1.1547957</td>
-<td align="right">0.0442206</td>
-<td align="right">0.4855219</td>
-<td align="right">0.5099710</td>
-<td align="right">-0.0211658</td>
-<td align="right">-0.3906982</td>
+<td align="right">-0.2059409</td>
+<td align="right">0.3924284</td>
+<td align="right">1.3466716</td>
+<td align="right">1.3800533</td>
+<td align="right">0.4109258</td>
+<td align="right">0.4589447</td>
 </tr>
 <tr class="odd">
 <td align="left">S05</td>
 <td align="left">C1</td>
-<td align="right">-1.0800105</td>
-<td align="right">0.0600140</td>
-<td align="right">-0.1840303</td>
-<td align="right">-0.4267844</td>
-<td align="right">-0.3640555</td>
-<td align="right">-0.6871288</td>
+<td align="right">0.5328166</td>
+<td align="right">-0.3955809</td>
+<td align="right">-1.5293647</td>
+<td align="right">-0.8990652</td>
+<td align="right">0.0579754</td>
+<td align="right">-1.9333650</td>
 </tr>
 <tr class="even">
 <td align="left">S06</td>
 <td align="left">C2</td>
-<td align="right">0.5001573</td>
-<td align="right">-0.6129262</td>
-<td align="right">-1.4811132</td>
-<td align="right">-1.4168944</td>
-<td align="right">-0.7446951</td>
-<td align="right">-0.3668975</td>
+<td align="right">1.0849872</td>
+<td align="right">1.2889015</td>
+<td align="right">0.7864529</td>
+<td align="right">0.1333073</td>
+<td align="right">1.0835011</td>
+<td align="right">0.3214466</td>
 </tr>
 <tr class="odd">
 <td align="left">S07</td>
 <td align="left">C2</td>
-<td align="right">0.0519973</td>
-<td align="right">-0.7201645</td>
-<td align="right">0.4797813</td>
-<td align="right">-0.0389652</td>
-<td align="right">-0.1861088</td>
-<td align="right">-0.2778914</td>
+<td align="right">1.6921749</td>
+<td align="right">0.5082978</td>
+<td align="right">0.9829270</td>
+<td align="right">2.3314263</td>
+<td align="right">2.3492153</td>
+<td align="right">0.1368954</td>
 </tr>
 <tr class="even">
 <td align="left">S08</td>
 <td align="left">C2</td>
-<td align="right">-1.1080356</td>
-<td align="right">0.0256832</td>
-<td align="right">-1.2851454</td>
-<td align="right">-0.4830856</td>
-<td align="right">-1.0269331</td>
-<td align="right">-0.0359758</td>
+<td align="right">0.6143096</td>
+<td align="right">0.9220672</td>
+<td align="right">1.7526987</td>
+<td align="right">-0.5023991</td>
+<td align="right">1.0856774</td>
+<td align="right">0.1039267</td>
 </tr>
 <tr class="odd">
 <td align="left">S09</td>
 <td align="left">C2</td>
-<td align="right">-0.9970529</td>
-<td align="right">0.8525227</td>
-<td align="right">1.3081618</td>
-<td align="right">-1.0285905</td>
-<td align="right">0.4498011</td>
-<td align="right">-0.8000174</td>
+<td align="right">-1.5240390</td>
+<td align="right">-1.8944233</td>
+<td align="right">-1.7773383</td>
+<td align="right">-1.8080620</td>
+<td align="right">-1.6238077</td>
+<td align="right">-1.3939842</td>
 </tr>
 <tr class="even">
 <td align="left">S10</td>
 <td align="left">C2</td>
-<td align="right">0.4507517</td>
-<td align="right">-1.1340019</td>
-<td align="right">0.8996160</td>
-<td align="right">0.9900755</td>
-<td align="right">-1.2375051</td>
-<td align="right">0.1690697</td>
+<td align="right">0.0575935</td>
+<td align="right">0.9098055</td>
+<td align="right">-1.0699550</td>
+<td align="right">-0.7515864</td>
+<td align="right">0.1438885</td>
+<td align="right">-0.8463165</td>
 </tr>
 </tbody>
 </table>
@@ -355,55 +314,6 @@ within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">n =</span> <span class="dv">100</span>, 
                  <span class="dt">mu =</span> mu, <span class="dt">sd =</span> sd, <span class="dt">r =</span> r,
                  <span class="dt">empirical =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<table class="table">
-<thead><tr class="header">
-<th align="left">pet</th>
-<th align="right">n</th>
-<th align="left">var</th>
-<th align="right">day</th>
-<th align="right">night</th>
-<th align="right">mean</th>
-<th align="right">sd</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">cat</td>
-<td align="right">100</td>
-<td align="left">day</td>
-<td align="right">1.0</td>
-<td align="right">0.5</td>
-<td align="right">10</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">cat</td>
-<td align="right">100</td>
-<td align="left">night</td>
-<td align="right">0.5</td>
-<td align="right">1.0</td>
-<td align="right">20</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">dog</td>
-<td align="right">100</td>
-<td align="left">day</td>
-<td align="right">1.0</td>
-<td align="right">0.6</td>
-<td align="right">10</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
-<td align="left">dog</td>
-<td align="right">100</td>
-<td align="left">night</td>
-<td align="right">0.6</td>
-<td align="right">1.0</td>
-<td align="right">30</td>
-<td align="right">5</td>
-</tr>
-</tbody>
-</table>
 </div>
 </div>
 <div id="more-factors" class="section level2">

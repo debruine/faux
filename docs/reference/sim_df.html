@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
       </span>
     </div>
 
@@ -134,8 +134,9 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>sim_df</span>(<span class='no'>.data</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>grp_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>sim_df</span>(<span class='no'>.data</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"sub_id"</span>,
+  <span class='kw'>dv</span> <span class='kw'>=</span> <span class='st'>"val"</span>, <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>grp_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -149,12 +150,28 @@
       <td><p>the number of samples to return per group</p></td>
     </tr>
     <tr>
+      <th>within</th>
+      <td><p>a list of the within-subject columns</p></td>
+    </tr>
+    <tr>
       <th>between</th>
       <td><p>a list of the between-subject columns</p></td>
     </tr>
     <tr>
+      <th>id</th>
+      <td><p>the names of the column(s) for grouping observations</p></td>
+    </tr>
+    <tr>
+      <th>dv</th>
+      <td><p>the name of the DV (value) column</p></td>
+    </tr>
+    <tr>
       <th>empirical</th>
       <td><p>logical. Passed on to rnorm_multi</p></td>
+    </tr>
+    <tr>
+      <th>long</th>
+      <td></td>
     </tr>
     <tr>
       <th>seed</th>

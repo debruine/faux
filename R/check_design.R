@@ -5,8 +5,8 @@
 #' @param within a list of the within-subject factors
 #' @param between a list of the between-subject factors
 #' @param n the number of samples required
-#' @param mu a vector giving the means of the variables (numeric vector of length 1 or vars)
-#' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
+#' @param mu a vector giving the means of the variables
+#' @param sd the standard deviations of the variables
 #' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param plot whether to show a plot of the design
 #' 
@@ -149,11 +149,13 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
   b_n <- length(cells_b)
   all_n <- b_n*w_n
   
+  if (is.matrix(param)) { param <- as.data.frame(param) }
+  
   if (is.data.frame(param)) { # convert to list first
     # check for row/column confusion
-    cols_are_b <- setdiff(names(param), cells_b) %>% length() == 0
+    cols_are_b <- setdiff(colnames(param), cells_b) %>% length() == 0
     rows_are_w <- setdiff(rownames(param), cells_w) %>% length() == 0
-    cols_are_w <- setdiff(names(param), cells_w) %>% length() == 0
+    cols_are_w <- setdiff(colnames(param), cells_w) %>% length() == 0
     rows_are_b <- setdiff(rownames(param), cells_b) %>% length() == 0
     if (cols_are_b && rows_are_w) {
       # check this first in case rows and cols are the same labels

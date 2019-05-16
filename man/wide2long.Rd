@@ -4,8 +4,8 @@
 \alias{wide2long}
 \title{Wide to long format}
 \usage{
-wide2long(.data, within_factors = c(), within_cols = c(),
-  sep = "[^[:alnum:]]+")
+wide2long(.data, within_factors = c(), within_cols = c(), dv = "val",
+  id = NULL, sep = "[^[:alnum:]]+")
 }
 \arguments{
 \item{.data}{the tbl in wide format}
@@ -13,6 +13,8 @@ wide2long(.data, within_factors = c(), within_cols = c(),
 \item{within_factors}{the names of the within factors}
 
 \item{within_cols}{the names (or indices) of the within-subject (value) columns}
+
+\item{dv}{the name of the dv column (defaults to "val")}
 
 \item{sep}{Separator for within-columns (see tidyr::separate)}
 }

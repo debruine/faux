@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
       </span>
     </div>
 
@@ -134,8 +134,8 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>wide2long</span>(<span class='no'>.data</span>, <span class='kw'>within_factors</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>within_cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(),
-  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>)</pre>
+    <pre class="usage"><span class='fu'>wide2long</span>(<span class='no'>.data</span>, <span class='kw'>within_factors</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>within_cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>dv</span> <span class='kw'>=</span> <span class='st'>"val"</span>,
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -151,6 +151,10 @@
     <tr>
       <th>within_cols</th>
       <td><p>the names (or indices) of the within-subject (value) columns</p></td>
+    </tr>
+    <tr>
+      <th>dv</th>
+      <td><p>the name of the dv column (defaults to "val")</p></td>
     </tr>
     <tr>
       <th>sep</th>

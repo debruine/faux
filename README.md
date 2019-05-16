@@ -57,15 +57,6 @@ df <- sim_design(within, between,
 ![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
 
 
-
-|pet |   n|var   | day| night| mean| sd|
-|:---|---:|:-----|---:|-----:|----:|--:|
-|cat | 100|day   | 1.0|   0.5|   10|  5|
-|cat | 100|night | 0.5|   1.0|   20|  5|
-|dog | 100|day   | 1.0|   0.5|   15|  5|
-|dog | 100|night | 0.5|   1.0|   25|  5|
-
-
 Table: Sample `sim_design()` stats
 
 ## sim_df
@@ -112,10 +103,10 @@ lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
 
 |effect   |group    |term            | estimate| std.error| statistic|
 |:--------|:--------|:---------------|--------:|---------:|---------:|
-|fixed    |NA       |(Intercept)     |    9.545|     0.284|    33.594|
-|ran_pars |sub_id   |sd__(Intercept) |    1.071|        NA|        NA|
-|ran_pars |item_id  |sd__(Intercept) |    1.836|        NA|        NA|
-|ran_pars |Residual |sd__Observation |    3.041|        NA|        NA|
+|fixed    |NA       |(Intercept)     |    9.516|     0.314|    30.306|
+|ran_pars |sub_id   |sd__(Intercept) |    0.938|        NA|        NA|
+|ran_pars |item_id  |sd__(Intercept) |    2.098|        NA|        NA|
+|ran_pars |Residual |sd__Observation |    2.997|        NA|        NA|
 
 ## sim_mixed_df
 
@@ -155,14 +146,6 @@ dat <- rnorm_multi(
 
 
 
-
-|   n|var |    A|    B|    C|  mean|   sd|
-|---:|:---|----:|----:|----:|-----:|----:|
-| 100|A   | 1.00| 0.43| 0.54| -0.14| 1.02|
-| 100|B   | 0.43| 1.00| 0.10| 20.27| 5.24|
-| 100|C   | 0.54| 0.10| 1.00| 18.89| 5.40|
-
-
 Table: Sample `rnorm_multi()` stats
 
 
@@ -184,7 +167,7 @@ list(
   r = cor(x,y)
 ) %>% str()
 #> List of 3
-#>  $ mean: num -8.89e-18
+#>  $ mean: num -2.72e-17
 #>  $ sd  : num 1
 #>  $ r   : num 0.5
 ```
@@ -204,13 +187,6 @@ If you want to check your simulated stats or just describe an existing dataset, 
 
 ```r
 check_sim_stats(iris)
-#> # A tibble: 4 x 8
-#>       n var   Sepal.Length Sepal.Width Petal.Length Petal.Width  mean    sd
-#>   <dbl> <chr>        <dbl>       <dbl>        <dbl>       <dbl> <dbl> <dbl>
-#> 1   150 Sepa…         1          -0.12         0.87        0.82  5.84  0.83
-#> 2   150 Sepa…        -0.12        1           -0.43       -0.37  3.06  0.44
-#> 3   150 Peta…         0.87       -0.43         1           0.96  3.76  1.77
-#> 4   150 Peta…         0.82       -0.37         0.96        1     1.2   0.76
 ```
 
 You can also group your data and change the digits to round. Display the table using `knitr::kable()` by setting `usekable` to `TRUE` (remember to set `results='asis'` in the chunk header.

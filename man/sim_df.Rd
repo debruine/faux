@@ -4,17 +4,26 @@
 \alias{sim_df}
 \title{Simulate an existing dataframe}
 \usage{
-sim_df(.data, n = 100, between = c(), empirical = FALSE,
-  seed = NULL, grp_by = NULL)
+sim_df(.data, n = 100, within = c(), between = c(), id = "sub_id",
+  dv = "val", empirical = FALSE, long = FALSE, seed = NULL,
+  grp_by = NULL)
 }
 \arguments{
 \item{.data}{the existing tbl (must be in wide format)}
 
 \item{n}{the number of samples to return per group}
 
+\item{within}{a list of the within-subject columns}
+
 \item{between}{a list of the between-subject columns}
 
+\item{id}{the names of the column(s) for grouping observations}
+
+\item{dv}{the name of the DV (value) column}
+
 \item{empirical}{logical. Passed on to rnorm_multi}
+
+\item{long}{}
 
 \item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 

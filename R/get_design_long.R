@@ -6,14 +6,14 @@
 #' all columns that differ over units of analysis (dv, continuous factors)
 #' 
 #' @param .data the data frame (in long format)
-#' @param id the column name(s) that identify a unit of analysis
 #' @param dv the column name that identifies the DV
+#' @param id the column name(s) that identify a unit of analysis
 #' 
 #' @return the data frame in long format
 #' 
 #' @export
 #'
-get_design_long <- function(.data, id = "sub_id", dv = "val") {
+get_design_long <- function(.data, dv = "val", id = "sub_id") {
   between_factors <- .data %>%
     dplyr::group_by_at(dplyr::vars(tidyselect::one_of(id))) %>%
     dplyr::summarise_all(dplyr::n_distinct) %>%

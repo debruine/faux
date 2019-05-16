@@ -6,7 +6,7 @@
 \usage{
 sim_design(within = list(), between = list(), n = 100, mu = 0,
   sd = 1, r = 0, empirical = FALSE, long = FALSE, plot = FALSE,
-  seed = NULL)
+  seed = NULL, interactive = FALSE)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -15,9 +15,9 @@ sim_design(within = list(), between = list(), n = 100, mu = 0,
 
 \item{n}{the number of samples required}
 
-\item{mu}{a vector giving the means of the variables (numeric vector of length 1 or vars)}
+\item{mu}{the means of the variables}
 
-\item{sd}{the standard deviations of the variables (numeric vector of length 1 or vars)}
+\item{sd}{the standard deviations of the variables}
 
 \item{r}{the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)}
 
@@ -28,6 +28,8 @@ sim_design(within = list(), between = list(), n = 100, mu = 0,
 \item{plot}{whether to show a plot of the design}
 
 \item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
+
+\item{interactive}{whether to run the function interactively}
 }
 \value{
 a tbl
