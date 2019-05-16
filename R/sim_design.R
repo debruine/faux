@@ -5,13 +5,14 @@
 #' @param within a list of the within-subject factors
 #' @param between a list of the between-subject factors
 #' @param n the number of samples required
-#' @param mu a vector giving the means of the variables (numeric vector of length 1 or vars)
-#' @param sd the standard deviations of the variables (numeric vector of length 1 or vars)
+#' @param mu the means of the variables
+#' @param sd the standard deviations of the variables
 #' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' @param plot whether to show a plot of the design
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
+#' @param interactive whether to run the function interactively
 #' 
 #' @return a tbl
 #' 
@@ -20,10 +21,14 @@
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
                        empirical = FALSE, long = FALSE, 
-                       plot = FALSE, seed = NULL) {
+                       plot = FALSE, seed = NULL, interactive = FALSE) {
   # check the design is specified correctly
-  design <- check_design(within = within, between = between, 
+  if (interactive) {
+    design <- interactive_design()
+  } else {
+    design <- check_design(within = within, between = between, 
                          n = n, mu = mu, sd = sd, r = r, plot = plot)
+  }
   
   # simulate the data
   sim_design_(design, empirical = empirical, long = long, seed = seed)

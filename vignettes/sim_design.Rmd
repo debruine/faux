@@ -46,7 +46,7 @@ df <- sim_design(within, between, n = 100, mu = mu, sd = 5, r = 0.5,
 
 
 ```{r echo = FALSE, result='asis'}
-check_sim_stats(df, between = "pet", usekable = TRUE)
+get_params(df, between = "pet", usekable = TRUE)
 ```
 
 ```{r, echo = FALSE, fig.width = 8, fig.height = 4}
@@ -149,7 +149,7 @@ df <- sim_design(within, between, n = 100,
                  empirical = TRUE)
 ```
 
-`r check_sim_stats(df, between = "pet", usekable = TRUE)`
+`r get_params(df, between = "pet", usekable = TRUE)`
 
 ## More factors
 

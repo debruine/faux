@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9008</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
       </span>
     </div>
 
@@ -92,7 +92,7 @@
       <h1>Simulate from Existing Data</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2019-05-14</h4>
+            <h4 class="date">2019-05-16</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/sim_df.Rmd"><code>vignettes/sim_df.Rmd</code></a></small>
       <div class="hidden name"><code>sim_df.Rmd</code></div>
@@ -136,7 +136,7 @@ Original iris dataset
 </p>
 </div>
 <p>And here is a new sample with 50 observations of each species, made with the code <code><a href="../reference/sim_df.html">sim_df(iris, 100, "Species")</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/sim_df.html">sim_df</a></span>(iris, <span class="dv">50</span>, <span class="st">"Species"</span>) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/sim_df.html">sim_df</a></span>(iris, <span class="dv">50</span>, <span class="dt">between =</span> <span class="st">"Species"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Sepal.Width, Sepal.Length, <span class="dt">color =</span> Species)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">"lm"</span>)</code></pre></div>
@@ -156,7 +156,7 @@ Simulated iris dataset
 <h2 class="hasAnchor">
 <a href="#rounding" class="anchor"></a>Rounding</h2>
 <p>For now, the function only creates new variables sampled from a continuous normal distribution. I hope to add in other sampling distributions in the future. So you’d need to do any rounding or truncating yourself.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/sim_df.html">sim_df</a></span>(iris, <span class="dv">50</span>, <span class="st">"Species"</span>) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/sim_df.html">sim_df</a></span>(iris, <span class="dv">50</span>, <span class="dt">between =</span> <span class="st">"Species"</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">mutate_if</span>(is.numeric, round, <span class="dv">1</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(Sepal.Width, Sepal.Length, <span class="dt">color =</span> Species)) <span class="op">+</span>
 <span class="st">  </span><span class="kw">geom_point</span>() <span class="op">+</span>

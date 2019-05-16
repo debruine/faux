@@ -17,12 +17,18 @@
 #' @export
 #' 
 long2wide <- function(.data, within = c(), between = c(), dv = "val", id = "sub_id") {
-  .data %>%
-    dplyr::select(tidyselect::one_of(c(id, between, within, dv))) %>%
-    tidyr::unite(".tmpwithin.", tidyselect::one_of(within))  %>%
-    dplyr::group_by_at(dplyr::vars(tidyselect::one_of(between))) %>%
-    tidyr::spread(".tmpwithin.", !!dplyr::quo(dv)) %>%
-    dplyr::ungroup()
+  d1 <- dplyr::select(.data , tidyselect::one_of(c(id, between, within, dv))) 
+  if (length(within)) {
+    d1 <- tidyr::unite(d1, ".tmpwithin.", tidyselect::one_of(within))
+  }
+  if (length(between)) {
+    d1 <- dplyr::group_by_at(d1, dplyr::vars(tidyselect::one_of(between)))
+  }
+  if (length(within)) {
+    d1 <- tidyr::spread(d1, ".tmpwithin.", !!dplyr::quo(dv))
+  }
+  
+  dplyr::ungroup(d1)
 }
 
 #' Wide to long format
@@ -32,6 +38,7 @@ long2wide <- function(.data, within = c(), between = c(), dv = "val", id = "sub_
 #' @param .data the tbl in wide format
 #' @param within_factors the names of the within factors
 #' @param within_cols the names (or indices) of the within-subject (value) columns
+#' @param dv the name of the dv column (defaults to "val")
 #' @param sep Separator for within-columns (see tidyr::separate)
 #' 
 #' @return a tbl in long format
@@ -41,13 +48,20 @@ long2wide <- function(.data, within = c(), between = c(), dv = "val", id = "sub_
 #' 
 #' @export
 #' 
-wide2long <- function(.data, within_factors = c(), within_cols = c(), sep = "[^[:alnum:]]+") {
+wide2long <- function(.data, within_factors = c(), within_cols = c(), dv = "val", id = NULL, sep = "[^[:alnum:]]+") {
   if (is.numeric(within_cols)) {
     within_cols <- names(.data)[within_cols]
   }
   
+  if (!is.null(id)) {
+    # check if ID exists and make if not
+    if (!(id %in% names(.data))) {
+      .data[[id]] <- make_id(nrow(.data))
+    }
+  }
+  
   .data %>%
-    tidyr::gather(".tmpwithin.", "val", tidyselect::one_of(within_cols)) %>%
+    tidyr::gather(".tmpwithin.", !!dplyr::sym(dv), tidyselect::one_of(within_cols)) %>%
     tidyr::separate(".tmpwithin.", within_factors, sep = sep)
 }
 

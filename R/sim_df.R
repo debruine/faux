@@ -4,8 +4,12 @@
 #'
 #' @param .data the existing tbl (must be in wide format)
 #' @param n the number of samples to return per group
+#' @param within a list of the within-subject columns
 #' @param between a list of the between-subject columns
+#' @param dv the name of the DV (value) column
+#' @param id the names of the column(s) for grouping observations
 #' @param empirical logical. Passed on to rnorm_multi
+#' @param long 
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param grp_by (deprecated; use between)
 #' 
@@ -15,8 +19,8 @@
 #' iris_species <- sim_df(iris, 100, between = "Species")
 #' @export
 
-sim_df <- function (.data, n = 100, between = c(), 
-                    empirical = FALSE, seed = NULL, grp_by = NULL) {
+sim_df <- function (.data, n = 100, within = c(), between = c(), id = "sub_id", dv = "val",
+                    empirical = FALSE, long = FALSE, seed = NULL, grp_by = NULL) {
   set.seed(seed)
   
   # error checking
@@ -27,6 +31,11 @@ sim_df <- function (.data, n = 100, between = c(),
   if (!is.null(grp_by)) {
     warning("grp_by is deprecated, please use between")
     if (between == c()) between = grp_by # set between to grp_by if between is not set
+  }
+  
+  if (length(within)) {
+    # convert long to wide
+    .data <- long2wide(.data = .data, within = within, between = between, dv = dv, id = id)
   }
   
   grpdat <- select_num_grp(.data, between)
@@ -47,8 +56,8 @@ sim_df <- function (.data, n = 100, between = c(),
     dplyr::select(-data) %>%
     tidyr::unnest(newsim) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(sub_id = make_id(nrow(.))) %>%
-    dplyr::select(sub_id, tidyselect::everything())
+    dplyr::mutate(!!dplyr::sym(id) := make_id(nrow(.))) %>%
+    dplyr::select(!!dplyr::sym(id), tidyselect::everything())
   
   return(simdat)
 }

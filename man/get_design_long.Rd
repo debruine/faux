@@ -4,14 +4,14 @@
 \alias{get_design_long}
 \title{Get design from long data}
 \usage{
-get_design_long(.data, id = "sub_id", dv = "val")
+get_design_long(.data, dv = "val", id = "sub_id")
 }
 \arguments{
 \item{.data}{the data frame (in long format)}
 
-\item{id}{the column name(s) that identify a unit of analysis}
-
 \item{dv}{the column name that identifies the DV}
+
+\item{id}{the column name(s) that identify a unit of analysis}
 }
 \value{
 the data frame in long format
