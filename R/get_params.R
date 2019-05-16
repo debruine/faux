@@ -50,9 +50,10 @@ get_params <- function(.data, between = c(), within = c(), dv = "val", id = "sub
     
   if (usekable) {
     print(knitr::kable(stats))
+    invisible(stats)
+  } else {
+    stats
   }
-  
-  invisible(stats)
 }
 
 #' @rdname get_params

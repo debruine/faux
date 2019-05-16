@@ -1,6 +1,6 @@
 Package: faux
 Title: Simulation Functions
-Version: 0.0.0.9009
+Version: 0.0.0.9010
 Date: 2019-05-16
 Authors@R: person(given = "Lisa", family = "DeBruine", role = c("aut", "cre"), email = "debruine@gmail.com", comment = c(ORCID = "0000-0002-7523-5539"))
 Description: Provides functions for simulating multiple variables with specified relationships.
