@@ -27,13 +27,15 @@ unique_pairs <- function(v) {
 
 
 #' Set design interactively
+#' 
+#' @param plot whether to show a plot of the design
 #'
 #' @return list
 #' @export
 #'
 #' @examples
 #' des <- interactive_design()
-interactive_design <- function() {
+interactive_design <- function(plot = FALSE) {
   wn <- readline_check(prompt="How many within-subject factors do you have?: ", "integer")
   within <- list()
   if (wn > 0) {
@@ -79,67 +81,62 @@ interactive_design <- function() {
   cells_w <- faux:::cell_combos(within)
   cells_b <- faux:::cell_combos(between)
   
+  # ask for N
+  blist <- paste(cells_b, collapse = ", ")
+  int_pattern <- paste0("^\\s?(\\d+\\s?,\\s?){0,", (length(cells_b)-1), "}\\s?(\\d+)\\s?$")
+  
+  if (length(between)) {
+    p <- paste0("Number of subjects in conditions ", blist, ": ")
+  } else {
+    p <- "Number of subjects: "
+  }
+  n <- readline_check(prompt=p, "grep", pattern = int_pattern, perl = TRUE) %>%
+    strsplit("\\s?,\\s?") %>% unlist() %>% as.integer() 
+  if (length(n) == 1) n <- rep(n, length(cells_b))
+  names(n) <- cells_b
+  n <- as.list(n)
+  
+  wlist <- paste(cells_w, collapse = ", ")
+  pattern <- paste0("^\\s?(-?\\d*\\.?\\d?\\s?,\\s?){0,", (length(cells_w)-1), "}\\s?(-?\\d*\\.?\\d?)\\s?$")
+  
+  # ask for mu
+  mu <- purrr::map(cells_b, function(b) {
+    p <- paste0("Means of ", wlist, " in condition ", b, ": ")
+    mm <- readline_check(prompt=p, "grep", pattern = pattern, perl = TRUE) %>%
+      strsplit("\\s?,\\s?") %>% unlist()
+    if (length(mm) == 1) mm <- rep(mm, length(cells_w))
+    mm
+  }) %>% unlist() %>% as.double() %>%
+    matrix(nrow = length(cells_w), dimnames = list(cells_w, cells_b)) %>%
+    as.data.frame()
+
+  # ask for SD
+  sd <- purrr::map(cells_b, function(b) {
+    p <- paste0("SDs of ", wlist, " in condition ", b, ": ")
+    mm <- readline_check(prompt=p, "grep", pattern = pattern, perl = TRUE) %>%
+      strsplit("\\s?,\\s?") %>% unlist()
+    if (length(mm) == 1) mm <- rep(mm, length(cells_w))
+    mm
+  }) %>% unlist() %>% as.double() %>%
+    matrix(nrow = length(cells_w), dimnames = list(cells_w, cells_b)) %>%
+    as.data.frame()
+  
+  # ask for r
   up <- unique_pairs(cells_w)
-  r <- purrr::map(cells_b, function (b){
-    cell_r <- purrr::map_dbl(up, function(x) {
-      if (b == "val") {
-        p <- paste0("Correlation for ", x, ": ")
-      } else {
-        p <- paste0("Correlation for ", x, " in between-subject condition ", b, " : ")
-      }
-      readline_check(prompt=p, "numeric")
-    })
-    
-    if (!is_pos_def(cormat_from_triangle(cell_r))) {
-      warning("That correlation matrix is not possible")
-    }
-    cell_r
-  }) %>% magrittr::set_names(cells_b)
+  uplist <- paste(up, collapse = ", ")
+  pattern <- paste0("^\\s?(-?\\d*\\.?\\d?\\s?,\\s?){0,", (length(up)-1), "}\\s?(-?\\d*\\.?\\d?)\\s?$")
+  r <- purrr::map(cells_b, function(b) {
+    p <- paste0("Cors (r) of ", uplist, " in condition ", b, ": ")
+    mm <- readline_check(prompt=p, "grep", pattern = pattern, perl = TRUE) %>%
+      strsplit("\\s?,\\s?") %>% unlist()
+    if (length(mm) == 1) mm <- rep(mm, length(cells_w))
+    mm %>% as.double()
+  })
+  names(r) <- cells_b
   
-  n <- purrr::map(cells_b, function(b) {
-    if (length(between)) {
-      p <- paste0("Number of subjects for condition ", b, ": ")
-    } else {
-      p <- "Number of subjects: "
-    }
-    n <- readline_check(prompt=p, "integer")
-  }) %>% magrittr::set_names(cells_b)
-  
-  g <- expand.grid(w = cells_w, b = cells_b)
-  mu <- purrr::map2_dbl(g$b, g$w, function(b, w) {
-    if (w == "val") {
-      p <- paste0("Mean of between-subject condition ", b, ": ")
-    } else if (b == "val") {
-      p <- paste0("Mean of within-subject cell ", w, ": ")
-    } else {
-      p <- paste0("Mean of within-subject cell ", w, " in between-subject condition ", b, ": ")
-    }
-    readline_check(prompt=p, "numeric")
-  }) %>% matrix(nrow = length(cells_b), dimnames = list(cells_b, cells_w)) %>%
-    as.data.frame()
-  
-  sd <- purrr::map2_dbl(g$b, g$w, function(b, w) {
-    if (w == "val") {
-      p <- paste0("SD of between-subject condition ", b, ": ")
-    } else if (b == "val") {
-      p <- paste0("SD of within-subject cell ", w, ": ")
-    } else {
-      p <- paste0("SD of within-subject cell ", w, " in between-subject condition ", b, ": ")
-    }
-    readline_check(prompt=p, "numeric")
-  }) %>% matrix(nrow = length(cells_b), dimnames = list(cells_b, cells_w)) %>%
-    as.data.frame()
-  
-  list(
-    within = within, 
-    between = between, 
-    n = n, 
-    mu = mu, 
-    sd = sd, 
-    r = r
-  )
-  
-  check_design(within, between, n, mu, sd, r, plot = FALSE)
+  message("All done, your data is ready!")
+
+  check_design(within, between, n, mu, sd, r, plot = plot)
 }
 
 
@@ -171,7 +168,7 @@ readline_check <- function(prompt, type = c("numeric", "integer", "length", "min
     check = grep("^\\d+$", input) %>% length() > 0
     input <- suppressWarnings(as.integer(input))
   } else if (type == "exact") {
-    warn_text <- paste("The input must be", exact, ": ")
+    warn_text <- paste("The input must be", compare, ": ")
     check <- input == compare
   } else if (type == "length") {
     warn_text <- paste("The input must be", compare, "characters long: ")

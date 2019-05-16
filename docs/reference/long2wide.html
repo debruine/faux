@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
       </span>
     </div>
 
@@ -170,18 +170,18 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>df_long</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sim_design.html'>sim_design</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'>long2wide</span>(<span class='no'>df_long</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"val"</span>, <span class='st'>"sub_id"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 200 x 4</span><span>
-#&gt;    sub_id B            A1      A2
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> S001   B1    -</span><span style='color: #BB0000;'>1.10</span><span>      0.082</span><span style='text-decoration: underline;'>5</span><span>
-#&gt; </span><span style='color: #555555;'> 2</span><span> S002   B1    -</span><span style='color: #BB0000;'>0.870</span><span>    -</span><span style='color: #BB0000;'>0.214</span><span> 
-#&gt; </span><span style='color: #555555;'> 3</span><span> S003   B1    -</span><span style='color: #BB0000;'>1.19</span><span>      0.774 
-#&gt; </span><span style='color: #555555;'> 4</span><span> S004   B1    -</span><span style='color: #BB0000;'>0.220</span><span>     0.481 
-#&gt; </span><span style='color: #555555;'> 5</span><span> S005   B1     0.775    -</span><span style='color: #BB0000;'>0.206</span><span> 
-#&gt; </span><span style='color: #555555;'> 6</span><span> S006   B1     0.023</span><span style='text-decoration: underline;'>1</span><span>   -</span><span style='color: #BB0000;'>1.78</span><span>  
-#&gt; </span><span style='color: #555555;'> 7</span><span> S007   B1    -</span><span style='color: #BB0000;'>0.610</span><span>     1.00  
-#&gt; </span><span style='color: #555555;'> 8</span><span> S008   B1    -</span><span style='color: #BB0000;'>1.06</span><span>     -</span><span style='color: #BB0000;'>0.847</span><span> 
-#&gt; </span><span style='color: #555555;'> 9</span><span> S009   B1    -</span><span style='color: #BB0000;'>0.872</span><span>    -</span><span style='color: #BB0000;'>2.42</span><span>  
-#&gt; </span><span style='color: #555555;'>10</span><span> S010   B1     0.000</span><span style='text-decoration: underline;'>557</span><span> -</span><span style='color: #BB0000;'>0.869</span><span> 
+#&gt;    sub_id B           A1       A2
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> S001   B1     1.64    -</span><span style='color: #BB0000;'>0.159</span><span>  
+#&gt; </span><span style='color: #555555;'> 2</span><span> S002   B1    -</span><span style='color: #BB0000;'>0.132</span><span>    2.30   
+#&gt; </span><span style='color: #555555;'> 3</span><span> S003   B1    -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>16</span><span> -</span><span style='color: #BB0000;'>0.279</span><span>  
+#&gt; </span><span style='color: #555555;'> 4</span><span> S004   B1    -</span><span style='color: #BB0000;'>2.38</span><span>     1.60   
+#&gt; </span><span style='color: #555555;'> 5</span><span> S005   B1    -</span><span style='color: #BB0000;'>1.76</span><span>     0.120  
+#&gt; </span><span style='color: #555555;'> 6</span><span> S006   B1    -</span><span style='color: #BB0000;'>0.948</span><span>    0.688  
+#&gt; </span><span style='color: #555555;'> 7</span><span> S007   B1    -</span><span style='color: #BB0000;'>0.462</span><span>   -</span><span style='color: #BB0000;'>0.238</span><span>  
+#&gt; </span><span style='color: #555555;'> 8</span><span> S008   B1    -</span><span style='color: #BB0000;'>0.142</span><span>    0.390  
+#&gt; </span><span style='color: #555555;'> 9</span><span> S009   B1     0.234    0.953  
+#&gt; </span><span style='color: #555555;'>10</span><span> S010   B1     0.799   -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>72</span><span>
 #&gt; </span><span style='color: #555555;'># … with 190 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>

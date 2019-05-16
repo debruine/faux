@@ -67,7 +67,7 @@ df <- sim_design(within, between,
                  empirical = TRUE, plot = TRUE)
 ```
 
-`r check_sim_stats(df, between = "pet", usekable = TRUE)`
+`r get_params(df, between = "pet", usekable = TRUE)`
 Table: Sample `sim_design()` stats
 
 ## sim_df
@@ -148,7 +148,7 @@ dat <- rnorm_multi(
 ```
 
 
-`r check_sim_stats(dat, usekable = T)`
+`r get_params(dat, usekable = T)`
 Table: Sample `rnorm_multi()` stats
 
 
@@ -194,21 +194,39 @@ samp %>%
 
 ## Additional functions {#add_func}
 
-### check_sim_stats
+### messy
 
-If you want to check your simulated stats or just describe an existing dataset, use `check_sim_stats()`.
+Sometimes you want to mess up a dataset for teaching (thanks for the idea, Emily!). The `messy()` function will replace `prop` proportion of the data in the specified columns with the value of `replace` (defaults to `NA`).
 
 ```{r}
-check_sim_stats(iris)
+# reaplace 10% of Species with NA
+iris2 <- messy(iris, 0.1, "Species")
+
+# replace 10% of petal.Width adn Sepal.Width with NA
+iris3 <- messy(iris, 0.1, "Petal.Width", "Sepal.Width")
+
+# replace 50% of columns 1-2 with NA
+iris4 <- messy(iris, 0.5, 1:2)
+
+# replace 50% of Species with "NOPE"
+iris5 <- messy(iris, 0.5, "Species", replace = "NOPE")
+```
+
+### get_params
+
+If you want to check your simulated stats or just describe an existing dataset, use `get_params()`.
+
+```{r}
+get_params(iris)
 ```
 
 You can also group your data and change the digits to round. Display the table using `knitr::kable()` by setting `usekable` to `TRUE` (remember to set `results='asis'` in the chunk header.
 
 ```{r, results='asis'}
-check_sim_stats(iris, 
-                between = "Species", 
-                digits = 3, 
-                usekable = TRUE)
+get_params(iris, 
+           between = "Species", 
+           digits = 3, 
+           usekable = TRUE)
 ```
 
 ### make_id

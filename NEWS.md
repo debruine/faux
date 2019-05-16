@@ -30,3 +30,9 @@
 * `sim_df()` returns subject IDs and takes data in long format
 * Renamed `check_sim_stats()` to `get_params()`, which now returns the design
 * Added interactive option to `sim_design()`
+
+# faux 0.0.0.9010
+
+* Fixed bugs in interactive specification
+* Added `messy()` (thanks Emily)
+* Better interactive specification (thanks Daniël)

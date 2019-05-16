@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
       </span>
     </div>
 
@@ -158,7 +158,10 @@ Simulated iris dataset
 <p>You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(val <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat) <span class="op">%&gt;%</span>
 <span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</code></pre></div>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)
+<span class="co">#&gt; Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl =</span>
+<span class="co">#&gt; control$checkConv, : Model failed to converge with max|grad| = 0.00615993</span>
+<span class="co">#&gt; (tol = 0.002, component 1)</span></code></pre></div>
 <table class="table table">
 <thead><tr class="header">
 <th align="left">effect</th>
@@ -173,15 +176,15 @@ Simulated iris dataset
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">9.742</td>
-<td align="right">0.288</td>
-<td align="right">33.853</td>
+<td align="right">9.953</td>
+<td align="right">0.337</td>
+<td align="right">29.573</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.045</td>
+<td align="right">1.066</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -189,7 +192,7 @@ Simulated iris dataset
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.871</td>
+<td align="right">2.237</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -197,7 +200,7 @@ Simulated iris dataset
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">3.043</td>
+<td align="right">3.012</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -248,7 +251,7 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_pre.ht
   <span class="dt">r =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(x,y)
 ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>()
 <span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ mean: num 2.75e-17</span>
+<span class="co">#&gt;  $ mean: num -9.19e-18</span>
 <span class="co">#&gt;  $ sd  : num 1</span>
 <span class="co">#&gt;  $ r   : num 0.5</span></code></pre></div>
 <p>If <code>empirical = FALSE</code> (the default), this resulting vector is sampled from a population with the specified parameters (but won’t have <em>exactly</em> those properties).</p>
@@ -261,16 +264,39 @@ Distribution of 1000 samples from rnorm_pre
 <div id="add_func" class="section level2">
 <h2 class="hasAnchor">
 <a href="#add_func" class="anchor"></a>Additional functions</h2>
-<div id="check_sim_stats" class="section level3">
+<div id="messy" class="section level3">
 <h3 class="hasAnchor">
-<a href="#check_sim_stats" class="anchor"></a>check_sim_stats</h3>
-<p>If you want to check your simulated stats or just describe an existing dataset, use <code><a href="reference/get_params.html">check_sim_stats()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/get_params.html">check_sim_stats</a></span>(iris)</code></pre></div>
+<a href="#messy" class="anchor"></a>messy</h3>
+<p>Sometimes you want to mess up a dataset for teaching (thanks for the idea, Emily!). The <code><a href="reference/messy.html">messy()</a></code> function will replace <code>prop</code> proportion of the data in the specified columns with the value of <code>replace</code> (defaults to <code>NA</code>).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># reaplace 10% of Species with NA</span>
+iris2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/messy.html">messy</a></span>(iris, <span class="fl">0.1</span>, <span class="st">"Species"</span>)
+
+<span class="co"># replace 10% of petal.Width adn Sepal.Width with NA</span>
+iris3 &lt;-<span class="st"> </span><span class="kw"><a href="reference/messy.html">messy</a></span>(iris, <span class="fl">0.1</span>, <span class="st">"Petal.Width"</span>, <span class="st">"Sepal.Width"</span>)
+
+<span class="co"># replace 50% of columns 1-2 with NA</span>
+iris4 &lt;-<span class="st"> </span><span class="kw"><a href="reference/messy.html">messy</a></span>(iris, <span class="fl">0.5</span>, <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>)
+
+<span class="co"># replace 50% of Species with "NOPE"</span>
+iris5 &lt;-<span class="st"> </span><span class="kw"><a href="reference/messy.html">messy</a></span>(iris, <span class="fl">0.5</span>, <span class="st">"Species"</span>, <span class="dt">replace =</span> <span class="st">"NOPE"</span>)</code></pre></div>
+</div>
+<div id="get_params" class="section level3">
+<h3 class="hasAnchor">
+<a href="#get_params" class="anchor"></a>get_params</h3>
+<p>If you want to check your simulated stats or just describe an existing dataset, use <code><a href="reference/get_params.html">get_params()</a></code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/get_params.html">get_params</a></span>(iris)
+<span class="co">#&gt; # A tibble: 4 x 8</span>
+<span class="co">#&gt;       n var   Sepal.Length Sepal.Width Petal.Length Petal.Width  mean    sd</span>
+<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
+<span class="co">#&gt; 1   150 Sepa…         1          -0.12         0.87        0.82  5.84  0.83</span>
+<span class="co">#&gt; 2   150 Sepa…        -0.12        1           -0.43       -0.37  3.06  0.44</span>
+<span class="co">#&gt; 3   150 Peta…         0.87       -0.43         1           0.96  3.76  1.77</span>
+<span class="co">#&gt; 4   150 Peta…         0.82       -0.37         0.96        1     1.2   0.76</span></code></pre></div>
 <p>You can also group your data and change the digits to round. Display the table using <code><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">knitr::kable()</a></code> by setting <code>usekable</code> to <code>TRUE</code> (remember to set <code>results='asis'</code> in the chunk header.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/get_params.html">check_sim_stats</a></span>(iris, 
-                <span class="dt">between =</span> <span class="st">"Species"</span>, 
-                <span class="dt">digits =</span> <span class="dv">3</span>, 
-                <span class="dt">usekable =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/get_params.html">get_params</a></span>(iris, 
+           <span class="dt">between =</span> <span class="st">"Species"</span>, 
+           <span class="dt">digits =</span> <span class="dv">3</span>, 
+           <span class="dt">usekable =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <table class="table table">
 <thead><tr class="header">
 <th align="left">Species</th>

@@ -24,7 +24,7 @@ sim_design <- function(within = list(), between = list(),
                        plot = FALSE, seed = NULL, interactive = FALSE) {
   # check the design is specified correctly
   if (interactive) {
-    design <- interactive_design()
+    design <- interactive_design(plot = plot)
   } else {
     design <- check_design(within = within, between = between, 
                          n = n, mu = mu, sd = sd, r = r, plot = plot)

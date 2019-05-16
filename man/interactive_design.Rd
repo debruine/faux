@@ -4,7 +4,10 @@
 \alias{interactive_design}
 \title{Set design interactively}
 \usage{
-interactive_design()
+interactive_design(plot = FALSE)
+}
+\arguments{
+\item{plot}{whether to show a plot of the design}
 }
 \value{
 list
