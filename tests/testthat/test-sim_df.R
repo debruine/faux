@@ -13,8 +13,8 @@ test_that("default parameters", {
   newdf <- sim_df(iris)
 
   expect_equal(nrow(newdf), 100)
-  expect_equal(ncol(newdf), 4)
-  expect_equal(names(newdf), names(iris)[1:4])
+  expect_equal(ncol(newdf), 5)
+  expect_equal(names(newdf)[2:5], names(iris)[1:4])
 })
 
 # specified parameters ----
@@ -38,8 +38,8 @@ test_that("specified parameters", {
     as.data.frame()
   
   expect_equal(nrow(newdf), n)
-  expect_equal(ncol(newdf), 4)
-  expect_equal(names(newdf), names(iris)[1:4])
+  expect_equal(ncol(newdf), 5)
+  expect_equal(names(newdf)[2:5], names(iris)[1:4])
   
   expect_equal(cors, newcors)
   expect_equal(means, newmeans)
@@ -55,8 +55,8 @@ test_that("specified parameters", {
     as.data.frame()
   
   expect_equal(nrow(newdf), n)
-  expect_equal(ncol(newdf), 4)
-  expect_equal(names(newdf), names(iris)[1:4])
+  expect_equal(ncol(newdf), 5)
+  expect_equal(names(newdf)[2:5], names(iris)[1:4])
   
   expect_equal(cors, newcors)
   expect_equal(means, newmeans)
@@ -69,8 +69,8 @@ test_that("grouping by name", {
   newdf <- sim_df(iris, 20, "Species")
   
   expect_equal(nrow(newdf), 60)
-  expect_equal(ncol(newdf), 5)
-  expect_equal(names(newdf) %>% sort(), names(iris) %>% sort())
+  expect_equal(ncol(newdf), 6)
+  expect_equal(names(newdf)[2:6] %>% sort(), names(iris) %>% sort())
 })
 
 # grouping by col number ----
@@ -78,8 +78,8 @@ test_that("grouping by col number", {
   newdf <- sim_df(iris, 20, 5)
   
   expect_equal(nrow(newdf), 60)
-  expect_equal(ncol(newdf), 5)
-  expect_equal(names(newdf) %>% sort(), names(iris) %>% sort())
+  expect_equal(ncol(newdf), 6)
+  expect_equal(names(newdf)[2:6] %>% sort(), names(iris) %>% sort())
 })
 
 # test_that("mean stats are close over 1000 runs", {
