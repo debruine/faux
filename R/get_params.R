@@ -16,7 +16,7 @@
 #' @export
 #' 
 
-get_params <- function(.data, between = c(), within = c(), dv = "val", id = "sub_id",
+get_params <- function(.data, between = c(), within = c(), dv = "y", id = "id",
                             digits = 2, usekable = FALSE) {
   
   if (length(within) && length(dv) && length(id)) {

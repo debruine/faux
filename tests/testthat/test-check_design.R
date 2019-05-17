@@ -6,19 +6,19 @@ test_that("2w", {
   between <- list()
   design <- check_design(within, between, n = 10, plot = FALSE)
   
-  cell_n <- data.frame(night = 10, day = 10, row.names = "val")
-  cell_mu <- data.frame(night = 0, day = 0, row.names = "val")
-  cell_sd <- data.frame(night = 1, day = 1, row.names = "val")
+  cell_n <- data.frame(night = 10, day = 10, row.names = "y")
+  cell_mu <- data.frame(night = 0, day = 0, row.names = "y")
+  cell_sd <- data.frame(night = 1, day = 1, row.names = "y")
   
   expect_equal(design$within, list(time = c(night = "night", day = "day")))
   expect_equal(design$between, list())
   
-  expect_equal(design$cell_n, cell_n)
-  expect_equal(design$cell_mu, cell_mu)
-  expect_equal(design$cell_sd, cell_sd)
+  expect_equal(design$n, cell_n)
+  expect_equal(design$mu, cell_mu)
+  expect_equal(design$sd, cell_sd)
   
   expect_equal(design$cells_w, c("night", "day"))
-  expect_equal(design$cells_b, "val")
+  expect_equal(design$cells_b, "y")
 })
 
 # 2b ----
@@ -27,18 +27,18 @@ test_that("2b", {
   between <- list(time = c("night", "day"))
   design <- check_design(within, between, n = 10, plot = FALSE)
   
-  cell_n <- data.frame(val = c(10, 10), row.names = c("night", "day"))
-  cell_mu <- data.frame(val = c(0, 0), row.names = c("night", "day"))
-  cell_sd <- data.frame(val = c(1, 1), row.names = c("night", "day"))
+  cell_n <- data.frame(y = c(10, 10), row.names = c("night", "day"))
+  cell_mu <- data.frame(y = c(0, 0), row.names = c("night", "day"))
+  cell_sd <- data.frame(y = c(1, 1), row.names = c("night", "day"))
   
   expect_equal(design$within, list())
   expect_equal(design$between, list(time = c(night = "night", day = "day")))
   
-  expect_equal(design$cell_n, cell_n)
-  expect_equal(design$cell_mu, cell_mu)
-  expect_equal(design$cell_sd, cell_sd)
+  expect_equal(design$n, cell_n)
+  expect_equal(design$mu, cell_mu)
+  expect_equal(design$sd, cell_sd)
   
-  expect_equal(design$cells_w, "val")
+  expect_equal(design$cells_w, "y")
   expect_equal(design$cells_b, c("night", "day"))
 })
 
@@ -58,9 +58,9 @@ test_that("2w*2b", {
   expect_equal(design$within, list(time = c(night = "night", day = "day")))
   expect_equal(design$between, list(pet = c(dog = "dog", cat = "cat")))
   
-  expect_equal(design$cell_n, cell_n)
-  expect_equal(design$cell_mu, cell_mu)
-  expect_equal(design$cell_sd, cell_sd)
+  expect_equal(design$n, cell_n)
+  expect_equal(design$mu, cell_mu)
+  expect_equal(design$sd, cell_sd)
   
   expect_equal(design$cells_w, c("night", "day"))
   expect_equal(design$cells_b, c("dog", "cat"))
@@ -87,9 +87,9 @@ test_that("2w*2w*2b*2b", {
   
   expect_equal(design$cells_w, cells_w)
   expect_equal(design$cells_b, cells_b)
-  expect_equal(design$cell_n, cell_n)
-  expect_equal(design$cell_mu, cell_mu)
-  expect_equal(design$cell_sd, cell_sd)
+  expect_equal(design$n, cell_n)
+  expect_equal(design$mu, cell_mu)
+  expect_equal(design$sd, cell_sd)
 })
 
 # design spec ----
@@ -116,11 +116,13 @@ test_that("design spec", {
     "B1" = .2,
     "B2" = .5
   )
+  dv <- "dv"
+  id <- "sub_id"
   
-  design <- check_design(within, between, n, mu, sd, r, plot = FALSE)
+  design <- check_design(within, between, n, mu, sd, r, dv, id, plot = FALSE)
   
-  design_elements <- c("within", "between", "cells_w", "cells_b", 
-                       "cell_n", "cell_mu", "cell_sd", "cell_r")
+  design_elements <- c("within", "between", "dv", "id", "cells_w", "cells_b", 
+                       "n", "mu", "sd", "r")
   
   expect_equal(names(design), design_elements)
 })

@@ -8,6 +8,8 @@
 #' @param mu a vector giving the means of the variables
 #' @param sd the standard deviations of the variables
 #' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
+#' @param dv the name of the dv column (y)
+#' @param id the name of the ID column (id)
 #' @param plot whether to show a plot of the design
 #' 
 #' @return list
@@ -26,7 +28,8 @@
 #' @export
 #' 
 check_design <- function(within = list(), between = list(), 
-                         n = 100, mu = 0, sd = 1, r = 0, plot = TRUE) {
+                         n = 100, mu = 0, sd = 1, r = 0, 
+                         dv = "y", id = "id", plot = TRUE) {
   # name anonymous factors
   if (is.numeric(within) && within %in% 2:10 %>% mean() == 1) { # vector of level numbers
     within_names <- LETTERS[1:length(within)]
@@ -42,8 +45,8 @@ check_design <- function(within = list(), between = list(),
   # check factor specification
   if (!is.list(within) || !is.list(between)) {
     stop("within and between must be lists")
-  } else if (length(within) == 0 && length(between) == 0) {
-    stop("You must specify at least one factor")
+  #} else if (length(within) == 0 && length(between) == 0) {
+  #  stop("You must specify at least one factor")
   }
   
   # if within or between factors are named vectors, 
@@ -75,8 +78,8 @@ check_design <- function(within = list(), between = list(),
   }
   
   # define columns
-  cells_w <- cell_combos(within)
-  cells_b <- cell_combos(between) 
+  cells_w <- cell_combos(within, dv)
+  cells_b <- cell_combos(between, dv) 
   
   # convert n, mu and sd from vector/list formats
   cell_n  <- convert_param(n,  cells_w, cells_b, "Ns")
@@ -98,15 +101,17 @@ check_design <- function(within = list(), between = list(),
   design <- list(
     within = within,
     between = between,
+    dv = dv,
+    id = id,
     cells_w = cells_w,
     cells_b = cells_b,
-    cell_n = cell_n,
-    cell_mu = cell_mu,
-    cell_sd = cell_sd,
-    cell_r = cell_r
+    n = cell_n,
+    mu = cell_mu,
+    sd = cell_sd,
+    r = cell_r
   )
   
-  if (plot) { plot_design(design) %>% print() }
+  if (plot) { plot_design(design, id, dv) %>% print() }
   
   invisible(design)
 }
@@ -116,17 +121,19 @@ check_design <- function(within = list(), between = list(),
 #' Creates wide cell combination names, such as A1_B1, A2_B1, A1_B2, A2_B2.
 #' 
 #' @param factors A list of factors
+#' @param dv name of dv column ("y")
 #' 
 #' @return a list
 #' @keywords internal
 #' 
-cell_combos <- function(factors) {
+cell_combos <- function(factors, dv = "y") {
   if (length(factors) == 0) {
-    cells = "val"
+    cells = dv
   } else {
     cells <- lapply(factors, names) %>%
       do.call(expand.grid, .) %>%
-      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
+      tidyr::unite("b", 1:ncol(.)) %>% 
+      dplyr::pull("b")
   }
   
   cells
@@ -164,7 +171,7 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
       param <- t(param) %>% as.data.frame()
       param <- as.list(param) %>%  lapply(magrittr::set_names, rownames(param))
     } else {
-      stop("The ", type, " dataframe is misspecified.")
+      stop("The ", type, " data table is misspecified.")
     }
   }
   
@@ -187,7 +194,6 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
     }
     
     if (length(cells_b) == 0) { # no between-subject factors
-      message("no between-subject factors")
       if (length(param) == 1) { 
         param2 <- rep(param, w_n)
       } else if (length(param) != w_n) {

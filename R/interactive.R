@@ -36,7 +36,8 @@ unique_pairs <- function(v) {
 #' @examples
 #' des <- interactive_design()
 interactive_design <- function(plot = FALSE) {
-  wn <- readline_check(prompt="How many within-subject factors do you have?: ", "integer")
+  # within factors ----
+  wn <- readline_check("How many within-subject factors do you have?: ", "integer")
   within <- list()
   if (wn > 0) {
     for (i in 1:wn) {
@@ -44,7 +45,7 @@ interactive_design <- function(plot = FALSE) {
       name <- readline(prompt=p)
       
       p <- paste0("How many levels of ", name, ": ")
-      nlevels <- readline_check(prompt=p, "integer")
+      nlevels <- readline_check(p, "integer")
       
       levels <- c()
       for (j in 1:nlevels) {
@@ -56,7 +57,8 @@ interactive_design <- function(plot = FALSE) {
     }
   }
   
-  bn <- readline_check(prompt="How many between-subject factors do you have?: ", "integer")
+  # between factors ----
+  bn <- readline_check("How many between-subject factors do you have?: ", "integer")
   between <- list()
   if (bn > 0) {
     for (i in 1:bn) {
@@ -64,7 +66,7 @@ interactive_design <- function(plot = FALSE) {
       name <- readline(prompt=p)
       
       p <- paste0("How many levels of ", name, ": ")
-      nlevels <- readline_check(prompt=p, "integer")
+      nlevels <- readline_check(p, "integer")
       
       levels <- c()
       for (j in 1:nlevels) {
@@ -75,13 +77,17 @@ interactive_design <- function(plot = FALSE) {
     }
   }
   
-  within <- purrr::map(within, faux:::fix_name_labels)
-  between <- purrr::map(between, faux:::fix_name_labels)
+  # dv and id ----
+  dv <- readline_check("DV column name (default is y): ", "length", min = 1)
+  id <- readline_check("ID column name (default is id): ", "length", min = 1)
   
-  cells_w <- faux:::cell_combos(within)
-  cells_b <- faux:::cell_combos(between)
+  within <- purrr::map(within, fix_name_labels)
+  between <- purrr::map(between, fix_name_labels)
   
-  # ask for N
+  cells_w <- cell_combos(within, dv)
+  cells_b <- cell_combos(between, dv)
+  
+  # ask for N ----
   blist <- paste(cells_b, collapse = ", ")
   int_pattern <- paste0("^\\s?(\\d+\\s?,\\s?){0,", (length(cells_b)-1), "}\\s?(\\d+)\\s?$")
   
@@ -90,8 +96,9 @@ interactive_design <- function(plot = FALSE) {
   } else {
     p <- "Number of subjects: "
   }
-  n <- readline_check(prompt=p, "grep", pattern = int_pattern, perl = TRUE) %>%
-    strsplit("\\s?,\\s?") %>% unlist() %>% as.integer() 
+  n <- readline_check(p, "grep", pattern = int_pattern, perl = TRUE) %>%
+    strsplit("\\s?,\\s?") %>% 
+    unlist() %>% as.integer() 
   if (length(n) == 1) n <- rep(n, length(cells_b))
   names(n) <- cells_b
   n <- as.list(n)
@@ -99,97 +106,44 @@ interactive_design <- function(plot = FALSE) {
   wlist <- paste(cells_w, collapse = ", ")
   pattern <- paste0("^\\s?(-?\\d*\\.?\\d?\\s?,\\s?){0,", (length(cells_w)-1), "}\\s?(-?\\d*\\.?\\d?)\\s?$")
   
-  # ask for mu
+  # ask for mu ----
   mu <- purrr::map(cells_b, function(b) {
     p <- paste0("Means of ", wlist, " in condition ", b, ": ")
-    mm <- readline_check(prompt=p, "grep", pattern = pattern, perl = TRUE) %>%
+    input <- readline_check(p, "grep", pattern = pattern, perl = TRUE) %>%
       strsplit("\\s?,\\s?") %>% unlist()
-    if (length(mm) == 1) mm <- rep(mm, length(cells_w))
-    mm
+    if (length(input) == 1) input <- rep(input, length(cells_w))
+    input
   }) %>% unlist() %>% as.double() %>%
     matrix(nrow = length(cells_w), dimnames = list(cells_w, cells_b)) %>%
     as.data.frame()
 
-  # ask for SD
+  # ask for SD ----
   sd <- purrr::map(cells_b, function(b) {
     p <- paste0("SDs of ", wlist, " in condition ", b, ": ")
-    mm <- readline_check(prompt=p, "grep", pattern = pattern, perl = TRUE) %>%
+    input <- readline_check(p, "grep", pattern = pattern, perl = TRUE) %>%
       strsplit("\\s?,\\s?") %>% unlist()
-    if (length(mm) == 1) mm <- rep(mm, length(cells_w))
-    mm
+    if (length(input) == 1) input <- rep(input, length(cells_w))
+    input
   }) %>% unlist() %>% as.double() %>%
     matrix(nrow = length(cells_w), dimnames = list(cells_w, cells_b)) %>%
     as.data.frame()
   
-  # ask for r
+  # ask for r ----
   up <- unique_pairs(cells_w)
   uplist <- paste(up, collapse = ", ")
   pattern <- paste0("^\\s?(-?\\d*\\.?\\d?\\s?,\\s?){0,", (length(up)-1), "}\\s?(-?\\d*\\.?\\d?)\\s?$")
   r <- purrr::map(cells_b, function(b) {
     p <- paste0("Cors (r) of ", uplist, " in condition ", b, ": ")
-    mm <- readline_check(prompt=p, "grep", pattern = pattern, perl = TRUE) %>%
+    input <- readline_check(p, "grep", pattern = pattern, perl = TRUE) %>%
       strsplit("\\s?,\\s?") %>% unlist()
-    if (length(mm) == 1) mm <- rep(mm, length(cells_w))
-    mm %>% as.double()
+    if (length(input) == 1) input <- rep(input, length(cells_w))
+    input %>% as.double()
   })
   names(r) <- cells_b
+
+  design <- check_design(within, between, n, mu, sd, r, plot = plot)
   
-  message("All done, your data is ready!")
-
-  check_design(within, between, n, mu, sd, r, plot = plot)
+  message("\033[32mYour design is ready!\033[39m")
+  
+  design
 }
-
-
-#' Check readline input
-#'
-#' @param prompt the prompt for readline
-#' @param type what type of check to perform, one of c("numeric", "character", "length", "minlength", "maxlength", "exact", "grep")
-#' @param compare the comparator for exact and (min|max)length types
-#' @param ... other arguments to pass to grep
-#'
-#' @return the validated result of readline
-#' @export
-#'
-#' @examples
-#' readline_check("Type a number: ", "numeric")
-#' readline_check("Type two characters: ", "length", 2)
-#' readline_check("Type at least 3 characters: ", "minlength", 3)
-#' readline_check("Type no more than 4 characters: ", "maxlength", 4)
-#' readline_check("Type a letter and a number: ", "grep", pattern = "^[a-zA-Z]\\d$")
-#' 
-readline_check <- function(prompt, type = c("numeric", "integer", "length", "minlength", "maxlength", "exact", "grep"), compare = NULL,  ...) {
-  input <- readline(prompt)
-  if (type == "numeric") {
-    warn_text <- "The input must be a number: "
-    check <- suppressWarnings(!is.na(as.numeric(input)))
-    input <- suppressWarnings(as.numeric(input))
-  } else if (type == "integer") {
-    warn_text <- "The input must be an integer: "
-    check = grep("^\\d+$", input) %>% length() > 0
-    input <- suppressWarnings(as.integer(input))
-  } else if (type == "exact") {
-    warn_text <- paste("The input must be", compare, ": ")
-    check <- input == compare
-  } else if (type == "length") {
-    warn_text <- paste("The input must be", compare, "characters long: ")
-    check <- nchar(input) == compare
-  } else if (type == "minlength") {
-    warn_text <- paste("The input must be at least", compare, "characters long: ")
-    check <- nchar(input) >= compare
-  } else if (type == "maxlength") {
-    warn_text <- paste("The input must be no more than", compare, "characters long: ")
-    check <- nchar(input) <= compare
-  } else if (type == "grep") {
-    warn_text <- "The input is incorrect: "
-    check <- grep(x = input, ...) %>% length() > 0
-  } else {
-    warn_text <- "The input is incorrect: "
-    check <- FALSE # default false if type is wrong?
-  }
-  if (!check) {
-    readline_check(warn_text, type[1], compare, ...)
-  } else {
-    input
-  }
-}
-

@@ -5,8 +5,8 @@
 \title{Simulate Data from Design}
 \usage{
 sim_design(within = list(), between = list(), n = 100, mu = 0,
-  sd = 1, r = 0, empirical = FALSE, long = FALSE, plot = FALSE,
-  seed = NULL, interactive = FALSE)
+  sd = 1, r = 0, empirical = FALSE, long = FALSE, dv = "y",
+  id = "sub_id", plot = FALSE, seed = NULL, interactive = FALSE)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -24,6 +24,10 @@ sim_design(within = list(), between = list(), n = 100, mu = 0,
 \item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 
 \item{long}{Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format}
+
+\item{dv}{the name of the dv for long plots (defaults to y)}
+
+\item{id}{the name of the id column (defaults to sub_id)}
 
 \item{plot}{whether to show a plot of the design}
 

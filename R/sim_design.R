@@ -10,6 +10,8 @@
 #' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
+#' @param dv the name of the dv for long plots (defaults to y)
+#' @param id the name of the id column (defaults to id)
 #' @param plot whether to show a plot of the design
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param interactive whether to run the function interactively
@@ -20,14 +22,15 @@
 #' 
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
-                       empirical = FALSE, long = FALSE, 
+                       empirical = FALSE, long = FALSE, dv = "y", id = "id",
                        plot = FALSE, seed = NULL, interactive = FALSE) {
   # check the design is specified correctly
   if (interactive) {
     design <- interactive_design(plot = plot)
   } else {
     design <- check_design(within = within, between = between, 
-                         n = n, mu = mu, sd = sd, r = r, plot = plot)
+                         n = n, mu = mu, sd = sd, r = r, 
+                         dv = dv, id = id, plot = plot)
   }
   
   # simulate the data
@@ -76,28 +79,27 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   if (length(within_factors) == 0)  within_factors  <- ".tmpvar." 
   
   # figure out number of subjects and their IDs
-  sub_n <- sum(cell_n[,1])
-  sub_id <- make_id(sub_n)
+  sub_n <- sum(n[,1])
   
   # simulate data for each between-cell
   for (cell in cells_b) {
-    if (length(within)) {
+    #if (length(within)) {
       cell_vars <- rnorm_multi(
-        n = cell_n[cell,1], vars = length(cells_w), 
-        mu = cell_mu[cell,], sd = cell_sd[cell,], r = cell_r[[cell]], 
+        n = n[cell,1], vars = length(cells_w), 
+        mu = mu[cell,], sd = sd[cell,], r = r[[cell]], 
         varnames = cells_w, empirical = empirical
       ) %>%
         dplyr::mutate("btwn" = cell)
-    } else {
-      # fully between design
-      sd2 <- cell_sd[cell,] %>% as.matrix() %>% as.vector()
-      val <- MASS::mvrnorm(n = cell_n[cell,1], 
-                           mu = cell_mu[cell,] %>% as.matrix() %>% as.vector(), 
-                           Sigma = sd2 %*% t(sd2), 
-                           empirical = empirical)
-      cell_vars <- data.frame("val" = val)  %>%
-        dplyr::mutate("btwn" = cell)
-    }
+    # } else {
+    #   # fully between design
+    #   sd2 <- sd[cell,] %>% as.matrix() %>% as.vector()
+    #   val <- MASS::mvrnorm(n = n[cell,1], 
+    #                        mu = mu[cell,] %>% as.matrix() %>% as.vector(), 
+    #                        Sigma = sd2 %*% t(sd2), 
+    #                        empirical = empirical)
+    #   cell_vars <- data.frame(!!dv := val)  %>%
+    #     dplyr::mutate("btwn" = cell)
+    # }
     
     # add cell values to df
     if (cell == cells_b[1]) { 
@@ -108,13 +110,13 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   }
   
   # set column order
-  col_order <- c("sub_id", between_factors, cells_w) %>%
+  col_order <- c(id, between_factors, cells_w) %>%
     setdiff(".tmpvar.")
   
   # create wide dataframe
   df_wide <- df %>%
     tidyr::separate("btwn", between_factors, sep = "_") %>%
-    dplyr::mutate("sub_id" = sub_id) %>%
+    dplyr::mutate_at(id, ~make_id(sub_n)) %>%
     dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
     dplyr::select(tidyselect::one_of(col_order))
   
@@ -126,11 +128,11 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   
   if (long == TRUE && length(within)) {
     # not necessary for fully between designs
-    col_order <- c("sub_id", between_factors, within_factors, "val") %>%
+    col_order <- c(id, between_factors, within_factors, dv) %>%
       setdiff(".tmpvar.")
     
     df_long <- df_wide %>%
-      tidyr::gather("w_in", "val", tidyselect::one_of(cells_w)) %>%
+      tidyr::gather("w_in", !!dplyr::sym(dv), tidyselect::one_of(cells_w)) %>%
       tidyr::separate("w_in", within_factors, sep = "_") %>%
       dplyr::select(tidyselect::one_of(col_order)) %>%
       dplyr::mutate_at(within_factors, ~as.factor(.))

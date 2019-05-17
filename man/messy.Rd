@@ -19,8 +19,7 @@ messy(.data, prop = 0, ..., replace = NA)
 the messed up table
 }
 \description{
-Insert NA or another replacement value for some proportion of specified columns. 
-This might be helpful to simulate missing data. Thanks for the idea, Emily Nordmann!
+Insert NA or another replacement value for some proportion of specified columns to simulate missing data.
 }
 \examples{
 messy(iris, 0.1, "Species", replace = "NO SPECIES")

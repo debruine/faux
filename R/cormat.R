@@ -24,7 +24,9 @@ cormat <- function(cors = 0, vars = 3) {
     }
   }
   
-  if (class(cors) == "matrix") { 
+  if (vars == 1) {
+    cor_mat <- matrix(1, nrow= 1)
+  } else if (class(cors) == "matrix") { 
     if (!is.numeric(cors)) {
       stop("cors matrix not numeric")
     } else if (dim(cors)[1] != vars || dim(cors)[2] != vars) {
