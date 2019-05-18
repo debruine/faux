@@ -62,7 +62,7 @@ readline_check <- function(prompt, type = c("numeric", "integer", "length", "gre
   warn_text <- paste0("\033[31mError:\033[39m ", warn_text)
   
   if (!check) {
-    readline_check(warn_text, type, min, max, warning, ...)
+    Recall(warn_text, type, min, max, warning, ...)
   } else {
     input
   }
