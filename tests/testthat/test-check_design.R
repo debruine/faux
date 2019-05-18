@@ -10,7 +10,7 @@ test_that("2w", {
   cell_mu <- data.frame(night = 0, day = 0, row.names = "y")
   cell_sd <- data.frame(night = 1, day = 1, row.names = "y")
   
-  expect_equal(design$within, list(time = c(night = "night", day = "day")))
+  expect_equal(design$within, list(time = list(night = "night", day = "day")))
   expect_equal(design$between, list())
   
   expect_equal(design$n, cell_n)
@@ -33,7 +33,7 @@ test_that("2b", {
   cell_sd <- data.frame(y = c(1, 1), row.names = c("night", "day"))
   
   expect_equal(design$within, list())
-  expect_equal(design$between, list(time = c(night = "night", day = "day")))
+  expect_equal(design$between, list(time = list(night = "night", day = "day")))
   
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
@@ -55,8 +55,8 @@ test_that("2w*2b", {
   cell_sd <- data.frame(night = c(1,1), day = c(1,1), 
                         row.names = c("dog", "cat"))
 
-  expect_equal(design$within, list(time = c(night = "night", day = "day")))
-  expect_equal(design$between, list(pet = c(dog = "dog", cat = "cat")))
+  expect_equal(design$within, list(time = list(night = "night", day = "day")))
+  expect_equal(design$between, list(pet = list(dog = "dog", cat = "cat")))
   
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
@@ -132,13 +132,13 @@ test_that("anon factors", {
   design <- check_design(c(2, 4), c(2, 2), plot = FALSE)
   
   w <- list(
-    A = c(A1="A1", A2="A2"),
-    B = c(B1="B1", B2="B2", B3="B3", B4="B4")
+    A = list(A1="A1", A2="A2"),
+    B = list(B1="B1", B2="B2", B3="B3", B4="B4")
   )
   
   b <- list(
-    C = c(C1="C1",C2="C2"),
-    D = c(D1="D1", D2="D2")
+    C = list(C1="C1",C2="C2"),
+    D = list(D1="D1", D2="D2")
   )
   
   expect_equal(design$within, w)

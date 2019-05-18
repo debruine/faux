@@ -226,3 +226,20 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
   
   t(dd) %>% as.data.frame()
 }
+
+#' Fix name labels
+#' 
+#' Fixes if a factor list does not have named levels or has special characters in the names
+#' 
+#' @param x the list to fix
+#' 
+#' @return the fixed list
+#' @keywords internal
+#' 
+fix_name_labels <- function(x) {
+  if (is.null(names(x))) { names(x) <- x }
+  nm <- names(x)
+  # get rid of non-word characters and underscores because they mess up separate
+  names(x) <- gsub("(\\W|_)", ".", nm) 
+  as.list(x)
+}

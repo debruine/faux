@@ -28,8 +28,8 @@ test_that("get_design_long", {
   sd <- data.frame(A1 = c(2, 2), A2 = c(2, 2), row.names = c("B1", "B2"))
   r <- data.frame(A1 = c(1, .5), A2 = c(.5, 1), row.names = c("A1", "A2")) %>% as.matrix()
   
-  expect_equal(d$within, list(A = c(A1="A1", A2="A2")))
-  expect_equal(d$between, list(B = c(B1="B1", B2="B2")))
+  expect_equal(d$within, list(A = list(A1="A1", A2="A2")))
+  expect_equal(d$between, list(B = list(B1="B1", B2="B2")))
   expect_equal(d$n, n)
   expect_equal(d$mu, mu)
   expect_equal(d$sd, sd)

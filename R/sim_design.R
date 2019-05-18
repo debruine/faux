@@ -45,23 +45,6 @@ sim_design <- function(within = list(), between = list(),
   sim_design_(design, empirical = empirical, long = long, seed = seed)
 }
 
-#' Fix name labels
-#' 
-#' Fixes if a factor list does not have named levels or has special characters in the names
-#' 
-#' @param x the list to fix
-#' 
-#' @return the fixed list
-#' @keywords internal
-#' 
-fix_name_labels <- function(x) {
-  if (is.null(names(x))) { names(x) <- x }
-  nm <- names(x)
-  # get rid of non-word characters and underscores because they mess up separate
-  names(x) <- gsub("(\\W|_)", ".", nm) 
-  x
-}
-
 #' Simulate data from design (internal)
 #'
 #' @param design A list of design parameters created by check_design()

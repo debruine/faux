@@ -47,7 +47,7 @@ test_that("2w", {
   
   attr <- attributes(df)
   expect_true("design" %in% names(attr))
-  expect_equal(attr$design$within, list(W = c(W1 = "W1", W2 = "W2")))
+  expect_equal(attr$design$within, list(W = list(W1 = "W1", W2 = "W2")))
   expect_equal(attr$design$between, list())
   expect_equal(attr$design$dv, dv)
   expect_equal(attr$design$id, id)
