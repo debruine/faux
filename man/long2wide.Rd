@@ -2,10 +2,9 @@
 % Please edit documentation in R/long2wide.R
 \name{long2wide}
 \alias{long2wide}
-\title{Long to wide format}
+\title{Convert data from long to wide format}
 \usage{
-long2wide(.data, within = c(), between = c(), dv = "val",
-  id = "sub_id")
+long2wide(.data, within = c(), between = c(), dv = "y", id = "id")
 }
 \arguments{
 \item{.data}{the tbl in long format}
@@ -22,10 +21,10 @@ long2wide(.data, within = c(), between = c(), dv = "val",
 a tbl in wide format
 }
 \description{
-Converts data from long format to wide
+Convert data from long to wide format
 }
 \examples{
 df_long <- sim_design(2, 2, long = TRUE)
-long2wide(df_long, "A", "B", "val", "sub_id")
+long2wide(df_long, "A", "B")
 
 }

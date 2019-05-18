@@ -1,6 +1,4 @@
-#' Multiple Normally Distributed Vectors
-#'
-#' \code{rnorm_multi()} makes multiple normally distributed vectors with specified relationships.
+#' Make normally distributed vectors with specified relationships
 #'
 #' @param n the number of samples required
 #' @param vars the number of variables to return

@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -156,12 +156,9 @@ Simulated iris dataset
   <span class="dt">error_sd =</span> <span class="dv">3</span>  <span class="co"># SD of residual error</span>
 )</code></pre></div>
 <p>You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(val <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat) <span class="op">%&gt;%</span>
 <span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)
-<span class="co">#&gt; Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl =</span>
-<span class="co">#&gt; control$checkConv, : Model failed to converge with max|grad| = 0.00615993</span>
-<span class="co">#&gt; (tol = 0.002, component 1)</span></code></pre></div>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</code></pre></div>
 <table class="table table">
 <thead><tr class="header">
 <th align="left">effect</th>
@@ -176,15 +173,15 @@ Simulated iris dataset
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">9.953</td>
-<td align="right">0.337</td>
-<td align="right">29.573</td>
+<td align="right">10.257</td>
+<td align="right">0.244</td>
+<td align="right">42.057</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.066</td>
+<td align="right">0.952</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -192,7 +189,7 @@ Simulated iris dataset
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">2.237</td>
+<td align="right">1.559</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -200,7 +197,7 @@ Simulated iris dataset
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">3.012</td>
+<td align="right">3.018</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -212,7 +209,7 @@ Simulated iris dataset
 <a href="#sim_mixed_df" class="anchor"></a>sim_mixed_df</h2>
 <p>This function uses <code><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lme4::lmer()</a></code> to get subject, item and error SDs from an existing dataset and simulates a new dataset with the specified number of subjects and items with distributions drawn from the example data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-new_dat &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_mixed_df.html">sim_mixed_df</a></span>(faceratings, 
+new_dat &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_mixed_df.html">sim_mixed_df</a></span>(fr4, 
                         <span class="dt">sub_n =</span> <span class="dv">100</span>, 
                         <span class="dt">item_n =</span> <span class="dv">50</span>, 
                         <span class="dt">dv =</span> <span class="st">"rating"</span>, 
@@ -251,7 +248,7 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_pre.ht
   <span class="dt">r =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(x,y)
 ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>()
 <span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ mean: num -9.19e-18</span>
+<span class="co">#&gt;  $ mean: num 0</span>
 <span class="co">#&gt;  $ sd  : num 1</span>
 <span class="co">#&gt;  $ r   : num 0.5</span></code></pre></div>
 <p>If <code>empirical = FALSE</code> (the default), this resulting vector is sampled from a population with the specified parameters (but won’t have <em>exactly</em> those properties).</p>
@@ -467,8 +464,8 @@ df_long &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_de
 df_wide &lt;-<span class="st"> </span><span class="kw"><a href="reference/long2wide.html">long2wide</a></span>(df_long, 
                      <span class="dt">within =</span> <span class="st">"time"</span>, 
                      <span class="dt">between =</span> <span class="st">"pet"</span>, 
-                     <span class="dt">dv =</span> <span class="st">"val"</span>, 
-                     <span class="dt">id =</span> <span class="st">"sub_id"</span>)</code></pre></div>
+                     <span class="dt">dv =</span> <span class="st">"y"</span>, 
+                     <span class="dt">id =</span> <span class="st">"id"</span>)</code></pre></div>
 </div>
 <div id="pos_def_limits" class="section level3">
 <h3 class="hasAnchor">

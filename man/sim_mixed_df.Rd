@@ -2,10 +2,10 @@
 % Please edit documentation in R/sim_mixed_df.R
 \name{sim_mixed_df}
 \alias{sim_mixed_df}
-\title{Generate a sample with random intercepts for subjects and items}
+\title{Generate a mixed design from existing data}
 \usage{
-sim_mixed_df(.data, sub_n = NULL, item_n = NULL, dv = 1,
-  sub_id = 2, item_id = 3, seed = NULL)
+sim_mixed_df(.data, sub_n = NULL, item_n = NULL, dv = "y",
+  sub_id = "sub_id", item_id = "item_id", seed = NULL)
 }
 \arguments{
 \item{.data}{the existing tbl}
@@ -26,7 +26,8 @@ sim_mixed_df(.data, sub_n = NULL, item_n = NULL, dv = 1,
 a tbl
 }
 \description{
-\code{sim_mixed_df()} produces a data table with the same distributions of by-subject and by-item random intercepts as an existing data table.
+\code{sim_mixed_df()} produces a data table with the same distributions of 
+by-subject and by-item random intercepts as an existing data table.
 }
 \examples{
 \donttest{sim_mixed_df(faceratings, 10, 10, "rating", "rater_id", "face_id")}

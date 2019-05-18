@@ -1,7 +1,12 @@
-#' Validate design
-#'
-#' \code{check_design} validates the specified within and between design
-#'
+#' Validates the specified design
+#' 
+#' Specify any number of within- and between-subject factors with any number of 
+#' levels. Specify n for each between-subject cell; mu and sd for each cell, and
+#' r for the within-subject cells for each between-subject cell.
+#' 
+#' This function returns a validated design list for use in sim_design_ to 
+#' simulate a data table with this design, or to archive your design.
+#' 
 #' @param within a list of the within-subject factors
 #' @param between a list of the between-subject factors
 #' @param n the number of samples required
@@ -45,8 +50,6 @@ check_design <- function(within = list(), between = list(),
   # check factor specification
   if (!is.list(within) || !is.list(between)) {
     stop("within and between must be lists")
-  #} else if (length(within) == 0 && length(between) == 0) {
-  #  stop("You must specify at least one factor")
   }
   
   # if within or between factors are named vectors, 
@@ -103,15 +106,15 @@ check_design <- function(within = list(), between = list(),
     between = between,
     dv = dv,
     id = id,
-    cells_w = cells_w,
-    cells_b = cells_b,
     n = cell_n,
     mu = cell_mu,
     sd = cell_sd,
     r = cell_r
   )
   
-  if (plot) { plot_design(design, id, dv) %>% print() }
+  class(design) <- c("design", "list")
+  
+  if (plot) { plot_design(design) %>% print() }
   
   invisible(design)
 }

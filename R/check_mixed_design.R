@@ -10,7 +10,7 @@
 #' 
 #' @return a list of parameters
 #' @examples
-#' des <- check_mixed_design(fr10, "rating", "rater_id", "face_id")
+#' des <- check_mixed_design(fr4, "rating", "rater_id", "face_id")
 #' str(des[1:4])
 #' @export
 check_mixed_design <- function(.data, dv = 1, sub_id = 2, item_id = 3, formula = NULL) {

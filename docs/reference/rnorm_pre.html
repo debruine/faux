@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Correlated Normal Vector — rnorm_pre • faux</title>
+<title>Make a normal vector correlated to an existing vector — rnorm_pre • faux</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Correlated Normal Vector — rnorm_pre" />
+<meta property="og:title" content="Make a normal vector correlated to an existing vector — rnorm_pre" />
 
 <meta property="og:description" content="rnorm_pre Produces a random normally distributed vector with the specified correlation to an existing vector" />
 <meta name="twitter:card" content="summary" />
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -123,7 +123,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Correlated Normal Vector</h1>
+    <h1>Make a normal vector correlated to an existing vector</h1>
     <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/rnorm_pre.R'><code>R/rnorm_pre.R</code></a></small>
     <div class="hidden name"><code>rnorm_pre.Rd</code></div>
     </div>
@@ -169,7 +169,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>v1</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10</span>)
 <span class='no'>v2</span> <span class='kw'>&lt;-</span> <span class='fu'>rnorm_pre</span>(<span class='no'>v1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/cor'>cor</a></span>(<span class='no'>v1</span>, <span class='no'>v2</span>)</div><div class='output co'>#&gt; [1] 0.681579</div></pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/cor'>cor</a></span>(<span class='no'>v1</span>, <span class='no'>v2</span>)</div><div class='output co'>#&gt; [1] 0.6007116</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

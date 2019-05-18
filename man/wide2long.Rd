@@ -2,9 +2,9 @@
 % Please edit documentation in R/long2wide.R
 \name{wide2long}
 \alias{wide2long}
-\title{Wide to long format}
+\title{Convert data from wide to long format}
 \usage{
-wide2long(.data, within_factors = c(), within_cols = c(), dv = "val",
+wide2long(.data, within_factors = c(), within_cols = c(), dv = "y",
   id = NULL, sep = "[^[:alnum:]]+")
 }
 \arguments{
@@ -14,15 +14,17 @@ wide2long(.data, within_factors = c(), within_cols = c(), dv = "val",
 
 \item{within_cols}{the names (or indices) of the within-subject (value) columns}
 
-\item{dv}{the name of the dv column (defaults to "val")}
+\item{dv}{the name of the dv column (defaults to "y")}
 
-\item{sep}{Separator for within-columns (see tidyr::separate)}
+\item{id}{the name of the ID column(s) if they don't exist, a new column will be made}
+
+\item{sep}{separator for within-columns (see tidyr::separate)}
 }
 \value{
 a tbl in long format
 }
 \description{
-Converts data from wide format to long
+Convert data from wide to long format
 }
 \examples{
 wide2long(iris, c("Feature", "Measure"), 1:4)

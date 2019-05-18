@@ -23,7 +23,7 @@ sim_df(.data, n = 100, within = c(), between = c(), id = "sub_id",
 
 \item{empirical}{logical. Passed on to rnorm_multi}
 
-\item{long}{}
+\item{long}{whether to return the data table in long format}
 
 \item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 
@@ -33,7 +33,9 @@ sim_df(.data, n = 100, within = c(), between = c(), id = "sub_id",
 a tbl
 }
 \description{
-\code{sim_df} Produces a data table with the same distributions and correlations as an existing data table Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).
+\code{sim_df} Produces a data table with the same distributions and correlations 
+as an existing data table Only returns numeric columns and simulates all numeric 
+variables from a continuous normal distribution (for now).
 }
 \examples{
 iris100 <- sim_df(iris, 100)

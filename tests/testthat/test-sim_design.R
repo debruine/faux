@@ -2,11 +2,6 @@ context("test-sim_design")
 
 # error messages ----
 test_that("error messages", {
-  #factors_err <- "You must specify at least one factor"
-  #expect_error(sim_design(), factors_err)
-  #expect_error(sim_design(within = list()), factors_err)
-  #expect_error(sim_design(between = list()), factors_err)
-  
   list_err <- "within and between must be lists"
   expect_error(sim_design("1"), list_err)
   expect_error(sim_design(list(), "1"), list_err)
@@ -36,8 +31,12 @@ test_that("2w", {
   mu <- c(1, 2)
   sd <- c(1, 2)
   r <- 0.3
+  dv <- "rt"
+  id <- "sub_id"
+  n <- 100
   
-  df <- sim_design(within, between, mu = mu, sd = sd, r = r, empirical = TRUE)
+  df <- sim_design(within, between, mu = mu, sd = sd, 
+                   r = r, dv = dv, id = id, empirical = TRUE)
   chk <- check_sim_stats(df)
   
   comp <- tibble::tribble(
@@ -46,9 +45,17 @@ test_that("2w", {
     100, "W2", 0.3, 1.0,     2,   2
   )
   
+  attr <- attributes(df)
+  expect_true("design" %in% names(attr))
+  expect_equal(attr$design$within, list(W = c(W1 = "W1", W2 = "W2")))
+  expect_equal(attr$design$between, list())
+  expect_equal(attr$design$dv, dv)
+  expect_equal(attr$design$id, id)
+  expect_equal(attr$design$n %>% unlist() %>% sum(), 200)
+  
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 3)
-  expect_equal(names(df), c("id", "W1", "W2"))
+  expect_equal(names(df), c(id, "W1", "W2"))
   expect_equal(chk, comp)
 })
 
@@ -483,4 +490,20 @@ test_that("seed", {
   df3 <- sim_design(within = 2, n = 10, seed = 90210)
   
   expect_true(!identical(df1, df3))
+})
+
+# from design ----
+test_that("from design", {
+  within <- list(time = c("night", "day"))
+  between <- list(pet = c("dog", "cat"))
+  design <- check_design(within, between, n = 10, plot = FALSE)
+  data <- sim_design(design = design)
+  
+  expect_equal(attributes(data)$design, design)
+  
+  # design set to first (within) argument
+  data2 <- sim_design(design)
+  
+  expect_equal(attributes(data2)$design, design)
+  
 })

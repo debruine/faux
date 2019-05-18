@@ -1,23 +1,29 @@
+context("sim_mixed_cc")
+
 test_that("default", {
   data <- sim_mixed_cc()
   
   expect_equal(nrow(data), 2000)
-  expect_equal(ncol(data), 3)
-  expect_equal(names(data), c("sub_id", "item_id", "val"))
+  expect_equal(ncol(data), 7)
+  expect_equal(names(data), c("sub_id", "item_id", "y", "grand_i", "sub_i", "item_i", "err"))
   
-  res <- lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = data) %>%
+  res <- lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = data) %>%
     broom.mixed::tidy(effects = "ran_pars")
+  
+  expect_equal(res$estimate, c(1,1,1), tolerance = 0.4)
 })
 
-test_that("default", {
+test_that("n", {
   data <- sim_mixed_cc(100, 100)
   
   expect_equal(nrow(data), 10000)
-  expect_equal(ncol(data), 3)
-  expect_equal(names(data), c("sub_id", "item_id", "val"))
+  expect_equal(ncol(data), 7)
+  expect_equal(names(data), c("sub_id", "item_id", "y", "grand_i", "sub_i", "item_i", "err"))
   
-  res <- lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = data) %>%
+  res <- lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = data) %>%
     broom.mixed::tidy(effects = "ran_pars")
+  
+  expect_equal(res$estimate, c(1,1,1), tolerance = 0.1)
 })
 
 # seed ----

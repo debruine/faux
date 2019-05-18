@@ -36,3 +36,12 @@
 * Fixed bugs in interactive specification
 * Added `messy()` (thanks Emily)
 * Better interactive specification (thanks Daniël)
+
+# faux 0.0.0.9011
+
+* Changed default DV column name from 'val' to 'y'
+* Changed default ID column name from 'sub_id' to 'id'
+* `sim_design()` can take intercept-only designs
+* `rnorm_multi()` can take vars = 1 for intercept-only designs
+* Added `norm2unif()` and `unif2norm()` functions for converting between distributions
+

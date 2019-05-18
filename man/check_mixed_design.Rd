@@ -25,6 +25,6 @@ a list of parameters
 Get error terms from an existing data table.
 }
 \examples{
-des <- check_mixed_design(fr10, "rating", "rater_id", "face_id")
+des <- check_mixed_design(fr4, "rating", "rater_id", "face_id")
 str(des[1:4])
 }

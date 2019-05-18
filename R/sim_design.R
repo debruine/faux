@@ -1,4 +1,4 @@
-#' Simulate Data from Design
+#' Simulate data from design
 #'
 #' \code{sim_design()} generates a data table with a specified within and between design.
 #'
@@ -15,18 +15,26 @@
 #' @param plot whether to show a plot of the design
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param interactive whether to run the function interactively
+#' @param design a design list created by 
 #' 
 #' @return a tbl
 #' 
 #' @export
+#' @importFrom rlang := 
 #' 
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
                        empirical = FALSE, long = FALSE, dv = "y", id = "id",
-                       plot = FALSE, seed = NULL, interactive = FALSE) {
+                       plot = FALSE, seed = NULL, interactive = FALSE, design = NULL) {
   # check the design is specified correctly
   if (interactive) {
     design <- interactive_design(plot = plot)
+  } else if (!is.null(design)) {
+    # double-check the entered design
+    design <- do.call(check_design, design)
+  } else if ("design" %in% class(within)) {
+    # design given as first argument: not ideal but handle it
+    design <- do.call(check_design, within)
   } else {
     design <- check_design(within = within, between = between, 
                          n = n, mu = mu, sd = sd, r = r, 
@@ -54,9 +62,7 @@ fix_name_labels <- function(x) {
   x
 }
 
-#' Simulate Data from Design
-#'
-#' \code{sim_design_} generates a data table with a specified design
+#' Simulate data from design (internal)
 #'
 #' @param design A list of design parameters created by check_design()
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
@@ -69,6 +75,10 @@ fix_name_labels <- function(x) {
 sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   set.seed(seed)
   list2env(design, envir = environment())
+  
+  # define columns
+  cells_w <- cell_combos(within, dv)
+  cells_b <- cell_combos(between, dv) 
   
   # get factor names
   within_factors <- names(within)
@@ -83,23 +93,12 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   
   # simulate data for each between-cell
   for (cell in cells_b) {
-    #if (length(within)) {
-      cell_vars <- rnorm_multi(
-        n = n[cell,1], vars = length(cells_w), 
-        mu = mu[cell,], sd = sd[cell,], r = r[[cell]], 
-        varnames = cells_w, empirical = empirical
-      ) %>%
-        dplyr::mutate("btwn" = cell)
-    # } else {
-    #   # fully between design
-    #   sd2 <- sd[cell,] %>% as.matrix() %>% as.vector()
-    #   val <- MASS::mvrnorm(n = n[cell,1], 
-    #                        mu = mu[cell,] %>% as.matrix() %>% as.vector(), 
-    #                        Sigma = sd2 %*% t(sd2), 
-    #                        empirical = empirical)
-    #   cell_vars <- data.frame(!!dv := val)  %>%
-    #     dplyr::mutate("btwn" = cell)
-    # }
+    cell_vars <- rnorm_multi(
+      n = n[cell,1], vars = length(cells_w), 
+      mu = mu[cell,], sd = sd[cell,], r = r[[cell]], 
+      varnames = cells_w, empirical = empirical
+    ) %>%
+      dplyr::mutate("btwn" = cell)
     
     # add cell values to df
     if (cell == cells_b[1]) { 
@@ -116,7 +115,7 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   # create wide dataframe
   df_wide <- df %>%
     tidyr::separate("btwn", between_factors, sep = "_") %>%
-    dplyr::mutate_at(id, ~make_id(sub_n)) %>%
+    dplyr::mutate(!!id := make_id(sub_n)) %>%
     dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
     dplyr::select(tidyselect::one_of(col_order))
   
@@ -132,7 +131,7 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
       setdiff(".tmpvar.")
     
     df_long <- df_wide %>%
-      tidyr::gather("w_in", !!dplyr::sym(dv), tidyselect::one_of(cells_w)) %>%
+      tidyr::gather("w_in", !!dv, tidyselect::one_of(cells_w)) %>%
       tidyr::separate("w_in", within_factors, sep = "_") %>%
       dplyr::select(tidyselect::one_of(col_order)) %>%
       dplyr::mutate_at(within_factors, ~as.factor(.))
@@ -143,8 +142,12 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
       df_long[[f]] <- factor(df_long[[f]], levels = names(within[[f]]))
     }
     
+    attr(df_long, "design") <- design
+    
     return(df_long)
   }
+  
+  attr(df_wide, "design") <- design
   
   df_wide
 }

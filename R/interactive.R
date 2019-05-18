@@ -34,7 +34,7 @@ unique_pairs <- function(v) {
 #' @export
 #'
 #' @examples
-#' des <- interactive_design()
+#' \dontrun{des <- interactive_design()}
 interactive_design <- function(plot = FALSE) {
   # within factors ----
   wn <- readline_check("How many within-subject factors do you have?: ", "integer")

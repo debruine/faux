@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Long to wide format — long2wide • faux</title>
+<title>Convert data from long to wide format — long2wide • faux</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Long to wide format — long2wide" />
+<meta property="og:title" content="Convert data from long to wide format — long2wide" />
 
-<meta property="og:description" content="Converts data from long format to wide" />
+<meta property="og:description" content="Convert data from long to wide format" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -123,19 +123,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Long to wide format</h1>
+    <h1>Convert data from long to wide format</h1>
     <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/long2wide.R'><code>R/long2wide.R</code></a></small>
     <div class="hidden name"><code>long2wide.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Converts data from long format to wide</p>
+    <p>Convert data from long to wide format</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>long2wide</span>(<span class='no'>.data</span>, <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>dv</span> <span class='kw'>=</span> <span class='st'>"val"</span>,
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"sub_id"</span>)</pre>
+    <pre class="usage"><span class='fu'>long2wide</span>(<span class='no'>.data</span>, <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>dv</span> <span class='kw'>=</span> <span class='st'>"y"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"id"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -169,19 +168,19 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>df_long</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sim_design.html'>sim_design</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-<span class='fu'>long2wide</span>(<span class='no'>df_long</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"val"</span>, <span class='st'>"sub_id"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 200 x 4</span><span>
-#&gt;    sub_id B           A1       A2
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> S001   B1     1.64    -</span><span style='color: #BB0000;'>0.159</span><span>  
-#&gt; </span><span style='color: #555555;'> 2</span><span> S002   B1    -</span><span style='color: #BB0000;'>0.132</span><span>    2.30   
-#&gt; </span><span style='color: #555555;'> 3</span><span> S003   B1    -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>16</span><span> -</span><span style='color: #BB0000;'>0.279</span><span>  
-#&gt; </span><span style='color: #555555;'> 4</span><span> S004   B1    -</span><span style='color: #BB0000;'>2.38</span><span>     1.60   
-#&gt; </span><span style='color: #555555;'> 5</span><span> S005   B1    -</span><span style='color: #BB0000;'>1.76</span><span>     0.120  
-#&gt; </span><span style='color: #555555;'> 6</span><span> S006   B1    -</span><span style='color: #BB0000;'>0.948</span><span>    0.688  
-#&gt; </span><span style='color: #555555;'> 7</span><span> S007   B1    -</span><span style='color: #BB0000;'>0.462</span><span>   -</span><span style='color: #BB0000;'>0.238</span><span>  
-#&gt; </span><span style='color: #555555;'> 8</span><span> S008   B1    -</span><span style='color: #BB0000;'>0.142</span><span>    0.390  
-#&gt; </span><span style='color: #555555;'> 9</span><span> S009   B1     0.234    0.953  
-#&gt; </span><span style='color: #555555;'>10</span><span> S010   B1     0.799   -</span><span style='color: #BB0000;'>0.006</span><span style='color: #BB0000;text-decoration: underline;'>72</span><span>
+<span class='fu'>long2wide</span>(<span class='no'>df_long</span>, <span class='st'>"A"</span>, <span class='st'>"B"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 200 x 4</span><span>
+#&gt;    id    B          A1      A2
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> S001  B1     1.62    0.584 
+#&gt; </span><span style='color: #555555;'> 2</span><span> S002  B1    -</span><span style='color: #BB0000;'>0.895</span><span>   0.106 
+#&gt; </span><span style='color: #555555;'> 3</span><span> S003  B1    -</span><span style='color: #BB0000;'>1.45</span><span>    2.25  
+#&gt; </span><span style='color: #555555;'> 4</span><span> S004  B1     1.22    0.989 
+#&gt; </span><span style='color: #555555;'> 5</span><span> S005  B1     0.093</span><span style='text-decoration: underline;'>4</span><span>  0.075</span><span style='text-decoration: underline;'>9</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span> S006  B1    -</span><span style='color: #BB0000;'>0.503</span><span>   2.31  
+#&gt; </span><span style='color: #555555;'> 7</span><span> S007  B1     0.663   0.220 
+#&gt; </span><span style='color: #555555;'> 8</span><span> S008  B1    -</span><span style='color: #BB0000;'>1.58</span><span>    2.11  
+#&gt; </span><span style='color: #555555;'> 9</span><span> S009  B1     1.76   -</span><span style='color: #BB0000;'>0.713</span><span> 
+#&gt; </span><span style='color: #555555;'>10</span><span> S010  B1    -</span><span style='color: #BB0000;'>0.410</span><span>   0.574 
 #&gt; </span><span style='color: #555555;'># … with 190 more rows</span><span></div><div class='input'>
 </div></span></pre>
   </div>

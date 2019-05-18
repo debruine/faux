@@ -60,9 +60,9 @@ sim_mixed_cc <- function(sub_n = 100, item_n = 20, grand_i = 0,
     dplyr::mutate(
       grand_i = grand_i,
       err = stats::rnorm(nrow(.), 0, error_sd),
-      val = grand_i + sub_i + item_i + err
+      y = grand_i + sub_i + item_i + err
     ) %>%
-    dplyr::select(sub_id, item_id, val, grand_i, sub_i, item_i, err)
+    dplyr::select(sub_id, item_id, y, grand_i, sub_i, item_i, err)
   
   new_obs
 }

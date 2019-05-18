@@ -2,11 +2,12 @@
 % Please edit documentation in R/sim_design.R
 \name{sim_design}
 \alias{sim_design}
-\title{Simulate Data from Design}
+\title{Simulate data from design}
 \usage{
 sim_design(within = list(), between = list(), n = 100, mu = 0,
   sd = 1, r = 0, empirical = FALSE, long = FALSE, dv = "y",
-  id = "sub_id", plot = FALSE, seed = NULL, interactive = FALSE)
+  id = "id", plot = FALSE, seed = NULL, interactive = FALSE,
+  design = NULL)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -27,13 +28,15 @@ sim_design(within = list(), between = list(), n = 100, mu = 0,
 
 \item{dv}{the name of the dv for long plots (defaults to y)}
 
-\item{id}{the name of the id column (defaults to sub_id)}
+\item{id}{the name of the id column (defaults to id)}
 
 \item{plot}{whether to show a plot of the design}
 
 \item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 
 \item{interactive}{whether to run the function interactively}
+
+\item{design}{a design list created by}
 }
 \value{
 a tbl

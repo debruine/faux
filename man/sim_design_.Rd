@@ -2,7 +2,7 @@
 % Please edit documentation in R/sim_design.R
 \name{sim_design_}
 \alias{sim_design_}
-\title{Simulate Data from Design}
+\title{Simulate data from design (internal)}
 \usage{
 sim_design_(design, empirical = FALSE, long = FALSE, seed = NULL)
 }
@@ -19,6 +19,6 @@ sim_design_(design, empirical = FALSE, long = FALSE, seed = NULL)
 a tbl
 }
 \description{
-\code{sim_design_} generates a data table with a specified design
+Simulate data from design (internal)
 }
 \keyword{internal}

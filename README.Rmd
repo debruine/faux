@@ -55,7 +55,7 @@ For example, the following creates a 2w*2b design with 100 observations in each 
 
 
 ```{r, fig.width = 8, fig.height = 4}
-between <- list("pet" = c("cat", "dog"))
+between <- list("pet" = c("cat" = "Cat Owners", "dog" = "Dog Owners"))
 within <- list("time" = c("day", "night"))
 mu <- data.frame(
   cat = c(10, 20),
@@ -67,7 +67,7 @@ df <- sim_design(within, between,
                  empirical = TRUE, plot = TRUE)
 ```
 
-`r get_params(df, between = "pet", usekable = TRUE)`
+`r get_params(df, between = "pet") %>% knitr::kable()`
 Table: Sample `sim_design()` stats
 
 ## sim_df
@@ -107,7 +107,7 @@ dat <- sim_mixed_cc(
 You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.
 
 ```{r, results='asis'}
-lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
+lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
   broom.mixed::tidy() %>%
   knitr::kable(digits = 3)
 ```
@@ -118,7 +118,7 @@ This function uses `lme4::lmer()` to get subject, item and error SDs from an exi
 
 ```{r, eval = FALSE}
 
-new_dat <- sim_mixed_df(faceratings, 
+new_dat <- sim_mixed_df(fr4, 
                         sub_n = 100, 
                         item_n = 50, 
                         dv = "rating", 
@@ -148,7 +148,7 @@ dat <- rnorm_multi(
 ```
 
 
-`r get_params(dat, usekable = T)`
+`r get_params(dat) %>% knitr::kable()`
 Table: Sample `rnorm_multi()` stats
 
 
@@ -216,18 +216,21 @@ iris5 <- messy(iris, 0.5, "Species", replace = "NOPE")
 
 If you want to check your simulated stats or just describe an existing dataset, use `get_params()`.
 
-```{r}
+```{r, eval = FALSE}
 get_params(iris)
 ```
 
-You can also group your data and change the digits to round. Display the table using `knitr::kable()` by setting `usekable` to `TRUE` (remember to set `results='asis'` in the chunk header.
+`r get_params(iris) %>% knitr::kable()`
 
-```{r, results='asis'}
+You can also group your data and change the digits to round.
+
+```{r, eval = FALSE}
 get_params(iris, 
            between = "Species", 
-           digits = 3, 
-           usekable = TRUE)
+           digits = 3)
 ```
+
+`r get_params(iris, between = "Species") %>% knitr::kable(digits = 3)`
 
 ### make_id
 
@@ -246,20 +249,63 @@ make_id(n = 10:20, digits = 3)
 
 ### long2wide
 
+Convert a data table made with faux from long to wide. 
+
 ```{r}
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
 df_long <- sim_design(within, between, long = TRUE)
 
-df_wide <- long2wide(df_long, 
-                     within = "time", 
-                     between = "pet", 
-                     dv = "val", 
-                     id = "sub_id")
+df_wide <- long2wide(df_long)
 ```
 
+`r head(df_wide) %>% knitr::kable()`
+
+If you have a data table not made by faux, you need to specify the within-subject columns, the between-subject columns, the DV column, and the ID column.
+
+```{r}
+# make a long data table
+df_long <- expand.grid(
+  sub_id = 1:10,
+  A = c("A1", "A2"),
+  B = c("B1", "B2")
+)
+df_long$C <- rep(c("C1", "C2"), 20)
+df_long$score <- rnorm(40)
+
+# convert it to wide
+df_wide <- long2wide(df_long, within = c("A", "B"), 
+                     between = "C", dv = "score", id = "sub_id")
+```
+
+`r head(df_wide) %>% knitr::kable()`
 
 
+### wide2long
+
+You can convert a data table made by faux from wide to long easily.
+
+```{r}
+between <- list("pet" = c("cat", "dog"))
+within <- list("time" = c("day", "night"))
+df_wide <- sim_design(within, between, long = FALSE)
+df_long <- wide2long(df_wide)
+```
+
+`r head(df_long) %>% knitr::kable()`
+
+If you have a data table not made by faux, you need to specify the within-subject factors and columns, and specify the names of the ID and DV columns to create. 
+```{r}
+long_iris <- wide2long(
+    iris,
+    within_factors = c("feature", "dimension"),
+    within_cols = 1:4,
+    dv = "value",
+    id = "flower_id"
+  )
+```
+
+`r head(long_iris) %>% knitr::kable()`
 
 ### pos_def_limits
 

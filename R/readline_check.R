@@ -11,12 +11,13 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{
 #' readline_check("Type a number: ", "numeric")
 #' readline_check("Type two characters: ", "length", min = 2, max = 2)
 #' readline_check("Type at least 3 characters: ", "length", min = 3)
 #' readline_check("Type no more than 4 characters: ", "length", max = 44)
 #' readline_check("Type a letter and a number: ", "grep", pattern = "^[a-zA-Z]\\d$")
-#' 
+#' }
 readline_check <- function(prompt, type = c("numeric", "integer", "length", "grep"), 
                            min = -Inf, max = Inf, warning = NULL, ...) {
   input <- readline(prompt)

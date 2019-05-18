@@ -15,6 +15,8 @@
 #' @export
 #'
 get_design_long <- function(.data, dv = "y", id = "id", plot = TRUE) {
+  .data <- dplyr::ungroup(.data)
+  
   between_factors <- .data %>%
     dplyr::group_by_at(dplyr::vars(tidyselect::one_of(id))) %>%
     dplyr::summarise_all(dplyr::n_distinct) %>%

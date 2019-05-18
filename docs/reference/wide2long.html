@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Wide to long format — wide2long • faux</title>
+<title>Convert data from wide to long format — wide2long • faux</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,9 @@
 
 
 
-<meta property="og:title" content="Wide to long format — wide2long" />
+<meta property="og:title" content="Convert data from wide to long format — wide2long" />
 
-<meta property="og:description" content="Converts data from wide format to long" />
+<meta property="og:description" content="Convert data from wide to long format" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -123,18 +123,18 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Wide to long format</h1>
+    <h1>Convert data from wide to long format</h1>
     <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/long2wide.R'><code>R/long2wide.R</code></a></small>
     <div class="hidden name"><code>wide2long.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Converts data from wide format to long</p>
+    <p>Convert data from wide to long format</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>wide2long</span>(<span class='no'>.data</span>, <span class='kw'>within_factors</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>within_cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>dv</span> <span class='kw'>=</span> <span class='st'>"val"</span>,
+    <pre class="usage"><span class='fu'>wide2long</span>(<span class='no'>.data</span>, <span class='kw'>within_factors</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>within_cols</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(), <span class='kw'>dv</span> <span class='kw'>=</span> <span class='st'>"y"</span>,
   <span class='kw'>id</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"[^[:alnum:]]+"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -154,11 +154,15 @@
     </tr>
     <tr>
       <th>dv</th>
-      <td><p>the name of the dv column (defaults to "val")</p></td>
+      <td><p>the name of the dv column (defaults to "y")</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>the name of the ID column(s) if they don't exist, a new column will be made</p></td>
     </tr>
     <tr>
       <th>sep</th>
-      <td><p>Separator for within-columns (see tidyr::separate)</p></td>
+      <td><p>separator for within-columns (see tidyr::separate)</p></td>
     </tr>
     </table>
     
@@ -168,7 +172,7 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>wide2long</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Feature"</span>, <span class='st'>"Measure"</span>), <span class='fl'>1</span>:<span class='fl'>4</span>)</div><div class='output co'>#&gt;        Species Feature Measure val
+    <pre class="examples"><div class='input'><span class='fu'>wide2long</span>(<span class='no'>iris</span>, <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"Feature"</span>, <span class='st'>"Measure"</span>), <span class='fl'>1</span>:<span class='fl'>4</span>)</div><div class='output co'>#&gt;        Species Feature Measure   y
 #&gt; 1       setosa   Sepal  Length 5.1
 #&gt; 2       setosa   Sepal  Length 4.9
 #&gt; 3       setosa   Sepal  Length 4.7
@@ -419,356 +423,7 @@
 #&gt; 248 versicolor   Sepal   Width 2.9
 #&gt; 249 versicolor   Sepal   Width 2.5
 #&gt; 250 versicolor   Sepal   Width 2.8
-#&gt; 251  virginica   Sepal   Width 3.3
-#&gt; 252  virginica   Sepal   Width 2.7
-#&gt; 253  virginica   Sepal   Width 3.0
-#&gt; 254  virginica   Sepal   Width 2.9
-#&gt; 255  virginica   Sepal   Width 3.0
-#&gt; 256  virginica   Sepal   Width 3.0
-#&gt; 257  virginica   Sepal   Width 2.5
-#&gt; 258  virginica   Sepal   Width 2.9
-#&gt; 259  virginica   Sepal   Width 2.5
-#&gt; 260  virginica   Sepal   Width 3.6
-#&gt; 261  virginica   Sepal   Width 3.2
-#&gt; 262  virginica   Sepal   Width 2.7
-#&gt; 263  virginica   Sepal   Width 3.0
-#&gt; 264  virginica   Sepal   Width 2.5
-#&gt; 265  virginica   Sepal   Width 2.8
-#&gt; 266  virginica   Sepal   Width 3.2
-#&gt; 267  virginica   Sepal   Width 3.0
-#&gt; 268  virginica   Sepal   Width 3.8
-#&gt; 269  virginica   Sepal   Width 2.6
-#&gt; 270  virginica   Sepal   Width 2.2
-#&gt; 271  virginica   Sepal   Width 3.2
-#&gt; 272  virginica   Sepal   Width 2.8
-#&gt; 273  virginica   Sepal   Width 2.8
-#&gt; 274  virginica   Sepal   Width 2.7
-#&gt; 275  virginica   Sepal   Width 3.3
-#&gt; 276  virginica   Sepal   Width 3.2
-#&gt; 277  virginica   Sepal   Width 2.8
-#&gt; 278  virginica   Sepal   Width 3.0
-#&gt; 279  virginica   Sepal   Width 2.8
-#&gt; 280  virginica   Sepal   Width 3.0
-#&gt; 281  virginica   Sepal   Width 2.8
-#&gt; 282  virginica   Sepal   Width 3.8
-#&gt; 283  virginica   Sepal   Width 2.8
-#&gt; 284  virginica   Sepal   Width 2.8
-#&gt; 285  virginica   Sepal   Width 2.6
-#&gt; 286  virginica   Sepal   Width 3.0
-#&gt; 287  virginica   Sepal   Width 3.4
-#&gt; 288  virginica   Sepal   Width 3.1
-#&gt; 289  virginica   Sepal   Width 3.0
-#&gt; 290  virginica   Sepal   Width 3.1
-#&gt; 291  virginica   Sepal   Width 3.1
-#&gt; 292  virginica   Sepal   Width 3.1
-#&gt; 293  virginica   Sepal   Width 2.7
-#&gt; 294  virginica   Sepal   Width 3.2
-#&gt; 295  virginica   Sepal   Width 3.3
-#&gt; 296  virginica   Sepal   Width 3.0
-#&gt; 297  virginica   Sepal   Width 2.5
-#&gt; 298  virginica   Sepal   Width 3.0
-#&gt; 299  virginica   Sepal   Width 3.4
-#&gt; 300  virginica   Sepal   Width 3.0
-#&gt; 301     setosa   Petal  Length 1.4
-#&gt; 302     setosa   Petal  Length 1.4
-#&gt; 303     setosa   Petal  Length 1.3
-#&gt; 304     setosa   Petal  Length 1.5
-#&gt; 305     setosa   Petal  Length 1.4
-#&gt; 306     setosa   Petal  Length 1.7
-#&gt; 307     setosa   Petal  Length 1.4
-#&gt; 308     setosa   Petal  Length 1.5
-#&gt; 309     setosa   Petal  Length 1.4
-#&gt; 310     setosa   Petal  Length 1.5
-#&gt; 311     setosa   Petal  Length 1.5
-#&gt; 312     setosa   Petal  Length 1.6
-#&gt; 313     setosa   Petal  Length 1.4
-#&gt; 314     setosa   Petal  Length 1.1
-#&gt; 315     setosa   Petal  Length 1.2
-#&gt; 316     setosa   Petal  Length 1.5
-#&gt; 317     setosa   Petal  Length 1.3
-#&gt; 318     setosa   Petal  Length 1.4
-#&gt; 319     setosa   Petal  Length 1.7
-#&gt; 320     setosa   Petal  Length 1.5
-#&gt; 321     setosa   Petal  Length 1.7
-#&gt; 322     setosa   Petal  Length 1.5
-#&gt; 323     setosa   Petal  Length 1.0
-#&gt; 324     setosa   Petal  Length 1.7
-#&gt; 325     setosa   Petal  Length 1.9
-#&gt; 326     setosa   Petal  Length 1.6
-#&gt; 327     setosa   Petal  Length 1.6
-#&gt; 328     setosa   Petal  Length 1.5
-#&gt; 329     setosa   Petal  Length 1.4
-#&gt; 330     setosa   Petal  Length 1.6
-#&gt; 331     setosa   Petal  Length 1.6
-#&gt; 332     setosa   Petal  Length 1.5
-#&gt; 333     setosa   Petal  Length 1.5
-#&gt; 334     setosa   Petal  Length 1.4
-#&gt; 335     setosa   Petal  Length 1.5
-#&gt; 336     setosa   Petal  Length 1.2
-#&gt; 337     setosa   Petal  Length 1.3
-#&gt; 338     setosa   Petal  Length 1.4
-#&gt; 339     setosa   Petal  Length 1.3
-#&gt; 340     setosa   Petal  Length 1.5
-#&gt; 341     setosa   Petal  Length 1.3
-#&gt; 342     setosa   Petal  Length 1.3
-#&gt; 343     setosa   Petal  Length 1.3
-#&gt; 344     setosa   Petal  Length 1.6
-#&gt; 345     setosa   Petal  Length 1.9
-#&gt; 346     setosa   Petal  Length 1.4
-#&gt; 347     setosa   Petal  Length 1.6
-#&gt; 348     setosa   Petal  Length 1.4
-#&gt; 349     setosa   Petal  Length 1.5
-#&gt; 350     setosa   Petal  Length 1.4
-#&gt; 351 versicolor   Petal  Length 4.7
-#&gt; 352 versicolor   Petal  Length 4.5
-#&gt; 353 versicolor   Petal  Length 4.9
-#&gt; 354 versicolor   Petal  Length 4.0
-#&gt; 355 versicolor   Petal  Length 4.6
-#&gt; 356 versicolor   Petal  Length 4.5
-#&gt; 357 versicolor   Petal  Length 4.7
-#&gt; 358 versicolor   Petal  Length 3.3
-#&gt; 359 versicolor   Petal  Length 4.6
-#&gt; 360 versicolor   Petal  Length 3.9
-#&gt; 361 versicolor   Petal  Length 3.5
-#&gt; 362 versicolor   Petal  Length 4.2
-#&gt; 363 versicolor   Petal  Length 4.0
-#&gt; 364 versicolor   Petal  Length 4.7
-#&gt; 365 versicolor   Petal  Length 3.6
-#&gt; 366 versicolor   Petal  Length 4.4
-#&gt; 367 versicolor   Petal  Length 4.5
-#&gt; 368 versicolor   Petal  Length 4.1
-#&gt; 369 versicolor   Petal  Length 4.5
-#&gt; 370 versicolor   Petal  Length 3.9
-#&gt; 371 versicolor   Petal  Length 4.8
-#&gt; 372 versicolor   Petal  Length 4.0
-#&gt; 373 versicolor   Petal  Length 4.9
-#&gt; 374 versicolor   Petal  Length 4.7
-#&gt; 375 versicolor   Petal  Length 4.3
-#&gt; 376 versicolor   Petal  Length 4.4
-#&gt; 377 versicolor   Petal  Length 4.8
-#&gt; 378 versicolor   Petal  Length 5.0
-#&gt; 379 versicolor   Petal  Length 4.5
-#&gt; 380 versicolor   Petal  Length 3.5
-#&gt; 381 versicolor   Petal  Length 3.8
-#&gt; 382 versicolor   Petal  Length 3.7
-#&gt; 383 versicolor   Petal  Length 3.9
-#&gt; 384 versicolor   Petal  Length 5.1
-#&gt; 385 versicolor   Petal  Length 4.5
-#&gt; 386 versicolor   Petal  Length 4.5
-#&gt; 387 versicolor   Petal  Length 4.7
-#&gt; 388 versicolor   Petal  Length 4.4
-#&gt; 389 versicolor   Petal  Length 4.1
-#&gt; 390 versicolor   Petal  Length 4.0
-#&gt; 391 versicolor   Petal  Length 4.4
-#&gt; 392 versicolor   Petal  Length 4.6
-#&gt; 393 versicolor   Petal  Length 4.0
-#&gt; 394 versicolor   Petal  Length 3.3
-#&gt; 395 versicolor   Petal  Length 4.2
-#&gt; 396 versicolor   Petal  Length 4.2
-#&gt; 397 versicolor   Petal  Length 4.2
-#&gt; 398 versicolor   Petal  Length 4.3
-#&gt; 399 versicolor   Petal  Length 3.0
-#&gt; 400 versicolor   Petal  Length 4.1
-#&gt; 401  virginica   Petal  Length 6.0
-#&gt; 402  virginica   Petal  Length 5.1
-#&gt; 403  virginica   Petal  Length 5.9
-#&gt; 404  virginica   Petal  Length 5.6
-#&gt; 405  virginica   Petal  Length 5.8
-#&gt; 406  virginica   Petal  Length 6.6
-#&gt; 407  virginica   Petal  Length 4.5
-#&gt; 408  virginica   Petal  Length 6.3
-#&gt; 409  virginica   Petal  Length 5.8
-#&gt; 410  virginica   Petal  Length 6.1
-#&gt; 411  virginica   Petal  Length 5.1
-#&gt; 412  virginica   Petal  Length 5.3
-#&gt; 413  virginica   Petal  Length 5.5
-#&gt; 414  virginica   Petal  Length 5.0
-#&gt; 415  virginica   Petal  Length 5.1
-#&gt; 416  virginica   Petal  Length 5.3
-#&gt; 417  virginica   Petal  Length 5.5
-#&gt; 418  virginica   Petal  Length 6.7
-#&gt; 419  virginica   Petal  Length 6.9
-#&gt; 420  virginica   Petal  Length 5.0
-#&gt; 421  virginica   Petal  Length 5.7
-#&gt; 422  virginica   Petal  Length 4.9
-#&gt; 423  virginica   Petal  Length 6.7
-#&gt; 424  virginica   Petal  Length 4.9
-#&gt; 425  virginica   Petal  Length 5.7
-#&gt; 426  virginica   Petal  Length 6.0
-#&gt; 427  virginica   Petal  Length 4.8
-#&gt; 428  virginica   Petal  Length 4.9
-#&gt; 429  virginica   Petal  Length 5.6
-#&gt; 430  virginica   Petal  Length 5.8
-#&gt; 431  virginica   Petal  Length 6.1
-#&gt; 432  virginica   Petal  Length 6.4
-#&gt; 433  virginica   Petal  Length 5.6
-#&gt; 434  virginica   Petal  Length 5.1
-#&gt; 435  virginica   Petal  Length 5.6
-#&gt; 436  virginica   Petal  Length 6.1
-#&gt; 437  virginica   Petal  Length 5.6
-#&gt; 438  virginica   Petal  Length 5.5
-#&gt; 439  virginica   Petal  Length 4.8
-#&gt; 440  virginica   Petal  Length 5.4
-#&gt; 441  virginica   Petal  Length 5.6
-#&gt; 442  virginica   Petal  Length 5.1
-#&gt; 443  virginica   Petal  Length 5.1
-#&gt; 444  virginica   Petal  Length 5.9
-#&gt; 445  virginica   Petal  Length 5.7
-#&gt; 446  virginica   Petal  Length 5.2
-#&gt; 447  virginica   Petal  Length 5.0
-#&gt; 448  virginica   Petal  Length 5.2
-#&gt; 449  virginica   Petal  Length 5.4
-#&gt; 450  virginica   Petal  Length 5.1
-#&gt; 451     setosa   Petal   Width 0.2
-#&gt; 452     setosa   Petal   Width 0.2
-#&gt; 453     setosa   Petal   Width 0.2
-#&gt; 454     setosa   Petal   Width 0.2
-#&gt; 455     setosa   Petal   Width 0.2
-#&gt; 456     setosa   Petal   Width 0.4
-#&gt; 457     setosa   Petal   Width 0.3
-#&gt; 458     setosa   Petal   Width 0.2
-#&gt; 459     setosa   Petal   Width 0.2
-#&gt; 460     setosa   Petal   Width 0.1
-#&gt; 461     setosa   Petal   Width 0.2
-#&gt; 462     setosa   Petal   Width 0.2
-#&gt; 463     setosa   Petal   Width 0.1
-#&gt; 464     setosa   Petal   Width 0.1
-#&gt; 465     setosa   Petal   Width 0.2
-#&gt; 466     setosa   Petal   Width 0.4
-#&gt; 467     setosa   Petal   Width 0.4
-#&gt; 468     setosa   Petal   Width 0.3
-#&gt; 469     setosa   Petal   Width 0.3
-#&gt; 470     setosa   Petal   Width 0.3
-#&gt; 471     setosa   Petal   Width 0.2
-#&gt; 472     setosa   Petal   Width 0.4
-#&gt; 473     setosa   Petal   Width 0.2
-#&gt; 474     setosa   Petal   Width 0.5
-#&gt; 475     setosa   Petal   Width 0.2
-#&gt; 476     setosa   Petal   Width 0.2
-#&gt; 477     setosa   Petal   Width 0.4
-#&gt; 478     setosa   Petal   Width 0.2
-#&gt; 479     setosa   Petal   Width 0.2
-#&gt; 480     setosa   Petal   Width 0.2
-#&gt; 481     setosa   Petal   Width 0.2
-#&gt; 482     setosa   Petal   Width 0.4
-#&gt; 483     setosa   Petal   Width 0.1
-#&gt; 484     setosa   Petal   Width 0.2
-#&gt; 485     setosa   Petal   Width 0.2
-#&gt; 486     setosa   Petal   Width 0.2
-#&gt; 487     setosa   Petal   Width 0.2
-#&gt; 488     setosa   Petal   Width 0.1
-#&gt; 489     setosa   Petal   Width 0.2
-#&gt; 490     setosa   Petal   Width 0.2
-#&gt; 491     setosa   Petal   Width 0.3
-#&gt; 492     setosa   Petal   Width 0.3
-#&gt; 493     setosa   Petal   Width 0.2
-#&gt; 494     setosa   Petal   Width 0.6
-#&gt; 495     setosa   Petal   Width 0.4
-#&gt; 496     setosa   Petal   Width 0.3
-#&gt; 497     setosa   Petal   Width 0.2
-#&gt; 498     setosa   Petal   Width 0.2
-#&gt; 499     setosa   Petal   Width 0.2
-#&gt; 500     setosa   Petal   Width 0.2
-#&gt; 501 versicolor   Petal   Width 1.4
-#&gt; 502 versicolor   Petal   Width 1.5
-#&gt; 503 versicolor   Petal   Width 1.5
-#&gt; 504 versicolor   Petal   Width 1.3
-#&gt; 505 versicolor   Petal   Width 1.5
-#&gt; 506 versicolor   Petal   Width 1.3
-#&gt; 507 versicolor   Petal   Width 1.6
-#&gt; 508 versicolor   Petal   Width 1.0
-#&gt; 509 versicolor   Petal   Width 1.3
-#&gt; 510 versicolor   Petal   Width 1.4
-#&gt; 511 versicolor   Petal   Width 1.0
-#&gt; 512 versicolor   Petal   Width 1.5
-#&gt; 513 versicolor   Petal   Width 1.0
-#&gt; 514 versicolor   Petal   Width 1.4
-#&gt; 515 versicolor   Petal   Width 1.3
-#&gt; 516 versicolor   Petal   Width 1.4
-#&gt; 517 versicolor   Petal   Width 1.5
-#&gt; 518 versicolor   Petal   Width 1.0
-#&gt; 519 versicolor   Petal   Width 1.5
-#&gt; 520 versicolor   Petal   Width 1.1
-#&gt; 521 versicolor   Petal   Width 1.8
-#&gt; 522 versicolor   Petal   Width 1.3
-#&gt; 523 versicolor   Petal   Width 1.5
-#&gt; 524 versicolor   Petal   Width 1.2
-#&gt; 525 versicolor   Petal   Width 1.3
-#&gt; 526 versicolor   Petal   Width 1.4
-#&gt; 527 versicolor   Petal   Width 1.4
-#&gt; 528 versicolor   Petal   Width 1.7
-#&gt; 529 versicolor   Petal   Width 1.5
-#&gt; 530 versicolor   Petal   Width 1.0
-#&gt; 531 versicolor   Petal   Width 1.1
-#&gt; 532 versicolor   Petal   Width 1.0
-#&gt; 533 versicolor   Petal   Width 1.2
-#&gt; 534 versicolor   Petal   Width 1.6
-#&gt; 535 versicolor   Petal   Width 1.5
-#&gt; 536 versicolor   Petal   Width 1.6
-#&gt; 537 versicolor   Petal   Width 1.5
-#&gt; 538 versicolor   Petal   Width 1.3
-#&gt; 539 versicolor   Petal   Width 1.3
-#&gt; 540 versicolor   Petal   Width 1.3
-#&gt; 541 versicolor   Petal   Width 1.2
-#&gt; 542 versicolor   Petal   Width 1.4
-#&gt; 543 versicolor   Petal   Width 1.2
-#&gt; 544 versicolor   Petal   Width 1.0
-#&gt; 545 versicolor   Petal   Width 1.3
-#&gt; 546 versicolor   Petal   Width 1.2
-#&gt; 547 versicolor   Petal   Width 1.3
-#&gt; 548 versicolor   Petal   Width 1.3
-#&gt; 549 versicolor   Petal   Width 1.1
-#&gt; 550 versicolor   Petal   Width 1.3
-#&gt; 551  virginica   Petal   Width 2.5
-#&gt; 552  virginica   Petal   Width 1.9
-#&gt; 553  virginica   Petal   Width 2.1
-#&gt; 554  virginica   Petal   Width 1.8
-#&gt; 555  virginica   Petal   Width 2.2
-#&gt; 556  virginica   Petal   Width 2.1
-#&gt; 557  virginica   Petal   Width 1.7
-#&gt; 558  virginica   Petal   Width 1.8
-#&gt; 559  virginica   Petal   Width 1.8
-#&gt; 560  virginica   Petal   Width 2.5
-#&gt; 561  virginica   Petal   Width 2.0
-#&gt; 562  virginica   Petal   Width 1.9
-#&gt; 563  virginica   Petal   Width 2.1
-#&gt; 564  virginica   Petal   Width 2.0
-#&gt; 565  virginica   Petal   Width 2.4
-#&gt; 566  virginica   Petal   Width 2.3
-#&gt; 567  virginica   Petal   Width 1.8
-#&gt; 568  virginica   Petal   Width 2.2
-#&gt; 569  virginica   Petal   Width 2.3
-#&gt; 570  virginica   Petal   Width 1.5
-#&gt; 571  virginica   Petal   Width 2.3
-#&gt; 572  virginica   Petal   Width 2.0
-#&gt; 573  virginica   Petal   Width 2.0
-#&gt; 574  virginica   Petal   Width 1.8
-#&gt; 575  virginica   Petal   Width 2.1
-#&gt; 576  virginica   Petal   Width 1.8
-#&gt; 577  virginica   Petal   Width 1.8
-#&gt; 578  virginica   Petal   Width 1.8
-#&gt; 579  virginica   Petal   Width 2.1
-#&gt; 580  virginica   Petal   Width 1.6
-#&gt; 581  virginica   Petal   Width 1.9
-#&gt; 582  virginica   Petal   Width 2.0
-#&gt; 583  virginica   Petal   Width 2.2
-#&gt; 584  virginica   Petal   Width 1.5
-#&gt; 585  virginica   Petal   Width 1.4
-#&gt; 586  virginica   Petal   Width 2.3
-#&gt; 587  virginica   Petal   Width 2.4
-#&gt; 588  virginica   Petal   Width 1.8
-#&gt; 589  virginica   Petal   Width 1.8
-#&gt; 590  virginica   Petal   Width 2.1
-#&gt; 591  virginica   Petal   Width 2.4
-#&gt; 592  virginica   Petal   Width 2.3
-#&gt; 593  virginica   Petal   Width 1.9
-#&gt; 594  virginica   Petal   Width 2.3
-#&gt; 595  virginica   Petal   Width 2.5
-#&gt; 596  virginica   Petal   Width 2.3
-#&gt; 597  virginica   Petal   Width 1.9
-#&gt; 598  virginica   Petal   Width 2.0
-#&gt; 599  virginica   Petal   Width 2.3
-#&gt; 600  virginica   Petal   Width 1.8</div><div class='input'>
+#&gt;  [ reached 'max' / getOption("max.print") -- omitted 350 rows ]</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

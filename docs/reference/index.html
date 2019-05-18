@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -134,7 +134,109 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <h2 id="section-simulation-functions" class="hasAnchor"><a href="#section-simulation-functions" class="anchor"></a>Simulation functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="sim_design.html">sim_design()</a></code> </p>
+        </td>
+        <td><p>Simulate Data from Design</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sim_df.html">sim_df()</a></code> </p>
+        </td>
+        <td><p>Simulate an existing dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sim_mixed_cc.html">sim_mixed_cc()</a></code> </p>
+        </td>
+        <td><p>Generate a cross-classified sample</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sim_mixed_df.html">sim_mixed_df()</a></code> </p>
+        </td>
+        <td><p>Generate a mixed design from existing data</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-other-useful-functions" class="hasAnchor"><a href="#section-other-useful-functions" class="anchor"></a>Other useful functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="get_params.html">get_params()</a></code> <code><a href="get_params.html">check_sim_stats()</a></code> </p>
+        </td>
+        <td><p>Get parameters from a data table</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_id.html">make_id()</a></code> </p>
+        </td>
+        <td><p>Make ID</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="messy.html">messy()</a></code> </p>
+        </td>
+        <td><p>Simulate missing data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rnorm_multi.html">rnorm_multi()</a></code> </p>
+        </td>
+        <td><p>Make normally distributed vectors with specified relationships</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rnorm_pre.html">rnorm_pre()</a></code> </p>
+        </td>
+        <td><p>Make a normal vector correlated to an existing vector</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="long2wide.html">long2wide()</a></code> </p>
+        </td>
+        <td><p>Convert data from long to wide format</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="wide2long.html">wide2long()</a></code> </p>
+        </td>
+        <td><p>Convert data from wide to long format</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-datasets" class="hasAnchor"><a href="#section-datasets" class="anchor"></a>Datasets</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="faceratings.html">faceratings</a></code> </p>
+        </td>
+        <td><p>Attractiveness ratings of faces</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="fr4.html">fr4</a></code> </p>
+        </td>
+        <td><p>Attractiveness rating subset</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-helper-functions" class="hasAnchor"><a href="#section-helper-functions" class="anchor"></a>Helper functions</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -143,7 +245,7 @@
         <td>
           <p><code><a href="check_design.html">check_design()</a></code> </p>
         </td>
-        <td><p>Validate design</p></td>
+        <td><p>Validates the specified design</p></td>
       </tr><tr>
         
         <td>
@@ -155,7 +257,119 @@
         <td>
           <p><code><a href="cormat.html">cormat()</a></code> </p>
         </td>
-        <td><p>Make Correlation Matrix</p></td>
+        <td><p>Make a correlation matrix</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="cormat_from_triangle.html">cormat_from_triangle()</a></code> </p>
+        </td>
+        <td><p>Make Correlation Matrix from Triangle</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_design_long.html">get_design_long()</a></code> </p>
+        </td>
+        <td><p>Get design from long data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_pos_def.html">is_pos_def()</a></code> </p>
+        </td>
+        <td><p>Check a Matrix is Positive Definite</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plot_design.html">plot_design()</a></code> </p>
+        </td>
+        <td><p>Plot design</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="pos_def_limits.html">pos_def_limits()</a></code> </p>
+        </td>
+        <td><p>Limits on Missing Value for Positive Definite Matrix</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="readline_check.html">readline_check()</a></code> </p>
+        </td>
+        <td><p>Check readline input</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sample_from_pop.html">sample_from_pop()</a></code> </p>
+        </td>
+        <td><p>Sample Parameters from Population Parameters</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="select_num_grp.html">select_num_grp()</a></code> </p>
+        </td>
+        <td><p>Select grouping and numeric columns and group</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="unique_pairs.html">unique_pairs()</a></code> </p>
+        </td>
+        <td><p>Make unique pairs of level names for correlations</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-distribution-functions" class="hasAnchor"><a href="#section-distribution-functions" class="anchor"></a>Distribution functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="norm2binom.html">norm2binom()</a></code> </p>
+        </td>
+        <td><p>Convert normal to binomial</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="norm2pois.html">norm2pois()</a></code> </p>
+        </td>
+        <td><p>Convert normal to poisson</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="norm2unif.html">norm2unif()</a></code> </p>
+        </td>
+        <td><p>Convert normal to uniform</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="unif2norm.html">unif2norm()</a></code> </p>
+        </td>
+        <td><p>Convert normal to uniform</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      <tr>
+        
+        <td>
+          <p><code><a href="check_design.html">check_design()</a></code> </p>
+        </td>
+        <td><p>Validates the specified design</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="check_mixed_design.html">check_mixed_design()</a></code> </p>
+        </td>
+        <td><p>Get random intercepts for subjects and items</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="cormat.html">cormat()</a></code> </p>
+        </td>
+        <td><p>Make a correlation matrix</p></td>
       </tr><tr>
         
         <td>
@@ -171,9 +385,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="fr10.html">fr10</a></code> </p>
+          <p><code><a href="fr4.html">fr4</a></code> </p>
         </td>
-        <td><p>Attractiveness ratings of 10 faces from 10 subjects</p></td>
+        <td><p>Attractiveness rating subset</p></td>
       </tr><tr>
         
         <td>
@@ -185,7 +399,7 @@
         <td>
           <p><code><a href="get_params.html">get_params()</a></code> <code><a href="get_params.html">check_sim_stats()</a></code> </p>
         </td>
-        <td><p>Check table parameters</p></td>
+        <td><p>Get parameters from a data table</p></td>
       </tr><tr>
         
         <td>
@@ -203,7 +417,7 @@
         <td>
           <p><code><a href="long2wide.html">long2wide()</a></code> </p>
         </td>
-        <td><p>Long to wide format</p></td>
+        <td><p>Convert data from long to wide format</p></td>
       </tr><tr>
         
         <td>
@@ -215,7 +429,25 @@
         <td>
           <p><code><a href="messy.html">messy()</a></code> </p>
         </td>
-        <td><p>Mess up a dataset</p></td>
+        <td><p>Simulate missing data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="norm2binom.html">norm2binom()</a></code> </p>
+        </td>
+        <td><p>Convert normal to binomial</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="norm2pois.html">norm2pois()</a></code> </p>
+        </td>
+        <td><p>Convert normal to poisson</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="norm2unif.html">norm2unif()</a></code> </p>
+        </td>
+        <td><p>Convert normal to uniform</p></td>
       </tr><tr>
         
         <td>
@@ -239,13 +471,13 @@
         <td>
           <p><code><a href="rnorm_multi.html">rnorm_multi()</a></code> </p>
         </td>
-        <td><p>Multiple Normally Distributed Vectors</p></td>
+        <td><p>Make normally distributed vectors with specified relationships</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="rnorm_pre.html">rnorm_pre()</a></code> </p>
         </td>
-        <td><p>Correlated Normal Vector</p></td>
+        <td><p>Make a normal vector correlated to an existing vector</p></td>
       </tr><tr>
         
         <td>
@@ -281,7 +513,13 @@
         <td>
           <p><code><a href="sim_mixed_df.html">sim_mixed_df()</a></code> </p>
         </td>
-        <td><p>Generate a sample with random intercepts for subjects and items</p></td>
+        <td><p>Generate a mixed design from existing data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="unif2norm.html">unif2norm()</a></code> </p>
+        </td>
+        <td><p>Convert normal to uniform</p></td>
       </tr><tr>
         
         <td>
@@ -293,7 +531,7 @@
         <td>
           <p><code><a href="wide2long.html">wide2long()</a></code> </p>
         </td>
-        <td><p>Wide to long format</p></td>
+        <td><p>Convert data from wide to long format</p></td>
       </tr>
     </tbody>
     </table>
@@ -302,6 +540,11 @@
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
+      <li><a href="#section-simulation-functions">Simulation functions</a></li>
+      <li><a href="#section-other-useful-functions">Other useful functions</a></li>
+      <li><a href="#section-datasets">Datasets</a></li>
+      <li><a href="#section-helper-functions">Helper functions</a></li>
+      <li><a href="#section-distribution-functions">Distribution functions</a></li>
       <li><a href="#section-all-functions">All functions</a></li>
     </ul>
   </div>

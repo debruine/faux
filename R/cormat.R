@@ -1,6 +1,7 @@
-#' Make Correlation Matrix
+#' Make a correlation matrix
 #'
-#' \code{cormat} makes a correlation matrix from a vector
+#' \code{cormat} makes a correlation matrix from a single number, 
+#' vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector.
 #'
 #' @param cors the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param vars the number of variables in the matrix

@@ -16,9 +16,10 @@ test_that("2w", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
+  expect_equal(design$dv, "y")
+  expect_equal(design$id, "id")
   
-  expect_equal(design$cells_w, c("night", "day"))
-  expect_equal(design$cells_b, "y")
+  expect_true("design" %in% class(design))
 })
 
 # 2b ----
@@ -37,9 +38,8 @@ test_that("2b", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
-  
-  expect_equal(design$cells_w, "y")
-  expect_equal(design$cells_b, c("night", "day"))
+  expect_equal(design$dv, "y")
+  expect_equal(design$id, "id")
 })
 
 # 2w*2b ----
@@ -61,9 +61,8 @@ test_that("2w*2b", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
-  
-  expect_equal(design$cells_w, c("night", "day"))
-  expect_equal(design$cells_b, c("dog", "cat"))
+  expect_equal(design$dv, "y")
+  expect_equal(design$id, "id")
 })
 
 # 2w*2w*2b*2b ----
@@ -85,11 +84,11 @@ test_that("2w*2w*2b*2b", {
   cell_mu <- matrix(rep(0,16), 4, dimnames = list(cells_b, cells_w)) %>% as.data.frame()
   cell_sd <- matrix(rep(1,16), 4, dimnames = list(cells_b, cells_w)) %>% as.data.frame()
   
-  expect_equal(design$cells_w, cells_w)
-  expect_equal(design$cells_b, cells_b)
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
+  expect_equal(design$dv, "y")
+  expect_equal(design$id, "id")
 })
 
 # design spec ----
@@ -121,10 +120,11 @@ test_that("design spec", {
   
   design <- check_design(within, between, n, mu, sd, r, dv, id, plot = FALSE)
   
-  design_elements <- c("within", "between", "dv", "id", "cells_w", "cells_b", 
-                       "n", "mu", "sd", "r")
+  design_elements <- c("within", "between", "dv", "id", "n", "mu", "sd", "r")
   
   expect_equal(names(design), design_elements)
+  expect_equal(design$dv, dv)
+  expect_equal(design$id, id)
 })
 
 # anon factors ----
@@ -166,3 +166,4 @@ test_that("make_id", {
   expect_equal(make_id(2:4), c("S2", "S3", "S4"))
   expect_equal(make_id(100:200)[[1]], "S100")
 })
+

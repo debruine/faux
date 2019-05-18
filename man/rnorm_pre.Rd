@@ -2,7 +2,7 @@
 % Please edit documentation in R/rnorm_pre.R
 \name{rnorm_pre}
 \alias{rnorm_pre}
-\title{Correlated Normal Vector}
+\title{Make a normal vector correlated to an existing vector}
 \usage{
 rnorm_pre(x, mu = 0, sd = 1, r = 0, empirical = FALSE)
 }

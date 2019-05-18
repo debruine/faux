@@ -2,7 +2,7 @@
 % Please edit documentation in R/rnorm_multi.R
 \name{rnorm_multi}
 \alias{rnorm_multi}
-\title{Multiple Normally Distributed Vectors}
+\title{Make normally distributed vectors with specified relationships}
 \usage{
 rnorm_multi(n, vars = 3, mu = 0, sd = 1, r = 0, varnames = NULL,
   empirical = FALSE, as.matrix = FALSE, cors = NULL)
@@ -30,7 +30,7 @@ rnorm_multi(n, vars = 3, mu = 0, sd = 1, r = 0, varnames = NULL,
 a tbl of vars vectors
 }
 \description{
-\code{rnorm_multi()} makes multiple normally distributed vectors with specified relationships.
+Make normally distributed vectors with specified relationships
 }
 \examples{
 rnorm_multi(100, 3, 0, 1, c(0.2, 0.4, 0.5), varnames=c("A", "B", "C"))

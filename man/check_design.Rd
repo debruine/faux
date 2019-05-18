@@ -2,10 +2,10 @@
 % Please edit documentation in R/check_design.R
 \name{check_design}
 \alias{check_design}
-\title{Validate design}
+\title{Validates the specified design}
 \usage{
 check_design(within = list(), between = list(), n = 100, mu = 0,
-  sd = 1, r = 0, plot = TRUE)
+  sd = 1, r = 0, dv = "y", id = "id", plot = TRUE)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -20,13 +20,23 @@ check_design(within = list(), between = list(), n = 100, mu = 0,
 
 \item{r}{the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)}
 
+\item{dv}{the name of the dv column (y)}
+
+\item{id}{the name of the ID column (id)}
+
 \item{plot}{whether to show a plot of the design}
 }
 \value{
 list
 }
 \description{
-\code{check_design} validates the specified within and between design
+Specify any number of within- and between-subject factors with any number of 
+levels. Specify n for each between-subject cell; mu and sd for each cell, and
+r for the within-subject cells for each between-subject cell.
+}
+\details{
+This function returns a validated design list for use in sim_design_ to 
+simulate a data table with this design, or to archive your design.
 }
 \examples{
 

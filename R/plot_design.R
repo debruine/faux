@@ -3,8 +3,6 @@
 #' \code{plot_design()} plots the specified within and between design
 #'
 #' @param design A list of design parameters created by check_design() or a data tbl (in long format)
-#' @param id the column name(s) that identify a unit of analysis
-#' @param dv the column name that identifies the DV
 #' 
 #' @return plot
 #' 
@@ -16,20 +14,29 @@
 #' 
 #' @export
 #' 
-plot_design <- function(design, id = "id", dv = "y") {
+plot_design <- function(design) {
   if (!is.data.frame(design) && is.list(design)) {
-    data <- sim_design_(design, empirical = TRUE, long = TRUE)
+    data <- sim_design_(design = design, empirical = TRUE, long = TRUE)
   } else if (is.data.frame(design)) {
     data <- design
-    design <- get_design_long(data, id = id, dv = dv)
+    if ("design" %in% names(attributes(data))) {
+      design <- attributes(data)$design
+    }
   } else {
     stop("design must be a design list or a data frame")
   }
   
-  factors <- c(names(design$within), names(design$between))
+  factors <- c(design$within, design$between)
   factor_n <- length(factors)
-  f <- dplyr::syms(factors) # make it possible to use strings to specify columns
-  dv <- dplyr::sym(dv)
+  f <- dplyr::syms(names(factors)) # make it possible to use strings to specify columns
+  dv <- dplyr::sym(design$dv)
+  
+  # use long names for factors
+  for (col in names(factors)) {
+    lvl <- factors[[col]] %>% names()
+    lbl <- factors[[col]]
+    data[[col]] <- factor(data[[col]], levels = lvl, labels = lbl)
+  }
   
   if (factor_n == 1) {
     p <- ggplot2::ggplot(data, ggplot2::aes(!!f[[1]], !!dv))

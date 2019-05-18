@@ -4,7 +4,7 @@
 \alias{get_design_long}
 \title{Get design from long data}
 \usage{
-get_design_long(.data, dv = "val", id = "sub_id", plot = TRUE)
+get_design_long(.data, dv = "y", id = "id", plot = TRUE)
 }
 \arguments{
 \item{.data}{the data frame (in long format)}

@@ -2,7 +2,7 @@
 % Please edit documentation in R/messy.R
 \name{messy}
 \alias{messy}
-\title{Mess up a dataset}
+\title{Simulate missing data}
 \usage{
 messy(.data, prop = 0, ..., replace = NA)
 }
@@ -19,7 +19,8 @@ messy(.data, prop = 0, ..., replace = NA)
 the messed up table
 }
 \description{
-Insert NA or another replacement value for some proportion of specified columns to simulate missing data.
+Insert NA or another replacement value for some proportion of specified 
+columns to simulate missing data.
 }
 \examples{
 messy(iris, 0.1, "Species", replace = "NO SPECIES")
