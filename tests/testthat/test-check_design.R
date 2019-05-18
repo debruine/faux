@@ -6,9 +6,9 @@ test_that("2w", {
   between <- list()
   design <- check_design(within, between, n = 10, plot = FALSE)
   
-  cell_n <- data.frame(night = 10, day = 10, row.names = "y")
-  cell_mu <- data.frame(night = 0, day = 0, row.names = "y")
-  cell_sd <- data.frame(night = 1, day = 1, row.names = "y")
+  cell_n <- list(y = 10)
+  cell_mu <- list(y = list(night = 0, day = 0))
+  cell_sd <- list(y = list(night = 1, day = 1))
   
   expect_equal(design$within, list(time = list(night = "night", day = "day")))
   expect_equal(design$between, list())
@@ -28,9 +28,9 @@ test_that("2b", {
   between <- list(time = c("night", "day"))
   design <- check_design(within, between, n = 10, plot = FALSE)
   
-  cell_n <- data.frame(y = c(10, 10), row.names = c("night", "day"))
-  cell_mu <- data.frame(y = c(0, 0), row.names = c("night", "day"))
-  cell_sd <- data.frame(y = c(1, 1), row.names = c("night", "day"))
+  cell_n <- list(night = 10, day = 10)
+  cell_mu <- list(night = list(y=0), day = list(y=0))
+  cell_sd <- list(night = list(y=1), day = list(y=1))
   
   expect_equal(design$within, list())
   expect_equal(design$between, list(time = list(night = "night", day = "day")))
@@ -48,13 +48,12 @@ test_that("2w*2b", {
   between <- list(pet = c("dog", "cat"))
   design <- check_design(within, between, n = 10, plot = FALSE)
 
-  cell_n <- data.frame(night = c(10,10), day = c(10,10), 
-                       row.names = c("dog", "cat"))
-  cell_mu <- data.frame(night = c(0,0), day = c(0,0), 
-                        row.names = c("dog", "cat"))
-  cell_sd <- data.frame(night = c(1,1), day = c(1,1), 
-                        row.names = c("dog", "cat"))
-
+  cell_n <- list(dog = 10, cat = 10)
+  cell_mu <- list(dog = list(night = 0, day = 0),
+                  cat = list(night = 0, day = 0))
+  cell_sd <- list(dog = list(night = 1, day = 1),
+                  cat = list(night = 1, day = 1))
+  
   expect_equal(design$within, list(time = list(night = "night", day = "day")))
   expect_equal(design$between, list(pet = list(dog = "dog", cat = "cat")))
   
@@ -80,9 +79,15 @@ test_that("2w*2w*2b*2b", {
   
   cells_w <- c("day_A", "night_A", "day_B", "night_B")
   cells_b <- c("dog_old", "cat_old", "dog_young", "cat_young")
-  cell_n <- matrix(rep(100,16), 4, dimnames = list(cells_b, cells_w)) %>% as.data.frame()
-  cell_mu <- matrix(rep(0,16), 4, dimnames = list(cells_b, cells_w)) %>% as.data.frame()
-  cell_sd <- matrix(rep(1,16), 4, dimnames = list(cells_b, cells_w)) %>% as.data.frame()
+  cell_n <- list(dog_old = 100, cat_old = 100, dog_young = 100, cat_young = 100)
+  cell_mu <- list(dog_old = list(day_A = 0, night_A = 0, day_B = 0, night_B = 0),
+                  cat_old = list(day_A = 0, night_A = 0, day_B = 0, night_B = 0),
+                  dog_young = list(day_A = 0, night_A = 0, day_B = 0, night_B = 0),
+                  cat_young = list(day_A = 0, night_A = 0, day_B = 0, night_B = 0))
+  cell_sd <- list(dog_old = list(day_A = 1, night_A = 1, day_B = 1, night_B = 1),
+                  cat_old = list(day_A = 1, night_A = 1, day_B = 1, night_B = 1),
+                  dog_young = list(day_A = 1, night_A = 1, day_B = 1, night_B = 1),
+                  cat_young = list(day_A = 1, night_A = 1, day_B = 1, night_B = 1))
   
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)

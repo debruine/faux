@@ -86,6 +86,9 @@ check_design <- function(within = list(), between = list(),
   
   # convert n, mu and sd from vector/list formats
   cell_n  <- convert_param(n,  cells_w, cells_b, "Ns")
+  for (i in names(cell_n)) {
+    cell_n[[i]] <- cell_n[[i]][[1]]
+  }
   cell_mu <- convert_param(mu, cells_w, cells_b, "means")
   cell_sd <- convert_param(sd, cells_w, cells_b, "SDs")
   
@@ -224,7 +227,12 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
   colnames(dd) <- cells_b
   rownames(dd) <- cells_w
   
-  t(dd) %>% as.data.frame()
+  # all-list version
+  dd <- dd %>% as.data.frame() %>% as.list()
+  lapply(dd, function(x) { names(x) <- cells_w; as.list(x) } )
+  
+  # data frame version
+  #t(dd) %>% as.data.frame()
 }
 
 #' Fix name labels

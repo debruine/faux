@@ -72,14 +72,18 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   if (length(within_factors) == 0)  within_factors  <- ".tmpvar." 
   
   # figure out number of subjects and their IDs
-  sub_n <- sum(n[,1])
+  sub_n <- unlist(n) %>% sum()
   
   # simulate data for each between-cell
   for (cell in cells_b) {
     cell_vars <- rnorm_multi(
-      n = n[cell,1], vars = length(cells_w), 
-      mu = mu[cell,], sd = sd[cell,], r = r[[cell]], 
-      varnames = cells_w, empirical = empirical
+      n = n[[cell]], 
+      vars = length(cells_w), 
+      mu = mu[[cell]] %>% unlist(), 
+      sd = sd[[cell]] %>% unlist(), 
+      r = r[[cell]], 
+      varnames = cells_w, 
+      empirical = empirical
     ) %>%
       dplyr::mutate("btwn" = cell)
     

@@ -51,7 +51,7 @@ test_that("2w", {
   expect_equal(attr$design$between, list())
   expect_equal(attr$design$dv, dv)
   expect_equal(attr$design$id, id)
-  expect_equal(attr$design$n %>% unlist() %>% sum(), 200)
+  expect_equal(attr$design$n %>% unlist() %>% sum(), 100)
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 3)
