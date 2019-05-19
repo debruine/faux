@@ -4,7 +4,7 @@
 \alias{get_design_long}
 \title{Get design from long data}
 \usage{
-get_design_long(.data, dv = "val", id = "sub_id")
+get_design_long(.data, dv = "y", id = "id", plot = TRUE)
 }
 \arguments{
 \item{.data}{the data frame (in long format)}
@@ -12,6 +12,8 @@ get_design_long(.data, dv = "val", id = "sub_id")
 \item{dv}{the column name that identifies the DV}
 
 \item{id}{the column name(s) that identify a unit of analysis}
+
+\item{plot}{whether to show a plot of the design}
 }
 \value{
 the data frame in long format

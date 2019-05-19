@@ -3,13 +3,13 @@
 \name{get_params}
 \alias{get_params}
 \alias{check_sim_stats}
-\title{Check table parameters}
+\title{Get parameters from a data table}
 \usage{
-get_params(.data, between = c(), within = c(), dv = "val",
-  id = "sub_id", digits = 2, usekable = FALSE)
+get_params(.data, between = c(), within = c(), dv = "y", id = "id",
+  digits = 2)
 
-check_sim_stats(.data, between = c(), within = c(), dv = "val",
-  id = "sub_id", digits = 2, usekable = FALSE)
+check_sim_stats(.data, between = c(), within = c(), dv = "y",
+  id = "id", digits = 2)
 }
 \arguments{
 \item{.data}{the existing tbl}
@@ -23,15 +23,13 @@ check_sim_stats(.data, between = c(), within = c(), dv = "val",
 \item{id}{the column name(s) of the subject ID (if data is long)}
 
 \item{digits}{how many digits to round to (default = 2)}
-
-\item{usekable}{logical. If TRUE, output with knitr::kable}
 }
 \value{
-a tbl or kable
+a tbl of correlations, means and sds
 }
 \description{
 \code{get_params} Generates a table of the correlations and means of numeric columns in a data frame
 }
 \examples{
-get_stats(iris, "Species")
+get_params(iris, "Species")
 }

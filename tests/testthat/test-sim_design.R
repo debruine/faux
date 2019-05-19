@@ -2,11 +2,6 @@ context("test-sim_design")
 
 # error messages ----
 test_that("error messages", {
-  factors_err <- "You must specify at least one factor"
-  expect_error(sim_design(), factors_err)
-  expect_error(sim_design(within = list()), factors_err)
-  expect_error(sim_design(between = list()), factors_err)
-  
   list_err <- "within and between must be lists"
   expect_error(sim_design("1"), list_err)
   expect_error(sim_design(list(), "1"), list_err)
@@ -36,8 +31,12 @@ test_that("2w", {
   mu <- c(1, 2)
   sd <- c(1, 2)
   r <- 0.3
+  dv <- "rt"
+  id <- "sub_id"
+  n <- 100
   
-  df <- sim_design(within, between, mu = mu, sd = sd, r = r, empirical = TRUE)
+  df <- sim_design(within, between, mu = mu, sd = sd, 
+                   r = r, dv = dv, id = id, empirical = TRUE)
   chk <- check_sim_stats(df)
   
   comp <- tibble::tribble(
@@ -46,9 +45,17 @@ test_that("2w", {
     100, "W2", 0.3, 1.0,     2,   2
   )
   
+  attr <- attributes(df)
+  expect_true("design" %in% names(attr))
+  expect_equal(attr$design$within, list(W = list(W1 = "W1", W2 = "W2")))
+  expect_equal(attr$design$between, list())
+  expect_equal(attr$design$dv, dv)
+  expect_equal(attr$design$id, id)
+  expect_equal(attr$design$n %>% unlist() %>% sum(), 100)
+  
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 3)
-  expect_equal(names(df), c("sub_id", "W1", "W2"))
+  expect_equal(names(df), c(id, "W1", "W2"))
   expect_equal(chk, comp)
 })
 
@@ -73,7 +80,7 @@ test_that("2w*2w", {
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 5)
-  expect_equal(names(df), c("sub_id", "W1_X1", "W2_X1", "W1_X2", "W2_X2"))
+  expect_equal(names(df), c("id", "W1_X1", "W2_X1", "W1_X2", "W2_X2"))
   expect_equal(chk, comp)
 })
 
@@ -89,15 +96,15 @@ test_that("2b", {
   chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
-    ~B,    ~n,  ~var, ~val, ~mean, ~sd,
-    "B1", 100, "val",    1,     1,   1,
-    "B2", 100, "val",    1,     2,   1
+    ~B,    ~n,  ~var, ~y, ~mean, ~sd,
+    "B1", 100, "y",    1,     1,   1,
+    "B2", 100, "y",    1,     2,   1
   ) %>%
     dplyr::mutate(B = as.factor(B))
   
   expect_equal(nrow(df), 200)
   expect_equal(ncol(df), 3)
-  expect_equal(names(df), c("sub_id", "B", "val"))
+  expect_equal(names(df), c("id", "B", "y"))
   expect_equal(as.data.frame(chk), as.data.frame(comp))
 })
 
@@ -113,17 +120,17 @@ test_that("2b*2b", {
   chk <- check_sim_stats(df, between = c("A","B"))
   
   comp <- tibble::tribble(
-    ~A, ~B, ~n, ~var, ~val, ~mean, ~sd,
-    "A1", "B1", 100, "val", 1,   0,     1,
-    "A2", "B1", 100, "val", 1,   0,     1,
-    "A1", "B2", 100, "val", 1,   0,     1,
-    "A2", "B2", 100, "val", 1,   0,     1
+    ~A, ~B, ~n, ~var, ~y, ~mean, ~sd,
+    "A1", "B1", 100, "y", 1,   0,     1,
+    "A2", "B1", 100, "y", 1,   0,     1,
+    "A1", "B2", 100, "y", 1,   0,     1,
+    "A2", "B2", 100, "y", 1,   0,     1
   ) %>%
     dplyr::mutate(A = as.factor(A), B = as.factor(B))
   
   expect_equal(nrow(df), 400)
   expect_equal(ncol(df), 4)
-  expect_equal(names(df), c("sub_id", "A", "B", "val"))
+  expect_equal(names(df), c("id", "A", "B", "y"))
   expect_equal(as.data.frame(chk), as.data.frame(comp))
 })
 
@@ -167,7 +174,7 @@ test_that("2w*2b basic", {
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
-  expect_equal(names(df), c("sub_id", "B", "W1", "W2"))
+  expect_equal(names(df), c("id", "B", "W1", "W2"))
   expect_equal(chk, comp)
 })
 
@@ -212,7 +219,7 @@ test_that("2w*2b alt", {
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
-  expect_equal(names(df), c("sub_id", "B", "W1", "W2"))
+  expect_equal(names(df), c("id", "B", "W1", "W2"))
   expect_equal(chk, comp)
 })
 
@@ -251,7 +258,7 @@ test_that("2w*2b within order", {
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
-  expect_equal(names(df), c("sub_id", "B", "W1", "W2"))
+  expect_equal(names(df), c("id", "B", "W1", "W2"))
   expect_equal(chk, comp)
 })
 
@@ -299,7 +306,7 @@ test_that("2w*2b order", {
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
-  expect_equal(names(df), c("sub_id", "B", "W1", "W2"))
+  expect_equal(names(df), c("id", "B", "W1", "W2"))
   expect_equal(chk, comp)
 })
 
@@ -341,7 +348,7 @@ test_that("2w*2b*2b", {
   
   expect_equal(nrow(df), 200)
   expect_equal(ncol(df), 5)
-  expect_equal(names(df), c("sub_id", "A", "B", "W1", "W2"))
+  expect_equal(names(df), c("id", "A", "B", "W1", "W2"))
 })
 
 # long format ----
@@ -360,7 +367,7 @@ test_that("long", {
   
   expect_equal(nrow(df), 3200)
   expect_equal(ncol(df), 7)
-  expect_equal(names(df), c("sub_id", "B", "A", "W", "C", "N", "val"))
+  expect_equal(names(df), c("id", "B", "A", "W", "C", "N", "y"))
 })
 
 # complex names ----
@@ -377,10 +384,10 @@ test_that("complex names", {
   df_long <- sim_design(within, between, 10, 0, 1, .5, TRUE, TRUE)
   df_wide <- sim_design(within, between, 10, 0, 1, .5, TRUE, FALSE)
   
-  long_names <- c("sub_id", "My first between factor", "My second between factor", 
-                  "My first within factor", "My second within factor",  "val")
+  long_names <- c("id", "My first between factor", "My second between factor", 
+                  "My first within factor", "My second within factor",  "y")
   
-  wide_names <- c("sub_id", "My first between factor", "My second between factor", 
+  wide_names <- c("id", "My first between factor", "My second between factor", 
                   "Factor.W1.L1_Factor.W2.L1", "Factor.W1.L2_Factor.W2.L1", 
                   "Factor.W1.L1_Factor.W2.L2", "Factor.W1.L2_Factor.W2.L2")
   
@@ -400,8 +407,8 @@ test_that("complex names", {
   df_long <- sim_design(within, between, 10, 0, 1, .5, TRUE, TRUE)
   df_wide <- sim_design(within, between, 10, 0, 1, .5, TRUE, FALSE)
                         
-  long_names <- c("sub_id", "pets", "pets2", "time", "time2",  "val")
-  wide_names <- c("sub_id", "pets", "pets2", "day_day", "night_day", "day_night", "night_night")
+  long_names <- c("id", "pets", "pets2", "time", "time2",  "y")
+  wide_names <- c("id", "pets", "pets2", "day_day", "night_day", "day_night", "night_night")
   
   expect_equal(names(df_long), long_names)
   expect_equal(names(df_wide), wide_names)
@@ -454,7 +461,7 @@ test_that("works", {
   
   expect_equal(nrow(df), 400)
   expect_equal(ncol(df), 7)
-  expect_equal(names(df), c("sub_id", "B", "A", "W1_C2", "W2_C2", "W1_C1", "W2_C1"))
+  expect_equal(names(df), c("id", "B", "A", "W1_C2", "W2_C2", "W1_C1", "W2_C1"))
 })
 
 # label order ----
@@ -483,4 +490,20 @@ test_that("seed", {
   df3 <- sim_design(within = 2, n = 10, seed = 90210)
   
   expect_true(!identical(df1, df3))
+})
+
+# from design ----
+test_that("from design", {
+  within <- list(time = c("night", "day"))
+  between <- list(pet = c("dog", "cat"))
+  design <- check_design(within, between, n = 10, plot = FALSE)
+  data <- sim_design(design = design)
+  
+  expect_equal(attributes(data)$design, design)
+  
+  # design set to first (within) argument
+  data2 <- sim_design(design)
+  
+  expect_equal(attributes(data2)$design, design)
+  
 })

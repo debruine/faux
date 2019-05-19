@@ -1,4 +1,4 @@
-#' Correlated Normal Vector
+#' Make a normal vector correlated to an existing vector
 #'
 #' \code{rnorm_pre} Produces a random normally distributed vector with the specified correlation to an existing vector
 #'
@@ -54,15 +54,15 @@ rnorm_pre <- function (x, mu=0, sd=1, r=0, empirical = FALSE) {
 sample_from_pop <- function(n = 100, mu = 0, sd = 1, r = 0) {
   # sample r from distribution depending on n and r
   r_sd <- sqrt(1/n) * (1-r^2)
-  sample_r <- rnorm(1, r, r_sd) %>% pmax(-1) %>% pmin(1)
+  sample_r <- stats::rnorm(1, r, r_sd) %>% pmax(-1) %>% pmin(1)
   
   # sample mu from distribution depending on n and sd
   mu_sd <- sd / sqrt(n)
-  sample_mu <- rnorm(1, mu, mu_sd)
+  sample_mu <- stats::rnorm(1, mu, mu_sd)
   
   # sample sd from distribution depending on n and sd
   sd_sd <- sd / sqrt(2*n)
-  sample_sd <- rnorm(1, sd, sd_sd)
+  sample_sd <- stats::rnorm(1, sd, sd_sd)
   
   list(
     mu = sample_mu,

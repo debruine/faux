@@ -1,24 +1,27 @@
 context("test-plot_design")
 
 test_that("2w", {
-  within <- list(time = c("day", "night"))
+  within <- list(time = c(day = "Tested during the day", 
+                          night = "Tested at night"))
   between <- list()
   mu <- c(1,2)
-  d <- sim_design(within, between, mu = mu, long = TRUE, plot = FALSE)
+  dv = "rt"
+  id = "sub_id"
+  d <- sim_design(within, between, mu = mu, dv = dv, id = id, long = TRUE, plot = FALSE)
   p <- plot_design(d)
   expect_equal(class(p), c("gg", "ggplot"))
 })
 
 test_that("2w*2b", {
-  within <- list(time = c("day", "night"))
-  between <- list(pet = c("dog", "cat"))
+  within <- list(time = c(day = "Tested during the day", 
+                          night = "Tested at night"))
+  between <- list(pet = c(dog = "Has a dog", cat = "Has a cat"))
   mu <- list(
     dog = c(1,2),
     cat = c(3,4)
   )
   d <- sim_design(within, between, mu = mu, long = TRUE, plot = FALSE)
-  design <- get_design_long(d)
-  p <- plot_design(design)
+  p <- plot_design(d)
   expect_equal(class(p), c("gg", "ggplot"))
 })
 

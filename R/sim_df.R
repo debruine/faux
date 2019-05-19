@@ -1,6 +1,8 @@
 #' Simulate an existing dataframe
 #'
-#' \code{sim_df} Produces a data table with the same distributions and correlations as an existing data table Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).
+#' \code{sim_df} Produces a data table with the same distributions and correlations 
+#' as an existing data table Only returns numeric columns and simulates all numeric 
+#' variables from a continuous normal distribution (for now).
 #'
 #' @param .data the existing tbl (must be in wide format)
 #' @param n the number of samples to return per group
@@ -9,7 +11,7 @@
 #' @param dv the name of the DV (value) column
 #' @param id the names of the column(s) for grouping observations
 #' @param empirical logical. Passed on to rnorm_multi
-#' @param long 
+#' @param long whether to return the data table in long format
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param grp_by (deprecated; use between)
 #' 
@@ -18,6 +20,7 @@
 #' iris100 <- sim_df(iris, 100)
 #' iris_species <- sim_df(iris, 100, between = "Species")
 #' @export
+#' @importFrom rlang := 
 
 sim_df <- function (.data, n = 100, within = c(), between = c(), id = "sub_id", dv = "val",
                     empirical = FALSE, long = FALSE, seed = NULL, grp_by = NULL) {

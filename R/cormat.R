@@ -1,6 +1,7 @@
-#' Make Correlation Matrix
+#' Make a correlation matrix
 #'
-#' \code{cormat} makes a correlation matrix from a vector
+#' \code{cormat} makes a correlation matrix from a single number, 
+#' vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector.
 #'
 #' @param cors the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
 #' @param vars the number of variables in the matrix
@@ -24,7 +25,9 @@ cormat <- function(cors = 0, vars = 3) {
     }
   }
   
-  if (class(cors) == "matrix") { 
+  if (vars == 1) {
+    cor_mat <- matrix(1, nrow= 1)
+  } else if (class(cors) == "matrix") { 
     if (!is.numeric(cors)) {
       stop("cors matrix not numeric")
     } else if (dim(cors)[1] != vars || dim(cors)[2] != vars) {

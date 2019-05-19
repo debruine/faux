@@ -1,6 +1,9 @@
 ^Meta$
 ^doc$
 ^README\.Rmd$
+^README\.html$
+^README_files$
+^figure$
 ^data-raw$
 ^docs$
 ^.*\.Rproj$

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make Correlation Matrix — cormat • faux</title>
+<title>Make a correlation matrix — cormat • faux</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,9 +30,10 @@
 
 
 
-<meta property="og:title" content="Make Correlation Matrix — cormat" />
+<meta property="og:title" content="Make a correlation matrix — cormat" />
 
-<meta property="og:description" content="cormat makes a correlation matrix from a vector" />
+<meta property="og:description" content="cormat makes a correlation matrix from a single number, 
+vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector." />
 <meta name="twitter:card" content="summary" />
 
 
@@ -63,7 +64,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -85,6 +86,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/plots.html">plotting</a>
+    </li>
     <li>
       <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
     </li>
@@ -123,14 +127,15 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make Correlation Matrix</h1>
+    <h1>Make a correlation matrix</h1>
     <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/cormat.R'><code>R/cormat.R</code></a></small>
     <div class="hidden name"><code>cormat.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p><code>cormat</code> makes a correlation matrix from a vector</p>
+    <p><code>cormat</code> makes a correlation matrix from a single number, 
+vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector.</p>
     
     </div>
 

@@ -1,6 +1,4 @@
-#' Multiple Normally Distributed Vectors
-#'
-#' \code{rnorm_multi()} makes multiple normally distributed vectors with specified relationships.
+#' Make normally distributed vectors with specified relationships
 #'
 #' @param n the number of samples required
 #' @param vars the number of variables to return
@@ -31,8 +29,8 @@ rnorm_multi <- function(n, vars = 3, mu = 0, sd = 1, r = 0,
   }
   
   # error handling
-  if ( !is.numeric(n) || n %% 1 > 0 || n < 3 ) {
-    stop("n must be an integer > 2")
+  if ( !is.numeric(n) || n %% 1 > 0 || n < 1 ) {
+    stop("n must be an integer > 0")
   }
   
   if (!(empirical  %in% c(TRUE, FALSE))) {

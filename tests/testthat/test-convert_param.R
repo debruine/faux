@@ -7,9 +7,9 @@ cells_b <- c("B1_C1", "B2_C1", "B1_C2", "B2_C2")
 testthat::test_that("single number", {
   param <- 3
   cp <- faux:::convert_param(param, cells_w, cells_b)
-  comp <- matrix(rep(3, 16), 4, dimnames = list(cells_b, cells_w)) %>% as.data.frame()
-  
-  expect_equal(cp, comp)
+  expect_equal(names(cp), cells_b)
+  expect_equal(names(cp[[1]]), cells_w)
+  expect_equal(unlist(cp) %>% unname(), rep(3, 16))
 })
   
 # list of single numbers ----
@@ -21,9 +21,10 @@ testthat::test_that("list of single numbers", {
     "B2_C2" = 4
   )
   cp <- faux:::convert_param(param, cells_w, cells_b)
-  comp <- matrix(rep(1:4, times = 4), 4, dimnames = list(cells_b, cells_w)) %>% 
-    as.data.frame()
-  expect_equal(cp, cp)
+  
+  expect_equal(names(cp), cells_b)
+  expect_equal(names(cp[[1]]), cells_w)
+  expect_equal(unlist(cp) %>% unname(), rep(1:4, each = 4))
 })
 
 
@@ -31,10 +32,10 @@ testthat::test_that("list of single numbers", {
 testthat::test_that("unnamed vector of cells", {
   param <- rep(1:4, each = 4)
   cp <- faux:::convert_param(param, cells_w, cells_b)
-  comp <- matrix(rep(1:4, times = 4), 4, dimnames = list(cells_b, cells_w)) %>% 
-    as.data.frame()
   
-  expect_equal(cp, comp)
+  expect_equal(names(cp), cells_b)
+  expect_equal(names(cp[[1]]), cells_w)
+  expect_equal(unlist(cp) %>% unname(), param)
 })
 
 
@@ -47,8 +48,10 @@ testthat::test_that("list of unnamed vectors", {
     "B2_C2" = 13:16
   )
   cp <- faux:::convert_param(param, cells_w, cells_b)
-  comp <- matrix(1:16, 4, dimnames = list(cells_w, cells_b)) %>% t() %>% as.data.frame()
-  expect_equal(cp, comp)
+  
+  expect_equal(names(cp), cells_b)
+  expect_equal(names(cp[[1]]), cells_w)
+  expect_equal(unlist(cp) %>% unname(), 1:16)
 })
 
 
@@ -61,8 +64,10 @@ testthat::test_that("list of named vectors", {
     "B2_C2" = c("W1_X1" = 13, "W2_X1" = 14, "W1_X2" = 15, "W2_X2" = 16)
   )
   cp <- faux:::convert_param(param, cells_w, cells_b)
-  comp <- matrix(1:16, 4, dimnames = list(cells_w, cells_b)) %>% t() %>% as.data.frame()
-  expect_equal(cp, comp)
+  
+  expect_equal(names(cp), cells_b)
+  expect_equal(names(cp[[1]]), cells_w)
+  expect_equal(unlist(cp) %>% unname(), 1:16)
 })
 
 # list of disordered named vectors ----
@@ -74,8 +79,10 @@ testthat::test_that("list of disordered named vectors", {
     "B2_C2" = c("W1_X1" = 13, "W1_X2" = 15, "W2_X1" = 14, "W2_X2" = 16)
   )
   cp <- faux:::convert_param(param, cells_w, cells_b)
-  comp <- matrix(1:16, 4, dimnames = list(cells_w, cells_b)) %>% t() %>% as.data.frame()
-  expect_equal(cp, comp)
+  
+  expect_equal(names(cp), cells_b)
+  expect_equal(names(cp[[1]]), cells_w)
+  expect_equal(unlist(cp) %>% unname(), 1:16)
 })
 
 # data frame ----
@@ -90,8 +97,10 @@ testthat::test_that("data frame", {
   names(param) <- cells_w
   
   cp <- faux:::convert_param(param, cells_w, cells_b)
-  comp <- matrix(1:16, 4, dimnames = list(cells_w, cells_b)) %>% t() %>% as.data.frame()
-  expect_equal(cp, comp)
+  
+  expect_equal(names(cp), cells_b)
+  expect_equal(names(cp[[1]]), cells_w)
+  expect_equal(unlist(cp) %>% unname(), 1:16)
 })
 
 # backwards data frame ----
@@ -106,8 +115,10 @@ testthat::test_that("backwards data frame", {
   names(param) <- cells_b
   
   cp <- faux:::convert_param(param, cells_w, cells_b)
-  comp <- matrix(1:16, 4, dimnames = list(cells_w, cells_b)) %>% t() %>% as.data.frame()
-  expect_equal(cp, comp)
+  
+  expect_equal(names(cp), cells_b)
+  expect_equal(names(cp[[1]]), cells_w)
+  expect_equal(unlist(cp) %>% unname(), 1:16)
 })
 
 

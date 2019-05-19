@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simulate Data from Design — sim_design • faux</title>
+<title>Simulate data from design — sim_design • faux</title>
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -30,7 +30,7 @@
 
 
 
-<meta property="og:title" content="Simulate Data from Design — sim_design" />
+<meta property="og:title" content="Simulate data from design — sim_design" />
 
 <meta property="og:description" content="sim_design() generates a data table with a specified within and between design." />
 <meta name="twitter:card" content="summary" />
@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -85,6 +85,9 @@
     <span class="caret"></span>
   </a>
   <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/plots.html">plotting</a>
+    </li>
     <li>
       <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
     </li>
@@ -123,7 +126,7 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Simulate Data from Design</h1>
+    <h1>Simulate data from design</h1>
     <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/sim_design.R'><code>R/sim_design.R</code></a></small>
     <div class="hidden name"><code>sim_design.Rd</code></div>
     </div>
@@ -135,8 +138,9 @@
     </div>
 
     <pre class="usage"><span class='fu'>sim_design</span>(<span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+  <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>dv</span> <span class='kw'>=</span> <span class='st'>"y"</span>,
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"id"</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>design</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -174,6 +178,14 @@
       <td><p>Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format</p></td>
     </tr>
     <tr>
+      <th>dv</th>
+      <td><p>the name of the dv for long plots (defaults to y)</p></td>
+    </tr>
+    <tr>
+      <th>id</th>
+      <td><p>the name of the id column (defaults to id)</p></td>
+    </tr>
+    <tr>
       <th>plot</th>
       <td><p>whether to show a plot of the design</p></td>
     </tr>
@@ -184,6 +196,10 @@
     <tr>
       <th>interactive</th>
       <td><p>whether to run the function interactively</p></td>
+    </tr>
+    <tr>
+      <th>design</th>
+      <td><p>a design list including within, between, n, mu, sd, r, dv, id</p></td>
     </tr>
     </table>
     

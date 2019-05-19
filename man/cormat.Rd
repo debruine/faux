@@ -2,7 +2,7 @@
 % Please edit documentation in R/cormat.R
 \name{cormat}
 \alias{cormat}
-\title{Make Correlation Matrix}
+\title{Make a correlation matrix}
 \usage{
 cormat(cors = 0, vars = 3)
 }
@@ -15,7 +15,8 @@ cormat(cors = 0, vars = 3)
 matrix
 }
 \description{
-\code{cormat} makes a correlation matrix from a vector
+\code{cormat} makes a correlation matrix from a single number, 
+vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector.
 }
 \examples{
 cormat(.5, 3)

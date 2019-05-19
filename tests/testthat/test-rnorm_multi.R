@@ -2,9 +2,9 @@ context("rnorm_multi")
 
 test_that("error messages", {
   expect_error(rnorm_multi(), "argument \"n\" is missing, with no default")
-  expect_error(rnorm_multi(2), "n must be an integer > 2")
-  expect_error(rnorm_multi(10.3), "n must be an integer > 2")
-  expect_error(rnorm_multi("A"), "n must be an integer > 2")
+  expect_error(rnorm_multi(-1), "n must be an integer > 0")
+  expect_error(rnorm_multi(10.3), "n must be an integer > 0")
+  expect_error(rnorm_multi("A"), "n must be an integer > 0")
   
   expect_warning(rnorm_multi(100, 3, cors = .5), "cors is deprecated, please use r")
   

@@ -4,10 +4,12 @@
 \alias{cell_combos}
 \title{Cell combos}
 \usage{
-cell_combos(factors)
+cell_combos(factors, dv = "y")
 }
 \arguments{
 \item{factors}{A list of factors}
+
+\item{dv}{name of dv column ("y")}
 }
 \value{
 a list

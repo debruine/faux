@@ -42,7 +42,7 @@ For example, the following creates a 2w*2b design with 100 observations in each 
 
 
 ```r
-between <- list("pet" = c("cat", "dog"))
+between <- list("pet" = c("cat" = "Cat Owners", "dog" = "Dog Owners"))
 within <- list("time" = c("day", "night"))
 mu <- data.frame(
   cat = c(10, 20),
@@ -55,6 +55,15 @@ df <- sim_design(within, between,
 ```
 
 ![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
+
+
+
+|pet |   n|var   | day| night| mean| sd|
+|:---|---:|:-----|---:|-----:|----:|--:|
+|cat | 100|day   | 1.0|   0.5|   10|  5|
+|cat | 100|night | 0.5|   1.0|   20|  5|
+|dog | 100|day   | 1.0|   0.5|   15|  5|
+|dog | 100|night | 0.5|   1.0|   25|  5|
 
 
 Table: Sample `sim_design()` stats
@@ -94,7 +103,7 @@ You can then see how changing these numbers affects the random effects in an int
 
 
 ```r
-lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
+lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
   broom.mixed::tidy() %>%
   knitr::kable(digits = 3)
 ```
@@ -103,10 +112,10 @@ lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
 
 |effect   |group    |term            | estimate| std.error| statistic|
 |:--------|:--------|:---------------|--------:|---------:|---------:|
-|fixed    |NA       |(Intercept)     |    9.516|     0.314|    30.306|
-|ran_pars |sub_id   |sd__(Intercept) |    0.938|        NA|        NA|
-|ran_pars |item_id  |sd__(Intercept) |    2.098|        NA|        NA|
-|ran_pars |Residual |sd__Observation |    2.997|        NA|        NA|
+|fixed    |NA       |(Intercept)     |   10.485|     0.316|    33.218|
+|ran_pars |sub_id   |sd__(Intercept) |    1.028|        NA|        NA|
+|ran_pars |item_id  |sd__(Intercept) |    2.089|        NA|        NA|
+|ran_pars |Residual |sd__Observation |    2.956|        NA|        NA|
 
 ## sim_mixed_df
 
@@ -115,7 +124,7 @@ This function uses `lme4::lmer()` to get subject, item and error SDs from an exi
 
 ```r
 
-new_dat <- sim_mixed_df(faceratings, 
+new_dat <- sim_mixed_df(fr4, 
                         sub_n = 100, 
                         item_n = 50, 
                         dv = "rating", 
@@ -146,6 +155,14 @@ dat <- rnorm_multi(
 
 
 
+
+|   n|var |    A|    B|    C|  mean|   sd|
+|---:|:---|----:|----:|----:|-----:|----:|
+| 100|A   | 1.00| 0.42| 0.49|  0.06| 0.98|
+| 100|B   | 0.42| 1.00| 0.20| 20.68| 4.92|
+| 100|C   | 0.49| 0.20| 1.00| 19.88| 5.16|
+
+
 Table: Sample `rnorm_multi()` stats
 
 
@@ -167,7 +184,7 @@ list(
   r = cor(x,y)
 ) %>% str()
 #> List of 3
-#>  $ mean: num -2.72e-17
+#>  $ mean: num 8.35e-18
 #>  $ sd  : num 1
 #>  $ r   : num 0.5
 ```
@@ -180,41 +197,72 @@ If `empirical = FALSE` (the default), this resulting vector is sampled from a po
 
 ## Additional functions {#add_func}
 
-### check_sim_stats
+### messy
 
-If you want to check your simulated stats or just describe an existing dataset, use `check_sim_stats()`.
-
-
-```r
-check_sim_stats(iris)
-```
-
-You can also group your data and change the digits to round. Display the table using `knitr::kable()` by setting `usekable` to `TRUE` (remember to set `results='asis'` in the chunk header.
+Sometimes you want to mess up a dataset for teaching (thanks for the idea, Emily!). The `messy()` function will replace `prop` proportion of the data in the specified columns with the value of `replace` (defaults to `NA`).
 
 
 ```r
-check_sim_stats(iris, 
-                between = "Species", 
-                digits = 3, 
-                usekable = TRUE)
+# reaplace 10% of Species with NA
+iris2 <- messy(iris, 0.1, "Species")
+
+# replace 10% of petal.Width adn Sepal.Width with NA
+iris3 <- messy(iris, 0.1, "Petal.Width", "Sepal.Width")
+
+# replace 50% of columns 1-2 with NA
+iris4 <- messy(iris, 0.5, 1:2)
+
+# replace 50% of Species with "NOPE"
+iris5 <- messy(iris, 0.5, "Species", replace = "NOPE")
+```
+
+### get_params
+
+If you want to check your simulated stats or just describe an existing dataset, use `get_params()`.
+
+
+```r
+get_params(iris)
 ```
 
 
 
-|Species    |  n|var          | Sepal.Length| Sepal.Width| Petal.Length| Petal.Width|  mean|    sd|
-|:----------|--:|:------------|------------:|-----------:|------------:|-----------:|-----:|-----:|
-|setosa     | 50|Sepal.Length |        1.000|       0.743|        0.267|       0.278| 5.006| 0.352|
-|setosa     | 50|Sepal.Width  |        0.743|       1.000|        0.178|       0.233| 3.428| 0.379|
-|setosa     | 50|Petal.Length |        0.267|       0.178|        1.000|       0.332| 1.462| 0.174|
-|setosa     | 50|Petal.Width  |        0.278|       0.233|        0.332|       1.000| 0.246| 0.105|
-|versicolor | 50|Sepal.Length |        1.000|       0.526|        0.754|       0.546| 5.936| 0.516|
-|versicolor | 50|Sepal.Width  |        0.526|       1.000|        0.561|       0.664| 2.770| 0.314|
-|versicolor | 50|Petal.Length |        0.754|       0.561|        1.000|       0.787| 4.260| 0.470|
-|versicolor | 50|Petal.Width  |        0.546|       0.664|        0.787|       1.000| 1.326| 0.198|
-|virginica  | 50|Sepal.Length |        1.000|       0.457|        0.864|       0.281| 6.588| 0.636|
-|virginica  | 50|Sepal.Width  |        0.457|       1.000|        0.401|       0.538| 2.974| 0.322|
-|virginica  | 50|Petal.Length |        0.864|       0.401|        1.000|       0.322| 5.552| 0.552|
-|virginica  | 50|Petal.Width  |        0.281|       0.538|        0.322|       1.000| 2.026| 0.275|
+|   n|var          | Sepal.Length| Sepal.Width| Petal.Length| Petal.Width| mean|   sd|
+|---:|:------------|------------:|-----------:|------------:|-----------:|----:|----:|
+| 150|Sepal.Length |         1.00|       -0.12|         0.87|        0.82| 5.84| 0.83|
+| 150|Sepal.Width  |        -0.12|        1.00|        -0.43|       -0.37| 3.06| 0.44|
+| 150|Petal.Length |         0.87|       -0.43|         1.00|        0.96| 3.76| 1.77|
+| 150|Petal.Width  |         0.82|       -0.37|         0.96|        1.00| 1.20| 0.76|
+
+
+
+You can also group your data and change the digits to round.
+
+
+```r
+get_params(iris, 
+           between = "Species", 
+           digits = 3)
+```
+
+
+
+|Species    |  n|var          | Sepal.Length| Sepal.Width| Petal.Length| Petal.Width| mean|   sd|
+|:----------|--:|:------------|------------:|-----------:|------------:|-----------:|----:|----:|
+|setosa     | 50|Sepal.Length |         1.00|        0.74|         0.27|        0.28| 5.01| 0.35|
+|setosa     | 50|Sepal.Width  |         0.74|        1.00|         0.18|        0.23| 3.43| 0.38|
+|setosa     | 50|Petal.Length |         0.27|        0.18|         1.00|        0.33| 1.46| 0.17|
+|setosa     | 50|Petal.Width  |         0.28|        0.23|         0.33|        1.00| 0.25| 0.11|
+|versicolor | 50|Sepal.Length |         1.00|        0.53|         0.75|        0.55| 5.94| 0.52|
+|versicolor | 50|Sepal.Width  |         0.53|        1.00|         0.56|        0.66| 2.77| 0.31|
+|versicolor | 50|Petal.Length |         0.75|        0.56|         1.00|        0.79| 4.26| 0.47|
+|versicolor | 50|Petal.Width  |         0.55|        0.66|         0.79|        1.00| 1.33| 0.20|
+|virginica  | 50|Sepal.Length |         1.00|        0.46|         0.86|        0.28| 6.59| 0.64|
+|virginica  | 50|Sepal.Width  |         0.46|        1.00|         0.40|        0.54| 2.97| 0.32|
+|virginica  | 50|Petal.Length |         0.86|        0.40|         1.00|        0.32| 5.55| 0.55|
+|virginica  | 50|Petal.Width  |         0.28|        0.54|         0.32|        1.00| 2.03| 0.27|
+
+
 
 ### make_id
 
@@ -239,21 +287,230 @@ make_id(n = 10:20, digits = 3)
 
 ### long2wide
 
+Convert a data table made with faux from long to wide. 
+
 
 ```r
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
 df_long <- sim_design(within, between, long = TRUE)
 
-df_wide <- long2wide(df_long, 
-                     within = "time", 
-                     between = "pet", 
-                     dv = "val", 
-                     id = "sub_id")
+df_wide <- long2wide(df_long)
 ```
 
 
 
+|id   |pet |        day|      night|
+|:----|:---|----------:|----------:|
+|S001 |cat | -1.2450468| -0.0771657|
+|S002 |cat |  0.0123018|  0.1105814|
+|S003 |cat |  0.3731138| -0.3988119|
+|S004 |cat | -1.0919992|  0.2970545|
+|S005 |cat | -1.2187853| -0.2190417|
+|S006 |cat |  0.5272573| -0.0768018|
+
+
+
+If you have a data table not made by faux, you need to specify the within-subject columns, the between-subject columns, the DV column, and the ID column.
+
+
+```r
+# make a long data table
+df_long <- expand.grid(
+  sub_id = 1:10,
+  A = c("A1", "A2"),
+  B = c("B1", "B2")
+)
+df_long$C <- rep(c("C1", "C2"), 20)
+df_long$score <- rnorm(40)
+
+# convert it to wide
+df_wide <- long2wide(df_long, within = c("A", "B"), 
+                     between = "C", dv = "score", id = "sub_id")
+```
+
+
+
+| sub_id|C  |      A1_B1|      A1_B2|      A2_B1|      A2_B2|
+|------:|:--|----------:|----------:|----------:|----------:|
+|      1|C1 |  0.0560698|  0.1075098| -1.4729780| -0.7608473|
+|      2|C2 |  0.5557781|  0.2453513| -0.0070704|  0.7536826|
+|      3|C1 |  1.5172716| -0.5159651| -0.2322015|  1.2459601|
+|      4|C2 |  0.0110923|  0.6606082|  1.4428787| -0.9280972|
+|      5|C1 |  0.8529061| -0.2005553|  2.1043959|  0.3007104|
+|      6|C2 | -1.5866455|  1.6799572| -0.9315955|  2.6100908|
+
+
+
+
+### wide2long
+
+You can convert a data table made by faux from wide to long easily.
+
+
+```r
+between <- list("pet" = c("cat", "dog"))
+within <- list("time" = c("day", "night"))
+df_wide <- sim_design(within, between, long = FALSE)
+df_long <- wide2long(df_wide)
+```
+
+
+
+|id   |pet |time |          y|
+|:----|:---|:----|----------:|
+|S001 |cat |day  | -0.0226051|
+|S002 |cat |day  |  0.4514095|
+|S003 |cat |day  |  1.1135601|
+|S004 |cat |day  | -0.8790609|
+|S005 |cat |day  |  0.3099769|
+|S006 |cat |day  |  1.6095301|
+
+
+
+If you have a data table not made by faux, you need to specify the within-subject factors and columns, and specify the names of the ID and DV columns to create. 
+
+```r
+long_iris <- wide2long(
+    iris,
+    within_factors = c("feature", "dimension"),
+    within_cols = 1:4,
+    dv = "value",
+    id = "flower_id"
+  )
+```
+
+
+
+|Species |flower_id |feature |dimension | value|
+|:-------|:---------|:-------|:---------|-----:|
+|setosa  |S001      |Sepal   |Length    |   5.1|
+|setosa  |S002      |Sepal   |Length    |   4.9|
+|setosa  |S003      |Sepal   |Length    |   4.7|
+|setosa  |S004      |Sepal   |Length    |   4.6|
+|setosa  |S005      |Sepal   |Length    |   5.0|
+|setosa  |S006      |Sepal   |Length    |   5.4|
+
+
+
+### get_design_long
+
+Once you have a dataframe in long format, you can recover the design from it.
+
+
+```r
+design <- get_design_long(long_iris, dv = "value", id = "flower_id")
+```
+
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16-1.png)
+
+### json_design
+
+Then you can use `json_design()` to save the design to a file or view it in JSON format (condensed or pretty).
+
+
+```r
+json_design(design)
+```
+
+<pre>
+{"within":{"feature":{"Petal":"Petal","Sepal":"Sepal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":"value","id":"flower_id","n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Petal_Length":1.46,"Sepal_Length":5.01,"Petal_Width":0.25,"Sepal_Width":3.43},"versicolor":{"Petal_Length":4.26,"Sepal_Length":5.94,"Petal_Width":1.33,"Sepal_Width":2.77},"virginica":{"Petal_Length":5.55,"Sepal_Length":6.59,"Petal_Width":2.03,"Sepal_Width":2.97}},"sd":{"setosa":{"Petal_Length":0.17,"Sepal_Length":0.35,"Petal_Width":0.11,"Sepal_Width":0.38},"versicolor":{"Petal_Length":0.47,"Sepal_Length":0.52,"Petal_Width":0.2,"Sepal_Width":0.31},"virginica":{"Petal_Length":0.55,"Sepal_Length":0.64,"Petal_Width":0.27,"Sepal_Width":0.32}},"r":{"setosa":[[1,0.27,0.33,0.18],[0.27,1,0.28,0.74],[0.33,0.28,1,0.23],[0.18,0.74,0.23,1]],"versicolor":[[1,0.75,0.79,0.56],[0.75,1,0.55,0.53],[0.79,0.55,1,0.66],[0.56,0.53,0.66,1]],"virginica":[[1,0.86,0.32,0.4],[0.86,1,0.28,0.46],[0.32,0.28,1,0.54],[0.4,0.46,0.54,1]]}}
+</pre>
+
+
+
+```r
+json_design(design, pretty = TRUE)
+```
+
+<pre>
+{
+  "within": {
+    "feature": {
+      "Petal": "Petal",
+      "Sepal": "Sepal"
+    },
+    "dimension": {
+      "Length": "Length",
+      "Width": "Width"
+    }
+  },
+  "between": {
+    "Species": {
+      "setosa": "setosa",
+      "versicolor": "versicolor",
+      "virginica": "virginica"
+    }
+  },
+  "dv": "value",
+  "id": "flower_id",
+  "n": {
+    "setosa": 50,
+    "versicolor": 50,
+    "virginica": 50
+  },
+  "mu": {
+    "setosa": {
+      "Petal_Length": 1.46,
+      "Sepal_Length": 5.01,
+      "Petal_Width": 0.25,
+      "Sepal_Width": 3.43
+    },
+    "versicolor": {
+      "Petal_Length": 4.26,
+      "Sepal_Length": 5.94,
+      "Petal_Width": 1.33,
+      "Sepal_Width": 2.77
+    },
+    "virginica": {
+      "Petal_Length": 5.55,
+      "Sepal_Length": 6.59,
+      "Petal_Width": 2.03,
+      "Sepal_Width": 2.97
+    }
+  },
+  "sd": {
+    "setosa": {
+      "Petal_Length": 0.17,
+      "Sepal_Length": 0.35,
+      "Petal_Width": 0.11,
+      "Sepal_Width": 0.38
+    },
+    "versicolor": {
+      "Petal_Length": 0.47,
+      "Sepal_Length": 0.52,
+      "Petal_Width": 0.2,
+      "Sepal_Width": 0.31
+    },
+    "virginica": {
+      "Petal_Length": 0.55,
+      "Sepal_Length": 0.64,
+      "Petal_Width": 0.27,
+      "Sepal_Width": 0.32
+    }
+  },
+  "r": {
+    "setosa": [
+      [1, 0.27, 0.33, 0.18],
+      [0.27, 1, 0.28, 0.74],
+      [0.33, 0.28, 1, 0.23],
+      [0.18, 0.74, 0.23, 1]
+    ],
+    "versicolor": [
+      [1, 0.75, 0.79, 0.56],
+      [0.75, 1, 0.55, 0.53],
+      [0.79, 0.55, 1, 0.66],
+      [0.56, 0.53, 0.66, 1]
+    ],
+    "virginica": [
+      [1, 0.86, 0.32, 0.4],
+      [0.86, 1, 0.28, 0.46],
+      [0.32, 0.28, 1, 0.54],
+      [0.4, 0.46, 0.54, 1]
+    ]
+  }
+}
+</pre>
 
 ### pos_def_limits
 

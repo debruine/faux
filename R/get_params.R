@@ -1,4 +1,4 @@
-#' Check table parameters
+#' Get parameters from a data table
 #'
 #' \code{get_params} Generates a table of the correlations and means of numeric columns in a data frame
 #'
@@ -8,16 +8,15 @@
 #' @param dv the column name of the dv (if data is long)
 #' @param id the column name(s) of the subject ID (if data is long)
 #' @param digits how many digits to round to (default = 2)
-#' @param usekable logical. If TRUE, output with knitr::kable
 #' 
-#' @return a tbl or kable
+#' @return a tbl of correlations, means and sds
 #' @examples
-#' get_stats(iris, "Species")
+#' get_params(iris, "Species")
 #' @export
 #' 
 
-get_params <- function(.data, between = c(), within = c(), dv = "val", id = "sub_id",
-                            digits = 2, usekable = FALSE) {
+get_params <- function(.data, between = c(), within = c(), 
+                       dv = "y", id = "id", digits = 2) {
   
   if (length(within) && length(dv) && length(id)) {
     # convert long to wide
@@ -40,7 +39,7 @@ get_params <- function(.data, between = c(), within = c(), dv = "val", id = "sub
   
   stats <- grpdat %>%
     tidyr::nest(tidyselect::one_of(numvars), .key = "multisim_data") %>%
-    dplyr::mutate(multisim_cor = purrr::map(multisim_data, function(d) {
+    dplyr::mutate("multisim_cor" = purrr::map(multisim_data, function(d) {
       cor(d) %>% round(digits) %>% tibble::as_tibble(rownames = "var")
     })) %>%
     dplyr::select(-multisim_data) %>%
@@ -48,12 +47,7 @@ get_params <- function(.data, between = c(), within = c(), dv = "val", id = "sub
     dplyr::left_join(descriptives, by = c(between, "var")) %>%
     dplyr::select(tidyselect::one_of(c(between, "n", "var", numvars, "mean", "sd")))
     
-  if (usekable) {
-    print(knitr::kable(stats))
-    invisible(stats)
-  } else {
-    stats
-  }
+  stats
 }
 
 #' @rdname get_params

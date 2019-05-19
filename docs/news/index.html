@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -83,6 +83,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/plots.html">Plotting</a>
+    </li>
+    <li>
       <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
     </li>
     <li>
@@ -92,7 +95,7 @@
       <a href="../articles/sim_df.html">Simulate from Existing Data</a>
     </li>
     <li>
-      <a href="../articles/sim_mixed.html">sim_mixed</a>
+      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
   </ul>
 </li>
@@ -192,6 +195,22 @@
 <li>Better interactive specification (thanks Daniël)</li>
 </ul>
 </div>
+    <div id="faux-0-0-0-9011" class="section level1">
+<h1 class="page-header">
+<a href="#faux-0-0-0-9011" class="anchor"></a>faux 0.0.0.9011</h1>
+<ul>
+<li>Changed default DV column name from ‘val’ to ‘y’</li>
+<li>Changed default ID column name from ‘sub_id’ to ‘id’</li>
+<li>
+<code><a href="../reference/sim_design.html">sim_design()</a></code> can take intercept-only designs</li>
+<li>
+<code><a href="../reference/rnorm_multi.html">rnorm_multi()</a></code> can take vars = 1 for intercept-only designs</li>
+<li>
+<code><a href="../reference/json_design.html">json_design()</a></code> to output or save design specs in JSON format</li>
+<li>Added functions for converting between distributions</li>
+<li>More flexible plots</li>
+</ul>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
@@ -205,6 +224,7 @@
         <li><a href="#faux-0-0-0-9008">0.0.0.9008</a></li>
         <li><a href="#faux-0-0-0-9009">0.0.0.9009</a></li>
         <li><a href="#faux-0-0-0-9010">0.0.0.9010</a></li>
+        <li><a href="#faux-0-0-0-9011">0.0.0.9011</a></li>
       </ul>
     </div>
   </div>

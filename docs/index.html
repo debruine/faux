@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
       </span>
     </div>
 
@@ -53,6 +53,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
+      <a href="articles/plots.html">plotting</a>
+    </li>
+    <li>
       <a href="articles/rnorm_multi.html">Simulate Correlated Variables</a>
     </li>
     <li>
@@ -117,7 +120,7 @@
 <a href="#sim_design" class="anchor"></a>sim_design</h2>
 <p>This function creates a dataset with a specific between- and within-subjects design. <a href="https://debruine.github.io/faux/articles/sim_design.html">see vignette</a></p>
 <p>For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is <code>pet</code> with two levels (<code>cat</code> and <code>dog</code>). The within-subject factor is <code>time</code> with two levels (<code>day</code> and <code>night</code>). The mean for the <code>cat_day</code> cell is 10, the mean for the <code>cat_night</code> cell is 20, the mean for the <code>dog_day</code> cell is 15, and the mean for the <code>dog_night</code> cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set <code>empirical = FALSE</code> to sample from a population with these values). Set <code>plot = TRUE</code> to show a plot of means and SDs.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">between &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"pet"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>))
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">between &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"pet"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cat"</span> =<span class="st"> "Cat Owners"</span>, <span class="st">"dog"</span> =<span class="st"> "Dog Owners"</span>))
 within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"time"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"day"</span>, <span class="st">"night"</span>))
 mu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(
   <span class="dt">cat =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">10</span>, <span class="dv">20</span>),
@@ -128,7 +131,56 @@ df &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_design.
                  <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mu =</span> mu, <span class="dt">sd =</span> <span class="dv">5</span>, <span class="dt">r =</span> .<span class="dv">5</span>,
                  <span class="dt">empirical =</span> <span class="ot">TRUE</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <p><img src="index_files/figure-html/unnamed-chunk-1-1.png" width="768"></p>
-<p>Table: Sample <code><a href="reference/sim_design.html">sim_design()</a></code> stats</p>
+<table class="table table">
+<caption>Sample <code><a href="reference/sim_design.html">sim_design()</a></code> stats</caption>
+<thead><tr class="header">
+<th align="left">pet</th>
+<th align="right">n</th>
+<th align="left">var</th>
+<th align="right">day</th>
+<th align="right">night</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">cat</td>
+<td align="right">100</td>
+<td align="left">day</td>
+<td align="right">1.0</td>
+<td align="right">0.5</td>
+<td align="right">10</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">cat</td>
+<td align="right">100</td>
+<td align="left">night</td>
+<td align="right">0.5</td>
+<td align="right">1.0</td>
+<td align="right">20</td>
+<td align="right">5</td>
+</tr>
+<tr class="odd">
+<td align="left">dog</td>
+<td align="right">100</td>
+<td align="left">day</td>
+<td align="right">1.0</td>
+<td align="right">0.5</td>
+<td align="right">15</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">dog</td>
+<td align="right">100</td>
+<td align="left">night</td>
+<td align="right">0.5</td>
+<td align="right">1.0</td>
+<td align="right">25</td>
+<td align="right">5</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="sim_df" class="section level2">
 <h2 class="hasAnchor">
@@ -156,12 +208,9 @@ Simulated iris dataset
   <span class="dt">error_sd =</span> <span class="dv">3</span>  <span class="co"># SD of residual error</span>
 )</code></pre></div>
 <p>You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(val <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat) <span class="op">%&gt;%</span>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat) <span class="op">%&gt;%</span>
 <span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)
-<span class="co">#&gt; Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl =</span>
-<span class="co">#&gt; control$checkConv, : Model failed to converge with max|grad| = 0.00615993</span>
-<span class="co">#&gt; (tol = 0.002, component 1)</span></code></pre></div>
+<span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</code></pre></div>
 <table class="table table">
 <thead><tr class="header">
 <th align="left">effect</th>
@@ -176,15 +225,15 @@ Simulated iris dataset
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">9.953</td>
-<td align="right">0.337</td>
-<td align="right">29.573</td>
+<td align="right">10.253</td>
+<td align="right">0.294</td>
+<td align="right">34.843</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.066</td>
+<td align="right">0.974</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -192,7 +241,7 @@ Simulated iris dataset
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">2.237</td>
+<td align="right">1.940</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -200,7 +249,7 @@ Simulated iris dataset
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">3.012</td>
+<td align="right">3.042</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -212,7 +261,7 @@ Simulated iris dataset
 <a href="#sim_mixed_df" class="anchor"></a>sim_mixed_df</h2>
 <p>This function uses <code><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lme4::lmer()</a></code> to get subject, item and error SDs from an existing dataset and simulates a new dataset with the specified number of subjects and items with distributions drawn from the example data.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-new_dat &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_mixed_df.html">sim_mixed_df</a></span>(faceratings, 
+new_dat &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_mixed_df.html">sim_mixed_df</a></span>(fr4, 
                         <span class="dt">sub_n =</span> <span class="dv">100</span>, 
                         <span class="dt">item_n =</span> <span class="dv">50</span>, 
                         <span class="dt">dv =</span> <span class="st">"rating"</span>, 
@@ -233,7 +282,47 @@ dat &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_mult
   <span class="dt">varnames =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>),
   <span class="dt">empirical =</span> <span class="ot">FALSE</span>
 )</code></pre></div>
-<p>Table: Sample <code><a href="reference/rnorm_multi.html">rnorm_multi()</a></code> stats</p>
+<table class="table table">
+<caption>Sample <code><a href="reference/rnorm_multi.html">rnorm_multi()</a></code> stats</caption>
+<thead><tr class="header">
+<th align="right">n</th>
+<th align="left">var</th>
+<th align="right">A</th>
+<th align="right">B</th>
+<th align="right">C</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">100</td>
+<td align="left">A</td>
+<td align="right">1.00</td>
+<td align="right">0.41</td>
+<td align="right">0.38</td>
+<td align="right">-0.14</td>
+<td align="right">0.96</td>
+</tr>
+<tr class="even">
+<td align="right">100</td>
+<td align="left">B</td>
+<td align="right">0.41</td>
+<td align="right">1.00</td>
+<td align="right">0.01</td>
+<td align="right">20.17</td>
+<td align="right">4.44</td>
+</tr>
+<tr class="odd">
+<td align="right">100</td>
+<td align="left">C</td>
+<td align="right">0.38</td>
+<td align="right">0.01</td>
+<td align="right">1.00</td>
+<td align="right">19.18</td>
+<td align="right">4.83</td>
+</tr>
+</tbody>
+</table>
 </div>
 <div id="rnorm_pre" class="section level2">
 <h2 class="hasAnchor">
@@ -251,7 +340,7 @@ y &lt;-<span class="st"> </span><span class="kw"><a href="reference/rnorm_pre.ht
   <span class="dt">r =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/cor">cor</a></span>(x,y)
 ) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>()
 <span class="co">#&gt; List of 3</span>
-<span class="co">#&gt;  $ mean: num -9.19e-18</span>
+<span class="co">#&gt;  $ mean: num 1.25e-17</span>
 <span class="co">#&gt;  $ sd  : num 1</span>
 <span class="co">#&gt;  $ r   : num 0.5</span></code></pre></div>
 <p>If <code>empirical = FALSE</code> (the default), this resulting vector is sampled from a population with the specified parameters (but won’t have <em>exactly</em> those properties).</p>
@@ -284,19 +373,65 @@ iris5 &lt;-<span class="st"> </span><span class="kw"><a href="reference/messy.ht
 <h3 class="hasAnchor">
 <a href="#get_params" class="anchor"></a>get_params</h3>
 <p>If you want to check your simulated stats or just describe an existing dataset, use <code><a href="reference/get_params.html">get_params()</a></code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/get_params.html">get_params</a></span>(iris)
-<span class="co">#&gt; # A tibble: 4 x 8</span>
-<span class="co">#&gt;       n var   Sepal.Length Sepal.Width Petal.Length Petal.Width  mean    sd</span>
-<span class="co">#&gt;   &lt;dbl&gt; &lt;chr&gt;        &lt;dbl&gt;       &lt;dbl&gt;        &lt;dbl&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span>
-<span class="co">#&gt; 1   150 Sepa…         1          -0.12         0.87        0.82  5.84  0.83</span>
-<span class="co">#&gt; 2   150 Sepa…        -0.12        1           -0.43       -0.37  3.06  0.44</span>
-<span class="co">#&gt; 3   150 Peta…         0.87       -0.43         1           0.96  3.76  1.77</span>
-<span class="co">#&gt; 4   150 Peta…         0.82       -0.37         0.96        1     1.2   0.76</span></code></pre></div>
-<p>You can also group your data and change the digits to round. Display the table using <code><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">knitr::kable()</a></code> by setting <code>usekable</code> to <code>TRUE</code> (remember to set <code>results='asis'</code> in the chunk header.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/get_params.html">get_params</a></span>(iris)</code></pre></div>
+<table class="table table">
+<thead><tr class="header">
+<th align="right">n</th>
+<th align="left">var</th>
+<th align="right">Sepal.Length</th>
+<th align="right">Sepal.Width</th>
+<th align="right">Petal.Length</th>
+<th align="right">Petal.Width</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">150</td>
+<td align="left">Sepal.Length</td>
+<td align="right">1.00</td>
+<td align="right">-0.12</td>
+<td align="right">0.87</td>
+<td align="right">0.82</td>
+<td align="right">5.84</td>
+<td align="right">0.83</td>
+</tr>
+<tr class="even">
+<td align="right">150</td>
+<td align="left">Sepal.Width</td>
+<td align="right">-0.12</td>
+<td align="right">1.00</td>
+<td align="right">-0.43</td>
+<td align="right">-0.37</td>
+<td align="right">3.06</td>
+<td align="right">0.44</td>
+</tr>
+<tr class="odd">
+<td align="right">150</td>
+<td align="left">Petal.Length</td>
+<td align="right">0.87</td>
+<td align="right">-0.43</td>
+<td align="right">1.00</td>
+<td align="right">0.96</td>
+<td align="right">3.76</td>
+<td align="right">1.77</td>
+</tr>
+<tr class="even">
+<td align="right">150</td>
+<td align="left">Petal.Width</td>
+<td align="right">0.82</td>
+<td align="right">-0.37</td>
+<td align="right">0.96</td>
+<td align="right">1.00</td>
+<td align="right">1.20</td>
+<td align="right">0.76</td>
+</tr>
+</tbody>
+</table>
+<p>You can also group your data and change the digits to round.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/get_params.html">get_params</a></span>(iris, 
            <span class="dt">between =</span> <span class="st">"Species"</span>, 
-           <span class="dt">digits =</span> <span class="dv">3</span>, 
-           <span class="dt">usekable =</span> <span class="ot">TRUE</span>)</code></pre></div>
+           <span class="dt">digits =</span> <span class="dv">3</span>)</code></pre></div>
 <table class="table table">
 <thead><tr class="header">
 <th align="left">Species</th>
@@ -314,133 +449,133 @@ iris5 &lt;-<span class="st"> </span><span class="kw"><a href="reference/messy.ht
 <td align="left">setosa</td>
 <td align="right">50</td>
 <td align="left">Sepal.Length</td>
-<td align="right">1.000</td>
-<td align="right">0.743</td>
-<td align="right">0.267</td>
-<td align="right">0.278</td>
-<td align="right">5.006</td>
-<td align="right">0.352</td>
+<td align="right">1.00</td>
+<td align="right">0.74</td>
+<td align="right">0.27</td>
+<td align="right">0.28</td>
+<td align="right">5.01</td>
+<td align="right">0.35</td>
 </tr>
 <tr class="even">
 <td align="left">setosa</td>
 <td align="right">50</td>
 <td align="left">Sepal.Width</td>
-<td align="right">0.743</td>
-<td align="right">1.000</td>
-<td align="right">0.178</td>
-<td align="right">0.233</td>
-<td align="right">3.428</td>
-<td align="right">0.379</td>
+<td align="right">0.74</td>
+<td align="right">1.00</td>
+<td align="right">0.18</td>
+<td align="right">0.23</td>
+<td align="right">3.43</td>
+<td align="right">0.38</td>
 </tr>
 <tr class="odd">
 <td align="left">setosa</td>
 <td align="right">50</td>
 <td align="left">Petal.Length</td>
-<td align="right">0.267</td>
-<td align="right">0.178</td>
-<td align="right">1.000</td>
-<td align="right">0.332</td>
-<td align="right">1.462</td>
-<td align="right">0.174</td>
+<td align="right">0.27</td>
+<td align="right">0.18</td>
+<td align="right">1.00</td>
+<td align="right">0.33</td>
+<td align="right">1.46</td>
+<td align="right">0.17</td>
 </tr>
 <tr class="even">
 <td align="left">setosa</td>
 <td align="right">50</td>
 <td align="left">Petal.Width</td>
-<td align="right">0.278</td>
-<td align="right">0.233</td>
-<td align="right">0.332</td>
-<td align="right">1.000</td>
-<td align="right">0.246</td>
-<td align="right">0.105</td>
+<td align="right">0.28</td>
+<td align="right">0.23</td>
+<td align="right">0.33</td>
+<td align="right">1.00</td>
+<td align="right">0.25</td>
+<td align="right">0.11</td>
 </tr>
 <tr class="odd">
 <td align="left">versicolor</td>
 <td align="right">50</td>
 <td align="left">Sepal.Length</td>
-<td align="right">1.000</td>
-<td align="right">0.526</td>
-<td align="right">0.754</td>
-<td align="right">0.546</td>
-<td align="right">5.936</td>
-<td align="right">0.516</td>
+<td align="right">1.00</td>
+<td align="right">0.53</td>
+<td align="right">0.75</td>
+<td align="right">0.55</td>
+<td align="right">5.94</td>
+<td align="right">0.52</td>
 </tr>
 <tr class="even">
 <td align="left">versicolor</td>
 <td align="right">50</td>
 <td align="left">Sepal.Width</td>
-<td align="right">0.526</td>
-<td align="right">1.000</td>
-<td align="right">0.561</td>
-<td align="right">0.664</td>
-<td align="right">2.770</td>
-<td align="right">0.314</td>
+<td align="right">0.53</td>
+<td align="right">1.00</td>
+<td align="right">0.56</td>
+<td align="right">0.66</td>
+<td align="right">2.77</td>
+<td align="right">0.31</td>
 </tr>
 <tr class="odd">
 <td align="left">versicolor</td>
 <td align="right">50</td>
 <td align="left">Petal.Length</td>
-<td align="right">0.754</td>
-<td align="right">0.561</td>
-<td align="right">1.000</td>
-<td align="right">0.787</td>
-<td align="right">4.260</td>
-<td align="right">0.470</td>
+<td align="right">0.75</td>
+<td align="right">0.56</td>
+<td align="right">1.00</td>
+<td align="right">0.79</td>
+<td align="right">4.26</td>
+<td align="right">0.47</td>
 </tr>
 <tr class="even">
 <td align="left">versicolor</td>
 <td align="right">50</td>
 <td align="left">Petal.Width</td>
-<td align="right">0.546</td>
-<td align="right">0.664</td>
-<td align="right">0.787</td>
-<td align="right">1.000</td>
-<td align="right">1.326</td>
-<td align="right">0.198</td>
+<td align="right">0.55</td>
+<td align="right">0.66</td>
+<td align="right">0.79</td>
+<td align="right">1.00</td>
+<td align="right">1.33</td>
+<td align="right">0.20</td>
 </tr>
 <tr class="odd">
 <td align="left">virginica</td>
 <td align="right">50</td>
 <td align="left">Sepal.Length</td>
-<td align="right">1.000</td>
-<td align="right">0.457</td>
-<td align="right">0.864</td>
-<td align="right">0.281</td>
-<td align="right">6.588</td>
-<td align="right">0.636</td>
+<td align="right">1.00</td>
+<td align="right">0.46</td>
+<td align="right">0.86</td>
+<td align="right">0.28</td>
+<td align="right">6.59</td>
+<td align="right">0.64</td>
 </tr>
 <tr class="even">
 <td align="left">virginica</td>
 <td align="right">50</td>
 <td align="left">Sepal.Width</td>
-<td align="right">0.457</td>
-<td align="right">1.000</td>
-<td align="right">0.401</td>
-<td align="right">0.538</td>
-<td align="right">2.974</td>
-<td align="right">0.322</td>
+<td align="right">0.46</td>
+<td align="right">1.00</td>
+<td align="right">0.40</td>
+<td align="right">0.54</td>
+<td align="right">2.97</td>
+<td align="right">0.32</td>
 </tr>
 <tr class="odd">
 <td align="left">virginica</td>
 <td align="right">50</td>
 <td align="left">Petal.Length</td>
-<td align="right">0.864</td>
-<td align="right">0.401</td>
-<td align="right">1.000</td>
-<td align="right">0.322</td>
-<td align="right">5.552</td>
-<td align="right">0.552</td>
+<td align="right">0.86</td>
+<td align="right">0.40</td>
+<td align="right">1.00</td>
+<td align="right">0.32</td>
+<td align="right">5.55</td>
+<td align="right">0.55</td>
 </tr>
 <tr class="even">
 <td align="left">virginica</td>
 <td align="right">50</td>
 <td align="left">Petal.Width</td>
-<td align="right">0.281</td>
-<td align="right">0.538</td>
-<td align="right">0.322</td>
-<td align="right">1.000</td>
-<td align="right">2.026</td>
-<td align="right">0.275</td>
+<td align="right">0.28</td>
+<td align="right">0.54</td>
+<td align="right">0.32</td>
+<td align="right">1.00</td>
+<td align="right">2.03</td>
+<td align="right">0.27</td>
 </tr>
 </tbody>
 </table>
@@ -460,15 +595,354 @@ iris5 &lt;-<span class="st"> </span><span class="kw"><a href="reference/messy.ht
 <div id="long2wide" class="section level3">
 <h3 class="hasAnchor">
 <a href="#long2wide" class="anchor"></a>long2wide</h3>
+<p>Convert a data table made with faux from long to wide.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">between &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"pet"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>))
 within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"time"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"day"</span>, <span class="st">"night"</span>))
-df_long &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">long =</span> <span class="ot">TRUE</span>)
+df_long &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">long =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+df_wide &lt;-<span class="st"> </span><span class="kw"><a href="reference/long2wide.html">long2wide</a></span>(df_long)</code></pre></div>
+<table class="table table">
+<thead><tr class="header">
+<th align="left">id</th>
+<th align="left">pet</th>
+<th align="right">day</th>
+<th align="right">night</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">S001</td>
+<td align="left">cat</td>
+<td align="right">-0.0347147</td>
+<td align="right">1.5105698</td>
+</tr>
+<tr class="even">
+<td align="left">S002</td>
+<td align="left">cat</td>
+<td align="right">-0.5051186</td>
+<td align="right">-0.4522431</td>
+</tr>
+<tr class="odd">
+<td align="left">S003</td>
+<td align="left">cat</td>
+<td align="right">1.8291583</td>
+<td align="right">1.7818256</td>
+</tr>
+<tr class="even">
+<td align="left">S004</td>
+<td align="left">cat</td>
+<td align="right">-0.0000209</td>
+<td align="right">-0.9205406</td>
+</tr>
+<tr class="odd">
+<td align="left">S005</td>
+<td align="left">cat</td>
+<td align="right">0.6225227</td>
+<td align="right">-1.6738404</td>
+</tr>
+<tr class="even">
+<td align="left">S006</td>
+<td align="left">cat</td>
+<td align="right">-0.1652104</td>
+<td align="right">-0.5590092</td>
+</tr>
+</tbody>
+</table>
+<p>If you have a data table not made by faux, you need to specify the within-subject columns, the between-subject columns, the DV column, and the ID column.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># make a long data table</span>
+df_long &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/expand.grid">expand.grid</a></span>(
+  <span class="dt">sub_id =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>,
+  <span class="dt">A =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A1"</span>, <span class="st">"A2"</span>),
+  <span class="dt">B =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"B1"</span>, <span class="st">"B2"</span>)
+)
+df_long<span class="op">$</span>C &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"C1"</span>, <span class="st">"C2"</span>), <span class="dv">20</span>)
+df_long<span class="op">$</span>score &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Normal">rnorm</a></span>(<span class="dv">40</span>)
 
-df_wide &lt;-<span class="st"> </span><span class="kw"><a href="reference/long2wide.html">long2wide</a></span>(df_long, 
-                     <span class="dt">within =</span> <span class="st">"time"</span>, 
-                     <span class="dt">between =</span> <span class="st">"pet"</span>, 
-                     <span class="dt">dv =</span> <span class="st">"val"</span>, 
-                     <span class="dt">id =</span> <span class="st">"sub_id"</span>)</code></pre></div>
+<span class="co"># convert it to wide</span>
+df_wide &lt;-<span class="st"> </span><span class="kw"><a href="reference/long2wide.html">long2wide</a></span>(df_long, <span class="dt">within =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"A"</span>, <span class="st">"B"</span>), 
+                     <span class="dt">between =</span> <span class="st">"C"</span>, <span class="dt">dv =</span> <span class="st">"score"</span>, <span class="dt">id =</span> <span class="st">"sub_id"</span>)</code></pre></div>
+<table class="table table">
+<thead><tr class="header">
+<th align="right">sub_id</th>
+<th align="left">C</th>
+<th align="right">A1_B1</th>
+<th align="right">A1_B2</th>
+<th align="right">A2_B1</th>
+<th align="right">A2_B2</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">C1</td>
+<td align="right">1.4631896</td>
+<td align="right">-0.4020738</td>
+<td align="right">1.2455009</td>
+<td align="right">0.3306340</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">C2</td>
+<td align="right">-0.4793959</td>
+<td align="right">-0.7593425</td>
+<td align="right">0.6539356</td>
+<td align="right">-0.2755524</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">C1</td>
+<td align="right">-1.0252407</td>
+<td align="right">-0.3717975</td>
+<td align="right">-1.8197616</td>
+<td align="right">-1.8353268</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">C2</td>
+<td align="right">1.2685120</td>
+<td align="right">-1.7501269</td>
+<td align="right">-0.2909306</td>
+<td align="right">-1.5885073</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">C1</td>
+<td align="right">-0.0801966</td>
+<td align="right">-0.4632147</td>
+<td align="right">0.1897334</td>
+<td align="right">1.0284519</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">C2</td>
+<td align="right">0.1776828</td>
+<td align="right">-0.8357488</td>
+<td align="right">1.3654436</td>
+<td align="right">-0.6815494</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="wide2long" class="section level3">
+<h3 class="hasAnchor">
+<a href="#wide2long" class="anchor"></a>wide2long</h3>
+<p>You can convert a data table made by faux from wide to long easily.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">between &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"pet"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>))
+within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="st">"time"</span> =<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"day"</span>, <span class="st">"night"</span>))
+df_wide &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">long =</span> <span class="ot">FALSE</span>)</code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-14-1.png" width="768"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df_long &lt;-<span class="st"> </span><span class="kw"><a href="reference/wide2long.html">wide2long</a></span>(df_wide)</code></pre></div>
+<table class="table table">
+<thead><tr class="header">
+<th align="left">id</th>
+<th align="left">pet</th>
+<th align="left">time</th>
+<th align="right">y</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">S001</td>
+<td align="left">cat</td>
+<td align="left">day</td>
+<td align="right">0.4981240</td>
+</tr>
+<tr class="even">
+<td align="left">S002</td>
+<td align="left">cat</td>
+<td align="left">day</td>
+<td align="right">0.2747722</td>
+</tr>
+<tr class="odd">
+<td align="left">S003</td>
+<td align="left">cat</td>
+<td align="left">day</td>
+<td align="right">0.7590998</td>
+</tr>
+<tr class="even">
+<td align="left">S004</td>
+<td align="left">cat</td>
+<td align="left">day</td>
+<td align="right">0.7139005</td>
+</tr>
+<tr class="odd">
+<td align="left">S005</td>
+<td align="left">cat</td>
+<td align="left">day</td>
+<td align="right">-0.7860974</td>
+</tr>
+<tr class="even">
+<td align="left">S006</td>
+<td align="left">cat</td>
+<td align="left">day</td>
+<td align="right">-2.1671957</td>
+</tr>
+</tbody>
+</table>
+<p>If you have a data table not made by faux, you need to specify the within-subject factors and columns, and specify the names of the ID and DV columns to create.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">long_iris &lt;-<span class="st"> </span><span class="kw"><a href="reference/wide2long.html">wide2long</a></span>(
+    iris,
+    <span class="dt">within_factors =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"feature"</span>, <span class="st">"dimension"</span>),
+    <span class="dt">within_cols =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>,
+    <span class="dt">dv =</span> <span class="st">"value"</span>,
+    <span class="dt">id =</span> <span class="st">"flower_id"</span>
+  )</code></pre></div>
+<table class="table table">
+<thead><tr class="header">
+<th align="left">Species</th>
+<th align="left">flower_id</th>
+<th align="left">feature</th>
+<th align="left">dimension</th>
+<th align="right">value</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="left">S001</td>
+<td align="left">Sepal</td>
+<td align="left">Length</td>
+<td align="right">5.1</td>
+</tr>
+<tr class="even">
+<td align="left">setosa</td>
+<td align="left">S002</td>
+<td align="left">Sepal</td>
+<td align="left">Length</td>
+<td align="right">4.9</td>
+</tr>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="left">S003</td>
+<td align="left">Sepal</td>
+<td align="left">Length</td>
+<td align="right">4.7</td>
+</tr>
+<tr class="even">
+<td align="left">setosa</td>
+<td align="left">S004</td>
+<td align="left">Sepal</td>
+<td align="left">Length</td>
+<td align="right">4.6</td>
+</tr>
+<tr class="odd">
+<td align="left">setosa</td>
+<td align="left">S005</td>
+<td align="left">Sepal</td>
+<td align="left">Length</td>
+<td align="right">5.0</td>
+</tr>
+<tr class="even">
+<td align="left">setosa</td>
+<td align="left">S006</td>
+<td align="left">Sepal</td>
+<td align="left">Length</td>
+<td align="right">5.4</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="get_design_long" class="section level3">
+<h3 class="hasAnchor">
+<a href="#get_design_long" class="anchor"></a>get_design_long</h3>
+<p>Once you have a dataframe in long format, you can recover the design from it.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">design &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_design_long.html">get_design_long</a></span>(long_iris, <span class="dt">dv =</span> <span class="st">"value"</span>, <span class="dt">id =</span> <span class="st">"flower_id"</span>)</code></pre></div>
+<p><img src="index_files/figure-html/unnamed-chunk-16-1.png" width="768"></p>
+</div>
+<div id="json_design" class="section level3">
+<h3 class="hasAnchor">
+<a href="#json_design" class="anchor"></a>json_design</h3>
+<p>Then you can use <code><a href="reference/json_design.html">json_design()</a></code> to save the design to a file or view it in JSON format (condensed or pretty).</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/json_design.html">json_design</a></span>(design)</code></pre></div>
+<pre>
+{"within":{"feature":{"Petal":"Petal","Sepal":"Sepal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":"value","id":"flower_id","n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Petal_Length":1.46,"Sepal_Length":5.01,"Petal_Width":0.25,"Sepal_Width":3.43},"versicolor":{"Petal_Length":4.26,"Sepal_Length":5.94,"Petal_Width":1.33,"Sepal_Width":2.77},"virginica":{"Petal_Length":5.55,"Sepal_Length":6.59,"Petal_Width":2.03,"Sepal_Width":2.97}},"sd":{"setosa":{"Petal_Length":0.17,"Sepal_Length":0.35,"Petal_Width":0.11,"Sepal_Width":0.38},"versicolor":{"Petal_Length":0.47,"Sepal_Length":0.52,"Petal_Width":0.2,"Sepal_Width":0.31},"virginica":{"Petal_Length":0.55,"Sepal_Length":0.64,"Petal_Width":0.27,"Sepal_Width":0.32}},"r":{"setosa":[[1,0.27,0.33,0.18],[0.27,1,0.28,0.74],[0.33,0.28,1,0.23],[0.18,0.74,0.23,1]],"versicolor":[[1,0.75,0.79,0.56],[0.75,1,0.55,0.53],[0.79,0.55,1,0.66],[0.56,0.53,0.66,1]],"virginica":[[1,0.86,0.32,0.4],[0.86,1,0.28,0.46],[0.32,0.28,1,0.54],[0.4,0.46,0.54,1]]}}
+</pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="reference/json_design.html">json_design</a></span>(design, <span class="dt">pretty =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre>
+{
+  "within": {
+    "feature": {
+      "Petal": "Petal",
+      "Sepal": "Sepal"
+    },
+    "dimension": {
+      "Length": "Length",
+      "Width": "Width"
+    }
+  },
+  "between": {
+    "Species": {
+      "setosa": "setosa",
+      "versicolor": "versicolor",
+      "virginica": "virginica"
+    }
+  },
+  "dv": "value",
+  "id": "flower_id",
+  "n": {
+    "setosa": 50,
+    "versicolor": 50,
+    "virginica": 50
+  },
+  "mu": {
+    "setosa": {
+      "Petal_Length": 1.46,
+      "Sepal_Length": 5.01,
+      "Petal_Width": 0.25,
+      "Sepal_Width": 3.43
+    },
+    "versicolor": {
+      "Petal_Length": 4.26,
+      "Sepal_Length": 5.94,
+      "Petal_Width": 1.33,
+      "Sepal_Width": 2.77
+    },
+    "virginica": {
+      "Petal_Length": 5.55,
+      "Sepal_Length": 6.59,
+      "Petal_Width": 2.03,
+      "Sepal_Width": 2.97
+    }
+  },
+  "sd": {
+    "setosa": {
+      "Petal_Length": 0.17,
+      "Sepal_Length": 0.35,
+      "Petal_Width": 0.11,
+      "Sepal_Width": 0.38
+    },
+    "versicolor": {
+      "Petal_Length": 0.47,
+      "Sepal_Length": 0.52,
+      "Petal_Width": 0.2,
+      "Sepal_Width": 0.31
+    },
+    "virginica": {
+      "Petal_Length": 0.55,
+      "Sepal_Length": 0.64,
+      "Petal_Width": 0.27,
+      "Sepal_Width": 0.32
+    }
+  },
+  "r": {
+    "setosa": [
+      [1, 0.27, 0.33, 0.18],
+      [0.27, 1, 0.28, 0.74],
+      [0.33, 0.28, 1, 0.23],
+      [0.18, 0.74, 0.23, 1]
+    ],
+    "versicolor": [
+      [1, 0.75, 0.79, 0.56],
+      [0.75, 1, 0.55, 0.53],
+      [0.79, 0.55, 1, 0.66],
+      [0.56, 0.53, 0.66, 1]
+    ],
+    "virginica": [
+      [1, 0.86, 0.32, 0.4],
+      [0.86, 1, 0.28, 0.46],
+      [0.32, 0.28, 1, 0.54],
+      [0.4, 0.46, 0.54, 1]
+    ]
+  }
+}
+</pre>
 </div>
 <div id="pos_def_limits" class="section level3">
 <h3 class="hasAnchor">

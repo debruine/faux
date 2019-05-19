@@ -4,14 +4,10 @@
 \alias{plot_design}
 \title{Plot design}
 \usage{
-plot_design(design, id = "sub_id", dv = "val")
+plot_design(design)
 }
 \arguments{
 \item{design}{A list of design parameters created by check_design() or a data tbl (in long format)}
-
-\item{id}{the column name(s) that identify a unit of analysis}
-
-\item{dv}{the column name that identifies the DV}
 }
 \value{
 plot
@@ -23,6 +19,7 @@ plot
 
 within <- list(time = c("day", "night"))
 between <- list(pet = c("dog", "cat"))
-check_design(within, between) \%>\% plot_design()
+des <- check_design(within, between, plot = FALSE)
+plot_design(des)
 
 }

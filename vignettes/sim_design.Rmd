@@ -27,7 +27,6 @@ set.seed(200)
 
 The `sim_design()` function creates a dataset with a specific between- and within-subjects design. 
 
-
 ## Quick example
 
 For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is `pet` with two levels (`cat` and `dog`). The within-subject factor is `time` with two levels (`day` and `night`). The mean for the `cat_day` cell is 10, the mean for the `cat_night` cell is 20, the mean for the `dog_day` cell is 15, and the mean for the `dog_night` cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set `empirical = FALSE` to sample from a population with these values). Set `plot = TRUE` to show a plot of means and SDs.
@@ -46,12 +45,12 @@ df <- sim_design(within, between, n = 100, mu = mu, sd = 5, r = 0.5,
 
 
 ```{r echo = FALSE, result='asis'}
-get_params(df, between = "pet", usekable = TRUE)
+get_params(df, between = "pet") %>% knitr::kable()
 ```
 
 ```{r, echo = FALSE, fig.width = 8, fig.height = 4}
-gather(df, time, val, day:night) %>%
-  ggplot(aes(pet, val, fill = pet)) +
+gather(df, time, y, day:night) %>%
+  ggplot(aes(pet, y, fill = pet)) +
   geom_violin(show.legend = FALSE) +
   geom_boxplot(width = .2, fill = "white", show.legend = FALSE) +
   facet_grid(~time) +
@@ -66,10 +65,10 @@ If you don't feel like naming your factors and levels, you can just put in a vec
 
 ```{r}
 df <- sim_design(within = c(2,3), between = c(2), 
-                 n = 5, mu = 0, sd = 1, r = 0.5)
+                 n = 10, mu = 0, sd = 1, r = 0.5)
 ```
 
-`r knitr::kable(df)`
+`r knitr::kable(df, digits = 2)`
 
 You can specify between-subject and within-subject factors as a list of vectors where the item names are the factor labels and the vectors are the level labels.
 
@@ -149,7 +148,7 @@ df <- sim_design(within, between, n = 100,
                  empirical = TRUE)
 ```
 
-`r get_params(df, between = "pet", usekable = TRUE)`
+`r get_params(df, between = "pet") %>% knitr::kable()`
 
 ## More factors
 
@@ -226,7 +225,7 @@ df %>%
   mutate(condition = forcats::fct_relevel(condition, names(within$condition))) %>%
   mutate(experience = forcats::fct_relevel(experience, names(between$experience))) %>%
   mutate(time = forcats::fct_relevel(time, names(between$time))) %>%
-  ggplot(aes(version, val, fill = condition, grp = condition)) +
+  ggplot(aes(version, y, fill = condition, grp = condition)) +
   geom_violin(show.legend = FALSE) +
   geom_boxplot(width = .2, fill = "white", 
                position = position_dodge(width = 0.9), 

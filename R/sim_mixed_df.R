@@ -1,6 +1,7 @@
-#' Generate a sample with random intercepts for subjects and items
+#' Generate a mixed design from existing data
 #'
-#' \code{sim_mixed_df()} produces a data table with the same distributions of by-subject and by-item random intercepts as an existing data table.
+#' \code{sim_mixed_df()} produces a data table with the same distributions of 
+#' by-subject and by-item random intercepts as an existing data table.
 #'
 #' @param .data the existing tbl
 #' @param sub_n the number of subjects to simulate (if NULL, returns data for the same subjects)
@@ -16,7 +17,7 @@
 #' @export
 
 sim_mixed_df <- function(.data, sub_n = NULL, item_n = NULL, 
-                        dv = 1, sub_id = 2, item_id = 3, seed = NULL) {
+                        dv = "y", sub_id = "sub_id", item_id = "item_id", seed = NULL) {
   
   params <- check_mixed_design(.data, dv, sub_id, item_id)
   

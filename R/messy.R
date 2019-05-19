@@ -1,7 +1,7 @@
-#' Mess up a dataset
+#' Simulate missing data
 #' 
-#' Insert NA or another replacement value for some proportion of specified columns. 
-#' This might be helpful to simulate missing data. Thanks for the idea, Emily Nordmann!
+#' Insert NA or another replacement value for some proportion of specified 
+#' columns to simulate missing data. 
 #'
 #' @param .data the tbl
 #' @param prop the proportion of data to mess up

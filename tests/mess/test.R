@@ -1,5 +1,41 @@
 library(tidyverse)
 library(purrr)
+library(faux)
+
+x <- runif(1000, 10, 20)
+y <- unif2norm(x, 10, 2, FALSE)
+mean(y)
+sd(y)
+
+x <- rnorm(10000, 10, 2)
+y <- pnorm(x, 10, 2)
+
+g <- ggplot2::ggplot() + ggplot2::geom_point(ggplot2::aes(x, y))
+ggExtra::ggMarginal(g, type = "histogram")
+
+
+x <- rnorm(1000, 10, 5)
+y <- norm2unif(x, 0, 5)
+
+g <- ggplot() + geom_point(aes(x, y))
+ggExtra::ggMarginal(g, type = "histogram")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 sim_cc <- function(sub_n, item_n, grand_i, sub_sd, item_sd, error_sd, ...) {
   data <- sim_mixed_cc(sub_n, item_n, grand_i, sub_sd, item_sd, error_sd)

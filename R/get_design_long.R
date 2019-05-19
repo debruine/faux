@@ -8,12 +8,15 @@
 #' @param .data the data frame (in long format)
 #' @param dv the column name that identifies the DV
 #' @param id the column name(s) that identify a unit of analysis
+#' @param plot whether to show a plot of the design
 #' 
 #' @return the data frame in long format
 #' 
 #' @export
 #'
-get_design_long <- function(.data, dv = "val", id = "sub_id") {
+get_design_long <- function(.data, dv = "y", id = "id", plot = TRUE) {
+  .data <- dplyr::ungroup(.data)
+  
   between_factors <- .data %>%
     dplyr::group_by_at(dplyr::vars(tidyselect::one_of(id))) %>%
     dplyr::summarise_all(dplyr::n_distinct) %>%
@@ -50,8 +53,8 @@ get_design_long <- function(.data, dv = "val", id = "sub_id") {
     purrr::map(fix_name_labels)
   
   # define columns
-  cells_w <- cell_combos(within)
-  cells_b <- cell_combos(between) 
+  cells_w <- cell_combos(within, dv)
+  cells_b <- cell_combos(between, dv) 
   
   # get n, mu, sd, r per cell
   chk <- check_sim_stats(.data, between_factors, within_factors, dv, id)
@@ -96,17 +99,6 @@ get_design_long <- function(.data, dv = "val", id = "sub_id") {
   r <- purrr::map(cors$r, ~tibble::column_to_rownames(., "var") %>% as.matrix())
   names(r) <- cors$.between
   
-  design <- list(
-    within = within,
-    between = between,
-    cells_w = cells_w,
-    cells_b = cells_b,
-    cell_n = n,
-    cell_mu = mu,
-    cell_sd = sd,
-    cell_r = r
-  )
-  
-  design
+  check_design(within, between, n, mu, sd, r, dv, id, plot)
 }
 

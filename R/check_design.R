@@ -1,14 +1,22 @@
-#' Validate design
-#'
-#' \code{check_design} validates the specified within and between design
-#'
+#' Validates the specified design
+#' 
+#' Specify any number of within- and between-subject factors with any number of 
+#' levels. Specify n for each between-subject cell; mu and sd for each cell, and
+#' r for the within-subject cells for each between-subject cell.
+#' 
+#' This function returns a validated design list for use in sim_design_ to 
+#' simulate a data table with this design, or to archive your design.
+#' 
 #' @param within a list of the within-subject factors
 #' @param between a list of the between-subject factors
 #' @param n the number of samples required
 #' @param mu a vector giving the means of the variables
 #' @param sd the standard deviations of the variables
 #' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
+#' @param dv the name of the dv column (y)
+#' @param id the name of the ID column (id)
 #' @param plot whether to show a plot of the design
+#' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' 
 #' @return list
 #' 
@@ -26,7 +34,17 @@
 #' @export
 #' 
 check_design <- function(within = list(), between = list(), 
-                         n = 100, mu = 0, sd = 1, r = 0, plot = TRUE) {
+                         n = 100, mu = 0, sd = 1, r = 0, 
+                         dv = "y", id = "id", plot = TRUE, design = NULL) {
+  # design passed as design list
+  if (!is.null(design)) {
+    # double-check the entered design
+    list2env(design, envir = environment())
+  } else if ("design" %in% class(within)) {
+    # design given as first argument: not ideal but handle it
+    list2env(within, envir = environment())
+  }
+  
   # name anonymous factors
   if (is.numeric(within) && within %in% 2:10 %>% mean() == 1) { # vector of level numbers
     within_names <- LETTERS[1:length(within)]
@@ -42,8 +60,6 @@ check_design <- function(within = list(), between = list(),
   # check factor specification
   if (!is.list(within) || !is.list(between)) {
     stop("within and between must be lists")
-  } else if (length(within) == 0 && length(between) == 0) {
-    stop("You must specify at least one factor")
   }
   
   # if within or between factors are named vectors, 
@@ -75,11 +91,14 @@ check_design <- function(within = list(), between = list(),
   }
   
   # define columns
-  cells_w <- cell_combos(within)
-  cells_b <- cell_combos(between) 
+  cells_w <- cell_combos(within, dv)
+  cells_b <- cell_combos(between, dv) 
   
   # convert n, mu and sd from vector/list formats
   cell_n  <- convert_param(n,  cells_w, cells_b, "Ns")
+  for (i in names(cell_n)) {
+    cell_n[[i]] <- cell_n[[i]][[1]]
+  }
   cell_mu <- convert_param(mu, cells_w, cells_b, "means")
   cell_sd <- convert_param(sd, cells_w, cells_b, "SDs")
   
@@ -98,13 +117,15 @@ check_design <- function(within = list(), between = list(),
   design <- list(
     within = within,
     between = between,
-    cells_w = cells_w,
-    cells_b = cells_b,
-    cell_n = cell_n,
-    cell_mu = cell_mu,
-    cell_sd = cell_sd,
-    cell_r = cell_r
+    dv = dv,
+    id = id,
+    n = cell_n,
+    mu = cell_mu,
+    sd = cell_sd,
+    r = cell_r
   )
+  
+  class(design) <- c("design", "list")
   
   if (plot) { plot_design(design) %>% print() }
   
@@ -116,17 +137,19 @@ check_design <- function(within = list(), between = list(),
 #' Creates wide cell combination names, such as A1_B1, A2_B1, A1_B2, A2_B2.
 #' 
 #' @param factors A list of factors
+#' @param dv name of dv column ("y")
 #' 
 #' @return a list
 #' @keywords internal
 #' 
-cell_combos <- function(factors) {
+cell_combos <- function(factors, dv = "y") {
   if (length(factors) == 0) {
-    cells = "val"
+    cells = dv
   } else {
     cells <- lapply(factors, names) %>%
       do.call(expand.grid, .) %>%
-      tidyr::unite("b", 1:ncol(.)) %>% dplyr::pull("b")
+      tidyr::unite("b", 1:ncol(.)) %>% 
+      dplyr::pull("b")
   }
   
   cells
@@ -164,7 +187,7 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
       param <- t(param) %>% as.data.frame()
       param <- as.list(param) %>%  lapply(magrittr::set_names, rownames(param))
     } else {
-      stop("The ", type, " dataframe is misspecified.")
+      stop("The ", type, " data table is misspecified.")
     }
   }
   
@@ -187,7 +210,6 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
     }
     
     if (length(cells_b) == 0) { # no between-subject factors
-      message("no between-subject factors")
       if (length(param) == 1) { 
         param2 <- rep(param, w_n)
       } else if (length(param) != w_n) {
@@ -215,5 +237,27 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
   colnames(dd) <- cells_b
   rownames(dd) <- cells_w
   
-  t(dd) %>% as.data.frame()
+  # all-list version
+  dd <- dd %>% as.data.frame() %>% as.list()
+  lapply(dd, function(x) { names(x) <- cells_w; as.list(x) } )
+  
+  # data frame version
+  #t(dd) %>% as.data.frame()
+}
+
+#' Fix name labels
+#' 
+#' Fixes if a factor list does not have named levels or has special characters in the names
+#' 
+#' @param x the list to fix
+#' 
+#' @return the fixed list
+#' @keywords internal
+#' 
+fix_name_labels <- function(x) {
+  if (is.null(names(x))) { names(x) <- x }
+  nm <- names(x)
+  # get rid of non-word characters and underscores because they mess up separate
+  names(x) <- gsub("(\\W|_)", ".", nm) 
+  as.list(x)
 }
