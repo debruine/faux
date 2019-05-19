@@ -121,5 +121,24 @@ testthat::test_that("backwards data frame", {
   expect_equal(unlist(cp) %>% unname(), 1:16)
 })
 
+# 1-col or 1-row data frames
+test_that("1-col/1-row df", {
+  # setup 
+  cells_b <- c("A1_B1", "A1_B2", "A2_B1", "A2_B2")
+  cells_w <- c("C1", "C2")
+  rows_b <- data.frame(1:4, row.names = cells_b)
+  cols_b <- t(rows_b) %>% as.data.frame()
+  
+  cb <- convert_param(cols_b, cells_w, cells_b)
+  rb <- convert_param(rows_b, cells_w, cells_b)
+  expect_equal(cb, rb)
+  
+  cols_w <- data.frame(C1 = 1, C2 = 2)
+  rows_w <- t(cols_w) %>% as.data.frame()
+  cw <- convert_param(cols_w, cells_w, cells_b)
+  rw <- convert_param(rows_w, cells_w, cells_b)
+  expect_equal(cw, rw)
+})
+
 
 

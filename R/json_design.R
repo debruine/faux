@@ -14,7 +14,8 @@
 #' @export
 #'
 #' @examples
-#' des <- check_design(2,2,)
+#' des <- check_design(2,2)
+#' json_design(des)
 #' json_design(des, pretty = TRUE)
 json_design <- function(design, filename = NULL, 
                         digits = 8, pretty = FALSE, ...) {
