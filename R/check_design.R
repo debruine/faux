@@ -180,15 +180,45 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
     rows_are_w <- setdiff(rownames(param), cells_w) %>% length() == 0
     cols_are_w <- setdiff(colnames(param), cells_w) %>% length() == 0
     rows_are_b <- setdiff(rownames(param), cells_b) %>% length() == 0
+    
+    # rotate/expand to dataframe with cols = cells_b and rows = cells_w 
     if (cols_are_b && rows_are_w) {
       # check this first in case rows and cols are the same labels
-      param <- as.list(param) %>%  lapply(magrittr::set_names, rownames(param))
     } else if (cols_are_w && rows_are_b) {
       param <- t(param) %>% as.data.frame()
-      param <- as.list(param) %>%  lapply(magrittr::set_names, rownames(param))
+    } else if (cols_are_b && nrow(param) == 1) {
+      # duplicate rows for each cells_w
+      param <- t(param) %>% as.data.frame()
+      names(param)[1] <- ".tempvar."
+      for (col in cells_w) {
+        param[col] <- param[,1]
+      }
+      param[,1] <- NULL
+      param <- t(param) %>% as.data.frame()
+    } else if (rows_are_b && ncol(param) == 1) {
+      names(param)[1] <- ".tempvar."
+      for (col in cells_w) {
+        param[col] <- param[,1]
+      }
+      param[,1] <- NULL
+      param <- t(param) %>% as.data.frame()
+    } else if (rows_are_w && ncol(param) == 1) {
+      for (col in cells_b) {
+        param[col] <- param[,1]
+      }
+      param[,1] <- NULL
+    } else if (cols_are_w && nrow(param) == 1) {
+      param <- t(param) %>% as.data.frame()
+      names(param)[1] <- ".tempvar."
+      for (col in cells_b) {
+        param[col] <- param[,1]
+      }
+      param[,1] <- NULL
     } else {
       stop("The ", type, " data table is misspecified.")
     }
+    # convert to named list with names = cells_b
+    param <- as.list(param) %>% lapply(magrittr::set_names, rownames(param))
   }
   
   if (is.list(param)) {

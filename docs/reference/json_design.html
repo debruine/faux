@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/plots.html">plotting</a>
+      <a href="../articles/plots.html">Plotting</a>
     </li>
     <li>
       <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
@@ -98,7 +98,7 @@
       <a href="../articles/sim_df.html">Simulate from Existing Data</a>
     </li>
     <li>
-      <a href="../articles/sim_mixed.html">sim_mixed</a>
+      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
   </ul>
 </li>
@@ -170,7 +170,7 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>des</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='check_design.html'>check_design</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>,)</div><div class='img'><img src='json_design-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>json_design</span>(<span class='no'>des</span>, <span class='kw'>pretty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; {
+    <pre class="examples"><div class='input'><span class='no'>des</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='check_design.html'>check_design</a></span>(<span class='fl'>2</span>,<span class='fl'>2</span>)</div><div class='img'><img src='json_design-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>json_design</span>(<span class='no'>des</span>)</div><div class='output co'>#&gt; {"within":{"A":{"A1":"A1","A2":"A2"}},"between":{"B":{"B1":"B1","B2":"B2"}},"dv":"y","id":"id","n":{"B1":100,"B2":100},"mu":{"B1":{"A1":0,"A2":0},"B2":{"A1":0,"A2":0}},"sd":{"B1":{"A1":1,"A2":1},"B2":{"A1":1,"A2":1}},"r":{"B1":[[1,0],[0,1]],"B2":[[1,0],[0,1]]}} </div><div class='input'><span class='fu'>json_design</span>(<span class='no'>des</span>, <span class='kw'>pretty</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='output co'>#&gt; {
 #&gt;   "within": {
 #&gt;     "A": {
 #&gt;       "A1": "A1",
