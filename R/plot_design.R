@@ -10,7 +10,8 @@
 #' 
 #' within <- list(time = c("day", "night"))
 #' between <- list(pet = c("dog", "cat"))
-#' check_design(within, between) %>% plot_design()
+#' des <- check_design(within, between, plot = FALSE)
+#' plot_design(des)
 #' 
 #' @export
 #' 
@@ -38,24 +39,27 @@ plot_design <- function(design) {
     data[[col]] <- factor(data[[col]], levels = lvl, labels = lbl)
   }
   
-  if (factor_n == 1) {
-    p <- ggplot2::ggplot(data, ggplot2::aes(!!f[[1]], !!dv))
+  if (factor_n == 0) {
+    p <- ggplot2::ggplot(data, ggplot2::aes(x = 0, y = !!dv)) +
+      ggplot2::xlab(dv) + ggplot2::theme_bw() +
+      ggplot2::theme(axis.text.x.bottom = ggplot2::element_blank(),
+                     axis.ticks.x.bottom = ggplot2::element_blank())
+  } else if (factor_n == 1) {
+    p <- ggplot2::ggplot(data, ggplot2::aes(!!f[[1]], !!dv)) + ggplot2::theme_bw()
   } else if (factor_n == 2) {
-    p <- ggplot2::ggplot(data, ggplot2::aes(!!f[[1]], !!dv, color = !!f[[2]]))
-  } else if (factor_n == 3) {
+    p <- ggplot2::ggplot(data, ggplot2::aes(!!f[[1]], !!dv, color = !!f[[2]])) + ggplot2::theme_bw()
+  } else  {
+    expr <- switch(factor_n,
+      NULL,
+      NULL,
+      rlang::expr(!!f[[3]] ~ .),
+      rlang::expr(!!f[[3]] ~ !!f[[4]]),
+      rlang::expr(!!f[[3]] ~ !!f[[4]]*!!f[[5]]),
+      rlang::expr(!!f[[3]]*!!f[[4]] ~ !!f[[5]]*!!f[[6]])
+    )
     p <- ggplot2::ggplot(data, ggplot2::aes(!!f[[1]], !!dv, color = !!f[[2]])) +
-      ggplot2::facet_grid(
-        eval(rlang::expr(!!f[[3]] ~ .)), 
-        labeller = "label_both"
-      )
-  } else {
-    p <- ggplot2::ggplot(data, ggplot2::aes(!!f[[1]], !!dv, color = !!f[[2]])) +
-      ggplot2::facet_grid(
-        eval(rlang::expr(!!f[[3]] ~ !!f[[4]])), 
-        labeller = "label_both"
-      )
-    
-    if (factor_n > 4) message("Can't plot more than 4 factors")
+      ggplot2::facet_grid(eval(expr), labeller = "label_both") + 
+      ggplot2::theme_bw()
   }
   
   minsd <- function(x) { mean(x) - sd(x) }
@@ -68,7 +72,6 @@ plot_design <- function(design) {
                                  shape = 10,
                                  size = 1,
                                  position = ggplot2::position_dodge(width = 0.9))
-  p <- p + ggplot2::theme_bw()
   
   p
 }

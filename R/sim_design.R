@@ -15,7 +15,7 @@
 #' @param plot whether to show a plot of the design
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param interactive whether to run the function interactively
-#' @param design a design list created by 
+#' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' 
 #' @return a tbl
 #' 
@@ -25,16 +25,16 @@
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
                        empirical = FALSE, long = FALSE, dv = "y", id = "id",
-                       plot = FALSE, seed = NULL, interactive = FALSE, design = NULL) {
+                       plot = TRUE, seed = NULL, interactive = FALSE, design = NULL) {
   # check the design is specified correctly
   if (interactive) {
     design <- interactive_design(plot = plot)
   } else if (!is.null(design)) {
     # double-check the entered design
-    design <- do.call(check_design, design)
+    design <- check_design(design = design, plot = plot)
   } else if ("design" %in% class(within)) {
     # design given as first argument: not ideal but handle it
-    design <- do.call(check_design, within)
+    design <- check_design(design = within, plot = plot)
   } else {
     design <- check_design(within = within, between = between, 
                          n = n, mu = mu, sd = sd, r = r, 

@@ -10,6 +10,7 @@ reference:
   desc: ~
   contents:
   - '`get_params`'
+  - '`json_design`'
   - '`make_id`'
   - '`messy`'
   - '`rnorm_multi`'
@@ -56,6 +57,7 @@ reference:
   - '`get_params`'
   - '`interactive_design`'
   - '`is_pos_def`'
+  - '`json_design`'
   - '`long2wide`'
   - '`make_id`'
   - '`messy`'

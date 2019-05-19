@@ -307,6 +307,39 @@ long_iris <- wide2long(
 
 `r head(long_iris) %>% knitr::kable()`
 
+### get_design_long
+
+Once you have a dataframe in long format, you can recover the design from it.
+
+```{r}
+design <- get_design_long(long_iris, dv = "value", id = "flower_id")
+```
+
+### json_design
+
+Then you can use `json_design()` to save the design to a file or view it in JSON format (condensed or pretty).
+
+```{r, eval = FALSE}
+json_design(design)
+```
+
+<pre>
+```{r, echo = FALSE, results='asis'}
+json_design(design) %>% cat()
+```
+</pre>
+
+
+```{r, eval = FALSE}
+json_design(design, pretty = TRUE)
+```
+
+<pre>
+```{r, echo = FALSE, results='asis'}
+json_design(design, pretty = TRUE) %>% cat()
+```
+</pre>
+
 ### pos_def_limits
 
 Not all correlation matrices are possible. For example, if variables A and B are correlated with r = 1.0, then the correlation between A and C can only be exactly equal to the correlation between B and C.

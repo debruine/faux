@@ -27,7 +27,6 @@ set.seed(200)
 
 The `sim_design()` function creates a dataset with a specific between- and within-subjects design. 
 
-
 ## Quick example
 
 For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is `pet` with two levels (`cat` and `dog`). The within-subject factor is `time` with two levels (`day` and `night`). The mean for the `cat_day` cell is 10, the mean for the `cat_night` cell is 20, the mean for the `dog_day` cell is 15, and the mean for the `dog_night` cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set `empirical = FALSE` to sample from a population with these values). Set `plot = TRUE` to show a plot of means and SDs.
@@ -66,7 +65,7 @@ If you don't feel like naming your factors and levels, you can just put in a vec
 
 ```{r}
 df <- sim_design(within = c(2,3), between = c(2), 
-                 n = 5, mu = 0, sd = 1, r = 0.5)
+                 n = 10, mu = 0, sd = 1, r = 0.5)
 ```
 
 `r knitr::kable(df, digits = 2)`

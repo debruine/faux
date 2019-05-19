@@ -43,5 +43,7 @@
 * Changed default ID column name from 'sub_id' to 'id'
 * `sim_design()` can take intercept-only designs
 * `rnorm_multi()` can take vars = 1 for intercept-only designs
-* Added `norm2unif()` and `unif2norm()` functions for converting between distributions
+* `json_design()` to output or save design specs in JSON format
+* Added functions for converting between distributions
+* More flexible plots
 

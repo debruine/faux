@@ -16,6 +16,7 @@
 #' @param dv the name of the dv column (y)
 #' @param id the name of the ID column (id)
 #' @param plot whether to show a plot of the design
+#' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' 
 #' @return list
 #' 
@@ -34,7 +35,16 @@
 #' 
 check_design <- function(within = list(), between = list(), 
                          n = 100, mu = 0, sd = 1, r = 0, 
-                         dv = "y", id = "id", plot = TRUE) {
+                         dv = "y", id = "id", plot = TRUE, design = NULL) {
+  # design passed as design list
+  if (!is.null(design)) {
+    # double-check the entered design
+    list2env(design, envir = environment())
+  } else if ("design" %in% class(within)) {
+    # design given as first argument: not ideal but handle it
+    list2env(within, envir = environment())
+  }
+  
   # name anonymous factors
   if (is.numeric(within) && within %in% 2:10 %>% mean() == 1) { # vector of level numbers
     within_names <- LETTERS[1:length(within)]

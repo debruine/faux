@@ -1,8 +1,8 @@
 ---
-title: "sim_mixed"
+title: "Mixed Design Simulation"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{sim_mixed}
+  %\VignetteIndexEntry{Mixed Design Simulation}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

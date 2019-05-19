@@ -6,7 +6,7 @@
 \usage{
 sim_design(within = list(), between = list(), n = 100, mu = 0,
   sd = 1, r = 0, empirical = FALSE, long = FALSE, dv = "y",
-  id = "id", plot = FALSE, seed = NULL, interactive = FALSE,
+  id = "id", plot = TRUE, seed = NULL, interactive = FALSE,
   design = NULL)
 }
 \arguments{
@@ -36,7 +36,7 @@ sim_design(within = list(), between = list(), n = 100, mu = 0,
 
 \item{interactive}{whether to run the function interactively}
 
-\item{design}{a design list created by}
+\item{design}{a design list including within, between, n, mu, sd, r, dv, id}
 }
 \value{
 a tbl

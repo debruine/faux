@@ -5,7 +5,8 @@
 \title{Validates the specified design}
 \usage{
 check_design(within = list(), between = list(), n = 100, mu = 0,
-  sd = 1, r = 0, dv = "y", id = "id", plot = TRUE)
+  sd = 1, r = 0, dv = "y", id = "id", plot = TRUE,
+  design = NULL)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -25,6 +26,8 @@ check_design(within = list(), between = list(), n = 100, mu = 0,
 \item{id}{the name of the ID column (id)}
 
 \item{plot}{whether to show a plot of the design}
+
+\item{design}{a design list including within, between, n, mu, sd, r, dv, id}
 }
 \value{
 list

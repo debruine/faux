@@ -1,7 +1,7 @@
 Package: faux
 Title: Simulation Functions
 Version: 0.0.0.9011
-Date: 2019-05-17
+Date: 2019-05-19
 Authors@R: person(given = "Lisa", family = "DeBruine", role = c("aut", "cre"), email = "debruine@gmail.com", comment = c(ORCID = "0000-0002-7523-5539"))
 Description: Provides functions for simulating multiple variables with specified relationships.
 Depends:
@@ -18,7 +18,8 @@ Imports:
     stats,
     ggplot2,
     rlang,
-    broom.mixed
+    broom.mixed,
+    jsonlite
 License: MIT + file LICENSE
 Suggests:
     testthat (>= 2.1.0),

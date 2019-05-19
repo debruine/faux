@@ -112,10 +112,10 @@ lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
 
 |effect   |group    |term            | estimate| std.error| statistic|
 |:--------|:--------|:---------------|--------:|---------:|---------:|
-|fixed    |NA       |(Intercept)     |    9.969|     0.328|    30.383|
-|ran_pars |sub_id   |sd__(Intercept) |    1.066|        NA|        NA|
-|ran_pars |item_id  |sd__(Intercept) |    2.174|        NA|        NA|
-|ran_pars |Residual |sd__Observation |    3.009|        NA|        NA|
+|fixed    |NA       |(Intercept)     |   10.485|     0.316|    33.218|
+|ran_pars |sub_id   |sd__(Intercept) |    1.028|        NA|        NA|
+|ran_pars |item_id  |sd__(Intercept) |    2.089|        NA|        NA|
+|ran_pars |Residual |sd__Observation |    2.956|        NA|        NA|
 
 ## sim_mixed_df
 
@@ -158,9 +158,9 @@ dat <- rnorm_multi(
 
 |   n|var |    A|    B|    C|  mean|   sd|
 |---:|:---|----:|----:|----:|-----:|----:|
-| 100|A   | 1.00| 0.47| 0.54| -0.06| 0.99|
-| 100|B   | 0.47| 1.00| 0.38| 20.18| 4.83|
-| 100|C   | 0.54| 0.38| 1.00| 20.22| 5.28|
+| 100|A   | 1.00| 0.42| 0.49|  0.06| 0.98|
+| 100|B   | 0.42| 1.00| 0.20| 20.68| 4.92|
+| 100|C   | 0.49| 0.20| 1.00| 19.88| 5.16|
 
 
 Table: Sample `rnorm_multi()` stats
@@ -184,7 +184,7 @@ list(
   r = cor(x,y)
 ) %>% str()
 #> List of 3
-#>  $ mean: num -2.02e-18
+#>  $ mean: num 8.35e-18
 #>  $ sd  : num 1
 #>  $ r   : num 0.5
 ```
@@ -302,12 +302,12 @@ df_wide <- long2wide(df_long)
 
 |id   |pet |        day|      night|
 |:----|:---|----------:|----------:|
-|S001 |cat | -1.4157156| -0.8879859|
-|S002 |cat | -1.5842292|  1.1740932|
-|S003 |cat | -0.2110964|  0.4919572|
-|S004 |cat | -0.0449758|  1.4579468|
-|S005 |cat | -1.0327345| -0.4851784|
-|S006 |cat |  0.3874371| -0.4760617|
+|S001 |cat | -1.2450468| -0.0771657|
+|S002 |cat |  0.0123018|  0.1105814|
+|S003 |cat |  0.3731138| -0.3988119|
+|S004 |cat | -1.0919992|  0.2970545|
+|S005 |cat | -1.2187853| -0.2190417|
+|S006 |cat |  0.5272573| -0.0768018|
 
 
 
@@ -333,12 +333,12 @@ df_wide <- long2wide(df_long, within = c("A", "B"),
 
 | sub_id|C  |      A1_B1|      A1_B2|      A2_B1|      A2_B2|
 |------:|:--|----------:|----------:|----------:|----------:|
-|      1|C1 | -2.2907609|  1.9794976|  1.2591902|  0.5426446|
-|      2|C2 |  0.5127177| -0.5140833|  1.8650155|  0.6959166|
-|      3|C1 | -0.2004224|  1.8086673|  0.0848901| -0.4180747|
-|      4|C2 | -0.6547488| -2.0335370| -2.4013606| -0.0420868|
-|      5|C1 | -0.1735685|  0.1849835|  0.1427584| -0.6149862|
-|      6|C2 |  0.4064785|  0.6477702|  0.2244941| -0.1474820|
+|      1|C1 |  0.0560698|  0.1075098| -1.4729780| -0.7608473|
+|      2|C2 |  0.5557781|  0.2453513| -0.0070704|  0.7536826|
+|      3|C1 |  1.5172716| -0.5159651| -0.2322015|  1.2459601|
+|      4|C2 |  0.0110923|  0.6606082|  1.4428787| -0.9280972|
+|      5|C1 |  0.8529061| -0.2005553|  2.1043959|  0.3007104|
+|      6|C2 | -1.5866455|  1.6799572| -0.9315955|  2.6100908|
 
 
 
@@ -349,6 +349,8 @@ You can convert a data table made by faux from wide to long easily.
 
 
 ```r
+between <- list("pet" = c("cat", "dog"))
+within <- list("time" = c("day", "night"))
 df_wide <- sim_design(within, between, long = FALSE)
 df_long <- wide2long(df_wide)
 ```
@@ -357,12 +359,12 @@ df_long <- wide2long(df_wide)
 
 |id   |pet |time |          y|
 |:----|:---|:----|----------:|
-|S001 |cat |day  | -2.0228264|
-|S002 |cat |day  | -0.7697493|
-|S003 |cat |day  | -0.2569064|
-|S004 |cat |day  |  0.0446564|
-|S005 |cat |day  |  0.7007625|
-|S006 |cat |day  | -2.4742615|
+|S001 |cat |day  | -0.0226051|
+|S002 |cat |day  |  0.4514095|
+|S003 |cat |day  |  1.1135601|
+|S004 |cat |day  | -0.8790609|
+|S005 |cat |day  |  0.3099769|
+|S006 |cat |day  |  1.6095301|
 
 
 
@@ -391,7 +393,124 @@ long_iris <- wide2long(
 
 
 
+### get_design_long
 
+Once you have a dataframe in long format, you can recover the design from it.
+
+
+```r
+design <- get_design_long(long_iris, dv = "value", id = "flower_id")
+```
+
+![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16-1.png)
+
+### json_design
+
+Then you can use `json_design()` to save the design to a file or view it in JSON format (condensed or pretty).
+
+
+```r
+json_design(design)
+```
+
+<pre>
+{"within":{"feature":{"Petal":"Petal","Sepal":"Sepal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":"value","id":"flower_id","n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Petal_Length":1.46,"Sepal_Length":5.01,"Petal_Width":0.25,"Sepal_Width":3.43},"versicolor":{"Petal_Length":4.26,"Sepal_Length":5.94,"Petal_Width":1.33,"Sepal_Width":2.77},"virginica":{"Petal_Length":5.55,"Sepal_Length":6.59,"Petal_Width":2.03,"Sepal_Width":2.97}},"sd":{"setosa":{"Petal_Length":0.17,"Sepal_Length":0.35,"Petal_Width":0.11,"Sepal_Width":0.38},"versicolor":{"Petal_Length":0.47,"Sepal_Length":0.52,"Petal_Width":0.2,"Sepal_Width":0.31},"virginica":{"Petal_Length":0.55,"Sepal_Length":0.64,"Petal_Width":0.27,"Sepal_Width":0.32}},"r":{"setosa":[[1,0.27,0.33,0.18],[0.27,1,0.28,0.74],[0.33,0.28,1,0.23],[0.18,0.74,0.23,1]],"versicolor":[[1,0.75,0.79,0.56],[0.75,1,0.55,0.53],[0.79,0.55,1,0.66],[0.56,0.53,0.66,1]],"virginica":[[1,0.86,0.32,0.4],[0.86,1,0.28,0.46],[0.32,0.28,1,0.54],[0.4,0.46,0.54,1]]}}
+</pre>
+
+
+
+```r
+json_design(design, pretty = TRUE)
+```
+
+<pre>
+{
+  "within": {
+    "feature": {
+      "Petal": "Petal",
+      "Sepal": "Sepal"
+    },
+    "dimension": {
+      "Length": "Length",
+      "Width": "Width"
+    }
+  },
+  "between": {
+    "Species": {
+      "setosa": "setosa",
+      "versicolor": "versicolor",
+      "virginica": "virginica"
+    }
+  },
+  "dv": "value",
+  "id": "flower_id",
+  "n": {
+    "setosa": 50,
+    "versicolor": 50,
+    "virginica": 50
+  },
+  "mu": {
+    "setosa": {
+      "Petal_Length": 1.46,
+      "Sepal_Length": 5.01,
+      "Petal_Width": 0.25,
+      "Sepal_Width": 3.43
+    },
+    "versicolor": {
+      "Petal_Length": 4.26,
+      "Sepal_Length": 5.94,
+      "Petal_Width": 1.33,
+      "Sepal_Width": 2.77
+    },
+    "virginica": {
+      "Petal_Length": 5.55,
+      "Sepal_Length": 6.59,
+      "Petal_Width": 2.03,
+      "Sepal_Width": 2.97
+    }
+  },
+  "sd": {
+    "setosa": {
+      "Petal_Length": 0.17,
+      "Sepal_Length": 0.35,
+      "Petal_Width": 0.11,
+      "Sepal_Width": 0.38
+    },
+    "versicolor": {
+      "Petal_Length": 0.47,
+      "Sepal_Length": 0.52,
+      "Petal_Width": 0.2,
+      "Sepal_Width": 0.31
+    },
+    "virginica": {
+      "Petal_Length": 0.55,
+      "Sepal_Length": 0.64,
+      "Petal_Width": 0.27,
+      "Sepal_Width": 0.32
+    }
+  },
+  "r": {
+    "setosa": [
+      [1, 0.27, 0.33, 0.18],
+      [0.27, 1, 0.28, 0.74],
+      [0.33, 0.28, 1, 0.23],
+      [0.18, 0.74, 0.23, 1]
+    ],
+    "versicolor": [
+      [1, 0.75, 0.79, 0.56],
+      [0.75, 1, 0.55, 0.53],
+      [0.79, 0.55, 1, 0.66],
+      [0.56, 0.53, 0.66, 1]
+    ],
+    "virginica": [
+      [1, 0.86, 0.32, 0.4],
+      [0.86, 1, 0.28, 0.46],
+      [0.32, 0.28, 1, 0.54],
+      [0.4, 0.46, 0.54, 1]
+    ]
+  }
+}
+</pre>
 
 ### pos_def_limits
 

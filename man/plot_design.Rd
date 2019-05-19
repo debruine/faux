@@ -19,6 +19,7 @@ plot
 
 within <- list(time = c("day", "night"))
 between <- list(pet = c("dog", "cat"))
-check_design(within, between) \%>\% plot_design()
+des <- check_design(within, between, plot = FALSE)
+plot_design(des)
 
 }
