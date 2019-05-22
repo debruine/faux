@@ -22,7 +22,7 @@ long2wide <- function(.data, within = c(), between = c(), dv = "y", id = "id") {
     within <- names(design$within)
     between <- names(design$between)
     dv <- names(design$dv)
-    id = names(design$id)
+    id <- names(design$id)
   }
   
   d1 <- dplyr::select(.data , tidyselect::one_of(c(id, between, within, dv))) 
@@ -61,8 +61,8 @@ wide2long <- function(.data, within_factors = c(), within_cols = c(),
     # get parameters from design
     design <- attributes(.data)$design
     
-    dv <- design$dv
-    id = design$id
+    dv <- names(design$dv)
+    id <- names(design$id)
     within_factors <- names(design$within)
     within_cols <- cell_combos(design$within, dv) 
   }

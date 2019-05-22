@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -86,7 +86,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/plots.html">plotting</a>
+      <a href="../articles/plots.html">Plotting</a>
     </li>
     <li>
       <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
@@ -98,7 +98,7 @@
       <a href="../articles/sim_df.html">Simulate from Existing Data</a>
     </li>
     <li>
-      <a href="../articles/sim_mixed.html">sim_mixed</a>
+      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
   </ul>
 </li>
@@ -137,14 +137,18 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_design</span>(<span class='no'>design</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_design</span>(<span class='no'>input</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>design</th>
+      <th>input</th>
       <td><p>A list of design parameters created by check_design() or a data tbl (in long format)</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>A list of factor names to determine visualisation (see vignette)</p></td>
     </tr>
     </table>
     
@@ -159,6 +163,8 @@
 <span class='no'>between</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>pet</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"dog"</span>, <span class='st'>"cat"</span>))
 <span class='no'>des</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='check_design.html'>check_design</a></span>(<span class='no'>within</span>, <span class='no'>between</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 <span class='fu'>plot_design</span>(<span class='no'>des</span>)</div><div class='img'><img src='plot_design-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sim_design.html'>sim_design</a></span>(<span class='no'>within</span>, <span class='no'>between</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>plot_design</span>(<span class='no'>data</span>)</div><div class='img'><img src='plot_design-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

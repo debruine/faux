@@ -70,6 +70,16 @@ df <- sim_design(within, between,
 `r get_params(df, between = "pet") %>% knitr::kable()`
 Table: Sample `sim_design()` stats
 
+You can plot the data from `sim_design()` and swap the factor visualisations. [see vignette](https://debruine.github.io/faux/articles/plots.html)
+
+```{r plot-design}
+p1 <- plot_design(df)
+p2 <- plot_design(df, "pet", "time")
+
+cowplot::plot_grid(p1, p2, nrow = 2, align = "v")
+```
+
+
 ## sim_df
 
 This function produces a data table with the same distributions and correlations as an existing data table. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). [see vignette](https://debruine.github.io/faux/articles/sim_df.html)

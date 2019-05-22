@@ -21,4 +21,3 @@ a tbl
 \description{
 Simulate data from design (internal)
 }
-\keyword{internal}

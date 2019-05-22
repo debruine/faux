@@ -4,10 +4,12 @@
 \alias{plot_design}
 \title{Plot design}
 \usage{
-plot_design(design)
+plot_design(input, ...)
 }
 \arguments{
-\item{design}{A list of design parameters created by check_design() or a data tbl (in long format)}
+\item{input}{A list of design parameters created by check_design() or a data tbl (in long format)}
+
+\item{...}{A list of factor names to determine visualisation (see vignette)}
 }
 \value{
 plot
@@ -21,5 +23,8 @@ within <- list(time = c("day", "night"))
 between <- list(pet = c("dog", "cat"))
 des <- check_design(within, between, plot = FALSE)
 plot_design(des)
+
+data <- sim_design(within, between, plot = FALSE)
+plot_design(data)
 
 }

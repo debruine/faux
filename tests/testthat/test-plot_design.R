@@ -1,5 +1,28 @@
 context("test-plot_design")
 
+test_that("manual", {
+  skip("manual plot checking")
+  check_design()
+  check_design(2)
+  check_design(c(2,2))
+  check_design(c(2,2,2))
+  check_design(c(2,2,2,2))
+  check_design(c(2,2,2,2,2))
+  check_design(c(2,2,2,2,2,2))
+  
+  sim_design() %>% plot_design()
+  sim_design(2) %>% plot_design()
+  sim_design(c(2,2)) %>% plot_design()
+  sim_design(c(2,2,2)) %>% plot_design()
+  sim_design(c(2,2,2,2)) %>% plot_design()
+  sim_design(c(2,2,2,2,2)) %>% plot_design()
+  sim_design(c(2,2,2,2,2,2)) %>% plot_design()
+  
+  sim_design(c(2,2)) %>% plot_design("A","B")
+  sim_design(c(2,2)) %>% plot_design("B","A")
+})
+
+# 2w ----
 test_that("2w", {
   within <- list(time = c(day = "Tested during the day", 
                           night = "Tested at night"))
@@ -9,9 +32,11 @@ test_that("2w", {
   id = "sub_id"
   d <- sim_design(within, between, mu = mu, dv = dv, id = id, long = TRUE, plot = FALSE)
   p <- plot_design(d)
+  p
   expect_equal(class(p), c("gg", "ggplot"))
 })
 
+# 2w*2b ----
 test_that("2w*2b", {
   within <- list(time = c(day = "Tested during the day", 
                           night = "Tested at night"))

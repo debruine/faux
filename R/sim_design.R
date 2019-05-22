@@ -56,7 +56,7 @@ sim_design <- function(within = list(), between = list(),
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' 
 #' @return a tbl
-#' @keywords internal
+#' @export
 #' 
 sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   if (!is.null(seed)) {
