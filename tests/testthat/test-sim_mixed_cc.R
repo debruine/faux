@@ -28,13 +28,31 @@ test_that("n", {
 
 # seed ----
 test_that("seed", {
-  df1 <- sim_mixed_cc(20, 20, seed = 1)
-  df2 <- sim_mixed_cc(20, 20, seed = 1)
+  # setting seed returns same DF, but is reset
+  set.seed(1)
+  rnd0 <- rnorm(1)
+  df1 <- sim_mixed_cc(seed = 910210)
+  rnd1 <- rnorm(1)
+  df2 <- sim_mixed_cc(seed = 910210)
+  rnd2 <- rnorm(1)
+  set.seed(1)
+  rnd0b <- rnorm(1)
+  rnd1b <- rnorm(1)
+  rnd2b <- rnorm(1)
+  df3 <- sim_mixed_cc(seed = 8675309)
   
   expect_equal(df1, df2)
-  
-  df3 <- sim_mixed_cc(20, 20, seed = 90210)
-  
+  expect_false(rnd1 == rnd2)
+  expect_equal(rnd0, rnd0b)
+  expect_equal(rnd1, rnd1b)
+  expect_equal(rnd2, rnd2b)
   expect_true(!identical(df1, df3))
+  
+  # user sets seed externally
+  set.seed(1)
+  df4 <- sim_mixed_cc()
+  set.seed(1)
+  df5 <- sim_mixed_cc()
+  expect_equal(df4, df5)
 })
 

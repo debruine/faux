@@ -5,9 +5,9 @@
 \title{Simulate data from design}
 \usage{
 sim_design(within = list(), between = list(), n = 100, mu = 0,
-  sd = 1, r = 0, empirical = FALSE, long = FALSE, dv = "y",
-  id = "id", plot = TRUE, seed = NULL, interactive = FALSE,
-  design = NULL)
+  sd = 1, r = 0, empirical = FALSE, long = FALSE, dv = list(y =
+  "Score"), id = list(id = "Subject ID"), plot = TRUE, seed = NULL,
+  interactive = FALSE, design = NULL)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}

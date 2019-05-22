@@ -1,3 +1,13 @@
+#' Faux
+#' 
+#' @name faux-package
+#' @docType package
+#' @keywords package
+#'
+#' @import ggplot2
+#'
+NULL
+
 #' Pipe operator
 #'
 #' See \code{magrittr::\link[magrittr]{\%>\%}} for details.
@@ -9,6 +19,8 @@
 #' @importFrom magrittr %>%
 #' @usage lhs \%>\% rhs
 NULL
+
+
 
 ## quiets concerns of R CMD check re: the .'s that appear in pipelines
 if(getRversion() >= "2.15.1")  utils::globalVariables(c("."))

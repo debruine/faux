@@ -60,7 +60,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -127,27 +127,58 @@
       <small>Source: <a href='https://github.com/debruine/faux/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="faux-0-0-0-9004" class="section level1">
+    <div id="faux-0-0-0-9012-2019-05-22" class="section level1">
 <h1 class="page-header">
-<a href="#faux-0-0-0-9004" class="anchor"></a>faux 0.0.0.9004</h1>
+<a href="#faux-0-0-0-9012-2019-05-22" class="anchor"></a>faux 0.0.0.9012 (2019-05-22)</h1>
 <ul>
-<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
-<li>Added <code><a href="../reference/sim_design.html">sim_design()</a></code> to simulate data for mixed ANOVA designs.</li>
+<li>More flexible plots and data plots</li>
+<li>Setting seed doesn’t change the seed in your global environment</li>
+<li>Plot labels for dv and id (set them like <code>dv = list(colname = "Name for Plots")</code>)</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9005" class="section level1">
+    <div id="faux-0-0-0-9011-2019-05-19" class="section level1">
 <h1 class="page-header">
-<a href="#faux-0-0-0-9005" class="anchor"></a>faux 0.0.0.9005</h1>
+<a href="#faux-0-0-0-9011-2019-05-19" class="anchor"></a>faux 0.0.0.9011 (2019-05-19)</h1>
 <ul>
-<li>Bug fixes for <code><a href="../reference/sim_design.html">sim_design()</a></code> (failed when within or between factor number was 0)</li>
+<li>Changed default DV column name from ‘val’ to ‘y’</li>
+<li>Changed default ID column name from ‘sub_id’ to ‘id’</li>
+<li>
+<code><a href="../reference/sim_design.html">sim_design()</a></code> can take intercept-only designs</li>
+<li>
+<code><a href="../reference/rnorm_multi.html">rnorm_multi()</a></code> can take vars = 1 for intercept-only designs</li>
+<li>
+<code><a href="../reference/json_design.html">json_design()</a></code> to output or save design specs in JSON format</li>
+<li>Added functions for converting between distributions</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9006" class="section level1">
+    <div id="faux-0-0-0-9010" class="section level1">
 <h1 class="page-header">
-<a href="#faux-0-0-0-9006" class="anchor"></a>faux 0.0.0.9006</h1>
+<a href="#faux-0-0-0-9010" class="anchor"></a>faux 0.0.0.9010</h1>
 <ul>
-<li>Changes to argument order and names (more consistent, but may break old scripts)</li>
-<li>Updated vignettes</li>
+<li>Fixed bugs in interactive specification</li>
+<li>Added <code><a href="../reference/messy.html">messy()</a></code> (thanks Emily)</li>
+<li>Better interactive specification (thanks Daniël)</li>
+</ul>
+</div>
+    <div id="faux-0-0-0-9009" class="section level1">
+<h1 class="page-header">
+<a href="#faux-0-0-0-9009" class="anchor"></a>faux 0.0.0.9009</h1>
+<ul>
+<li>Bug fix for <code><a href="../reference/long2wide.html">long2wide()</a></code> (handle designs with no between or no within factors)</li>
+<li>
+<code><a href="../reference/sim_df.html">sim_df()</a></code> returns subject IDs and takes data in long format</li>
+<li>Renamed <code><a href="../reference/get_params.html">check_sim_stats()</a></code> to <code><a href="../reference/get_params.html">get_params()</a></code>, which now returns the design</li>
+<li>Added interactive option to <code><a href="../reference/sim_design.html">sim_design()</a></code>
+</li>
+</ul>
+</div>
+    <div id="faux-0-0-0-9008" class="section level1">
+<h1 class="page-header">
+<a href="#faux-0-0-0-9008" class="anchor"></a>faux 0.0.0.9008</h1>
+<ul>
+<li>added <code><a href="../reference/sim_mixed_cc.html">sim_mixed_cc()</a></code> to simulate null cross-classified mixed effect designs by subject, item and error SDs</li>
+<li>
+<code><a href="../reference/sim_design.html">sim_design()</a></code>, <code><a href="../reference/sim_df.html">sim_df()</a></code>, <code><a href="../reference/sim_mixed_cc.html">sim_mixed_cc()</a></code> and <code><a href="../reference/sim_mixed_df.html">sim_mixed_df()</a></code> take a <code>seed</code> argument now for reproducible datasets</li>
 </ul>
 </div>
     <div id="faux-0-0-0-9007" class="section level1">
@@ -165,50 +196,27 @@
 </li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9008" class="section level1">
+    <div id="faux-0-0-0-9006" class="section level1">
 <h1 class="page-header">
-<a href="#faux-0-0-0-9008" class="anchor"></a>faux 0.0.0.9008</h1>
+<a href="#faux-0-0-0-9006" class="anchor"></a>faux 0.0.0.9006</h1>
 <ul>
-<li>added <code><a href="../reference/sim_mixed_cc.html">sim_mixed_cc()</a></code> to simulate null cross-classified mixed effect designs by subject, item and error SDs</li>
-<li>
-<code><a href="../reference/sim_design.html">sim_design()</a></code>, <code><a href="../reference/sim_df.html">sim_df()</a></code>, <code><a href="../reference/sim_mixed_cc.html">sim_mixed_cc()</a></code> and <code><a href="../reference/sim_mixed_df.html">sim_mixed_df()</a></code> take a <code>seed</code> argument now for reproducible datasets</li>
+<li>Changes to argument order and names (more consistent, but may break old scripts)</li>
+<li>Updated vignettes</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9009" class="section level1">
+    <div id="faux-0-0-0-9005" class="section level1">
 <h1 class="page-header">
-<a href="#faux-0-0-0-9009" class="anchor"></a>faux 0.0.0.9009</h1>
+<a href="#faux-0-0-0-9005" class="anchor"></a>faux 0.0.0.9005</h1>
 <ul>
-<li>Bug fix for <code><a href="../reference/long2wide.html">long2wide()</a></code> (handle designs with no between or no within factors)</li>
-<li>
-<code><a href="../reference/sim_df.html">sim_df()</a></code> returns subject IDs and takes data in long format</li>
-<li>Renamed <code><a href="../reference/get_params.html">check_sim_stats()</a></code> to <code><a href="../reference/get_params.html">get_params()</a></code>, which now returns the design</li>
-<li>Added interactive option to <code><a href="../reference/sim_design.html">sim_design()</a></code>
-</li>
+<li>Bug fixes for <code><a href="../reference/sim_design.html">sim_design()</a></code> (failed when within or between factor number was 0)</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9010" class="section level1">
+    <div id="faux-0-0-0-9004" class="section level1">
 <h1 class="page-header">
-<a href="#faux-0-0-0-9010" class="anchor"></a>faux 0.0.0.9010</h1>
+<a href="#faux-0-0-0-9004" class="anchor"></a>faux 0.0.0.9004</h1>
 <ul>
-<li>Fixed bugs in interactive specification</li>
-<li>Added <code><a href="../reference/messy.html">messy()</a></code> (thanks Emily)</li>
-<li>Better interactive specification (thanks Daniël)</li>
-</ul>
-</div>
-    <div id="faux-0-0-0-9011" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9011" class="anchor"></a>faux 0.0.0.9011</h1>
-<ul>
-<li>Changed default DV column name from ‘val’ to ‘y’</li>
-<li>Changed default ID column name from ‘sub_id’ to ‘id’</li>
-<li>
-<code><a href="../reference/sim_design.html">sim_design()</a></code> can take intercept-only designs</li>
-<li>
-<code><a href="../reference/rnorm_multi.html">rnorm_multi()</a></code> can take vars = 1 for intercept-only designs</li>
-<li>
-<code><a href="../reference/json_design.html">json_design()</a></code> to output or save design specs in JSON format</li>
-<li>Added functions for converting between distributions</li>
-<li>More flexible plots</li>
+<li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
+<li>Added <code><a href="../reference/sim_design.html">sim_design()</a></code> to simulate data for mixed ANOVA designs.</li>
 </ul>
 </div>
   </div>
@@ -217,14 +225,15 @@
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="#faux-0-0-0-9004">0.0.0.9004</a></li>
-        <li><a href="#faux-0-0-0-9005">0.0.0.9005</a></li>
-        <li><a href="#faux-0-0-0-9006">0.0.0.9006</a></li>
-        <li><a href="#faux-0-0-0-9007">0.0.0.9007</a></li>
-        <li><a href="#faux-0-0-0-9008">0.0.0.9008</a></li>
-        <li><a href="#faux-0-0-0-9009">0.0.0.9009</a></li>
+        <li><a href="#faux-0-0-0-9012-2019-05-22">0.0.0.9012</a></li>
+        <li><a href="#faux-0-0-0-9011-2019-05-19">0.0.0.9011</a></li>
         <li><a href="#faux-0-0-0-9010">0.0.0.9010</a></li>
-        <li><a href="#faux-0-0-0-9011">0.0.0.9011</a></li>
+        <li><a href="#faux-0-0-0-9009">0.0.0.9009</a></li>
+        <li><a href="#faux-0-0-0-9008">0.0.0.9008</a></li>
+        <li><a href="#faux-0-0-0-9007">0.0.0.9007</a></li>
+        <li><a href="#faux-0-0-0-9006">0.0.0.9006</a></li>
+        <li><a href="#faux-0-0-0-9005">0.0.0.9005</a></li>
+        <li><a href="#faux-0-0-0-9004">0.0.0.9004</a></li>
       </ul>
     </div>
   </div>

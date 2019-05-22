@@ -4,10 +4,12 @@
 \alias{fix_name_labels}
 \title{Fix name labels}
 \usage{
-fix_name_labels(x)
+fix_name_labels(x, replace = "(\\\\W|_)")
 }
 \arguments{
 \item{x}{the list to fix}
+
+\item{replace}{regex pattern to replace with full stops (defaults to non-word characters and underscores)}
 }
 \value{
 the fixed list

@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9011</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
       </span>
     </div>
 
@@ -104,81 +104,96 @@
     
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(faux)
 <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(cowplot)</code></pre></div>
-<div id="one-factor-designs" class="section level2">
+<div id="plotting-designs" class="section level2">
 <h2 class="hasAnchor">
-<a href="#one-factor-designs" class="anchor"></a>One-factor designs</h2>
+<a href="#plotting-designs" class="anchor"></a>Plotting Designs</h2>
+<p>The functions <code><a href="../reference/check_design.html">check_design()</a></code> and <code><a href="../reference/sim_design.html">sim_design()</a></code> will automatically create plots of your design (unless you set <code>plot = FALSE</code>) so you can check you set it up correctly. You can also use the <code><a href="../reference/plot_design.html">plot_design()</a></code> function to plot a saved design list.</p>
+<div id="one-factor-designs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#one-factor-designs" class="anchor"></a>One-factor designs</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dv">2</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dv">3</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dv">4</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dv">5</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dv">6</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dv">7</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p8 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dv">8</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p9 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dv">9</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 
-cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(p1, p2, p3, p4, p5, p6, p7, p8, p9, <span class="dt">nrow =</span> <span class="dv">3</span>)</code></pre></div>
+cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(p1, p2, p3, p4, p5, p6, <span class="dt">nrow =</span> <span class="dv">2</span>)</code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-2-1.png" width="672"></p>
 </div>
-<div id="two-factor-designs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#two-factor-designs" class="anchor"></a>Two-factor designs</h2>
+<div id="two-factor-designs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#two-factor-designs" class="anchor"></a>Two-factor designs</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p8 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">3</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p9 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">4</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
 
-cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(p1, p2, p3, p4, p5, p6, p7, p8, p9, <span class="dt">nrow =</span> <span class="dv">3</span>)</code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-3-1.png" width="960"></p>
+cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(p1, p2, p3, p4, p5, p6, <span class="dt">nrow =</span> <span class="dv">3</span>)</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-3-1.png" width="672"></p>
 </div>
-<div id="three-factor-designs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#three-factor-designs" class="anchor"></a>Three-factor designs</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">18</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">24</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">16</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p8 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">24</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p9 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">32</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-
-cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(p1, p2, p3, p4, p5, p6, p7, p8, p9, <span class="dt">nrow =</span> <span class="dv">3</span>)</code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-4-1.png" width="1440"></p>
+<div id="three-factor-designs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#three-factor-designs" class="anchor"></a>Three-factor designs</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span><span class="op">^</span><span class="dv">3</span>)</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-4-1.png" width="672"></p>
 </div>
-<div id="four-factor-designs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#four-factor-designs" class="anchor"></a>Four-factor designs</h2>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">24</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">36</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">48</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">36</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">54</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">72</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p7 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">48</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p8 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">72</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-p9 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">96</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()
-
-cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(p1, p2, p3, p4, p5, p6, p7, p8, p9, <span class="dt">nrow =</span> <span class="dv">3</span>)</code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-5-1.png" width="1920"></p>
+<div id="four-factor-designs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#four-factor-designs" class="anchor"></a>Four-factor designs</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span><span class="op">^</span><span class="dv">4</span>)</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-5-1.png" width="672"></p>
 </div>
-<div id="five-factor-designs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#five-factor-designs" class="anchor"></a>Five-factor designs</h2>
+<div id="five-factor-designs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#five-factor-designs" class="anchor"></a>Five-factor designs</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span>(<span class="dv">2</span><span class="op">^</span><span class="dv">5</span>))</code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-6-1.png" width="672"></p>
 </div>
-<div id="six-factor-designs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#six-factor-designs" class="anchor"></a>Six-factor designs</h2>
+<div id="six-factor-designs" class="section level3">
+<h3 class="hasAnchor">
+<a href="#six-factor-designs" class="anchor"></a>Six-factor designs</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span>(<span class="dv">2</span><span class="op">^</span><span class="dv">6</span>))</code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-7-1.png" width="672"></p>
+</div>
+</div>
+<div id="plotting-data" class="section level2">
+<h2 class="hasAnchor">
+<a href="#plotting-data" class="anchor"></a>Plotting Data</h2>
+<p>You can plot data freated with faux using <code><a href="../reference/plot_design.html">plot_design()</a></code>, too. It will return a ggplot with a violin-boxplot.</p>
+<div id="one-factor-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#one-factor-data" class="anchor"></a>One-factor data</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="dv">2</span>, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)
+<span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data)</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-8-1.png" width="672"></p>
+</div>
+<div id="two-factor-data" class="section level3">
+<h3 class="hasAnchor">
+<a href="#two-factor-data" class="anchor"></a>Two-factor data</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)
+<span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data)</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-9-1.png" width="672"></p>
+</div>
+<div id="change-order-of-factors" class="section level3">
+<h3 class="hasAnchor">
+<a href="#change-order-of-factors" class="anchor"></a>Change order of factors</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)
+abc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>)
+acb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>)
+bac &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>)
+bca &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>)
+cab &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>)
+cba &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>)
+
+cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(abc, acb, bac, bca, cab, cba, <span class="dt">nrow =</span> <span class="dv">3</span>, 
+                   <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"abc"</span>, <span class="st">"acb"</span>, <span class="st">"bac"</span>, <span class="st">"bca"</span>, <span class="st">"cab"</span>, <span class="st">"cba"</span>))</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-10-1.png" width="672"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">5</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">40</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="st">"D"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>)</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-11-1.png" width="672"></p>
+</div>
 </div>
   </div>
 
@@ -187,12 +202,8 @@ cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocument
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#one-factor-designs">One-factor designs</a></li>
-      <li><a href="#two-factor-designs">Two-factor designs</a></li>
-      <li><a href="#three-factor-designs">Three-factor designs</a></li>
-      <li><a href="#four-factor-designs">Four-factor designs</a></li>
-      <li><a href="#five-factor-designs">Five-factor designs</a></li>
-      <li><a href="#six-factor-designs">Six-factor designs</a></li>
+<li><a href="#plotting-designs">Plotting Designs</a></li>
+      <li><a href="#plotting-data">Plotting Data</a></li>
       </ul>
 </div>
       </div>

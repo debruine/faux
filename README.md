@@ -35,7 +35,7 @@ devtools::install_github("debruine/faux")
 
 ## sim_design
 
-This function creates a dataset with a specific between- and within-subjects design. [see vignette](https://debruine.github.io/faux/articles/sim_design.html)
+This function creates a dataset with a specific between- and/or within-subjects design. [see vignette](https://debruine.github.io/faux/articles/sim_design.html)
 
 For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is `pet` with two levels (`cat` and `dog`). The within-subject factor is `time` with two levels (`day` and `night`). The mean for the `cat_day` cell is 10, the mean for the `cat_night` cell is 20, the mean for the `dog_day` cell is 15, and the mean for the `dog_night` cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. The resulting data has exactly these values (set `empirical = FALSE` to sample from a population with these values). Set `plot = TRUE` to show a plot of means and SDs.
 
@@ -54,7 +54,7 @@ df <- sim_design(within, between,
                  empirical = TRUE, plot = TRUE)
 ```
 
-![plot of chunk unnamed-chunk-1](figure/unnamed-chunk-1-1.png)
+![plot of chunk plot-sim-design](figure/plot-sim-design-1.png)
 
 
 
@@ -112,10 +112,10 @@ lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
 
 |effect   |group    |term            | estimate| std.error| statistic|
 |:--------|:--------|:---------------|--------:|---------:|---------:|
-|fixed    |NA       |(Intercept)     |   10.485|     0.316|    33.218|
-|ran_pars |sub_id   |sd__(Intercept) |    1.028|        NA|        NA|
-|ran_pars |item_id  |sd__(Intercept) |    2.089|        NA|        NA|
-|ran_pars |Residual |sd__Observation |    2.956|        NA|        NA|
+|fixed    |NA       |(Intercept)     |   10.508|     0.366|    28.746|
+|ran_pars |sub_id   |sd__(Intercept) |    0.911|        NA|        NA|
+|ran_pars |item_id  |sd__(Intercept) |    2.485|        NA|        NA|
+|ran_pars |Residual |sd__Observation |    2.971|        NA|        NA|
 
 ## sim_mixed_df
 
@@ -158,9 +158,9 @@ dat <- rnorm_multi(
 
 |   n|var |    A|    B|    C|  mean|   sd|
 |---:|:---|----:|----:|----:|-----:|----:|
-| 100|A   | 1.00| 0.42| 0.49|  0.06| 0.98|
-| 100|B   | 0.42| 1.00| 0.20| 20.68| 4.92|
-| 100|C   | 0.49| 0.20| 1.00| 19.88| 5.16|
+| 100|A   | 1.00| 0.49| 0.47| -0.02| 1.07|
+| 100|B   | 0.49| 1.00| 0.26| 20.40| 5.13|
+| 100|C   | 0.47| 0.26| 1.00| 19.82| 4.87|
 
 
 Table: Sample `rnorm_multi()` stats
@@ -184,7 +184,7 @@ list(
   r = cor(x,y)
 ) %>% str()
 #> List of 3
-#>  $ mean: num 8.35e-18
+#>  $ mean: num 1.51e-17
 #>  $ sd  : num 1
 #>  $ r   : num 0.5
 ```
@@ -192,7 +192,7 @@ list(
 
 If `empirical = FALSE` (the default), this resulting vector is sampled from a population with the specified parameters (but won't have *exactly* those properties).
 
-![Distribution of 1000 samples from rnorm_pre](figure/unnamed-chunk-6-1.png)
+![Distribution of 1000 samples from rnorm_pre](figure/plot-rnorm-pre-1.png)
 
 
 ## Additional functions {#add_func}
@@ -203,7 +203,7 @@ Sometimes you want to mess up a dataset for teaching (thanks for the idea, Emily
 
 
 ```r
-# reaplace 10% of Species with NA
+# replace 10% of Species with NA
 iris2 <- messy(iris, 0.1, "Species")
 
 # replace 10% of petal.Width adn Sepal.Width with NA
@@ -294,22 +294,20 @@ Convert a data table made with faux from long to wide.
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
 df_long <- sim_design(within, between, long = TRUE)
+```
+
+![plot of chunk long2wide](figure/long2wide-1.png)
+
+```r
 
 df_wide <- long2wide(df_long)
+#> All arguments must be character vectors, not list
 ```
 
 
-
-|id   |pet |        day|      night|
-|:----|:---|----------:|----------:|
-|S001 |cat | -1.2450468| -0.0771657|
-|S002 |cat |  0.0123018|  0.1105814|
-|S003 |cat |  0.3731138| -0.3988119|
-|S004 |cat | -1.0919992|  0.2970545|
-|S005 |cat | -1.2187853| -0.2190417|
-|S006 |cat |  0.5272573| -0.0768018|
-
-
+```
+#> Error in head(df_wide): object 'df_wide' not found
+```
 
 If you have a data table not made by faux, you need to specify the within-subject columns, the between-subject columns, the DV column, and the ID column.
 
@@ -333,12 +331,12 @@ df_wide <- long2wide(df_long, within = c("A", "B"),
 
 | sub_id|C  |      A1_B1|      A1_B2|      A2_B1|      A2_B2|
 |------:|:--|----------:|----------:|----------:|----------:|
-|      1|C1 |  0.0560698|  0.1075098| -1.4729780| -0.7608473|
-|      2|C2 |  0.5557781|  0.2453513| -0.0070704|  0.7536826|
-|      3|C1 |  1.5172716| -0.5159651| -0.2322015|  1.2459601|
-|      4|C2 |  0.0110923|  0.6606082|  1.4428787| -0.9280972|
-|      5|C1 |  0.8529061| -0.2005553|  2.1043959|  0.3007104|
-|      6|C2 | -1.5866455|  1.6799572| -0.9315955|  2.6100908|
+|      1|C1 |  0.2246292| -0.7409908|  0.0790572|  0.6999527|
+|      2|C2 | -0.8995414| -0.2262997| -1.3043195| -0.6672540|
+|      3|C1 | -0.3982592|  0.6878665|  2.4646539|  0.5504153|
+|      4|C2 |  0.6401929| -0.3626698|  0.7731221| -0.7295346|
+|      5|C1 | -0.1262407| -0.9830908| -1.1569483|  0.5713228|
+|      6|C2 | -1.1046620| -0.4956460|  1.1208392| -2.7947336|
 
 
 
@@ -352,19 +350,25 @@ You can convert a data table made by faux from wide to long easily.
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
 df_wide <- sim_design(within, between, long = FALSE)
+```
+
+![plot of chunk wide2long](figure/wide2long-1.png)
+
+```r
 df_long <- wide2long(df_wide)
+#> Error in x[[i]] <- value: invalid subscript type 'list'
 ```
 
 
 
-|id   |pet |time |          y|
-|:----|:---|:----|----------:|
-|S001 |cat |day  | -0.0226051|
-|S002 |cat |day  |  0.4514095|
-|S003 |cat |day  |  1.1135601|
-|S004 |cat |day  | -0.8790609|
-|S005 |cat |day  |  0.3099769|
-|S006 |cat |day  |  1.6095301|
+| sub_id|A  |B  |C  |      score|
+|------:|:--|:--|:--|----------:|
+|      1|A1 |B1 |C1 |  0.2246292|
+|      2|A1 |B1 |C2 | -0.8995414|
+|      3|A1 |B1 |C1 | -0.3982592|
+|      4|A1 |B1 |C2 |  0.6401929|
+|      5|A1 |B1 |C1 | -0.1262407|
+|      6|A1 |B1 |C2 | -1.1046620|
 
 
 
@@ -402,7 +406,7 @@ Once you have a dataframe in long format, you can recover the design from it.
 design <- get_design_long(long_iris, dv = "value", id = "flower_id")
 ```
 
-![plot of chunk unnamed-chunk-16](figure/unnamed-chunk-16-1.png)
+![plot of chunk get-design-long](figure/get-design-long-1.png)
 
 ### json_design
 
@@ -414,7 +418,7 @@ json_design(design)
 ```
 
 <pre>
-{"within":{"feature":{"Petal":"Petal","Sepal":"Sepal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":"value","id":"flower_id","n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Petal_Length":1.46,"Sepal_Length":5.01,"Petal_Width":0.25,"Sepal_Width":3.43},"versicolor":{"Petal_Length":4.26,"Sepal_Length":5.94,"Petal_Width":1.33,"Sepal_Width":2.77},"virginica":{"Petal_Length":5.55,"Sepal_Length":6.59,"Petal_Width":2.03,"Sepal_Width":2.97}},"sd":{"setosa":{"Petal_Length":0.17,"Sepal_Length":0.35,"Petal_Width":0.11,"Sepal_Width":0.38},"versicolor":{"Petal_Length":0.47,"Sepal_Length":0.52,"Petal_Width":0.2,"Sepal_Width":0.31},"virginica":{"Petal_Length":0.55,"Sepal_Length":0.64,"Petal_Width":0.27,"Sepal_Width":0.32}},"r":{"setosa":[[1,0.27,0.33,0.18],[0.27,1,0.28,0.74],[0.33,0.28,1,0.23],[0.18,0.74,0.23,1]],"versicolor":[[1,0.75,0.79,0.56],[0.75,1,0.55,0.53],[0.79,0.55,1,0.66],[0.56,0.53,0.66,1]],"virginica":[[1,0.86,0.32,0.4],[0.86,1,0.28,0.46],[0.32,0.28,1,0.54],[0.4,0.46,0.54,1]]}}
+{"within":{"feature":{"Petal":"Petal","Sepal":"Sepal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":{"value":"value"},"id":{"flower_id":"flower_id"},"n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Petal_Length":1.46,"Sepal_Length":5.01,"Petal_Width":0.25,"Sepal_Width":3.43},"versicolor":{"Petal_Length":4.26,"Sepal_Length":5.94,"Petal_Width":1.33,"Sepal_Width":2.77},"virginica":{"Petal_Length":5.55,"Sepal_Length":6.59,"Petal_Width":2.03,"Sepal_Width":2.97}},"sd":{"setosa":{"Petal_Length":0.17,"Sepal_Length":0.35,"Petal_Width":0.11,"Sepal_Width":0.38},"versicolor":{"Petal_Length":0.47,"Sepal_Length":0.52,"Petal_Width":0.2,"Sepal_Width":0.31},"virginica":{"Petal_Length":0.55,"Sepal_Length":0.64,"Petal_Width":0.27,"Sepal_Width":0.32}},"r":{"setosa":[[1,0.27,0.33,0.18],[0.27,1,0.28,0.74],[0.33,0.28,1,0.23],[0.18,0.74,0.23,1]],"versicolor":[[1,0.75,0.79,0.56],[0.75,1,0.55,0.53],[0.79,0.55,1,0.66],[0.56,0.53,0.66,1]],"virginica":[[1,0.86,0.32,0.4],[0.86,1,0.28,0.46],[0.32,0.28,1,0.54],[0.4,0.46,0.54,1]]}}
 </pre>
 
 
@@ -442,8 +446,12 @@ json_design(design, pretty = TRUE)
       "virginica": "virginica"
     }
   },
-  "dv": "value",
-  "id": "flower_id",
+  "dv": {
+    "value": "value"
+  },
+  "id": {
+    "flower_id": "flower_id"
+  },
   "n": {
     "setosa": 50,
     "versicolor": 50,
