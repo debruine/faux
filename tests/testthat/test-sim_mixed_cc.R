@@ -28,12 +28,15 @@ test_that("n", {
 
 # seed ----
 test_that("seed", {
-  df1 <- sim_mixed_cc(20, 20, seed = 1)
-  df2 <- sim_mixed_cc(20, 20, seed = 1)
+  df1 <- sim_mixed_cc(seed = 90210)
+  rnd1 <- rnorm(1)
+  df2 <- sim_mixed_cc(seed = 90210)
+  rnd2 <- rnorm(1)
   
   expect_equal(df1, df2)
+  expect_false(rnd1 == rnd2)
   
-  df3 <- sim_mixed_cc(20, 20, seed = 90210)
+  df3 <- sim_mixed_cc(seed = 8675309)
   
   expect_true(!identical(df1, df3))
 })

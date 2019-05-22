@@ -483,9 +483,12 @@ test_that("label order", {
 # seed ----
 test_that("seed", {
   df1 <- sim_design(within = 2, n = 10, seed = 1)
+  rnd1 <- rnorm(1)
   df2 <- sim_design(within = 2, n = 10, seed = 1)
+  rnd2 <- rnorm(1)
   
   expect_equal(df1, df2)
+  expect_false(rnd1 == rnd2)
   
   df3 <- sim_design(within = 2, n = 10, seed = 90210)
   

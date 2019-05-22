@@ -18,6 +18,15 @@
 #' sim_mixed_cc(10, 10)
 sim_mixed_cc <- function(sub_n = 100, item_n = 20, grand_i = 0, 
                          sub_sd = 1, item_sd = 1, error_sd = 1, seed = NULL) {
+  # reinstate system seed after simulation
+  sysSeed <- .GlobalEnv$.Random.seed
+  on.exit({
+    if (!is.null(sysSeed)) {
+      .GlobalEnv$.Random.seed <- sysSeed 
+    } else {
+      rm(".Random.seed", envir = .GlobalEnv)
+    }
+  })
   set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
   
   # sample subject random intercepts -------------------------------------------

@@ -123,3 +123,17 @@ test_that("within", {
 #   expect_equal(orig_stats, sim_stats, tolerance = 0.02)
 # })
 
+# seed ----
+test_that("seed", {
+  df1 <- sim_df(iris, seed = 90210)
+  rnd1 <- rnorm(1)
+  df2 <- sim_df(iris, seed = 90210)
+  rnd2 <- rnorm(1)
+  
+  expect_equal(df1, df2)
+  expect_false(rnd1 == rnd2)
+  
+  df3 <- sim_df(iris, seed = 8675309)
+  
+  expect_true(!identical(df1, df3))
+})

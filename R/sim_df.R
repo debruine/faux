@@ -24,6 +24,15 @@
 
 sim_df <- function (.data, n = 100, within = c(), between = c(), id = "sub_id", dv = "val",
                     empirical = FALSE, long = FALSE, seed = NULL, grp_by = NULL) {
+  # reinstate system seed after simulation
+  sysSeed <- .GlobalEnv$.Random.seed
+  on.exit({
+    if (!is.null(sysSeed)) {
+      .GlobalEnv$.Random.seed <- sysSeed 
+    } else {
+      rm(".Random.seed", envir = .GlobalEnv)
+    }
+  })
   set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
   
   # error checking
