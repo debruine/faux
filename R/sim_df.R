@@ -24,7 +24,7 @@
 
 sim_df <- function (.data, n = 100, within = c(), between = c(), id = "sub_id", dv = "val",
                     empirical = FALSE, long = FALSE, seed = NULL, grp_by = NULL) {
-  set.seed(seed)
+  set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
   
   # error checking
   if ( !is.numeric(n) || n %% 1 > 0 || n < 3 ) {

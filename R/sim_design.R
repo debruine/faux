@@ -59,7 +59,7 @@ sim_design <- function(within = list(), between = list(),
 #' @keywords internal
 #' 
 sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
-  set.seed(seed)
+  set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
   list2env(design, envir = environment())
   
   # only use DV and ID names here

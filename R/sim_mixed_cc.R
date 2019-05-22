@@ -18,7 +18,7 @@
 #' sim_mixed_cc(10, 10)
 sim_mixed_cc <- function(sub_n = 100, item_n = 20, grand_i = 0, 
                          sub_sd = 1, item_sd = 1, error_sd = 1, seed = NULL) {
-  set.seed(seed)
+  set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
   
   # sample subject random intercepts -------------------------------------------
   if (length(sub_sd) == sub_n) {
