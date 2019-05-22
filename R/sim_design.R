@@ -59,16 +59,18 @@ sim_design <- function(within = list(), between = list(),
 #' @keywords internal
 #' 
 sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
-  # reinstate system seed after simulation
-  sysSeed <- .GlobalEnv$.Random.seed
-  on.exit({
-    if (!is.null(sysSeed)) {
-      .GlobalEnv$.Random.seed <- sysSeed 
-    } else {
-      rm(".Random.seed", envir = .GlobalEnv)
-    }
-  })
-  set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
+  if (!is.null(seed)) {
+    # reinstate system seed after simulation
+    sysSeed <- .GlobalEnv$.Random.seed
+    on.exit({
+      if (!is.null(sysSeed)) {
+        .GlobalEnv$.Random.seed <- sysSeed 
+      } else {
+        rm(".Random.seed", envir = .GlobalEnv)
+      }
+    })
+    set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
+  }
   
   list2env(design, envir = environment())
   
