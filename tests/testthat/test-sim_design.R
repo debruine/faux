@@ -31,8 +31,8 @@ test_that("2w", {
   mu <- c(1, 2)
   sd <- c(1, 2)
   r <- 0.3
-  dv <- "rt"
-  id <- "sub_id"
+  dv <- list("rt" = "Reaction Time")
+  id <- list("sub_id" = "Subject ID")
   n <- 100
   
   df <- sim_design(within, between, mu = mu, sd = sd, 
@@ -55,7 +55,7 @@ test_that("2w", {
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 3)
-  expect_equal(names(df), c(id, "W1", "W2"))
+  expect_equal(names(df), c("sub_id", "W1", "W2"))
   expect_equal(chk, comp)
 })
 

@@ -1,5 +1,13 @@
 context("test-check_design")
 
+# no factors
+test_that("no factors", {
+  design <- check_design()
+  expect_equal(design$within, list())
+  expect_equal(design$between, list())
+  expect_equal(design$dv, list(y = "Score"))
+})
+
 # 2w ----
 test_that("2w", {
   within <- list(time = c("night", "day"))
@@ -16,8 +24,8 @@ test_that("2w", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
-  expect_equal(design$dv, "y")
-  expect_equal(design$id, "id")
+  expect_equal(design$dv, list(y = "Score"))
+  expect_equal(design$id, list(id = "Subject ID"))
   
   expect_true("design" %in% class(design))
 })
@@ -38,8 +46,8 @@ test_that("2b", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
-  expect_equal(design$dv, "y")
-  expect_equal(design$id, "id")
+  expect_equal(design$dv, list(y = "Score"))
+  expect_equal(design$id, list(id = "Subject ID"))
 })
 
 # 2w*2b ----
@@ -60,8 +68,8 @@ test_that("2w*2b", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
-  expect_equal(design$dv, "y")
-  expect_equal(design$id, "id")
+  expect_equal(design$dv, list(y = "Score"))
+  expect_equal(design$id, list(id = "Subject ID"))
 })
 
 # 2w*2w*2b*2b ----
@@ -92,8 +100,8 @@ test_that("2w*2w*2b*2b", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
-  expect_equal(design$dv, "y")
-  expect_equal(design$id, "id")
+  expect_equal(design$dv, list(y = "Score"))
+  expect_equal(design$id, list(id = "Subject ID"))
 })
 
 # design spec ----
@@ -120,8 +128,8 @@ test_that("design spec", {
     "B1" = .2,
     "B2" = .5
   )
-  dv <- "dv"
-  id <- "sub_id"
+  dv <- list(dv = "DV")
+  id <- list(sub_id = "subject ID")
   
   design <- check_design(within, between, n, mu, sd, r, dv, id, plot = FALSE)
   

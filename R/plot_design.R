@@ -30,7 +30,7 @@ plot_design <- function(design) {
   factors <- c(design$within, design$between)
   factor_n <- length(factors)
   f <- dplyr::syms(names(factors)) # make it possible to use strings to specify columns
-  dv <- dplyr::sym(design$dv)
+  dv <- dplyr::sym(names(design$dv))
   
   # use long names for factors
   for (col in names(factors)) {
@@ -41,7 +41,7 @@ plot_design <- function(design) {
   
   if (factor_n == 0) {
     p <- ggplot2::ggplot(data, ggplot2::aes(x = 0, y = !!dv)) +
-      ggplot2::xlab(dv) + ggplot2::theme_bw() +
+      ggplot2::xlab(design$dv[[1]]) + ggplot2::theme_bw() +
       ggplot2::theme(axis.text.x.bottom = ggplot2::element_blank(),
                      axis.ticks.x.bottom = ggplot2::element_blank())
   } else if (factor_n == 1) {
@@ -65,7 +65,8 @@ plot_design <- function(design) {
   minsd <- function(x) { mean(x) - sd(x) }
   maxsd <- function(x) { mean(x) + sd(x) }
   
-  p <- p + ggplot2::stat_summary(fun.y = mean, 
+  p <- p + ggplot2::ylab(design$dv[[1]]) +
+    ggplot2::stat_summary(fun.y = mean, 
                                  fun.ymin = minsd,
                                  fun.ymax = maxsd,
                                  geom='pointrange', 

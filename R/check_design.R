@@ -13,8 +13,8 @@
 #' @param mu a vector giving the means of the variables
 #' @param sd the standard deviations of the variables
 #' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
-#' @param dv the name of the dv column (y)
-#' @param id the name of the ID column (id)
+#' @param dv the name of the DV column list(y = "Score")
+#' @param id the name of the ID column list(id = "Subject ID")
 #' @param plot whether to show a plot of the design
 #' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' 
@@ -35,7 +35,9 @@
 #' 
 check_design <- function(within = list(), between = list(), 
                          n = 100, mu = 0, sd = 1, r = 0, 
-                         dv = "y", id = "id", plot = TRUE, design = NULL) {
+                         dv = list(y = "Score"), 
+                         id = list(id = "Subject ID"), 
+                         plot = TRUE, design = NULL) {
   # design passed as design list
   if (!is.null(design)) {
     # double-check the entered design
@@ -66,6 +68,8 @@ check_design <- function(within = list(), between = list(),
   # use their names as column names and values as labels for plots
   between <- purrr::map(between, fix_name_labels)
   within <- purrr::map(within, fix_name_labels)
+  dv <- fix_name_labels(dv, "\\W")
+  id <- fix_name_labels(id, "\\W")
   
   # check for duplicate factor names
   factor_overlap <- intersect(names(within), names(between))
@@ -91,8 +95,8 @@ check_design <- function(within = list(), between = list(),
   }
   
   # define columns
-  cells_w <- cell_combos(within, dv)
-  cells_b <- cell_combos(between, dv) 
+  cells_w <- cell_combos(within, names(dv))
+  cells_b <- cell_combos(between, names(dv)) 
   
   # convert n, mu and sd from vector/list formats
   cell_n  <- convert_param(n,  cells_w, cells_b, "Ns")
@@ -280,14 +284,15 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
 #' Fixes if a factor list does not have named levels or has special characters in the names
 #' 
 #' @param x the list to fix
+#' @param replace regex pattern to replace with full stops (defaults to non-word characters and underscores)
 #' 
 #' @return the fixed list
 #' @keywords internal
 #' 
-fix_name_labels <- function(x) {
+fix_name_labels <- function(x, replace = "(\\W|_)") {
   if (is.null(names(x))) { names(x) <- x }
   nm <- names(x)
-  # get rid of non-word characters and underscores because they mess up separate
-  names(x) <- gsub("(\\W|_)", ".", nm) 
+  # replace non-word characters and underscores with full stops
+  names(x) <- gsub(replace, ".", nm) 
   as.list(x)
 }

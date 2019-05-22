@@ -24,8 +24,11 @@
 #' 
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
-                       empirical = FALSE, long = FALSE, dv = "y", id = "id",
-                       plot = TRUE, seed = NULL, interactive = FALSE, design = NULL) {
+                       empirical = FALSE, long = FALSE, 
+                       dv = list(y = "Score"), 
+                       id = list(id = "Subject ID"),
+                       plot = TRUE, seed = NULL, 
+                       interactive = FALSE, design = NULL) {
   # check the design is specified correctly
   if (interactive) {
     design <- interactive_design(plot = plot)
@@ -58,6 +61,10 @@ sim_design <- function(within = list(), between = list(),
 sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   set.seed(seed)
   list2env(design, envir = environment())
+  
+  # only use DV and ID names here
+  dv <- names(dv)
+  id <- names(id)
   
   # define columns
   cells_w <- cell_combos(within, dv)

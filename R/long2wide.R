@@ -21,8 +21,8 @@ long2wide <- function(.data, within = c(), between = c(), dv = "y", id = "id") {
     
     within <- names(design$within)
     between <- names(design$between)
-    dv <- design$dv
-    id = design$id
+    dv <- names(design$dv)
+    id = names(design$id)
   }
   
   d1 <- dplyr::select(.data , tidyselect::one_of(c(id, between, within, dv))) 
