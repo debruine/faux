@@ -4,7 +4,7 @@
 #' as an existing data table Only returns numeric columns and simulates all numeric 
 #' variables from a continuous normal distribution (for now).
 #'
-#' @param .data the existing tbl (must be in wide format)
+#' @param data the existing tbl (must be in wide format)
 #' @param n the number of samples to return per group
 #' @param within a list of the within-subject columns
 #' @param between a list of the between-subject columns
@@ -22,7 +22,7 @@
 #' @export
 #' @importFrom rlang := 
 
-sim_df <- function (.data, n = 100, within = c(), between = c(), id = "sub_id", dv = "val",
+sim_df <- function (data, n = 100, within = c(), between = c(), id = "sub_id", dv = "val",
                     empirical = FALSE, long = FALSE, seed = NULL, grp_by = NULL) {
   if (!is.null(seed)) {
     # reinstate system seed after simulation
@@ -49,10 +49,10 @@ sim_df <- function (.data, n = 100, within = c(), between = c(), id = "sub_id", 
   
   if (length(within)) {
     # convert long to wide
-    .data <- long2wide(.data = .data, within = within, between = between, dv = dv, id = id)
+    data <- long2wide(data = data, within = within, between = between, dv = dv, id = id)
   }
   
-  grpdat <- select_num_grp(.data, between)
+  grpdat <- select_num_grp(data, between)
   
   simdat <- grpdat %>%
     tidyr::nest() %>%

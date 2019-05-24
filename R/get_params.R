@@ -2,7 +2,7 @@
 #'
 #' \code{get_params} Generates a table of the correlations and means of numeric columns in a data frame
 #'
-#' @param .data the existing tbl
+#' @param data the existing tbl
 #' @param between a vector of column names for between-subject factors
 #' @param within a vector of column names for within-subject factors (if data is long)
 #' @param dv the column name of the dv (if data is long)
@@ -15,16 +15,16 @@
 #' @export
 #' 
 
-get_params <- function(.data, between = c(), within = c(), 
+get_params <- function(data, between = c(), within = c(), 
                        dv = "y", id = "id", digits = 2) {
   
   if (length(within) && length(dv) && length(id)) {
     # convert long to wide
-    .data <- long2wide(.data, within, between, dv, id) %>%
+    data <- long2wide(data, within, between, dv, id) %>%
       dplyr::select(-tidyselect::one_of(id))
   }
   
-  grpdat <- select_num_grp(.data, between)
+  grpdat <- select_num_grp(data, between)
   grpvars <- dplyr::group_vars(grpdat)
   numvars <- names(grpdat)[!names(grpdat) %in% grpvars]
   

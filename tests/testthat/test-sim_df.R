@@ -2,7 +2,7 @@ context("sim_df")
 
 # error messages ----
 test_that("error messages", {
-  expect_error( sim_df("A"), ".data must be a data frame or matrix" )
+  expect_error( sim_df("A"), "data must be a data frame or matrix" )
   expect_error( sim_df(iris, "A"), "n must be an integer > 2" )
   expect_error( sim_df(iris, 2), "n must be an integer > 2" )
   expect_error( sim_df(iris, 10, between = FALSE), "between must be a numeric or character vector" )
@@ -46,7 +46,7 @@ test_that("specified parameters", {
   expect_equal(sds, newsds)
   
   # named arguments out of order
-  newdf <- sim_df(between = c(), empirical = TRUE, .data = iris, n = n)
+  newdf <- sim_df(between = c(), empirical = TRUE, data = iris, n = n)
   newdat <- dplyr::select_if(newdf, is.numeric)
   newcors <- cor(newdat)
   newmeans <- dplyr::summarise_all(newdat, mean) %>%

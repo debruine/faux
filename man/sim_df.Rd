@@ -4,12 +4,12 @@
 \alias{sim_df}
 \title{Simulate an existing dataframe}
 \usage{
-sim_df(.data, n = 100, within = c(), between = c(), id = "sub_id",
+sim_df(data, n = 100, within = c(), between = c(), id = "sub_id",
   dv = "val", empirical = FALSE, long = FALSE, seed = NULL,
   grp_by = NULL)
 }
 \arguments{
-\item{.data}{the existing tbl (must be in wide format)}
+\item{data}{the existing tbl (must be in wide format)}
 
 \item{n}{the number of samples to return per group}
 

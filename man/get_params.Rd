@@ -5,14 +5,14 @@
 \alias{check_sim_stats}
 \title{Get parameters from a data table}
 \usage{
-get_params(.data, between = c(), within = c(), dv = "y", id = "id",
+get_params(data, between = c(), within = c(), dv = "y", id = "id",
   digits = 2)
 
-check_sim_stats(.data, between = c(), within = c(), dv = "y",
+check_sim_stats(data, between = c(), within = c(), dv = "y",
   id = "id", digits = 2)
 }
 \arguments{
-\item{.data}{the existing tbl}
+\item{data}{the existing tbl}
 
 \item{between}{a vector of column names for between-subject factors}
 

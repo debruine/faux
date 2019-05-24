@@ -1,6 +1,6 @@
 #' Convert data from long to wide format
 #' 
-#' @param .data the tbl in long format
+#' @param data the tbl in long format
 #' @param within the names of the within column(s)
 #' @param between the names of between column(s) (optional)
 #' @param dv the name of the DV (value) column
@@ -14,10 +14,10 @@
 #' 
 #' @export
 #' 
-long2wide <- function(.data, within = c(), between = c(), dv = "y", id = "id") {
-  if ("design" %in% names(attributes(.data))) {
+long2wide <- function(data, within = c(), between = c(), dv = "y", id = "id") {
+  if ("design" %in% names(attributes(data))) {
     # get parameters from design
-    design <- attributes(.data)$design
+    design <- attributes(data)$design
     
     within <- names(design$within)
     between <- names(design$between)
@@ -25,7 +25,7 @@ long2wide <- function(.data, within = c(), between = c(), dv = "y", id = "id") {
     id <- names(design$id)
   }
   
-  d1 <- dplyr::select(.data , tidyselect::one_of(c(id, between, within, dv))) 
+  d1 <- dplyr::select(data , tidyselect::one_of(c(id, between, within, dv))) 
   if (length(within)) {
     d1 <- tidyr::unite(d1, ".tmpwithin.", tidyselect::one_of(within))
   }
@@ -41,7 +41,7 @@ long2wide <- function(.data, within = c(), between = c(), dv = "y", id = "id") {
 
 #' Convert data from wide to long format
 #' 
-#' @param .data the tbl in wide format
+#' @param data the tbl in wide format
 #' @param within_factors the names of the within factors
 #' @param within_cols the names (or indices) of the within-subject (value) columns
 #' @param dv the name of the dv column (defaults to "y")
@@ -55,11 +55,11 @@ long2wide <- function(.data, within = c(), between = c(), dv = "y", id = "id") {
 #' 
 #' @export
 #' 
-wide2long <- function(.data, within_factors = c(), within_cols = c(), 
+wide2long <- function(data, within_factors = c(), within_cols = c(), 
                       dv = "y", id = NULL, sep = "[^[:alnum:]]+") {
-  if ("design" %in% names(attributes(.data))) {
+  if ("design" %in% names(attributes(data))) {
     # get parameters from design
-    design <- attributes(.data)$design
+    design <- attributes(data)$design
     
     dv <- names(design$dv)
     id <- names(design$id)
@@ -69,17 +69,17 @@ wide2long <- function(.data, within_factors = c(), within_cols = c(),
   
   
   if (is.numeric(within_cols)) {
-    within_cols <- names(.data)[within_cols]
+    within_cols <- names(data)[within_cols]
   }
   
   if (!is.null(id)) {
     # check if ID exists and make if not
-    if (!(id %in% names(.data))) {
-      .data[[id]] <- make_id(nrow(.data))
+    if (!(id %in% names(data))) {
+      data[[id]] <- make_id(nrow(data))
     }
   }
   
-  .data %>%
+  data %>%
     tidyr::gather(".tmpwithin.", !!dplyr::sym(dv), tidyselect::one_of(within_cols)) %>%
     tidyr::separate(".tmpwithin.", within_factors, sep = sep)
 }

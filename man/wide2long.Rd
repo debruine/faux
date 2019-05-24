@@ -4,11 +4,11 @@
 \alias{wide2long}
 \title{Convert data from wide to long format}
 \usage{
-wide2long(.data, within_factors = c(), within_cols = c(), dv = "y",
+wide2long(data, within_factors = c(), within_cols = c(), dv = "y",
   id = NULL, sep = "[^[:alnum:]]+")
 }
 \arguments{
-\item{.data}{the tbl in wide format}
+\item{data}{the tbl in wide format}
 
 \item{within_factors}{the names of the within factors}
 

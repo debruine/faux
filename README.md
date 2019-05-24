@@ -8,6 +8,8 @@ always_allow_html: yes
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/163506566.svg)](https://zenodo.org/badge/latestdoi/163506566)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Travis build status](https://travis-ci.org/debruine/faux.svg?branch=master)](https://travis-ci.org/debruine/faux)
+[![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/debruine/faux?branch=master)
 <!-- badges: end -->
 
 
@@ -21,8 +23,14 @@ It is useful to be able to simulate data with a specified structure. The `faux` 
 You can install the newest version of faux from [GitHub](https://github.com/debruine/faux) with:
 
 ``` r
-devtools::install_github("debruine/faux")
+devtools::install_github("debruine/faux", build_vignettes = TRUE)
 ```
+
+Because faux is still in early development, some features will break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.
+
+## How to use faux
+
+
 
 * [sim_design](#sim_design)
 * [sim_df](#sim_df)
@@ -68,6 +76,19 @@ df <- sim_design(within, between,
 
 Table: Sample `sim_design()` stats
 
+You can plot the data from `sim_design()` and swap the factor visualisations. [see vignette](https://debruine.github.io/faux/articles/plots.html)
+
+
+```r
+p1 <- plot_design(df)
+p2 <- plot_design(df, "pet", "time")
+
+cowplot::plot_grid(p1, p2, nrow = 2, align = "v")
+```
+
+![plot of chunk plot-design](figure/plot-design-1.png)
+
+
 ## sim_df
 
 This function produces a data table with the same distributions and correlations as an existing data table. It only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now). [see vignette](https://debruine.github.io/faux/articles/sim_df.html)
@@ -112,10 +133,10 @@ lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
 
 |effect   |group    |term            | estimate| std.error| statistic|
 |:--------|:--------|:---------------|--------:|---------:|---------:|
-|fixed    |NA       |(Intercept)     |   10.508|     0.366|    28.746|
-|ran_pars |sub_id   |sd__(Intercept) |    0.911|        NA|        NA|
-|ran_pars |item_id  |sd__(Intercept) |    2.485|        NA|        NA|
-|ran_pars |Residual |sd__Observation |    2.971|        NA|        NA|
+|fixed    |NA       |(Intercept)     |   10.073|     0.311|    32.388|
+|ran_pars |sub_id   |sd__(Intercept) |    1.016|        NA|        NA|
+|ran_pars |item_id  |sd__(Intercept) |    2.058|        NA|        NA|
+|ran_pars |Residual |sd__Observation |    2.937|        NA|        NA|
 
 ## sim_mixed_df
 
@@ -158,9 +179,9 @@ dat <- rnorm_multi(
 
 |   n|var |    A|    B|    C|  mean|   sd|
 |---:|:---|----:|----:|----:|-----:|----:|
-| 100|A   | 1.00| 0.49| 0.47| -0.02| 1.07|
-| 100|B   | 0.49| 1.00| 0.26| 20.40| 5.13|
-| 100|C   | 0.47| 0.26| 1.00| 19.82| 4.87|
+| 100|A   | 1.00| 0.51| 0.55|  0.08| 1.01|
+| 100|B   | 0.51| 1.00| 0.28| 19.90| 4.93|
+| 100|C   | 0.55| 0.28| 1.00| 20.58| 5.02|
 
 
 Table: Sample `rnorm_multi()` stats
@@ -184,7 +205,7 @@ list(
   r = cor(x,y)
 ) %>% str()
 #> List of 3
-#>  $ mean: num 1.51e-17
+#>  $ mean: num -1.33e-17
 #>  $ sd  : num 1
 #>  $ r   : num 0.5
 ```
@@ -301,13 +322,17 @@ df_long <- sim_design(within, between, long = TRUE)
 ```r
 
 df_wide <- long2wide(df_long)
-#> All arguments must be character vectors, not list
 ```
 
 
-```
-#> Error in head(df_wide): object 'df_wide' not found
-```
+|id   |pet |        day|      night|
+|:----|:---|----------:|----------:|
+|S001 |cat | -0.4716967| -0.5028944|
+|S002 |cat | -0.4883249| -0.4010576|
+|S003 |cat | -0.3179796|  0.2211064|
+|S004 |cat | -0.6062085|  0.7765950|
+|S005 |cat |  1.0692633| -1.6403173|
+|S006 |cat | -0.9743776| -0.2294919|
 
 If you have a data table not made by faux, you need to specify the within-subject columns, the between-subject columns, the DV column, and the ID column.
 
@@ -331,12 +356,12 @@ df_wide <- long2wide(df_long, within = c("A", "B"),
 
 | sub_id|C  |      A1_B1|      A1_B2|      A2_B1|      A2_B2|
 |------:|:--|----------:|----------:|----------:|----------:|
-|      1|C1 |  0.2246292| -0.7409908|  0.0790572|  0.6999527|
-|      2|C2 | -0.8995414| -0.2262997| -1.3043195| -0.6672540|
-|      3|C1 | -0.3982592|  0.6878665|  2.4646539|  0.5504153|
-|      4|C2 |  0.6401929| -0.3626698|  0.7731221| -0.7295346|
-|      5|C1 | -0.1262407| -0.9830908| -1.1569483|  0.5713228|
-|      6|C2 | -1.1046620| -0.4956460|  1.1208392| -2.7947336|
+|      1|C1 |  0.5155250|  0.0236974| -0.8559099| -0.2476252|
+|      2|C2 |  1.7126586| -0.3393816| -0.7922569|  0.6288110|
+|      3|C1 | -1.8289396| -0.5809952| -1.3774323| -0.0658665|
+|      4|C2 |  1.7320068| -0.5330786|  1.0126400| -1.3936488|
+|      5|C1 | -0.1980841|  0.1887755|  0.7556978|  0.0951162|
+|      6|C2 | -1.7309580|  1.1195109|  0.3883780| -1.2426219|
 
 
 
@@ -356,19 +381,18 @@ df_wide <- sim_design(within, between, long = FALSE)
 
 ```r
 df_long <- wide2long(df_wide)
-#> Error in x[[i]] <- value: invalid subscript type 'list'
 ```
 
 
 
-| sub_id|A  |B  |C  |      score|
-|------:|:--|:--|:--|----------:|
-|      1|A1 |B1 |C1 |  0.2246292|
-|      2|A1 |B1 |C2 | -0.8995414|
-|      3|A1 |B1 |C1 | -0.3982592|
-|      4|A1 |B1 |C2 |  0.6401929|
-|      5|A1 |B1 |C1 | -0.1262407|
-|      6|A1 |B1 |C2 | -1.1046620|
+|id   |pet |time |          y|
+|:----|:---|:----|----------:|
+|S001 |cat |day  |  1.3290422|
+|S002 |cat |day  |  0.1087942|
+|S003 |cat |day  |  0.2573105|
+|S004 |cat |day  |  0.1548801|
+|S005 |cat |day  | -0.4347730|
+|S006 |cat |day  |  0.5253602|
 
 
 
@@ -584,6 +608,6 @@ matrix(c(1, .3, -.9, .2,
 ```
 
 
-
+Please note that the [34m'faux'[39m project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 
 
