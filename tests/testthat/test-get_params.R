@@ -2,7 +2,7 @@ context("get_params")
 
 # error messages ----
 test_that("error messages", {
-  expect_error(get_params("A"), ".data must be a data frame or matrix")
+  expect_error(get_params("A"), "data must be a data frame or matrix")
   expect_error(get_params(iris, FALSE), "between must be a numeric or character vector")
 })
 

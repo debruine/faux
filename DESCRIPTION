@@ -17,7 +17,7 @@ Imports:
     tidyselect,
     stats,
     ggplot2,
-    rlang,
+    rlang (>= 0.1.2),
     broom.mixed,
     jsonlite
 License: MIT + file LICENSE
@@ -25,7 +25,9 @@ Suggests:
     testthat (>= 2.1.0),
     knitr,
     rmarkdown,
-    forcats
+    forcats,
+    roxygen2,
+    covr
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Encoding: UTF-8

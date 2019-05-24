@@ -4,10 +4,10 @@
 \alias{select_num_grp}
 \title{Select grouping and numeric columns and group}
 \usage{
-select_num_grp(.data, between = c(), cols = NULL)
+select_num_grp(data, between = c(), cols = NULL)
 }
 \arguments{
-\item{.data}{the existing tbl}
+\item{data}{the existing tbl}
 
 \item{between}{an optional list of column names to group by}
 

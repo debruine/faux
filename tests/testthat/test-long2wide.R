@@ -33,7 +33,7 @@ test_that("2w*2b", {
 # named arguments ----
 test_that("named arguments", {
   df_long <- sim_design(2, 2, long = TRUE)
-  df_wide <- long2wide(dv = "y", id = "id", .data = df_long, between = "B", within = "A")
+  df_wide <- long2wide(dv = "y", id = "id", data = df_long, between = "B", within = "A")
   
   expect_equal(names(df_wide), c("id", "B", "A1", "A2"))
   expect_equal(nrow(df_wide), 200)

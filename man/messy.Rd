@@ -4,10 +4,10 @@
 \alias{messy}
 \title{Simulate missing data}
 \usage{
-messy(.data, prop = 0, ..., replace = NA)
+messy(data, prop = 0, ..., replace = NA)
 }
 \arguments{
-\item{.data}{the tbl}
+\item{data}{the tbl}
 
 \item{prop}{the proportion of data to mess up}
 

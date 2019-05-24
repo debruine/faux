@@ -2,7 +2,7 @@
 #'
 #' Get error terms from an existing data table.
 #'
-#' @param .data the existing tbl
+#' @param data the existing tbl
 #' @param dv the column name or index containing the DV
 #' @param sub_id the column name or index for the subject IDs
 #' @param item_id the column name or index for the item IDs
@@ -13,25 +13,25 @@
 #' des <- check_mixed_design(fr4, "rating", "rater_id", "face_id")
 #' str(des[1:4])
 #' @export
-check_mixed_design <- function(.data, dv = 1, sub_id = 2, item_id = 3, formula = NULL) {
+check_mixed_design <- function(data, dv = 1, sub_id = 2, item_id = 3, formula = NULL) {
   # error checking -------------------------------------------------------------
-  if (is.matrix(.data)) {
-    .data = as.data.frame(.data)
-  } else if (!is.data.frame(.data)) {
-    stop(".data must be a data frame or matrix")
+  if (is.matrix(data)) {
+    data = as.data.frame(data)
+  } else if (!is.data.frame(data)) {
+    stop("data must be a data frame or matrix")
   }
   
   # get column names if specified by index
-  if (is.numeric(dv)) dv <- names(.data)[dv]
-  if (is.numeric(sub_id)) sub_id <- names(.data)[sub_id]
-  if (is.numeric(item_id)) item_id <- names(.data)[item_id]
+  if (is.numeric(dv)) dv <- names(data)[dv]
+  if (is.numeric(sub_id)) sub_id <- names(data)[sub_id]
+  if (is.numeric(item_id)) item_id <- names(data)[item_id]
   
   if (is.null(formula)) {
     formula <- paste0(dv, " ~ 1 + (1 | ", sub_id, ") + (1 | ", item_id, ")")
   }
   
   lmer_formula <- stats::as.formula(formula)
-  mod <- lme4::lmer(lmer_formula, data = .data)
+  mod <- lme4::lmer(lmer_formula, data = data)
   grand_i <- lme4::fixef(mod)[["(Intercept)"]]
   
   sds <- lme4::VarCorr(mod) %>% as.data.frame()

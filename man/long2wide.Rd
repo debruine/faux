@@ -4,10 +4,10 @@
 \alias{long2wide}
 \title{Convert data from long to wide format}
 \usage{
-long2wide(.data, within = c(), between = c(), dv = "y", id = "id")
+long2wide(data, within = c(), between = c(), dv = "y", id = "id")
 }
 \arguments{
-\item{.data}{the tbl in long format}
+\item{data}{the tbl in long format}
 
 \item{within}{the names of the within column(s)}
 

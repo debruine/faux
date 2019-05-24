@@ -5,7 +5,7 @@
 #' all columns that contain the same values per unit of analysis (within factors), and 
 #' all columns that differ over units of analysis (dv, continuous factors)
 #' 
-#' @param .data the data frame (in long format)
+#' @param data the data frame (in long format)
 #' @param dv the column name that identifies the DV
 #' @param id the column name(s) that identify a unit of analysis
 #' @param plot whether to show a plot of the design
@@ -14,10 +14,10 @@
 #' 
 #' @export
 #'
-get_design_long <- function(.data, dv = "y", id = "id", plot = TRUE) {
-  .data <- dplyr::ungroup(.data)
+get_design_long <- function(data, dv = "y", id = "id", plot = TRUE) {
+  data <- dplyr::ungroup(data)
   
-  between_factors <- .data %>%
+  between_factors <- data %>%
     dplyr::group_by_at(dplyr::vars(tidyselect::one_of(id))) %>%
     dplyr::summarise_all(dplyr::n_distinct) %>%
     dplyr::ungroup() %>%
@@ -26,7 +26,7 @@ get_design_long <- function(.data, dv = "y", id = "id", plot = TRUE) {
     dplyr::select_if(~ . == 1) %>%
     names()
   
-  within_factors <- .data %>%
+  within_factors <- data %>%
     dplyr::select(-tidyselect::one_of(between_factors)) %>%
     dplyr::group_by_at(dplyr::vars(tidyselect::one_of(id))) %>%
     dplyr::summarise_all(paste0, collapse = ",") %>%
@@ -36,7 +36,7 @@ get_design_long <- function(.data, dv = "y", id = "id", plot = TRUE) {
     dplyr::select_if(~ . == 1) %>%
     names()
   
-  within <- .data %>%
+  within <- data %>%
     dplyr::select(tidyselect::one_of(within_factors)) %>%
     dplyr::mutate_all(as.factor) %>%
     dplyr::summarise_all(~levels(.) %>% paste0(collapse = ".|.")) %>%
@@ -44,7 +44,7 @@ get_design_long <- function(.data, dv = "y", id = "id", plot = TRUE) {
     sapply(strsplit, split=".|.", fixed = TRUE) %>%
     purrr::map(fix_name_labels)
   
-  between <- .data %>%
+  between <- data %>%
     dplyr::select(tidyselect::one_of(between_factors)) %>%
     dplyr::mutate_all(as.factor) %>%
     dplyr::summarise_all(~levels(.) %>% paste0(collapse = ".|.")) %>%
@@ -57,7 +57,7 @@ get_design_long <- function(.data, dv = "y", id = "id", plot = TRUE) {
   cells_b <- cell_combos(between, dv) 
   
   # get n, mu, sd, r per cell
-  chk <- check_sim_stats(.data, between_factors, within_factors, dv, id)
+  chk <- check_sim_stats(data, between_factors, within_factors, dv, id)
   
   if (length(between_factors)) {
     chk_b <- tidyr::unite(chk, ".between", tidyselect::one_of(between_factors)) %>%
