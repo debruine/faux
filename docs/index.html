@@ -104,7 +104,12 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the newest version of faux from <a href="https://github.com/debruine/faux">GitHub</a> with:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"debruine/faux"</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">devtools<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"debruine/faux"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p>Because faux is still in early development, some features will break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.</p>
+</div>
+<div id="how-to-use-faux" class="section level2">
+<h2 class="hasAnchor">
+<a href="#how-to-use-faux" class="anchor"></a>How to use faux</h2>
 <ul>
 <li><a href="#sim_design">sim_design</a></li>
 <li><a href="#sim_df">sim_df</a></li>
@@ -1003,6 +1008,7 @@ df_wide &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_de
         .<span class="dv">2</span>, .<span class="dv">5</span>,  .<span class="dv">3</span>,  <span class="dv">1</span>), <span class="dv">4</span>) <span class="op">%&gt;%</span>
 <span class="st">  </span><span class="kw"><a href="reference/is_pos_def.html">is_pos_def</a></span>()
 <span class="co">#&gt; [1] FALSE</span></code></pre></div>
+<p>Please note that the [34m’faux’[39m project is released with a <a href="CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
   </div>

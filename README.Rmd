@@ -23,7 +23,6 @@ library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(faux)
-theme_set(theme_bw())
 set.seed(200)
 ```
 
@@ -35,8 +34,14 @@ It is useful to be able to simulate data with a specified structure. The `faux` 
 You can install the newest version of faux from [GitHub](https://github.com/debruine/faux) with:
 
 ``` r
-devtools::install_github("debruine/faux")
+devtools::install_github("debruine/faux", build_vignettes = TRUE)
 ```
+
+Because faux is still in early development, some features will break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.
+
+## How to use faux
+
+
 
 * [sim_design](#sim_design)
 * [sim_df](#sim_df)
@@ -398,6 +403,6 @@ matrix(c(1, .3, -.9, .2,
 ```
 
 
-
+Please note that the [34m'faux'[39m project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 
 

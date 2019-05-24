@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 
 ```{r setup, warning=FALSE, message=FALSE}
 library(faux)
-library(cowplot)
 ```
 
 ## Plotting Designs
