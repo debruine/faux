@@ -486,29 +486,29 @@ test_that("seed", {
   # setting seed returns same DF, but is reset
   set.seed(1)
   rnd0 <- rnorm(1)
-  df1 <- sim_design(2, 2, n = 10, seed = 910210)
+  df1 <- sim_design(2, 2, n = 10, seed = 910210, plot = FALSE)
   rnd1 <- rnorm(1)
-  df2 <- sim_design(2, 2, n = 10, seed = 910210)
+  df2 <- sim_design(2, 2, n = 10, seed = 910210, plot = FALSE)
   rnd2 <- rnorm(1)
   set.seed(1)
   rnd0b <- rnorm(1)
   rnd1b <- rnorm(1)
   rnd2b <- rnorm(1)
-  df3 <- sim_design(2, 2, n = 10, seed = 8675309)
+  df3 <- sim_design(2, 2, n = 10, seed = 8675309, plot = FALSE)
   
   expect_equal(df1, df2)
   
   expect_false(rnd1 == rnd2)
   expect_equal(rnd0, rnd0b)
-  #expect_equal(rnd1, rnd1b) #FIX - why do these work for sim_df and sim_mixed_cc and not here?
-  #expect_equal(rnd2, rnd2b)
+  expect_equal(rnd1, rnd1b)
+  expect_equal(rnd2, rnd2b)
   expect_true(!identical(df1, df3))
   
   # user sets seed externally
   set.seed(1)
-  df4 <- sim_design(2, 2, n = 10)
+  df4 <- sim_design(2, 2, n = 10, plot = FALSE)
   set.seed(1)
-  df5 <- sim_design(2, 2, n = 10)
+  df5 <- sim_design(2, 2, n = 10, plot = FALSE)
   expect_equal(df4, df5)
 })
 
