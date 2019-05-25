@@ -2,7 +2,7 @@ context("test-check_design")
 
 # no factors
 test_that("no factors", {
-  design <- check_design()
+  design <- check_design(plot = FALSE)
   expect_equal(design$within, list())
   expect_equal(design$between, list())
   expect_equal(design$dv, list(y = "Score"))

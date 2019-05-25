@@ -28,7 +28,8 @@ test_that("defaults with between", {
 
 # long ----
 test_that("long", {
-  df_long <- sim_design(within = 2, between = 2, r = 0.5, empirical = TRUE, long = TRUE)
+  df_long <- sim_design(within = 2, between = 2, r = 0.5, 
+                        empirical = TRUE, long = TRUE, plot = FALSE)
   checklong <- get_params(df_long, within = "A", between = "B")
   
   expect_equal(checklong$B, c("B1", "B1", "B2", "B2") %>% as.factor())
