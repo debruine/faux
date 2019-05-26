@@ -1,21 +1,26 @@
 context("select_num_grp")
 
+# errors ----
 test_that("error messages", {
   expect_error(select_num_grp("A"), "data must be a data frame or matrix")
   expect_error(select_num_grp(iris, FALSE), "between must be a numeric or character vector")
 })
 
-test_that("correct defaults", {
+# defaults ----
+test_that("defaults", {
   checkiris <- select_num_grp(iris)
-  irisnames <- c("Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")
-  iris_manual <- dplyr::select(iris, tidyselect::one_of(irisnames))
-  
-  expect_equal(nrow(checkiris), nrow(iris))
-  expect_equal(ncol(checkiris), 4)
-  expect_equal(names(checkiris), irisnames)
-  expect_equal(checkiris, iris_manual)
+  expect_equal(checkiris, iris[,1:4])
 })
 
+# matrix conversion ----
+test_that("matrix", {
+  checkiris <- as.matrix(iris[,1:4]) %>% 
+    select_num_grp()
+  
+  expect_equal(checkiris, iris[,1:4])
+})
+
+# grouping ----
 test_that("grouping", {
   # grouping by name
   checkiris <- select_num_grp(iris, "Species")
@@ -38,6 +43,7 @@ test_that("grouping", {
   expect_equal(checkiris, iris_manual)
 })
 
+# columns ----
 test_that("columns", {
   # columns by name
   irisnames <- c("Sepal.Length", "Sepal.Width")

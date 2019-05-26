@@ -3,6 +3,7 @@
 #' \code{plot_design()} plots the specified within and between design
 #'
 #' @param input A list of design parameters created by check_design() or a data tbl (in long format)
+#' @param geoms A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box
 #' @param ... A list of factor names to determine visualisation (see vignette)
 #' 
 #' @return plot
@@ -19,16 +20,18 @@
 #' 
 #' @export
 #' 
-plot_design <- function(input, ...) {
+plot_design <- function(input, geoms = NULL, ...) {
   if (!is.data.frame(input) && is.list(input)) {
-    plot_data <- FALSE
+    if (is.null(geoms)) geoms <- "pointrangeSD"
     design <- input
     data <- sim_design_(design = design, empirical = TRUE, long = TRUE)
   } else if (is.data.frame(input)) {
-    plot_data <- TRUE
+    if (is.null(geoms)) geoms <- c("violin", "box")
     data <- input
     if ("design" %in% names(attributes(data))) {
       design <- attributes(data)$design
+    } else {
+      stop("The data table must have a design attribute")
     }
     if (!(names(design$dv) %in% names(data))) {
       # get data into long format
@@ -79,8 +82,8 @@ plot_design <- function(input, ...) {
       NULL,
       rlang::expr(!!f[[3]] ~ .),
       rlang::expr(!!f[[3]] ~ !!f[[4]]),
-      rlang::expr(!!f[[3]] ~ !!f[[4]]*!!f[[5]]),
-      rlang::expr(!!f[[3]]*!!f[[4]] ~ !!f[[5]]*!!f[[6]])
+      rlang::expr(!!f[[3]] ~ !!f[[4]] * !!f[[5]]),
+      rlang::expr(!!f[[3]] * !!f[[4]] ~ !!f[[5]] * !!f[[6]])
     )
     p <- p + facet_grid(eval(expr), labeller = "label_both")
   }
@@ -88,23 +91,35 @@ plot_design <- function(input, ...) {
   # add text y-label to all plots
   p <- p + ylab(design$dv[[1]])
   
-  if (plot_data) {
+  if ("violin" %in% geoms) {
     p <- p + geom_violin(color = "black", alpha = 0.5,
-                         position = position_dodge(width = 0.9)) +
-      geom_boxplot(width = 0.25, color = "black",
+                         position = position_dodge(width = 0.9))
+  } 
+  if ("box" %in% geoms) {
+    p <- p + geom_boxplot(width = 0.25, color = "black",
                    position = position_dodge(width = 0.9),
                    show.legend = FALSE)
-  } else {
-    minsd <- function(x) { mean(x) - sd(x) }
-    maxsd <- function(x) { mean(x) + sd(x) }
+  }
+  if ("pointrangeSD" %in% geoms | "pointrangeSE" %in% geoms) {
+    if ("pointrangeSD" %in% geoms) {
+      minsd <- function(x) { mean(x) - sd(x) }
+      maxsd <- function(x) { mean(x) + sd(x) }
+      shape <- 10
+      size <- 1
+    } else if ("pointrangeSE" %in% geoms) {
+      minsd <- function(x) { mean(x) - sd(x)/sqrt(length(x)) }
+      maxsd <- function(x) { mean(x) + sd(x)/sqrt(length(x)) }
+      shape <- 20
+      size <- 0.5
+    }
     
     p <- p + stat_summary(
       fun.y = mean, 
       fun.ymin = minsd,
       fun.ymax = maxsd,
       geom='pointrange', 
-      shape = 10,
-      size = 1,
+      shape = shape,
+      size = size,
       position = position_dodge(width = 0.9))
   }
   

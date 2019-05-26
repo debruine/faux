@@ -1,5 +1,4 @@
-# cormat ----------------
-context("cormat")
+context("test-cormat")
 
 test_that("errors", {
   expect_error(
@@ -65,53 +64,3 @@ test_that("correct matrix", {
   expect_equal(mat5, compmat4)
 })
 
-
-# cormat_from_triangle --------------
-context("cormat_from_triangle")
-
-test_that("errors", {
-  expect_error(
-    cormat_from_triangle(c(.8, .8, .8, .8)),
-    "you don't have the right number of correlations"
-  )
-})
-
-test_that("from triangle", {
-  mat <- cormat_from_triangle(c(.2, .3, .4, .5, .6, .7))
-  
-  compmat <- matrix(c(1, .2, .3, .4,
-                     .2,  1, .5, .6, 
-                     .3, .5,  1, .7,
-                     .4, .6, .7,  1), 4)
-  expect_equal(mat, compmat)
-})
-
-
-# pos_def_limits --------------
-context("pos_def_limits")
-
-test_that("pos_def_limits", {
-  expect_error(
-    pos_def_limits(.8, .2, .4, NA),
-    "you don't have the right number of correlations"
-  )
-  expect_error(
-    pos_def_limits(.8, NA, NA),
-    "cors needs to have exactly 1 NA"
-  )
-  
-  pdl <- pos_def_limits(.8, .2, NA)
-  expect_equal(pdl$min, -0.427)
-  expect_equal(pdl$max, 0.747)
-  
-  pdl <- pos_def_limits(.8, .2, 0, NA, 0, 0)
-  expect_equal(pdl$min, -0.427)
-  expect_equal(pdl$max, 0.747)
-  
-  pdl <- pos_def_limits(.8, .2, NA, -.7, 0, 0)
-  expect_equal(pdl$min, NA)
-  expect_equal(pdl$max, NA)
-})
-  
-  
-  
