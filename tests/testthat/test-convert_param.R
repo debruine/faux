@@ -33,8 +33,8 @@ test_that("errors", {
                "The number of mu for cell B1_C1 is not correct. Please specify either 1 or a vector of 4 per cell")
   
   param <- list("W1_X1" = 1:4, "W2_X1" = 1:4, "W1_X2" = 1:4)
-  expect_error(convert_param(param, cells_w, c(), "mu"), 
-               "The number of mu is not correct. Please specify either 1 or a vector of 4 per cell")
+  expect_error(convert_param(param, cells_w, c("y"), "mu"), 
+               "Cell y is not specified for mu")
 })
 
 # single number ---
@@ -224,5 +224,13 @@ test_that("compare types", {
   expect_equal(res_mat_tr, canon)
 })
 
-
+# other designs ----
+test_that("other designs", {
+  # no between 
+  cells_b <- c("y")
+  cells_w <- c("C1", "C2")
+  
+  expect_equal(convert_param(1, cells_w, cells_b), list(y = list(C1 = 1, C2 = 1)))
+  
+})
 

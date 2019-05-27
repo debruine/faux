@@ -2,6 +2,8 @@
 output: github_document
 always_allow_html: yes
 ---
+
+# faux <img src="man/figures/logo.png" align="right" alt="" width="120" />
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -50,11 +52,12 @@ For example, the following creates a 2w*2b design with 100 observations in each 
 
 
 ```r
-between <- list("pet" = c("cat" = "Cat Owners", "dog" = "Dog Owners"))
-within <- list("time" = c("day", "night"))
+between <- list(pet = c(cat = "Cat Owners", 
+                        dog = "Dog Owners"))
+within <- list(time = c("morning", "noon", "evening", "night"))
 mu <- data.frame(
-  cat = c(10, 20),
-  dog = c(15, 25),
+  cat    = c(10, 12, 14, 16),
+  dog    = c(10, 15, 20, 25),
   row.names = within$time
 )
 df <- sim_design(within, between, 
@@ -66,12 +69,16 @@ df <- sim_design(within, between,
 
 
 
-|pet |   n|var   | day| night| mean| sd|
-|:---|---:|:-----|---:|-----:|----:|--:|
-|cat | 100|day   | 1.0|   0.5|   10|  5|
-|cat | 100|night | 0.5|   1.0|   20|  5|
-|dog | 100|day   | 1.0|   0.5|   15|  5|
-|dog | 100|night | 0.5|   1.0|   25|  5|
+|pet |   n|var     | morning| noon| evening| night| mean| sd|
+|:---|---:|:-------|-------:|----:|-------:|-----:|----:|--:|
+|cat | 100|morning |     1.0|  0.5|     0.5|   0.5|   10|  5|
+|cat | 100|noon    |     0.5|  1.0|     0.5|   0.5|   12|  5|
+|cat | 100|evening |     0.5|  0.5|     1.0|   0.5|   14|  5|
+|cat | 100|night   |     0.5|  0.5|     0.5|   1.0|   16|  5|
+|dog | 100|morning |     1.0|  0.5|     0.5|   0.5|   10|  5|
+|dog | 100|noon    |     0.5|  1.0|     0.5|   0.5|   15|  5|
+|dog | 100|evening |     0.5|  0.5|     1.0|   0.5|   20|  5|
+|dog | 100|night   |     0.5|  0.5|     0.5|   1.0|   25|  5|
 
 
 Table: Sample `sim_design()` stats
@@ -126,17 +133,17 @@ You can then see how changing these numbers affects the random effects in an int
 ```r
 lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
   broom.mixed::tidy() %>%
-  knitr::kable(digits = 3)
+  knitr::kable(digits = 2)
 ```
 
 
 
 |effect   |group    |term            | estimate| std.error| statistic|
 |:--------|:--------|:---------------|--------:|---------:|---------:|
-|fixed    |NA       |(Intercept)     |   10.073|     0.311|    32.388|
-|ran_pars |sub_id   |sd__(Intercept) |    1.016|        NA|        NA|
-|ran_pars |item_id  |sd__(Intercept) |    2.058|        NA|        NA|
-|ran_pars |Residual |sd__Observation |    2.937|        NA|        NA|
+|fixed    |NA       |(Intercept)     |     9.79|      0.27|     36.23|
+|ran_pars |sub_id   |sd__(Intercept) |     1.02|        NA|        NA|
+|ran_pars |item_id  |sd__(Intercept) |     1.74|        NA|        NA|
+|ran_pars |Residual |sd__Observation |     2.95|        NA|        NA|
 
 ## sim_mixed_df
 
@@ -179,9 +186,9 @@ dat <- rnorm_multi(
 
 |   n|var |    A|    B|    C|  mean|   sd|
 |---:|:---|----:|----:|----:|-----:|----:|
-| 100|A   | 1.00| 0.51| 0.55|  0.08| 1.01|
-| 100|B   | 0.51| 1.00| 0.28| 19.90| 4.93|
-| 100|C   | 0.55| 0.28| 1.00| 20.58| 5.02|
+| 100|A   | 1.00| 0.53| 0.55|  0.02| 1.08|
+| 100|B   | 0.53| 1.00| 0.29| 20.18| 5.15|
+| 100|C   | 0.55| 0.29| 1.00| 20.18| 5.25|
 
 
 Table: Sample `rnorm_multi()` stats
@@ -205,7 +212,7 @@ list(
   r = cor(x,y)
 ) %>% str()
 #> List of 3
-#>  $ mean: num -1.33e-17
+#>  $ mean: num -1.24e-17
 #>  $ sd  : num 1
 #>  $ r   : num 0.5
 ```
@@ -314,12 +321,7 @@ Convert a data table made with faux from long to wide.
 ```r
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
-df_long <- sim_design(within, between, long = TRUE)
-```
-
-![plot of chunk long2wide](figure/long2wide-1.png)
-
-```r
+df_long <- sim_design(within, between, long = TRUE, plot = FALSE)
 
 df_wide <- long2wide(df_long)
 ```
@@ -327,12 +329,12 @@ df_wide <- long2wide(df_long)
 
 |id   |pet |        day|      night|
 |:----|:---|----------:|----------:|
-|S001 |cat | -0.4716967| -0.5028944|
-|S002 |cat | -0.4883249| -0.4010576|
-|S003 |cat | -0.3179796|  0.2211064|
-|S004 |cat | -0.6062085|  0.7765950|
-|S005 |cat |  1.0692633| -1.6403173|
-|S006 |cat | -0.9743776| -0.2294919|
+|S001 |cat |  0.6709323|  0.5155250|
+|S002 |cat |  0.0002790|  1.7126586|
+|S003 |cat | -0.2909270| -1.8289396|
+|S004 |cat |  0.0847928|  1.7320068|
+|S005 |cat |  1.1948096| -0.1980841|
+|S006 |cat |  0.4860728| -1.7309580|
 
 If you have a data table not made by faux, you need to specify the within-subject columns, the between-subject columns, the DV column, and the ID column.
 
@@ -356,12 +358,12 @@ df_wide <- long2wide(df_long, within = c("A", "B"),
 
 | sub_id|C  |      A1_B1|      A1_B2|      A2_B1|      A2_B2|
 |------:|:--|----------:|----------:|----------:|----------:|
-|      1|C1 |  0.5155250|  0.0236974| -0.8559099| -0.2476252|
-|      2|C2 |  1.7126586| -0.3393816| -0.7922569|  0.6288110|
-|      3|C1 | -1.8289396| -0.5809952| -1.3774323| -0.0658665|
-|      4|C2 |  1.7320068| -0.5330786|  1.0126400| -1.3936488|
-|      5|C1 | -0.1980841|  0.1887755|  0.7556978|  0.0951162|
-|      6|C2 | -1.7309580|  1.1195109|  0.3883780| -1.2426219|
+|      1|C1 |  1.0546403|  1.2786863| -0.5672533| -0.3157426|
+|      2|C2 | -0.4677078| -0.3438517|  0.3473444|  1.2375229|
+|      3|C1 |  1.0961789| -0.8291885|  0.4261450| -0.7872061|
+|      4|C2 |  1.1067069| -0.1313337|  0.1096033| -0.9223819|
+|      5|C1 |  0.0774030|  0.3482232|  0.6521404| -1.9094445|
+|      6|C2 |  0.5784563| -0.4426527| -1.9598806|  0.7885763|
 
 
 
@@ -374,12 +376,7 @@ You can convert a data table made by faux from wide to long easily.
 ```r
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
-df_wide <- sim_design(within, between, long = FALSE)
-```
-
-![plot of chunk wide2long](figure/wide2long-1.png)
-
-```r
+df_wide <- sim_design(within, between, long = FALSE, plot = FALSE)
 df_long <- wide2long(df_wide)
 ```
 
@@ -398,13 +395,17 @@ df_long <- wide2long(df_wide)
 
 If you have a data table not made by faux, you need to specify the within-subject factors and columns, and specify the names of the ID and DV columns to create. 
 
+If column names are combinations of factor levels (e.g., A1_B1, A1_B2, A2_B1, A2_B2), then you can specify the regex pattern to separate them with the argument `sep` (which defaults to `_`).
+
+
 ```r
 long_iris <- wide2long(
     iris,
     within_factors = c("feature", "dimension"),
     within_cols = 1:4,
     dv = "value",
-    id = "flower_id"
+    id = "flower_id",
+    sep = "\\."
   )
 ```
 
@@ -423,7 +424,7 @@ long_iris <- wide2long(
 
 ### get_design_long
 
-Once you have a dataframe in long format, you can recover the design from it.
+If you have a data table in long format, you can recover the design from it by specifying the dv and id columns (assuming all other columns are within- or between-subject factors).
 
 
 ```r
@@ -442,7 +443,7 @@ json_design(design)
 ```
 
 <pre>
-{"within":{"feature":{"Petal":"Petal","Sepal":"Sepal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":{"value":"value"},"id":{"flower_id":"flower_id"},"n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Petal_Length":1.46,"Sepal_Length":5.01,"Petal_Width":0.25,"Sepal_Width":3.43},"versicolor":{"Petal_Length":4.26,"Sepal_Length":5.94,"Petal_Width":1.33,"Sepal_Width":2.77},"virginica":{"Petal_Length":5.55,"Sepal_Length":6.59,"Petal_Width":2.03,"Sepal_Width":2.97}},"sd":{"setosa":{"Petal_Length":0.17,"Sepal_Length":0.35,"Petal_Width":0.11,"Sepal_Width":0.38},"versicolor":{"Petal_Length":0.47,"Sepal_Length":0.52,"Petal_Width":0.2,"Sepal_Width":0.31},"virginica":{"Petal_Length":0.55,"Sepal_Length":0.64,"Petal_Width":0.27,"Sepal_Width":0.32}},"r":{"setosa":[[1,0.27,0.33,0.18],[0.27,1,0.28,0.74],[0.33,0.28,1,0.23],[0.18,0.74,0.23,1]],"versicolor":[[1,0.75,0.79,0.56],[0.75,1,0.55,0.53],[0.79,0.55,1,0.66],[0.56,0.53,0.66,1]],"virginica":[[1,0.86,0.32,0.4],[0.86,1,0.28,0.46],[0.32,0.28,1,0.54],[0.4,0.46,0.54,1]]}}
+{"within":{"feature":{"Petal":"Petal","Sepal":"Sepal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":{"value":"value"},"id":{"flower_id":"flower_id"},"n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Petal_Length":1.462,"Petal_Width":0.246,"Sepal_Length":5.006,"Sepal_Width":3.428},"versicolor":{"Petal_Length":4.26,"Petal_Width":1.326,"Sepal_Length":5.936,"Sepal_Width":2.77},"virginica":{"Petal_Length":5.552,"Petal_Width":2.026,"Sepal_Length":6.588,"Sepal_Width":2.974}},"sd":{"setosa":{"Petal_Length":0.173664,"Petal_Width":0.10538559,"Sepal_Length":0.35248969,"Sepal_Width":0.37906437},"versicolor":{"Petal_Length":0.46991098,"Petal_Width":0.19775268,"Sepal_Length":0.51617115,"Sepal_Width":0.31379832},"virginica":{"Petal_Length":0.5518947,"Petal_Width":0.27465006,"Sepal_Length":0.63587959,"Sepal_Width":0.32249664}},"r":{"setosa":[[1,0.33163004,0.26717576,0.17769997],[0.33163004,1,0.27809835,0.23275201],[0.26717576,0.27809835,1,0.74254669],[0.17769997,0.23275201,0.74254669,1]],"versicolor":[[1,0.78666809,0.75404896,0.56052209],[0.78666809,1,0.54646107,0.66399872],[0.75404896,0.54646107,1,0.52591072],[0.56052209,0.66399872,0.52591072,1]],"virginica":[[1,0.32210822,0.86422473,0.40104458],[0.32210822,1,0.28110771,0.53772803],[0.86422473,0.28110771,1,0.45722782],[0.40104458,0.53772803,0.45722782,1]]}}
 </pre>
 
 
@@ -483,62 +484,62 @@ json_design(design, pretty = TRUE)
   },
   "mu": {
     "setosa": {
-      "Petal_Length": 1.46,
-      "Sepal_Length": 5.01,
-      "Petal_Width": 0.25,
-      "Sepal_Width": 3.43
+      "Petal_Length": 1.462,
+      "Petal_Width": 0.246,
+      "Sepal_Length": 5.006,
+      "Sepal_Width": 3.428
     },
     "versicolor": {
       "Petal_Length": 4.26,
-      "Sepal_Length": 5.94,
-      "Petal_Width": 1.33,
+      "Petal_Width": 1.326,
+      "Sepal_Length": 5.936,
       "Sepal_Width": 2.77
     },
     "virginica": {
-      "Petal_Length": 5.55,
-      "Sepal_Length": 6.59,
-      "Petal_Width": 2.03,
-      "Sepal_Width": 2.97
+      "Petal_Length": 5.552,
+      "Petal_Width": 2.026,
+      "Sepal_Length": 6.588,
+      "Sepal_Width": 2.974
     }
   },
   "sd": {
     "setosa": {
-      "Petal_Length": 0.17,
-      "Sepal_Length": 0.35,
-      "Petal_Width": 0.11,
-      "Sepal_Width": 0.38
+      "Petal_Length": 0.173664,
+      "Petal_Width": 0.10538559,
+      "Sepal_Length": 0.35248969,
+      "Sepal_Width": 0.37906437
     },
     "versicolor": {
-      "Petal_Length": 0.47,
-      "Sepal_Length": 0.52,
-      "Petal_Width": 0.2,
-      "Sepal_Width": 0.31
+      "Petal_Length": 0.46991098,
+      "Petal_Width": 0.19775268,
+      "Sepal_Length": 0.51617115,
+      "Sepal_Width": 0.31379832
     },
     "virginica": {
-      "Petal_Length": 0.55,
-      "Sepal_Length": 0.64,
-      "Petal_Width": 0.27,
-      "Sepal_Width": 0.32
+      "Petal_Length": 0.5518947,
+      "Petal_Width": 0.27465006,
+      "Sepal_Length": 0.63587959,
+      "Sepal_Width": 0.32249664
     }
   },
   "r": {
     "setosa": [
-      [1, 0.27, 0.33, 0.18],
-      [0.27, 1, 0.28, 0.74],
-      [0.33, 0.28, 1, 0.23],
-      [0.18, 0.74, 0.23, 1]
+      [1, 0.33163004, 0.26717576, 0.17769997],
+      [0.33163004, 1, 0.27809835, 0.23275201],
+      [0.26717576, 0.27809835, 1, 0.74254669],
+      [0.17769997, 0.23275201, 0.74254669, 1]
     ],
     "versicolor": [
-      [1, 0.75, 0.79, 0.56],
-      [0.75, 1, 0.55, 0.53],
-      [0.79, 0.55, 1, 0.66],
-      [0.56, 0.53, 0.66, 1]
+      [1, 0.78666809, 0.75404896, 0.56052209],
+      [0.78666809, 1, 0.54646107, 0.66399872],
+      [0.75404896, 0.54646107, 1, 0.52591072],
+      [0.56052209, 0.66399872, 0.52591072, 1]
     ],
     "virginica": [
-      [1, 0.86, 0.32, 0.4],
-      [0.86, 1, 0.28, 0.46],
-      [0.32, 0.28, 1, 0.54],
-      [0.4, 0.46, 0.54, 1]
+      [1, 0.32210822, 0.86422473, 0.40104458],
+      [0.32210822, 1, 0.28110771, 0.53772803],
+      [0.86422473, 0.28110771, 1, 0.45722782],
+      [0.40104458, 0.53772803, 0.45722782, 1]
     ]
   }
 }

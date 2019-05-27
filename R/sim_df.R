@@ -10,7 +10,7 @@
 #' @param between a list of the between-subject columns
 #' @param dv the name of the DV (value) column
 #' @param id the names of the column(s) for grouping observations
-#' @param empirical logical. Passed on to rnorm_multi
+#' @param empirical Should the returned data have these exact parameters? (versus be sampled from a population with these parameters)
 #' @param long whether to return the data table in long format
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param grp_by (deprecated; use between)

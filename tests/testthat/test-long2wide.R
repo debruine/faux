@@ -78,7 +78,8 @@ test_that("wide2long", {
     within_factors = c("feature", "dimension"),
     within_cols = c("Petal.Length", "Petal.Width", "Sepal.Length", "Sepal.Width"),
     dv = "value",
-    id = "id"
+    id = "id",
+    sep = "\\."
   )
   
   expect_equal(nrow(long_iris), 600)
@@ -97,7 +98,7 @@ test_that("from design", {
   expect_equal(names(w2), c("id", "C", "D", "A", "B","y"))
   #expect_equal(w, w3)
 
-  l <- sim_design(c(2,2), c(2,2), long = TRUE)
+  l <- sim_design(c(2,2), c(2,2), long = TRUE, plot = 0)
   l2 <- long2wide(l)
   expect_equal(class(l), c("faux", "data.frame"))
   expect_equal(class(l2), c("faux", "data.frame"))

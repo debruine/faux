@@ -5,7 +5,7 @@
 \title{Generate a cross-classified sample}
 \usage{
 sim_mixed_cc(sub_n = 100, item_n = 20, grand_i = 0, sub_sd = 1,
-  item_sd = 1, error_sd = 1, seed = NULL)
+  item_sd = 1, error_sd = 1, empirical = FALSE, seed = NULL)
 }
 \arguments{
 \item{sub_n}{the number of subjects}
@@ -19,6 +19,8 @@ sim_mixed_cc(sub_n = 100, item_n = 20, grand_i = 0, sub_sd = 1,
 \item{item_sd}{the SD of item random intercepts}
 
 \item{error_sd}{the SD of the error term}
+
+\item{empirical}{Should the returned data have these exact parameters? (versus be sampled from a population with these parameters)}
 
 \item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 }

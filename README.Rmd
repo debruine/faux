@@ -2,6 +2,8 @@
 output: github_document
 always_allow_html: yes
 ---
+
+# faux <img src="reference/figures/logo.png" align="right" alt="" width="120" />
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -15,6 +17,7 @@ always_allow_html: yes
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
+  #fig.path = "man/figures/",
   fig.width = 8,
   fig.height = 5,
   collapse = TRUE,
@@ -62,11 +65,12 @@ For example, the following creates a 2w*2b design with 100 observations in each 
 
 
 ```{r plot-sim-design, fig.width = 8, fig.height = 4}
-between <- list("pet" = c("cat" = "Cat Owners", "dog" = "Dog Owners"))
-within <- list("time" = c("day", "night"))
+between <- list(pet = c(cat = "Cat Owners", 
+                        dog = "Dog Owners"))
+within <- list(time = c("morning", "noon", "evening", "night"))
 mu <- data.frame(
-  cat = c(10, 20),
-  dog = c(15, 25),
+  cat    = c(10, 12, 14, 16),
+  dog    = c(10, 15, 20, 25),
   row.names = within$time
 )
 df <- sim_design(within, between, 
@@ -126,7 +130,7 @@ You can then see how changing these numbers affects the random effects in an int
 ```{r lmer, results='asis'}
 lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
   broom.mixed::tidy() %>%
-  knitr::kable(digits = 3)
+  knitr::kable(digits = 2)
 ```
 
 ## sim_mixed_df
@@ -271,7 +275,7 @@ Convert a data table made with faux from long to wide.
 ```{r long2wide}
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
-df_long <- sim_design(within, between, long = TRUE)
+df_long <- sim_design(within, between, long = TRUE, plot = FALSE)
 
 df_wide <- long2wide(df_long)
 ```
@@ -307,20 +311,24 @@ You can convert a data table made by faux from wide to long easily.
 ```{r wide2long}
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
-df_wide <- sim_design(within, between, long = FALSE)
+df_wide <- sim_design(within, between, long = FALSE, plot = FALSE)
 df_long <- wide2long(df_wide)
 ```
 
 `r head(df_long) %>% knitr::kable()`
 
 If you have a data table not made by faux, you need to specify the within-subject factors and columns, and specify the names of the ID and DV columns to create. 
+
+If column names are combinations of factor levels (e.g., A1_B1, A1_B2, A2_B1, A2_B2), then you can specify the regex pattern to separate them with the argument `sep` (which defaults to `_`).
+
 ```{r wide2long-non-faux}
 long_iris <- wide2long(
     iris,
     within_factors = c("feature", "dimension"),
     within_cols = 1:4,
     dv = "value",
-    id = "flower_id"
+    id = "flower_id",
+    sep = "\\."
   )
 ```
 
@@ -328,7 +336,7 @@ long_iris <- wide2long(
 
 ### get_design_long
 
-Once you have a dataframe in long format, you can recover the design from it.
+If you have a data table in long format, you can recover the design from it by specifying the dv and id columns (assuming all other columns are within- or between-subject factors).
 
 ```{r get-design-long}
 design <- get_design_long(long_iris, dv = "value", id = "flower_id")

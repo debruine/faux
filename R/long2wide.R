@@ -47,7 +47,7 @@ long2wide <- function(data, within = c(), between = c(), dv = "y", id = "id") {
   }
   
   widedat <- dplyr::ungroup(d1)
-  if (exists("design")) {
+  if ("design" %in% names(attributes(data))) {
     attributes(widedat)$design <- design
   }
   class(widedat) <- c("faux", "data.frame")

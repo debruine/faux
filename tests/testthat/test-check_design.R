@@ -52,11 +52,11 @@ test_that("2b", {
 
 # 2w*2b ----
 test_that("2w*2b", {
-  within <- list(time = c("night", "day"))
+  within  <- list(time = c("night", "day"))
   between <- list(pet = c("dog", "cat"))
-  design <- check_design(within, between, n = 10, plot = FALSE)
+  design  <- check_design(within, between, n = 10, plot = FALSE)
 
-  cell_n <- list(dog = 10, cat = 10)
+  cell_n  <- list(dog = 10, cat = 10)
   cell_mu <- list(dog = list(night = 0, day = 0),
                   cat = list(night = 0, day = 0))
   cell_sd <- list(dog = list(night = 1, day = 1),
@@ -75,7 +75,7 @@ test_that("2w*2b", {
 # 2w*2w*2b*2b ----
 test_that("2w*2w*2b*2b", {
   within <- list(
-    time = c(day = "day time", night = "night time"), 
+    time = c(night = "night time", day = "day time"), 
     condition = c(A = "condition A", B = "condition B")
   )
   between <- list(
@@ -85,17 +85,23 @@ test_that("2w*2w*2b*2b", {
     
   design <- check_design(within, between, plot = FALSE)
   
-  cells_w <- c("day_A", "night_A", "day_B", "night_B")
-  cells_b <- c("dog_old", "cat_old", "dog_young", "cat_young")
-  cell_n <- list(dog_old = 100, cat_old = 100, dog_young = 100, cat_young = 100)
-  cell_mu <- list(dog_old = list(day_A = 0, night_A = 0, day_B = 0, night_B = 0),
-                  cat_old = list(day_A = 0, night_A = 0, day_B = 0, night_B = 0),
-                  dog_young = list(day_A = 0, night_A = 0, day_B = 0, night_B = 0),
-                  cat_young = list(day_A = 0, night_A = 0, day_B = 0, night_B = 0))
-  cell_sd <- list(dog_old = list(day_A = 1, night_A = 1, day_B = 1, night_B = 1),
-                  cat_old = list(day_A = 1, night_A = 1, day_B = 1, night_B = 1),
-                  dog_young = list(day_A = 1, night_A = 1, day_B = 1, night_B = 1),
-                  cat_young = list(day_A = 1, night_A = 1, day_B = 1, night_B = 1))
+  cells_w <- c("night_A", "night_B", "day_A", "day_B")
+  cells_b <- c("dog_old", "dog_young", "cat_old", "cat_young")
+  cell_n <- list(dog_old = 100, dog_young = 100, cat_old = 100, cat_young = 100)
+  mu_list <- list(night_A = 0, night_B = 0, day_A = 0, day_B = 0)
+  cell_mu <- list(
+    dog_old = mu_list,
+    dog_young = mu_list,
+    cat_old = mu_list,
+    cat_young = mu_list
+  )
+  sd_list <- list(night_A = 1, night_B = 1, day_A = 1, day_B = 1)
+  cell_sd <- list(
+    dog_old = sd_list,
+    dog_young = sd_list,
+    cat_old = sd_list,
+    cat_young = sd_list
+  )
   
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)

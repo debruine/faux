@@ -31,14 +31,18 @@ For example, the following creates a 2w*2b design with 100 observations in each 
 
 The data is sampled from a population where the mean for the `cat_day` cell is 10, the mean for the `cat_night` cell is 20, the mean for the `dog_day` cell is 15, and the mean for the `dog_night` cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>. 
 
-```{r, fig.width = 8, fig.height = 4}
-between <- list(pet  = c("cat", "dog"))
-within  <- list(time = c("day", "night"))
-mu <- list(
-  cat = c(day = 10, night = 20),
-  dog = c(day = 15, night = 25)
+```{r plot-sim-design, fig.width = 8, fig.height = 4}
+between <- list(pet = c(cat = "Cat Owners", 
+                        dog = "Dog Owners"))
+within <- list(time = c("morning", "noon", "evening", "night"))
+mu <- data.frame(
+  cat    = c(10, 12, 14, 16),
+  dog    = c(10, 15, 20, 25),
+  row.names = within$time
 )
-df <- sim_design(within, between, n = 100, mu = mu, sd = 5, r = 0.5)
+df <- sim_design(within, between, 
+                 n = 100, mu = mu, sd = 5, r = .5,
+                 empirical = TRUE, plot = TRUE)
 ```
 
 

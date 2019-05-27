@@ -110,14 +110,18 @@
 <a href="#quick-example" class="anchor"></a>Quick example</h2>
 <p>For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is <code>pet</code> with two levels (<code>cat</code> and <code>dog</code>). The within-subject factor is <code>time</code> with two levels (<code>day</code> and <code>night</code>).</p>
 <p>The data is sampled from a population where the mean for the <code>cat_day</code> cell is 10, the mean for the <code>cat_night</code> cell is 20, the mean for the <code>dog_day</code> cell is 15, and the mean for the <code>dog_night</code> cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">between &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">pet  =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"cat"</span>, <span class="st">"dog"</span>))
-within  &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">time =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"day"</span>, <span class="st">"night"</span>))
-mu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(
-  <span class="dt">cat =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dt">day =</span> <span class="dv">10</span>, <span class="dt">night =</span> <span class="dv">20</span>),
-  <span class="dt">dog =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dt">day =</span> <span class="dv">15</span>, <span class="dt">night =</span> <span class="dv">25</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">between &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">pet =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dt">cat =</span> <span class="st">"Cat Owners"</span>, 
+                        <span class="dt">dog =</span> <span class="st">"Dog Owners"</span>))
+within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/list">list</a></span>(<span class="dt">time =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"morning"</span>, <span class="st">"noon"</span>, <span class="st">"evening"</span>, <span class="st">"night"</span>))
+mu &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(
+  <span class="dt">cat    =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">10</span>, <span class="dv">12</span>, <span class="dv">14</span>, <span class="dv">16</span>),
+  <span class="dt">dog    =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">10</span>, <span class="dv">15</span>, <span class="dv">20</span>, <span class="dv">25</span>),
+  <span class="dt">row.names =</span> within<span class="op">$</span>time
 )
-df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mu =</span> mu, <span class="dt">sd =</span> <span class="dv">5</span>, <span class="dt">r =</span> <span class="fl">0.5</span>)</code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-1-1.png" width="768"></p>
+df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, 
+                 <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mu =</span> mu, <span class="dt">sd =</span> <span class="dv">5</span>, <span class="dt">r =</span> .<span class="dv">5</span>,
+                 <span class="dt">empirical =</span> <span class="ot">TRUE</span>, <span class="dt">plot =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<p><img src="sim_design_files/figure-html/plot-sim-design-1.png" width="768"></p>
 </div>
 <div id="specification-of-design-parameters" class="section level2">
 <h2 class="hasAnchor">
@@ -131,7 +135,7 @@ df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_desi
 <p>If you don’t feel like naming your factors and levels, you can just put in a vector of levels. So you can make a quick 2w*3w*2b with the following code.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="dt">within =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">between =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>), 
                  <span class="dt">n =</span> <span class="dv">10</span>, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">sd =</span> <span class="dv">1</span>, <span class="dt">r =</span> <span class="fl">0.5</span>)</code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-1-1.png" width="768"></p>
 </div>
 <div id="list-of-vectors" class="section level4">
 <h4 class="hasAnchor">
@@ -145,7 +149,7 @@ within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
 )
 
 df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
 </div>
 <div id="list-of-named-vectorslists" class="section level4">
 <h4 class="hasAnchor">
@@ -158,7 +162,7 @@ within &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocu
   <span class="dt">time =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dt">day =</span> <span class="st">"Tested during the day"</span>, <span class="dt">night =</span> <span class="st">"Tested at night"</span>)
 )
 df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>)</code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
 </div>
 </div>
 <div id="check_design" class="section level3">
@@ -237,8 +241,8 @@ design &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chec
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(design<span class="op">$</span>n)
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ B1_C1: num 20</span>
-<span class="co">#&gt;  $ B2_C1: num 20</span>
 <span class="co">#&gt;  $ B1_C2: num 20</span>
+<span class="co">#&gt;  $ B2_C1: num 20</span>
 <span class="co">#&gt;  $ B2_C2: num 20</span></code></pre></div>
 </div>
 <div id="named-list" class="section level4">
@@ -255,8 +259,8 @@ design &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chec
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(design<span class="op">$</span>n)
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ B1_C1: num 10</span>
-<span class="co">#&gt;  $ B2_C1: num 20</span>
 <span class="co">#&gt;  $ B1_C2: num 30</span>
+<span class="co">#&gt;  $ B2_C1: num 20</span>
 <span class="co">#&gt;  $ B2_C2: num 40</span></code></pre></div>
 </div>
 <div id="dataframe" class="section level4">
@@ -273,8 +277,8 @@ design &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chec
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(design<span class="op">$</span>n)
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ B1_C1: num 10</span>
-<span class="co">#&gt;  $ B2_C1: num 20</span>
 <span class="co">#&gt;  $ B1_C2: num 30</span>
+<span class="co">#&gt;  $ B2_C1: num 20</span>
 <span class="co">#&gt;  $ B2_C2: num 40</span></code></pre></div>
 <p>You can specify the cells as rowname or column names and <code><a href="../reference/check_design.html">check_design()</a></code> will fix them. Since <code>n</code> <strong>has</strong> to be the same for each within-subject factor, you can specify n as a single column with any name.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">n &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(<span class="dt">n =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">40</span>),
@@ -283,8 +287,8 @@ design &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chec
 <span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/str">str</a></span>(design<span class="op">$</span>n)
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ B1_C1: num 10</span>
-<span class="co">#&gt;  $ B2_C1: num 20</span>
 <span class="co">#&gt;  $ B1_C2: num 30</span>
+<span class="co">#&gt;  $ B2_C1: num 20</span>
 <span class="co">#&gt;  $ B2_C2: num 40</span></code></pre></div>
 </div>
 </div>
@@ -306,10 +310,10 @@ design &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chec
 <span class="co">#&gt;  $ cat_A:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 10</span>
 <span class="co">#&gt;   ..$ night: num 20</span>
-<span class="co">#&gt;  $ dog_A:List of 2</span>
+<span class="co">#&gt;  $ cat_B:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 30</span>
 <span class="co">#&gt;   ..$ night: num 40</span>
-<span class="co">#&gt;  $ cat_B:List of 2</span>
+<span class="co">#&gt;  $ dog_A:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 50</span>
 <span class="co">#&gt;   ..$ night: num 60</span>
 <span class="co">#&gt;  $ dog_B:List of 2</span>
@@ -332,12 +336,12 @@ design &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chec
 <span class="co">#&gt;  $ cat_A:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 10</span>
 <span class="co">#&gt;   ..$ night: num 20</span>
-<span class="co">#&gt;  $ dog_A:List of 2</span>
-<span class="co">#&gt;   ..$ day  : num 30</span>
-<span class="co">#&gt;   ..$ night: num 40</span>
 <span class="co">#&gt;  $ cat_B:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 50</span>
 <span class="co">#&gt;   ..$ night: num 60</span>
+<span class="co">#&gt;  $ dog_A:List of 2</span>
+<span class="co">#&gt;   ..$ day  : num 30</span>
+<span class="co">#&gt;   ..$ night: num 40</span>
 <span class="co">#&gt;  $ dog_B:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 70</span>
 <span class="co">#&gt;   ..$ night: num 80</span></code></pre></div>
@@ -355,12 +359,12 @@ design &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chec
 <span class="co">#&gt;  $ cat_A:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 10</span>
 <span class="co">#&gt;   ..$ night: num 20</span>
-<span class="co">#&gt;  $ dog_A:List of 2</span>
-<span class="co">#&gt;   ..$ day  : num 30</span>
-<span class="co">#&gt;   ..$ night: num 40</span>
 <span class="co">#&gt;  $ cat_B:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 50</span>
 <span class="co">#&gt;   ..$ night: num 60</span>
+<span class="co">#&gt;  $ dog_A:List of 2</span>
+<span class="co">#&gt;   ..$ day  : num 30</span>
+<span class="co">#&gt;   ..$ night: num 40</span>
 <span class="co">#&gt;  $ dog_B:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 70</span>
 <span class="co">#&gt;   ..$ night: num 80</span></code></pre></div>
@@ -376,12 +380,12 @@ design &lt;-<span class="st"> </span><span class="kw"><a href="../reference/chec
 <span class="co">#&gt;  $ cat_A:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 10</span>
 <span class="co">#&gt;   ..$ night: num 20</span>
-<span class="co">#&gt;  $ dog_A:List of 2</span>
-<span class="co">#&gt;   ..$ day  : num 30</span>
-<span class="co">#&gt;   ..$ night: num 40</span>
 <span class="co">#&gt;  $ cat_B:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 50</span>
 <span class="co">#&gt;   ..$ night: num 60</span>
+<span class="co">#&gt;  $ dog_A:List of 2</span>
+<span class="co">#&gt;   ..$ day  : num 30</span>
+<span class="co">#&gt;   ..$ night: num 40</span>
 <span class="co">#&gt;  $ dog_B:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 70</span>
 <span class="co">#&gt;   ..$ night: num 80</span></code></pre></div>
@@ -404,15 +408,15 @@ design<span class="op">$</span>r
 <span class="co">#&gt; day   1.0   0.5</span>
 <span class="co">#&gt; night 0.5   1.0</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; $dog_A</span>
-<span class="co">#&gt;       day night</span>
-<span class="co">#&gt; day   1.0   0.6</span>
-<span class="co">#&gt; night 0.6   1.0</span>
-<span class="co">#&gt; </span>
 <span class="co">#&gt; $cat_B</span>
 <span class="co">#&gt;       day night</span>
 <span class="co">#&gt; day   1.0   0.5</span>
 <span class="co">#&gt; night 0.5   1.0</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; $dog_A</span>
+<span class="co">#&gt;       day night</span>
+<span class="co">#&gt; day   1.0   0.6</span>
+<span class="co">#&gt; night 0.6   1.0</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; $dog_B</span>
 <span class="co">#&gt;       day night</span>
@@ -487,7 +491,7 @@ r &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumenta
 df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">n =</span> <span class="dv">100</span>, 
                  <span class="dt">mu =</span> mu, <span class="dt">sd =</span> sd, <span class="dt">r =</span> r,
                  <span class="dt">empirical =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-17-1.png" width="768"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-16-1.png" width="768"></p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">pet</th>
@@ -590,7 +594,7 @@ r &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumenta
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(within, between, <span class="dt">n =</span> <span class="dv">100</span>, 
                  <span class="dt">mu =</span> mu, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">r =</span> r, 
                  <span class="dt">dv =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dt">rt =</span> <span class="st">"Reaction Time"</span>), <span class="dt">long =</span> <span class="ot">TRUE</span>)</code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-21-1.png" width="768"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-20-1.png" width="768"></p>
 </div>
   </div>
 
