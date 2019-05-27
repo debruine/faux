@@ -10,11 +10,11 @@
 #' 
 #' @examples 
 #' 
-#' factor <- list(
+#' factors <- list(
 #'   speed = c(fast = "Fast Condition", slow = "Slow Condition"),
 #'   condition = c(A = "Condition A", B = "Condition B")
 #' )
-#' cell_combos(factors)
+#' faux:::cell_combos(factors)
 #' 
 cell_combos <- function(factors, dv = "y") {
   if (length(factors) == 0) {

@@ -61,8 +61,8 @@ sim_df <- function (data, n = 100, within = c(), between = c(), id = "sub_id", d
         n = n, 
         vars = ncol(data), 
         mu = t(dplyr::summarise_all(data, mean)), 
-        sd = t(dplyr::summarise_all(data, stats::sd)), 
-        r = stats::cor(data),
+        sd = t(dplyr::summarise_all(data, sd)), 
+        r = cor(data),
         varnames = names(data),
         empirical = empirical
       )

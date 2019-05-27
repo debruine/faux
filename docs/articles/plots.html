@@ -30,7 +30,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
       </span>
     </div>
 
@@ -161,20 +161,30 @@ cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocument
 <div id="plotting-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-data" class="anchor"></a>Plotting Data</h2>
-<p>You can plot data freated with faux using <code><a href="../reference/plot_design.html">plot_design()</a></code>, too. It will return a ggplot with a violin-boxplot.</p>
+<p>You can plot data created with faux using <code><a href="../reference/plot_design.html">plot_design()</a></code>, too. It will return a ggplot with a violin-boxplot by default.</p>
 <div id="one-factor-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#one-factor-data" class="anchor"></a>One-factor data</h3>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="dv">2</span>, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">n =</span> <span class="dv">20</span>, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)
 <span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data)</code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-8-1.png" width="960"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="dt">geoms =</span> <span class="st">"violin"</span>)</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-9-1.png" width="960"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="dt">geoms =</span> <span class="st">"box"</span>)</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-10-1.png" width="960"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="dt">geoms =</span> <span class="st">"pointrangeSD"</span>)</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-11-1.png" width="960"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="dt">geoms =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"violin"</span>, <span class="st">"pointrangeSE"</span>))</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-12-1.png" width="960"></p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="dt">geoms =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"violin"</span>, <span class="st">"jitter"</span>))</code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-13-1.png" width="960"></p>
 </div>
 <div id="two-factor-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#two-factor-data" class="anchor"></a>Two-factor data</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)
 <span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data)</code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-9-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-14-1.png" width="960"></p>
 </div>
 <div id="change-order-of-factors" class="section level3">
 <h3 class="hasAnchor">
@@ -189,9 +199,9 @@ cba &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_de
 
 cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(abc, acb, bac, bca, cab, cba, <span class="dt">nrow =</span> <span class="dv">3</span>, 
                    <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"abc"</span>, <span class="st">"acb"</span>, <span class="st">"bac"</span>, <span class="st">"bca"</span>, <span class="st">"cab"</span>, <span class="st">"cba"</span>))</code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-10-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-15-1.png" width="960"></p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">5</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">40</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="st">"D"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>)</code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-11-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-16-1.png" width="960"></p>
 </div>
 </div>
   </div>

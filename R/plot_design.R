@@ -3,7 +3,7 @@
 #' \code{plot_design()} plots the specified within and between design
 #'
 #' @param input A list of design parameters created by check_design() or a data tbl (in long format)
-#' @param geoms A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box
+#' @param geoms A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter
 #' @param ... A list of factor names to determine visualisation (see vignette)
 #' 
 #' @return plot
@@ -20,7 +20,7 @@
 #' 
 #' @export
 #' 
-plot_design <- function(input, geoms = NULL, ...) {
+plot_design <- function(input, ..., geoms = NULL) {
   if (!is.data.frame(input) && is.list(input)) {
     if (is.null(geoms)) geoms <- "pointrangeSD"
     design <- input
@@ -43,11 +43,11 @@ plot_design <- function(input, geoms = NULL, ...) {
   
   factors <- c(design$within, design$between)
   factor_n <- length(factors)
-  f <- dplyr::syms(names(factors)) # make it possible to use strings to specify columns
-  dv <- dplyr::sym(names(design$dv))
+  f <- syms(names(factors)) # make it possible to use strings to specify columns
+  dv <- sym(names(design$dv))
   
   if (c(...) %>% length()) {
-    f <- dplyr::syms(c(...))
+    f <- syms(c(...))
   }
   
   # use long names for factors
@@ -91,6 +91,11 @@ plot_design <- function(input, geoms = NULL, ...) {
   # add text y-label to all plots
   p <- p + ylab(design$dv[[1]])
   
+  if ("jitter" %in% geoms) {
+    p <- p + geom_point(position = position_jitterdodge(
+      jitter.width = .5, jitter.height = 0, dodge.width = 0.9
+    ))
+  } 
   if ("violin" %in% geoms) {
     p <- p + geom_violin(color = "black", alpha = 0.5,
                          position = position_dodge(width = 0.9))
@@ -110,7 +115,7 @@ plot_design <- function(input, geoms = NULL, ...) {
       minsd <- function(x) { mean(x) - sd(x)/sqrt(length(x)) }
       maxsd <- function(x) { mean(x) + sd(x)/sqrt(length(x)) }
       shape <- 20
-      size <- 0.5
+      size <- 1
     }
     
     p <- p + stat_summary(
@@ -125,3 +130,17 @@ plot_design <- function(input, geoms = NULL, ...) {
   
   p
 }
+
+
+#' Plot from faux design
+#' @describeIn plot_design Plotting from a faux design list
+plot.design <- function(input, ..., geoms = NULL) {
+  plot_design(input, ..., geoms = geoms)
+}
+
+#' Plot from faux data
+#' @describeIn plot_design Plotting from a faux data table
+plot.faux <- function(input, ..., geoms = NULL) {
+  plot_design(input, ..., geoms = geoms)
+}
+

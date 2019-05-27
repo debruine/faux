@@ -1,3 +1,8 @@
+# faux 0.0.0.9013 (2019-05-27)
+
+* More flexible plotting styles (violin, jitter, box, pointrange with SD or SE, and combos)
+* Minor bug fixes
+
 # faux 0.0.0.9012 (2019-05-22)
 
 * More flexible plots and data plots

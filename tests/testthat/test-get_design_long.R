@@ -19,8 +19,8 @@ test_that("2w", {
 
 # get_design_long ----
 test_that("get_design_long", {
-  design <- check_design(2, 2, n = 10, mu = 5, sd = 2, r = 0.5)
-  df_long <- sim_design(design = design, long = TRUE, empirical = TRUE)
+  design <- check_design(2, 2, n = 10, mu = 5, sd = 2, r = 0.5, plot = 0)
+  df_long <- sim_design(design = design, long = TRUE, empirical = TRUE, plot = 0)
   d <- get_design_long(df_long, plot = FALSE)
   
   n <- list(B1 = 10, B2 = 10)
@@ -36,7 +36,8 @@ test_that("get_design_long", {
   expect_equal(d$r$B1, r)
   expect_equal(d$r$B2, r)
   
-  df_long <- sim_design(c(2, 2, 2), c(2, 2, 2), long = TRUE, empirical = TRUE)
+  df_long <- sim_design(c(2, 2, 2), c(2, 2, 2), long = TRUE, 
+                        empirical = TRUE, plot = 0)
   d <- get_design_long(df_long, plot = FALSE)
   
   expect_equal(d$mu[[1]] %>% names(), c("A1_B1_C1", "A2_B1_C1", "A1_B2_C1", "A2_B2_C1", 
@@ -49,6 +50,7 @@ test_that("get_design_long", {
   expect_equal(d$r[[1]] %>% sum(), 8)
 })
 
+# 2w*2b ----
 test_that("2w*2b", {
   within <- list(time = c("night", "day"))
   between <- list(pet = c("dog", "cat"))
@@ -57,7 +59,8 @@ test_that("2w*2b", {
     cat = c(2,3)
   )
   d <- check_design(within, between, mu = mu, plot = FALSE)
-  data <- sim_design(within, between, mu = mu, long = TRUE, empirical = TRUE)
+  data <- sim_design(within, between, mu = mu, long = TRUE, 
+                     empirical = TRUE, plot = 0)
   d2 <- get_design_long(data, plot = FALSE)
   expect_equal(d$within, d2$within)
   expect_equivalent(d$between, d2$between)

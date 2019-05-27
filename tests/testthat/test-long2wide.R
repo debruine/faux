@@ -2,7 +2,7 @@ context("long2wide")
 
 # 2w ----
 test_that("2w", {
-  df_long <- sim_design(within = 2, long = TRUE)
+  df_long <- sim_design(within = 2, long = TRUE, plot = 0)
   df_wide <- long2wide(df_long, "A", c(), "y", "id")
   
   expect_equal(nrow(df_wide), 100)
@@ -12,7 +12,7 @@ test_that("2w", {
 
 # 2b ----
 test_that("2b", {
-  df_long <- sim_design(between = 2, long = TRUE)
+  df_long <- sim_design(between = 2, long = TRUE, plot = 0)
   df_wide <- long2wide(df_long, c(), "A", "y", "id")
   
   expect_equal(nrow(df_wide), 200)
@@ -23,7 +23,7 @@ test_that("2b", {
 
 # 2w*2b ----
 test_that("2w*2b", {
-  df_long <- sim_design(2, 2, long = TRUE)
+  df_long <- sim_design(2, 2, long = TRUE, plot = 0)
   df_wide <- long2wide(df_long, "A", "B", "y", "id")
   
   expect_equal(names(df_wide), c("id", "B", "A1", "A2"))
@@ -32,7 +32,7 @@ test_that("2w*2b", {
 
 # named arguments ----
 test_that("named arguments", {
-  df_long <- sim_design(2, 2, long = TRUE)
+  df_long <- sim_design(2, 2, long = TRUE, plot = 0)
   df_wide <- long2wide(dv = "y", id = "id", data = df_long, between = "B", within = "A")
   
   expect_equal(names(df_wide), c("id", "B", "A1", "A2"))
@@ -41,7 +41,7 @@ test_that("named arguments", {
 
 # 2w*2w*2b*2b ----
 test_that("2w*2w*2b*2b", {
-  df_long <- sim_design(c(2, 2), c(2, 2), long = TRUE)
+  df_long <- sim_design(c(2, 2), c(2, 2), long = TRUE, plot = 0)
   df_wide <- long2wide(df_long, c("A", "B"), c("C","D"), "y", "id")
   
   expect_equal(names(df_wide), c("id", "C", "D", "A1_B1", "A1_B2", "A2_B1", "A2_B2"))

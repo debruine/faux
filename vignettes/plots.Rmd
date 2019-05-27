@@ -77,13 +77,33 @@ check_design(c(2,2,2,2,2,2), mu = 1:(2^6))
 
 ## Plotting Data
 
-You can plot data freated with faux using `plot_design()`, too. It will return a ggplot with a violin-boxplot.
+You can plot data created with faux using `plot_design()`, too. It will return a ggplot with a violin-boxplot by default.
 
 ### One-factor data
 
 ```{r}
-data <- sim_design(2, mu = 1:2, plot = FALSE)
+data <- sim_design(2, 2, n = 20, mu = 1:4, plot = FALSE)
 plot_design(data)
+```
+
+```{r}
+plot_design(data, geoms = "violin")
+```
+
+```{r}
+plot_design(data, geoms = "box")
+```
+
+```{r}
+plot_design(data, geoms = "pointrangeSD")
+```
+
+```{r}
+plot_design(data, geoms = c("violin", "pointrangeSE"))
+```
+
+```{r}
+plot_design(data, geoms = c("violin", "jitter"))
 ```
 
 ### Two-factor data

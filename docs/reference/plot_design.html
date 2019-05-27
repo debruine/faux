@@ -63,7 +63,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9012</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
       </span>
     </div>
 
@@ -137,7 +137,13 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_design</span>(<span class='no'>input</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>plot_design</span>(<span class='no'>input</span>, <span class='no'>...</span>, <span class='kw'>geoms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='co'># S3 method for design</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>input</span>, <span class='no'>...</span>, <span class='kw'>geoms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+
+<span class='co'># S3 method for faux</span>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>input</span>, <span class='no'>...</span>, <span class='kw'>geoms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -150,11 +156,22 @@
       <th>...</th>
       <td><p>A list of factor names to determine visualisation (see vignette)</p></td>
     </tr>
+    <tr>
+      <th>geoms</th>
+      <td><p>A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter</p></td>
+    </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>plot</p>
+    
+    <h2 class="hasAnchor" id="methods-by-generic-"><a class="anchor" href="#methods-by-generic-"></a>Methods (by generic)</h2>
+
+    <ul>
+<li><p><code>plot</code>: Plotting from a faux design list</p></li>
+<li><p><code>plot</code>: Plotting from a faux data table</p></li>
+</ul>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
@@ -173,6 +190,8 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
+
+      <li><a href="#methods-by-generic-">Methods (by generic)</a></li>
       
       <li><a href="#examples">Examples</a></li>
     </ul>

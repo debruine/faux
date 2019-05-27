@@ -29,7 +29,6 @@ test_that("wide2long", {
 
 # order ----
 test_that("order", {
-  skip("failing")
   des <- check_design(c(2,2,2,2,2,2), plot = FALSE)
   
   p <- plot_design(des, "F", "E", "D", "C", "B", "A")
@@ -173,7 +172,7 @@ test_that("2w*2b", {
   within <- list(time = c("day", "night"))
   between <- list(pet = c("dog", "cat"))
   mu <- list(dog = 1:2, cat = 3:4)
-  p <- check_design(within, between, mu = mu) %>%
+  p <- check_design(within, between, mu = mu, plot = 0) %>% 
     plot_design()
   expect_equal(class(p), c("gg", "ggplot"))
   
@@ -199,7 +198,7 @@ test_that("2w*2w*2b", {
   within <- list(time = c("day", "night"), condition = c("A", "B"))
   between <- list(pet = c("dog", "cat"))
   mu <- list(dog = 1:4, cat = 2:5)
-  p <- check_design(within, between, mu = mu) %>%
+  p <- check_design(within, between, mu = mu, plot = FALSE) %>%
     plot_design()
   expect_equal(class(p), c("gg", "ggplot"))
 })
@@ -217,7 +216,66 @@ test_that("2w*2w*2b*2b", {
   expect_equal(class(p), c("gg", "ggplot"))
 })
 
+# geoms ----
 test_that("geoms", {
-
+  dat <- sim_design(c(2,2,2,2), n = 25, sd = 5, 
+                    mu = 1:16, plot = FALSE)
   
+  default <- plot_design(dat)
+  manual <- plot_design(dat, geoms = c("violin", "box"))
+  expect_equal(default, manual)
+  
+  v  <- plot_design(dat, geoms = "violin")
+  b  <- plot_design(dat, geoms = "box")
+  sd <- plot_design(dat, geoms = "pointrangeSD")
+  se <- plot_design(dat, geoms = "pointrangeSE")
+  j  <- plot_design(dat, geoms = "jitter")
+  
+  v_class  <- v$layers[[1]]$geom  %>% class()
+  b_class  <- b$layers[[1]]$geom  %>% class()
+  sd_class <- sd$layers[[1]]$geom %>% class()
+  se_class <- se$layers[[1]]$geom %>% class()
+  j_class  <- j$layers[[1]]$geom  %>% class()
+  
+  expect_equal(v_class[[1]], "GeomViolin")
+  expect_equal(b_class[[1]], "GeomBoxplot")
+  expect_equal(sd_class[[1]], "GeomPointrange")
+  expect_equal(se_class[[1]], "GeomPointrange")
+  expect_equal(j_class[[1]], "GeomPoint")
+  
+  v_sd <- plot_design(dat, geoms = c("violin", "pointrangeSD"))
+  v_sd1 <- v_sd$layers[[1]]$geom  %>% class()
+  v_sd2 <- v_sd$layers[[2]]$geom  %>% class()
+  expect_equal(v_sd1[1], "GeomViolin")
+  expect_equal(v_sd2[1], "GeomPointrange")
+  
+  # only does one of pointrange - should default to SD
+  se_sd <- plot_design(dat, geoms = c("pointrangeSE", "pointrangeSD"))
+  sd_se <- plot_design(dat, geoms = c("pointrangeSD", "pointrangeSE"))
+  expect_equal(length(se_sd$layers), 1)
+  expect_equal(length(sd_se$layers), 1)
+  
+  # getrid of plot_env$geoms to compare
+  se_sd$plot_env$geoms <- NULL
+  sd_se$plot_env$geoms <- NULL
+  sd$plot_env$geoms <- NULL
+  expect_equal(se_sd, sd_se)
+  expect_equal(sd, sd_se)
+})
+
+# S3 functions
+test_that("S3 functions", {
+  des <- check_design(plot = FALSE)
+  dat <- sim_design(plot = FALSE)
+  p_des <- plot(des)$layers[[1]]$geom %>% class()
+  p_dat <- plot(dat)$layers[[1]]$geom %>% class()
+  
+  expect_equal(p_des[1], "GeomPointrange")
+  expect_equal(p_dat[1], "GeomViolin")
+  
+  p_des <- plot(des, geoms=c("jitter", "violin"))$layers[[1]]$geom %>% class()
+  p_dat <- plot(dat, geoms=c("jitter", "violin"))$layers[[1]]$geom %>% class()
+  
+  expect_equal(p_des[1], "GeomPoint")
+  expect_equal(p_dat[1], "GeomPoint")
 })

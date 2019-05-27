@@ -22,8 +22,8 @@ test_that("unif2norm", {
       y <- unif2norm(x, mu, sd)
       y2 <- rnorm(100, mu, sd)
       
-      list(m_1 = mean(y), sd_1 = stats::sd(y),
-           m_2 = mean(y2), sd_2 = stats::sd(y2))
+      list(m_1 = mean(y), sd_1 = sd(y),
+           m_2 = mean(y2), sd_2 = sd(y2))
     }) 
     summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
     expect_equal(summ, c(mu, sd, mu, sd), tolerance = 0.1)
