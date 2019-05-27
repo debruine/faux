@@ -68,16 +68,20 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
     param2 <- c()
     # add param in right order
     for (f in cells_b) {
-      if (length(param[[f]]) == 1) { 
+      if (!(f %in% names(param))) {
+        stop("Cell ", f, " is not specified for ", type)
+      } else if (length(param[[f]]) == 1) { 
         new_param <- rep(param[[f]], w_n)
       } else if (length(param[[f]]) != w_n) {
         stop("The number of ", type, " for cell ", f, 
              " is not correct. Please specify either 1 or a vector of ", 
              w_n, " per cell")
       } else if (setdiff(cells_w, names(param[[f]])) %>% length() == 0) {
-        new_param <- param[[f]][cells_w] # add named parameters in the right order
+        # add named parameters in the right order
+        new_param <- param[[f]][cells_w] 
       } else {
-        new_param <- param[[f]] # parameters are not or incorrectly named, add in this order
+        # parameters are not or incorrectly named, add in this order
+        new_param <- param[[f]]
       }
       param2 <- c(param2, new_param)
     }
@@ -106,7 +110,7 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
     }
   }
   
-  dd <- matrix(param2, ncol = b_n)
+  dd <- matrix(param2, ncol = max(1, b_n))
   colnames(dd) <- cells_b
   rownames(dd) <- cells_w
   

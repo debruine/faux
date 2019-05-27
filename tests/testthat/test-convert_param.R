@@ -3,10 +3,44 @@ context("test-convert_param")
 cells_w <- c("W1_X1", "W2_X1", "W1_X2", "W2_X2")
 cells_b <- c("B1_C1", "B2_C1", "B1_C2", "B2_C2")
 
+# errors ----
+test_that("errors", {
+  df <- data.frame(
+    A = 1:4, B = 5:8, 
+    C = 9:12, D = 13:16, 
+    row.names = cells_b
+  )
+  
+  expect_error(convert_param(df, cells_w, cells_b), 
+               "The this parameter data table is misspecified.")
+  expect_error(convert_param(df, cells_w, cells_b, "err"), 
+               "The err data table is misspecified.")
+  
+  # wrong names
+  param <- list(
+    A = 1:4, B = 5:8, 
+    C = 9:12, D = 13:16
+  )
+  expect_error(convert_param(param, cells_w, cells_b), 
+               "Cell B1_C1 is not specified for this parameter")
+  
+  # wrong vector length
+  param <- list("B1_C1" = 1:2, 
+                "B2_C1" = 3:4, 
+                "B1_C2" = 5:6, 
+                "B2_C2" = 7:8)
+  expect_error(convert_param(param, cells_w, cells_b, "mu"), 
+               "The number of mu for cell B1_C1 is not correct. Please specify either 1 or a vector of 4 per cell")
+  
+  param <- list("W1_X1" = 1:4, "W2_X1" = 1:4, "W1_X2" = 1:4)
+  expect_error(convert_param(param, cells_w, c(), "mu"), 
+               "The number of mu is not correct. Please specify either 1 or a vector of 4 per cell")
+})
+
 # single number ---
-testthat::test_that("single number", {
+test_that("single number", {
   param <- 3
-  cp <- faux:::convert_param(param, cells_w, cells_b)
+  cp <- convert_param(param, cells_w, cells_b)
   expect_equal(names(cp), cells_b)
   expect_equal(names(cp[[1]]), cells_w)
   expect_equal(unlist(cp) %>% unname(), rep(3, 16))
@@ -138,6 +172,56 @@ test_that("1-col/1-row df", {
   cw <- convert_param(cols_w, cells_w, cells_b)
   rw <- convert_param(rows_w, cells_w, cells_b)
   expect_equal(cw, rw)
+})
+
+# compare types  ----
+test_that("compare types", {
+  # setup 
+  cells_b <- c("A1_B1", "A1_B2", "A2_B1", "A2_B2")
+  cells_w <- c("C1", "C2")
+  
+  cp_vec <- 1:8
+  cp_list <- list(
+    "A1_B1" = 1:2, 
+    "A1_B2" = 3:4, 
+    "A2_B1" = 5:6, 
+    "A2_B2" = 7:8
+  )
+  cp_df <- data.frame(
+    "A1_B1" = 1:2, 
+    "A1_B2" = 3:4, 
+    "A2_B1" = 5:6, 
+    "A2_B2" = 7:8,
+    row.names = cells_w
+  )
+  cp_df_tr <- data.frame(
+    "C1" = c(1,3,5,7),
+    "C2" = c(2,4,6,8),
+    row.names = cells_b
+  )
+  cp_mat <- as.matrix(cp_df)
+  cp_mat_tr <- as.matrix(cp_df_tr)
+  
+  res_vec <- convert_param(cp_vec, cells_w, cells_b)
+  res_list <- convert_param(cp_list, cells_w, cells_b)
+  res_df <- convert_param(cp_df, cells_w, cells_b)
+  res_df_tr <- convert_param(cp_df_tr, cells_w, cells_b)
+  res_mat <- convert_param(cp_mat, cells_w, cells_b)
+  res_mat_tr <- convert_param(cp_mat_tr, cells_w, cells_b)
+  
+  canon <- list(
+    A1_B1 = list(C1 = 1, C2 = 2), 
+    A1_B2 = list(C1 = 3, C2 = 4), 
+    A2_B1 = list(C1 = 5, C2 = 6), 
+    A2_B2 = list(C1 = 7, C2 = 8)
+  )
+  
+  expect_equal(res_vec, canon)
+  expect_equal(res_list, canon)
+  expect_equal(res_df, canon)
+  expect_equal(res_df_tr, canon)
+  expect_equal(res_mat, canon)
+  expect_equal(res_mat_tr, canon)
 })
 
 
