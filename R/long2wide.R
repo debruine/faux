@@ -23,19 +23,35 @@ long2wide <- function(data, within = c(), between = c(), dv = "y", id = "id") {
     between <- names(design$between)
     dv <- names(design$dv)
     id <- names(design$id)
+  } else {
+    #design <- get_design_long(data, dv = dv, id = id, plot = FALSE)
   }
   
-  d1 <- dplyr::select(data , tidyselect::one_of(c(id, between, within, dv))) 
+  d1 <- data %>% dplyr::ungroup() %>%
+    dplyr::select(tidyselect::one_of(c(id, between, within, dv))) %>%
+    # fix within values so they match design 
+    dplyr::mutate_at(c(within), ~gsub("(\\W|_)", ".", .))
   if (length(within)) {
     d1 <- tidyr::unite(d1, ".tmpwithin.", tidyselect::one_of(within))
   }
   if (length(between)) {
-    d1 <- dplyr::group_by_at(d1, dplyr::vars(tidyselect::one_of(between)))
+    d1 <- dplyr::group_by_at(d1, between)
   }
   if (length(within)) {
-    d1 <- tidyr::spread(d1, ".tmpwithin.", !!dplyr::quo(dv))
+    d1 <- tidyr::spread(d1, ".tmpwithin.", !!quo(dv))
   }
   
-  dplyr::ungroup(d1)
+  for (b in between) {
+    # FIX: get levels from design if available
+    d1[[b]] <- factor(d1[[b]])
+  }
+  
+  widedat <- dplyr::ungroup(d1)
+  if (exists("design")) {
+    attributes(widedat)$design <- design
+  }
+  class(widedat) <- c("faux", "data.frame")
+  
+  widedat
 }
 
