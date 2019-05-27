@@ -1,4 +1,4 @@
-context("test-norm2unif")
+context("test-distributions")
 
 # error ----
 test_that("error", {
@@ -11,9 +11,11 @@ test_that("error", {
   expect_error(norm2pois(1), "argument \"lambda\" is missing, with no default")
 })
 
+reps <- 1
+
 # unif2norm ----
 test_that("unif2norm", {
-  for (i in 1:3) {
+  for (i in 1:reps) {
     mu <- runif(1, -100, 100)
     sd <- runif(1, 1, 5)
     
@@ -32,7 +34,7 @@ test_that("unif2norm", {
 
 # norm2unif ----
 test_that("norm2unif", {
-  for (i in 1:3) {
+  for (i in 1:reps) {
     min <- runif(1, -100, 100)
     max <- min + runif(1, 1, 100)
     
@@ -53,7 +55,7 @@ test_that("norm2unif", {
 
 # norm2pois ----
 test_that("norm2pois", {
-  for (i in 1:3) {
+  for (i in 1:reps) {
     lambda <- sample(1:10, 1)
     
     s <- purrr::map_df(1:1000, ~{
@@ -72,7 +74,7 @@ test_that("norm2pois", {
 
 # norm2binom ----
 test_that("norm2binom", {
-  for (i in 1:3) {
+  for (i in 1:reps) {
     prob <- runif(1)
     size <- sample(1:10, 1)
     
@@ -87,5 +89,47 @@ test_that("norm2binom", {
     
     summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
     expect_equal(summ, c(prob*size, prob*size), tolerance = 0.1)
+  }
+})
+
+# norm2trunc ----
+test_that("norm2trunc", {
+  for (i in 1:reps) {
+    min <- runif(1, -100, 100)
+    max <- min + runif(1, 1, 100)
+    mu <- (max + min)/2
+    sd <- runif(1, 1, 5)
+    
+    s <- purrr::map_df(1:1000, ~{
+      x <- rnorm(100, mu, sd)
+      y <- norm2trunc(x, min, max, mu, sd)
+      
+      y2 <- truncnorm::rtruncnorm(100, min, max, mu, sd)
+      list(m_1 = mean(y), sd_1 = sd(y),
+           m_2 = mean(y2), sd_2 = sd(y2))
+    }) 
+    summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
+    expect_equal(summ, c(mu, sd, mu, sd), tolerance = 0.1)
+  }
+})
+
+# trunc2norm ----
+test_that("trunc2norm", {
+  for (i in 1:reps) {
+    min <- runif(1, -100, 100)
+    max <- min + runif(1, 1, 100)
+    mu <- (max + min)/2
+    sd <- runif(1, 1, 5)
+    
+    s <- purrr::map_df(1:1000, ~{
+      x <- truncnorm::rtruncnorm(100, min, max, mu, sd)
+      y <- trunc2norm(x, min, max, mu, sd)
+      
+      y2 <- rnorm(100, mu, sd)
+      list(m_1 = mean(y), sd_1 = sd(y),
+           m_2 = mean(y2), sd_2 = sd(y2))
+    }) 
+    summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
+    expect_equal(summ, c(mu, sd, mu, sd), tolerance = 0.1)
   }
 })

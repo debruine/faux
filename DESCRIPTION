@@ -19,7 +19,8 @@ Imports:
     ggplot2,
     rlang (>= 0.1.2),
     broom.mixed,
-    jsonlite
+    jsonlite,
+    truncnorm
 License: MIT + file LICENSE
 Suggests:
     testthat (>= 2.1.0),
