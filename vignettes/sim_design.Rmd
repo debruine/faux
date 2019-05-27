@@ -121,8 +121,8 @@ You can also specify `n` as a named list of Ns per between-subject cell.
 ```{r}
 n <- list(
   B1_C1 = 10, 
-  B2_C1 = 20, 
-  B1_C2 = 30, 
+  B1_C2 = 20, 
+  B2_C1 = 30, 
   B2_C2 = 40
 )
 design <- check_design(2, c(2,2), n = n, plot = FALSE)
@@ -137,8 +137,8 @@ Or as a data frame. You just need to get the row or column names right, but they
 n <- data.frame(
   B2_C2 = 40,
   B1_C1 = 10, 
-  B1_C2 = 30, 
-  B2_C1 = 20
+  B1_C2 = 20, 
+  B2_C1 = 30
 )
 design <- check_design(2, c(2,2), n = n, plot = FALSE)
 str(design$n)
@@ -148,7 +148,7 @@ You can specify the cells as rowname or column names and `check_design()` will f
 
 ```{r}
 n <- data.frame(n = c(10, 20, 30, 40),
-                row.names = c("B1_C1", "B2_C1", "B1_C2", "B2_C2"))
+                row.names = c("B1_C1", "B1_C2", "B2_C1", "B2_C2"))
 design <- check_design(2, c(2,2), n = n, plot = FALSE)
 str(design$n)
 ```
@@ -176,9 +176,9 @@ A named list of named vectors prevents confusion due to order. The levels of the
 
 ```{r}
 mu <- list(
-  cat_B = c(night = 60, day = 50),
+  cat_B = c(night = 40, day = 30),
   cat_A = c(day = 10, night = 20),
-  dog_A = c(day = 30, night = 40),
+  dog_A = c(day = 50, night = 60),
   dog_B = c(day = 70, night = 80)
 )
 design <- check_design(within, between, mu = mu, sd = 1, plot = FALSE)
@@ -190,8 +190,8 @@ Alternatively, you can specify them as dataframes.
 ```{r}
 mu <- data.frame(
   cat_A = c(10, 20),
-  dog_A = c(30, 40),
-  cat_B = c(50, 60),
+  cat_B = c(30, 40),
+  dog_A = c(50, 60),
   dog_B = c(70, 80),
   row.names = c("day", "night")
 )
@@ -205,7 +205,7 @@ If you transpose the dataframe, this works out fine unless your within- and betw
 mu <- data.frame(
   day = c(10, 30, 50, 70),
   night = c(20, 40, 60, 80),
-  row.names = c("cat_A", "dog_A", "cat_B", "dog_B")
+  row.names = c("cat_A", "cat_B", "dog_A", "dog_B")
 )
 design <- check_design(within, between, mu = mu, plot = FALSE)
 str(design$mu)
@@ -219,8 +219,8 @@ If you have any within-subject factors, you need to set the correlation for each
 ```{r}
 r <- list(
   cat_A = .5,
-  dog_A = .6,
   cat_B = .5,
+  dog_A = .6,
   dog_B = .4
 )
 design <- check_design(within, between, r = r, plot = FALSE)
@@ -302,11 +302,12 @@ between <- list(
 )
 
 mu <- data.frame(
-  row.names = c("con_easy", "inc_easy", "con_med", "inc_med", "con_hard", "inc_hard"),
-  novice_day = c(10, 15, 12, 17, 14, 19),
-  novice_night = c(11, 16, 13, 18, 15, 20),
-  expert_day = c(9, 14, 11, 16, 13, 18),
-  expert_night = c(10, 15, 12, 17, 14, 19)
+  row.names = c("con_easy", "con_med", "con_hard",
+                "inc_easy", "inc_med",  "inc_hard"),
+  novice_day = 10:15,
+  novice_night = 11:16,
+  expert_day = 9:14,
+  expert_night = 10:15
 )
 ```
 
