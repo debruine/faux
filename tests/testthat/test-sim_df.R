@@ -25,7 +25,7 @@ test_that("specified parameters", {
   cors <- cor(dat)
   means <- dplyr::summarise_all(dat, mean) %>%
     as.data.frame()
-  sds <- dplyr::summarise_all(dat, stats::sd) %>%
+  sds <- dplyr::summarise_all(dat, sd) %>%
     as.data.frame()
   
   # unnamed arguments in order
@@ -34,7 +34,7 @@ test_that("specified parameters", {
   newcors <- cor(newdat)
   newmeans <- dplyr::summarise_all(newdat, mean) %>%
     as.data.frame()
-  newsds <- dplyr::summarise_all(newdat, stats::sd) %>%
+  newsds <- dplyr::summarise_all(newdat, sd) %>%
     as.data.frame()
   
   expect_equal(nrow(newdf), n)
@@ -51,7 +51,7 @@ test_that("specified parameters", {
   newcors <- cor(newdat)
   newmeans <- dplyr::summarise_all(newdat, mean) %>%
     as.data.frame()
-  newsds <- dplyr::summarise_all(newdat, stats::sd) %>%
+  newsds <- dplyr::summarise_all(newdat, sd) %>%
     as.data.frame()
   
   expect_equal(nrow(newdf), n)

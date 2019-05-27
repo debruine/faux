@@ -1,13 +1,3 @@
-#' Faux
-#' 
-#' @name faux-package
-#' @docType package
-#' @keywords package
-#'
-#' @import ggplot2
-#'
-NULL
-
 #' Pipe operator
 #'
 #' See \code{magrittr::\link[magrittr]{\%>\%}} for details.

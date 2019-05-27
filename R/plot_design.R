@@ -3,6 +3,7 @@
 #' \code{plot_design()} plots the specified within and between design
 #'
 #' @param input A list of design parameters created by check_design() or a data tbl (in long format)
+#' @param geoms A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter
 #' @param ... A list of factor names to determine visualisation (see vignette)
 #' 
 #' @return plot
@@ -19,16 +20,18 @@
 #' 
 #' @export
 #' 
-plot_design <- function(input, ...) {
+plot_design <- function(input, ..., geoms = NULL) {
   if (!is.data.frame(input) && is.list(input)) {
-    plot_data <- FALSE
+    if (is.null(geoms)) geoms <- "pointrangeSD"
     design <- input
     data <- sim_design_(design = design, empirical = TRUE, long = TRUE)
   } else if (is.data.frame(input)) {
-    plot_data <- TRUE
+    if (is.null(geoms)) geoms <- c("violin", "box")
     data <- input
     if ("design" %in% names(attributes(data))) {
       design <- attributes(data)$design
+    } else {
+      stop("The data table must have a design attribute")
     }
     if (!(names(design$dv) %in% names(data))) {
       # get data into long format
@@ -40,11 +43,11 @@ plot_design <- function(input, ...) {
   
   factors <- c(design$within, design$between)
   factor_n <- length(factors)
-  f <- dplyr::syms(names(factors)) # make it possible to use strings to specify columns
-  dv <- dplyr::sym(names(design$dv))
+  f <- syms(names(factors)) # make it possible to use strings to specify columns
+  dv <- sym(names(design$dv))
   
   if (c(...) %>% length()) {
-    f <- dplyr::syms(c(...))
+    f <- syms(c(...))
   }
   
   # use long names for factors
@@ -79,8 +82,8 @@ plot_design <- function(input, ...) {
       NULL,
       rlang::expr(!!f[[3]] ~ .),
       rlang::expr(!!f[[3]] ~ !!f[[4]]),
-      rlang::expr(!!f[[3]] ~ !!f[[4]]*!!f[[5]]),
-      rlang::expr(!!f[[3]]*!!f[[4]] ~ !!f[[5]]*!!f[[6]])
+      rlang::expr(!!f[[3]] ~ !!f[[4]] * !!f[[5]]),
+      rlang::expr(!!f[[3]] * !!f[[4]] ~ !!f[[5]] * !!f[[6]])
     )
     p <- p + facet_grid(eval(expr), labeller = "label_both")
   }
@@ -88,25 +91,56 @@ plot_design <- function(input, ...) {
   # add text y-label to all plots
   p <- p + ylab(design$dv[[1]])
   
-  if (plot_data) {
+  if ("jitter" %in% geoms) {
+    p <- p + geom_point(position = position_jitterdodge(
+      jitter.width = .5, jitter.height = 0, dodge.width = 0.9
+    ))
+  } 
+  if ("violin" %in% geoms) {
     p <- p + geom_violin(color = "black", alpha = 0.5,
-                         position = position_dodge(width = 0.9)) +
-      geom_boxplot(width = 0.25, color = "black",
+                         position = position_dodge(width = 0.9))
+  } 
+  if ("box" %in% geoms) {
+    p <- p + geom_boxplot(width = 0.25, color = "black",
                    position = position_dodge(width = 0.9),
                    show.legend = FALSE)
-  } else {
-    minsd <- function(x) { mean(x) - sd(x) }
-    maxsd <- function(x) { mean(x) + sd(x) }
+  }
+  if ("pointrangeSD" %in% geoms | "pointrangeSE" %in% geoms) {
+    if ("pointrangeSD" %in% geoms) {
+      minsd <- function(x) { mean(x) - sd(x) }
+      maxsd <- function(x) { mean(x) + sd(x) }
+      shape <- 10
+      size <- 1
+    } else if ("pointrangeSE" %in% geoms) {
+      minsd <- function(x) { mean(x) - sd(x)/sqrt(length(x)) }
+      maxsd <- function(x) { mean(x) + sd(x)/sqrt(length(x)) }
+      shape <- 20
+      size <- 1
+    }
     
     p <- p + stat_summary(
       fun.y = mean, 
       fun.ymin = minsd,
       fun.ymax = maxsd,
       geom='pointrange', 
-      shape = 10,
-      size = 1,
+      shape = shape,
+      size = size,
       position = position_dodge(width = 0.9))
   }
   
   p
 }
+
+
+#' Plot from faux design
+#' @describeIn plot_design Plotting from a faux design list
+plot.design <- function(input, ..., geoms = NULL) {
+  plot_design(input, ..., geoms = geoms)
+}
+
+#' Plot from faux data
+#' @describeIn plot_design Plotting from a faux data table
+plot.faux <- function(input, ..., geoms = NULL) {
+  plot_design(input, ..., geoms = geoms)
+}
+

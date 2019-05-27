@@ -39,6 +39,8 @@ test_that("correct specified parameters", {
 
 # sample_from_pop ----
 test_that("calculations for sample_from_pop", {
+  skip("just proving something to myself")
+    
   reps <- 1000
   tol <- 0.01
   

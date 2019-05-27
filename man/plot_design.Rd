@@ -2,14 +2,22 @@
 % Please edit documentation in R/plot_design.R
 \name{plot_design}
 \alias{plot_design}
+\alias{plot.design}
+\alias{plot.faux}
 \title{Plot design}
 \usage{
-plot_design(input, ...)
+plot_design(input, ..., geoms = NULL)
+
+\method{plot}{design}(input, ..., geoms = NULL)
+
+\method{plot}{faux}(input, ..., geoms = NULL)
 }
 \arguments{
 \item{input}{A list of design parameters created by check_design() or a data tbl (in long format)}
 
 \item{...}{A list of factor names to determine visualisation (see vignette)}
+
+\item{geoms}{A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter}
 }
 \value{
 plot
@@ -17,6 +25,13 @@ plot
 \description{
 \code{plot_design()} plots the specified within and between design
 }
+\section{Methods (by generic)}{
+\itemize{
+\item \code{plot}: Plotting from a faux design list
+
+\item \code{plot}: Plotting from a faux data table
+}}
+
 \examples{
 
 within <- list(time = c("day", "night"))

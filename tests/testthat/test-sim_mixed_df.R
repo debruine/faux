@@ -1,10 +1,20 @@
 context("sim_mixed_df")
 
+# specified dv and IDs ----
 test_that("specified dv and IDs", {
   s <- sim_mixed_df(fr4, 10, 10, "rating", "rater_id", "face_id")
   default_names <- c("sub_id", "item_id", "y", "grand_i", "sub_i", "item_i", "err")
   
   expect_equal(nrow(s), 100)
+  expect_equal(ncol(s), 7)
+  expect_equal(names(s), default_names)
+})
+
+test_that("numeric spec", {
+  s <- sim_mixed_df(fr4, dv = 1, sub_id = 2, item_id = 3)
+  default_names <- c("sub_id", "item_id", "y", "grand_i", "sub_i", "item_i", "err")
+  
+  expect_equal(nrow(s), nrow(fr4))
   expect_equal(ncol(s), 7)
   expect_equal(names(s), default_names)
 })

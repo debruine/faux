@@ -14,7 +14,7 @@
 select_num_grp <- function(data, between = c(), cols = NULL) {
   # error checking -----------------
   if (is.matrix(data)) {
-    data = as.data.frame(data)
+    data <- as.data.frame(data)
   } else if (!is.data.frame(data)) {
     stop("data must be a data frame or matrix")
   }

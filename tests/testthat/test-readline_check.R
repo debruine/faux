@@ -1,6 +1,6 @@
 context("test-readline_check")
 
-test_that("readline", {
+test_that("interactive", {
   skip("interactive is too annoying")
 
   n <- readline_check("Type a number: ", "numeric")

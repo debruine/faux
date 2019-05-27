@@ -149,11 +149,13 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
     }
     
     attr(df_long, "design") <- design
+    class(df_long) <- c("faux", "data.frame")
     
     return(df_long)
   }
   
   attr(df_wide, "design") <- design
+  class(df_wide) <- c("faux", "data.frame")
   
   df_wide
 }
