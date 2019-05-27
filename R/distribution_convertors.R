@@ -99,4 +99,56 @@ norm2unif <- function(x, min = 0, max = 1, mu = mean(x), sd = stats::sd(x)) {
   stats::qunif(p, min, max)
 }
 
+#' Convert normal to truncated normal
+#' 
+#' Convert a normal (gaussian) distribution to a truncated normal distribution with specified minimum and maximum
+#'
+#' @param x the normally distributed vector
+#' @param min the minimum of the truncated distribution to return
+#' @param max the maximum of the truncated distribution to return
+#' @param mu the mean of the distribution to return (calculated from x if not given)
+#' @param sd the SD of the distribution to return (calculated from x if not given)
+#'
+#' @return a vector with a uniform distribution
+#' @export
+#'
+#' @examples
+#' 
+#' x <- rnorm(10000)
+#' y <- norm2trunc(x, 1, 7, 3.5, 2)
+#' g <- ggplot2::ggplot() + ggplot2::geom_point(ggplot2::aes(x, y))
+#' ggExtra::ggMarginal(g, type = "histogram")
+#' 
+norm2trunc <- function(x, min = -Inf, max = Inf, mu = mean(x), sd = stats::sd(x)) {
+  p <- stats::pnorm(x, mean(x), stats::sd(x))
+  truncnorm::qtruncnorm(p, a = min, b = max, mean = mu, sd = sd)
+}
+
+#' Convert truncated normal to normal
+#' 
+#' Convert a truncated normal distribution to a normal (gaussian) distribution
+#'
+#' @param x the truncated normally distributed vector
+#' @param min the minimum of the truncated distribution (calculated from x if not given)
+#' @param max the maximum of the truncated distribution (calculated from x if not given)
+#' @param mu the mean of the distribution to return (calculated from x if not given)
+#' @param sd the SD of the distribution to return (calculated from x if not given)
+#'
+#' @return a vector with a uniform distribution
+#' @export
+#'
+#' @examples
+#' 
+#' x <- truncnorm::rtruncnorm(10000, 1, 7, 3.5, 2)
+#' y <- trunc2norm(x, 1, 7)
+#' g <- ggplot2::ggplot() + ggplot2::geom_point(ggplot2::aes(x, y))
+#' ggExtra::ggMarginal(g, type = "histogram")
+#' 
+trunc2norm <- function(x, min = min(x), max = max(x), 
+                       mu = mean(x), sd = stats::sd(x)) {
+  p <- truncnorm::ptruncnorm(x, a = min, b = max, mean = mu, sd = sd)
+  stats::qnorm(p, mean = mu, sd = sd)
+}
+
+
 

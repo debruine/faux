@@ -27,6 +27,15 @@ test_that("filename", {
   expect_equal(json, json2)
   
   file.remove("test.json")
+  
+  # no .json suffix
+  json <- json_design(des, "test")
+  des2 <- jsonlite::read_json("test.json")
+  json2 <- jsonlite::toJSON(des2, auto_unbox = TRUE)
+  expect_equivalent(des, des2)
+  expect_equal(json, json2)
+  
+  file.remove("test.json")
 })
 
 # digits ----
