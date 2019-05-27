@@ -26,7 +26,6 @@ wide2long <- function(data, within_factors = c(), within_cols = c(),
     within_cols <- cell_combos(design$within, dv) 
   }
   
-  
   if (is.numeric(within_cols)) {
     within_cols <- names(data)[within_cols]
   }
@@ -38,8 +37,16 @@ wide2long <- function(data, within_factors = c(), within_cols = c(),
     }
   }
   
-  data %>%
+  longdat <- data %>% dplyr::ungroup() %>%
     tidyr::gather(".tmpwithin.", !!dplyr::sym(dv), tidyselect::one_of(within_cols)) %>%
     tidyr::separate(".tmpwithin.", within_factors, sep = sep)
+  
+  if (exists("design")) {
+    attributes(longdat)$design <- design
+  }
+  
+  class(longdat) <- c("faux", "data.frame")
+  
+  longdat
 }
 

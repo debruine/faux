@@ -87,18 +87,27 @@ test_that("wide2long", {
 
 # from design ----
 test_that("from design", {
-  # w <- sim_design(c(2,2), c(2,2))
-  # w2 <- wide2long(w)
-  # w3 <- long2wide(w2)
-  # expect_equal(names(w2), c("sub_id", "C", "D", "A", "B","rt"))
-  # expect_equal(w, w3)
-  # 
-  # l <- sim_design(c(2,2), c(2,2), long = TRUE)
-  # l2 <- long2wide(l)
-  # expect_equal(names(l2), c("id", "C", "D", "A1_B1", "A1_B2", "A2_B1", "A2_B2"))
-  # 
-  # # from data not made by faux
-  # data <- fr4 %>% 
-  #   dplyr::group_by(rater_id, rater_sex, face_eth) %>% 
-  #   dplyr::summarise(rating = mean(rating))
+  w <- sim_design(c(2,2), c(2,2), plot = FALSE)
+  w2 <- wide2long(w)
+  w3 <- long2wide(w2)
+  expect_equal(class(w), c("faux", "data.frame"))
+  expect_equal(class(w2), c("faux", "data.frame"))
+  expect_equal(class(w3), c("faux", "data.frame"))
+  
+  expect_equal(names(w2), c("id", "C", "D", "A", "B","y"))
+  #expect_equal(w, w3)
+
+  l <- sim_design(c(2,2), c(2,2), long = TRUE)
+  l2 <- long2wide(l)
+  expect_equal(class(l), c("faux", "data.frame"))
+  expect_equal(class(l2), c("faux", "data.frame"))
+  expect_equal(names(l2), c("id", "C", "D", "A1_B1", "A1_B2", "A2_B1", "A2_B2"))
+
+  # from data not made by faux and grouped
+  data <- fr4 %>%
+    dplyr::group_by(rater_id, rater_sex, face_eth) %>%
+    dplyr::summarise(rating = mean(rating))
+  
+  dwide <- long2wide(data, within = "face_eth", between = "rater_sex", dv = "rating", id = "rater_id")
+  expect_equal(names(dwide), c("rater_id", "rater_sex", "black", "east.asian", "west.asian", "white"))
 })

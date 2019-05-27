@@ -57,7 +57,7 @@ get_design_long <- function(data, dv = "y", id = "id", plot = TRUE) {
   cells_b <- cell_combos(between, dv) 
   
   # get n, mu, sd, r per cell
-  chk <- check_sim_stats(data, between_factors, within_factors, dv, id)
+  chk <- check_sim_stats(data, between_factors, within_factors, dv, id, digits = 8)
   
   if (length(between_factors)) {
     chk_b <- tidyr::unite(chk, ".between", tidyselect::one_of(between_factors)) %>%
