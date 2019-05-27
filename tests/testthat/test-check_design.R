@@ -185,4 +185,3 @@ test_that("make_id", {
   expect_equal(make_id(2:4), c("S2", "S3", "S4"))
   expect_equal(make_id(100:200)[[1]], "S100")
 })
-
