@@ -50,6 +50,6 @@ check_design(within, between, mu = mu)
 
 between <- list(language = c("dutch", "thai"),
                 pet = c("dog", "cat"))
-mu <- list(dutch_dog = 12, thai_dog = 8, dutch_cat = 7, thai_cat = 3)
+mu <- list(dutch_dog = 12, dutch_cat = 7, thai_dog = 8, thai_cat = 3)
 check_design(within, between, mu = mu)
 }

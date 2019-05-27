@@ -29,13 +29,14 @@ unique_pairs <- function(v) {
 #' Set design interactively
 #' 
 #' @param plot whether to show a plot of the design
+#' @param output what type of design to output (for faux or ANOVApower)
 #'
 #' @return list
 #' @export
 #'
 #' @examples
 #' \dontrun{des <- interactive_design()}
-interactive_design <- function(plot = FALSE) {
+interactive_design <- function(plot = FALSE, output = c("faux", "ANOVApower")) {
   # within factors ----
   wn <- readline_check("How many within-subject factors do you have?: ", "integer")
   within <- list()
@@ -45,7 +46,7 @@ interactive_design <- function(plot = FALSE) {
       name <- readline_check(prompt=p, "length", min = 1)
       
       p <- paste0("How many levels of ", name, ": ")
-      nlevels <- readline_check(p, "integer")
+      nlevels <- readline_check(p, "integer", min = 2)
       
       levels <- c()
       for (j in 1:nlevels) {
@@ -66,7 +67,7 @@ interactive_design <- function(plot = FALSE) {
       name <- readline_check(prompt=p, "length", min = 1)
       
       p <- paste0("How many levels of ", name, ": ")
-      nlevels <- readline_check(p, "integer")
+      nlevels <- readline_check(p, "integer", min = 2)
       
       levels <- c()
       for (j in 1:nlevels) {
@@ -129,21 +130,32 @@ interactive_design <- function(plot = FALSE) {
     as.data.frame()
   
   # ask for r ----
-  up <- unique_pairs(cells_w)
-  uplist <- paste(up, collapse = ", ")
-  pattern <- paste0("^\\s?(-?\\d*\\.?\\d?\\s?,\\s?){0,", (length(up)-1), "}\\s?(-?\\d*\\.?\\d?)\\s?$")
-  r <- purrr::map(cells_b, function(b) {
-    p <- paste0("Cors (r) of ", uplist, " in condition ", b, ": ")
-    input <- readline_check(p, "grep", pattern = pattern, perl = TRUE) %>%
-      strsplit("\\s?,\\s?") %>% unlist()
-    if (length(input) == 1) input <- rep(input, length(cells_w))
-    input %>% as.double()
-  })
-  names(r) <- cells_b
+  if (length(cells_w)> 1) {
+    up <- unique_pairs(cells_w)
+    uplist <- paste(up, collapse = ", ")
+    pattern <- paste0("^\\s?(-?\\d*\\.?\\d?\\s?,\\s?){0,", (length(up)-1), "}\\s?(-?\\d*\\.?\\d?)\\s?$")
+    r <- purrr::map(cells_b, function(b) {
+      p <- paste0("Cors (r) of ", uplist, " in condition ", b, ": ")
+      input <- readline_check(p, "grep", pattern = pattern, perl = TRUE) %>%
+        strsplit("\\s?,\\s?") %>% unlist()
+      tri_n <- length(cells_w) * (length(cells_w)-1) / 2
+      if (length(input) == 1) input <- rep(input, tri_n)
+      input %>% as.double()
+    })
+    names(r) <- cells_b
+  } else {
+    r <- 0 # no within subject factors
+  }
 
-  design <- check_design(within, between, n, mu, sd, r, plot = plot)
+  design <- check_design(within = within, between = between, 
+                         n = n, mu = mu, sd = sd, r = r, dv = dv, id = id, plot = plot)
   
   message("\033[32mYour design is ready!\033[39m")
   
-  design
+  output <- match.arg(output)
+  if (output == "ANOVApower") {
+    faux2ANOVA_design(design)
+  } else {
+    design
+  }
 }

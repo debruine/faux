@@ -71,9 +71,9 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
       theme_bw() +
       theme(legend.position = "none")
   } else {
-    p <- ggplot(data, aes(!!f[[1]], !!dv,
-                          fill = !!f[[2]],
-                          color = !!f[[2]])) + 
+    p <- ggplot(data, aes(!!f[[2]], !!dv,
+                          fill = !!f[[1]],
+                          color = !!f[[1]])) + 
       theme_bw()
   }
   
@@ -111,12 +111,12 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
       minsd <- function(x) { mean(x) - sd(x) }
       maxsd <- function(x) { mean(x) + sd(x) }
       shape <- 10
-      size <- 1
+      size <- .5
     } else if ("pointrangeSE" %in% geoms) {
       minsd <- function(x) { mean(x) - sd(x)/sqrt(length(x)) }
       maxsd <- function(x) { mean(x) + sd(x)/sqrt(length(x)) }
       shape <- 20
-      size <- 1
+      size <- .5
     }
     
     p <- p + stat_summary(
@@ -125,7 +125,7 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
       fun.ymax = maxsd,
       geom='pointrange', 
       shape = shape,
-      size = size,
+      #size = size,
       position = position_dodge(width = 0.9))
   }
   

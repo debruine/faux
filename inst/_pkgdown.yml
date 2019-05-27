@@ -9,6 +9,7 @@ reference:
 - title: Other useful functions
   desc: ~
   contents:
+  - '`faux2ANOVA_design`'
   - '`get_params`'
   - '`json_design`'
   - '`make_id`'

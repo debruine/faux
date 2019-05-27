@@ -20,7 +20,8 @@ Imports:
     rlang (>= 0.1.2),
     broom.mixed,
     jsonlite,
-    truncnorm
+    truncnorm,
+    ANOVApower (>= 0.0.3)
 License: MIT + file LICENSE
 Suggests:
     testthat (>= 2.1.0),
@@ -37,3 +38,5 @@ Encoding: UTF-8
 LazyData: true
 URL: https://github.com/debruine/faux
 BugReports: https://github.com/debruine/faux/issues
+Remotes:  
+    Lakens/ANOVApower

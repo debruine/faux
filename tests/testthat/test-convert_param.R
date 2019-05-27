@@ -47,14 +47,14 @@ test_that("single number", {
 })
   
 # list of single numbers ----
-testthat::test_that("list of single numbers", {
+test_that("list of single numbers", {
   param <- list(
     "B1_C1" = 1, 
     "B2_C1" = 2, 
     "B1_C2" = 3, 
     "B2_C2" = 4
   )
-  cp <- faux:::convert_param(param, cells_w, cells_b)
+  cp <- convert_param(param, cells_w, cells_b)
   
   expect_equal(names(cp), cells_b)
   expect_equal(names(cp[[1]]), cells_w)
@@ -65,7 +65,7 @@ testthat::test_that("list of single numbers", {
 # unnamed vector of cells ----
 testthat::test_that("unnamed vector of cells", {
   param <- rep(1:4, each = 4)
-  cp <- faux:::convert_param(param, cells_w, cells_b)
+  cp <- convert_param(param, cells_w, cells_b)
   
   expect_equal(names(cp), cells_b)
   expect_equal(names(cp[[1]]), cells_w)
@@ -81,7 +81,7 @@ testthat::test_that("list of unnamed vectors", {
     "B1_C2" = 9:12,
     "B2_C2" = 13:16
   )
-  cp <- faux:::convert_param(param, cells_w, cells_b)
+  cp <- convert_param(param, cells_w, cells_b)
   
   expect_equal(names(cp), cells_b)
   expect_equal(names(cp[[1]]), cells_w)
@@ -97,7 +97,7 @@ testthat::test_that("list of named vectors", {
     "B1_C2" = c("W1_X1" = 9, "W2_X1" = 10, "W1_X2" = 11, "W2_X2" = 12),
     "B2_C2" = c("W1_X1" = 13, "W2_X1" = 14, "W1_X2" = 15, "W2_X2" = 16)
   )
-  cp <- faux:::convert_param(param, cells_w, cells_b)
+  cp <- convert_param(param, cells_w, cells_b)
   
   expect_equal(names(cp), cells_b)
   expect_equal(names(cp[[1]]), cells_w)
@@ -112,7 +112,7 @@ testthat::test_that("list of disordered named vectors", {
     "B2_C1" = c("W1_X1" = 5, "W1_X2" = 7, "W2_X1" = 6, "W2_X2" = 8),
     "B2_C2" = c("W1_X1" = 13, "W1_X2" = 15, "W2_X1" = 14, "W2_X2" = 16)
   )
-  cp <- faux:::convert_param(param, cells_w, cells_b)
+  cp <- convert_param(param, cells_w, cells_b)
   
   expect_equal(names(cp), cells_b)
   expect_equal(names(cp[[1]]), cells_w)
@@ -130,7 +130,7 @@ testthat::test_that("data frame", {
   )
   names(param) <- cells_w
   
-  cp <- faux:::convert_param(param, cells_w, cells_b)
+  cp <- convert_param(param, cells_w, cells_b)
   
   expect_equal(names(cp), cells_b)
   expect_equal(names(cp[[1]]), cells_w)
@@ -148,7 +148,7 @@ testthat::test_that("backwards data frame", {
   )
   names(param) <- cells_b
   
-  cp <- faux:::convert_param(param, cells_w, cells_b)
+  cp <- convert_param(param, cells_w, cells_b)
   
   expect_equal(names(cp), cells_b)
   expect_equal(names(cp[[1]]), cells_w)

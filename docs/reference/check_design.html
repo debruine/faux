@@ -8,6 +8,13 @@
 
 <title>Validates the specified design — check_design • faux</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
@@ -35,6 +42,8 @@
 <meta property="og:description" content="Specify any number of within- and between-subject factors with any number of 
 levels. Specify n for each between-subject cell; mu and sd for each cell, and
 r for the within-subject cells for each between-subject cell." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
@@ -208,7 +217,7 @@ simulate a data table with this design, or to archive your design.</p>
 <span class='fu'>check_design</span>(<span class='no'>within</span>, <span class='no'>between</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>)</div><div class='img'><img src='check_design-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>between</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>language</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"dutch"</span>, <span class='st'>"thai"</span>),
                 <span class='kw'>pet</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"dog"</span>, <span class='st'>"cat"</span>))
-<span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>dutch_dog</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>thai_dog</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>dutch_cat</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>thai_cat</span> <span class='kw'>=</span> <span class='fl'>3</span>)
+<span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>dutch_dog</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>dutch_cat</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>thai_dog</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>thai_cat</span> <span class='kw'>=</span> <span class='fl'>3</span>)
 <span class='fu'>check_design</span>(<span class='no'>within</span>, <span class='no'>between</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>)</div><div class='img'><img src='check_design-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
