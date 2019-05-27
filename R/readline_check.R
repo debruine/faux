@@ -20,7 +20,12 @@
 #' }
 readline_check <- function(prompt, type = c("numeric", "integer", "length", "grep"), 
                            min = -Inf, max = Inf, warning = NULL, ...) {
-  input <- readline(prompt)
+  #input <- readline(prompt)
+  if (getOption("faux.connection") %>% is.null()) {
+    options(faux.connection = stdin())
+  }
+  cat(prompt)
+  input <- readLines(con = getOption("faux.connection"), n = 1)
   
   type <- match.arg(type)
   if (type == "numeric") {

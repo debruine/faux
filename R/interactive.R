@@ -42,7 +42,7 @@ interactive_design <- function(plot = FALSE) {
   if (wn > 0) {
     for (i in 1:wn) {
       p <- paste0("Name of within-subject factor ", i, ": ")
-      name <- readline(prompt=p)
+      name <- readline_check(prompt=p, "length", min = 1)
       
       p <- paste0("How many levels of ", name, ": ")
       nlevels <- readline_check(p, "integer")
@@ -50,7 +50,7 @@ interactive_design <- function(plot = FALSE) {
       levels <- c()
       for (j in 1:nlevels) {
         p <- paste0("Name of factor ", name, ", level ", j, ": ")
-        levels[j] <- readline(prompt=p)
+        levels[j] <- readline_check(prompt=p, "length", min = 1)
       }
       
       within[[name]] <- levels
@@ -63,7 +63,7 @@ interactive_design <- function(plot = FALSE) {
   if (bn > 0) {
     for (i in 1:bn) {
       p <- paste0("Name of between-subject factor ", i, ": ")
-      name <- readline(prompt=p)
+      name <- readline_check(prompt=p, "length", min = 1)
       
       p <- paste0("How many levels of ", name, ": ")
       nlevels <- readline_check(p, "integer")
@@ -71,7 +71,7 @@ interactive_design <- function(plot = FALSE) {
       levels <- c()
       for (j in 1:nlevels) {
         p <- paste0("Name of factor ", name, ", level ", j, ": ")
-        levels[j] <- readline(prompt=p)
+        levels[j] <- readline_check(prompt=p, "length", min = 1)
       }
       between[[name]] <- levels
     }
