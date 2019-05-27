@@ -2,6 +2,8 @@
 output: github_document
 always_allow_html: yes
 ---
+
+# faux <img src="man/figures/logo.png" align="right" alt="" width="120" />
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -319,12 +321,7 @@ Convert a data table made with faux from long to wide.
 ```r
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
-df_long <- sim_design(within, between, long = TRUE)
-```
-
-![plot of chunk long2wide](figure/long2wide-1.png)
-
-```r
+df_long <- sim_design(within, between, long = TRUE, plot = FALSE)
 
 df_wide <- long2wide(df_long)
 ```
@@ -332,12 +329,12 @@ df_wide <- long2wide(df_long)
 
 |id   |pet |        day|      night|
 |:----|:---|----------:|----------:|
-|S001 |cat | -1.7913821|  1.0546403|
-|S002 |cat | -0.0295121| -0.4677078|
-|S003 |cat |  0.2951152|  1.0961789|
-|S004 |cat |  1.1571559|  1.1067069|
-|S005 |cat | -1.5281714|  0.0774030|
-|S006 |cat | -0.3660741|  0.5784563|
+|S001 |cat |  0.6709323|  0.5155250|
+|S002 |cat |  0.0002790|  1.7126586|
+|S003 |cat | -0.2909270| -1.8289396|
+|S004 |cat |  0.0847928|  1.7320068|
+|S005 |cat |  1.1948096| -0.1980841|
+|S006 |cat |  0.4860728| -1.7309580|
 
 If you have a data table not made by faux, you need to specify the within-subject columns, the between-subject columns, the DV column, and the ID column.
 
@@ -361,12 +358,12 @@ df_wide <- long2wide(df_long, within = c("A", "B"),
 
 | sub_id|C  |      A1_B1|      A1_B2|      A2_B1|      A2_B2|
 |------:|:--|----------:|----------:|----------:|----------:|
-|      1|C1 | -0.1525222| -1.4564302|  1.1203081|  0.4511749|
-|      2|C2 |  1.6872789|  0.2409951|  0.0585650| -1.5053084|
-|      3|C1 | -0.9950045| -0.1313753| -0.7255834|  0.1537105|
-|      4|C2 | -0.4386858| -0.1978661| -0.8392723| -1.2448355|
-|      5|C1 |  0.7823377|  0.2321049|  0.1820188| -0.5573528|
-|      6|C2 | -1.8023296| -1.4819906|  0.2969906| -0.1040556|
+|      1|C1 |  1.0546403|  1.2786863| -0.5672533| -0.3157426|
+|      2|C2 | -0.4677078| -0.3438517|  0.3473444|  1.2375229|
+|      3|C1 |  1.0961789| -0.8291885|  0.4261450| -0.7872061|
+|      4|C2 |  1.1067069| -0.1313337|  0.1096033| -0.9223819|
+|      5|C1 |  0.0774030|  0.3482232|  0.6521404| -1.9094445|
+|      6|C2 |  0.5784563| -0.4426527| -1.9598806|  0.7885763|
 
 
 
@@ -387,16 +384,19 @@ df_long <- wide2long(df_wide)
 
 |id   |pet |time |          y|
 |:----|:---|:----|----------:|
-|S001 |cat |day  | -0.4568207|
-|S002 |cat |day  | -0.1331782|
-|S003 |cat |day  | -1.4783485|
-|S004 |cat |day  |  0.5898157|
-|S005 |cat |day  |  0.1697344|
-|S006 |cat |day  | -1.2105173|
+|S001 |cat |day  |  1.3290422|
+|S002 |cat |day  |  0.1087942|
+|S003 |cat |day  |  0.2573105|
+|S004 |cat |day  |  0.1548801|
+|S005 |cat |day  | -0.4347730|
+|S006 |cat |day  |  0.5253602|
 
 
 
 If you have a data table not made by faux, you need to specify the within-subject factors and columns, and specify the names of the ID and DV columns to create. 
+
+If column names are combinations of factor levels (e.g., A1_B1, A1_B2, A2_B1, A2_B2), then you can specify the regex pattern to separate them with the argument `sep` (which defaults to `_`).
+
 
 ```r
 long_iris <- wide2long(
@@ -404,39 +404,34 @@ long_iris <- wide2long(
     within_factors = c("feature", "dimension"),
     within_cols = 1:4,
     dv = "value",
-    id = "flower_id"
+    id = "flower_id",
+    sep = "\\."
   )
-#> Warning: Expected 2 pieces. Missing pieces filled with `NA` in 600 rows [1,
-#> 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
 ```
 
 
 
-|Species |flower_id |feature      |dimension | value|
-|:-------|:---------|:------------|:---------|-----:|
-|setosa  |S001      |Sepal.Length |NA        |   5.1|
-|setosa  |S002      |Sepal.Length |NA        |   4.9|
-|setosa  |S003      |Sepal.Length |NA        |   4.7|
-|setosa  |S004      |Sepal.Length |NA        |   4.6|
-|setosa  |S005      |Sepal.Length |NA        |   5.0|
-|setosa  |S006      |Sepal.Length |NA        |   5.4|
+|Species |flower_id |feature |dimension | value|
+|:-------|:---------|:-------|:---------|-----:|
+|setosa  |S001      |Sepal   |Length    |   5.1|
+|setosa  |S002      |Sepal   |Length    |   4.9|
+|setosa  |S003      |Sepal   |Length    |   4.7|
+|setosa  |S004      |Sepal   |Length    |   4.6|
+|setosa  |S005      |Sepal   |Length    |   5.0|
+|setosa  |S006      |Sepal   |Length    |   5.4|
 
 
 
 ### get_design_long
 
-Once you have a dataframe in long format, you can recover the design from it.
+If you have a data table in long format, you can recover the design from it by specifying the dv and id columns (assuming all other columns are within- or between-subject factors).
 
 
 ```r
 design <- get_design_long(long_iris, dv = "value", id = "flower_id")
-#> Warning: Factor `dimension` contains implicit NA, consider using
-#> `forcats::fct_explicit_na`
-
-#> Warning: Factor `dimension` contains implicit NA, consider using
-#> `forcats::fct_explicit_na`
-#> Error in convert_param(n, cells_w, cells_b, "Ns"): The Ns data table is misspecified.
 ```
+
+![plot of chunk get-design-long](figure/get-design-long-1.png)
 
 ### json_design
 
@@ -448,10 +443,7 @@ json_design(design)
 ```
 
 <pre>
-
-```
-#> Error in check_design(design = design, plot = FALSE): object 'design' not found
-```
+{"within":{"feature":{"Petal":"Petal","Sepal":"Sepal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":{"value":"value"},"id":{"flower_id":"flower_id"},"n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Petal_Length":1.462,"Petal_Width":0.246,"Sepal_Length":5.006,"Sepal_Width":3.428},"versicolor":{"Petal_Length":4.26,"Petal_Width":1.326,"Sepal_Length":5.936,"Sepal_Width":2.77},"virginica":{"Petal_Length":5.552,"Petal_Width":2.026,"Sepal_Length":6.588,"Sepal_Width":2.974}},"sd":{"setosa":{"Petal_Length":0.173664,"Petal_Width":0.10538559,"Sepal_Length":0.35248969,"Sepal_Width":0.37906437},"versicolor":{"Petal_Length":0.46991098,"Petal_Width":0.19775268,"Sepal_Length":0.51617115,"Sepal_Width":0.31379832},"virginica":{"Petal_Length":0.5518947,"Petal_Width":0.27465006,"Sepal_Length":0.63587959,"Sepal_Width":0.32249664}},"r":{"setosa":[[1,0.33163004,0.26717576,0.17769997],[0.33163004,1,0.27809835,0.23275201],[0.26717576,0.27809835,1,0.74254669],[0.17769997,0.23275201,0.74254669,1]],"versicolor":[[1,0.78666809,0.75404896,0.56052209],[0.78666809,1,0.54646107,0.66399872],[0.75404896,0.54646107,1,0.52591072],[0.56052209,0.66399872,0.52591072,1]],"virginica":[[1,0.32210822,0.86422473,0.40104458],[0.32210822,1,0.28110771,0.53772803],[0.86422473,0.28110771,1,0.45722782],[0.40104458,0.53772803,0.45722782,1]]}}
 </pre>
 
 
@@ -461,10 +453,96 @@ json_design(design, pretty = TRUE)
 ```
 
 <pre>
-
-```
-#> Error in check_design(design = design, plot = FALSE): object 'design' not found
-```
+{
+  "within": {
+    "feature": {
+      "Petal": "Petal",
+      "Sepal": "Sepal"
+    },
+    "dimension": {
+      "Length": "Length",
+      "Width": "Width"
+    }
+  },
+  "between": {
+    "Species": {
+      "setosa": "setosa",
+      "versicolor": "versicolor",
+      "virginica": "virginica"
+    }
+  },
+  "dv": {
+    "value": "value"
+  },
+  "id": {
+    "flower_id": "flower_id"
+  },
+  "n": {
+    "setosa": 50,
+    "versicolor": 50,
+    "virginica": 50
+  },
+  "mu": {
+    "setosa": {
+      "Petal_Length": 1.462,
+      "Petal_Width": 0.246,
+      "Sepal_Length": 5.006,
+      "Sepal_Width": 3.428
+    },
+    "versicolor": {
+      "Petal_Length": 4.26,
+      "Petal_Width": 1.326,
+      "Sepal_Length": 5.936,
+      "Sepal_Width": 2.77
+    },
+    "virginica": {
+      "Petal_Length": 5.552,
+      "Petal_Width": 2.026,
+      "Sepal_Length": 6.588,
+      "Sepal_Width": 2.974
+    }
+  },
+  "sd": {
+    "setosa": {
+      "Petal_Length": 0.173664,
+      "Petal_Width": 0.10538559,
+      "Sepal_Length": 0.35248969,
+      "Sepal_Width": 0.37906437
+    },
+    "versicolor": {
+      "Petal_Length": 0.46991098,
+      "Petal_Width": 0.19775268,
+      "Sepal_Length": 0.51617115,
+      "Sepal_Width": 0.31379832
+    },
+    "virginica": {
+      "Petal_Length": 0.5518947,
+      "Petal_Width": 0.27465006,
+      "Sepal_Length": 0.63587959,
+      "Sepal_Width": 0.32249664
+    }
+  },
+  "r": {
+    "setosa": [
+      [1, 0.33163004, 0.26717576, 0.17769997],
+      [0.33163004, 1, 0.27809835, 0.23275201],
+      [0.26717576, 0.27809835, 1, 0.74254669],
+      [0.17769997, 0.23275201, 0.74254669, 1]
+    ],
+    "versicolor": [
+      [1, 0.78666809, 0.75404896, 0.56052209],
+      [0.78666809, 1, 0.54646107, 0.66399872],
+      [0.75404896, 0.54646107, 1, 0.52591072],
+      [0.56052209, 0.66399872, 0.52591072, 1]
+    ],
+    "virginica": [
+      [1, 0.32210822, 0.86422473, 0.40104458],
+      [0.32210822, 1, 0.28110771, 0.53772803],
+      [0.86422473, 0.28110771, 1, 0.45722782],
+      [0.40104458, 0.53772803, 0.45722782, 1]
+    ]
+  }
+}
 </pre>
 
 ### pos_def_limits
