@@ -21,7 +21,7 @@ sim_df(data, n = 100, within = c(), between = c(), id = "sub_id",
 
 \item{dv}{the name of the DV (value) column}
 
-\item{empirical}{logical. Passed on to rnorm_multi}
+\item{empirical}{Should the returned data have these exact parameters? (versus be sampled from a population with these parameters)}
 
 \item{long}{whether to return the data table in long format}
 

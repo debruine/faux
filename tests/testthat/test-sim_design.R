@@ -74,14 +74,14 @@ test_that("2w*2w", {
   comp <- tibble::tribble(
     ~n, ~var, ~W1_X1, ~W2_X1, ~W1_X2, ~W2_X2, ~mean, ~sd,
     100, "W1_X1", 1,     0,     0,     0,     0,     1,
-    100, "W2_X1", 0,     1,     0,     0,     0,     1,
     100, "W1_X2", 0,     0,     1,     0,     0,     1,
+    100, "W2_X1", 0,     1,     0,     0,     0,     1,
     100, "W2_X2", 0,     0,     0,     1,     0,     1
   )
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 5)
-  expect_equal(names(df), c("id", "W1_X1", "W2_X1", "W1_X2", "W2_X2"))
+  expect_equal(names(df), c("id", "W1_X1", "W1_X2", "W2_X1", "W2_X2"))
   expect_equal(chk, comp)
 })
 
@@ -125,8 +125,8 @@ test_that("2b*2b", {
   comp <- tibble::tribble(
     ~A, ~B, ~n, ~var, ~y, ~mean, ~sd,
     "A1", "B1", 100, "y", 1,   0,     1,
-    "A2", "B1", 100, "y", 1,   0,     1,
     "A1", "B2", 100, "y", 1,   0,     1,
+    "A2", "B1", 100, "y", 1,   0,     1,
     "A2", "B2", 100, "y", 1,   0,     1
   ) %>%
     dplyr::mutate(A = as.factor(A), B = as.factor(B))
@@ -394,8 +394,8 @@ test_that("complex names", {
                   "My first within factor", "My second within factor",  "y")
   
   wide_names <- c("id", "My first between factor", "My second between factor", 
-                  "Factor.W1.L1_Factor.W2.L1", "Factor.W1.L2_Factor.W2.L1", 
-                  "Factor.W1.L1_Factor.W2.L2", "Factor.W1.L2_Factor.W2.L2")
+                  "Factor.W1.L1_Factor.W2.L1", "Factor.W1.L1_Factor.W2.L2", 
+                  "Factor.W1.L2_Factor.W2.L1", "Factor.W1.L2_Factor.W2.L2")
   
   expect_equal(names(df_long), long_names)
   expect_equal(names(df_wide), wide_names)
@@ -414,7 +414,7 @@ test_that("complex names", {
   df_wide <- sim_design(within, between, 10, 0, 1, .5, TRUE, FALSE, plot = 0)
                         
   long_names <- c("id", "pets", "pets2", "time", "time2",  "y")
-  wide_names <- c("id", "pets", "pets2", "day_day", "night_day", "day_night", "night_night")
+  wide_names <- c("id", "pets", "pets2", "day_day", "day_night", "night_day", "night_night")
   
   expect_equal(names(df_long), long_names)
   expect_equal(names(df_wide), wide_names)
@@ -422,7 +422,6 @@ test_that("complex names", {
 
 # other stuff ----
 test_that("works", {
-  
   between <- list(
     "B" = c("B1", "B2"),
     "A" = c("A2", "A1")
@@ -467,7 +466,7 @@ test_that("works", {
   
   expect_equal(nrow(df), 400)
   expect_equal(ncol(df), 7)
-  expect_equal(names(df), c("id", "B", "A", "W1_C2", "W2_C2", "W1_C1", "W2_C1"))
+  expect_equal(names(df), c("id", "B", "A", "W1_C2", "W1_C1", "W2_C2", "W2_C1"))
 })
 
 # label order ----

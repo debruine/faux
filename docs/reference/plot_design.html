@@ -137,13 +137,13 @@
     
     </div>
 
-    <pre class="usage"><span class='fu'>plot_design</span>(<span class='no'>input</span>, <span class='no'>...</span>, <span class='kw'>geoms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>plot_design</span>(<span class='no'>input</span>, <span class='no'>...</span>, <span class='kw'>geoms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>)
 
 <span class='co'># S3 method for design</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>input</span>, <span class='no'>...</span>, <span class='kw'>geoms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>input</span>, <span class='no'>...</span>, <span class='kw'>geoms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>)
 
 <span class='co'># S3 method for faux</span>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>input</span>, <span class='no'>...</span>, <span class='kw'>geoms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+<span class='fu'><a href='https://www.rdocumentation.org/packages/graphics/topics/plot'>plot</a></span>(<span class='no'>input</span>, <span class='no'>...</span>, <span class='kw'>geoms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,6 +159,10 @@
     <tr>
       <th>geoms</th>
       <td><p>A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter</p></td>
+    </tr>
+    <tr>
+      <th>palette</th>
+      <td><p>A brewer palette, defaults to "Dark2"</p></td>
     </tr>
     </table>
     

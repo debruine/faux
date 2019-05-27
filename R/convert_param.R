@@ -86,19 +86,19 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
       param2 <- c(param2, new_param)
     }
     
-    if (length(cells_b) == 0) { # no between-subject factors
-      if (length(param) == 1) { 
-        param2 <- rep(param, w_n)
-      } else if (length(param) != w_n) {
-        stop("The number of ", type, 
-             " is not correct. Please specify either 1 or a vector of ", 
-             w_n, " per cell")
-      } else if (setdiff(cells_w, names(param)) %>% length() == 0) {
-        param2 <- param[cells_w] # add named parameters in the right order
-      } else {
-        param2 <- param # parameters are not or incorrectly named, add in this order
-      }
-    }
+    # if (length(cells_b) == 0) { # no between-subject factors
+    #   if (length(param) == 1) { 
+    #     param2 <- rep(param, w_n)
+    #   } else if (length(param) != w_n) {
+    #     stop("The number of ", type, 
+    #          " is not correct. Please specify either 1 or a vector of ", 
+    #          w_n, " per cell")
+    #   } else if (setdiff(cells_w, names(param)) %>% length() == 0) {
+    #     param2 <- param[cells_w] # add named parameters in the right order
+    #   } else {
+    #     param2 <- param # parameters are not or incorrectly named, add in this order
+    #   }
+    # }
   } else if (is.numeric(param)) {
     if (length(param) == 1) { 
       param2 <- rep(param, all_n) 

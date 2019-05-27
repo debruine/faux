@@ -6,11 +6,11 @@
 \alias{plot.faux}
 \title{Plot design}
 \usage{
-plot_design(input, ..., geoms = NULL)
+plot_design(input, ..., geoms = NULL, palette = "Dark2")
 
-\method{plot}{design}(input, ..., geoms = NULL)
+\method{plot}{design}(input, ..., geoms = NULL, palette = "Dark2")
 
-\method{plot}{faux}(input, ..., geoms = NULL)
+\method{plot}{faux}(input, ..., geoms = NULL, palette = "Dark2")
 }
 \arguments{
 \item{input}{A list of design parameters created by check_design() or a data tbl (in long format)}
@@ -18,6 +18,8 @@ plot_design(input, ..., geoms = NULL)
 \item{...}{A list of factor names to determine visualisation (see vignette)}
 
 \item{geoms}{A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter}
+
+\item{palette}{A brewer palette, defaults to "Dark2"}
 }
 \value{
 plot

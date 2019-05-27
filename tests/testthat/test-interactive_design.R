@@ -42,7 +42,6 @@ test_that("default", {
   expect_equal(des$r,  des2$r)
 })
 
-
 test_that("get it wrong", {
   # set up interactive answers
   f <- file()
@@ -56,7 +55,7 @@ test_that("get it wrong", {
   ans <- paste(lines, collapse = "\n")
   write(ans, f)
   
-  capture_output_lines({des <- interactive_design()})
+  capture_output_lines({des <- interactive_design(plot = FALSE)})
   
   options(faux.connection = stdin()) # reset connection
   close(f) # close the file

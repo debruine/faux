@@ -1,5 +1,6 @@
 # faux 0.0.0.9013 (2019-05-27)
 
+* multi-factor cell names now in a more intuitive order (**will break old code that inputs parameters with unnamed vectors**)
 * More flexible plotting styles (violin, jitter, box, pointrange with SD or SE, and combos)
 * Minor bug fixes
 

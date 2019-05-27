@@ -5,7 +5,7 @@
 \title{Convert data from wide to long format}
 \usage{
 wide2long(data, within_factors = c(), within_cols = c(), dv = "y",
-  id = NULL, sep = "[^[:alnum:]]+")
+  id = NULL, sep = "_")
 }
 \arguments{
 \item{data}{the tbl in wide format}
@@ -18,7 +18,7 @@ wide2long(data, within_factors = c(), within_cols = c(), dv = "y",
 
 \item{id}{the name of the ID column(s) if they don't exist, a new column will be made}
 
-\item{sep}{separator for within-columns (see tidyr::separate)}
+\item{sep}{separator for within-columns, defaults to _ (see tidyr::separate)}
 }
 \value{
 a tbl in long format

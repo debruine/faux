@@ -89,7 +89,8 @@ test_that("within", {
     within_factors = c("feature", "dimension"),
     within_cols = c("Petal.Length", "Petal.Width", "Sepal.Length", "Sepal.Width"),
     dv = "value",
-    id = "id"
+    id = "id", 
+    sep = "\\."
   )
   
   newdf <- sim_df(long_iris, 20, 

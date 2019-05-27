@@ -116,13 +116,13 @@ plot_design(data)
 ### Change order of factors
 
 ```{r}
-data <- sim_design(c(2,2,2), mu = 1:8, plot = FALSE)
-abc <- plot_design(data, "A", "B", "C")
-acb <- plot_design(data, "A", "C", "B")
-bac <- plot_design(data, "B", "A", "C")
-bca <- plot_design(data, "B", "C", "A")
-cab <- plot_design(data, "C", "A", "B")
-cba <- plot_design(data, "C", "B", "A")
+data <- sim_design(c(2,2,2), n = 50, mu = 1:8, sd = 16, plot = FALSE)
+abc <- plot_design(data, "A", "B", "C", geoms = "violin")
+acb <- plot_design(data, "A", "C", "B", geoms = "violin")
+bac <- plot_design(data, "B", "A", "C", geoms = "violin")
+bca <- plot_design(data, "B", "C", "A", geoms = "violin")
+cab <- plot_design(data, "C", "A", "B", geoms = "violin")
+cba <- plot_design(data, "C", "B", "A", geoms = "violin")
 
 cowplot::plot_grid(abc, acb, bac, bca, cab, cba, nrow = 3, 
                    labels = c("abc", "acb", "bac", "bca", "cab", "cba"))
@@ -131,5 +131,6 @@ cowplot::plot_grid(abc, acb, bac, bca, cab, cba, nrow = 3,
 
 
 ```{r}
-sim_design(c(2,2,2,5), mu = 1:40, plot = FALSE) %>% plot_design("D", "B", "C", "A")
+sim_design(c(2,2,2,5), mu = 1:40, sd = 5, plot = FALSE) %>% 
+  plot_design("D", "B", "C", "A")
 ```

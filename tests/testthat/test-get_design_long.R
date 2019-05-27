@@ -40,10 +40,12 @@ test_that("get_design_long", {
                         empirical = TRUE, plot = 0)
   d <- get_design_long(df_long, plot = FALSE)
   
-  expect_equal(d$mu[[1]] %>% names(), c("A1_B1_C1", "A2_B1_C1", "A1_B2_C1", "A2_B2_C1", 
-                            "A1_B1_C2", "A2_B1_C2", "A1_B2_C2", "A2_B2_C2"))
-  expect_equal(d$mu %>% names(), c("D1_E1_F1", "D2_E1_F1", "D1_E2_F1", "D2_E2_F1", 
-                            "D1_E1_F2", "D2_E1_F2", "D1_E2_F2", "D2_E2_F2"))
+  expect_equal(d$mu[[1]] %>% names(), 
+               c("A1_B1_C1", "A1_B1_C2", "A1_B2_C1", "A1_B2_C2", 
+                 "A2_B1_C1", "A2_B1_C2", "A2_B2_C1", "A2_B2_C2"))
+  expect_equal(d$mu %>% names(), 
+               c("D1_E1_F1", "D1_E1_F2", "D1_E2_F1", "D1_E2_F2",
+                 "D2_E1_F1", "D2_E1_F2", "D2_E2_F1", "D2_E2_F2"))
   expect_equal(d$n %>% unlist() %>% unname(), rep(100, 8))
   expect_equal(d$mu %>% unlist() %>% unname(), rep(0, 64))
   expect_equal(d$sd %>% unlist() %>% unname(), rep(1, 64))

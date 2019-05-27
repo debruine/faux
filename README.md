@@ -50,11 +50,12 @@ For example, the following creates a 2w*2b design with 100 observations in each 
 
 
 ```r
-between <- list("pet" = c("cat" = "Cat Owners", "dog" = "Dog Owners"))
-within <- list("time" = c("day", "night"))
+between <- list(pet = c(cat = "Cat Owners", 
+                        dog = "Dog Owners"))
+within <- list(time = c("morning", "noon", "evening", "night"))
 mu <- data.frame(
-  cat = c(10, 20),
-  dog = c(15, 25),
+  cat    = c(10, 12, 14, 16),
+  dog    = c(10, 15, 20, 25),
   row.names = within$time
 )
 df <- sim_design(within, between, 
@@ -66,12 +67,16 @@ df <- sim_design(within, between,
 
 
 
-|pet |   n|var   | day| night| mean| sd|
-|:---|---:|:-----|---:|-----:|----:|--:|
-|cat | 100|day   | 1.0|   0.5|   10|  5|
-|cat | 100|night | 0.5|   1.0|   20|  5|
-|dog | 100|day   | 1.0|   0.5|   15|  5|
-|dog | 100|night | 0.5|   1.0|   25|  5|
+|pet |   n|var     | morning| noon| evening| night| mean| sd|
+|:---|---:|:-------|-------:|----:|-------:|-----:|----:|--:|
+|cat | 100|morning |     1.0|  0.5|     0.5|   0.5|   10|  5|
+|cat | 100|noon    |     0.5|  1.0|     0.5|   0.5|   12|  5|
+|cat | 100|evening |     0.5|  0.5|     1.0|   0.5|   14|  5|
+|cat | 100|night   |     0.5|  0.5|     0.5|   1.0|   16|  5|
+|dog | 100|morning |     1.0|  0.5|     0.5|   0.5|   10|  5|
+|dog | 100|noon    |     0.5|  1.0|     0.5|   0.5|   15|  5|
+|dog | 100|evening |     0.5|  0.5|     1.0|   0.5|   20|  5|
+|dog | 100|night   |     0.5|  0.5|     0.5|   1.0|   25|  5|
 
 
 Table: Sample `sim_design()` stats
@@ -126,17 +131,17 @@ You can then see how changing these numbers affects the random effects in an int
 ```r
 lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
   broom.mixed::tidy() %>%
-  knitr::kable(digits = 3)
+  knitr::kable(digits = 2)
 ```
 
 
 
 |effect   |group    |term            | estimate| std.error| statistic|
 |:--------|:--------|:---------------|--------:|---------:|---------:|
-|fixed    |NA       |(Intercept)     |   10.073|     0.311|    32.388|
-|ran_pars |sub_id   |sd__(Intercept) |    1.016|        NA|        NA|
-|ran_pars |item_id  |sd__(Intercept) |    2.058|        NA|        NA|
-|ran_pars |Residual |sd__Observation |    2.937|        NA|        NA|
+|fixed    |NA       |(Intercept)     |     9.79|      0.27|     36.23|
+|ran_pars |sub_id   |sd__(Intercept) |     1.02|        NA|        NA|
+|ran_pars |item_id  |sd__(Intercept) |     1.74|        NA|        NA|
+|ran_pars |Residual |sd__Observation |     2.95|        NA|        NA|
 
 ## sim_mixed_df
 
@@ -179,9 +184,9 @@ dat <- rnorm_multi(
 
 |   n|var |    A|    B|    C|  mean|   sd|
 |---:|:---|----:|----:|----:|-----:|----:|
-| 100|A   | 1.00| 0.51| 0.55|  0.08| 1.01|
-| 100|B   | 0.51| 1.00| 0.28| 19.90| 4.93|
-| 100|C   | 0.55| 0.28| 1.00| 20.58| 5.02|
+| 100|A   | 1.00| 0.53| 0.55|  0.02| 1.08|
+| 100|B   | 0.53| 1.00| 0.29| 20.18| 5.15|
+| 100|C   | 0.55| 0.29| 1.00| 20.18| 5.25|
 
 
 Table: Sample `rnorm_multi()` stats
@@ -205,7 +210,7 @@ list(
   r = cor(x,y)
 ) %>% str()
 #> List of 3
-#>  $ mean: num -1.33e-17
+#>  $ mean: num -1.24e-17
 #>  $ sd  : num 1
 #>  $ r   : num 0.5
 ```
@@ -327,12 +332,12 @@ df_wide <- long2wide(df_long)
 
 |id   |pet |        day|      night|
 |:----|:---|----------:|----------:|
-|S001 |cat | -0.4716967| -0.5028944|
-|S002 |cat | -0.4883249| -0.4010576|
-|S003 |cat | -0.3179796|  0.2211064|
-|S004 |cat | -0.6062085|  0.7765950|
-|S005 |cat |  1.0692633| -1.6403173|
-|S006 |cat | -0.9743776| -0.2294919|
+|S001 |cat | -1.7913821|  1.0546403|
+|S002 |cat | -0.0295121| -0.4677078|
+|S003 |cat |  0.2951152|  1.0961789|
+|S004 |cat |  1.1571559|  1.1067069|
+|S005 |cat | -1.5281714|  0.0774030|
+|S006 |cat | -0.3660741|  0.5784563|
 
 If you have a data table not made by faux, you need to specify the within-subject columns, the between-subject columns, the DV column, and the ID column.
 
@@ -356,12 +361,12 @@ df_wide <- long2wide(df_long, within = c("A", "B"),
 
 | sub_id|C  |      A1_B1|      A1_B2|      A2_B1|      A2_B2|
 |------:|:--|----------:|----------:|----------:|----------:|
-|      1|C1 |  0.5155250|  0.0236974| -0.8559099| -0.2476252|
-|      2|C2 |  1.7126586| -0.3393816| -0.7922569|  0.6288110|
-|      3|C1 | -1.8289396| -0.5809952| -1.3774323| -0.0658665|
-|      4|C2 |  1.7320068| -0.5330786|  1.0126400| -1.3936488|
-|      5|C1 | -0.1980841|  0.1887755|  0.7556978|  0.0951162|
-|      6|C2 | -1.7309580|  1.1195109|  0.3883780| -1.2426219|
+|      1|C1 | -0.1525222| -1.4564302|  1.1203081|  0.4511749|
+|      2|C2 |  1.6872789|  0.2409951|  0.0585650| -1.5053084|
+|      3|C1 | -0.9950045| -0.1313753| -0.7255834|  0.1537105|
+|      4|C2 | -0.4386858| -0.1978661| -0.8392723| -1.2448355|
+|      5|C1 |  0.7823377|  0.2321049|  0.1820188| -0.5573528|
+|      6|C2 | -1.8023296| -1.4819906|  0.2969906| -0.1040556|
 
 
 
@@ -374,12 +379,7 @@ You can convert a data table made by faux from wide to long easily.
 ```r
 between <- list("pet" = c("cat", "dog"))
 within <- list("time" = c("day", "night"))
-df_wide <- sim_design(within, between, long = FALSE)
-```
-
-![plot of chunk wide2long](figure/wide2long-1.png)
-
-```r
+df_wide <- sim_design(within, between, long = FALSE, plot = FALSE)
 df_long <- wide2long(df_wide)
 ```
 
@@ -387,12 +387,12 @@ df_long <- wide2long(df_wide)
 
 |id   |pet |time |          y|
 |:----|:---|:----|----------:|
-|S001 |cat |day  |  1.3290422|
-|S002 |cat |day  |  0.1087942|
-|S003 |cat |day  |  0.2573105|
-|S004 |cat |day  |  0.1548801|
-|S005 |cat |day  | -0.4347730|
-|S006 |cat |day  |  0.5253602|
+|S001 |cat |day  | -0.4568207|
+|S002 |cat |day  | -0.1331782|
+|S003 |cat |day  | -1.4783485|
+|S004 |cat |day  |  0.5898157|
+|S005 |cat |day  |  0.1697344|
+|S006 |cat |day  | -1.2105173|
 
 
 
@@ -406,18 +406,20 @@ long_iris <- wide2long(
     dv = "value",
     id = "flower_id"
   )
+#> Warning: Expected 2 pieces. Missing pieces filled with `NA` in 600 rows [1,
+#> 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, ...].
 ```
 
 
 
-|Species |flower_id |feature |dimension | value|
-|:-------|:---------|:-------|:---------|-----:|
-|setosa  |S001      |Sepal   |Length    |   5.1|
-|setosa  |S002      |Sepal   |Length    |   4.9|
-|setosa  |S003      |Sepal   |Length    |   4.7|
-|setosa  |S004      |Sepal   |Length    |   4.6|
-|setosa  |S005      |Sepal   |Length    |   5.0|
-|setosa  |S006      |Sepal   |Length    |   5.4|
+|Species |flower_id |feature      |dimension | value|
+|:-------|:---------|:------------|:---------|-----:|
+|setosa  |S001      |Sepal.Length |NA        |   5.1|
+|setosa  |S002      |Sepal.Length |NA        |   4.9|
+|setosa  |S003      |Sepal.Length |NA        |   4.7|
+|setosa  |S004      |Sepal.Length |NA        |   4.6|
+|setosa  |S005      |Sepal.Length |NA        |   5.0|
+|setosa  |S006      |Sepal.Length |NA        |   5.4|
 
 
 
@@ -428,9 +430,13 @@ Once you have a dataframe in long format, you can recover the design from it.
 
 ```r
 design <- get_design_long(long_iris, dv = "value", id = "flower_id")
-```
+#> Warning: Factor `dimension` contains implicit NA, consider using
+#> `forcats::fct_explicit_na`
 
-![plot of chunk get-design-long](figure/get-design-long-1.png)
+#> Warning: Factor `dimension` contains implicit NA, consider using
+#> `forcats::fct_explicit_na`
+#> Error in convert_param(n, cells_w, cells_b, "Ns"): The Ns data table is misspecified.
+```
 
 ### json_design
 
@@ -442,7 +448,10 @@ json_design(design)
 ```
 
 <pre>
-{"within":{"feature":{"Petal":"Petal","Sepal":"Sepal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":{"value":"value"},"id":{"flower_id":"flower_id"},"n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Petal_Length":1.46,"Sepal_Length":5.01,"Petal_Width":0.25,"Sepal_Width":3.43},"versicolor":{"Petal_Length":4.26,"Sepal_Length":5.94,"Petal_Width":1.33,"Sepal_Width":2.77},"virginica":{"Petal_Length":5.55,"Sepal_Length":6.59,"Petal_Width":2.03,"Sepal_Width":2.97}},"sd":{"setosa":{"Petal_Length":0.17,"Sepal_Length":0.35,"Petal_Width":0.11,"Sepal_Width":0.38},"versicolor":{"Petal_Length":0.47,"Sepal_Length":0.52,"Petal_Width":0.2,"Sepal_Width":0.31},"virginica":{"Petal_Length":0.55,"Sepal_Length":0.64,"Petal_Width":0.27,"Sepal_Width":0.32}},"r":{"setosa":[[1,0.27,0.33,0.18],[0.27,1,0.28,0.74],[0.33,0.28,1,0.23],[0.18,0.74,0.23,1]],"versicolor":[[1,0.75,0.79,0.56],[0.75,1,0.55,0.53],[0.79,0.55,1,0.66],[0.56,0.53,0.66,1]],"virginica":[[1,0.86,0.32,0.4],[0.86,1,0.28,0.46],[0.32,0.28,1,0.54],[0.4,0.46,0.54,1]]}}
+
+```
+#> Error in check_design(design = design, plot = FALSE): object 'design' not found
+```
 </pre>
 
 
@@ -452,96 +461,10 @@ json_design(design, pretty = TRUE)
 ```
 
 <pre>
-{
-  "within": {
-    "feature": {
-      "Petal": "Petal",
-      "Sepal": "Sepal"
-    },
-    "dimension": {
-      "Length": "Length",
-      "Width": "Width"
-    }
-  },
-  "between": {
-    "Species": {
-      "setosa": "setosa",
-      "versicolor": "versicolor",
-      "virginica": "virginica"
-    }
-  },
-  "dv": {
-    "value": "value"
-  },
-  "id": {
-    "flower_id": "flower_id"
-  },
-  "n": {
-    "setosa": 50,
-    "versicolor": 50,
-    "virginica": 50
-  },
-  "mu": {
-    "setosa": {
-      "Petal_Length": 1.46,
-      "Sepal_Length": 5.01,
-      "Petal_Width": 0.25,
-      "Sepal_Width": 3.43
-    },
-    "versicolor": {
-      "Petal_Length": 4.26,
-      "Sepal_Length": 5.94,
-      "Petal_Width": 1.33,
-      "Sepal_Width": 2.77
-    },
-    "virginica": {
-      "Petal_Length": 5.55,
-      "Sepal_Length": 6.59,
-      "Petal_Width": 2.03,
-      "Sepal_Width": 2.97
-    }
-  },
-  "sd": {
-    "setosa": {
-      "Petal_Length": 0.17,
-      "Sepal_Length": 0.35,
-      "Petal_Width": 0.11,
-      "Sepal_Width": 0.38
-    },
-    "versicolor": {
-      "Petal_Length": 0.47,
-      "Sepal_Length": 0.52,
-      "Petal_Width": 0.2,
-      "Sepal_Width": 0.31
-    },
-    "virginica": {
-      "Petal_Length": 0.55,
-      "Sepal_Length": 0.64,
-      "Petal_Width": 0.27,
-      "Sepal_Width": 0.32
-    }
-  },
-  "r": {
-    "setosa": [
-      [1, 0.27, 0.33, 0.18],
-      [0.27, 1, 0.28, 0.74],
-      [0.33, 0.28, 1, 0.23],
-      [0.18, 0.74, 0.23, 1]
-    ],
-    "versicolor": [
-      [1, 0.75, 0.79, 0.56],
-      [0.75, 1, 0.55, 0.53],
-      [0.79, 0.55, 1, 0.66],
-      [0.56, 0.53, 0.66, 1]
-    ],
-    "virginica": [
-      [1, 0.86, 0.32, 0.4],
-      [0.86, 1, 0.28, 0.46],
-      [0.32, 0.28, 1, 0.54],
-      [0.4, 0.46, 0.54, 1]
-    ]
-  }
-}
+
+```
+#> Error in check_design(design = design, plot = FALSE): object 'design' not found
+```
 </pre>
 
 ### pos_def_limits

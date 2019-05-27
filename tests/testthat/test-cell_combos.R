@@ -18,16 +18,16 @@ test_that("2 factors", {
   factors <- list(pet = c(cat = "cat", dog = "dog"),
                   time = c(day = "day", night = "night"))
   cells <- cell_combos(factors)
-  expect_equal(cells, c("cat_day", "dog_day", "cat_night", "dog_night"))
+  expect_equal(cells, c("cat_day", "cat_night", "dog_day", "dog_night"))
 })
 
 test_that("3 factors", {
-  factors <- list(pet = c(cat = "cat", dog = "dog"),
+  factors <- list(pet = c(dog = "dog", cat = "cat"),
                   time = c(day = "day", night = "night"),
                   condition = c(A = "A", B = "B"))
   cells <- cell_combos(factors)
-  expect_equal(cells, c("cat_day_A", "dog_day_A", 
-                        "cat_night_A", "dog_night_A", 
-                        "cat_day_B", "dog_day_B",
-                        "cat_night_B", "dog_night_B"))
+  expect_equal(cells, c("dog_day_A", "dog_day_B",
+                        "dog_night_A", "dog_night_B",
+                        "cat_day_A", "cat_day_B", 
+                        "cat_night_A", "cat_night_B"))
 })

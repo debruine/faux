@@ -5,7 +5,7 @@
 #' @param within_cols the names (or indices) of the within-subject (value) columns
 #' @param dv the name of the dv column (defaults to "y")
 #' @param id the name of the ID column(s) if they don't exist, a new column will be made
-#' @param sep separator for within-columns (see tidyr::separate)
+#' @param sep separator for within-columns, defaults to _ (see tidyr::separate)
 #' 
 #' @return a tbl in long format
 #' 
@@ -15,7 +15,7 @@
 #' @export
 #' 
 wide2long <- function(data, within_factors = c(), within_cols = c(), 
-                      dv = "y", id = NULL, sep = "[^[:alnum:]]+") {
+                      dv = "y", id = NULL, sep = "_") {
   if ("design" %in% names(attributes(data))) {
     # get parameters from design
     design <- attributes(data)$design
@@ -41,7 +41,7 @@ wide2long <- function(data, within_factors = c(), within_cols = c(),
     tidyr::gather(".tmpwithin.", !!dplyr::sym(dv), tidyselect::one_of(within_cols)) %>%
     tidyr::separate(".tmpwithin.", within_factors, sep = sep)
   
-  if (exists("design")) {
+  if ("design" %in% names(attributes(data))) {
     attributes(longdat)$design <- design
   }
   

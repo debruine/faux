@@ -3,8 +3,9 @@
 #' \code{plot_design()} plots the specified within and between design
 #'
 #' @param input A list of design parameters created by check_design() or a data tbl (in long format)
-#' @param geoms A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter
 #' @param ... A list of factor names to determine visualisation (see vignette)
+#' @param geoms A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter
+#' @param palette A brewer palette, defaults to "Dark2"
 #' 
 #' @return plot
 #' 
@@ -20,7 +21,7 @@
 #' 
 #' @export
 #' 
-plot_design <- function(input, ..., geoms = NULL) {
+plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
   if (!is.data.frame(input) && is.list(input)) {
     if (is.null(geoms)) geoms <- "pointrangeSD"
     design <- input
@@ -128,19 +129,22 @@ plot_design <- function(input, ..., geoms = NULL) {
       position = position_dodge(width = 0.9))
   }
   
-  p
+  p + scale_colour_brewer(palette = palette) + 
+      scale_fill_brewer(palette = palette)
 }
 
 
 #' Plot from faux design
 #' @describeIn plot_design Plotting from a faux design list
-plot.design <- function(input, ..., geoms = NULL) {
+plot.design <- function(input, ..., geoms = NULL, 
+                        palette = "Dark2") {
   plot_design(input, ..., geoms = geoms)
 }
 
 #' Plot from faux data
 #' @describeIn plot_design Plotting from a faux data table
-plot.faux <- function(input, ..., geoms = NULL) {
+plot.faux <- function(input, ..., geoms = NULL, 
+                      palette = "Dark2") {
   plot_design(input, ..., geoms = geoms)
 }
 
