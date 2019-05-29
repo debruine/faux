@@ -30,6 +30,7 @@ reference:
   - '`check_mixed_design`'
   - '`cormat`'
   - '`cormat_from_triangle`'
+  - '`fix_name_labels`'
   - '`get_design_long`'
   - '`interactive_design`'
   - '`is_pos_def`'

@@ -4,17 +4,25 @@
 \alias{fix_name_labels}
 \title{Fix name labels}
 \usage{
-fix_name_labels(x, replace = "(\\\\W|_)")
+fix_name_labels(x, pattern = "(\\\\W|_)", replacement = ".")
 }
 \arguments{
-\item{x}{the list to fix}
+\item{x}{the vector or list to fix}
 
-\item{replace}{regex pattern to replace with full stops (defaults to non-word characters and underscores)}
+\item{pattern}{regex pattern to replace with full stops (defaults to non-word characters and underscores)}
+
+\item{replacement}{the character to replace (defaults to .)}
 }
 \value{
-the fixed list
+a named list with fixed names
 }
 \description{
 Fixes if a factor list does not have named levels or has special characters in the names
 }
-\keyword{internal}
+\examples{
+source <- list("full.stop", " space ", "under_score", "plus+", "dash-", "tab\\t", "line\\nbreak")
+fix_name_labels(source)
+
+fix_name_labels(list(
+
+}
