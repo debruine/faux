@@ -1,5 +1,38 @@
 context("test-check_design")
 
+# errors ----
+test_that("errors", {
+  expect_error(check_design(n = -1, plot = 0), "All n must be >= 0")
+  expect_warning(check_design(n = 0, plot = 0), "Some cell Ns are 0. Make sure this is intentional.")
+  expect_warning(check_design(n = 10.3, plot = 0), "Some cell Ns are not integers. They have been rounded up to the nearest integer.")
+  
+  # numeric n
+  expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = 20), plot = 0))
+  expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = "20"), plot = 0))
+  expect_error(
+    check_design(between = 2, n = list("A1" = 10, "A2" = "B"), plot = 0),
+    "All n must be numbers"
+  )
+  
+  # numeric mu
+  expect_silent(check_design(between = 2, mu = list("A1" = 10, "A2" = 20), plot = 0))
+  expect_silent(check_design(between = 2, mu = list("A1" = 10, "A2" = "20"), plot = 0))
+  expect_error(
+    check_design(between = 2, mu = list("A1" = 10, "A2" = "B"), plot = 0),
+    "All mu must be numbers"
+  )
+  
+  # numeric sd
+  expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = 20), plot = 0))
+  expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = "20"), plot = 0))
+  expect_error(
+    check_design(between = 2, sd = list("A1" = 10, "A2" = "B"), plot = 0),
+    "All sd must be numbers"
+  )
+  
+  expect_error(check_design(sd = -1, plot = 0), "All sd must be >= 0")
+})
+
 # no factors
 test_that("no factors", {
   design <- check_design(plot = FALSE)

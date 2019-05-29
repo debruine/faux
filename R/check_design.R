@@ -47,7 +47,7 @@ check_design <- function(within = list(), between = list(),
     list2env(within, envir = environment())
   }
   
-  # name anonymous factors
+  # name anonymous factors ----
   if (is.numeric(within) && within %in% 2:10 %>% mean() == 1) { # vector of level numbers
     within_names <- LETTERS[1:length(within)]
     within <- purrr::map2(within_names, within, ~paste0(.x, 1:.y))
@@ -59,7 +59,7 @@ check_design <- function(within = list(), between = list(),
     names(between) <- between_names
   }
   
-  # check factor specification
+  # check factor specification ----
   if (!is.list(within) || !is.list(between)) {
     stop("within and between must be lists")
   }
@@ -71,7 +71,7 @@ check_design <- function(within = list(), between = list(),
   dv <- fix_name_labels(dv, "\\W")
   id <- fix_name_labels(id, "\\W")
   
-  # check for duplicate factor names
+  # check for duplicate factor names ----
   factor_overlap <- intersect(names(within), names(between))
   if (length(factor_overlap)) {
     stop("You have multiple factors with the same name (", 
@@ -79,7 +79,7 @@ check_design <- function(within = list(), between = list(),
          "). Please give all factors unique names.")
   }
   
-  # check for duplicate level names within any factor
+  # check for duplicate level names within any factor ----
   dupes <- c(within, between) %>%
     lapply(duplicated) %>%
     lapply(sum) %>%
@@ -94,11 +94,11 @@ check_design <- function(within = list(), between = list(),
     stop("You have duplicate levels for factor(s): ", dupelevels)
   }
   
-  # define columns
+  # define columns ----
   cells_w <- cell_combos(within, names(dv))
   cells_b <- cell_combos(between, names(dv)) 
   
-  # convert n, mu and sd from vector/list formats
+  # convert n, mu and sd  ----
   cell_n  <- convert_param(n,  cells_w, cells_b, "Ns")
   for (i in names(cell_n)) {
     cell_n[[i]] <- cell_n[[i]][[1]]
@@ -106,7 +106,8 @@ check_design <- function(within = list(), between = list(),
   cell_mu <- convert_param(mu, cells_w, cells_b, "means")
   cell_sd <- convert_param(sd, cells_w, cells_b, "SDs")
   
-  # set up cell correlations from r (number, vector, matrix or list styles)
+  # set up cell r from r ----
+  # (number, vector, matrix or list styles)
   cell_r <- list()
   if (length(within)) {
     for (cell in cells_b) {
@@ -117,6 +118,27 @@ check_design <- function(within = list(), between = list(),
       cell_r[[cell]] <- mat
     }
   }
+  
+  # check n ----
+  n <- suppressWarnings(lapply(n, as.numeric)) # make sure all cells are numbers
+  if (unlist(n) %>% is.na() %>% sum()) { stop("All n must be numbers") }
+  if (sum(unlist(n) %% 1 > 0)) {
+    warning("Some cell Ns are not integers. They have been rounded up to the nearest integer.")
+    n <- lapply(n, ceiling)
+  }
+  if (sum(unlist(n) < 0)) { stop("All n must be >= 0") }
+  if (sum(unlist(n) == 0)) {
+    warning("Some cell Ns are 0. Make sure this is intentional.")
+  }
+  
+  # check mu ----
+  mu <- suppressWarnings(lapply(mu, as.numeric)) # make sure all cells are numbers
+  if (unlist(mu) %>% is.na() %>% sum()) { stop("All mu must be numbers") }
+  
+  # check sd ----
+  sd <- suppressWarnings(lapply(sd, as.numeric)) # make sure all cells are numbers
+  if (unlist(sd) %>% is.na() %>% sum()) { stop("All sd must be numbers") }
+  if (sum(unlist(sd) < 0)) { stop("All sd must be >= 0") }
   
   design <- list(
     within = within,
