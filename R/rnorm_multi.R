@@ -28,7 +28,7 @@ rnorm_multi <- function(n, vars = 3, mu = 0, sd = 1, r = 0,
     if (r == 0) r = cors # set r to cors if r is not set
   }
   
-  # error handling
+  # error handling ----
   if ( !is.numeric(n) || n %% 1 > 0 || n < 1 ) {
     stop("n must be an integer > 0")
   }
@@ -55,19 +55,33 @@ rnorm_multi <- function(n, vars = 3, mu = 0, sd = 1, r = 0,
     sd <- as.matrix(sd) %>% as.vector()
   }
   
-  cor_mat <- cormat(r, vars)
-  
-  sigma <- (sd %*% t(sd)) * cor_mat
-  bvn <- MASS::mvrnorm(n, mu, sigma, empirical = empirical)
-  df <- data.frame(bvn)
-  
-  if (length(varnames) == vars) {
-    colnames(bvn) <- varnames
-  } else if (!is.null(colnames(cor_mat))) {
-    # if r was a matrix with names, use that
-    colnames(bvn) <- colnames(cor_mat)
+  if (n == 1 & empirical == TRUE) {
+    warning("When n = 1 and empirical = TRUE, returned data are equal to mu")
+    mvn <- mu
+    cor_mat <- r # for name-checking later
+  } else {
+    # get data from mvn ----
+    cor_mat <- cormat(r, vars)
+    sigma <- (sd %*% t(sd)) * cor_mat
+    tryCatch({
+      mvn <- MASS::mvrnorm(n, mu, sigma, empirical = empirical)
+    }, error = function(e) { 
+      stop("The correlated variables could not be generated.")
+    })
   }
   
-  if (as.matrix) bvn else data.frame(bvn)
+  # coerce to matrix if vector when n == 1
+  if (n == 1) mvn <- matrix(mvn, nrow = 1)
+  
+  if (length(varnames) == vars) {
+    colnames(mvn) <- varnames
+  } else if (!is.null(colnames(cor_mat))) {
+    # if r was a matrix with names, use that
+    colnames(mvn) <- colnames(cor_mat)
+  } else {
+    colnames(mvn) <- make_id(ncol(mvn), "X")
+  }
+  
+  if (as.matrix == TRUE) mvn else data.frame(mvn)
 }
 

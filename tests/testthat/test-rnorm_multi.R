@@ -1,6 +1,9 @@
 context("rnorm_multi")
 
 test_that("error messages", {
+  expect_warning(rnorm_multi(n = 1, empirical = TRUE),
+    "When n = 1 and empirical = TRUE, returned data are equal to mu")
+  
   expect_error(rnorm_multi(), "argument \"n\" is missing, with no default")
   expect_error(rnorm_multi(-1), "n must be an integer > 0")
   expect_error(rnorm_multi(10.3), "n must be an integer > 0")
@@ -92,4 +95,35 @@ test_that("matrix", {
   
   expect_true(class(dat) == "data.frame")
   expect_true(class(mat) == "matrix")
+})
+
+# small n ----
+test_that("small n", {
+  n1 <- rnorm_multi(n = 1, vars = 1, r = 0.5)
+  expect_equal(names(n1), "X1")
+  expect_equal(nrow(n1), 1)
+  
+  n1 <- rnorm_multi(n = 1, vars = 2, r = 0.5)
+  expect_equal(names(n1), c("X1", "X2"))
+  expect_equal(nrow(n1), 1)
+  
+  n1 <- rnorm_multi(n = 1, vars = 10, r = 0.5)
+  expect_equal(names(n1), c("X01", "X02", "X03", "X04", "X05", 
+                            "X06", "X07", "X08", "X09", "X10"))
+  expect_equal(nrow(n1), 1)
+  
+  v1 <- rnorm_multi(n = 10, vars = 1, r = 0.5)
+  expect_equal(names(v1), "X1")
+  expect_equal(nrow(v1), 10)
+  
+  expect_warning(
+    source <- rnorm_multi(n = 1, 5, 1:5, empirical = TRUE),
+    "When n = 1 and empirical = TRUE, returned data are equal to mu")
+  target <- data.frame(X1 = 1, X2 = 2, X3 = 3, X4 = 4, X5 = 5)
+  expect_equal(source,  target)
+  
+  expect_error(
+    rnorm_multi(n = 2, vars = 3, r = 0.5, empirical = TRUE),
+    "The correlated variables could not be generated."
+  )
 })

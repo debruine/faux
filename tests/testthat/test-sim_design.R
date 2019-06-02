@@ -531,3 +531,9 @@ test_that("from design", {
   expect_equal(attributes(data2)$design, design)
   
 })
+
+# small empirical ----
+test_that("small empirical", {
+  #data <- sim_design(2, n = 2, r = 0.5, plot = 0)
+  
+})
