@@ -16,9 +16,8 @@ convert_param(param, cells_w, cells_b, type = "this parameter")
 \item{type}{the name of the parameter (for error messages)}
 }
 \value{
-a data frame
+a list of parameters
 }
 \description{
 Converts parameter specification from vector or list format
 }
-\keyword{internal}

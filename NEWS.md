@@ -1,3 +1,8 @@
+# faux 0.0.0.9014 (2019-06-06)
+
+* More flexible parameter specification
+
+
 # faux 0.0.0.9013 (2019-05-27)
 
 * multi-factor cell names now in a more intuitive order (**will break old code that inputs parameters with unnamed vectors**)

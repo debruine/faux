@@ -7,7 +7,7 @@
 #' @param cells_b a list of between-subject cell combinations
 #' @param type the name of the parameter (for error messages)
 #' 
-#' @return a data frame 
+#' @return a list of parameters
 #' @keywords internal
 #' 
 convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
@@ -17,17 +17,27 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
   
   if (is.matrix(param)) { param <- as.data.frame(param) }
   
+  # process data frame ----
   if (is.data.frame(param)) { # convert to list first
     # check for row/column confusion
-    cols_are_b <- setdiff(colnames(param), cells_b) %>% length() == 0
-    rows_are_w <- setdiff(rownames(param), cells_w) %>% length() == 0
-    cols_are_w <- setdiff(colnames(param), cells_w) %>% length() == 0
-    rows_are_b <- setdiff(rownames(param), cells_b) %>% length() == 0
+    cols_are_b <- !is.null(colnames(param)) & 
+      setdiff(colnames(param), cells_b) %>% length() == 0
+    rows_are_w <- !is.null(rownames(param)) & 
+      setdiff(rownames(param), cells_w) %>% length() == 0
+    cols_are_w <- !is.null(colnames(param)) & 
+      setdiff(colnames(param), cells_w) %>% length() == 0
+    rows_are_b <- !is.null(rownames(param)) & 
+      setdiff(rownames(param), cells_b) %>% length() == 0
     
     # rotate/expand to dataframe with cols = cells_b and rows = cells_w 
     if (cols_are_b && rows_are_w) {
       # check this first in case rows and cols are the same labels
     } else if (cols_are_w && rows_are_b) {
+      param <- t(param) %>% as.data.frame()
+    } else if (cols_are_b && nrow(param) == w_n) {
+      row.names(param) <- cells_w
+    } else if (cols_are_w && nrow(param) == b_n) {
+      row.names(param) <- cells_b
       param <- t(param) %>% as.data.frame()
     } else if (cols_are_b && nrow(param) == 1) {
       # duplicate rows for each cells_w
@@ -64,52 +74,90 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
     param <- as.list(param) %>% lapply(magrittr::set_names, rownames(param))
   }
   
+  if (is.null(names(param)) & length(param) == all_n) {
+    # deal with unnamed lists
+    param <- unlist(param)
+  }
+  
+  # process list ----
   if (is.list(param)) {
     param2 <- c()
-    # add param in right order
-    for (f in cells_b) {
-      if (!(f %in% names(param))) {
-        stop("Cell ", f, " is not specified for ", type)
-      } else if (length(param[[f]]) == 1) { 
-        new_param <- rep(param[[f]], w_n)
-      } else if (length(param[[f]]) != w_n) {
-        stop("The number of ", type, " for cell ", f, 
-             " is not correct. Please specify either 1 or a vector of ", 
-             w_n, " per cell")
-      } else if (setdiff(cells_w, names(param[[f]])) %>% length() == 0) {
-        # add named parameters in the right order
-        new_param <- param[[f]][cells_w] 
-      } else {
-        # parameters are not or incorrectly named, add in this order
-        new_param <- param[[f]]
-      }
-      param2 <- c(param2, new_param)
-    }
     
-    # if (length(cells_b) == 0) { # no between-subject factors
-    #   if (length(param) == 1) { 
-    #     param2 <- rep(param, w_n)
-    #   } else if (length(param) != w_n) {
-    #     stop("The number of ", type, 
-    #          " is not correct. Please specify either 1 or a vector of ", 
-    #          w_n, " per cell")
-    #   } else if (setdiff(cells_w, names(param)) %>% length() == 0) {
-    #     param2 <- param[cells_w] # add named parameters in the right order
-    #   } else {
-    #     param2 <- param # parameters are not or incorrectly named, add in this order
-    #   }
-    # }
+    # check for row/column confusion
+    if (is.null(names(param))) {
+      # guess right names based on length
+      if (length(param) == b_n) {
+        names(param) <- cells_b
+      } else if (length(param) == w_n) {
+        names(param) <- cells_w
+      }
+    }
+    names_are_b <- !is.null(names(param)) & 
+      setdiff(names(param), cells_b) %>% length() == 0
+    names_are_w <- !is.null(names(param)) & 
+      setdiff(names(param), cells_w) %>% length() == 0
+    
+    if (names_are_b) {
+      # add param for between-cells ----
+      for (f in cells_b) {
+        if (length(param[[f]]) == 1) { 
+          new_param <- rep(param[[f]], w_n)
+        } else if (length(param[[f]]) != w_n) {
+          stop("The number of ", type, " for cell ", f, 
+               " is not correct. Please specify either 1 or a vector of ", 
+               w_n, " per cell")
+        } else if (setdiff(cells_w, names(param[[f]])) %>% length() == 0) {
+          # add named parameters in the right order
+          new_param <- param[[f]][cells_w] 
+        } else {
+          # parameters are not or incorrectly named, add in this order
+          new_param <- param[[f]]
+        }
+        param2 <- c(param2, new_param)
+      }
+    } else if (names_are_w) {
+      # add param for within-cells ----
+      for (f in cells_w) {
+        if (length(param[[f]]) == 1) { 
+          new_param <- rep(param[[f]], b_n)
+        } else if (length(param[[f]]) != b_n) {
+          stop("The number of ", type, " for cell ", f, 
+               " is not correct. Please specify either 1 or a vector of ", 
+               b_n, " per cell")
+        } else if (setdiff(cells_b, names(param[[f]])) %>% length() == 0) {
+          # add named parameters in the right order
+          new_param <- param[[f]][cells_b] 
+        } else {
+          # parameters are not or incorrectly named, add in this order
+          new_param <- param[[f]]
+        }
+        param2 <- c(param2, new_param)
+      }
+      # rotate params
+      param2 <- matrix(param2, nrow = max(1, w_n), byrow = TRUE) %>% matrix()
+    } else {
+      stop("The names in the list ", type, " are not correct.")
+    }
   } else if (is.numeric(param)) {
+    names_are_b <- !is.null(names(param)) & 
+      setdiff(names(param), cells_b) %>% length() == 0
+    names_are_w <- !is.null(names(param)) & 
+      setdiff(names(param), cells_w) %>% length() == 0
+    
     if (length(param) == 1) { 
       param2 <- rep(param, all_n) 
     } else if (length(param) == all_n) {
       param2 <- param
+    } else if (names_are_w) {
+      param2 <- rep(param[cells_w], times = b_n) 
+    } else if (names_are_b) {
+      param2 <- rep(param[cells_b], each = w_n) 
     } else {
       stop("The number of ", type, " is not correct. Please specify 1, a vector of ", 
            all_n , ", or use the list format")
     }
   }
-  
+
   dd <- matrix(param2, ncol = max(1, b_n))
   colnames(dd) <- cells_b
   rownames(dd) <- cells_w

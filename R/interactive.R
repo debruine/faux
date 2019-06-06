@@ -16,10 +16,10 @@ unique_pairs <- function(v) {
   
   expand.grid(a = v, b = v) %>% 
     dplyr::filter(a != b) %>% t() %>% 
-    tibble::as_tibble() %>% 
+    as.data.frame() %>% 
     dplyr::mutate_all(factor, levels = v) %>%
     dplyr::mutate_all(sort) %>% t() %>%
-    tibble::as_tibble() %>% 
+    as.data.frame() %>% 
     tidyr::unite(combo, 1:2, sep = "-") %>%
     dplyr::distinct(combo) %>%
     dplyr::pull(combo)
