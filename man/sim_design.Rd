@@ -6,8 +6,8 @@
 \usage{
 sim_design(within = list(), between = list(), n = 100, mu = 0,
   sd = 1, r = 0, empirical = FALSE, long = FALSE, dv = list(y =
-  "Score"), id = list(id = "Subject ID"), plot = TRUE, seed = NULL,
-  interactive = FALSE, design = NULL)
+  "value"), id = list(id = "id"), plot = faux_options("plot"),
+  seed = NULL, interactive = FALSE, design = NULL)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}

@@ -5,8 +5,8 @@
 \title{Validates the specified design}
 \usage{
 check_design(within = list(), between = list(), n = 100, mu = 0,
-  sd = 1, r = 0, dv = list(y = "Score"), id = list(id =
-  "Subject ID"), plot = TRUE, design = NULL)
+  sd = 1, r = 0, dv = list(y = "value"), id = list(id = "id"),
+  plot = faux_options("plot"), design = NULL)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -21,9 +21,9 @@ check_design(within = list(), between = list(), n = 100, mu = 0,
 
 \item{r}{the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)}
 
-\item{dv}{the name of the DV column list(y = "Score")}
+\item{dv}{the name of the DV column list(y = "value")}
 
-\item{id}{the name of the ID column list(id = "Subject ID")}
+\item{id}{the name of the ID column list(id = "id")}
 
 \item{plot}{whether to show a plot of the design}
 

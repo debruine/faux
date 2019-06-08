@@ -23,7 +23,7 @@ cell_combos <- function(factors, dv = "y") {
     cells <- purrr::map(factors, ~{factor(names(.), levels = names(.))}) %>%
       do.call(tidyr::crossing, .) %>%
       #do.call(expand.grid, .) %>%
-      tidyr::unite("b", 1:ncol(.)) %>% 
+      tidyr::unite("b", 1:ncol(.), sep = faux_options("sep")) %>% 
       dplyr::pull("b")
   }
   

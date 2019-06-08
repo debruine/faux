@@ -82,6 +82,6 @@ rnorm_multi <- function(n, vars = 3, mu = 0, sd = 1, r = 0,
     colnames(mvn) <- make_id(ncol(mvn), "X")
   }
   
-  if (as.matrix == TRUE) mvn else data.frame(mvn)
+  if (as.matrix == TRUE) mvn else data.frame(mvn, check.names = FALSE)
 }
 

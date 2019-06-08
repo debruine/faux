@@ -109,26 +109,40 @@
 
     
     
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(faux)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)
-<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(faux)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</a></code></pre></div>
 <div id="sim_mixed_cc" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sim_mixed_cc" class="anchor"></a>sim_mixed_cc</h2>
 <p>This function produces a data table for a basic cross-classified design with random intercepts for subjects and items.</p>
 <p>For example, the following code produces the data for 100 subjects responding to 50 items where the response has an overall mean (<code>grand_i</code>) of 10. Subjects vary in their average response with an SD of 1, items vary in their average response with an SD of 2, and the residual error term has an SD of 3.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat_cc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_mixed_cc.html">sim_mixed_cc</a></span>(
-  <span class="dt">sub_n =</span> <span class="dv">100</span>,   <span class="co"># subject sample size</span>
-  <span class="dt">item_n =</span> <span class="dv">50</span>,  <span class="co"># item sample size</span>
-  <span class="dt">grand_i =</span> <span class="dv">10</span>,  <span class="co"># overall mean of the score</span>
-  <span class="dt">sub_sd =</span> <span class="dv">1</span>,   <span class="co"># SD of subject random intercepts</span>
-  <span class="dt">item_sd =</span> <span class="dv">2</span>,  <span class="co"># SD of item random intercepts</span>
-  <span class="dt">error_sd =</span> <span class="dv">3</span>  <span class="co"># SD of residual error</span>
-)</code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">dat_cc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_mixed_cc.html">sim_mixed_cc</a></span>(</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">  <span class="dt">sub_n =</span> <span class="dv">100</span>,   <span class="co"># subject sample size</span></a>
+<a class="sourceLine" id="cb2-3" data-line-number="3">  <span class="dt">item_n =</span> <span class="dv">50</span>,  <span class="co"># item sample size</span></a>
+<a class="sourceLine" id="cb2-4" data-line-number="4">  <span class="dt">grand_i =</span> <span class="dv">10</span>,  <span class="co"># overall mean of the score</span></a>
+<a class="sourceLine" id="cb2-5" data-line-number="5">  <span class="dt">sub_sd =</span> <span class="dv">1</span>,   <span class="co"># SD of subject random intercepts</span></a>
+<a class="sourceLine" id="cb2-6" data-line-number="6">  <span class="dt">item_sd =</span> <span class="dv">2</span>,  <span class="co"># SD of item random intercepts</span></a>
+<a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="dt">error_sd =</span> <span class="dv">3</span>  <span class="co"># SD of residual error</span></a>
+<a class="sourceLine" id="cb2-8" data-line-number="8">)</a></code></pre></div>
 <p>You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat_cc) <span class="op">%&gt;%</span>
-<span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat_cc) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; Registered S3 methods overwritten by 'broom.mixed':</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;   method         from </span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   augment.lme    broom</span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   augment.merMod broom</span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;   glance.lme     broom</span></a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;   glance.merMod  broom</span></a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;   glance.stanreg broom</span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;   tidy.brmsfit   broom</span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;   tidy.gamlss    broom</span></a>
+<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;   tidy.lme       broom</span></a>
+<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;   tidy.merMod    broom</span></a>
+<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;   tidy.rjags     broom</span></a>
+<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;   tidy.stanfit   broom</span></a>
+<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;   tidy.stanreg   broom</span></a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">effect</th>
@@ -143,15 +157,15 @@
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">9.534</td>
-<td align="right">0.316</td>
-<td align="right">30.193</td>
+<td align="right">9.981</td>
+<td align="right">0.357</td>
+<td align="right">27.943</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">0.912</td>
+<td align="right">1.042</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -159,7 +173,7 @@
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">2.117</td>
+<td align="right">2.397</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -167,18 +181,18 @@
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">2.958</td>
+<td align="right">3.029</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
 </tbody>
 </table>
 <p>For example, changing <code>grand_i</code> to 0 changes the estimate for the fixed effect of the intercept <code>(Intercept)</code>. Changing <code>sub_sd</code> to 1.5 and <code>item_sd</code> to 3 change the estimate for the SD of their corresponding random effects. Changing <code>error_sd</code> to 10 changes the estimate from the Residual SD.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">dat_cc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_mixed_cc.html">sim_mixed_cc</a></span>(<span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">0</span>, <span class="fl">1.5</span>, <span class="dv">3</span>, <span class="dv">10</span>)
-
-lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat_cc) <span class="op">%&gt;%</span>
-<span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span>
-<span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">dat_cc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_mixed_cc.html">sim_mixed_cc</a></span>(<span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">0</span>, <span class="fl">1.5</span>, <span class="dv">3</span>, <span class="dv">10</span>)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat_cc) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">effect</th>
@@ -193,15 +207,15 @@ lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentati
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">-0.393</td>
-<td align="right">0.447</td>
-<td align="right">-0.879</td>
+<td align="right">-0.121</td>
+<td align="right">0.511</td>
+<td align="right">-0.236</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.946</td>
+<td align="right">1.623</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -209,7 +223,7 @@ lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentati
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">2.664</td>
+<td align="right">3.279</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -217,7 +231,7 @@ lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentati
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">10.086</td>
+<td align="right">10.006</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -229,13 +243,13 @@ lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentati
 <a href="#sim_mixed_df" class="anchor"></a>sim_mixed_df</h2>
 <p>This function uses <code><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lme4::lmer()</a></code> to get subject, item and error SDs from an existing dataset and simulates a new dataset with the specified number of subjects and items with distributions drawn from the example data.</p>
 <p>This example uses the <code>fr4</code> dataset from this package to simulate 100 new subjects viewing 50 new faces.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
-new_dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_mixed_df.html">sim_mixed_df</a></span>(fr4, 
-                        <span class="dt">sub_n =</span> <span class="dv">100</span>, 
-                        <span class="dt">item_n =</span> <span class="dv">50</span>, 
-                        <span class="dt">dv =</span> <span class="st">"rating"</span>, 
-                        <span class="dt">sub_id =</span> <span class="st">"rater_id"</span>, 
-                        <span class="dt">item_id =</span> <span class="st">"face_id"</span>)</code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"></a>
+<a class="sourceLine" id="cb5-2" data-line-number="2">new_dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_mixed_df.html">sim_mixed_df</a></span>(fr4, </a>
+<a class="sourceLine" id="cb5-3" data-line-number="3">                        <span class="dt">sub_n =</span> <span class="dv">100</span>, </a>
+<a class="sourceLine" id="cb5-4" data-line-number="4">                        <span class="dt">item_n =</span> <span class="dv">50</span>, </a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">                        <span class="dt">dv =</span> <span class="st">"rating"</span>, </a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">                        <span class="dt">sub_id =</span> <span class="st">"rater_id"</span>, </a>
+<a class="sourceLine" id="cb5-7" data-line-number="7">                        <span class="dt">item_id =</span> <span class="st">"face_id"</span>)</a></code></pre></div>
 </div>
   </div>
 

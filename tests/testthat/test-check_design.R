@@ -1,51 +1,53 @@
 context("test-check_design")
 
+faux_options(plot = FALSE)
+
 # errors ----
 test_that("errors", {
-  expect_error(check_design(n = -1, plot = 0), "All n must be >= 0")
-  expect_warning(check_design(n = 0, plot = 0), "Some cell Ns are 0. Make sure this is intentional.")
-  expect_warning(check_design(n = 10.3, plot = 0), "Some cell Ns are not integers. They have been rounded up to the nearest integer.")
+  expect_error(check_design(n = -1), "All n must be >= 0")
+  expect_warning(check_design(n = 0), "Some cell Ns are 0. Make sure this is intentional.")
+  expect_warning(check_design(n = 10.3), "Some cell Ns are not integers. They have been rounded up to the nearest integer.")
   
   # numeric n
-  expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = 20), plot = 0))
-  expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = "20"), plot = 0))
+  expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = 20)))
+  expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = "20")))
   expect_error(
-    check_design(between = 2, n = list("A1" = 10, "A2" = "B"), plot = 0),
+    check_design(between = 2, n = list("A1" = 10, "A2" = "B")),
     "All n must be numbers"
   )
   
   # numeric mu
-  expect_silent(check_design(between = 2, mu = list("A1" = 10, "A2" = 20), plot = 0))
-  expect_silent(check_design(between = 2, mu = list("A1" = 10, "A2" = "20"), plot = 0))
+  expect_silent(check_design(between = 2, mu = list("A1" = 10, "A2" = 20)))
+  expect_silent(check_design(between = 2, mu = list("A1" = 10, "A2" = "20")))
   expect_error(
-    check_design(between = 2, mu = list("A1" = 10, "A2" = "B"), plot = 0),
+    check_design(between = 2, mu = list("A1" = 10, "A2" = "B")),
     "All mu must be numbers"
   )
   
   # numeric sd
-  expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = 20), plot = 0))
-  expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = "20"), plot = 0))
+  expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = 20)))
+  expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = "20")))
   expect_error(
-    check_design(between = 2, sd = list("A1" = 10, "A2" = "B"), plot = 0),
+    check_design(between = 2, sd = list("A1" = 10, "A2" = "B")),
     "All sd must be numbers"
   )
   
-  expect_error(check_design(sd = -1, plot = 0), "All sd must be >= 0")
+  expect_error(check_design(sd = -1), "All sd must be >= 0")
 })
 
 # no factors
 test_that("no factors", {
-  design <- check_design(plot = FALSE)
+  design <- check_design()
   expect_equal(design$within, list())
   expect_equal(design$between, list())
-  expect_equal(design$dv, list(y = "Score"))
+  expect_equal(design$dv, list(y = "value"))
 })
 
 # 2w ----
 test_that("2w", {
   within <- list(time = c("night", "day"))
   between <- list()
-  design <- check_design(within, between, n = 10, plot = FALSE)
+  design <- check_design(within, between, n = 10)
   
   cell_n <- list(y = 10)
   cell_mu <- list(y = list(night = 0, day = 0))
@@ -57,8 +59,8 @@ test_that("2w", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
-  expect_equal(design$dv, list(y = "Score"))
-  expect_equal(design$id, list(id = "Subject ID"))
+  expect_equal(design$dv, list(y = "value"))
+  expect_equal(design$id, list(id = "id"))
   
   expect_true("design" %in% class(design))
 })
@@ -67,7 +69,7 @@ test_that("2w", {
 test_that("2b", {
   within <- list()
   between <- list(time = c("night", "day"))
-  design <- check_design(within, between, n = 10, plot = FALSE)
+  design <- check_design(within, between, n = 10)
   
   cell_n <- list(night = 10, day = 10)
   cell_mu <- list(night = list(y=0), day = list(y=0))
@@ -79,15 +81,15 @@ test_that("2b", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
-  expect_equal(design$dv, list(y = "Score"))
-  expect_equal(design$id, list(id = "Subject ID"))
+  expect_equal(design$dv, list(y = "value"))
+  expect_equal(design$id, list(id = "id"))
 })
 
 # 2w*2b ----
 test_that("2w*2b", {
   within  <- list(time = c("night", "day"))
   between <- list(pet = c("dog", "cat"))
-  design  <- check_design(within, between, n = 10, plot = FALSE)
+  design  <- check_design(within, between, n = 10)
 
   cell_n  <- list(dog = 10, cat = 10)
   cell_mu <- list(dog = list(night = 0, day = 0),
@@ -101,8 +103,8 @@ test_that("2w*2b", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
-  expect_equal(design$dv, list(y = "Score"))
-  expect_equal(design$id, list(id = "Subject ID"))
+  expect_equal(design$dv, list(y = "value"))
+  expect_equal(design$id, list(id = "id"))
 })
 
 # 2w*2w*2b*2b ----
@@ -116,7 +118,7 @@ test_that("2w*2w*2b*2b", {
     age = c(old = "older", young = "younger")
   )
     
-  design <- check_design(within, between, plot = FALSE)
+  design <- check_design(within, between)
   
   cells_w <- c("night_A", "night_B", "day_A", "day_B")
   cells_b <- c("dog_old", "dog_young", "cat_old", "cat_young")
@@ -139,8 +141,8 @@ test_that("2w*2w*2b*2b", {
   expect_equal(design$n, cell_n)
   expect_equal(design$mu, cell_mu)
   expect_equal(design$sd, cell_sd)
-  expect_equal(design$dv, list(y = "Score"))
-  expect_equal(design$id, list(id = "Subject ID"))
+  expect_equal(design$dv, list(y = "value"))
+  expect_equal(design$id, list(id = "id"))
 })
 
 # design spec ----
@@ -168,11 +170,11 @@ test_that("design spec", {
     "B2" = .5
   )
   dv <- list(dv = "DV")
-  id <- list(sub_id = "subject ID")
+  id <- list(sub_id = "id")
   
-  design <- check_design(within, between, n, mu, sd, r, dv, id, plot = FALSE)
+  design <- check_design(within, between, n, mu, sd, r, dv, id)
   
-  design_elements <- c("within", "between", "dv", "id", "n", "mu", "sd", "r")
+  design_elements <- c("within", "between", "dv", "id", "n", "mu", "sd", "r", "params")
   
   expect_equal(names(design), design_elements)
   expect_equal(design$dv, dv)
@@ -181,7 +183,7 @@ test_that("design spec", {
 
 # anon factors ----
 test_that("anon factors", {
-  design <- check_design(c(2, 4), c(2, 2), plot = FALSE)
+  design <- check_design(c(2, 4), c(2, 2))
   
   w <- list(
     A = list(A1="A1", A2="A2"),
@@ -195,6 +197,17 @@ test_that("anon factors", {
   
   expect_equal(design$within, w)
   expect_equal(design$between, b)
+})
+
+# wierd factor names ----
+test_that("wierd factor names", {
+  # only replaces undervalues
+  within <- list("A" = c("A_1", "A 2"),
+                 "B" = c("B~1", "B'2"))
+  design <- check_design(within)
+  
+  expect_equal(design$within$A %>% names(), c("A.1", "A 2"))
+  expect_equal(design$within$B %>% names(), c("B~1", "B'2"))
 })
 
 # make_id ----
@@ -217,4 +230,39 @@ test_that("make_id", {
   # vector
   expect_equal(make_id(2:4), c("S2", "S3", "S4"))
   expect_equal(make_id(100:200)[[1]], "S100")
+})
+
+# params table ----
+test_that("params table", {
+  within <- list(
+    time = c("morning", "night"),
+    condition = c("A", "B", "C")
+  )
+  between <- list(
+    pet = c("dog", "cat"),
+    x = c("X1", "X2"))
+  
+  n <- list(
+    dog_X1 = 100,
+    dog_X2 = 200,
+    cat_X1 = 300,
+    cat_X2 = 400
+  )
+  
+  r <- list(
+    dog_X1 = seq(.1, by = .025, length.out = 15),
+    dog_X2 = seq(.2, by = .025, length.out = 15),
+    cat_X1 = seq(.3, by = .025, length.out = 15),
+    cat_X2 = seq(.4, by = .025, length.out = 15)
+  )
+  
+  des <- check_design(within, between, n = n, mu = 1:24, 
+               sd = 1:24, r = r)
+  
+  nm <- c("pet", "x", "time", "condition", "morning_A", 
+          "morning_B", "morning_C", "night_A", "night_B",
+          "night_C", "n", "mu", "sd")
+  
+  expect_true(des$params %>% nrow() == 24)
+  expect_true(all(des$params %>% names() == nm))
 })

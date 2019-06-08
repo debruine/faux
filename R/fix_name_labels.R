@@ -13,14 +13,14 @@
 #' source <- list("full.stop", " space ", "under_score", "plus+", "dash-", "tab\t", "line\nbreak")
 #' fix_name_labels(source)
 #' 
-#' fix_name_labels(list(
-#' 
 fix_name_labels <- function(x, pattern = "(\\W|_)", replacement = ".") {
   if (!is.list(x) & !is.vector(x)) stop("x must be a vector or list")
   
   if (is.null(names(x))) { names(x) <- x }
   nm <- names(x)
-  # replace non-word characters and underscores with full stops
-  names(x) <- gsub(pattern = pattern, replacement = replacement, x = nm) 
+  if (!is.null(pattern)) {
+    # replace non-word characters and underscores with full stops
+    names(x) <- gsub(pattern = pattern, replacement = replacement, x = nm) 
+  }
   as.list(x)
 }

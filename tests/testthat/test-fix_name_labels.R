@@ -4,7 +4,6 @@ context("test-fix_name_labels")
 test_that("error", {
   expect_error(fix_name_labels(NULL), "x must be a vector or list")
   expect_error(fix_name_labels(base::list), "x must be a vector or list")
-  expect_error(fix_name_labels(list("A"), NULL), "invalid 'pattern' argument")
   expect_error(fix_name_labels(list("A"), " ", NULL), "invalid 'replacement' argument")
 })
 
@@ -56,6 +55,10 @@ test_that("pattern", {
   source <- list("replace don't replace")
   target <- list(". don't replace" = "replace don't replace")
   test <- fix_name_labels(source, pattern = "^replace")
+  expect_equal(test, target)
+  
+  target <- list(A = "A", B = "B")
+  test <- fix_name_labels(list("A", "B"), NULL)
   expect_equal(test, target)
 })
 

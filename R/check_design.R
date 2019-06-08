@@ -13,8 +13,8 @@
 #' @param mu a vector giving the means of the variables
 #' @param sd the standard deviations of the variables
 #' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
-#' @param dv the name of the DV column list(y = "Score")
-#' @param id the name of the ID column list(id = "Subject ID")
+#' @param dv the name of the DV column list(y = "value")
+#' @param id the name of the ID column list(id = "id")
 #' @param plot whether to show a plot of the design
 #' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' 
@@ -35,9 +35,9 @@
 #' 
 check_design <- function(within = list(), between = list(), 
                          n = 100, mu = 0, sd = 1, r = 0, 
-                         dv = list(y = "Score"), 
-                         id = list(id = "Subject ID"), 
-                         plot = TRUE, design = NULL) {
+                         dv = list(y = "value"), 
+                         id = list(id = "id"), 
+                         plot = faux_options("plot"), design = NULL) {
   # design passed as design list
   if (!is.null(design)) {
     # double-check the entered design
@@ -66,10 +66,10 @@ check_design <- function(within = list(), between = list(),
   
   # if within or between factors are named vectors, 
   # use their names as column names and values as labels for plots
-  between <- purrr::map(between, fix_name_labels)
-  within <- purrr::map(within, fix_name_labels)
-  dv <- fix_name_labels(dv, "\\W")
-  id <- fix_name_labels(id, "\\W")
+  between <- purrr::map(between, fix_name_labels, pattern = "_")
+  within <- purrr::map(within, fix_name_labels, pattern = "_")
+  dv <- fix_name_labels(dv, pattern = NULL)
+  id <- fix_name_labels(id, pattern = NULL)
   
   # check for duplicate factor names ----
   factor_overlap <- intersect(names(within), names(between))
@@ -140,6 +140,28 @@ check_design <- function(within = list(), between = list(),
   if (unlist(sd) %>% is.na() %>% sum()) { stop("All sd must be numbers") }
   if (sum(unlist(sd) < 0)) { stop("All sd must be >= 0") }
   
+  
+  d <- c(between, within) %>%
+    lapply(unlist) %>%
+    purrr::map(~factor(., levels = .)) %>%
+    do.call(tidyr::crossing, .)
+  
+  if (nrow(d) == 0 & ncol(d) == 0) {
+    d = as.data.frame(dv)
+  }
+  
+  if (length(within)) {
+    rmat <- cell_r %>% unlist() %>% unname() %>% 
+      matrix(ncol = length(cells_w), byrow = TRUE)
+    colnames(rmat) <- cells_w
+    
+    for (w in cells_w) { d[w] <- rmat[,w] }
+  }
+  
+  d$n <- unlist(cell_n) %>% rep(each = length(cells_w))
+  d$mu <- unlist(cell_mu)
+  d$sd <- unlist(cell_sd)
+  
   design <- list(
     within = within,
     between = between,
@@ -148,7 +170,8 @@ check_design <- function(within = list(), between = list(),
     n = cell_n,
     mu = cell_mu,
     sd = cell_sd,
-    r = cell_r
+    r = cell_r,
+    params = d
   )
   
   class(design) <- c("design", "list")

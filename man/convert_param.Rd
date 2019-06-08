@@ -21,3 +21,4 @@ a list of parameters
 \description{
 Converts parameter specification from vector or list format
 }
+\keyword{internal}

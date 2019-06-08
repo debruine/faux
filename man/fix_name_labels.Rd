@@ -23,6 +23,4 @@ Fixes if a factor list does not have named levels or has special characters in t
 source <- list("full.stop", " space ", "under_score", "plus+", "dash-", "tab\\t", "line\\nbreak")
 fix_name_labels(source)
 
-fix_name_labels(list(
-
 }

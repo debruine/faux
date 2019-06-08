@@ -25,10 +25,11 @@
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
                        empirical = FALSE, long = FALSE, 
-                       dv = list(y = "Score"), 
-                       id = list(id = "Subject ID"),
-                       plot = TRUE, seed = NULL, 
-                       interactive = FALSE, design = NULL) {
+                       dv = list(y = "value"), 
+                       id = list(id = "id"),
+                       plot = faux_options("plot"), 
+                       seed = NULL, interactive = FALSE, 
+                       design = NULL) {
   # check the design is specified correctly
   if (interactive) {
     design <- interactive_design(plot = plot)
@@ -54,11 +55,13 @@ sim_design <- function(within = list(), between = list(),
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
+#' @param sep separator for within-columns, defaults to _ (see tidyr::separate)
 #' 
 #' @return a tbl
 #' @export
 #' 
-sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
+sim_design_ <- function(design, empirical = FALSE, long = FALSE, 
+                        seed = NULL, sep = faux_options("sep")) {
   if (!is.null(seed)) {
     # reinstate system seed after simulation
     sysSeed <- .GlobalEnv$.Random.seed
@@ -120,7 +123,7 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   
   # create wide dataframe
   df_wide <- df %>%
-    tidyr::separate("btwn", between_factors, sep = "_") %>%
+    tidyr::separate("btwn", between_factors, sep = sep) %>%
     dplyr::mutate(!!id := make_id(sub_n)) %>%
     dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
     dplyr::select(tidyselect::one_of(col_order))
@@ -138,7 +141,7 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
     
     df_long <- df_wide %>%
       tidyr::gather("w_in", !!dv, tidyselect::one_of(cells_w)) %>%
-      tidyr::separate("w_in", within_factors, sep = "_") %>%
+      tidyr::separate("w_in", within_factors, sep = sep) %>%
       dplyr::select(tidyselect::one_of(col_order)) %>%
       dplyr::mutate_at(within_factors, ~as.factor(.))
     

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert normal to poisson — norm2pois • faux</title>
+<title>Set/get global faux options — faux_options • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,9 +37,9 @@
 
 
 
-<meta property="og:title" content="Convert normal to poisson — norm2pois" />
+<meta property="og:title" content="Set/get global faux options — faux_options" />
 
-<meta property="og:description" content="Convert normal to poisson" />
+<meta property="og:description" content="Global afex options are used, for example, to set the default separator for cell names." />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -135,52 +135,55 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert normal to poisson</h1>
-    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/distribution_convertors.R'><code>R/distribution_convertors.R</code></a></small>
-    <div class="hidden name"><code>norm2pois.Rd</code></div>
+    <h1>Set/get global faux options</h1>
+    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/faux_options.R'><code>R/faux_options.R</code></a></small>
+    <div class="hidden name"><code>faux_options.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Convert normal to poisson</p>
+    <p>Global afex options are used, for example, to set the default separator for cell names.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>norm2pois</span>(<span class='no'>x</span>, <span class='no'>lambda</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/mean'>mean</a></span>(<span class='no'>x</span>), <span class='kw'>sd</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/sd'>sd</a></span>(<span class='no'>x</span>))</pre>
+    <pre class="usage"><span class='fu'>faux_options</span>(<span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the normally distributed vector</p></td>
-    </tr>
-    <tr>
-      <th>lambda</th>
-      <td><p>the mean of the distribution to return</p></td>
-    </tr>
-    <tr>
-      <th>mu</th>
-      <td><p>the mean of x (calculated from x if not given)</p></td>
-    </tr>
-    <tr>
-      <th>sd</th>
-      <td><p>the SD of x (calculated from x if not given)</p></td>
+      <th>...</th>
+      <td><p>One of four: (1) nothing, then returns all options as a list; (2) a name of an option element, then returns its value; (3) a name-value pair which sets the corresponding option to the new value (and returns nothing), (4) a list with option-value pairs which sets all the corresponding arguments.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a vector with a poisson distribution</p>
+    <p>a list of options, values of an option, or nothing</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10000</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>norm2pois</span>(<span class='no'>x</span>, <span class='fl'>2</span>)
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>() + <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
-<span class='kw pkg'>ggExtra</span><span class='kw ns'>::</span><span class='fu'>ggMarginal</span>(<span class='no'>g</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"histogram"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in loadNamespace(name): there is no package called ‘ggExtra’</span></div><div class='input'>
-</div></pre>
+<span class='fu'>faux_options</span>() <span class='co'># see all options</span></div><div class='output co'>#&gt; $connection
+#&gt; A connection with                      
+#&gt; description "stdin"   
+#&gt; class       "terminal"
+#&gt; mode        "r"       
+#&gt; text        "text"    
+#&gt; opened      "opened"  
+#&gt; can read    "yes"     
+#&gt; can write   "no"      
+#&gt; 
+#&gt; $plot
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $sep
+#&gt; [1] "_"
+#&gt; </div><div class='input'>
+<span class='fu'>faux_options</span>(<span class='st'>"sep"</span>) <span class='co'># see value of faux.sep</span></div><div class='output co'>#&gt; [1] "_"</div><span class='co'># NOT RUN {</span>
+<span class='co'># changes cell separator (e.g., A1.B2)</span>
+<span class='fu'>faux_options</span>(<span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"."</span>)
+<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

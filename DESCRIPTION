@@ -1,7 +1,7 @@
 Package: faux
 Title: Simulation Functions
 Version: 0.0.0.9013
-Date: 2019-05-27
+Date: 2019-06-07
 Authors@R: person(given = "Lisa", family = "DeBruine", role = c("aut", "cre"), email = "debruine@gmail.com", comment = c(ORCID = "0000-0002-7523-5539"))
 Description: The faux package provides functions for simulating datasets with specified structure.
 Depends:

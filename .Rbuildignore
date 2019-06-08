@@ -5,6 +5,9 @@
 ^doc$
 ^README\.Rmd$
 ^README\.html$
+^index\.Rmd$
+^index\.md$
+^index\.html$
 ^README_files$
 ^figure$
 ^data-raw$
