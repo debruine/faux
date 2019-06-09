@@ -13,6 +13,12 @@
 }
 
 .onAttach <- function(libname, pkgname) {
-  packageStartupMessage("************\nWelcome to faux. For support visit: http://debruine.github.io/faux/")
-  packageStartupMessage("- Get and set global package options with: faux_options()\n- For examples see: browseVignettes(\"faux\")\n************")
+  paste(
+    "\n************",
+    "Welcome to faux. For support and examples visit:",
+    "http://debruine.github.io/faux/",
+    "- Get and set global package options with: faux_options()",
+    "************",
+    sep = "\n"
+  ) %>% packageStartupMessage()
 }

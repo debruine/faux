@@ -88,17 +88,17 @@ test_that("within", {
     iris,
     within_factors = c("feature", "dimension"),
     within_cols = c("Petal.Length", "Petal.Width", "Sepal.Length", "Sepal.Width"),
-    dv = "value",
-    id = "id", 
+    dv = "val",
+    id = "sub_id", 
     sep = "\\."
   )
   
   newdf <- sim_df(long_iris, 20, 
                   within = c("feature", "dimension"),
                   between = "Species",
-                  dv = "value", id = "id")
+                  dv = "val", id = "sub_id")
   
-  expect_equal(names(newdf), c("id", "Species", "Petal_Length", "Petal_Width", "Sepal_Length", "Sepal_Width" ))
+  expect_equal(names(newdf), c("sub_id", "Species", "Petal_Length", "Petal_Width", "Sepal_Length", "Sepal_Width" ))
 })
 
 # test_that("mean stats are close over 1000 runs", {

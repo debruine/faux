@@ -20,9 +20,8 @@
 #' iris100 <- sim_df(iris, 100)
 #' iris_species <- sim_df(iris, 100, between = "Species")
 #' @export
-#' @importFrom rlang := 
 
-sim_df <- function (data, n = 100, within = c(), between = c(), id = "sub_id", dv = "val",
+sim_df <- function (data, n = 100, within = c(), between = c(), id = "id", dv = "value",
                     empirical = FALSE, long = FALSE, seed = NULL, grp_by = NULL) {
   if (!is.null(seed)) {
     # reinstate system seed after simulation
@@ -70,8 +69,8 @@ sim_df <- function (data, n = 100, within = c(), between = c(), id = "sub_id", d
     dplyr::select(-data) %>%
     tidyr::unnest(newsim) %>%
     dplyr::ungroup() %>%
-    dplyr::mutate(!!dplyr::sym(id) := make_id(nrow(.))) %>%
-    dplyr::select(!!dplyr::sym(id), tidyselect::everything())
+    dplyr::mutate(!!id := make_id(nrow(.))) %>%
+    dplyr::select(!!id, tidyselect::everything())
   
   return(simdat)
 }
