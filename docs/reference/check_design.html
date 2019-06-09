@@ -74,7 +74,7 @@ r for the within-subject cells for each between-subject cell." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
       </span>
     </div>
 
@@ -183,11 +183,11 @@ r for the within-subject cells for each between-subject cell.</p>
     </tr>
     <tr>
       <th>dv</th>
-      <td><p>the name of the DV column list(y = "Score")</p></td>
+      <td><p>the name of the DV column list(y = "value")</p></td>
     </tr>
     <tr>
       <th>id</th>
-      <td><p>the name of the ID column list(id = "Subject ID")</p></td>
+      <td><p>the name of the ID column list(id = "id")</p></td>
     </tr>
     <tr>
       <th>plot</th>
@@ -214,12 +214,11 @@ simulate a data table with this design, or to archive your design.</p>
 <span class='no'>within</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"day"</span>, <span class='st'>"night"</span>))
 <span class='no'>between</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>pet</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"dog"</span>, <span class='st'>"cat"</span>))
 <span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>dog</span> <span class='kw'>=</span> <span class='fl'>10</span>, <span class='kw'>cat</span> <span class='kw'>=</span> <span class='fl'>5</span>)
-<span class='fu'>check_design</span>(<span class='no'>within</span>, <span class='no'>between</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>)
-
+<span class='fu'>check_design</span>(<span class='no'>within</span>, <span class='no'>between</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>)</div><div class='img'><img src='check_design-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='no'>between</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>language</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"dutch"</span>, <span class='st'>"thai"</span>),
                 <span class='kw'>pet</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"dog"</span>, <span class='st'>"cat"</span>))
 <span class='no'>mu</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(<span class='kw'>dutch_dog</span> <span class='kw'>=</span> <span class='fl'>12</span>, <span class='kw'>dutch_cat</span> <span class='kw'>=</span> <span class='fl'>7</span>, <span class='kw'>thai_dog</span> <span class='kw'>=</span> <span class='fl'>8</span>, <span class='kw'>thai_cat</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'>check_design</span>(<span class='no'>within</span>, <span class='no'>between</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>)</div></pre>
+<span class='fu'>check_design</span>(<span class='no'>within</span>, <span class='no'>between</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='no'>mu</span>)</div><div class='img'><img src='check_design-2.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

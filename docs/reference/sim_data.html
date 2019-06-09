@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set/get global faux options — faux_options • faux</title>
+<title>Simulate data from design (internal) — sim_data • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,9 +37,9 @@
 
 
 
-<meta property="og:title" content="Set/get global faux options — faux_options" />
+<meta property="og:title" content="Simulate data from design (internal) — sim_data" />
 
-<meta property="og:description" content="Global afex options are used, for example, to set the default separator for cell names." />
+<meta property="og:description" content="Simulate data from design (internal)" />
 
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -135,55 +135,50 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set/get global faux options</h1>
-    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/faux_options.R'><code>R/faux_options.R</code></a></small>
-    <div class="hidden name"><code>faux_options.Rd</code></div>
+    <h1>Simulate data from design (internal)</h1>
+    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/sim_design.R'><code>R/sim_design.R</code></a></small>
+    <div class="hidden name"><code>sim_data.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>Global afex options are used, for example, to set the default separator for cell names.</p>
+    <p>Simulate data from design (internal)</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>faux_options</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>sim_data</span>(<span class='no'>design</span>, <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>sep</span> <span class='kw'>=</span> <span class='fu'><a href='faux_options.html'>faux_options</a></span>(<span class='st'>"sep"</span>))</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>One of four: (1) nothing, then returns all options as a list; (2) a name of an option element, then returns its value; (3) a name-value pair which sets the corresponding option to the new value (and returns nothing), (4) a list with option-value pairs which sets all the corresponding arguments.</p></td>
+      <th>design</th>
+      <td><p>A list of design parameters created by check_design()</p></td>
+    </tr>
+    <tr>
+      <th>empirical</th>
+      <td><p>logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance</p></td>
+    </tr>
+    <tr>
+      <th>long</th>
+      <td><p>Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>a single value, interpreted as an integer, or NULL (see set.seed)</p></td>
+    </tr>
+    <tr>
+      <th>sep</th>
+      <td><p>separator for within-columns, defaults to _ (see tidyr::separate)</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of options, values of an option, or nothing</p>
+    <p>a tbl</p>
     
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'>
-<span class='fu'>faux_options</span>() <span class='co'># see all options</span></div><div class='output co'>#&gt; $connection
-#&gt; A connection with                      
-#&gt; description "stdin"   
-#&gt; class       "terminal"
-#&gt; mode        "r"       
-#&gt; text        "text"    
-#&gt; opened      "opened"  
-#&gt; can read    "yes"     
-#&gt; can write   "no"      
-#&gt; 
-#&gt; $plot
-#&gt; [1] TRUE
-#&gt; 
-#&gt; $sep
-#&gt; [1] "_"
-#&gt; </div><div class='input'>
-<span class='fu'>faux_options</span>(<span class='st'>"sep"</span>) <span class='co'># see value of faux.sep</span></div><div class='output co'>#&gt; [1] "_"</div><span class='co'># NOT RUN {</span>
-<span class='co'># changes cell separator (e.g., A1.B2)</span>
-<span class='fu'>faux_options</span>(<span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"."</span>)
-<span class='co'># }</span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -191,9 +186,7 @@
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#value">Value</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
+          </ul>
 
   </div>
 </div>
