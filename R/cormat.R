@@ -131,29 +131,45 @@ is_pos_def <- function(cor_mat, tol=1e-08) {
 #' pos_def_limits(.8, .2, NA)
 #' @export
 #' 
-pos_def_limits <- function(..., steps = .001, tol = 1e-08) {
+pos_def_limits <- function(..., steps = .01, tol = 1e-08) {
   cors <- list(...) %>% unlist()
   if (sum(is.na(cors)) != 1) stop("cors needs to have exactly 1 NA")
   
-  dat <- data.frame(
-    "x" = seq(-1, 1, steps)
-  ) %>%
-    dplyr::mutate(pos_def = purrr::map_lgl(x, function(x) { 
-      cors %>%
-        tidyr::replace_na(x) %>%
+  x <- seq(-1, 1, steps)
+  l <- length(x)
+  
+  # search for min pos_def value
+  ipd <- FALSE
+  min <- 0
+  while (!ipd & min < l) {
+    min <- min + 1
+    ipd <- cors %>%
+      tidyr::replace_na(x[min]) %>%
+      cormat_from_triangle() %>%
+      is_pos_def(tol = tol)
+  }
+  
+  # search for max pos_def value only if ipd was ever true
+  if (ipd) {
+    ipd <- FALSE
+    max <- l+1
+    while (!ipd & max > 1) {
+      max <- max - 1
+      ipd <- cors %>%
+        tidyr::replace_na(x[max]) %>%
         cormat_from_triangle() %>%
-        is_pos_def() 
-    } )) %>%
-    dplyr::filter(pos_def)
+        is_pos_def(tol = tol)
+    }
+    
+    min <- x[min]
+    max <- x[max]
+  } else {
+    max <- NA
+    min <- NA
+  }
   
-  # no values create a positive definite matrix
-  if (nrow(dat) == 0) return(data.frame(
-    "min" = NA,
-    "max" = NA
-  ))
-  
-  data.frame(
-    "min" = min(dat$x),
-    "max" = max(dat$x)
+  list(
+    "min" = min,
+    "max" = max
   )
 }
