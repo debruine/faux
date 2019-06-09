@@ -39,5 +39,5 @@ reference:
   - '`readline_check`'
   - '`sample_from_pop`'
   - '`select_num_grp`'
-  - '`sim_design_`'
+  - '`sim_data`'
   - '`unique_pairs`'

@@ -46,7 +46,12 @@ sim_design <- function(within = list(), between = list(),
   }
   
   # simulate the data
-  sim_design_(design, empirical = empirical, long = long, seed = seed)
+  data <- sim_data(design, empirical = empirical, long = long, seed = seed)
+  
+  attr(data, "design") <- design
+  class(data) <- c("faux", "data.frame")
+  
+  return(data)
 }
 
 #' Simulate data from design (internal)
@@ -60,7 +65,7 @@ sim_design <- function(within = list(), between = list(),
 #' @return a tbl
 #' @export
 #' 
-sim_design_ <- function(design, empirical = FALSE, long = FALSE, 
+sim_data <- function(design, empirical = FALSE, long = FALSE, 
                         seed = NULL, sep = faux_options("sep")) {
   if (!is.null(seed)) {
     # reinstate system seed after simulation
@@ -91,10 +96,7 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE,
   
   # handle no w/in or btwn
   if (length(between_factors) == 0) between_factors <- ".tmpvar."
-  if (length(within_factors) == 0)  within_factors  <- ".tmpvar." 
-  
-  # figure out number of subjects and their IDs
-  sub_n <- unlist(n) %>% sum()
+  if (length(within_factors) == 0)  within_factors  <- ".tmpvar."
   
   # simulate data for each between-cell
   for (cell in cells_b) {
@@ -120,6 +122,9 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE,
   # set column order
   col_order <- c(id, between_factors, cells_w) %>%
     setdiff(".tmpvar.")
+  
+  # figure out total number of subjects
+  sub_n <- unlist(n) %>% sum()
   
   # create wide dataframe
   df_wide <- df %>%
@@ -150,15 +155,8 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE,
     for (f in factors_to_order) {
       df_long[[f]] <- factor(df_long[[f]], levels = names(within[[f]]))
     }
-    
-    attr(df_long, "design") <- design
-    class(df_long) <- c("faux", "data.frame")
-    
     return(df_long)
   }
   
-  attr(df_wide, "design") <- design
-  class(df_wide) <- c("faux", "data.frame")
-  
-  df_wide
+  return(df_wide)
 }

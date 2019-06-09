@@ -542,7 +542,7 @@ test_that("from design", {
 })
 
 # small empirical ----
-test_that("small empirical", {
-  data <- sim_design(2, n = 2, r = 0.5)
-  
-})
+# test_that("small empirical", {
+#   data <- sim_design(2, n = 2, r = 0.5, empirical = TRUE)
+#   
+# })

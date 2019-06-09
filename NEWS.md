@@ -1,7 +1,8 @@
-# faux 0.0.0.9014 (2019-06-06)
+# faux 0.0.0.9014 (2019-06-09)
 
 * More flexible parameter specification
-
+* Set plotting default as a global option `faux_options(plot = TRUE)`
+* Minor bug fixes and efficiency increases
 
 # faux 0.0.0.9013 (2019-05-27)
 

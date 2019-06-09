@@ -25,7 +25,7 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
   if (!is.data.frame(input) && is.list(input)) {
     if (is.null(geoms)) geoms <- "pointrangeSD"
     design <- input
-    data <- sim_design_(design = design, empirical = TRUE, long = TRUE)
+    data <- sim_data(design = design, empirical = TRUE, long = TRUE)
   } else if (is.data.frame(input)) {
     if (is.null(geoms)) geoms <- c("violin", "box")
     data <- input
