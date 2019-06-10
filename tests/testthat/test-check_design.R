@@ -234,6 +234,10 @@ test_that("make_id", {
 
 # params table ----
 test_that("params table", {
+  des <- check_design()
+  params <- data.frame(y = "value", n = 100, mu = 0, sd = 1)
+  expect_equal(des$params, params)
+  
   within <- list(
     time = c("morning", "night"),
     condition = c("A", "B", "C")

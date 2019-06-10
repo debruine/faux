@@ -4,15 +4,14 @@
 #' levels. Specify n for each between-subject cell; mu and sd for each cell, and
 #' r for the within-subject cells for each between-subject cell.
 #' 
-#' This function returns a validated design list for use in sim_design_ to 
-#' simulate a data table with this design, or to archive your design.
+#' This function returns a validated design list for use in sim_data to simulate a data table with this design, or to archive your design.
 #' 
 #' @param within a list of the within-subject factors
 #' @param between a list of the between-subject factors
 #' @param n the number of samples required
 #' @param mu a vector giving the means of the variables
 #' @param sd the standard deviations of the variables
-#' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
+#' @param r the correlations among the variables (can be a single number, full correlation matrix as a matric or vector, or a vector of the upper right triangle of the correlation matrix
 #' @param dv the name of the DV column list(y = "value")
 #' @param id the name of the ID column list(id = "id")
 #' @param plot whether to show a plot of the design

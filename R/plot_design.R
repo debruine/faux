@@ -22,9 +22,21 @@
 #' @export
 #' 
 plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
+  outlier.alpha <- 1
   if (!is.data.frame(input) && is.list(input)) {
     if (is.null(geoms)) geoms <- "pointrangeSD"
     design <- input
+    if ("pointrangeSE" %in% geoms) {
+      # don't change Ns
+    } else if ("violin" %in% geoms | "box" %in% geoms) {
+      # large N for smooth violins and boxes
+      design$n <- lapply(design$n, function(x){10000})
+      outlier.alpha <- 0
+    } else {
+      # smallish N for speed
+      design$n <- lapply(design$n, function(x){100})
+    }
+    
     data <- sim_data(design = design, empirical = TRUE, long = TRUE)
   } else if (is.data.frame(input)) {
     if (is.null(geoms)) geoms <- c("violin", "box")
@@ -104,7 +116,7 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
   if ("box" %in% geoms) {
     p <- p + geom_boxplot(width = 0.25, color = "black",
                    position = position_dodge(width = 0.9),
-                   show.legend = FALSE)
+                   show.legend = FALSE, outlier.alpha = outlier.alpha)
   }
   if ("pointrangeSD" %in% geoms | "pointrangeSE" %in% geoms) {
     if ("pointrangeSD" %in% geoms) {

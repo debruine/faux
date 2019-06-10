@@ -38,8 +38,7 @@ levels. Specify n for each between-subject cell; mu and sd for each cell, and
 r for the within-subject cells for each between-subject cell.
 }
 \details{
-This function returns a validated design list for use in sim_design_ to 
-simulate a data table with this design, or to archive your design.
+This function returns a validated design list for use in sim_data to simulate a data table with this design, or to archive your design.
 }
 \examples{
 

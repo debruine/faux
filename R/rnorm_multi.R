@@ -65,8 +65,8 @@ rnorm_multi <- function(n, vars = 3, mu = 0, sd = 1, r = 0,
     sigma <- (sd %*% t(sd)) * cor_mat
     tryCatch({
       mvn <- MASS::mvrnorm(n, mu, sigma, empirical = empirical)
-    }, error = function(e) { 
-      stop("The correlated variables could not be generated.")
+    }, error = function(e) {
+      stop("The correlated variables could not be generated. If empirical = TRUE, try increasing the N or setting empirical = FALSE.")
     })
   }
   
