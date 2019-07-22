@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9013</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9015</span>
       </span>
     </div>
 
@@ -178,8 +178,8 @@
     <pre class="examples"><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/Normal'>rnorm</a></span>(<span class='fl'>10000</span>)
 <span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>norm2pois</span>(<span class='no'>x</span>, <span class='fl'>2</span>)
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/ggplot'>ggplot</a></span>() + <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/geom_point'>geom_point</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ggplot2/topics/aes'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
-<span class='kw pkg'>ggExtra</span><span class='kw ns'>::</span><span class='fu'>ggMarginal</span>(<span class='no'>g</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"histogram"</span>)</div><div class='output co'>#&gt; <span class='error'>Error in loadNamespace(name): there is no package called ‘ggExtra’</span></div><div class='input'>
+<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() + <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
+<span class='kw pkg'>ggExtra</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/ggExtra/topics/ggMarginal'>ggMarginal</a></span>(<span class='no'>g</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"histogram"</span>)</div><div class='img'><img src='norm2pois-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

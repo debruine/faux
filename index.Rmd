@@ -85,3 +85,4 @@ new_iris %>%
   geom_smooth(method = "lm") +
   facet_wrap(~data)
 ```
+

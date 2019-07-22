@@ -74,7 +74,7 @@ r for the within-subject cells for each between-subject cell." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9014</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9015</span>
       </span>
     </div>
 
@@ -179,7 +179,7 @@ r for the within-subject cells for each between-subject cell.</p>
     </tr>
     <tr>
       <th>r</th>
-      <td><p>the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)</p></td>
+      <td><p>the correlations among the variables (can be a single number, full correlation matrix as a matric or vector, or a vector of the upper right triangle of the correlation matrix</p></td>
     </tr>
     <tr>
       <th>dv</th>
@@ -205,8 +205,7 @@ r for the within-subject cells for each between-subject cell.</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>This function returns a validated design list for use in sim_design_ to 
-simulate a data table with this design, or to archive your design.</p>
+    <p>This function returns a validated design list for use in sim_data to simulate a data table with this design, or to archive your design.</p>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>

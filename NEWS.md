@@ -1,3 +1,7 @@
+# faux 0.0.0.9015 (2019-07-22)
+
+* Added distribution conversion functions (still experimental)
+
 # faux 0.0.0.9014 (2019-06-09)
 
 * More flexible parameter specification

@@ -20,7 +20,7 @@ sim_design(within = list(), between = list(), n = 100, mu = 0,
 
 \item{sd}{the standard deviations of the variables}
 
-\item{r}{the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)}
+\item{r}{the correlations among the variables (can be a single number, full correlation matrix as a matric or vector, or a vector of the upper right triangle of the correlation matrix}
 
 \item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 
