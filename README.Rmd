@@ -46,8 +46,6 @@ Because faux is still in early development, some features will break in future v
 
 ## How to use faux
 
-
-
 * [sim_design](#sim_design)
 * [sim_df](#sim_df)
 * [sim_mixed_cc](#sim_mixed_cc)
@@ -103,9 +101,13 @@ new_iris <- sim_df(iris, 50, between = "Species")
 
 ```{r plot-iris-sim, echo = FALSE, fig.cap="Simulated iris dataset"}
 new_iris %>%
+  dplyr::mutate_if(is.numeric, round, 1) %>%
+  dplyr::mutate(data = "Simulated") %>%
+  dplyr::bind_rows(dplyr::mutate(iris, data = "Original")) %>%
   ggplot(aes(Sepal.Width, Sepal.Length, color = Species)) +
   geom_point() +
-  geom_smooth(method = "lm")
+  geom_smooth(method = "lm") +
+  facet_wrap(~data)
 ```
 
 ## sim_mixed_cc

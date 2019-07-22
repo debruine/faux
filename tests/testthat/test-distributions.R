@@ -133,3 +133,29 @@ test_that("trunc2norm", {
     expect_equal(summ, c(mu, sd, mu, sd), tolerance = 0.1)
   }
 })
+
+# norm2likert ----
+test_that("norm2likert", {
+  x <- rnorm(1e4)
+  
+  expect_error(norm2likert(), "argument \"prob\" is missing, with no default")
+  expect_error(norm2likert(x), "argument \"prob\" is missing, with no default")
+  expect_error(norm2likert(x, 2), "argument \"prob\" must add up to 1")
+  
+  y <- norm2likert(x, c(.25, .5, .25))
+  expect_equal(mean(y == 1), .25, tolerance = 0.1)
+  expect_equal(mean(y == 2), .50, tolerance = 0.1)
+  expect_equal(mean(y == 3), .25, tolerance = 0.1)
+  
+  y <- norm2likert(x, c(.1, .2, .3, .4))
+  expect_equal(mean(y == 1), .1, tolerance = 0.1)
+  expect_equal(mean(y == 2), .2, tolerance = 0.1)
+  expect_equal(mean(y == 3), .3, tolerance = 0.1)
+  expect_equal(mean(y == 4), .4, tolerance = 0.1)
+  
+  y <- norm2likert(x, c(.4, .3, .2, .1))
+  expect_equal(mean(y == 1), .4, tolerance = 0.1)
+  expect_equal(mean(y == 2), .3, tolerance = 0.1)
+  expect_equal(mean(y == 3), .2, tolerance = 0.1)
+  expect_equal(mean(y == 4), .1, tolerance = 0.1)
+})

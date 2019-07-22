@@ -30,6 +30,7 @@ reference:
   - '`check_mixed_design`'
   - '`cormat`'
   - '`cormat_from_triangle`'
+  - '`fix_name_labels`'
   - '`get_design_long`'
   - '`interactive_design`'
   - '`is_pos_def`'
@@ -38,14 +39,5 @@ reference:
   - '`readline_check`'
   - '`sample_from_pop`'
   - '`select_num_grp`'
-  - '`sim_design_`'
+  - '`sim_data`'
   - '`unique_pairs`'
-- title: Distribution functions
-  desc: ~
-  contents:
-  - '`norm2binom`'
-  - '`norm2pois`'
-  - '`norm2unif`'
-  - '`unif2norm`'
-  - '`norm2trunc`'
-  - '`trunc2norm`'

@@ -20,10 +20,10 @@ cell_combos <- function(factors, dv = "y") {
   if (length(factors) == 0) {
     cells = dv
   } else {
-    cells <- purrr::map(factors, ~{factor(names(.), levels = names(.))}) %>%
+    cells <- factors %>%
+      purrr::map(~factor(names(.), levels = names(.))) %>%
       do.call(tidyr::crossing, .) %>%
-      #do.call(expand.grid, .) %>%
-      tidyr::unite("b", 1:ncol(.)) %>% 
+      tidyr::unite("b", 1:ncol(.), sep = faux_options("sep")) %>% 
       dplyr::pull("b")
   }
   

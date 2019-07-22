@@ -1,25 +1,27 @@
 context("test-sim_design")
 
+faux_options(plot = FALSE)
+
 # error messages ----
 test_that("error messages", {
   list_err <- "within and between must be lists"
-  expect_error(sim_design("1", plot = 0), list_err)
-  expect_error(sim_design(list(), "1", plot = 0), list_err)
+  expect_error(sim_design("1"), list_err)
+  expect_error(sim_design(list(), "1"), list_err)
   
   factor_name_err <- "You have multiple factors with the same name \\(A\\). Please give all factors unique names."
   within <- list("A" = c("A1", "A2"))
   between <- list("A" = c("A1", "A2"))
-  expect_error(sim_design(within, between, plot = 0), factor_name_err)
+  expect_error(sim_design(within, between), factor_name_err)
   
   level_err <- "You have duplicate levels for factor\\(s\\): A, C, B, D"
   within <- list("A" = c("yes", "yes"), "C" = c("C1", "C1"))
   between <- list("B" = c("B1", "B1"), "D" = c("D1", "D1"))
-  expect_error(sim_design(within, between, plot = 0), level_err)
+  expect_error(sim_design(within, between), level_err)
   
   level_err <- "You have duplicate levels for factor\\(s\\): A, B"
   within <- list("A" = c("yes", "yes"), "C" = c("C1", "C2"))
   between <- list("B" = c("yes", "yes"), "D" = c("D1", "D2"))
-  expect_error(sim_design(within, between, plot = 0), level_err)
+  expect_error(sim_design(within, between), level_err)
 })
 
 # 2w ----
@@ -36,8 +38,7 @@ test_that("2w", {
   n <- 100
   
   df <- sim_design(within, between, mu = mu, sd = sd, 
-                   r = r, dv = dv, id = id, empirical = TRUE, 
-                   plot = FALSE)
+                   r = r, dv = dv, id = id, empirical = TRUE)
   chk <- check_sim_stats(df)
   
   comp <- tibble::tribble(
@@ -68,7 +69,7 @@ test_that("2w*2w", {
   )
   between <- list()
   
-  df <- sim_design(within, between, empirical = TRUE, plot = 0)
+  df <- sim_design(within, between, empirical = TRUE)
   chk <- check_sim_stats(df)
 
   comp <- tibble::tribble(
@@ -94,7 +95,7 @@ test_that("2b", {
   mu <- c(1, 2)
   
   df <- sim_design(within, between, n = 100, mu = mu, 
-                   empirical = TRUE, plot = 0)
+                   empirical = TRUE)
   chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
@@ -119,7 +120,7 @@ test_that("2b*2b", {
   within <- list()
   
   df <- sim_design(within, between, n = 100, 
-                   empirical = TRUE, plot = 0)
+                   empirical = TRUE)
   chk <- check_sim_stats(df, between = c("A","B"))
   
   comp <- tibble::tribble(
@@ -163,7 +164,7 @@ test_that("2w*2b basic", {
     "B2" = .5
   )
   
-  df <- sim_design(within, between, n, mu, sd, r, TRUE, plot = 0)
+  df <- sim_design(within, between, n, mu, sd, r, TRUE)
   chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
@@ -208,7 +209,7 @@ test_that("2w*2b alt", {
     B2 = .5
   )
   
-  df <- sim_design(within, between, n, mu, sd, r, TRUE, plot = 0)
+  df <- sim_design(within, between, n, mu, sd, r, TRUE)
   chk <- check_sim_stats(df, between = "B")
   
   comp <- tibble::tribble(
@@ -246,7 +247,7 @@ test_that("2w*2b within order", {
     "B2" = c(W2 = 6, W1 = 5)
   )
   
-  df <- sim_design(within, between, 50, mu, sd, .5, TRUE, plot = 0)
+  df <- sim_design(within, between, 50, mu, sd, .5, TRUE)
   check_sim_stats(df, between = "B")
   
   chk <- check_sim_stats(df, between = "B")
@@ -294,7 +295,7 @@ test_that("2w*2b order", {
     "B1" = .2
   )
   
-  df <- sim_design(within, between, n, mu, sd, r, TRUE, plot = 0)
+  df <- sim_design(within, between, n, mu, sd, r, TRUE)
   check_sim_stats(df, between = "B")
   
   chk <- check_sim_stats(df, between = "B")
@@ -346,7 +347,7 @@ test_that("2w*2b*2b", {
     A2_B2 = .4
   )
   
-  df <- sim_design(within, between, n, mu, sd, r, TRUE, plot = 0)
+  df <- sim_design(within, between, n, mu, sd, r, TRUE)
   check_sim_stats(df, between = c("A", "B"))
   
   expect_equal(nrow(df), 200)
@@ -367,7 +368,7 @@ test_that("long", {
   )
   
   df <- sim_design(within, between, 100, 0, 1, .5, 
-                   empirical = TRUE, long = TRUE, plot = 0)
+                   empirical = TRUE, long = TRUE)
   
   expect_equal(nrow(df), 3200)
   expect_equal(ncol(df), 7)
@@ -377,25 +378,33 @@ test_that("long", {
 # complex names ----
 test_that("complex names", {
   between <- list(
-    "My first between factor" = c("Factor B1 L1", "Factor B1 L2"),
-    "My second between factor" = c("Factor_B2_L1", "Factor_B2_L2")
+    "My first between factor" = 
+      c("Factor B1 L1", "Factor B1 L2"),
+    "My second between factor" = 
+      c("Factor_B2_L1", "Factor_B2_L2")
   )
   within <- list(
-    "My first within factor" = c("Factor W1 L1", "Factor W1 L2"),
-    "My second within factor" = c("Factor_W2_L1", "Factor_W2_L2")
+    "My first within factor" = 
+      c("Factor W1 L1", "Factor W1 L2"),
+    "My second within factor" = 
+      c("Factor_W2_L1", "Factor_W2_L2")
   )
+
+  df_long <- sim_design(within, between, 10, 0, 1, .5, long = TRUE)
+  df_wide <- sim_design(within, between, 10, 0, 1, .5)
   
-  df_long <- sim_design(within, between, 10, 0, 1, .5, 
-                        TRUE, TRUE, plot = 0)
-  df_wide <- sim_design(within, between, 10, 0, 1, .5, 
-                        TRUE, FALSE, plot = 0)
+  long_names <- c("id", "My first between factor", 
+                  "My second between factor", 
+                  "My first within factor", 
+                  "My second within factor",
+                  "y")
   
-  long_names <- c("id", "My first between factor", "My second between factor", 
-                  "My first within factor", "My second within factor",  "y")
-  
-  wide_names <- c("id", "My first between factor", "My second between factor", 
-                  "Factor.W1.L1_Factor.W2.L1", "Factor.W1.L1_Factor.W2.L2", 
-                  "Factor.W1.L2_Factor.W2.L1", "Factor.W1.L2_Factor.W2.L2")
+  wide_names <- c("id", "My first between factor", 
+                  "My second between factor", 
+                  "Factor W1 L1_Factor.W2.L1", 
+                  "Factor W1 L1_Factor.W2.L2", 
+                  "Factor W1 L2_Factor.W2.L1", 
+                  "Factor W1 L2_Factor.W2.L2")
   
   expect_equal(names(df_long), long_names)
   expect_equal(names(df_wide), wide_names)
@@ -410,8 +419,8 @@ test_that("complex names", {
     time2 = c("day", "night")
   )
   
-  df_long <- sim_design(within, between, 10, 0, 1, .5, TRUE, TRUE, plot = 0)
-  df_wide <- sim_design(within, between, 10, 0, 1, .5, TRUE, FALSE, plot = 0)
+  df_long <- sim_design(within, between, 10, 0, 1, .5, TRUE, TRUE)
+  df_wide <- sim_design(within, between, 10, 0, 1, .5, TRUE, FALSE)
                         
   long_names <- c("id", "pets", "pets2", "time", "time2",  "y")
   wide_names <- c("id", "pets", "pets2", "day_day", "day_night", "night_day", "night_night")
@@ -461,7 +470,7 @@ test_that("works", {
   n = 100
   empirical = TRUE
 
-  df <- sim_design(within, between, n, mu, sd, r, empirical, plot = 0)
+  df <- sim_design(within, between, n, mu, sd, r, empirical)
   check_sim_stats(df, c("B", "A"))
   
   expect_equal(nrow(df), 400)
@@ -477,7 +486,7 @@ test_that("label order", {
   between <- list(
     time = c("night", "day")
   )
-  df <- sim_design(within, between, long = TRUE, plot = 0)
+  df <- sim_design(within, between, long = TRUE)
   
   expect_true(is.factor(df$pets))
   expect_true(is.factor(df$time))
@@ -490,15 +499,15 @@ test_that("seed", {
   # setting seed returns same DF, but is reset
   set.seed(1)
   rnd0 <- rnorm(1)
-  df1 <- sim_design(2, 2, n = 10, seed = 910210, plot = FALSE)
+  df1 <- sim_design(2, 2, n = 10, seed = 910210)
   rnd1 <- rnorm(1)
-  df2 <- sim_design(2, 2, n = 10, seed = 910210, plot = FALSE)
+  df2 <- sim_design(2, 2, n = 10, seed = 910210)
   rnd2 <- rnorm(1)
   set.seed(1)
   rnd0b <- rnorm(1)
   rnd1b <- rnorm(1)
   rnd2b <- rnorm(1)
-  df3 <- sim_design(2, 2, n = 10, seed = 8675309, plot = FALSE)
+  df3 <- sim_design(2, 2, n = 10, seed = 8675309)
   
   expect_equal(df1, df2)
   
@@ -510,9 +519,9 @@ test_that("seed", {
   
   # user sets seed externally
   set.seed(1)
-  df4 <- sim_design(2, 2, n = 10, plot = FALSE)
+  df4 <- sim_design(2, 2, n = 10)
   set.seed(1)
-  df5 <- sim_design(2, 2, n = 10, plot = FALSE)
+  df5 <- sim_design(2, 2, n = 10)
   expect_equal(df4, df5)
 })
 
@@ -520,14 +529,20 @@ test_that("seed", {
 test_that("from design", {
   within <- list(time = c("night", "day"))
   between <- list(pet = c("dog", "cat"))
-  design <- check_design(within, between, n = 10, plot = FALSE)
-  data <- sim_design(design = design, plot = 0)
+  design <- check_design(within, between, n = 10)
+  data <- sim_design(design = design)
   
   expect_equal(attributes(data)$design, design)
   
   # design set to first (within) argument
-  data2 <- sim_design(design, plot = 0)
+  data2 <- sim_design(design)
   
   expect_equal(attributes(data2)$design, design)
   
 })
+
+# small empirical ----
+# test_that("small empirical", {
+#   data <- sim_design(2, n = 2, r = 0.5, empirical = TRUE)
+#   
+# })

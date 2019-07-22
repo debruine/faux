@@ -15,7 +15,7 @@
 #' @export
 #' 
 wide2long <- function(data, within_factors = c(), within_cols = c(), 
-                      dv = "y", id = NULL, sep = "_") {
+                      dv = "y", id = NULL, sep = faux_options("sep")) {
   if ("design" %in% names(attributes(data))) {
     # get parameters from design
     design <- attributes(data)$design

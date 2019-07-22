@@ -1,3 +1,13 @@
+# faux 0.0.0.9015 (2019-07-22)
+
+* Added distribution conversion functions (still experimental)
+
+# faux 0.0.0.9014 (2019-06-09)
+
+* More flexible parameter specification
+* Set plotting default as a global option `faux_options(plot = TRUE)`
+* Minor bug fixes and efficiency increases
+
 # faux 0.0.0.9013 (2019-05-27)
 
 * multi-factor cell names now in a more intuitive order (**will break old code that inputs parameters with unnamed vectors**)

@@ -4,7 +4,7 @@
 \alias{pos_def_limits}
 \title{Limits on Missing Value for Positive Definite Matrix}
 \usage{
-pos_def_limits(..., steps = 0.001, tol = 1e-08)
+pos_def_limits(..., steps = 0.01, tol = 1e-08)
 }
 \arguments{
 \item{...}{the correlations among the variables as a vars\*(vars-1)/2 vector}

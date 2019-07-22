@@ -20,6 +20,7 @@
 json_design <- function(design, filename = NULL, 
                         digits = 8, pretty = FALSE, ...) {
   valid_design <-  check_design(design = design, plot = FALSE)
+  valid_design$params <- NULL
   
   j <- jsonlite::toJSON(valid_design, auto_unbox = TRUE, digits = digits, pretty = pretty, ...)
   

@@ -14,7 +14,7 @@
 #' 
 #' @export
 #'
-get_design_long <- function(data, dv = "y", id = "id", plot = TRUE) {
+get_design_long <- function(data, dv = "y", id = "id", plot = faux_options("plot")) {
   data <- dplyr::ungroup(data)
   
   between_factors <- data %>%

@@ -1,75 +1,39 @@
 library(tidyverse)
-library(purrr)
 library(faux)
 
-x <- runif(1000, 10, 20)
-y <- unif2norm(x, 10, 2, FALSE)
-mean(y)
-sd(y)
-
-x <- rnorm(10000, 10, 2)
-y <- pnorm(x, 10, 2)
-
-g <- ggplot2::ggplot() + ggplot2::geom_point(ggplot2::aes(x, y))
-ggExtra::ggMarginal(g, type = "histogram")
+des <- check_design(list(time = c("morning", "noon", "night"), 
+                         pet = c("dog", "cat", "ferret"), 
+                         condition = c("A", "B")), 
+                    mu = rep(1:6, 3), 
+                    sd = 1)
 
 
-x <- rnorm(1000, 10, 5)
-y <- norm2unif(x, 0, 5)
+within <- list(
+  time = c("morning", "night"),
+  condition = c("A", "B", "C")
+)
+between <- list(
+  pet = c("dog", "cat"),
+  x = c("X1", "X2"))
 
-g <- ggplot() + geom_point(aes(x, y))
-ggExtra::ggMarginal(g, type = "histogram")
+r <- list(
+  dog_X1 = seq(.1, by = .025, length.out = 15),
+  dog_X2 = seq(.2, by = .025, length.out = 15),
+  cat_X1 = seq(.3, by = .025, length.out = 15),
+  cat_X2 = seq(.4, by = .025, length.out = 15)
+)
 
+w <- tidyr::crossing(time, condition) %>%
+  unite(w, 1:ncol(.)) %>%
+  pull(w)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-sim_cc <- function(sub_n, item_n, grand_i, sub_sd, item_sd, error_sd, ...) {
-  data <- sim_mixed_cc(sub_n, item_n, grand_i, sub_sd, item_sd, error_sd)
-  
-  lme4::lmer(val ~ 1 + (1 | sub_id) + (1 | item_id), data = data) %>%
-    broom.mixed::tidy(effects = "ran_pars") %>%
-    mutate(sub_n = sub_n, 
-           item_n = item_n, 
-           grand_i = grand_i, 
-           sub_sd = sub_sd, 
-           item_sd = item_sd, 
-           error_sd = error_sd)
+design <- tidyr::crossing(pet, time, condition)
+for (wc in w) {
+  design[wc] <- 0
 }
+design$mu <- 1:8
+design$sd <- 1
 
-# sims <- expand.grid(
-#   sub_n = c(10, 20, 40), 
-#   item_n = c(10, 20, 40), 
-#   grand_i = 0, 
-#   sub_sd = 1, 
-#   item_sd = 1, 
-#   error_sd = c(0.5, 1, 2),
-#   rep = 1:1000
-# ) %>%
-#   purrr::transpose() %>%
-#   purrr::map_df(~purrr::pmap_df(., sim_cc))
-# 
-# saveRDS(sims, file = "tests/mess/sims.rds")
 
-sims <- readRDS(file = "tests/mess/sims.rds")
 
-params <- sims %>%
-  group_by(group, sub_n, item_n, error_sd) %>%
-  summarise(m = mean(estimate), sd = sd(estimate))
-
-ggplot(params, aes(error_sd, sd, color = factor(sub_n))) +
-  geom_point() +
-  facet_grid(group~item_n)
+jsonlite::toJSON(design, pretty = TRUE)

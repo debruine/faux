@@ -30,7 +30,7 @@ long2wide <- function(data, within = c(), between = c(), dv = "y", id = "id") {
   d1 <- data %>% dplyr::ungroup() %>%
     dplyr::select(tidyselect::one_of(c(id, between, within, dv))) %>%
     # fix within values so they match design 
-    dplyr::mutate_at(c(within), ~gsub("(\\W|_)", ".", .))
+    dplyr::mutate_at(c(within), ~gsub("_", ".", .))
   if (length(within)) {
     d1 <- tidyr::unite(d1, ".tmpwithin.", tidyselect::one_of(within))
   }

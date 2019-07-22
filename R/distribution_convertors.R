@@ -150,5 +150,31 @@ trunc2norm <- function(x, min = min(x), max = max(x),
   stats::qnorm(p, mean = mu, sd = sd)
 }
 
-
+#' Convert normal to likert
+#'
+#' @param x the normally distributed vector
+#' @param prob a vector of probabilities 
+#' @param mu the mean of x (calculated from x if not given)
+#' @param sd the SD of x (calculated from x if not given)
+#'
+#' @return a vector with a specified distribution
+#' @export
+#'
+#' @examples
+#' 
+#' x <- rnorm(10000)
+#' y <- norm2likert(x, c(.1, .2, .35, .2, .1, .05))
+#' g <- ggplot2::ggplot() + ggplot2::geom_point(ggplot2::aes(x, y))
+#' ggExtra::ggMarginal(g, type = "histogram")
+#' 
+norm2likert <- function(x, prob, mu = mean(x), sd = stats::sd(x)) {
+  cprob <- cumsum(prob)
+  n <- length(cprob)
+  if (abs(cprob[n] - 1) > .01) {
+    # TODO: better checks for valid prob (check existing funcs)
+    stop("argument \"prob\" must add up to 1")
+  }
+  p <- stats::pnorm(x, mu, sd)
+  sapply(p, function(a) n + 1 - sum(a < cprob))
+}
 

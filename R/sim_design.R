@@ -7,7 +7,7 @@
 #' @param n the number of samples required
 #' @param mu the means of the variables
 #' @param sd the standard deviations of the variables
-#' @param r the correlations among the variables (can be a single number, vars\*vars matrix, vars\*vars vector, or a vars\*(vars-1)/2 vector)
+#' @param r the correlations among the variables (can be a single number, full correlation matrix as a matric or vector, or a vector of the upper right triangle of the correlation matrix
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' @param dv the name of the dv for long plots (defaults to y)
@@ -25,10 +25,11 @@
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
                        empirical = FALSE, long = FALSE, 
-                       dv = list(y = "Score"), 
-                       id = list(id = "Subject ID"),
-                       plot = TRUE, seed = NULL, 
-                       interactive = FALSE, design = NULL) {
+                       dv = list(y = "value"), 
+                       id = list(id = "id"),
+                       plot = faux_options("plot"), 
+                       seed = NULL, interactive = FALSE, 
+                       design = NULL) {
   # check the design is specified correctly
   if (interactive) {
     design <- interactive_design(plot = plot)
@@ -45,7 +46,12 @@ sim_design <- function(within = list(), between = list(),
   }
   
   # simulate the data
-  sim_design_(design, empirical = empirical, long = long, seed = seed)
+  data <- sim_data(design, empirical = empirical, long = long, seed = seed)
+  
+  attr(data, "design") <- design
+  class(data) <- c("faux", "data.frame")
+  
+  return(data)
 }
 
 #' Simulate data from design (internal)
@@ -54,11 +60,13 @@ sim_design <- function(within = list(), between = list(),
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
+#' @param sep separator for within-columns, defaults to _ (see tidyr::separate)
 #' 
 #' @return a tbl
 #' @export
 #' 
-sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
+sim_data <- function(design, empirical = FALSE, long = FALSE, 
+                        seed = NULL, sep = faux_options("sep")) {
   if (!is.null(seed)) {
     # reinstate system seed after simulation
     sysSeed <- .GlobalEnv$.Random.seed
@@ -88,10 +96,7 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   
   # handle no w/in or btwn
   if (length(between_factors) == 0) between_factors <- ".tmpvar."
-  if (length(within_factors) == 0)  within_factors  <- ".tmpvar." 
-  
-  # figure out number of subjects and their IDs
-  sub_n <- unlist(n) %>% sum()
+  if (length(within_factors) == 0)  within_factors  <- ".tmpvar."
   
   # simulate data for each between-cell
   for (cell in cells_b) {
@@ -118,9 +123,12 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
   col_order <- c(id, between_factors, cells_w) %>%
     setdiff(".tmpvar.")
   
+  # figure out total number of subjects
+  sub_n <- unlist(n) %>% sum()
+  
   # create wide dataframe
   df_wide <- df %>%
-    tidyr::separate("btwn", between_factors, sep = "_") %>%
+    tidyr::separate("btwn", between_factors, sep = sep) %>%
     dplyr::mutate(!!id := make_id(sub_n)) %>%
     dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
     dplyr::select(tidyselect::one_of(col_order))
@@ -138,7 +146,7 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
     
     df_long <- df_wide %>%
       tidyr::gather("w_in", !!dv, tidyselect::one_of(cells_w)) %>%
-      tidyr::separate("w_in", within_factors, sep = "_") %>%
+      tidyr::separate("w_in", within_factors, sep = sep) %>%
       dplyr::select(tidyselect::one_of(col_order)) %>%
       dplyr::mutate_at(within_factors, ~as.factor(.))
     
@@ -147,15 +155,8 @@ sim_design_ <- function(design, empirical = FALSE, long = FALSE, seed = NULL) {
     for (f in factors_to_order) {
       df_long[[f]] <- factor(df_long[[f]], levels = names(within[[f]]))
     }
-    
-    attr(df_long, "design") <- design
-    class(df_long) <- c("faux", "data.frame")
-    
     return(df_long)
   }
   
-  attr(df_wide, "design") <- design
-  class(df_wide) <- c("faux", "data.frame")
-  
-  df_wide
+  return(df_wide)
 }
