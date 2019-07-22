@@ -18,6 +18,7 @@ reference:
   - '`rnorm_pre`'
   - '`long2wide`'
   - '`wide2long`'
+  - '`faux_options`'
 - title: Datasets
   desc: ~
   contents:
@@ -41,3 +42,13 @@ reference:
   - '`select_num_grp`'
   - '`sim_data`'
   - '`unique_pairs`'
+- title: Distribution functions
+  desc: ~
+  contents:
+  - '`norm2likert`'
+  - '`norm2binom`'
+  - '`norm2pois`'
+  - '`norm2unif`'
+  - '`unif2norm`'
+  - '`norm2trunc`'
+  - '`trunc2norm`'

@@ -167,6 +167,10 @@ trunc2norm <- function(x, min = min(x), max = max(x),
 #' g <- ggplot2::ggplot() + ggplot2::geom_point(ggplot2::aes(x, y))
 #' ggExtra::ggMarginal(g, type = "histogram")
 #' 
+#' y <- norm2likert(x, c(.4, .3, .2, .1))
+#' g <- ggplot2::ggplot() + ggplot2::geom_point(ggplot2::aes(x, y))
+#' ggExtra::ggMarginal(g, type = "histogram")
+#' 
 norm2likert <- function(x, prob, mu = mean(x), sd = stats::sd(x)) {
   cprob <- cumsum(prob)
   n <- length(cprob)
