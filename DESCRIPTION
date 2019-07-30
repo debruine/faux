@@ -20,8 +20,7 @@ Imports:
     rlang (>= 0.1.2),
     broom.mixed,
     jsonlite,
-    truncnorm,
-    ANOVApower (>= 0.0.3)
+    truncnorm
 License: MIT + file LICENSE
 Suggests:
     testthat (>= 2.1.0),
@@ -31,7 +30,8 @@ Suggests:
     roxygen2,
     covr,
     cowplot,
-    ggExtra
+    ggExtra,
+    ANOVApower (>= 0.0.3)
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Encoding: UTF-8

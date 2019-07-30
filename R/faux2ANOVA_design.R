@@ -13,6 +13,11 @@
 #' apower_des <- faux2ANOVA_design(faux_des)
 #' 
 faux2ANOVA_design <- function(design, plot = TRUE) {
+  if (!requireNamespace("ANOVApower", quietly = TRUE)) {
+    stop("Package \"ANOVApower\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
+  
   factors <- c(design$between, design$within)
   if (length(factors) < 1) {
     stop("You need at least one factor to use ANOVApower")
