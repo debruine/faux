@@ -1,7 +1,7 @@
 Package: faux
 Title: Simulation Functions
-Version: 0.0.0.9015
-Date: 2019-07-22
+Version: 0.0.0.9016
+Date: 2019-12-10
 Authors@R: person(given = "Lisa", family = "DeBruine", role = c("aut", "cre"), email = "debruine@gmail.com", comment = c(ORCID = "0000-0002-7523-5539"))
 Description: The faux package provides functions for simulating datasets with specified structure.
 Depends:
@@ -30,13 +30,10 @@ Suggests:
     roxygen2,
     covr,
     cowplot,
-    ggExtra,
-    ANOVApower (>= 0.0.3)
+    ggExtra
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/debruine/faux
 BugReports: https://github.com/debruine/faux/issues
-Remotes:  
-    Lakens/ANOVApower

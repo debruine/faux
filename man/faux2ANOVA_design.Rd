@@ -2,7 +2,7 @@
 % Please edit documentation in R/faux2ANOVA_design.R
 \name{faux2ANOVA_design}
 \alias{faux2ANOVA_design}
-\title{Convert faux deisgn to ANOVApower design}
+\title{Convert faux design to ANOVApower design}
 \usage{
 faux2ANOVA_design(design, plot = TRUE)
 }
@@ -15,7 +15,7 @@ faux2ANOVA_design(design, plot = TRUE)
 a design list for ANOVApower
 }
 \description{
-Convert faux deisgn to ANOVApower design
+Convert faux design to ANOVApower design
 }
 \examples{
 within <- list(pet = c(dog = "Dog Owners", cat = "Cat Owners"))
