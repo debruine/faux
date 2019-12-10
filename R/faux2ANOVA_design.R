@@ -1,4 +1,4 @@
-#' Convert faux deisgn to ANOVApower design
+#' Convert faux design to ANOVApower design
 #'
 #' @param design faux design list (e.g., from check_design)
 #' @param plot whether to show the plot from ANOVApower::ANOVA_design
@@ -13,6 +13,11 @@
 #' apower_des <- faux2ANOVA_design(faux_des)
 #' 
 faux2ANOVA_design <- function(design, plot = TRUE) {
+  # if (!requireNamespace("ANOVApower", quietly = TRUE)) {
+  #   stop("Package \"ANOVApower\" needed for this function to work. Please install it.",
+  #        call. = FALSE)
+  # }
+  
   factors <- c(design$between, design$within)
   if (length(factors) < 1) {
     stop("You need at least one factor to use ANOVApower")
@@ -66,5 +71,6 @@ faux2ANOVA_design <- function(design, plot = TRUE) {
     plot = plot
   )
   
-  do.call(ANOVApower::ANOVA_design, ap)
+  #do.call(ANOVApower::ANOVA_design, ap)
+  return(ap)
 }

@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Mixed Design Simulation">
 <meta property="og:description" content="">
 <meta property="og:image" content="/logo.png">
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9015</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -45,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -83,7 +84,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/debruine/faux">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,6 +97,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -109,9 +111,9 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(faux)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidyr)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(faux)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a></code></pre></div>
 <div id="sim_mixed_cc" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sim_mixed_cc" class="anchor"></a>sim_mixed_cc</h2>
@@ -126,9 +128,9 @@
 <a class="sourceLine" id="cb2-7" data-line-number="7">  <span class="dt">error_sd =</span> <span class="dv">3</span>  <span class="co"># SD of residual error</span></a>
 <a class="sourceLine" id="cb2-8" data-line-number="8">)</a></code></pre></div>
 <p>You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat_cc) <span class="op">%&gt;%</span></a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">lme4<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat_cc) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</a>
 <a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; Registered S3 methods overwritten by 'broom.mixed':</span></a>
 <a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;   method         from </span></a>
 <a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   augment.lme    broom</span></a>
@@ -157,15 +159,15 @@
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">10.011</td>
-<td align="right">0.356</td>
-<td align="right">28.105</td>
+<td align="right">9.532</td>
+<td align="right">0.325</td>
+<td align="right">29.346</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">0.864</td>
+<td align="right">1.007</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -173,7 +175,7 @@
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">2.425</td>
+<td align="right">2.163</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -181,7 +183,7 @@
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">2.974</td>
+<td align="right">3.023</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -190,9 +192,9 @@
 <p>For example, changing <code>grand_i</code> to 0 changes the estimate for the fixed effect of the intercept <code>(Intercept)</code>. Changing <code>sub_sd</code> to 1.5 and <code>item_sd</code> to 3 change the estimate for the SD of their corresponding random effects. Changing <code>error_sd</code> to 10 changes the estimate from the Residual SD.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">dat_cc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_mixed_cc.html">sim_mixed_cc</a></span>(<span class="dv">100</span>, <span class="dv">50</span>, <span class="dv">0</span>, <span class="fl">1.5</span>, <span class="dv">3</span>, <span class="dv">10</span>)</a>
 <a class="sourceLine" id="cb4-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">lme4<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat_cc) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3">lme4<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat_cc) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb4-4" data-line-number="4"><span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/knitr/topics/kable">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb4-5" data-line-number="5"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">effect</th>
@@ -207,15 +209,15 @@
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">-0.475</td>
-<td align="right">0.548</td>
-<td align="right">-0.866</td>
+<td align="right">-0.002</td>
+<td align="right">0.535</td>
+<td align="right">-0.003</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.274</td>
+<td align="right">1.640</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -223,7 +225,7 @@
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">3.637</td>
+<td align="right">3.458</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -231,7 +233,7 @@
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">10.008</td>
+<td align="right">10.010</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -241,7 +243,7 @@
 <div id="sim_mixed_df" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sim_mixed_df" class="anchor"></a>sim_mixed_df</h2>
-<p>This function uses <code><a href="https://www.rdocumentation.org/packages/lme4/topics/lmer">lme4::lmer()</a></code> to get subject, item and error SDs from an existing dataset and simulates a new dataset with the specified number of subjects and items with distributions drawn from the example data.</p>
+<p>This function uses <code><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lme4::lmer()</a></code> to get subject, item and error SDs from an existing dataset and simulates a new dataset with the specified number of subjects and items with distributions drawn from the example data.</p>
 <p>This example uses the <code>fr4</code> dataset from this package to simulate 100 new subjects viewing 50 new faces.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">new_dat &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_mixed_df.html">sim_mixed_df</a></span>(fr4, </a>
@@ -254,6 +256,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -267,17 +270,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Lisa DeBruine.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
