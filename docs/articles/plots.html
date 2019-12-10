@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Plotting">
 <meta property="og:description" content="">
 <meta property="og:image" content="/logo.png">
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9015</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
       </span>
     </div>
 
@@ -45,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fa fa-home fa-lg"></span>
+    <span class="fas fa fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -83,7 +84,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/debruine/faux">
-    <span class="fa fa-github fa-lg"></span>
+    <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,6 +97,7 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
@@ -109,7 +111,7 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(faux)</a></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(faux)</a></code></pre></div>
 <div id="plotting-designs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-designs" class="anchor"></a>Plotting Designs</h2>
@@ -124,44 +126,44 @@
 <a class="sourceLine" id="cb2-5" data-line-number="5">p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dv">5</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
 <a class="sourceLine" id="cb2-6" data-line-number="6">p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="dv">6</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
 <a class="sourceLine" id="cb2-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8">cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(p1, p2, p3, p4, p5, p6, <span class="dt">nrow =</span> <span class="dv">2</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb2-8" data-line-number="8">cowplot<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(p1, p2, p3, p4, p5, p6, <span class="dt">nrow =</span> <span class="dv">2</span>)</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-2-1.png" width="960"></p>
 </div>
 <div id="two-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#two-factor-designs" class="anchor"></a>Two-factor designs</h3>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2">p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3">p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4">p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5">p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">p1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2">p2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">3</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3">p3 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">4</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">p4 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">6</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">p5 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">3</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">9</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
+<a class="sourceLine" id="cb3-6" data-line-number="6">p6 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">3</span>,<span class="dv">4</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">12</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>()</a>
 <a class="sourceLine" id="cb3-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8">cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(p1, p2, p3, p4, p5, p6, <span class="dt">nrow =</span> <span class="dv">3</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-8" data-line-number="8">cowplot<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(p1, p2, p3, p4, p5, p6, <span class="dt">nrow =</span> <span class="dv">3</span>)</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-3-1.png" width="960"></p>
 </div>
 <div id="three-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#three-factor-designs" class="anchor"></a>Three-factor designs</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span><span class="op">^</span><span class="dv">3</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span><span class="op">^</span><span class="dv">3</span>)</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-4-1.png" width="960"></p>
 </div>
 <div id="four-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#four-factor-designs" class="anchor"></a>Four-factor designs</h3>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span><span class="op">^</span><span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">2</span><span class="op">^</span><span class="dv">4</span>)</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-5-1.png" width="960"></p>
 </div>
 <div id="five-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#five-factor-designs" class="anchor"></a>Five-factor designs</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span>(<span class="dv">2</span><span class="op">^</span><span class="dv">5</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span>(<span class="dv">2</span><span class="op">^</span><span class="dv">5</span>))</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-6-1.png" width="960"></p>
 </div>
 <div id="six-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#six-factor-designs" class="anchor"></a>Six-factor designs</h3>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span>(<span class="dv">2</span><span class="op">^</span><span class="dv">6</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span>(<span class="dv">2</span><span class="op">^</span><span class="dv">6</span>))</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-7-1.png" width="960"></p>
 </div>
 </div>
@@ -181,9 +183,9 @@
 <p><img src="plots_files/figure-html/unnamed-chunk-10-1.png" width="960"></p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="dt">geoms =</span> <span class="st">"pointrangeSD"</span>)</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-11-1.png" width="960"></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="dt">geoms =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"violin"</span>, <span class="st">"pointrangeSE"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1"><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="dt">geoms =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"violin"</span>, <span class="st">"pointrangeSE"</span>))</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-12-1.png" width="960"></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="dt">geoms =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"violin"</span>, <span class="st">"jitter"</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1"><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="dt">geoms =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"violin"</span>, <span class="st">"jitter"</span>))</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-13-1.png" width="960"></p>
 </div>
 <div id="two-factor-data" class="section level3">
@@ -196,7 +198,7 @@
 <div id="change-order-of-factors" class="section level3">
 <h3 class="hasAnchor">
 <a href="#change-order-of-factors" class="anchor"></a>Change order of factors</h3>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">n =</span> <span class="dv">50</span>, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">sd =</span> <span class="dv">16</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</a>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1">data &lt;-<span class="st"> </span><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>), <span class="dt">n =</span> <span class="dv">50</span>, <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">8</span>, <span class="dt">sd =</span> <span class="dv">16</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</a>
 <a class="sourceLine" id="cb15-2" data-line-number="2">abc &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="dt">geoms =</span> <span class="st">"violin"</span>)</a>
 <a class="sourceLine" id="cb15-3" data-line-number="3">acb &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="dt">geoms =</span> <span class="st">"violin"</span>)</a>
 <a class="sourceLine" id="cb15-4" data-line-number="4">bac &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="dt">geoms =</span> <span class="st">"violin"</span>)</a>
@@ -204,10 +206,10 @@
 <a class="sourceLine" id="cb15-6" data-line-number="6">cab &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="dt">geoms =</span> <span class="st">"violin"</span>)</a>
 <a class="sourceLine" id="cb15-7" data-line-number="7">cba &lt;-<span class="st"> </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(data, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="dt">geoms =</span> <span class="st">"violin"</span>)</a>
 <a class="sourceLine" id="cb15-8" data-line-number="8"></a>
-<a class="sourceLine" id="cb15-9" data-line-number="9">cowplot<span class="op">::</span><span class="kw"><a href="https://www.rdocumentation.org/packages/cowplot/topics/plot_grid">plot_grid</a></span>(abc, acb, bac, bca, cab, cba, <span class="dt">nrow =</span> <span class="dv">3</span>, </a>
-<a class="sourceLine" id="cb15-10" data-line-number="10">                   <span class="dt">labels =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">"abc"</span>, <span class="st">"acb"</span>, <span class="st">"bac"</span>, <span class="st">"bca"</span>, <span class="st">"cab"</span>, <span class="st">"cba"</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb15-9" data-line-number="9">cowplot<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(abc, acb, bac, bca, cab, cba, <span class="dt">nrow =</span> <span class="dv">3</span>, </a>
+<a class="sourceLine" id="cb15-10" data-line-number="10">                   <span class="dt">labels =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"abc"</span>, <span class="st">"acb"</span>, <span class="st">"bac"</span>, <span class="st">"bca"</span>, <span class="st">"cab"</span>, <span class="st">"cba"</span>))</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-15-1.png" width="960"></p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">5</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">40</span>, <span class="dt">sd =</span> <span class="dv">5</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">2</span>,<span class="dv">5</span>), <span class="dt">mu =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">40</span>, <span class="dt">sd =</span> <span class="dv">5</span>, <span class="dt">plot =</span> <span class="ot">FALSE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb16-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="st">"D"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>)</a></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-16-1.png" width="960"></p>
 </div>
@@ -215,6 +217,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -228,17 +231,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by Lisa DeBruine.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>
