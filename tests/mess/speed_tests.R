@@ -14,28 +14,35 @@ between <- list()
 
 mu <- c(W1_X1 = 10, W1_X2 = 12, W2_X1 = 10, W2_X2 = 10)
 
+rep <- 1000
+system.time(
+  df <- sim_design(within, between, n = 20, mu = mu, sd = 4, 
+                   long = TRUE, plot = FALSE, rep = rep)
+)
+
+system.time(
+  df <- purrr::map_df(1:rep, ~sim_design(within, between, n = 20, mu = mu, sd = 4, 
+                   long = TRUE, plot = FALSE, rep = 1))
+)
+
 
 anova_func <- function(i, v = "afex") {
   #utils::setTxtProgressBar(pb, i)
-  df <- sim_design(within, between, n = 20, mu = mu, sd = 4, frame_long = TRUE)
+  df <- sim_design(within, between, n = 20, mu = mu, sd = 4, 
+                   long = TRUE, plot = FALSE, rep = 2)
   
   if (v == "afex") {
-    afex::aov_4(val~(X*W|sub_id), data = df, return = "aov") %>%
+    afex::aov_4(y~(X*W|id), data = df, return = "aov") %>%
       broom::tidy()
   } else if (v == "aov") {
-    aov(val~(X*W)+Error(sub_id/(X*W)), data = df, contrasts = NULL) %>%
+    aov(y~(X*W)+Error(id/(X*W)), data = df, contrasts = NULL) %>%
       broom::tidy()
   }
 }
 
-anova_func2 <- function(i) {
-  df <- sim_design(within, between, n = 20, mu = mu, sd = 4, frame_long = TRUE)
-  
-  aov(val~(X*W)+Error(sub_id/(X*W)), data = df, contrasts = NULL) %>%
-      broom::tidy()
-}
 
-reps <- 10000
+anova_func()
+reps <- 100
 #pb <- utils::txtProgressBar(max = reps)
 system.time(
   sims_afex <- purrr::map_df(1:reps, anova_func, v = "afex")
@@ -77,3 +84,6 @@ sims %>%
 # > sims <- purrr::map_df(1:1e4, anova_func)
 ##------ Mon Apr 29 17:02:51 2019 ------##
 
+system.time(
+  
+)

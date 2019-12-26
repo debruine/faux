@@ -43,7 +43,7 @@
 
 
 <meta property="og:title" content="Make ID — make_id" />
-<meta property="og:description" content="Make IDs with fixed length and a letter prefix for random effects (e.g., S001, S002, ..., S100)." />
+<meta property="og:description" content="Make IDs with fixed length and a prefix (e.g., S001, S002, ..., S100)." />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9017</span>
       </span>
     </div>
 
@@ -146,10 +146,10 @@
     </div>
 
     <div class="ref-description">
-    <p>Make IDs with fixed length and a letter prefix for random effects (e.g., S001, S002, ..., S100).</p>
+    <p>Make IDs with fixed length and a prefix (e.g., S001, S002, ..., S100).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_id</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"S"</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>)</pre>
+    <pre class="usage"><span class='fu'>make_id</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"S"</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,11 +160,15 @@
     </tr>
     <tr>
       <th>prefix</th>
-      <td><p>the letter prefix to the number</p></td>
+      <td><p>the prefix to the number (default "S")</p></td>
     </tr>
     <tr>
       <th>digits</th>
-      <td><p>the number of digits to use for the numeric part. Only used if this is larger than the number of digits in n.</p></td>
+      <td><p>the number of digits to use for the numeric part. Only used if this is larger than the largest number of digits in n.</p></td>
+    </tr>
+    <tr>
+      <th>suffix</th>
+      <td><p>the suffix to the number (default "")</p></td>
     </tr>
     </table>
 

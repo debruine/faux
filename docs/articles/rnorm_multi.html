@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9017</span>
       </span>
     </div>
 
@@ -525,8 +525,6 @@
 <a class="sourceLine" id="cb7-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3">sl.<span class="fl">5.</span>v1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span>(sl, <span class="dt">mu =</span> <span class="dv">10</span>, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">r =</span> <span class="fl">0.5</span>)</a>
 <a class="sourceLine" id="cb7-4" data-line-number="4">sl.<span class="fl">5.</span>v2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span>(sl, <span class="dt">mu =</span> <span class="dv">10</span>, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">r =</span> <span class="fl">0.5</span>)</a></code></pre></div>
-<pre><code>#&gt; Warning: All elements of `...` must be named.
-#&gt; Did you want `multisim_data = c(sl, sl.5.v1, sl.5.v2)`?</code></pre>
 <table class="table">
 <caption>rnorm_pre</caption>
 <thead><tr class="header">
@@ -569,10 +567,8 @@
 </tbody>
 </table>
 <p>Set <code>empirical = TRUE</code> to return a vector with the <strong>exact</strong> specified parameters.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">sl.<span class="fl">5.</span>v1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span>(sl, <span class="dt">mu =</span> <span class="dv">10</span>, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">r =</span> <span class="fl">0.5</span>, <span class="dt">empirical =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">sl.<span class="fl">5.</span>v2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span>(sl, <span class="dt">mu =</span> <span class="dv">10</span>, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">r =</span> <span class="fl">0.5</span>, <span class="dt">empirical =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<pre><code>#&gt; Warning: All elements of `...` must be named.
-#&gt; Did you want `multisim_data = c(sl, sl.5.v1, sl.5.v2)`?</code></pre>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">sl.<span class="fl">5.</span>v1 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span>(sl, <span class="dt">mu =</span> <span class="dv">10</span>, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">r =</span> <span class="fl">0.5</span>, <span class="dt">empirical =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb8-2" data-line-number="2">sl.<span class="fl">5.</span>v2 &lt;-<span class="st"> </span><span class="kw"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span>(sl, <span class="dt">mu =</span> <span class="dv">10</span>, <span class="dt">sd =</span> <span class="dv">2</span>, <span class="dt">r =</span> <span class="fl">0.5</span>, <span class="dt">empirical =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <table class="table">
 <caption>rnorm_pre with empirical = TRUE</caption>
 <thead><tr class="header">

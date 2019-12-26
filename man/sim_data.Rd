@@ -4,8 +4,8 @@
 \alias{sim_data}
 \title{Simulate data from design (internal)}
 \usage{
-sim_data(design, empirical = FALSE, long = FALSE, seed = NULL,
-  sep = faux_options("sep"))
+sim_data(design, empirical = FALSE, long = FALSE, rep = 1,
+  seed = NULL, sep = faux_options("sep"))
 }
 \arguments{
 \item{design}{A list of design parameters created by check_design()}
@@ -13,6 +13,8 @@ sim_data(design, empirical = FALSE, long = FALSE, seed = NULL,
 \item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 
 \item{long}{Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format}
+
+\item{rep}{the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep}
 
 \item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 

@@ -46,6 +46,11 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
     } else {
       stop("The data table must have a design attribute")
     }
+    if (all(names(data) == c("rep", "data"))) {
+      # nested data, just graph first row
+      data <- tidyr::unnest(data, data)
+      attr(data, "design") <- design
+    }
     if (!(names(design$dv) %in% names(data))) {
       # get data into long format
       data <- wide2long(data)
@@ -55,6 +60,10 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
   }
   
   factors <- c(design$within, design$between)
+  if ("rep" %in% names(data)) {
+    factors$rep <- as.list(unique(data$rep))
+    names(factors$rep) <- factors$rep
+  }
   factor_n <- length(factors)
   f <- syms(names(factors)) # make it possible to use strings to specify columns
   dv <- sym(names(design$dv))

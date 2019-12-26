@@ -1,7 +1,8 @@
-# faux 0.0.0.9017 (2019-12-10)
+# faux 0.0.0.9017 (2019-12-26)
 
-* Improved make_id() function
-* Fixed warnings on get_params()
+* Added `rep` argument to `sim_design()` and `sim_data()`. If rep > 1, returns a nested data frame with `rep` simulated datasets.
+* Fixed warnings on `get_params()`
+* Improved `make_id()` function
 
 # faux 0.0.0.9016 (2019-12-10)
 
