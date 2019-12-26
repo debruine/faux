@@ -350,3 +350,40 @@ df <- sim_design(within, between, n = 100,
                  mu = mu, sd = 2, r = r, 
                  dv = c(rt = "Reaction Time"), long = TRUE)
 ```
+
+## Multiple datasets
+
+You can simulate multiple datasets by setting the `rep` argument of `sim_design()` to a number greater than 1. This will return a nested data frame with one column called `rep` and another column called `data`, that contains each individual data frame. This method is ** much** faster than repeatedly calling `sim_design()`, which will check the syntax of your design each time.
+
+The code below creates 5 data frames with a 2W*2B design.
+
+```{r}
+df <- sim_design(within = 2, between = 2, 
+                 n = 50, mu = c(1, 1, 1, 1.5), 
+                 sd = 1, r = 0.5, 
+                 long = TRUE, rep = 5)
+```
+
+The `plot_design()` function will plot each replication in a different facet.
+
+```{r, fig.width = 5, fig.height = 5}
+plot_design(df)
+```
+
+You can access an individual data frame using `df$data[[1]]` or run the same function on each data frame using a pattern like below:
+
+```{r}
+# set contrasts for afex
+options(contrasts=c('contr.sum','contr.poly'))
+
+df %>%
+  mutate(analysis = purrr::map(data, function(data) {
+    afex::aov_4(y ~ B + (A | id), 
+                data = data, 
+                return = "aov") %>% 
+      broom::tidy()
+  })) %>%
+  select(-data) %>%
+  unnest(analysis)
+```
+

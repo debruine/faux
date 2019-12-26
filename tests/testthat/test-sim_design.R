@@ -22,6 +22,10 @@ test_that("error messages", {
   within <- list("A" = c("yes", "yes"), "C" = c("C1", "C2"))
   between <- list("B" = c("yes", "yes"), "D" = c("D1", "D2"))
   expect_error(sim_design(within, between), level_err)
+  
+  expect_error(sim_design(rep = "A"), "rep must be a number")
+  expect_error(sim_design(rep = -2), "rep must be >= 1")
+  expect_warning(sim_design(rep = 2.2), "rep should be an integer")
 })
 
 # 2w ----
@@ -546,3 +550,23 @@ test_that("from design", {
 #   data <- sim_design(2, n = 2, r = 0.5, empirical = TRUE)
 #   
 # })
+
+# multiple reps ----
+test_that("multiple reps", {
+  rep <- 9
+  n <- 10
+  df <- sim_design(2, n = n, rep = rep, plot = FALSE)
+  
+  expect_equal(nrow(df), rep)
+  expect_equal(nrow(df$data[[1]]), n)
+  expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]])))
+  expect_equal(names(df$data[[1]]), c("id", "A1", "A2"))
+  
+  df <- sim_design(2, n = n, rep = rep, 
+                   long = TRUE, plot = FALSE)
+  
+  expect_equal(nrow(df), rep)
+  expect_equal(nrow(df$data[[1]]), 2*n)
+  expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]])))
+  expect_equal(names(df$data[[1]]), c("id", "A", "y"))
+})

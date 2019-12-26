@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9016</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9017</span>
       </span>
     </div>
 
@@ -146,11 +146,11 @@
 <a class="sourceLine" id="cb3-4" data-line-number="4">cowplot<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(p1, p2, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">align =</span> <span class="st">"v"</span>)</a></code></pre></div>
 <p><img src="figure/plot-design-1.png" alt="Plot the data with different visualisations."></p>
 </div>
-<div id="simulate-data-from-an-existing-data-table" class="section level3">
+<div id="simulate-new-data-from-an-existing-data-table" class="section level3">
 <h3 class="hasAnchor">
-<a href="#simulate-data-from-an-existing-data-table" class="anchor"></a>Simulate data from an existing data table</h3>
+<a href="#simulate-new-data-from-an-existing-data-table" class="anchor"></a>Simulate new data from an existing data table</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">new_iris &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_df.html">sim_df</a></span>(iris, <span class="dv">50</span>, <span class="dt">between =</span> <span class="st">"Species"</span>) </a></code></pre></div>
-<pre><code>#&gt; Error in ggplot(., aes(Sepal.Width, Sepal.Length, color = Species)): could not find function "ggplot"</code></pre>
+<p><img src="figure/plot-iris-sim-1.png" alt="Simulated iris dataset"></p>
 </div>
 </div>
 </div>

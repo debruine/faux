@@ -7,7 +7,7 @@
 sim_design(within = list(), between = list(), n = 100, mu = 0,
   sd = 1, r = 0, empirical = FALSE, long = FALSE, dv = list(y =
   "value"), id = list(id = "id"), plot = faux_options("plot"),
-  seed = NULL, interactive = FALSE, design = NULL)
+  seed = NULL, interactive = FALSE, design = NULL, rep = 1)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}
@@ -37,6 +37,8 @@ sim_design(within = list(), between = list(), n = 100, mu = 0,
 \item{interactive}{whether to run the function interactively}
 
 \item{design}{a design list including within, between, n, mu, sd, r, dv, id}
+
+\item{rep}{the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep}
 }
 \value{
 a tbl

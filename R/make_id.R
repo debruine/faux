@@ -1,9 +1,10 @@
 #' Make ID
 #' 
-#' Make IDs with fixed length and a letter prefix for random effects (e.g., S001, S002, ..., S100).
+#' Make IDs with fixed length and a prefix (e.g., S001, S002, ..., S100).
 #' @param n the number of IDs to generate (or a vector of numbers)
-#' @param prefix the letter prefix to the number
-#' @param digits the number of digits to use for the numeric part. Only used if this is larger than the number of digits in n.
+#' @param prefix the prefix to the number (default "S")
+#' @param digits the number of digits to use for the numeric part. Only used if this is larger than the largest number of digits in n.
+#' @param suffix the suffix to the number (default "")
 #' 
 #' @return a vector of IDs
 #' @export
@@ -13,15 +14,19 @@
 #' make_id(20, "SUBJECT_")
 #' make_id(10:30, digits = 3)
 #' 
-make_id <- function(n = 100, prefix = "S", digits = 0) {
-  # set max digits to the larger of digits in `n`` or `digits`
-  if (length(n) == 1) {
-    max_n <- n
-    n <- 1:max_n
-  } else {
-    max_n <- max(n)
-  }
+make_id <- function(n = 100, prefix = "S", digits = 0, suffix = "") {
+  if (!is.numeric(n)) stop("n must be numeric")
   
-  max_digits <- max(floor(log10(max_n))+1, digits)
-  paste0(prefix, formatC(n, width = max_digits, flag = "0"))
+  if (length(n) == 1) n <- 1:n
+  
+  max_digits <- as.character(n) %>% 
+    nchar() %>% max() %>% max(digits)
+  max_decimal <- as.character(n) %>% 
+    # remove whole number parts 
+    # (don't use n%%1 because floating point precision)
+    sub("(^\\d*\\.|^\\d*$)", "", .) %>% 
+    nchar() %>% max()
+  fmt <- paste0(prefix, "%0", max_digits, ".", max_decimal, "f", suffix)
+  
+  sprintf(fmt, n)
 }
