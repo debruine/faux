@@ -1,6 +1,7 @@
 # faux 0.0.0.9017 (2019-12-10)
 
 * Improved make_id() function
+* Fixed warnings on get_params()
 
 # faux 0.0.0.9016 (2019-12-10)
 

@@ -33,7 +33,8 @@ sim_design <- function(within = list(), between = list(),
   # check the design is specified correctly
   if (interactive) {
     design <- interactive_design(plot = plot)
-  } else if (!is.null(design)) {
+  } else if (!is.null(design)) { 
+    #& !("design" %in% class(design))) {
     # double-check the entered design
     design <- check_design(design = design, plot = plot)
   } else if ("design" %in% class(within)) {

@@ -38,12 +38,12 @@ get_params <- function(data, between = c(), within = c(),
     tidyr::spread(stat, val)
   
   stats <- grpdat %>%
-    tidyr::nest(tidyselect::one_of(numvars), .key = "multisim_data") %>%
+    tidyr::nest("multisim_data" = tidyselect::one_of(numvars)) %>%
     dplyr::mutate("multisim_cor" = purrr::map(multisim_data, function(d) {
       cor(d) %>% round(digits) %>% tibble::as_tibble(rownames = "var")
     })) %>%
     dplyr::select(-multisim_data) %>%
-    tidyr::unnest(multisim_cor) %>%
+    tidyr::unnest(cols = "multisim_cor") %>%
     dplyr::left_join(descriptives, by = c(between, "var")) %>%
     dplyr::select(tidyselect::one_of(c(between, "n", "var", numvars, "mean", "sd")))
     
