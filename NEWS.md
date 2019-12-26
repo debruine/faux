@@ -1,3 +1,11 @@
+# faux 0.0.0.9017 (2019-12-10)
+
+* Improved make_id() function
+
+# faux 0.0.0.9016 (2019-12-10)
+
+* Removed ANOVApower
+
 # faux 0.0.0.9015 (2019-07-22)
 
 * Added distribution conversion functions (still experimental)

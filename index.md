@@ -65,14 +65,12 @@ cowplot::plot_grid(p1, p2, nrow = 2, align = "v")
 
 ![Plot the data with different visualisations.](figure/plot-design-1.png)
 
-### Simulate data from an existing data table
+### Simulate new data from an existing data table
 
 
 ```r
 new_iris <- sim_df(iris, 50, between = "Species") 
 ```
 
+![Simulated iris dataset](figure/plot-iris-sim-1.png)
 
-```
-#> Error in ggplot(., aes(Sepal.Width, Sepal.Length, color = Species)): could not find function "ggplot"
-```
