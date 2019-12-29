@@ -53,8 +53,15 @@ sim_df <- function (data, n = 100, within = c(), between = c(), id = "id", dv = 
   
   grpdat <- select_num_grp(data, between)
   
+  if (length(between)) {
+    if (is.numeric(between)) between <- names(data)[between]
+    nestcols <- setdiff(names(grpdat), between)
+  } else {
+    nestcols <- names(grpdat)
+  }
+  
   simdat <- grpdat %>%
-    tidyr::nest() %>%
+    tidyr::nest("data" = nestcols) %>%
     dplyr::mutate("newsim" = purrr::map(data, function(data) {
       rnorm_multi(
         n = n, 
