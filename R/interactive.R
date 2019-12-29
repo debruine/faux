@@ -15,14 +15,14 @@ unique_pairs <- function(v) {
   v <- factor(v, levels = v)
   
   expand.grid(a = v, b = v) %>% 
-    dplyr::filter(a != b) %>% t() %>% 
+    dplyr::filter(.data$a != .data$b) %>% t() %>% 
     as.data.frame() %>% 
     dplyr::mutate_all(factor, levels = v) %>%
     dplyr::mutate_all(sort) %>% t() %>%
     as.data.frame() %>% 
-    tidyr::unite(combo, 1:2, sep = "-") %>%
-    dplyr::distinct(combo) %>%
-    dplyr::pull(combo)
+    tidyr::unite("combo", 1:2, sep = "-") %>%
+    dplyr::distinct(.data$combo) %>%
+    dplyr::pull(.data$combo)
 }
 
 

@@ -113,7 +113,9 @@
     
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(faux)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a></code></pre></div>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidyr)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(broom.mixed)</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(lme4)</a></code></pre></div>
 <div id="sim_mixed_cc" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sim_mixed_cc" class="anchor"></a>sim_mixed_cc</h2>
@@ -130,21 +132,7 @@
 <p>You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">lme4<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat_cc) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; Registered S3 methods overwritten by 'broom.mixed':</span></a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt;   method         from </span></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="co">#&gt;   augment.lme    broom</span></a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="co">#&gt;   augment.merMod broom</span></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co">#&gt;   glance.lme     broom</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="co">#&gt;   glance.merMod  broom</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt;   glance.stanreg broom</span></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt;   tidy.brmsfit   broom</span></a>
-<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt;   tidy.gamlss    broom</span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="co">#&gt;   tidy.lme       broom</span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="co">#&gt;   tidy.merMod    broom</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="co">#&gt;   tidy.rjags     broom</span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="co">#&gt;   tidy.stanfit   broom</span></a>
-<a class="sourceLine" id="cb3-17" data-line-number="17"><span class="co">#&gt;   tidy.stanreg   broom</span></a></code></pre></div>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">effect</th>
@@ -159,15 +147,15 @@
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">9.975</td>
-<td align="right">0.28</td>
-<td align="right">35.649</td>
+<td align="right">9.867</td>
+<td align="right">0.312</td>
+<td align="right">31.633</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.023</td>
+<td align="right">1.157</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -175,7 +163,7 @@
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.817</td>
+<td align="right">2.026</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -183,7 +171,7 @@
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">3.018</td>
+<td align="right">3.010</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -209,15 +197,15 @@
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">-0.405</td>
-<td align="right">0.456</td>
-<td align="right">-0.887</td>
+<td align="right">0.084</td>
+<td align="right">0.544</td>
+<td align="right">0.154</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.580</td>
+<td align="right">1.223</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -225,7 +213,7 @@
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">2.852</td>
+<td align="right">3.611</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -233,7 +221,7 @@
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">10.131</td>
+<td align="right">10.010</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>

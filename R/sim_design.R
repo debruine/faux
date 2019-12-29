@@ -90,6 +90,14 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
     set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
   }
   
+  # defaults
+  within <- list()
+  between <- list()
+  n  <- 100
+  mu <- 0
+  sd <- 1
+  r  <- 0
+  #override with values from design
   list2env(design, envir = environment())
   
   # only use DV and ID names here
@@ -97,8 +105,8 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
   id <- names(id)
   
   # define columns
-  cells_w <- faux:::cell_combos(within, dv)
-  cells_b <- faux:::cell_combos(between, dv) 
+  cells_w <- cell_combos(within, dv)
+  cells_b <- cell_combos(between, dv) 
   
   # get factor names
   within_factors <- names(within)
@@ -147,9 +155,9 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
   # create wide dataframe
   df_wide <- df %>%
     tidyr::separate("btwn", between_factors, sep = sep) %>%
-    dplyr::group_by(`.rep.`) %>%
+    dplyr::group_by(.data$`.rep.`) %>%
     dplyr::mutate(!!id := make_id(sub_n)) %>%
-    dplyr::ungroup(`.rep.`) %>%
+    dplyr::ungroup(.data$`.rep.`) %>%
     dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
     dplyr::select(tidyselect::one_of(col_order))
   
@@ -187,9 +195,9 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
     df_return$`.rep.` <- NULL
   } else {
     df_return <- df_return %>%
-      dplyr::group_by(`.rep.`) %>%
+      dplyr::group_by(.data$`.rep.`) %>%
       tidyr::nest() %>%
-      dplyr::rename("rep" = `.rep.`)
+      dplyr::rename("rep" = .data$`.rep.`)
   }
   return(df_return)
 }

@@ -1,7 +1,7 @@
 Package: faux
 Title: Simulation Functions
-Version: 0.0.0.9017
-Date: 2019-12-26
+Version: 0.0.0.9018
+Date: 2019-12-29
 Authors@R: person(given = "Lisa", family = "DeBruine", role = c("aut", "cre"), email = "debruine@gmail.com", comment = c(ORCID = "0000-0002-7523-5539"))
 Description: The faux package provides functions for simulating datasets with specified structure.
 Depends:
@@ -18,7 +18,6 @@ Imports:
     stats,
     ggplot2,
     rlang (>= 0.1.2),
-    broom.mixed,
     jsonlite,
     truncnorm
 License: MIT + file LICENSE
@@ -30,7 +29,9 @@ Suggests:
     roxygen2,
     covr,
     cowplot,
-    ggExtra
+    ggExtra,
+    broom,
+    broom.mixed
 VignetteBuilder: knitr
 RoxygenNote: 6.1.1
 Encoding: UTF-8
