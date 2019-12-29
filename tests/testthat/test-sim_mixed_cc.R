@@ -1,5 +1,6 @@
 context("sim_mixed_cc")
 
+# default ----
 test_that("default", {
   data <- sim_mixed_cc()
   
@@ -13,6 +14,7 @@ test_that("default", {
   expect_equal(res$estimate, c(1,1,1), tolerance = 0.4)
 })
 
+# n ----
 test_that("n", {
   data <- sim_mixed_cc(100, 100)
   
@@ -56,3 +58,34 @@ test_that("seed", {
   expect_equal(df4, df5)
 })
 
+# fixed intercepts ----
+test_that("fixed intercepts", {
+  # unnamed vectors
+  data <- sim_mixed_cc(3, 3, 0, 1:3, 4:6)
+  
+  sub_ids <- unique(data$sub_id) %>% as.vector()
+  item_ids <- unique(data$item_id) %>% as.vector()
+  sub_is <- unique(data$sub_i) %>% as.vector()
+  item_is <- unique(data$item_i) %>% as.vector()
+  
+  expect_equal(sub_ids, c("S1", "S2", "S3"))
+  expect_equal(item_ids, c("I1", "I2", "I3"))
+  expect_equal(sub_is, 1:3)
+  expect_equal(item_is, 4:6)
+  
+  # named vectors
+  sub_sd <- c("A" = 1, "B" = 2, "C" = 3)
+  item_sd <- c("D" = 4, "E" = 5, "F" = 6)
+  
+  data <- sim_mixed_cc(3, 3, 0, sub_sd, item_sd)
+  
+  sub_ids <- unique(data$sub_id) %>% as.vector()
+  item_ids <- unique(data$item_id) %>% as.vector()
+  sub_is <- unique(data$sub_i) %>% as.vector()
+  item_is <- unique(data$item_i) %>% as.vector()
+  
+  expect_equal(sub_ids, LETTERS[1:3])
+  expect_equal(item_ids, LETTERS[4:6])
+  expect_equal(sub_is, 1:3)
+  expect_equal(item_is, 4:6)
+})

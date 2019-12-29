@@ -55,7 +55,7 @@ sim_df <- function (data, n = 100, within = c(), between = c(), id = "id", dv = 
   
   simdat <- grpdat %>%
     tidyr::nest() %>%
-    dplyr::mutate(newsim = purrr::map(data, function(data) {
+    dplyr::mutate("newsim" = purrr::map(data, function(data) {
       rnorm_multi(
         n = n, 
         vars = ncol(data), 
@@ -66,8 +66,8 @@ sim_df <- function (data, n = 100, within = c(), between = c(), id = "id", dv = 
         empirical = empirical
       )
     })) %>%
-    dplyr::select(-data) %>%
-    tidyr::unnest(newsim) %>%
+    dplyr::select(-.data$data) %>%
+    tidyr::unnest(.data$newsim) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(!!id := make_id(nrow(.))) %>%
     dplyr::select(!!id, tidyselect::everything())

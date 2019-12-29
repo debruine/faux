@@ -61,39 +61,39 @@ get_design_long <- function(data, dv = "y", id = "id", plot = faux_options("plot
   
   if (length(between_factors)) {
     chk_b <- tidyr::unite(chk, ".between", tidyselect::one_of(between_factors)) %>%
-      dplyr::mutate(.between = forcats::fct_relevel(.between, cells_b)) %>%
-      dplyr::arrange(.between)
+      dplyr::mutate(".between" = forcats::fct_relevel(.data$.between, cells_b)) %>%
+      dplyr::arrange(.data$.between)
   } else {
     chk_b <- dplyr::mutate(chk, ".between" = dv)
   }
   
   n <- chk_b %>%
-    dplyr::select(.between, var, n) %>%
-    tidyr::spread(var, n) %>%
+    dplyr::select(.data$.between, .data$var, .data$n) %>%
+    tidyr::spread(.data$var, .data$n) %>%
     dplyr::select(tidyselect::one_of(c(".between", cells_w))) %>%
     tibble::column_to_rownames(".between") %>% 
     as.data.frame()
   
   mu <- chk_b %>%
-    dplyr::select(.between, var, mean) %>%
-    tidyr::spread(var, mean) %>%
+    dplyr::select(.data$.between, .data$var, .data$mean) %>%
+    tidyr::spread(.data$var, .data$mean) %>%
     dplyr::select(tidyselect::one_of(c(".between", cells_w))) %>%
     tibble::column_to_rownames(".between") %>% 
     as.data.frame()
   
   sd <- chk_b %>%
-    dplyr::select(.between, var, sd) %>%
-    tidyr::spread(var, sd) %>%
+    dplyr::select(.data$.between, .data$var, .data$sd) %>%
+    tidyr::spread(.data$var, .data$sd) %>%
     dplyr::select(tidyselect::one_of(c(".between", cells_w))) %>%
     tibble::column_to_rownames(".between") %>% 
     as.data.frame()
   
   cors <- chk_b %>%
     dplyr::select(tidyselect::one_of(c(".between", "var", cells_w))) %>%
-    dplyr::mutate(var = forcats::fct_relevel(var, cells_w)) %>%
-    dplyr::arrange(var) %>%
-    dplyr::group_by(.between) %>%
-    tidyr::nest(.key = "r") %>%
+    dplyr::mutate("var" = forcats::fct_relevel(.data$var, cells_w)) %>%
+    dplyr::arrange(.data$var) %>%
+    dplyr::group_by(.data$.between) %>%
+    tidyr::nest("r" = -.data$.between) %>%
     as.list() 
   
   r <- purrr::map(cors$r, ~tibble::column_to_rownames(., "var") %>% as.matrix())

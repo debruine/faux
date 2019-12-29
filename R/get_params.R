@@ -33,16 +33,16 @@ get_params <- function(data, between = c(), within = c(),
     dplyr::summarise_all(grpdat, ~stats::sd(.)) %>% dplyr::mutate(stat = "sd"),
     dplyr::summarise_all(grpdat, ~dplyr::n()) %>% dplyr::mutate(stat = "n")
   ) %>%
-    tidyr::gather(var, val, dplyr::one_of(numvars)) %>%
-    dplyr::mutate(val = round(val, digits)) %>%
-    tidyr::spread(stat, val)
+    tidyr::gather("var", "val", dplyr::one_of(numvars)) %>%
+    dplyr::mutate("val" = round(.data$val, digits)) %>%
+    tidyr::spread(.data$stat, .data$val)
   
   stats <- grpdat %>%
     tidyr::nest("multisim_data" = tidyselect::one_of(numvars)) %>%
-    dplyr::mutate("multisim_cor" = purrr::map(multisim_data, function(d) {
+    dplyr::mutate("multisim_cor" = purrr::map(.data$multisim_data, function(d) {
       cor(d) %>% round(digits) %>% tibble::as_tibble(rownames = "var")
     })) %>%
-    dplyr::select(-multisim_data) %>%
+    dplyr::select(-.data$multisim_data) %>%
     tidyr::unnest(cols = "multisim_cor") %>%
     dplyr::left_join(descriptives, by = c(between, "var")) %>%
     dplyr::select(tidyselect::one_of(c(between, "n", "var", numvars, "mean", "sd")))

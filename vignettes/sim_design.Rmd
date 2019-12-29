@@ -144,7 +144,7 @@ design <- check_design(2, c(2,2), n = n, plot = FALSE)
 str(design$n)
 ```
 
-You can specify the cells as rowname or column names and `check_design()` will fix them. Since `n` **has** to be the same for each within-subject factor, you can specify n as a single column with any name.
+You can specify the cells as row names or column names and `check_design()` will fix them. Since `n` **has** to be the same for each within-subject factor, you can specify n as a single column with any name.
 
 ```{r}
 n <- data.frame(n = c(10, 20, 30, 40),
@@ -155,7 +155,7 @@ str(design$n)
 
 ### Mu and SD
 
-The specifications for `mu` and `sd` need both within-subect and between-subject cells. You can specify these as a single numbers, a vector, a named list of named vectors or a dataframe.
+The specifications for `mu` and `sd` need both within-subect and between-subject cells. You can specify these as a single numbers, a vector, a named list of named vectors or a data frame.
 
 #### Unnamed vector
 
@@ -185,7 +185,7 @@ design <- check_design(within, between, mu = mu, sd = 1, plot = FALSE)
 str(design$mu)
 ```
 
-Alternatively, you can specify them as dataframes.
+Alternatively, you can specify them as data frames.
 
 ```{r}
 mu <- data.frame(
@@ -234,8 +234,12 @@ If you have more than 2 within-subject cells, you can specify each specific corr
 
 ```{r}
 r <- list(
-  B1 = c(.10, .20, .30, .40, .50, .60),
-  B2 = c(.15, .25, .35, .45, .55, .65)
+  B1 = c(.10, .20, .30, 
+              .40, .50, 
+                   .60),
+  B2 = c(.15, .25, .35, 
+              .45, .55, 
+                   .65)
 )
 design <- check_design(4, 2, r = r, plot = FALSE)
 design$r
@@ -292,8 +296,11 @@ If you have any characters in your level names except letters and numbers, they 
 
 ```{r}
 within <- list(
-  condition = c(con = "Mean of congruent trials", inc = "Mean of incongruent trials"),
-  version = c(easy = "Easy", med = "Medium", hard = "Difficult")
+  condition = c(con = "Mean of congruent trials", 
+                inc = "Mean of incongruent trials"),
+  version = c(easy = "Easy", 
+              med  = "Medium", 
+              hard = "Difficult")
 )
 
 between <- list(
@@ -373,14 +380,9 @@ plot_design(df)
 You can access an individual data frame using `df$data[[1]]` or run the same function on each data frame using a pattern like below:
 
 ```{r}
-# set contrasts for afex
-options(contrasts=c('contr.sum','contr.poly'))
-
 df %>%
   mutate(analysis = purrr::map(data, function(data) {
-    afex::aov_4(y ~ B + (A | id), 
-                data = data, 
-                return = "aov") %>% 
+    stats::aov(y ~ B * A + Error(id/A), data = data) %>% 
       broom::tidy()
   })) %>%
   select(-data) %>%

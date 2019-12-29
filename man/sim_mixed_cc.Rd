@@ -14,9 +14,9 @@ sim_mixed_cc(sub_n = 100, item_n = 20, grand_i = 0, sub_sd = 1,
 
 \item{grand_i}{the grand intercept (overall mean)}
 
-\item{sub_sd}{the SD of subject random intercepts}
+\item{sub_sd}{the SD of subject random intercepts (or a sub_n-length named vector of random intercepts for each subject)}
 
-\item{item_sd}{the SD of item random intercepts}
+\item{item_sd}{the SD of item random intercepts (or an item_n-length named vector of random intercepts for each item)}
 
 \item{error_sd}{the SD of the error term}
 

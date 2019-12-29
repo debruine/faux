@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 library(faux)
 library(dplyr)
 library(tidyr)
+library(broom.mixed)
+library(lme4)
 ```
 
 ## sim_mixed_cc
