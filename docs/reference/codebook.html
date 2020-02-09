@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Convert truncated normal to normal — trunc2norm • faux</title>
+<title>Create PsychDS Codebook from Data — codebook • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="Convert truncated normal to normal — trunc2norm" />
-<meta property="og:description" content="Convert a truncated normal distribution to a normal (gaussian) distribution" />
+<meta property="og:title" content="Create PsychDS Codebook from Data — codebook" />
+<meta property="og:description" content="Create PsychDS Codebook from Data" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -140,54 +140,45 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Convert truncated normal to normal</h1>
-    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/distribution_convertors.R'><code>R/distribution_convertors.R</code></a></small>
-    <div class="hidden name"><code>trunc2norm.Rd</code></div>
+    <h1>Create PsychDS Codebook from Data</h1>
+    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/codebook.R'><code>R/codebook.R</code></a></small>
+    <div class="hidden name"><code>codebook.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Convert a truncated normal distribution to a normal (gaussian) distribution</p>
+    <p>Create PsychDS Codebook from Data</p>
     </div>
 
-    <pre class="usage"><span class='fu'>trunc2norm</span>(<span class='no'>x</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span>(<span class='no'>x</span>), <span class='kw'>max</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span>(<span class='no'>x</span>), <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>x</span>),
-  <span class='kw'>sd</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='no'>x</span>))</pre>
+    <pre class="usage"><span class='fu'>codebook</span>(<span class='no'>data</span>, <span class='kw'>coldesc</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>as_json</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>the truncated normally distributed vector</p></td>
+      <th>data</th>
+      <td><p>The data frame to generate a codebook for</p></td>
     </tr>
     <tr>
-      <th>min</th>
-      <td><p>the minimum of the truncated distribution (calculated from x if not given)</p></td>
+      <th>coldesc</th>
+      <td><p>Optional named list of column descriptions</p></td>
     </tr>
     <tr>
-      <th>max</th>
-      <td><p>the maximum of the truncated distribution (calculated from x if not given)</p></td>
+      <th>as_json</th>
+      <td><p>Whether the output should be a list or JSON format</p></td>
     </tr>
     <tr>
-      <th>mu</th>
-      <td><p>the mean of the distribution to return (calculated from x if not given)</p></td>
-    </tr>
-    <tr>
-      <th>sd</th>
-      <td><p>the SD of the distribution to return (calculated from x if not given)</p></td>
+      <th>interactive</th>
+      <td><p>Whether the function should prompt the user to describe columns and factor levels</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a vector with a uniform distribution</p>
+    <p>a list or json-formatted codebook</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>truncnorm</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/truncnorm/man/dtruncnorm.html'>rtruncnorm</a></span>(<span class='fl'>10000</span>, <span class='fl'>1</span>, <span class='fl'>7</span>, <span class='fl'>3.5</span>, <span class='fl'>2</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>trunc2norm</span>(<span class='no'>x</span>, <span class='fl'>1</span>, <span class='fl'>7</span>)
-<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() + <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
-<span class='kw pkg'>ggExtra</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggExtra/man/ggMarginal.html'>ggMarginal</a></span>(<span class='no'>g</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"histogram"</span>)</div><div class='img'><img src='trunc2norm-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sim_design.html'>sim_design</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</div><div class='img'><img src='codebook-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='no'>cb</span> <span class='kw'>&lt;-</span> <span class='fu'>codebook</span>(<span class='no'>data</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span> <span class='kw'>=</span> <span class='st'>"Factor 1"</span>, <span class='st'>"B"</span> <span class='kw'>=</span> <span class='st'>"Factor 2"</span>))</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
