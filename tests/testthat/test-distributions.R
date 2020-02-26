@@ -5,10 +5,13 @@ test_that("error", {
   missing_x <- "argument \"x\" is missing, with no default"
   expect_error(norm2unif(), missing_x)
   expect_error(norm2pois(), missing_x)
+  expect_error(norm2beta(), missing_x)
   expect_error(norm2binom(), missing_x)
   expect_error(unif2norm(), missing_x)
   
   expect_error(norm2pois(1), "argument \"lambda\" is missing, with no default")
+  expect_error(norm2beta(1), "argument \"shape1\" is missing, with no default")
+  expect_error(norm2beta(1, 1), "argument \"shape2\" is missing, with no default")
 })
 
 reps <- 1
@@ -69,6 +72,36 @@ test_that("norm2pois", {
     
     summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
     expect_equal(summ, c(lambda, lambda), tolerance = 0.1)
+  }
+})
+
+# norm2beta ----
+test_that("norm2beta", {
+  find_shape_params <- function(x) {
+    mu <- mean(x)
+    variance <- var(x)
+    shape1 <- ((1 - mu) / variance - 1 / mu) * mu^2
+    shape2 <- shape1 * (1 / mu - 1)
+    return(list(shape1 = shape1, shape2 = shape2))
+  }
+  
+  for (i in 1:reps) {
+    shape1 <- sample(1:10, 1)
+    shape2 <- sample(1:10, 1)
+    
+    s <- purrr::map_df(1:1000, ~{
+      x <- rnorm(100)
+      y <- norm2beta(x, shape1, shape2)
+      
+      y2 <- rbeta(100, shape1, shape2)
+      list(dist1_shape1 = find_shape_params(y)$shape1, 
+           dist1_shape2 = find_shape_params(y)$shape2,
+           dist2_shape1 = find_shape_params(y2)$shape1, 
+           dist2_shape2 = find_shape_params(y2)$shape2)
+    })
+    
+    summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
+    expect_equal(summ, c(shape1, shape2, shape1, shape2), tolerance = 0.05)
   }
 })
 
