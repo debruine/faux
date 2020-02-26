@@ -50,6 +50,29 @@ norm2pois <- function(x, lambda, mu = mean(x), sd = stats::sd(x)) {
 }
 
 
+#' Convert normal to beta
+#'
+#' @param x the normally distributed vector
+#' @param shape1,shape2 non-negative parameters of the distribution to return
+#' @param mu the mean of x (calculated from x if not given)
+#' @param sd the SD of x (calculated from x if not given)
+#'
+#' @return a vector with a beta distribution
+#' @export
+#'
+#' @examples
+#' 
+#' x <- rnorm(10000)
+#' y <- norm2beta(x, 1, 3)
+#' g <- ggplot2::ggplot() + ggplot2::geom_point(ggplot2::aes(x, y))
+#' ggExtra::ggMarginal(g, type = "histogram")
+#' 
+norm2beta <- function(x, shape1, shape2, mu = mean(x), sd = stats::sd(x), ...) {
+  p <- stats::pnorm(x, mu, sd)
+  stats::qbeta(p, shape1, shape2, ...)
+}
+
+
 #' Convert normal to binomial
 #'
 #' @param x the normally distributed vector
