@@ -48,6 +48,7 @@ reference:
   - '`norm2likert`'
   - '`norm2binom`'
   - '`norm2pois`'
+  - '`norm2beta`'
   - '`norm2unif`'
   - '`unif2norm`'
   - '`norm2trunc`'
