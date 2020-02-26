@@ -4,8 +4,7 @@
 \alias{check_mixed_design}
 \title{Get random intercepts for subjects and items}
 \usage{
-check_mixed_design(data, dv = 1, sub_id = 2, item_id = 3,
-  formula = NULL)
+check_mixed_design(data, dv = 1, sub_id = 2, item_id = 3, formula = NULL)
 }
 \arguments{
 \item{data}{the existing tbl}

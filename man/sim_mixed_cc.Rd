@@ -4,8 +4,16 @@
 \alias{sim_mixed_cc}
 \title{Generate a cross-classified sample}
 \usage{
-sim_mixed_cc(sub_n = 100, item_n = 20, grand_i = 0, sub_sd = 1,
-  item_sd = 1, error_sd = 1, empirical = FALSE, seed = NULL)
+sim_mixed_cc(
+  sub_n = 100,
+  item_n = 20,
+  grand_i = 0,
+  sub_sd = 1,
+  item_sd = 1,
+  error_sd = 1,
+  empirical = FALSE,
+  seed = NULL
+)
 }
 \arguments{
 \item{sub_n}{the number of subjects}

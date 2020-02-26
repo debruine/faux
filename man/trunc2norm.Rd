@@ -4,8 +4,7 @@
 \alias{trunc2norm}
 \title{Convert truncated normal to normal}
 \usage{
-trunc2norm(x, min = min(x), max = max(x), mu = mean(x),
-  sd = stats::sd(x))
+trunc2norm(x, min = NA, max = NA, mu = NA, sd = NA)
 }
 \arguments{
 \item{x}{the truncated normally distributed vector}

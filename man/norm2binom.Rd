@@ -4,8 +4,7 @@
 \alias{norm2binom}
 \title{Convert normal to binomial}
 \usage{
-norm2binom(x, size = 1, prob = 0.5, mu = mean(x),
-  sd = stats::sd(x))
+norm2binom(x, size = 1, prob = 0.5, mu = mean(x), sd = stats::sd(x))
 }
 \arguments{
 \item{x}{the normally distributed vector}

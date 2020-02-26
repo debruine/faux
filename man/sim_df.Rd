@@ -4,9 +4,18 @@
 \alias{sim_df}
 \title{Simulate an existing dataframe}
 \usage{
-sim_df(data, n = 100, within = c(), between = c(), id = "id",
-  dv = "value", empirical = FALSE, long = FALSE, seed = NULL,
-  grp_by = NULL)
+sim_df(
+  data,
+  n = 100,
+  within = c(),
+  between = c(),
+  id = "id",
+  dv = "value",
+  empirical = FALSE,
+  long = FALSE,
+  seed = NULL,
+  grp_by = NULL
+)
 }
 \arguments{
 \item{data}{the existing tbl (must be in wide format)}

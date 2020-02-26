@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Simulate data from design — sim_design • faux</title>
+<title>Convert normal to beta — norm2beta • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,8 +42,8 @@
 
 
 
-<meta property="og:title" content="Simulate data from design — sim_design" />
-<meta property="og:description" content="sim_design() generates a data table with a specified within and between design." />
+<meta property="og:title" content="Convert normal to beta — norm2beta" />
+<meta property="og:description" content="Convert normal to beta" />
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -140,108 +140,60 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Simulate data from design</h1>
-    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/sim_design.R'><code>R/sim_design.R</code></a></small>
-    <div class="hidden name"><code>sim_design.Rd</code></div>
+    <h1>Convert normal to beta</h1>
+    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/distribution_convertors.R'><code>R/distribution_convertors.R</code></a></small>
+    <div class="hidden name"><code>norm2beta.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>sim_design()</code> generates a data table with a specified within and between design.</p>
+    <p>Convert normal to beta</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sim_design</span>(
-  <span class='kw'>within</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>between</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>dv</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"value"</span>),
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"id"</span>),
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fu'><a href='faux_options.html'>faux_options</a></span>(<span class='st'>"plot"</span>),
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>design</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>rep</span> <span class='kw'>=</span> <span class='fl'>1</span>
-)</pre>
+    <pre class="usage"><span class='fu'>norm2beta</span>(<span class='no'>x</span>, <span class='no'>shape1</span>, <span class='no'>shape2</span>, <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(<span class='no'>x</span>), <span class='kw'>sd</span> <span class='kw'>=</span> <span class='kw pkg'>stats</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span>(<span class='no'>x</span>), <span class='no'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>within</th>
-      <td><p>a list of the within-subject factors</p></td>
+      <th>x</th>
+      <td><p>the normally distributed vector</p></td>
     </tr>
     <tr>
-      <th>between</th>
-      <td><p>a list of the between-subject factors</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>the number of samples required</p></td>
+      <th>shape1, shape2</th>
+      <td><p>non-negative parameters of the distribution to return</p></td>
     </tr>
     <tr>
       <th>mu</th>
-      <td><p>the means of the variables</p></td>
+      <td><p>the mean of x (calculated from x if not given)</p></td>
     </tr>
     <tr>
       <th>sd</th>
-      <td><p>the standard deviations of the variables</p></td>
+      <td><p>the SD of x (calculated from x if not given)</p></td>
     </tr>
     <tr>
-      <th>r</th>
-      <td><p>the correlations among the variables (can be a single number, full correlation matrix as a matric or vector, or a vector of the upper right triangle of the correlation matrix</p></td>
-    </tr>
-    <tr>
-      <th>empirical</th>
-      <td><p>logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance</p></td>
-    </tr>
-    <tr>
-      <th>long</th>
-      <td><p>Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format</p></td>
-    </tr>
-    <tr>
-      <th>dv</th>
-      <td><p>the name of the dv for long plots (defaults to y)</p></td>
-    </tr>
-    <tr>
-      <th>id</th>
-      <td><p>the name of the id column (defaults to id)</p></td>
-    </tr>
-    <tr>
-      <th>plot</th>
-      <td><p>whether to show a plot of the design</p></td>
-    </tr>
-    <tr>
-      <th>seed</th>
-      <td><p>a single value, interpreted as an integer, or NULL (see set.seed)</p></td>
-    </tr>
-    <tr>
-      <th>interactive</th>
-      <td><p>whether to run the function interactively</p></td>
-    </tr>
-    <tr>
-      <th>design</th>
-      <td><p>a design list including within, between, n, mu, sd, r, dv, id</p></td>
-    </tr>
-    <tr>
-      <th>rep</th>
-      <td><p>the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep</p></td>
+      <th>...</th>
+      <td><p>further arguments to qbeta</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a tbl</p>
+    <p>a vector with a beta distribution</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span>(<span class='fl'>10000</span>)
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>norm2beta</span>(<span class='no'>x</span>, <span class='fl'>1</span>, <span class='fl'>3</span>)
+<span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() + <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
+<span class='kw pkg'>ggExtra</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggExtra/man/ggMarginal.html'>ggMarginal</a></span>(<span class='no'>g</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"histogram"</span>)</div><div class='img'><img src='norm2beta-1.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
       <li><a href="#value">Value</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>

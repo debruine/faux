@@ -4,8 +4,14 @@
 \alias{wide2long}
 \title{Convert data from wide to long format}
 \usage{
-wide2long(data, within_factors = c(), within_cols = c(), dv = "y",
-  id = NULL, sep = faux_options("sep"))
+wide2long(
+  data,
+  within_factors = c(),
+  within_cols = c(),
+  dv = "y",
+  id = NULL,
+  sep = faux_options("sep")
+)
 }
 \arguments{
 \item{data}{the tbl in wide format}

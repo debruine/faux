@@ -14,6 +14,8 @@ norm2beta(x, shape1, shape2, mu = mean(x), sd = stats::sd(x), ...)
 \item{mu}{the mean of x (calculated from x if not given)}
 
 \item{sd}{the SD of x (calculated from x if not given)}
+
+\item{...}{further arguments to qbeta}
 }
 \value{
 a vector with a beta distribution

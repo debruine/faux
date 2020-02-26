@@ -1,8 +1,29 @@
 Package: faux
 Title: Simulation Functions
-Version: 0.0.0.9018
-Date: 2019-12-29
-Authors@R: person(given = "Lisa", family = "DeBruine", role = c("aut", "cre"), email = "debruine@gmail.com", comment = c(ORCID = "0000-0002-7523-5539"))
+Version: 0.0.0.9019
+Date: 2020-02-26
+Authors@R: c(
+    person(
+        given = "Lisa", 
+        family = "DeBruine", 
+        role = c("aut", "cre"), 
+        email = "debruine@gmail.com", 
+        comment = c(ORCID = "0000-0002-7523-5539")
+    ),
+    person(
+        given = "Anna",
+        family = "Krystalli",
+        role = c("ctb"),
+        email = "annakrystalli@googlemail.com",
+        comment = c(ORCID = "0000-0002-2378-4915")
+    ),
+    person(
+        given = "Andrew",
+        family = "Heiss",
+        role = c("ctb"),
+        email = "andrew@andrewheiss.com",
+        comment = c(ORCID = "0000-0002-3948-3914")
+    ))
 Description: The faux package provides functions for simulating datasets with specified structure.
 Depends:
     R (>= 3.2.4)
@@ -33,7 +54,7 @@ Suggests:
     broom,
     broom.mixed
 VignetteBuilder: knitr
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.2
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/debruine/faux

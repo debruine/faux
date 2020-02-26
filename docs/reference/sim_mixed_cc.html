@@ -77,7 +77,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9018</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9019</span>
       </span>
     </div>
 
@@ -149,8 +149,16 @@
     <p>Makes a basic cross-classified design with random intercepts for subjects and items</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sim_mixed_cc</span>(<span class='kw'>sub_n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>item_n</span> <span class='kw'>=</span> <span class='fl'>20</span>, <span class='kw'>grand_i</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>sub_sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>item_sd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>error_sd</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
+    <pre class="usage"><span class='fu'>sim_mixed_cc</span>(
+  <span class='kw'>sub_n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>item_n</span> <span class='kw'>=</span> <span class='fl'>20</span>,
+  <span class='kw'>grand_i</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>sub_sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>item_sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>error_sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -196,18 +204,18 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='fu'>sim_mixed_cc</span>(<span class='fl'>10</span>, <span class='fl'>10</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 100 x 7</span><span>
-#&gt;    sub_id item_id       y grand_i  sub_i item_i    err
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> S01    I01      1.97         0 0.042</span><span style='text-decoration: underline;'>2</span><span>  1.60   0.327
-#&gt; </span><span style='color: #555555;'> 2</span><span> S01    I02      0.854        0 0.042</span><span style='text-decoration: underline;'>2</span><span>  0.391  0.421
-#&gt; </span><span style='color: #555555;'> 3</span><span> S01    I03     -</span><span style='color: #BB0000;'>0.622</span><span>        0 0.042</span><span style='text-decoration: underline;'>2</span><span> -</span><span style='color: #BB0000;'>0.349</span><span> -</span><span style='color: #BB0000;'>0.316</span><span>
-#&gt; </span><span style='color: #555555;'> 4</span><span> S01    I04      2.65         0 0.042</span><span style='text-decoration: underline;'>2</span><span>  1.06   1.55 
-#&gt; </span><span style='color: #555555;'> 5</span><span> S01    I05     -</span><span style='color: #BB0000;'>1.70</span><span>         0 0.042</span><span style='text-decoration: underline;'>2</span><span>  0.225 -</span><span style='color: #BB0000;'>1.97</span><span> 
-#&gt; </span><span style='color: #555555;'> 6</span><span> S01    I06     -</span><span style='color: #BB0000;'>0.032</span><span style='color: #BB0000;text-decoration: underline;'>5</span><span>       0 0.042</span><span style='text-decoration: underline;'>2</span><span> -</span><span style='color: #BB0000;'>1.21</span><span>   1.14 
-#&gt; </span><span style='color: #555555;'> 7</span><span> S01    I07     -</span><span style='color: #BB0000;'>0.781</span><span>        0 0.042</span><span style='text-decoration: underline;'>2</span><span> -</span><span style='color: #BB0000;'>0.681</span><span> -</span><span style='color: #BB0000;'>0.142</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span> S01    I08      0.245        0 0.042</span><span style='text-decoration: underline;'>2</span><span> -</span><span style='color: #BB0000;'>0.814</span><span>  1.02 
-#&gt; </span><span style='color: #555555;'> 9</span><span> S01    I09      0.835        0 0.042</span><span style='text-decoration: underline;'>2</span><span>  1.13  -</span><span style='color: #BB0000;'>0.334</span><span>
-#&gt; </span><span style='color: #555555;'>10</span><span> S01    I10     -</span><span style='color: #BB0000;'>0.383</span><span>        0 0.042</span><span style='text-decoration: underline;'>2</span><span> -</span><span style='color: #BB0000;'>1.39</span><span>   0.962
+#&gt;    sub_id item_id      y grand_i  sub_i item_i    err
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>    </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> S01    I01      2.17        0 -</span><span style='color: #BB0000;'>0.353</span><span>  0.298  2.23 
+#&gt; </span><span style='color: #555555;'> 2</span><span> S01    I02     -</span><span style='color: #BB0000;'>0.512</span><span>       0 -</span><span style='color: #BB0000;'>0.353</span><span>  0.620 -</span><span style='color: #BB0000;'>0.779</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> S01    I03     -</span><span style='color: #BB0000;'>0.121</span><span>       0 -</span><span style='color: #BB0000;'>0.353</span><span> -</span><span style='color: #BB0000;'>0.312</span><span>  0.544
+#&gt; </span><span style='color: #555555;'> 4</span><span> S01    I04     -</span><span style='color: #BB0000;'>0.120</span><span>       0 -</span><span style='color: #BB0000;'>0.353</span><span>  1.22  -</span><span style='color: #BB0000;'>0.985</span><span>
+#&gt; </span><span style='color: #555555;'> 5</span><span> S01    I05     -</span><span style='color: #BB0000;'>0.486</span><span>       0 -</span><span style='color: #BB0000;'>0.353</span><span>  0.948 -</span><span style='color: #BB0000;'>1.08</span><span> 
+#&gt; </span><span style='color: #555555;'> 6</span><span> S01    I06     -</span><span style='color: #BB0000;'>1.42</span><span>        0 -</span><span style='color: #BB0000;'>0.353</span><span> -</span><span style='color: #BB0000;'>0.541</span><span> -</span><span style='color: #BB0000;'>0.522</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span> S01    I07      1.37        0 -</span><span style='color: #BB0000;'>0.353</span><span>  1.89  -</span><span style='color: #BB0000;'>0.161</span><span>
+#&gt; </span><span style='color: #555555;'> 8</span><span> S01    I08      2.63        0 -</span><span style='color: #BB0000;'>0.353</span><span>  2.01   0.974
+#&gt; </span><span style='color: #555555;'> 9</span><span> S01    I09      0.254       0 -</span><span style='color: #BB0000;'>0.353</span><span>  1.33  -</span><span style='color: #BB0000;'>0.728</span><span>
+#&gt; </span><span style='color: #555555;'>10</span><span> S01    I10     -</span><span style='color: #BB0000;'>0.136</span><span>       0 -</span><span style='color: #BB0000;'>0.353</span><span> -</span><span style='color: #BB0000;'>0.877</span><span>  1.09 
 #&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

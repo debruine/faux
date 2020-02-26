@@ -1,3 +1,9 @@
+# faux 0.0.0.9019 (2020-02-26)
+
+* [Andrew Heiss](https://github.com/andrewheiss) added `norm2beta` function
+* Added contributors (Andrew Heiss and Anna Krystali)
+* `trunc2norm` now works if `min` or `max` are omitted.
+
 # faux 0.0.0.9017 (2019-12-26)
 
 * Added `rep` argument to `sim_design()` and `sim_data()`. If rep > 1, returns a nested data frame with `rep` simulated datasets.

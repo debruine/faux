@@ -4,8 +4,17 @@
 \alias{rnorm_multi}
 \title{Make normally distributed vectors with specified relationships}
 \usage{
-rnorm_multi(n, vars = 3, mu = 0, sd = 1, r = 0, varnames = NULL,
-  empirical = FALSE, as.matrix = FALSE, cors = NULL)
+rnorm_multi(
+  n,
+  vars = 3,
+  mu = 0,
+  sd = 1,
+  r = 0,
+  varnames = NULL,
+  empirical = FALSE,
+  as.matrix = FALSE,
+  cors = NULL
+)
 }
 \arguments{
 \item{n}{the number of samples required}

@@ -1,6 +1,5 @@
 ---
 output: github_document
-always_allow_html: yes
 ---
 
 # faux <img src="reference/figures/logo.png" align="right" alt="" width="120" />

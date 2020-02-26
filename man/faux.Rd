@@ -3,7 +3,6 @@
 \docType{package}
 \name{faux}
 \alias{faux}
-\alias{faux-package}
 \title{faux: Simulation Functions.}
 \description{
 The faux package provides functions for simulating datasets with specified structure.
