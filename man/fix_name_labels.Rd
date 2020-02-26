@@ -20,7 +20,7 @@ a named list with fixed names
 Fixes if a factor list does not have named levels or has special characters in the names
 }
 \examples{
-source <- list("full.stop", " space ", "under_score", "plus+", "dash-", "tab\\t", "line\\nbreak")
+source <- list("full.stop", " space ", "under_score", "plus+", "dash-", "tab\t", "line\nbreak")
 fix_name_labels(source)
 
 }

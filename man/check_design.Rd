@@ -4,9 +4,18 @@
 \alias{check_design}
 \title{Validates the specified design}
 \usage{
-check_design(within = list(), between = list(), n = 100, mu = 0,
-  sd = 1, r = 0, dv = list(y = "value"), id = list(id = "id"),
-  plot = faux_options("plot"), design = NULL)
+check_design(
+  within = list(),
+  between = list(),
+  n = 100,
+  mu = 0,
+  sd = 1,
+  r = 0,
+  dv = list(y = "value"),
+  id = list(id = "id"),
+  plot = faux_options("plot"),
+  design = NULL
+)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}

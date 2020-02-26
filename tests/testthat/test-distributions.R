@@ -146,8 +146,49 @@ test_that("norm2trunc", {
   }
 })
 
+
 # trunc2norm ----
 test_that("trunc2norm", {
+  # messages
+  set.seed(3)
+  x <- truncnorm::rtruncnorm(1000)
+  
+  expect_message(suppressWarnings(trunc2norm(x)), 
+                 "mu was set to 0.00639653548187051", fixed = TRUE)
+  expect_message(suppressWarnings(trunc2norm(x)), 
+                 "sd was set to 0.9980754175952", fixed = TRUE)
+  expect_message(suppressWarnings(trunc2norm(x)), 
+                 "-2.98782971730373 (min(x) = -3.05632823356306)", fixed = TRUE)
+  expect_message(suppressWarnings(trunc2norm(x)), 
+                 "max was set to 3.00062278826747 (max(x) = 3.51929906496364)", fixed = TRUE)
+  expect_warning(suppressMessages(trunc2norm(x)), 
+                 "min was > min(x), so min was set to -3.06630898773901", fixed = TRUE)
+  expect_warning(suppressMessages(trunc2norm(x)), 
+                 "max was < max(x), so max was set to 3.52927981913959", fixed = TRUE)
+  
+  set.seed(8675309)
+  x <- truncnorm::rtruncnorm(100, mean = 10, sd = 5)
+  
+  expect_message(trunc2norm(x), "mu was set to 10.2615138815768", fixed = TRUE)
+  expect_message(trunc2norm(x), "sd was set to 4.64571854015768", fixed = TRUE)
+  expect_message(trunc2norm(x), "min was set to -3.67564173889628 (min(x) = -2.98432899791241)", fixed = TRUE)
+  expect_message(trunc2norm(x), "max was set to 24.1986695020498 (max(x) = 20.1469578725237)", fixed = TRUE)
+  
+  # defaults
+  for (i in 1:reps) {
+    s <- purrr::map_df(1:1000, ~{
+      x <- truncnorm::rtruncnorm(100)
+      suppressMessages(suppressWarnings(y <- trunc2norm(x)))
+      y2 <- rnorm(100)
+      
+      list(m_1 = mean(y), sd_1 = sd(y),
+           m_2 = mean(y2), sd_2 = sd(y2))
+    }) 
+    summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
+    expect_equal(summ, c(0, 1, 0, 1), tolerance = 0.1)
+  }
+  
+  # set min, max, mean and sd
   for (i in 1:reps) {
     min <- runif(1, -100, 100)
     max <- min + runif(1, 1, 100)
@@ -156,7 +197,9 @@ test_that("trunc2norm", {
     
     s <- purrr::map_df(1:1000, ~{
       x <- truncnorm::rtruncnorm(100, min, max, mu, sd)
-      y <- trunc2norm(x, min, max, mu, sd)
+      suppressWarnings(
+        y <- trunc2norm(x, min, max, mu, sd)
+      )
       
       y2 <- rnorm(100, mu, sd)
       list(m_1 = mean(y), sd_1 = sd(y),

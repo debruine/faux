@@ -4,8 +4,14 @@
 \alias{sim_data}
 \title{Simulate data from design (internal)}
 \usage{
-sim_data(design, empirical = FALSE, long = FALSE, rep = 1,
-  seed = NULL, sep = faux_options("sep"))
+sim_data(
+  design,
+  empirical = FALSE,
+  long = FALSE,
+  rep = 1,
+  seed = NULL,
+  sep = faux_options("sep")
+)
 }
 \arguments{
 \item{design}{A list of design parameters created by check_design()}

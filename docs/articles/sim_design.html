@@ -104,7 +104,7 @@
       <h1>Simulate by Design</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2020-02-09</h4>
+            <h4 class="date">2020-02-26</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/sim_design.Rmd"><code>vignettes/sim_design.Rmd</code></a></small>
       <div class="hidden name"><code>sim_design.Rmd</code></div>
@@ -630,7 +630,7 @@
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" data-line-number="1">df <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb24-2" data-line-number="2"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">analysis =</span> purrr<span class="op">::</span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(data, <span class="cf">function</span>(data) {</a>
 <a class="sourceLine" id="cb24-3" data-line-number="3">    stats<span class="op">::</span><span class="kw"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span>(y <span class="op">~</span><span class="st"> </span>B <span class="op">*</span><span class="st"> </span>A <span class="op">+</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/stats/aov.html">Error</a></span>(id<span class="op">/</span>A), <span class="dt">data =</span> data) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="st">      </span>broom<span class="op">::</span><span class="kw"><a href="http://broom.tidyverse.org/reference/reexports.html">tidy</a></span>()</a>
+<a class="sourceLine" id="cb24-4" data-line-number="4"><span class="st">      </span>broom<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/broom/man/reexports.html">tidy</a></span>()</a>
 <a class="sourceLine" id="cb24-5" data-line-number="5">  })) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb24-6" data-line-number="6"><span class="st">  </span><span class="kw">select</span>(<span class="op">-</span>data) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb24-7" data-line-number="7"><span class="st">  </span><span class="kw">unnest</span>(analysis)</a>

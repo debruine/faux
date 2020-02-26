@@ -4,10 +4,23 @@
 \alias{sim_design}
 \title{Simulate data from design}
 \usage{
-sim_design(within = list(), between = list(), n = 100, mu = 0,
-  sd = 1, r = 0, empirical = FALSE, long = FALSE, dv = list(y =
-  "value"), id = list(id = "id"), plot = faux_options("plot"),
-  seed = NULL, interactive = FALSE, design = NULL, rep = 1)
+sim_design(
+  within = list(),
+  between = list(),
+  n = 100,
+  mu = 0,
+  sd = 1,
+  r = 0,
+  empirical = FALSE,
+  long = FALSE,
+  dv = list(y = "value"),
+  id = list(id = "id"),
+  plot = faux_options("plot"),
+  seed = NULL,
+  interactive = FALSE,
+  design = NULL,
+  rep = 1
+)
 }
 \arguments{
 \item{within}{a list of the within-subject factors}

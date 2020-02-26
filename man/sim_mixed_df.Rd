@@ -4,8 +4,15 @@
 \alias{sim_mixed_df}
 \title{Generate a mixed design from existing data}
 \usage{
-sim_mixed_df(data, sub_n = NULL, item_n = NULL, dv = "y",
-  sub_id = "sub_id", item_id = "item_id", seed = NULL)
+sim_mixed_df(
+  data,
+  sub_n = NULL,
+  item_n = NULL,
+  dv = "y",
+  sub_id = "sub_id",
+  item_id = "item_id",
+  seed = NULL
+)
 }
 \arguments{
 \item{data}{the existing tbl}

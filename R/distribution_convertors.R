@@ -56,6 +56,7 @@ norm2pois <- function(x, lambda, mu = mean(x), sd = stats::sd(x)) {
 #' @param shape1,shape2 non-negative parameters of the distribution to return
 #' @param mu the mean of x (calculated from x if not given)
 #' @param sd the SD of x (calculated from x if not given)
+#' @param ... further arguments to qbeta
 #'
 #' @return a vector with a beta distribution
 #' @export
@@ -167,8 +168,42 @@ norm2trunc <- function(x, min = -Inf, max = Inf, mu = mean(x), sd = stats::sd(x)
 #' g <- ggplot2::ggplot() + ggplot2::geom_point(ggplot2::aes(x, y))
 #' ggExtra::ggMarginal(g, type = "histogram")
 #' 
-trunc2norm <- function(x, min = min(x), max = max(x), 
-                       mu = mean(x), sd = stats::sd(x)) {
+trunc2norm <- function(x, min = NA, max = NA, 
+                       mu = NA, sd = NA) {
+  if (is.na(mu)) {
+    mu <- mean(x)
+    message("mu was set to ", mu)
+  }
+  if (is.na(sd)) {
+    sd <- stats::sd(x)
+    message("sd was set to ", sd)
+  }
+  n <- length(x)
+  
+  # if not specified, set min and max 
+  if (is.na(min)) {
+    #min <- mu - (1.5*sd + 0.22*sd*log2(n))
+    min <- mu - 3*sd
+    message("min was set to ", min, 
+            " (min(x) = ", min(x), ")")
+  }
+  if (is.na(max)) {
+    #max <- mu + (1.5*sd + 0.22*sd*log2(n))
+    max <- mu + 3*sd
+    message("max was set to ", max, 
+            " (max(x) = ", max(x), ")")
+  }
+  
+  # make sure min and max encompass data
+  if (min > min(x)) {
+    min <- min(x) - 0.01*sd
+    warning("min was > min(x), so min was set to ", min)
+  }
+  if (max < max(x)) {
+    max <- max(x) + 0.01*sd
+    warning("max was < max(x), so max was set to ", max)
+  }
+  
   p <- truncnorm::ptruncnorm(x, a = min, b = max, mean = mu, sd = sd)
   stats::qnorm(p, mean = mu, sd = sd)
 }

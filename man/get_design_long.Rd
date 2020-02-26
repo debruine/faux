@@ -4,8 +4,7 @@
 \alias{get_design_long}
 \title{Get design from long data}
 \usage{
-get_design_long(data, dv = "y", id = "id",
-  plot = faux_options("plot"))
+get_design_long(data, dv = "y", id = "id", plot = faux_options("plot"))
 }
 \arguments{
 \item{data}{the data frame (in long format)}

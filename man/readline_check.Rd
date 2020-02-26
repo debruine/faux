@@ -4,8 +4,14 @@
 \alias{readline_check}
 \title{Check readline input}
 \usage{
-readline_check(prompt, type = c("numeric", "integer", "length", "grep"),
-  min = -Inf, max = Inf, warning = NULL, ...)
+readline_check(
+  prompt,
+  type = c("numeric", "integer", "length", "grep"),
+  min = -Inf,
+  max = Inf,
+  warning = NULL,
+  ...
+)
 }
 \arguments{
 \item{prompt}{the prompt for readline}
