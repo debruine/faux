@@ -75,6 +75,14 @@ test_that("no coldesc", {
                tolerance = 1e-6, scale = 1)
 })
 
+test_that("named factor levels", {
+  between <- list(
+    pet = c(cat = "Has a cat", dog = "Has a dog")
+  )
+  data <- sim_design(between = between)
+  cb <- codebook(data)
+})
+
 test_that("with coldesc", {
   data <- sim_design(2, 2, seed = 8675309)
   cb <- codebook(data, c(id = "Subject ID",

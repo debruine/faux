@@ -17,7 +17,7 @@
 #' @export
 cormat <- function(cors = 0, vars = 3) {
   # correlation matrix
-  if (class(cors) == "numeric" & length(cors) == 1) {
+  if (is.numeric(cors) & length(cors) == 1) {
     if (cors >=-1 & cors <=1) {
       cors = rep(cors, vars*(vars-1)/2)
     } else {
@@ -27,7 +27,7 @@ cormat <- function(cors = 0, vars = 3) {
   
   if (vars == 1) {
     cor_mat <- matrix(1, nrow= 1)
-  } else if (class(cors) == "matrix") { 
+  } else if (is.matrix(cors)) { 
     if (!is.numeric(cors)) {
       stop("cors matrix not numeric")
     } else if (dim(cors)[1] != vars || dim(cors)[2] != vars) {

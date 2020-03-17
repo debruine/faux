@@ -1,3 +1,7 @@
+# faux 0.0.1.0 (2020-02-27)
+
+* Submitting to CRAN (wish me luck!)
+
 # faux 0.0.0.9019 (2020-02-26)
 
 * [Andrew Heiss](https://github.com/andrewheiss) added `norm2beta` function

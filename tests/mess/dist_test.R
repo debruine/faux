@@ -83,9 +83,9 @@ y %>%
   tidyr::gather(stat, val, min:max) %>%
   ggplot(aes(log2(n), val, color = stat)) +
   stat_summary(
-    fun.y = mean,
-    fun.ymax = function(x) {mean(x) + sd(x)},
-    fun.ymin = function(x) {mean(x) - sd(x)},
+    fun = mean,
+    fun.max = function(x) {mean(x) + sd(x)},
+    fun.min = function(x) {mean(x) - sd(x)},
     geom="pointrange"
   ) +
   ylim(-4, 4)

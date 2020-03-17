@@ -97,10 +97,18 @@ test_that("data.frame", {
   df <- data.frame(A_1 = 1:3, 
                    B_2 = c("one", "two", "three"), 
                    C_3 = c(T, F, T), 
-                   row.names = c("D_1", "E_2", "F_3"))
+                   row.names = c("D_1", "E_2", "F_3"),
+                  stringsAsFactors = FALSE)
   target <- list(A.1 = 1:3, 
-                 B.2 = factor(c("one", "two", "three")), 
+                 B.2 = c("one", "two", "three"), 
                  C.3 = c(T, F, T))
   test <- fix_name_labels(df)
   expect_equal(test, target)
+  
+  faux_options(sep = ".")
+  test2 <- fix_name_labels(target)
+  target2 <- as.list(df)
+  expect_equal(test2, target2)
+  
+  faux_options(sep = "_") # reset sep
 })

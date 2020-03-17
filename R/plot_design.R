@@ -141,9 +141,9 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
     }
     
     p <- p + stat_summary(
-      fun.y = mean, 
-      fun.ymin = minsd,
-      fun.ymax = maxsd,
+      fun = mean, 
+      fun.min = minsd,
+      fun.max = maxsd,
       geom='pointrange', 
       shape = shape,
       #size = size,

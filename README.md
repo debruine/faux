@@ -3,13 +3,13 @@ output: github_document
 always_allow_html: yes
 ---
 
-# faux <img src="reference/figures/logo.png" align="right" alt="" width="120" />
+# faux
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/163506566.svg)](https://zenodo.org/badge/latestdoi/163506566)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+<!--[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)-->
 [![Travis build status](https://travis-ci.org/debruine/faux.svg?branch=master)](https://travis-ci.org/debruine/faux)
 [![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/debruine/faux?branch=master)
 <!-- badges: end -->
@@ -31,8 +31,6 @@ devtools::install_github("debruine/faux", build_vignettes = TRUE)
 Because faux is still in early development, some features will break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.
 
 ## How to use faux
-
-
 
 * [sim_design](#sim_design)
 * [sim_df](#sim_df)
@@ -65,7 +63,7 @@ df <- sim_design(within, between,
                  empirical = TRUE, plot = TRUE)
 ```
 
-![plot of chunk plot-sim-design](figure/plot-sim-design-1.png)
+![plot of chunk plot-sim-design](man/figures/plot-sim-design-1.png)
 
 
 
@@ -93,7 +91,7 @@ p2 <- plot_design(df, "pet", "time")
 cowplot::plot_grid(p1, p2, nrow = 2, align = "v")
 ```
 
-![plot of chunk plot-design](figure/plot-design-1.png)
+![plot of chunk plot-design](man/figures/plot-design-1.png)
 
 
 ## sim_df
@@ -107,7 +105,7 @@ For example, the following code creates a new sample from the built-in dataset `
 new_iris <- sim_df(iris, 50, between = "Species") 
 ```
 
-![Simulated iris dataset](figure/plot-iris-sim-1.png)
+![Simulated iris dataset](man/figures/plot-iris-sim-1.png)
 
 ## sim_mixed_cc
 
@@ -134,15 +132,29 @@ You can then see how changing these numbers affects the random effects in an int
 lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat) %>%
   broom.mixed::tidy() %>%
   knitr::kable(digits = 2)
+#> Registered S3 methods overwritten by 'broom.mixed':
+#>   method         from 
+#>   augment.lme    broom
+#>   augment.merMod broom
+#>   glance.lme     broom
+#>   glance.merMod  broom
+#>   glance.stanreg broom
+#>   tidy.brmsfit   broom
+#>   tidy.gamlss    broom
+#>   tidy.lme       broom
+#>   tidy.merMod    broom
+#>   tidy.rjags     broom
+#>   tidy.stanfit   broom
+#>   tidy.stanreg   broom
 ```
 
 
 
 |effect   |group    |term            | estimate| std.error| statistic|
 |:--------|:--------|:---------------|--------:|---------:|---------:|
-|fixed    |NA       |(Intercept)     |     9.79|      0.27|     36.23|
-|ran_pars |sub_id   |sd__(Intercept) |     1.02|        NA|        NA|
-|ran_pars |item_id  |sd__(Intercept) |     1.74|        NA|        NA|
+|fixed    |NA       |(Intercept)     |     9.79|      0.28|     34.83|
+|ran_pars |sub_id   |sd__(Intercept) |     0.99|        NA|        NA|
+|ran_pars |item_id  |sd__(Intercept) |     1.84|        NA|        NA|
 |ran_pars |Residual |sd__Observation |     2.95|        NA|        NA|
 
 ## sim_mixed_df
@@ -220,7 +232,7 @@ list(
 
 If `empirical = FALSE` (the default), this resulting vector is sampled from a population with the specified parameters (but won't have *exactly* those properties).
 
-![Distribution of 1000 samples from rnorm_pre](figure/plot-rnorm-pre-1.png)
+![Distribution of 1000 samples from rnorm_pre](man/figures/plot-rnorm-pre-1.png)
 
 
 ## Additional functions {#add_func}
@@ -329,12 +341,12 @@ df_wide <- long2wide(df_long)
 
 |id   |pet |        day|      night|
 |:----|:---|----------:|----------:|
-|S001 |cat |  0.6709323|  0.5155250|
-|S002 |cat |  0.0002790|  1.7126586|
-|S003 |cat | -0.2909270| -1.8289396|
-|S004 |cat |  0.0847928|  1.7320068|
-|S005 |cat |  1.1948096| -0.1980841|
-|S006 |cat |  0.4860728| -1.7309580|
+|S001 |cat |  0.5230799|  0.5415126|
+|S002 |cat | -1.2129722| -0.6874280|
+|S003 |cat | -0.5516822| -0.7844739|
+|S004 |cat | -0.6098251| -0.6234040|
+|S005 |cat |  0.2853363|  2.3027620|
+|S006 |cat | -0.2490935| -0.6530662|
 
 If you have a data table not made by faux, you need to specify the within-subject columns, the between-subject columns, the DV column, and the ID column.
 
@@ -358,12 +370,12 @@ df_wide <- long2wide(df_long, within = c("A", "B"),
 
 | sub_id|C  |      A1_B1|      A1_B2|      A2_B1|      A2_B2|
 |------:|:--|----------:|----------:|----------:|----------:|
-|      1|C1 |  1.0546403|  1.2786863| -0.5672533| -0.3157426|
-|      2|C2 | -0.4677078| -0.3438517|  0.3473444|  1.2375229|
-|      3|C1 |  1.0961789| -0.8291885|  0.4261450| -0.7872061|
-|      4|C2 |  1.1067069| -0.1313337|  0.1096033| -0.9223819|
-|      5|C1 |  0.0774030|  0.3482232|  0.6521404| -1.9094445|
-|      6|C2 |  0.5784563| -0.4426527| -1.9598806|  0.7885763|
+|      1|C1 | -0.3782026| -0.5674500|  0.0048040|  0.6154273|
+|      2|C2 |  0.5338898|  1.7815958| -1.6407051| -2.1325543|
+|      3|C1 |  1.2792787|  0.6207239|  1.4960844|  1.7913821|
+|      4|C2 |  0.1885384| -0.7397000| -0.0884940|  0.0295121|
+|      5|C1 | -0.3090509|  0.9916406| -0.3942107| -0.2951152|
+|      6|C2 |  1.4168226|  0.0634940|  0.8341336| -1.1571559|
 
 
 
@@ -384,12 +396,12 @@ df_long <- wide2long(df_wide)
 
 |id   |pet |time |          y|
 |:----|:---|:----|----------:|
-|S001 |cat |day  |  1.3290422|
-|S002 |cat |day  |  0.1087942|
-|S003 |cat |day  |  0.2573105|
-|S004 |cat |day  |  0.1548801|
-|S005 |cat |day  | -0.4347730|
-|S006 |cat |day  |  0.5253602|
+|S001 |cat |day  | -0.9012830|
+|S002 |cat |day  | -0.3205931|
+|S003 |cat |day  | -0.7733501|
+|S004 |cat |day  | -1.1861210|
+|S005 |cat |day  | -1.0848848|
+|S006 |cat |day  | -0.4888620|
 
 
 
@@ -431,7 +443,7 @@ If you have a data table in long format, you can recover the design from it by s
 design <- get_design_long(long_iris, dv = "value", id = "flower_id")
 ```
 
-![plot of chunk get-design-long](figure/get-design-long-1.png)
+![plot of chunk get-design-long](man/figures/get-design-long-1.png)
 
 ### json_design
 
@@ -558,13 +570,17 @@ lims <- pos_def_limits(.8, .2, NA)
 
 
 
-|    min|   max|
-|------:|-----:|
-| -0.427| 0.747|
+|     x|
+|-----:|
+| -0.42|
+
+|    x|
+|----:|
+| 0.74|
 
 
 
-For example, if r~AB~ = 0.8 and r~AC~ = 0.2, then -0.427 <= r~BC~ <= 0.747.
+For example, if r~AB~ = 0.8 and r~AC~ = 0.2, then -0.42 <= r~BC~ <= 0.74.
 
 If you enter a correlation matrix that contains impossible combinations, your limits will be `NA`.
 
@@ -577,9 +593,13 @@ lims <- pos_def_limits(.8, .2,  0,
 
 
 
-|min |max |
-|:---|:---|
-|NA  |NA  |
+|x  |
+|:--|
+|NA |
+
+|x  |
+|:--|
+|NA |
 
 
 
@@ -609,6 +629,6 @@ matrix(c(1, .3, -.9, .2,
 ```
 
 
-Please note that the [34m'faux'[39m project is released with a [Contributor Code of Conduct](CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+Please note that the [34m'faux'[39m project is released with a [Contributor Code of Conduct](https://github.com/debruine/faux/blob/master/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 
 
