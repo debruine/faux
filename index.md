@@ -1,7 +1,3 @@
----
-output: github_document
----
-
 # faux <img src="reference/figures/logo.png" align="right" alt="" width="120" />
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
