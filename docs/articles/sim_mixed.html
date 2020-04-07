@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9019</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0</span>
       </span>
     </div>
 
@@ -132,7 +132,9 @@
 <p>You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">lme4<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span>(y <span class="op">~</span><span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>sub_id) <span class="op">+</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">|</span><span class="st"> </span>item_id), <span class="dt">data =</span> dat_cc) <span class="op">%&gt;%</span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span>broom.mixed<span class="op">::</span><span class="kw">tidy</span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span>knitr<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="dt">digits =</span> <span class="dv">3</span>)</a>
+<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="co">#&gt; Warning in checkConv(attr(opt, "derivs"), opt$par, ctrl = control$checkConv, :</span></a>
+<a class="sourceLine" id="cb3-5" data-line-number="5"><span class="co">#&gt; Model failed to converge with max|grad| = 0.011133 (tol = 0.002, component 1)</span></a></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">effect</th>
@@ -147,15 +149,15 @@
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">10.188</td>
-<td align="right">0.324</td>
-<td align="right">31.466</td>
+<td align="right">10.645</td>
+<td align="right">0.299</td>
+<td align="right">35.547</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">0.970</td>
+<td align="right">1.059</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -163,7 +165,7 @@
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">2.164</td>
+<td align="right">1.958</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -171,7 +173,7 @@
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">2.990</td>
+<td align="right">2.955</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -197,15 +199,15 @@
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">0.867</td>
-<td align="right">0.479</td>
-<td align="right">1.81</td>
+<td align="right">0.476</td>
+<td align="right">0.375</td>
+<td align="right">1.269</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.486</td>
+<td align="right">1.295</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -213,7 +215,7 @@
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">3.057</td>
+<td align="right">2.280</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -221,7 +223,7 @@
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">10.085</td>
+<td align="right">9.983</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>

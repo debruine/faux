@@ -17,13 +17,13 @@ It is useful to be able to simulate data with a specified structure. The `faux` 
 
 ## Installation
 
-You can install the newest version of faux from [GitHub](https://github.com/debruine/faux) with:
+You can install the development version of faux from [GitHub](https://github.com/debruine/faux) with:
 
 ``` r
-devtools::install_github("debruine/faux", build_vignettes = TRUE)
+devtools::install_github("debruine/faux")
 ```
 
-Because faux is still in early development, some features will break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.
+Because faux is still in early development, some features might break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.
 
 ## Quick overview
 
@@ -47,7 +47,7 @@ df <- sim_design(within, between,
                  sd = 5, r = .5)
 ```
 
-![Default design plot](figure/plot-sim-design-1.png)
+![Default design plot](man/figures/plot-sim-design-1.png)
 
 
 
@@ -58,7 +58,7 @@ p2 <- plot_design(df, "pet", "time")
 cowplot::plot_grid(p1, p2, nrow = 2, align = "v")
 ```
 
-![Plot the data with different visualisations.](figure/plot-design-1.png)
+![Plot the data with different visualisations.](man/figures/plot-design-1.png)
 
 ### Simulate new data from an existing data table
 
@@ -67,5 +67,16 @@ cowplot::plot_grid(p1, p2, nrow = 2, align = "v")
 new_iris <- sim_df(iris, 50, between = "Species") 
 ```
 
-![Simulated iris dataset](figure/plot-iris-sim-1.png)
+![Simulated iris dataset](man/figures/plot-iris-sim-1.png)
+
+## Other simulation packages
+
+I started this project as a collection of functions I was writing to help with my own work. It's one of many, many simulation packages in R; here are some others. I haven't used most of them, so I can't vouch for them, but if faux doesn't meet your needs, one of these might.
+
+* [simstudy](https://www.rdatagen.net/page/simstudy/): Simulation of Study Data
+* [simr](https://github.com/pitakakariki/simr): Power Analysis of Generalised Linear Mixed Models by Simulation
+* [simulator](http://github.com/jacobbien/simulator): streamlines the process of performing simulations by creating a common infrastructure that can be easily used and reused across projects
+* [lsasim](https://github.com/tmatta/lsasim): Simulate large scale assessment data 
+* [simmer](https://r-simmer.org/): Trajectory-based Discrete-Event Simulation (DES
+* [parSim](https://cran.r-project.org/web/packages/parSim/): Parallel Simulation Studies
 

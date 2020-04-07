@@ -1,0 +1,60 @@
+---
+title: "Codebook"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Codebook}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(faux)
+```
+
+The `codebook()` function creates a [PyschDS]()-formatted codebook from your data.
+
+```{r}
+between <- list(
+  pet = c(cat = "Has a cat", dog = "Has a dog")
+)
+within <- list(
+  time = c("day", "night")
+)
+df <- sim_design(within, between, 
+                 mu = 1:4, sd = 1,
+                 dv = "score", 
+                 long = TRUE)
+```
+
+Just running `codebook(df)` gives you a basic codebook generated from the data in your data frame.
+
+```{r}
+codebook(df)
+```
+
+If you want to give more into about the columns, describe the columns using a named vector.
+
+```{r}
+
+coldesc <- c(id = "Participant ID",
+             pet = "Kind of pet this participant has", 
+             time = "Time of day tested",
+             score = "Score on a happiness questionnaire")
+
+codebook(df, coldesc)
+```
+
+If you set `interactive = TRUE` and run the command in the console (not in an Rmd script), you will be prompted to name each column and factor level.
+
+```{r, eval = FALSE}
+cb <- codebook(df, interactive = TRUE)
+```
+
+

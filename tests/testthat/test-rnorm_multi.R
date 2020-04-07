@@ -93,8 +93,8 @@ test_that("matrix", {
   dat <- mat <- rnorm_multi(10, vars = 4, r = cor(iris[,1:4]))
   mat <- rnorm_multi(10, vars = 4, r = cor(iris[,1:4]), as.matrix = TRUE)
   
-  expect_true(class(dat) == "data.frame")
-  expect_true(class(mat) == "matrix")
+  expect_true(is.data.frame(dat))
+  expect_true(is.matrix(mat))
 })
 
 # small n ----

@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9019</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0</span>
       </span>
     </div>
 
@@ -112,9 +112,9 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the newest version of faux from <a href="https://github.com/debruine/faux">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"debruine/faux"</span>, <span class="dt">build_vignettes =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
-<p>Because faux is still in early development, some features will break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.</p>
+<p>You can install the development version of faux from <a href="https://github.com/debruine/faux">GitHub</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1">devtools<span class="op">::</span><span class="kw"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"debruine/faux"</span>)</a></code></pre></div>
+<p>Because faux is still in early development, some features might break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.</p>
 </div>
 <div id="quick-overview" class="section level2">
 <h2 class="hasAnchor">
@@ -136,19 +136,38 @@
 <a class="sourceLine" id="cb2-12" data-line-number="12">df &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_design.html">sim_design</a></span>(within, between, </a>
 <a class="sourceLine" id="cb2-13" data-line-number="13">                 <span class="dt">n =</span> <span class="dv">100</span>, <span class="dt">mu =</span> mu, </a>
 <a class="sourceLine" id="cb2-14" data-line-number="14">                 <span class="dt">sd =</span> <span class="dv">5</span>, <span class="dt">r =</span> <span class="fl">.5</span>)</a></code></pre></div>
-<p><img src="figure/plot-sim-design-1.png" alt="Default design plot"></p>
+<p><img src="reference/figures/plot-sim-design-1.png" alt="Default design plot"></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1">p1 &lt;-<span class="st"> </span><span class="kw"><a href="reference/plot_design.html">plot_design</a></span>(df)</a>
 <a class="sourceLine" id="cb3-2" data-line-number="2">p2 &lt;-<span class="st"> </span><span class="kw"><a href="reference/plot_design.html">plot_design</a></span>(df, <span class="st">"pet"</span>, <span class="st">"time"</span>)</a>
 <a class="sourceLine" id="cb3-3" data-line-number="3"></a>
 <a class="sourceLine" id="cb3-4" data-line-number="4">cowplot<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(p1, p2, <span class="dt">nrow =</span> <span class="dv">2</span>, <span class="dt">align =</span> <span class="st">"v"</span>)</a></code></pre></div>
-<p><img src="figure/plot-design-1.png" alt="Plot the data with different visualisations."></p>
+<p><img src="reference/figures/plot-design-1.png" alt="Plot the data with different visualisations."></p>
 </div>
 <div id="simulate-new-data-from-an-existing-data-table" class="section level3">
 <h3 class="hasAnchor">
 <a href="#simulate-new-data-from-an-existing-data-table" class="anchor"></a>Simulate new data from an existing data table</h3>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">new_iris &lt;-<span class="st"> </span><span class="kw"><a href="reference/sim_df.html">sim_df</a></span>(iris, <span class="dv">50</span>, <span class="dt">between =</span> <span class="st">"Species"</span>) </a></code></pre></div>
-<p><img src="figure/plot-iris-sim-1.png" alt="Simulated iris dataset"></p>
+<p><img src="reference/figures/plot-iris-sim-1.png" alt="Simulated iris dataset"></p>
 </div>
+</div>
+<div id="other-simulation-packages" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other-simulation-packages" class="anchor"></a>Other simulation packages</h2>
+<p>I started this project as a collection of functions I was writing to help with my own work. It’s one of many, many simulation packages in R; here are some others. I haven’t used most of them, so I can’t vouch for them, but if faux doesn’t meet your needs, one of these might.</p>
+<ul>
+<li>
+<a href="https://www.rdatagen.net/page/simstudy/">simstudy</a>: Simulation of Study Data</li>
+<li>
+<a href="https://github.com/pitakakariki/simr">simr</a>: Power Analysis of Generalised Linear Mixed Models by Simulation</li>
+<li>
+<a href="http://github.com/jacobbien/simulator">simulator</a>: streamlines the process of performing simulations by creating a common infrastructure that can be easily used and reused across projects</li>
+<li>
+<a href="https://github.com/tmatta/lsasim">lsasim</a>: Simulate large scale assessment data</li>
+<li>
+<a href="https://r-simmer.org/">simmer</a>: Trajectory-based Discrete-Event Simulation (DES</li>
+<li>
+<a href="https://cran.r-project.org/web/packages/parSim/">parSim</a>: Parallel Simulation Studies</li>
+</ul>
 </div>
 </div>
   </div>

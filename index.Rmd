@@ -19,7 +19,8 @@ knitr::opts_chunk$set(
   fig.width = 8,
   fig.height = 5,
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  fig.path = "man/figures/"
 )
 library(faux)
 library(ggplot2)
@@ -30,13 +31,13 @@ It is useful to be able to simulate data with a specified structure. The `faux` 
 
 ## Installation
 
-You can install the newest version of faux from [GitHub](https://github.com/debruine/faux) with:
+You can install the development version of faux from [GitHub](https://github.com/debruine/faux) with:
 
 ``` r
-devtools::install_github("debruine/faux", build_vignettes = TRUE)
+devtools::install_github("debruine/faux")
 ```
 
-Because faux is still in early development, some features will break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.
+Because faux is still in early development, some features might break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.
 
 ## Quick overview
 
@@ -81,7 +82,18 @@ new_iris %>%
   dplyr::bind_rows(dplyr::mutate(iris, data = "Original")) %>%
   ggplot(aes(Sepal.Width, Sepal.Length, color = Species)) +
   geom_point() +
-  geom_smooth(method = "lm") +
+  geom_smooth(method = "lm", formula = "y~x") +
   facet_wrap(~data)
 ```
+
+## Other simulation packages
+
+I started this project as a collection of functions I was writing to help with my own work. It's one of many, many simulation packages in R; here are some others. I haven't used most of them, so I can't vouch for them, but if faux doesn't meet your needs, one of these might.
+
+* [simstudy](https://www.rdatagen.net/page/simstudy/): Simulation of Study Data
+* [simr](https://github.com/pitakakariki/simr): Power Analysis of Generalised Linear Mixed Models by Simulation
+* [simulator](http://github.com/jacobbien/simulator): streamlines the process of performing simulations by creating a common infrastructure that can be easily used and reused across projects
+* [lsasim](https://github.com/tmatta/lsasim): Simulate large scale assessment data 
+* [simmer](https://r-simmer.org/): Trajectory-based Discrete-Event Simulation (DES
+* [parSim](https://cran.r-project.org/web/packages/parSim/): Parallel Simulation Studies
 

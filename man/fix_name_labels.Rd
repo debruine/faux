@@ -4,14 +4,14 @@
 \alias{fix_name_labels}
 \title{Fix name labels}
 \usage{
-fix_name_labels(x, pattern = "(\\\\W|_)", replacement = ".")
+fix_name_labels(x, pattern = NA, replacement = ".")
 }
 \arguments{
 \item{x}{the vector or list to fix}
 
-\item{pattern}{regex pattern to replace with full stops (defaults to non-word characters and underscores)}
+\item{pattern}{regex pattern to replace; defaults to non-word characters and the value of faux_options("sep") (default = _)}
 
-\item{replacement}{the character to replace (defaults to .)}
+\item{replacement}{the character to replace; defaults to . (or _ if faux_options("sep") == ".")}
 }
 \value{
 a named list with fixed names

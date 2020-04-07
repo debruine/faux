@@ -1,6 +1,6 @@
 Package: faux
 Title: Simulation Functions
-Version: 0.0.0.9019
+Version: 0.0.1.0
 Date: 2020-02-26
 Authors@R: c(
     person(
@@ -37,7 +37,7 @@ Imports:
     tibble,
     tidyselect,
     stats,
-    ggplot2,
+    ggplot2 (>= 3.3.0),
     rlang (>= 0.1.2),
     jsonlite,
     truncnorm

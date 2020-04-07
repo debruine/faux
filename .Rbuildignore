@@ -15,3 +15,4 @@
 ^pkgdown$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^CRAN-RELEASE$
