@@ -2,7 +2,7 @@
 #'
 #' \code{plot_design()} plots the specified within and between design
 #'
-#' @param input A list of design parameters created by check_design() or a data tbl (in long format)
+#' @param x A list of design parameters created by check_design() or a data tbl (in long format)
 #' @param ... A list of factor names to determine visualisation (see vignette)
 #' @param geoms A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter
 #' @param palette A brewer palette, defaults to "Dark2"
@@ -21,11 +21,11 @@
 #' 
 #' @export
 #' 
-plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
+plot_design <- function(x, ..., geoms = NULL, palette = "Dark2") {
   outlier.alpha <- 1
-  if (!is.data.frame(input) && is.list(input)) {
+  if (!is.data.frame(x) && is.list(x)) {
     if (is.null(geoms)) geoms <- "pointrangeSD"
-    design <- input
+    design <- x
     if ("pointrangeSE" %in% geoms) {
       # don't change Ns
     } else if ("violin" %in% geoms | "box" %in% geoms) {
@@ -38,15 +38,15 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
     }
     
     data <- sim_data(design = design, empirical = TRUE, long = TRUE)
-  } else if (is.data.frame(input)) {
+  } else if (is.data.frame(x)) {
     if (is.null(geoms)) geoms <- c("violin", "box")
-    data <- input
+    data <- x
     if ("design" %in% names(attributes(data))) {
       design <- attributes(data)$design
     } else {
       stop("The data table must have a design attribute")
     }
-    if (all(names(data) == c("rep", "data"))) {
+    if (all(names(data)[1:2] == c("rep", "data"))) {
       # nested data, just graph first row
       data <- tidyr::unnest(data, data)
       attr(data, "design") <- design
@@ -56,7 +56,7 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
       data <- wide2long(data)
     }
   } else {
-    stop("input must be a design list or a data frame")
+    stop("x must be a design list or a data frame")
   }
   
   factors <- c(design$within, design$between)
@@ -156,16 +156,20 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
 
 
 #' Plot from faux design
+#'
+#' @method plot design
+#' @export
 #' @describeIn plot_design Plotting from a faux design list
-plot.design <- function(input, ..., geoms = NULL, 
-                        palette = "Dark2") {
-  plot_design(input, ..., geoms = geoms)
+plot.design <- function(x, ...) {
+  plot_design(x, ...)
 }
 
 #' Plot from faux data
+#'
+#' @method plot faux
+#' @export
 #' @describeIn plot_design Plotting from a faux data table
-plot.faux <- function(input, ..., geoms = NULL, 
-                      palette = "Dark2") {
-  plot_design(input, ..., geoms = geoms)
+plot.faux <- function(x, ...) {
+  plot_design(x, ...)
 }
 

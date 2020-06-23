@@ -54,7 +54,7 @@ Suggests:
     broom,
     broom.mixed
 VignetteBuilder: knitr
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/debruine/faux

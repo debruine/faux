@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -44,7 +48,6 @@
 
 <meta property="og:title" content="Changelog" />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -62,7 +65,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-news">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -99,6 +102,9 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
       <a href="../articles/plots.html">Plotting</a>
     </li>
     <li>
@@ -121,7 +127,7 @@
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/debruine/faux">
+  <a href="https://github.com/debruine/faux/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -139,20 +145,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Changelog <small></small></h1>
+      <h1 data-toc-skip>Changelog <small></small></h1>
       <small>Source: <a href='https://github.com/debruine/faux/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="faux-0-0-1-0-2020-02-27" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-1-0-2020-02-27" class="anchor"></a>faux 0.0.1.0 (2020-02-27)</h1>
+    <div id="faux-0010-2020-02-27" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.0">
+<a href="#faux-0010-2020-02-27" class="anchor"></a>faux 0.0.1.0 (2020-02-27)</h1>
+<ul>
+<li>Still not accepted to CRAN (but haven’t worked on it in a long time)</li>
+<li>New codebook function and vignette</li>
+<li>Updated for new tidyverse versions</li>
+</ul>
+</div>
+    <div id="faux-0010-2020-02-27-1" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.0">
+<a href="#faux-0010-2020-02-27-1" class="anchor"></a>faux 0.0.1.0 (2020-02-27)</h1>
 <ul>
 <li>Submitting to CRAN (wish me luck!)</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9019-2020-02-26" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9019-2020-02-26" class="anchor"></a>faux 0.0.0.9019 (2020-02-26)</h1>
+    <div id="faux-0009019-2020-02-26" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9019">
+<a href="#faux-0009019-2020-02-26" class="anchor"></a>faux 0.0.0.9019 (2020-02-26)</h1>
 <ul>
 <li>
 <a href="https://github.com/andrewheiss">Andrew Heiss</a> added <code>norm2beta</code> function</li>
@@ -161,9 +176,9 @@
 <code>trunc2norm</code> now works if <code>min</code> or <code>max</code> are omitted.</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9017-2019-12-26" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9017-2019-12-26" class="anchor"></a>faux 0.0.0.9017 (2019-12-26)</h1>
+    <div id="faux-0009017-2019-12-26" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9017">
+<a href="#faux-0009017-2019-12-26" class="anchor"></a>faux 0.0.0.9017 (2019-12-26)</h1>
 <ul>
 <li>Added <code>rep</code> argument to <code><a href="../reference/sim_design.html">sim_design()</a></code> and <code><a href="../reference/sim_data.html">sim_data()</a></code>. If rep &gt; 1, returns a nested data frame with <code>rep</code> simulated datasets.</li>
 <li>Fixed warnings on <code><a href="../reference/get_params.html">get_params()</a></code>
@@ -171,23 +186,23 @@
 <li>Improved <code><a href="../reference/make_id.html">make_id()</a></code> function</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9016-2019-12-10" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9016-2019-12-10" class="anchor"></a>faux 0.0.0.9016 (2019-12-10)</h1>
+    <div id="faux-0009016-2019-12-10" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9016">
+<a href="#faux-0009016-2019-12-10" class="anchor"></a>faux 0.0.0.9016 (2019-12-10)</h1>
 <ul>
 <li>Removed ANOVApower</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9015-2019-07-22" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9015-2019-07-22" class="anchor"></a>faux 0.0.0.9015 (2019-07-22)</h1>
+    <div id="faux-0009015-2019-07-22" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9015">
+<a href="#faux-0009015-2019-07-22" class="anchor"></a>faux 0.0.0.9015 (2019-07-22)</h1>
 <ul>
 <li>Added distribution conversion functions (still experimental)</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9014-2019-06-09" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9014-2019-06-09" class="anchor"></a>faux 0.0.0.9014 (2019-06-09)</h1>
+    <div id="faux-0009014-2019-06-09" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9014">
+<a href="#faux-0009014-2019-06-09" class="anchor"></a>faux 0.0.0.9014 (2019-06-09)</h1>
 <ul>
 <li>More flexible parameter specification</li>
 <li>Set plotting default as a global option <code><a href="../reference/faux_options.html">faux_options(plot = TRUE)</a></code>
@@ -195,27 +210,27 @@
 <li>Minor bug fixes and efficiency increases</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9013-2019-05-27" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9013-2019-05-27" class="anchor"></a>faux 0.0.0.9013 (2019-05-27)</h1>
+    <div id="faux-0009013-2019-05-27" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9013">
+<a href="#faux-0009013-2019-05-27" class="anchor"></a>faux 0.0.0.9013 (2019-05-27)</h1>
 <ul>
 <li>multi-factor cell names now in a more intuitive order (<strong>will break old code that inputs parameters with unnamed vectors</strong>)</li>
 <li>More flexible plotting styles (violin, jitter, box, pointrange with SD or SE, and combos)</li>
 <li>Minor bug fixes</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9012-2019-05-22" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9012-2019-05-22" class="anchor"></a>faux 0.0.0.9012 (2019-05-22)</h1>
+    <div id="faux-0009012-2019-05-22" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9012">
+<a href="#faux-0009012-2019-05-22" class="anchor"></a>faux 0.0.0.9012 (2019-05-22)</h1>
 <ul>
 <li>More flexible plots and data plots</li>
 <li>Setting seed doesn’t change the seed in your global environment</li>
 <li>Plot labels for dv and id (set them like <code>dv = list(colname = "Name for Plots")</code>)</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9011-2019-05-19" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9011-2019-05-19" class="anchor"></a>faux 0.0.0.9011 (2019-05-19)</h1>
+    <div id="faux-0009011-2019-05-19" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9011">
+<a href="#faux-0009011-2019-05-19" class="anchor"></a>faux 0.0.0.9011 (2019-05-19)</h1>
 <ul>
 <li>Changed default DV column name from ‘val’ to ‘y’</li>
 <li>Changed default ID column name from ‘sub_id’ to ‘id’</li>
@@ -228,18 +243,18 @@
 <li>Added functions for converting between distributions</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9010" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9010" class="anchor"></a>faux 0.0.0.9010</h1>
+    <div id="faux-0009010" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9010">
+<a href="#faux-0009010" class="anchor"></a>faux 0.0.0.9010</h1>
 <ul>
 <li>Fixed bugs in interactive specification</li>
 <li>Added <code><a href="../reference/messy.html">messy()</a></code> (thanks Emily)</li>
 <li>Better interactive specification (thanks Daniël)</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9009" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9009" class="anchor"></a>faux 0.0.0.9009</h1>
+    <div id="faux-0009009" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9009">
+<a href="#faux-0009009" class="anchor"></a>faux 0.0.0.9009</h1>
 <ul>
 <li>Bug fix for <code><a href="../reference/long2wide.html">long2wide()</a></code> (handle designs with no between or no within factors)</li>
 <li>
@@ -249,18 +264,18 @@
 </li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9008" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9008" class="anchor"></a>faux 0.0.0.9008</h1>
+    <div id="faux-0009008" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9008">
+<a href="#faux-0009008" class="anchor"></a>faux 0.0.0.9008</h1>
 <ul>
 <li>added <code><a href="../reference/sim_mixed_cc.html">sim_mixed_cc()</a></code> to simulate null cross-classified mixed effect designs by subject, item and error SDs</li>
 <li>
 <code><a href="../reference/sim_design.html">sim_design()</a></code>, <code><a href="../reference/sim_df.html">sim_df()</a></code>, <code><a href="../reference/sim_mixed_cc.html">sim_mixed_cc()</a></code> and <code><a href="../reference/sim_mixed_df.html">sim_mixed_df()</a></code> take a <code>seed</code> argument now for reproducible datasets</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9007" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9007" class="anchor"></a>faux 0.0.0.9007</h1>
+    <div id="faux-0009007" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9007">
+<a href="#faux-0009007" class="anchor"></a>faux 0.0.0.9007</h1>
 <ul>
 <li>Added a plot option to <code><a href="../reference/check_design.html">check_design()</a></code> and <code><a href="../reference/sim_design.html">sim_design()</a></code>
 </li>
@@ -273,24 +288,24 @@
 </li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9006" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9006" class="anchor"></a>faux 0.0.0.9006</h1>
+    <div id="faux-0009006" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9006">
+<a href="#faux-0009006" class="anchor"></a>faux 0.0.0.9006</h1>
 <ul>
 <li>Changes to argument order and names (more consistent, but may break old scripts)</li>
 <li>Updated vignettes</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9005" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9005" class="anchor"></a>faux 0.0.0.9005</h1>
+    <div id="faux-0009005" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9005">
+<a href="#faux-0009005" class="anchor"></a>faux 0.0.0.9005</h1>
 <ul>
 <li>Bug fixes for <code><a href="../reference/sim_design.html">sim_design()</a></code> (failed when within or between factor number was 0)</li>
 </ul>
 </div>
-    <div id="faux-0-0-0-9004" class="section level1">
-<h1 class="page-header">
-<a href="#faux-0-0-0-9004" class="anchor"></a>faux 0.0.0.9004</h1>
+    <div id="faux-0009004" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.0.9004">
+<a href="#faux-0009004" class="anchor"></a>faux 0.0.0.9004</h1>
 <ul>
 <li>Added a <code>NEWS.md</code> file to track changes to the package.</li>
 <li>Added <code><a href="../reference/sim_design.html">sim_design()</a></code> to simulate data for mixed ANOVA designs.</li>
@@ -298,28 +313,10 @@
 </div>
   </div>
 
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <div id="tocnav">
-      <h2>Contents</h2>
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#faux-0-0-1-0-2020-02-27">0.0.1.0</a></li>
-        <li><a href="#faux-0-0-0-9019-2020-02-26">0.0.0.9019</a></li>
-        <li><a href="#faux-0-0-0-9017-2019-12-26">0.0.0.9017</a></li>
-        <li><a href="#faux-0-0-0-9016-2019-12-10">0.0.0.9016</a></li>
-        <li><a href="#faux-0-0-0-9015-2019-07-22">0.0.0.9015</a></li>
-        <li><a href="#faux-0-0-0-9014-2019-06-09">0.0.0.9014</a></li>
-        <li><a href="#faux-0-0-0-9013-2019-05-27">0.0.0.9013</a></li>
-        <li><a href="#faux-0-0-0-9012-2019-05-22">0.0.0.9012</a></li>
-        <li><a href="#faux-0-0-0-9011-2019-05-19">0.0.0.9011</a></li>
-        <li><a href="#faux-0-0-0-9010">0.0.0.9010</a></li>
-        <li><a href="#faux-0-0-0-9009">0.0.0.9009</a></li>
-        <li><a href="#faux-0-0-0-9008">0.0.0.9008</a></li>
-        <li><a href="#faux-0-0-0-9007">0.0.0.9007</a></li>
-        <li><a href="#faux-0-0-0-9006">0.0.0.9006</a></li>
-        <li><a href="#faux-0-0-0-9005">0.0.0.9005</a></li>
-        <li><a href="#faux-0-0-0-9004">0.0.0.9004</a></li>
-      </ul>
-    </div>
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 
 </div>
@@ -331,7 +328,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

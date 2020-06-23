@@ -17,23 +17,27 @@
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -46,7 +50,6 @@
 <meta property="og:description" content="sim_mixed_df() produces a data table with the same distributions of 
 by-subject and by-item random intercepts as an existing data table." />
 <meta property="og:image" content="/logo.png" />
-<meta name="twitter:card" content="summary" />
 
 
 
@@ -64,7 +67,7 @@ by-subject and by-item random intercepts as an existing data table." />
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -101,6 +104,9 @@ by-subject and by-item random intercepts as an existing data table." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
+      <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
       <a href="../articles/plots.html">Plotting</a>
     </li>
     <li>
@@ -123,7 +129,7 @@ by-subject and by-item random intercepts as an existing data table." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/debruine/faux">
+  <a href="https://github.com/debruine/faux/">
     <span class="fab fa fab fa-github fa-lg"></span>
      
   </a>
@@ -200,28 +206,24 @@ by-subject and by-item random intercepts as an existing data table.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>sim_mixed_df</span>(<span class='no'>faceratings</span>, <span class='fl'>10</span>, <span class='fl'>10</span>, <span class='st'>"rating"</span>, <span class='st'>"rater_id"</span>, <span class='st'>"face_id"</span>)</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 100 x 7</span><span>
-#&gt;    sub_id item_id     y grand_i sub_i  item_i    err
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;fct&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span> </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> S01    I01      1.10    3.02 -</span><span style='color: #BB0000;'>1.01</span><span> -</span><span style='color: #BB0000;'>0.235</span><span>  -</span><span style='color: #BB0000;'>0.676</span><span>
-#&gt; </span><span style='color: #555555;'> 2</span><span> S01    I02      1.26    3.02 -</span><span style='color: #BB0000;'>1.01</span><span> -</span><span style='color: #BB0000;'>0.015</span><span style='color: #BB0000;text-decoration: underline;'>1</span><span> -</span><span style='color: #BB0000;'>0.732</span><span>
-#&gt; </span><span style='color: #555555;'> 3</span><span> S01    I03      1.96    3.02 -</span><span style='color: #BB0000;'>1.01</span><span> -</span><span style='color: #BB0000;'>0.436</span><span>   0.385
-#&gt; </span><span style='color: #555555;'> 4</span><span> S01    I04      1.49    3.02 -</span><span style='color: #BB0000;'>1.01</span><span> -</span><span style='color: #BB0000;'>0.166</span><span>  -</span><span style='color: #BB0000;'>0.349</span><span>
-#&gt; </span><span style='color: #555555;'> 5</span><span> S01    I05     -</span><span style='color: #BB0000;'>1.10</span><span>    3.02 -</span><span style='color: #BB0000;'>1.01</span><span> -</span><span style='color: #BB0000;'>1.19</span><span>   -</span><span style='color: #BB0000;'>1.91</span><span> 
-#&gt; </span><span style='color: #555555;'> 6</span><span> S01    I06      1.90    3.02 -</span><span style='color: #BB0000;'>1.01</span><span> -</span><span style='color: #BB0000;'>0.243</span><span>   0.132
-#&gt; </span><span style='color: #555555;'> 7</span><span> S01    I07      2.28    3.02 -</span><span style='color: #BB0000;'>1.01</span><span>  1.17   -</span><span style='color: #BB0000;'>0.894</span><span>
-#&gt; </span><span style='color: #555555;'> 8</span><span> S01    I08      1.99    3.02 -</span><span style='color: #BB0000;'>1.01</span><span> -</span><span style='color: #BB0000;'>1.84</span><span>    1.82 
-#&gt; </span><span style='color: #555555;'> 9</span><span> S01    I09      1.10    3.02 -</span><span style='color: #BB0000;'>1.01</span><span> -</span><span style='color: #BB0000;'>0.774</span><span>  -</span><span style='color: #BB0000;'>0.137</span><span>
-#&gt; </span><span style='color: #555555;'>10</span><span> S01    I10      6.33    3.02 -</span><span style='color: #BB0000;'>1.01</span><span>  1.38    2.95 
+#&gt;    sub_id item_id     y grand_i  sub_i  item_i    err
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>   </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>  </span><span style='color: #555555;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> S01    I01     2.85     3.02 -</span><span style='color: #BB0000;'>0.242</span><span>  0.878  -</span><span style='color: #BB0000;'>0.805</span><span>
+#&gt; </span><span style='color: #555555;'> 2</span><span> S01    I02     2.27     3.02 -</span><span style='color: #BB0000;'>0.242</span><span> -</span><span style='color: #BB0000;'>0.095</span><span style='color: #BB0000;text-decoration: underline;'>4</span><span> -</span><span style='color: #BB0000;'>0.409</span><span>
+#&gt; </span><span style='color: #555555;'> 3</span><span> S01    I03     3.00     3.02 -</span><span style='color: #BB0000;'>0.242</span><span>  1.02   -</span><span style='color: #BB0000;'>0.797</span><span>
+#&gt; </span><span style='color: #555555;'> 4</span><span> S01    I04     0.736    3.02 -</span><span style='color: #BB0000;'>0.242</span><span> -</span><span style='color: #BB0000;'>0.767</span><span>  -</span><span style='color: #BB0000;'>1.27</span><span> 
+#&gt; </span><span style='color: #555555;'> 5</span><span> S01    I05     2.37     3.02 -</span><span style='color: #BB0000;'>0.242</span><span> -</span><span style='color: #BB0000;'>0.225</span><span>  -</span><span style='color: #BB0000;'>0.178</span><span>
+#&gt; </span><span style='color: #555555;'> 6</span><span> S01    I06     2.30     3.02 -</span><span style='color: #BB0000;'>0.242</span><span>  0.070</span><span style='text-decoration: underline;'>1</span><span> -</span><span style='color: #BB0000;'>0.550</span><span>
+#&gt; </span><span style='color: #555555;'> 7</span><span> S01    I07     5.20     3.02 -</span><span style='color: #BB0000;'>0.242</span><span>  0.832   1.59 
+#&gt; </span><span style='color: #555555;'> 8</span><span> S01    I08     3.63     3.02 -</span><span style='color: #BB0000;'>0.242</span><span> -</span><span style='color: #BB0000;'>1.28</span><span>    2.13 
+#&gt; </span><span style='color: #555555;'> 9</span><span> S01    I09     2.25     3.02 -</span><span style='color: #BB0000;'>0.242</span><span>  0.630  -</span><span style='color: #BB0000;'>1.16</span><span> 
+#&gt; </span><span style='color: #555555;'>10</span><span> S01    I10     1.47     3.02 -</span><span style='color: #BB0000;'>0.242</span><span>  0.191  -</span><span style='color: #BB0000;'>1.50</span><span> 
 #&gt; </span><span style='color: #555555;'># … with 90 more rows</span><span></div></span></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -232,7 +234,7 @@ by-subject and by-item random intercepts as an existing data table.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
 </div>
 
       </footer>

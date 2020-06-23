@@ -1,5 +1,11 @@
 # faux 0.0.1.0 (2020-02-27)
 
+* Still not accepted to CRAN (but haven't worked on it in a long time)
+* New codebook function and vignette
+* Updated for new tidyverse versions
+
+# faux 0.0.1.0 (2020-02-27)
+
 * Submitting to CRAN (wish me luck!)
 
 # faux 0.0.0.9019 (2020-02-26)

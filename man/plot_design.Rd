@@ -6,14 +6,14 @@
 \alias{plot.faux}
 \title{Plot design}
 \usage{
-plot_design(input, ..., geoms = NULL, palette = "Dark2")
+plot_design(x, ..., geoms = NULL, palette = "Dark2")
 
-\method{plot}{design}(input, ..., geoms = NULL, palette = "Dark2")
+\method{plot}{design}(x, ...)
 
-\method{plot}{faux}(input, ..., geoms = NULL, palette = "Dark2")
+\method{plot}{faux}(x, ...)
 }
 \arguments{
-\item{input}{A list of design parameters created by check_design() or a data tbl (in long format)}
+\item{x}{A list of design parameters created by check_design() or a data tbl (in long format)}
 
 \item{...}{A list of factor names to determine visualisation (see vignette)}
 
