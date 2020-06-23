@@ -1,10 +1,12 @@
-pandoc: 2.3.1
-pkgdown: 1.4.1
+pandoc: 2.7.3
+pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
+  codebook: codebook.html
   plots: plots.html
   rnorm_multi: rnorm_multi.html
   sim_design: sim_design.html
   sim_df: sim_df.html
   sim_mixed: sim_mixed.html
+last_built: 2020-06-23T14:48Z
 
