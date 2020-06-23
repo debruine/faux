@@ -12,7 +12,7 @@ interactive_codebook(data, cb = NULL)
 \item{cb}{The codebook in list format if already generated}
 }
 \value{
-
+codebook list
 }
 \description{
 Interactive Codebook

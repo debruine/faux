@@ -11,7 +11,7 @@ test_that("error", {
   expect_error(plot_design(df), err)
   expect_error(plot_design(iris), err)
   
-  err <- "input must be a design list or a data frame"
+  err <- "x must be a design list or a data frame"
   expect_error(plot_design(1), err)
   expect_error(plot_design("A"), err)
   expect_error(plot_design(matrix(1:100, 10)), err)

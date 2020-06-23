@@ -49,7 +49,7 @@ print.psychds_codebook <- function(x, ...) {
         
         extras <- sprintf("\n  * Levels\n%s  * Ordered: %s",
                           lvls,
-                          ifelse(is.null(v$ordered), FASLE, v$ordered)
+                          ifelse(is.null(v$ordered), FALSE, v$ordered)
         )
       }
       vars[v$name] = sprintf(

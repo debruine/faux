@@ -291,10 +291,8 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
 #' @param data The data frame to generate a codebook for
 #' @param cb The codebook in list format if already generated
 #'
-#' @return
-#' @export
+#' @return codebook list
 #'
-#' @examples
 interactive_codebook <- function(data, cb = NULL) {
   if (is.null(cb)) {
     # run codebook function to get best guess
