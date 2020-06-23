@@ -46,7 +46,7 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
     } else {
       stop("The data table must have a design attribute")
     }
-    if (all(names(data) == c("rep", "data"))) {
+    if (all(names(data)[1:2] == c("rep", "data"))) {
       # nested data, just graph first row
       data <- tidyr::unnest(data, data)
       attr(data, "design") <- design
@@ -156,6 +156,9 @@ plot_design <- function(input, ..., geoms = NULL, palette = "Dark2") {
 
 
 #' Plot from faux design
+#'
+#' @method plot design
+#' @export
 #' @describeIn plot_design Plotting from a faux design list
 plot.design <- function(input, ..., geoms = NULL, 
                         palette = "Dark2") {
@@ -163,6 +166,9 @@ plot.design <- function(input, ..., geoms = NULL,
 }
 
 #' Plot from faux data
+#'
+#' @method plot faux
+#' @export
 #' @describeIn plot_design Plotting from a faux data table
 plot.faux <- function(input, ..., geoms = NULL, 
                       palette = "Dark2") {

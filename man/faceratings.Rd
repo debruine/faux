@@ -4,7 +4,8 @@
 \name{faceratings}
 \alias{faceratings}
 \title{Attractiveness ratings of faces}
-\format{A data frame with 256326 rows and 9 variables:
+\format{
+A data frame with 256326 rows and 9 variables:
 \describe{
   \item{rater_id}{rater's ID}
   \item{rater_sex}{rater's sex (female, male, intersex, NA)}
@@ -15,7 +16,8 @@
   \item{face_age}{face's age (in years)}
   \item{face_eth}{face's ethnic group}
   \item{rating}{attractiveness rating on a scale from 1 (much less attractive than average) to 7 (much more attractive than average)}
-}}
+}
+}
 \source{
 \url{https://figshare.com/articles/Face_Research_Lab_London_Set/5047666}
 }

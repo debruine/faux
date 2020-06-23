@@ -1,0 +1,143 @@
+---
+title: "Codebook Demo"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Codebook Demo}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = FALSE,
+  comment = ">"
+)
+```
+
+```{r setup}
+library(faux)
+```
+
+Codebooks in faux follow the [Psych-DS 0.1.0 format](https://docs.google.com/document/d/1u8o5jnWk0Iqp_J06PTu5NjBfVsdoPbBhstht6W0fFp0/edit), which is still in development.
+
+## Codebooks for Simulated Data
+
+When you simulate data with `sim_design`, the codebook function reads some parameters of the design.
+
+```{r}
+pet_data <- sim_design(
+  between = list(pet = c(cat = "Cat Owners", 
+                         dog = "Dog Owners")),
+  n = c(4, 6),
+  dv = list(happy = "Happiness Score"),
+  id = list(id = "Subject ID"),
+  mu = c(10, 12),
+  sd = 4
+)
+```
+
+You can set up a codebook with the function `codebook()`. If you don't specify the name, it defaults to the variable name (`pet_data`).  
+
+```{r}
+cb <- codebook(pet_data)
+```
+
+If you just type the codebook object into the console, you'll see the info in JSON format like this.
+
+```{r}
+cb
+```
+
+If you set `as_json` to FALSE, you get the codebook in an R list that prints like this.
+
+```{r}
+faux_options(verbose = FALSE) # turn off messages
+cb <- codebook(pet_data, as_json = FALSE)
+faux_options(verbose = TRUE) # turn on messages
+cb
+```
+
+But the codebook is actually a nested list formatted like this:
+
+```{r}
+str(cb)
+```
+
+### Setting variable parameters
+
+Above you saw messages about the data type that codebook guesses for each column. You can override this by setting the values manually. Below, we'll change the type of the id column from string to factor and also set descriptions for `id` and `pet`. The `id` column had a description of "Subject ID" from the `sim_design` function, but properties set in using `vardesc` will override this. You can also add unobserved levels to a factor.
+
+```{r}
+vardesc <- list(
+  type = c(id = "factor"),
+  description = c(id = "Pet ID",
+                  pet = "Pet Type"),
+  levels = list(pet = c(cat = "Cat Owners",
+                        dog = "Dog Owners", 
+                        ferret = "Ferret Owners"))
+)
+cb <- codebook(pet_data, name = "pets", vardesc)
+
+cb
+```
+
+The variable parameters that Psych-DS currently supports are: "description", "privacy", "type", "propertyID", "minValue", "maxValue", "levels", "ordered", "na", "naValues", "alternateName", and "unitCode". See the [technical specs](https://docs.google.com/document/d/1u8o5jnWk0Iqp_J06PTu5NjBfVsdoPbBhstht6W0fFp0/edit) for descriptions of these properties. You can add custom parameters, but will get a warning.
+
+```{r}
+
+codebook(pet_data, vardesc = list(new_param = c(id = "YES")))
+```
+
+
+
+### Dataset Parameters
+
+You can add extra parameters to the whole data set. Psych-DS supports the following: "license", "author", "citation", "funder", "url", "sameAs", "keywords", "temporalCoverage", "spatialCoverage", "datePublished", "dateCreated". As with variable parameters, you can add custom parameters and will just get a warning. 
+
+```{r}
+codebook(pet_data, license = "CC-BY 3.0", author = "Lisa DeBruine", source = "faux")
+```
+
+
+
+## Run Codebook on Existing Data
+
+You can run the codebook function on existing data not created in faux, but will need to manually input column descriptions and factor levels.
+
+```{r}
+
+vardesc <- list(
+  description = list(
+    mpg = "Miles/(US) gallon",
+    cyl = "Number of cylinders",
+    disp = "Displacement (cu.in.)",
+    hp = "Gross horsepower",
+    drat = "Rear axle ratio",
+    wt = "Weight (1000 lbs)",
+    qsec = "1/4 mile time",
+    vs = "Engine",
+    am = "Transmission",
+    gear = "Number of forward gears",
+    carb = "Number of carburetors"
+  ),
+  # min and max values can be set manually or from data
+  # min and max are often outside the observed range
+  minValue = list(mpg = 0, cyl = min(mtcars$cyl)),
+  maxValue = list(cyl = max(mtcars$cyl)),
+  levels = list(
+    vs = c("0" = "V-shaped", "1" = "straight"),
+    am = c("0" = "automatic", "1" = "manual")
+  ),
+  type = list(
+    cyl = "integer",
+    hp = "integer",
+    vs = "factor",
+    am = "factor",
+    gear = "integer",
+    carb = "integer"
+  )
+)
+
+codebook(mtcars, "Motor Trend Car Road Tests", vardesc, as_json = FALSE)
+```
+

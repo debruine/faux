@@ -45,7 +45,8 @@ get_params <- function(data, between = c(), within = c(),
     dplyr::select(-.data$multisim_data) %>%
     tidyr::unnest(cols = "multisim_cor") %>%
     dplyr::left_join(descriptives, by = c(between, "var")) %>%
-    dplyr::select(tidyselect::one_of(c(between, "n", "var", numvars, "mean", "sd")))
+    dplyr::select(tidyselect::one_of(c(between, "n", "var", numvars, "mean", "sd"))) %>%
+    dplyr::ungroup()
     
   stats
 }

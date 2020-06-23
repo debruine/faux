@@ -25,7 +25,7 @@ test_that("grouping", {
   # grouping by name
   checkiris <- select_num_grp(iris, "Species")
   irisnames <- c("Species", "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")
-  iris_manual <- dplyr::select(iris, tidyselect::one_of(irisnames))
+  iris_manual <- dplyr::group_by(iris[irisnames], Species)
   
   expect_equal(nrow(checkiris), nrow(iris))
   expect_equal(ncol(checkiris), 5)
@@ -35,7 +35,7 @@ test_that("grouping", {
   # grouping by number
   checkiris <- select_num_grp(iris, 5)
   irisnames <- c("Species", "Sepal.Length", "Sepal.Width", "Petal.Length", "Petal.Width")
-  iris_manual <- dplyr::select(iris, tidyselect::one_of(irisnames))
+  iris_manual <- dplyr::group_by(iris[irisnames], Species)
   
   expect_equal(nrow(checkiris), nrow(iris))
   expect_equal(ncol(checkiris), 5)
