@@ -6,83 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>#' Create PsychDS Codebook from Data
-#'
-#' @param data The data frame to generate a codebook for
-#' @param coldesc Optional named list of column descriptions
-#' @param as_json Whether the output should be a list or JSON format
-#' @param interactive Whether the function should prompt the user to describe columns and factor levels
-#'
-#' @return a list or json-formatted codebook
-#' @export
-#'
-#' @examples
-#' 
-#' data &lt;- sim_design(2, 2, long = TRUE)
-#' cb &lt;- codebook(data, c("A" = "Factor 1", "B" = "Factor 2"))
-codebook &lt;- function(data, coldesc = NULL, as_json = TRUE, interactive = FALSE) 
-  vm &lt;- list()
-  colnames &lt;- names(data)
-  if (is.null(coldesc)) 
-    # set column descriptions to the same as column names
-    coldesc &lt;- colnames
-    names(coldesc) &lt;- colnames
-  
-  
-  for (i in 1:ncol(data)) 
-    col &lt;- colnames[i]
-    
-    if (interactive) 
-      # ask user for the column description
-      p &lt;- paste0("Full name of column ", col, ": ")
-      coldesc[col] &lt;- readline_check(prompt=p, "length", min = 1)
-     else if (is.na(coldesc[col])) 
-      # column not defined in coldesc
-      coldesc[col] &lt;- col
-    
-    
-    vm[[i]] &lt;- list(
-      type = "PropertyValue",
-      unitText = colnames[i],
-      name = coldesc[[col]]
-    )
-    
-    vm[[i]]$missingValues &lt;- is.na(data[[i]]) <!-- %&gt;% sum() -->
-    
-    if (is.numeric(data[[i]])) 
-      vm[[i]]$minValue &lt;- min(data[[i]], na.rm = TRUE)
-      vm[[i]]$maxValue &lt;- max(data[[i]], na.rm = TRUE)
-      vm[[i]]$meanValue &lt;- mean(data[[i]], na.rm = TRUE)
-      vm[[i]]$sdValue &lt;- sd(data[[i]], na.rm = TRUE)
-     else if (is.factor(data[[i]])) 
-      lvls &lt;- levels(data[[i]])
-      names(lvls) &lt;- lvls
-      if (interactive) 
-        for (lname in lvls) 
-          p &lt;- paste0(colnames[i], ", level ", lname, ": ")
-          lvls[lname] &lt;- readline_check(prompt=p, "length", min = 1)
-        
-      
-      
-      vm[[i]]$levels &lt;- lvls
-    
-  
-  
-  schema &lt;- list(
-    "@type" = "Dataset",
-    schemaVersion = "Psych-DS 0.1.0",
-    variableMeasured = vm
-  )
-  
-  if (isTRUE(as_json)) 
-    schema &lt;- schema <!-- %&gt;% -->
-      jsonlite::toJSON(auto_unbox = TRUE) <!-- %&gt;% -->
-      jsonlite::prettify(4)
-  
-  
-  return(schema)
-
-Create PsychDS Codebook from Data — codebook • faux</title>
+<title>Create PsychDS Codebook from Data — codebook • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -122,135 +46,8 @@ Create PsychDS Codebook from Data — codebook • faux</title>
 
 
 
-<meta property="og:title" content="#' Create PsychDS Codebook from Data
-#'
-#' @param data The data frame to generate a codebook for
-#' @param coldesc Optional named list of column descriptions
-#' @param as_json Whether the output should be a list or JSON format
-#' @param interactive Whether the function should prompt the user to describe columns and factor levels
-#'
-#' @return a list or json-formatted codebook
-#' @export
-#'
-#' @examples
-#' 
-#' data &lt;- sim_design(2, 2, long = TRUE)
-#' cb &lt;- codebook(data, c("A" = "Factor 1", "B" = "Factor 2"))
-codebook &lt;- function(data, coldesc = NULL, as_json = TRUE, interactive = FALSE) 
-  vm &lt;- list()
-  colnames &lt;- names(data)
-  if (is.null(coldesc)) 
-    # set column descriptions to the same as column names
-    coldesc &lt;- colnames
-    names(coldesc) &lt;- colnames
-  
-  
-  for (i in 1:ncol(data)) 
-    col &lt;- colnames[i]
-    
-    if (interactive) 
-      # ask user for the column description
-      p &lt;- paste0("Full name of column ", col, ": ")
-      coldesc[col] &lt;- readline_check(prompt=p, "length", min = 1)
-     else if (is.na(coldesc[col])) 
-      # column not defined in coldesc
-      coldesc[col] &lt;- col
-    
-    
-    vm[[i]] &lt;- list(
-      type = "PropertyValue",
-      unitText = colnames[i],
-      name = coldesc[[col]]
-    )
-    
-    vm[[i]]$missingValues &lt;- is.na(data[[i]]) <!-- %&gt;% sum() -->
-    
-    if (is.numeric(data[[i]])) 
-      vm[[i]]$minValue &lt;- min(data[[i]], na.rm = TRUE)
-      vm[[i]]$maxValue &lt;- max(data[[i]], na.rm = TRUE)
-      vm[[i]]$meanValue &lt;- mean(data[[i]], na.rm = TRUE)
-      vm[[i]]$sdValue &lt;- sd(data[[i]], na.rm = TRUE)
-     else if (is.factor(data[[i]])) 
-      lvls &lt;- levels(data[[i]])
-      names(lvls) &lt;- lvls
-      if (interactive) 
-        for (lname in lvls) 
-          p &lt;- paste0(colnames[i], ", level ", lname, ": ")
-          lvls[lname] &lt;- readline_check(prompt=p, "length", min = 1)
-        
-      
-      
-      vm[[i]]$levels &lt;- lvls
-    
-  
-  
-  schema &lt;- list(
-    "@type" = "Dataset",
-    schemaVersion = "Psych-DS 0.1.0",
-    variableMeasured = vm
-  )
-  
-  if (isTRUE(as_json)) 
-    schema &lt;- schema <!-- %&gt;% -->
-      jsonlite::toJSON(auto_unbox = TRUE) <!-- %&gt;% -->
-      jsonlite::prettify(4)
-  
-  
-  return(schema)
-
-Create PsychDS Codebook from Data — codebook" />
-<meta property="og:description" content="#' Create PsychDS Codebook from Data
-#'
-#' @param data The data frame to generate a codebook for
-#' @param coldesc Optional named list of column descriptions
-#' @param as_json Whether the output should be a list or JSON format
-#' @param interactive Whether the function should prompt the user to describe columns and factor levels
-#'
-#' @return a list or json-formatted codebook
-#' @export
-#'
-#' @examples
-#' 
-#' data &amp;lt;- sim_design(2, 2, long = TRUE)
-#' cb &amp;lt;- codebook(data, c(&quot;A&quot; = &quot;Factor 1&quot;, &quot;B&quot; = &quot;Factor 2&quot;))
-codebook &amp;lt;- function(data, coldesc = NULL, as_json = TRUE, interactive = FALSE) 
-  vm &amp;lt;- list()
-  colnames &amp;lt;- names(data)
-  if (is.null(coldesc)) 
-    # set column descriptions to the same as column names
-    coldesc &amp;lt;- colnames
-    names(coldesc) &amp;lt;- colnames  for (i in 1:ncol(data)) 
-    col &amp;lt;- colnames[i]    if (interactive) 
-      # ask user for the column description
-      p &amp;lt;- paste0(&quot;Full name of column &quot;, col, &quot;: &quot;)
-      coldesc[col] &amp;lt;- readline_check(prompt=p, &quot;length&quot;, min = 1)
-     else if (is.na(coldesc[col])) 
-      # column not defined in coldesc
-      coldesc[col] &amp;lt;- col    vm[[i]] &amp;lt;- list(
-      type = &quot;PropertyValue&quot;,
-      unitText = colnames[i],
-      name = coldesc[[col]]
-    )    vm[[i]]$missingValues &amp;lt;- is.na(data[[i]])     if (is.numeric(data[[i]])) 
-      vm[[i]]$minValue &amp;lt;- min(data[[i]], na.rm = TRUE)
-      vm[[i]]$maxValue &amp;lt;- max(data[[i]], na.rm = TRUE)
-      vm[[i]]$meanValue &amp;lt;- mean(data[[i]], na.rm = TRUE)
-      vm[[i]]$sdValue &amp;lt;- sd(data[[i]], na.rm = TRUE)
-     else if (is.factor(data[[i]])) 
-      lvls &amp;lt;- levels(data[[i]])
-      names(lvls) &amp;lt;- lvls
-      if (interactive) 
-        for (lname in lvls) 
-          p &amp;lt;- paste0(colnames[i], &quot;, level &quot;, lname, &quot;: &quot;)
-          lvls[lname] &amp;lt;- readline_check(prompt=p, &quot;length&quot;, min = 1)      vm[[i]]$levels &amp;lt;- lvls  schema &amp;lt;- list(
-    &quot;@type&quot; = &quot;Dataset&quot;,
-    schemaVersion = &quot;Psych-DS 0.1.0&quot;,
-    variableMeasured = vm
-  )  if (isTRUE(as_json)) 
-    schema &amp;lt;- schema 
-      jsonlite::toJSON(auto_unbox = TRUE) 
-      jsonlite::prettify(4)  return(schema)
-
-Create PsychDS Codebook from Data" />
+<meta property="og:title" content="Create PsychDS Codebook from Data — codebook" />
+<meta property="og:description" content="Create PsychDS Codebook from Data" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -349,140 +146,13 @@ Create PsychDS Codebook from Data" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>#' Create PsychDS Codebook from Data
-#'
-#' @param data The data frame to generate a codebook for
-#' @param coldesc Optional named list of column descriptions
-#' @param as_json Whether the output should be a list or JSON format
-#' @param interactive Whether the function should prompt the user to describe columns and factor levels
-#'
-#' @return a list or json-formatted codebook
-#' @export
-#'
-#' @examples
-#' 
-#' data &lt;- sim_design(2, 2, long = TRUE)
-#' cb &lt;- codebook(data, c("A" = "Factor 1", "B" = "Factor 2"))
-codebook &lt;- function(data, coldesc = NULL, as_json = TRUE, interactive = FALSE) 
-  vm &lt;- list()
-  colnames &lt;- names(data)
-  if (is.null(coldesc)) 
-    # set column descriptions to the same as column names
-    coldesc &lt;- colnames
-    names(coldesc) &lt;- colnames
-  
-  
-  for (i in 1:ncol(data)) 
-    col &lt;- colnames[i]
-    
-    if (interactive) 
-      # ask user for the column description
-      p &lt;- paste0("Full name of column ", col, ": ")
-      coldesc[col] &lt;- readline_check(prompt=p, "length", min = 1)
-     else if (is.na(coldesc[col])) 
-      # column not defined in coldesc
-      coldesc[col] &lt;- col
-    
-    
-    vm[[i]] &lt;- list(
-      type = "PropertyValue",
-      unitText = colnames[i],
-      name = coldesc[[col]]
-    )
-    
-    vm[[i]]$missingValues &lt;- is.na(data[[i]]) <!-- %&gt;% sum() -->
-    
-    if (is.numeric(data[[i]])) 
-      vm[[i]]$minValue &lt;- min(data[[i]], na.rm = TRUE)
-      vm[[i]]$maxValue &lt;- max(data[[i]], na.rm = TRUE)
-      vm[[i]]$meanValue &lt;- mean(data[[i]], na.rm = TRUE)
-      vm[[i]]$sdValue &lt;- sd(data[[i]], na.rm = TRUE)
-     else if (is.factor(data[[i]])) 
-      lvls &lt;- levels(data[[i]])
-      names(lvls) &lt;- lvls
-      if (interactive) 
-        for (lname in lvls) 
-          p &lt;- paste0(colnames[i], ", level ", lname, ": ")
-          lvls[lname] &lt;- readline_check(prompt=p, "length", min = 1)
-        
-      
-      
-      vm[[i]]$levels &lt;- lvls
-    
-  
-  
-  schema &lt;- list(
-    "@type" = "Dataset",
-    schemaVersion = "Psych-DS 0.1.0",
-    variableMeasured = vm
-  )
-  
-  if (isTRUE(as_json)) 
-    schema &lt;- schema <!-- %&gt;% -->
-      jsonlite::toJSON(auto_unbox = TRUE) <!-- %&gt;% -->
-      jsonlite::prettify(4)
-  
-  
-  return(schema)
-
-Create PsychDS Codebook from Data</h1>
+    <h1>Create PsychDS Codebook from Data</h1>
     <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/codebook.R'><code>R/codebook.R</code></a></small>
     <div class="hidden name"><code>codebook.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>#' Create PsychDS Codebook from Data
-#'
-#' @param data The data frame to generate a codebook for
-#' @param coldesc Optional named list of column descriptions
-#' @param as_json Whether the output should be a list or JSON format
-#' @param interactive Whether the function should prompt the user to describe columns and factor levels
-#'
-#' @return a list or json-formatted codebook
-#' @export
-#'
-#' @examples
-#' 
-#' data &lt;- sim_design(2, 2, long = TRUE)
-#' cb &lt;- codebook(data, c("A" = "Factor 1", "B" = "Factor 2"))
-codebook &lt;- function(data, coldesc = NULL, as_json = TRUE, interactive = FALSE) 
-  vm &lt;- list()
-  colnames &lt;- names(data)
-  if (is.null(coldesc)) 
-    # set column descriptions to the same as column names
-    coldesc &lt;- colnames
-    names(coldesc) &lt;- colnames  for (i in 1:ncol(data)) 
-    col &lt;- colnames[i]    if (interactive) 
-      # ask user for the column description
-      p &lt;- paste0("Full name of column ", col, ": ")
-      coldesc[col] &lt;- readline_check(prompt=p, "length", min = 1)
-     else if (is.na(coldesc[col])) 
-      # column not defined in coldesc
-      coldesc[col] &lt;- col    vm[[i]] &lt;- list(
-      type = "PropertyValue",
-      unitText = colnames[i],
-      name = coldesc[[col]]
-    )    vm[[i]]$missingValues &lt;- is.na(data[[i]]) <!-- %&gt;% sum() -->    if (is.numeric(data[[i]])) 
-      vm[[i]]$minValue &lt;- min(data[[i]], na.rm = TRUE)
-      vm[[i]]$maxValue &lt;- max(data[[i]], na.rm = TRUE)
-      vm[[i]]$meanValue &lt;- mean(data[[i]], na.rm = TRUE)
-      vm[[i]]$sdValue &lt;- sd(data[[i]], na.rm = TRUE)
-     else if (is.factor(data[[i]])) 
-      lvls &lt;- levels(data[[i]])
-      names(lvls) &lt;- lvls
-      if (interactive) 
-        for (lname in lvls) 
-          p &lt;- paste0(colnames[i], ", level ", lname, ": ")
-          lvls[lname] &lt;- readline_check(prompt=p, "length", min = 1)      vm[[i]]$levels &lt;- lvls  schema &lt;- list(
-    "@type" = "Dataset",
-    schemaVersion = "Psych-DS 0.1.0",
-    variableMeasured = vm
-  )  if (isTRUE(as_json)) 
-    schema &lt;- schema <!-- %&gt;% -->
-      jsonlite::toJSON(auto_unbox = TRUE) <!-- %&gt;% -->
-      jsonlite::prettify(4)  return(schema)
-
-Create PsychDS Codebook from Data</p>
+    <p>Create PsychDS Codebook from Data</p>
     </div>
 
     <pre class="usage"><span class='fu'>codebook</span>(
@@ -491,7 +161,7 @@ Create PsychDS Codebook from Data</p>
   <span class='kw'>vardesc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
   <span class='no'>...</span>,
   <span class='kw'>schemaVersion</span> <span class='kw'>=</span> <span class='st'>"Psych-DS 0.1.0"</span>,
-  <span class='kw'>as_json</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"json"</span>, <span class='st'>"list"</span>, <span class='st'>"data"</span>),
   <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
@@ -519,8 +189,8 @@ Create PsychDS Codebook from Data</p>
       <td><p>defaults to "Psych-DS 0.1.0"</p></td>
     </tr>
     <tr>
-      <th>as_json</th>
-      <td><p>Whether the output should be a list or JSON format</p></td>
+      <th>return</th>
+      <td><p>Whether the output should be in JSON format (json), a list (list) or the reformatted data with the codebook as an attribute (data)</p></td>
     </tr>
     <tr>
       <th>interactive</th>
@@ -530,7 +200,7 @@ Create PsychDS Codebook from Data</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list or json-formatted codebook</p>
+    <p>a list or json-formatted codebook, or reformatted data withthe codebook as an attribute</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
@@ -576,7 +246,13 @@ Create PsychDS Codebook from Data</p>
 #&gt;             "@type": "PropertyValue",
 #&gt;             "name": "Species",
 #&gt;             "description": "The flower species",
-#&gt;             "type": "string"
+#&gt;             "type": "string",
+#&gt;             "levels": {
+#&gt;                 "setosa": "setosa",
+#&gt;                 "versicolor": "versicolor",
+#&gt;                 "virginica": "virginica"
+#&gt;             },
+#&gt;             "ordered": false
 #&gt;         }
 #&gt;     ]
 #&gt; }

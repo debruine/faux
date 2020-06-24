@@ -1,81 +1,3 @@
-#' #' Create PsychDS Codebook from Data
-#' #'
-#' #' @param data The data frame to generate a codebook for
-#' #' @param coldesc Optional named list of column descriptions
-#' #' @param as_json Whether the output should be a list or JSON format
-#' #' @param interactive Whether the function should prompt the user to describe columns and factor levels
-#' #'
-#' #' @return a list or json-formatted codebook
-#' #' @export
-#' #'
-#' #' @examples
-#' #' 
-#' #' data <- sim_design(2, 2, long = TRUE)
-#' #' cb <- codebook(data, c("A" = "Factor 1", "B" = "Factor 2"))
-#' codebook <- function(data, coldesc = NULL, as_json = TRUE, interactive = FALSE) {
-#'   vm <- list()
-#'   colnames <- names(data)
-#'   if (is.null(coldesc)) {
-#'     # set column descriptions to the same as column names
-#'     coldesc <- colnames
-#'     names(coldesc) <- colnames
-#'   }
-#'   
-#'   for (i in 1:ncol(data)) {
-#'     col <- colnames[i]
-#'     
-#'     if (interactive) {
-#'       # ask user for the column description
-#'       p <- paste0("Full name of column ", col, ": ")
-#'       coldesc[col] <- readline_check(prompt=p, "length", min = 1)
-#'     } else if (is.na(coldesc[col])) {
-#'       # column not defined in coldesc
-#'       coldesc[col] <- col
-#'     }
-#'     
-#'     vm[[i]] <- list(
-#'       type = "PropertyValue",
-#'       unitText = colnames[i],
-#'       name = coldesc[[col]]
-#'     )
-#'     
-#'     vm[[i]]$missingValues <- is.na(data[[i]]) %>% sum()
-#'     
-#'     if (is.numeric(data[[i]])) {
-#'       vm[[i]]$minValue <- min(data[[i]], na.rm = TRUE)
-#'       vm[[i]]$maxValue <- max(data[[i]], na.rm = TRUE)
-#'       vm[[i]]$meanValue <- mean(data[[i]], na.rm = TRUE)
-#'       vm[[i]]$sdValue <- sd(data[[i]], na.rm = TRUE)
-#'     } else if (is.factor(data[[i]])) {
-#'       lvls <- levels(data[[i]])
-#'       names(lvls) <- lvls
-#'       if (interactive) {
-#'         for (lname in lvls) {
-#'           p <- paste0(colnames[i], ", level ", lname, ": ")
-#'           lvls[lname] <- readline_check(prompt=p, "length", min = 1)
-#'         }
-#'       }
-#'       
-#'       vm[[i]]$levels <- lvls
-#'     }
-#'   }
-#'   
-#'   schema <- list(
-#'     "@type" = "Dataset",
-#'     schemaVersion = "Psych-DS 0.1.0",
-#'     variableMeasured = vm
-#'   )
-#'   
-#'   if (isTRUE(as_json)) {
-#'     schema <- schema %>%
-#'       jsonlite::toJSON(auto_unbox = TRUE) %>%
-#'       jsonlite::prettify(4)
-#'   }
-#'   
-#'   return(schema)
-#' }
-
-
 #' Create PsychDS Codebook from Data
 #'
 #' @param data The data frame to generate a codebook for
@@ -83,10 +5,10 @@
 #' @param vardesc Optional variable properties in the format of a named list of vectors (can be named or unnamed and in the same order as the data) from the options description, privacy, type, propertyID, minValue, maxValue, levels, ordered, na, naValues, alternateName, unitCode
 #' @param ... Further dataset properties (e.g., description, license, author, citation, funder, url, doi/sameAs, keywords, temporalCoverage, spatialCoverage, datePublished, dateCreated)
 #' @param schemaVersion defaults to "Psych-DS 0.1.0"
-#' @param as_json Whether the output should be a list or JSON format
+#' @param return Whether the output should be in JSON format (json), a list (list) or the reformatted data with the codebook as an attribute (data)
 #' @param interactive Whether the function should prompt the user to describe columns and factor levels
 #'
-#' @return a list or json-formatted codebook
+#' @return a list or json-formatted codebook, or reformatted data withthe codebook as an attribute
 #' @export
 #'
 #' @examples
@@ -103,7 +25,9 @@
 #'
 codebook <- function(data, name = NULL, vardesc = list(), ...,
                      schemaVersion = "Psych-DS 0.1.0", 
-                     as_json = TRUE, interactive = FALSE) {
+                     return = c("json", "list", "data"),
+                     interactive = FALSE
+                     ) {
   # use PsychDS format from https://docs.google.com/document/d/1u8o5jnWk0Iqp_J06PTu5NjBfVsdoPbBhstht6W0fFp0/edit
   
   if (is.null(name)) {
@@ -112,19 +36,22 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
   
   # all possible type abbreviations ----
   types <- c(i = "int", 
-             s = "string", 
-             d = "float", 
-             f = "factor", 
-             b = "bool",
-             int = "int", 
-             string = "string", 
-             double = "float", 
-             factor = "factor", 
-             bool = "bool",
+             int = "int",
              integer = "int", 
+             
+             s = "string",
+             string = "string",
+             factor = "string",
              char = "string", 
-             character = "string", 
-             float = "float", 
+             character = "string",
+             
+             f = "float", 
+             float = "float",
+             double = "float",
+             numeric = "float",
+              
+             b = "bool",
+             bool = "bool",
              boolean = "bool",
              logical = "bool")
   
@@ -242,10 +169,15 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
     }
     
     if (is.null(vm[[i]]$type)) {
+      can_be_int <- isTRUE(all(
+        data[[i]] == suppressWarnings(as.integer(data[[i]]))
+      ))
+      
       vm[[i]]$type <- dplyr::case_when(
-        is.factor(data[[i]]) ~ "factor",
+        is.factor(data[[i]]) ~ "string",
         is.character(data[[i]]) ~ "string",
         is.integer(data[[i]]) ~ "int",
+        is.numeric(data[[i]]) & can_be_int ~ "int",
         is.numeric(data[[i]]) ~ "float",
         is.logical(data[[i]]) ~ "bool",
         TRUE ~ typeof(data[[i]])
@@ -256,12 +188,14 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
     }
     
     # get levels for factors if not specified ----
-    if (vm[[i]]$type == "factor") {
+    if (is.factor(data[[i]]) | !is.null(vm[[i]]$levels)) {
       if (is.null(vm[[i]]$levels)) {
         lvls <- levels(data[[i]])
         names(lvls) <- lvls
         vm[[i]]$levels <- lvls
       }
+      # make sure it is a list because named vectors don't render right in jsonlite
+      vm[[i]]$levels <- as.list(vm[[i]]$levels)
       
       if (is.null(vm[[i]]$ordered)) {
         vm[[i]]$ordered <- is.ordered(data[[i]])
@@ -275,7 +209,10 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
     schema <- interactive_codebook(data, schema)
   }
   
-  if (isTRUE(as_json)) {
+  # return correct format ----
+  return <- match.arg(return)
+  
+  if (return == "json") {
     schema <- schema %>%
       jsonlite::toJSON(auto_unbox = TRUE) %>%
       jsonlite::prettify(4)
@@ -283,7 +220,46 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
     class(schema) <- c("psychds_codebook", "list")
   }
   
-  return(schema)
+  if (return == "data") {
+    # convert data ----
+    r_pds <- c(character = "string", 
+                logical = "bool",
+                integer = "int",
+                double = "float")
+    for (v in schema$variableMeasured) {
+      col <- data[[v$name]]
+      ctype <- typeof(col)
+      if (r_pds[ctype] != v$type) {
+        message("Converting ", v$name, " from ", r_pds[ctype], " to ", v$type)
+        # types don't match so convert
+        suppressWarnings(
+          if (v$type == "string") {
+            convcol <- as.character(col)
+          } else if (v$type == "bool") {
+            convcol <- as.logical(col)
+          } else if (v$type == "int") {
+              convcol <- as.integer(col)
+          } else if (v$type == "float") {
+              convcol <- as.double(col)
+          } else {
+            convcol <- col
+          }
+        )
+        
+        # check conversions are equivalent
+        if (isTRUE(all(convcol == col))) {
+          data[v$name] <- convcol
+        } else {
+          message("- Error, not converted")
+        }
+      }
+    }
+    
+    attr(data, "codebook") <- schema
+    return(data)
+  } else {
+    return(schema)
+  }
 }
 
 #' Interactive Codebook
@@ -292,77 +268,256 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
 #' @param cb The codebook in list format if already generated
 #'
 #' @return codebook list
+#' 
+#' @export
 #'
 interactive_codebook <- function(data, cb = NULL) {
   if (is.null(cb)) {
-    # run codebook function to get best guess
+    # run codebook function to get best guess ----
     name <- utils::capture.output(match.call()$data)
     cb <- codebook(data, name, as_json = FALSE)
   }
   
-  types <- c(i = "int", s = "string", d = "float", f = "factor", b = "bool")
-  type_q <- "Is it an integer (i), string/character (s), double/float (d), factor (f), or boolean/T-F (b)?"
+  types <- c(i = "int", s = "string", f = "float", b = "bool")
+  type_q <- "  Is it an integer (i), string (s), float (f), or boolean (b)?"
   
+  # check each column ----
   for (i in 1:length(cb$variableMeasured)) {
     v <- cb$variableMeasured[[i]]
-    vals <- unique(data[[v$name]])
-    if (length(vals) > 5) {
-      if (is.numeric(vals)) {
-        range <- paste(min(vals), "to", max(vals))
+    unique_vals <- unique(data[[v$name]])
+    if (length(unique_vals) > 5) {
+      if (is.numeric(unique_vals)) {
+        range <- paste(min(unique_vals), "to", max(unique_vals))
       } else {
-        range <- sprintf("e.g., %s", paste(vals[1:5], collapse = ","))
+        range <- sprintf("e.g., %s", paste(unique_vals[1:5], collapse = ","))
       }
     } else {
-      range <- paste(vals, collapse = ",")
+      range <- paste(unique_vals, collapse = ", ")
     }
     
-    txt <- sprintf("Is %s a %s? It has %d unique values (%s) [y/n]",
-                   v$name, v$type, length(vals), range)
-    
-    x <- faux::readline_check(txt, "grep",
-                              pattern = "^(y|n|i|s|d|f|b)$",
-                              warning = "Enter only y or n (enter i, s, d, f or b to set the data type)") %>%
-      substr(1, 1) %>% tolower()
-    
-    if (x == "y") {
-      type <- v$type
-    } else if (x %in% c("i", "d", "f", "s")) {
-      type <- types[x]
-    } else {
-      # ask what type it is
-      t <- faux::readline_check(type_q, "grep",
-                                pattern = "^(i|s|d|f|b)$",
-                                warning = "Enter only i, s, d, f or b")
-      type <- types[t]
-    }
-    
+    # check type guess ----
+    message(sprintf("\n%s has %d unique values (%s)", 
+                    v$name, length(unique_vals), range))
+   
+    t <- readline_check(
+      type_q, "grep",
+      pattern = "^(i|s|f|b)$",
+      warning = "Enter only i, s, f or b",
+      ignore.case = TRUE,
+      default = substr(v$type, 1, 1)
+    ) %>% tolower()
+    type <- types[t]
     cb$variableMeasured[[i]]$type <- type
     
-    if (type == "factor") {
-      txt <- sprintf("Does it have these %d levels (%s)? [y/n] ",
-                     length(vals), paste(vals, collapse = ","))
-      lvl_check <- faux::readline_check(
-        txt, "grep", pattern = "^(y|n)$",
-        warning = "Enter only y or n")
-      
-      if (lvl_check == "y") {
-        # keep existing levels
-        lvl_n <- length(vals)
+    # description ----
+    desc <- readline_check("  Column description", 
+                           type = "length", min = 1, 
+                           default = v$description)
+    cb$variableMeasured[[i]]$description <- desc
+    
+    # factor specifics ----
+    is_factor <- "n"
+    if (type != "float") {
+      is_factor <- readline_check(
+        "  Is this column a factor? [y/n]", 
+        "grep", pattern = "^(y|n)$",
+        warning = "Enter only y or n",
+        ignore.case = TRUE) %>% tolower()
+    }
+    
+    if (is_factor == "n") {
+      # only factors can have levels
+      cb$variableMeasured[[i]]$levels <- NULL
+    } else {
+      # check levels in the codebook versus unique vals
+      if (!is.null(v$levels)) {
+        cb_levels <- names(v$levels)
+        # missing from cb levels
+        cb_missing <- setdiff(unique_vals, cb_levels)
+        if (length(cb_missing) > 0) {
+          message("Levels are undefined for: ", 
+                  paste(cb_missing, collapse = ", "))
+        }
+        
+        for (m in cb_missing) {
+          v$levels[m] <- m
+        }
       } else {
-        lvl_n <- faux::readline_check("How many? ", "integer")
+        # set levels as all unique values
+        v$levels <- unique_vals
+        names(v$levels) <- unique_vals
       }
       
+      lvl_n <- readline_check(
+        "  How many levels does it have?", "integer", min = 0, 
+        default = length(v$levels)
+      )
+      
       # check level names and descriptions
-      for (j in 1:lvl_n) {
-        message("Type the name and (optionally) the description of each level in this format: 'lvl_name: The description'")
-        lvl <- faux::readline_check(paste("Level", j), "length", min = 1)
-        lvl2 <- strsplit(lvl, "\\:\\s*")[[1]]
-        
-        cb$variableMeasured[[i]]$levels[[lvl2[1]]] <- lvl2[length(lvl2)]
+      if (lvl_n > 20) {
+        message("You can't interactively set descriptions for factors with more than 20 levels, but you can set them manually.")
+        cb$variableMeasured[[i]]$levels<- v$levels
+      } else {
+        for (j in 1:lvl_n) {
+          if (is.null(v$levels[j])) {
+            lvl_name <- readline_check(
+              paste("Level", j, "name"), "length", min = 1,
+              default = paste0("V", j)
+            )
+          } else {
+            lvl_name <- names(v$levels)[j]
+          }
+          
+          cur_desc <- v$levels[[lvl_name]]
+          cur_desc <- ifelse(is.null(cur_desc), lvl_name, cur_desc)
+          lvl_desc <- readline_check(
+            paste(lvl_name, "description"), 
+            "length", min = 1, default = cur_desc)
+          
+          if (lvl_desc == "") {
+            # default accepted
+            lvl_desc <- cur_desc
+          }
+          
+          cb$variableMeasured[[i]]$levels[[lvl_name]] <- lvl_desc
+        }
       }
     }
   }
   
   cb
 }
+
+#' Print Codebook Object
+#'
+#' @param x The psychds_codebook list
+#' @param ... Additional parameters for print
+#'
+#' @export
+#'
+print.psychds_codebook <- function(x, ...) {
+  
+  if ("Psych-DS 0.1.0" == x$schemaVersion &
+      length(x$variableMeasured) > 0) {
+    
+    cat("Codebook for", x$name, "(Psych-DS 0.1.0)\n")
+    cat("========================================\n\n")
+    
+    # list dataset parameters ----
+    cat("===== Dataset Parameters =====\n")
+    omit_names <- c("@context", "@type", "variableMeasured")
+    dataset_params <- setdiff(names(x), omit_names) 
+    cat(nested_list(x[dataset_params]))
+    
+    # list column parameters ----
+    cat("\n===== Column Parameters =====\n")
+    vars <- list()
+    for (v in x$variableMeasured) {
+      desc <- ifelse(v$name == v$description,
+                     "", paste(":", v$description))
+      extras <- ""
+      
+      # has levels ----
+      if (length(v$levels) > 0) {
+        if (all(names(v$levels) == v$levels)) {
+          lvls <- names(v$levels)
+        } else {
+          lvls <- paste0(names(v$levels), ": ", v$levels)
+        }
+
+        extras <- sprintf(
+          "\n  * Levels\n    * %s\n  * Ordered: %s",
+          paste(lvls, collapse = "\n    * "),
+          ifelse(is.null(v$ordered), FALSE, v$ordered)
+        )
+      }
+
+      vars[v$name] = sprintf(
+        "* %s (%s)%s%s",
+        v$name, v$type, desc, extras
+      )
+    }
+    
+    paste(vars, collapse = "\n") %>%cat()
+  } else {
+    utils::str(x)
+  }
+}
+
+
+#' Output a nested list in RMarkdown list format
+#'
+#' @param x The list
+#' @param pre Test to prefix to each line (e.g., if you want all lines indented 4 spaces to start, use "    ")
+#'
+#' @return A character string
+#' @export
+#'
+#' @examples
+#' x <- list(
+#'   a = list(a1 = "Named", a2 = "List"),
+#'   b = list("Unnamed", "List"),
+#'   c = c(c1 = "Named", c2 = "Vector"),
+#'   d = c("Unnamed", "Vector"),
+#'   e = list(e1 = list("A", "B", "C"),
+#'            e2 = list(a = "A", b = "B"),
+#'            e3 = c("A", "B", "C"),
+#'            e4 = 100),
+#'   f = "not a list or vector"
+#' )
+#' nested_list(x)
+nested_list <- function(x, pre = "") {
+  txt <- c()
+  if (is.list(x) | length(x) > 1) {
+    if (is.null(names(x))) {
+      # unnamed list
+      for (i in 1:length(x)) {
+        y <- x[[i]]
+        if (is.list(y) | length(y) > 1) {
+          txt[length(txt)+1] <- paste0(pre, "* ", i, ": ")
+          subtxt<- nested_list(y, paste(pre, "  "))
+        } else {
+          subtxt<- nested_list(y, pre)
+        }
+        txt <- c(txt, subtxt)
+      }
+    } else {
+      # named list
+      for (y in names(x)) {
+        if (is.list(x[[y]]) | length(x[[y]]) > 1) {
+          # non-terminal named list entry
+          txt[length(txt)+1] <- paste0(pre, "* ", y, ": ")
+          subtxt <- nested_list(x[[y]], paste0(pre, "  "))
+          txt <- c(txt, subtxt)
+        } else {
+          # terminal named list entry
+          entry <- paste(x[[y]], collapse = ", ")
+          txt[length(txt)+1] <- 
+            paste0(pre, "* ", y, ": ", entry)
+        }
+      }
+    }
+  } else { 
+    # terminal unnamed list entry
+    txt[length(txt)+1] <- paste0(pre, "* ", 
+                                 paste(x, collapse = ", "))
+  }
+  
+  list_txt <- paste(txt, collapse = "\n")
+  class(list_txt) <- c("nested_list", "character")
+  
+  list_txt
+}
+
+#' Print Codebook Object
+#'
+#' @param x The nested_list string
+#' @param ... Additional parameters for print
+#'
+#' @export
+#'
+print.nested_list <- function(x, ...) {
+  cat(x)
+}
+
 

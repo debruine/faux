@@ -1,5 +1,10 @@
 # faux 0.0.1.0 (2020-02-27)
 
+* Updates to codebook function (interactive demo)
+* `nested_list` function for printing nested lists in Rmd
+
+# faux 0.0.1.0 (2020-02-27)
+
 * Still not accepted to CRAN (but haven't worked on it in a long time)
 * New codebook function and vignette
 * Updated for new tidyverse versions
