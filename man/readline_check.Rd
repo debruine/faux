@@ -10,6 +10,7 @@ readline_check(
   min = -Inf,
   max = Inf,
   warning = NULL,
+  default = NULL,
   ...
 )
 }
@@ -23,6 +24,8 @@ readline_check(
 \item{max}{the maximum value}
 
 \item{warning}{an optional custom warning message}
+
+\item{default}{the default option to return if the entry is blank, NULL allows no default, the default value will be displayed after the text as [default]}
 
 \item{...}{other arguments to pass to grep}
 }
