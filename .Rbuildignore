@@ -12,6 +12,7 @@
 ^figure$
 ^data-raw$
 ^docs$
+^shiny$
 ^pkgdown$
 ^.*\.Rproj$
 ^\.Rproj\.user$
