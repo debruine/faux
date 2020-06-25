@@ -1,12 +1,9 @@
-# faux 0.0.1.0 (2020-02-27)
-
-* Updates to codebook function (interactive demo)
-* `nested_list` function for printing nested lists in Rmd
-
-# faux 0.0.1.0 (2020-02-27)
+# faux 0.0.1.1 (2020-06-25)
 
 * Still not accepted to CRAN (but haven't worked on it in a long time)
-* New codebook function and vignette
+* `nested_list` function for printing nested lists in Rmd
+* New `codebook` function and vignette
+* Interactive mode for codebooks (experimental)
 * Updated for new tidyverse versions
 
 # faux 0.0.1.0 (2020-02-27)

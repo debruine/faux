@@ -419,8 +419,10 @@ print.psychds_codebook <- function(x, ...) {
       
       # has levels ----
       if (length(v$levels) > 0) {
-        if (all(names(v$levels) == v$levels)) {
-          lvls <- names(v$levels)
+        if (is.null(names(v$levels))) {
+          lvls <- v$levels
+        } else if (all(names(v$levels) == v$levels)) {
+          lvls <- v$levels
         } else {
           lvls <- paste0(names(v$levels), ": ", v$levels)
         }

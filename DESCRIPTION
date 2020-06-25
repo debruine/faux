@@ -1,7 +1,7 @@
 Package: faux
-Title: Simulation Functions
-Version: 0.0.1.0
-Date: 2020-02-26
+Title: Simulation for Factorial Designs
+Version: 0.0.1.1
+Date: 2020-06-25
 Authors@R: c(
     person(
         given = "Lisa", 
@@ -24,7 +24,7 @@ Authors@R: c(
         email = "andrew@andrewheiss.com",
         comment = c(ORCID = "0000-0002-3948-3914")
     ))
-Description: The faux package provides functions for simulating datasets with specified structure.
+Description: The faux package provides functions for quickly simulating datasets with factorial structure.
 Depends:
     R (>= 3.2.4)
 Imports:
