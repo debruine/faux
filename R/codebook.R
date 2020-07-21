@@ -3,7 +3,7 @@
 #' @param data The data frame to generate a codebook for
 #' @param name The name of this dataset (if NULL, will be the same as `data`)
 #' @param vardesc Optional variable properties in the format of a named list of vectors (can be named or unnamed and in the same order as the data) from the options description, privacy, type, propertyID, minValue, maxValue, levels, ordered, na, naValues, alternateName, unitCode
-#' @param ... Further dataset properties (e.g., description, license, author, citation, funder, url, doi/sameAs, keywords, temporalCoverage, spatialCoverage, datePublished, dateCreated)
+#' @param ... Further dataset properties (e.g., description, license, author, citation, funder, url, identifier, keywords, privacyPolicy)
 #' @param schemaVersion defaults to "Psych-DS 0.1.0"
 #' @param return Whether the output should be in JSON format (json), a list (list) or the reformatted data with the codebook as an attribute (data)
 #' @param interactive Whether the function should prompt the user to describe columns and factor levels
@@ -24,10 +24,10 @@
 #' codebook(iris, vardesc = vardesc)
 #'
 codebook <- function(data, name = NULL, vardesc = list(), ...,
-                     schemaVersion = "Psych-DS 0.1.0", 
+                     schemaVersion = "Psych-DS 0.1.0",
                      return = c("json", "list", "data"),
                      interactive = FALSE
-                     ) {
+) {
   # use PsychDS format from https://docs.google.com/document/d/1u8o5jnWk0Iqp_J06PTu5NjBfVsdoPbBhstht6W0fFp0/edit
   
   if (is.null(name)) {
@@ -35,21 +35,21 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
   }
   
   # all possible type abbreviations ----
-  types <- c(i = "int", 
+  types <- c(i = "int",
              int = "int",
-             integer = "int", 
+             integer = "int",
              
              s = "string",
              string = "string",
              factor = "string",
-             char = "string", 
+             char = "string",
              character = "string",
              
-             f = "float", 
+             f = "float",
              float = "float",
              double = "float",
              numeric = "float",
-              
+             
              b = "bool",
              bool = "bool",
              boolean = "bool",
@@ -75,7 +75,7 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
     datadesc$sameAs <- paste0("https://doi.org/", doi)
   }
   
-  possible_vals <- c("license", "author", "citation", "funder", "url", "sameAs", "keywords", "temporalCoverage", "spatialCoverage", "datePublished", "dateCreated")
+  possible_vals <- c("license", "author", "citation", "funder", "url", "identifier", "privacyPolicy", "keywords")
   non_standard <- setdiff(names(datadesc), possible_vals)
   if (length(non_standard) > 0) {
     warning("The following dataset properties are not standard: ",
@@ -88,7 +88,7 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
   # get vardesc from design
   design <- attr(data, "design")
   if (!is.null(design)) {
-    win <- ifelse(length(design$within) > 0, 
+    win <- ifelse(length(design$within) > 0,
                   names(design$within), "")
     if (win %in% names(data)) {
       # in long format
@@ -100,7 +100,7 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
     }
     
     # overwrite levels and descriptions in design with vardesc
-    if (length(lvls) > 0) { 
+    if (length(lvls) > 0) {
       # only run this if there are any factor columns
       for (n in names(vardesc$levels)) {
         lvls[[n]] <- as.list(vardesc$levels[[n]])
@@ -128,82 +128,83 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
   # TODO: add more validation ----
   
   # make variableMeasured ----
-  vm <- list()
-  colnames <- names(data)
-  
-  for (i in 1:ncol(data)) {
-    col <- colnames[i]
+  if (ncol(data) > 0) {
+    vm <- list()
+    colnames <- names(data)
     
-    # @type and name ----
-    vm[[i]] <- list(
-      `@type` = "PropertyValue",
-      name = col,
-      description = col # default to be replaced from vardesc
-    )
-    
-    # set variable attributes from vardesc ----
-    for (vd in names(vardesc)) {
-      vals <- vardesc[[vd]]
+    for (i in 1:ncol(data)) {
+      col <- colnames[i]
       
-      if (!is.null(names(vals))) {
-        # set from named (if available)
-        if (col %in% names(vals)) vm[[i]][vd] <- vals[col]
-      } else if (length(vals) == ncol(data)) {
-        # set from position
-        vm[[i]][vd] <- vals[i]
-      } else {
-        warning("Couldn't set ", vd, " for ", col)
-      }
-    }
-    
-    # set type if not specified ---
-    if (!is.null(vm[[i]]$type)) {
-      if ((vm[[i]]$type %in% names(types))) {
-        vm[[i]]$type <- types[[vm[[i]]$type]]
-      } else {
-        # not a valid type, so set to null and get from data
-        warning(vm[[i]]$name, " does not have a valid type (",
-                vm[[i]]$type, ")")
-        vm[[i]]$type <- NULL
-      }
-    }
-    
-    if (is.null(vm[[i]]$type)) {
-      can_be_int <- isTRUE(all(
-        data[[i]] == suppressWarnings(as.integer(data[[i]]))
-      ))
-      
-      vm[[i]]$type <- dplyr::case_when(
-        is.factor(data[[i]]) ~ "string",
-        is.character(data[[i]]) ~ "string",
-        is.integer(data[[i]]) ~ "int",
-        is.numeric(data[[i]]) & can_be_int ~ "int",
-        is.numeric(data[[i]]) ~ "float",
-        is.logical(data[[i]]) ~ "bool",
-        TRUE ~ typeof(data[[i]])
+      # @type and name ----
+      vm[[i]] <- list(
+        `@type` = "PropertyValue",
+        name = col,
+        description = col # default to be replaced from vardesc
       )
-      if (faux_options("verbose")) {
-        message(vm[[i]]$name, " set to type ", vm[[i]]$type)
-      }
-    }
-    
-    # get levels for factors if not specified ----
-    if (is.factor(data[[i]]) | !is.null(vm[[i]]$levels)) {
-      if (is.null(vm[[i]]$levels)) {
-        lvls <- levels(data[[i]])
-        names(lvls) <- lvls
-        vm[[i]]$levels <- lvls
-      }
-      # make sure it is a list because named vectors don't render right in jsonlite
-      vm[[i]]$levels <- as.list(vm[[i]]$levels)
       
-      if (is.null(vm[[i]]$ordered)) {
-        vm[[i]]$ordered <- is.ordered(data[[i]])
+      # set variable attributes from vardesc ----
+      for (vd in names(vardesc)) {
+        vals <- vardesc[[vd]]
+        
+        if (!is.null(names(vals))) {
+          # set from named (if available)
+          if (col %in% names(vals)) vm[[i]][vd] <- vals[col]
+        } else if (length(vals) == ncol(data)) {
+          # set from position
+          vm[[i]][vd] <- vals[i]
+        } else {
+          warning("Couldn't set ", vd, " for ", col)
+        }
+      }
+      
+      # set type if not specified ---
+      if (!is.null(vm[[i]]$type)) {
+        if ((vm[[i]]$type %in% names(types))) {
+          vm[[i]]$type <- types[[vm[[i]]$type]]
+        } else {
+          # not a valid type, so set to null and get from data
+          warning(vm[[i]]$name, " does not have a valid type (",
+                  vm[[i]]$type, ")")
+          vm[[i]]$type <- NULL
+        }
+      }
+      
+      if (is.null(vm[[i]]$type)) {
+        can_be_int <- isTRUE(all(
+          data[[i]] == suppressWarnings(as.integer(data[[i]]))
+        ))
+        
+        vm[[i]]$type <- dplyr::case_when(
+          is.factor(data[[i]]) ~ "string",
+          is.character(data[[i]]) ~ "string",
+          is.integer(data[[i]]) ~ "int",
+          is.numeric(data[[i]]) & can_be_int ~ "int",
+          is.numeric(data[[i]]) ~ "float",
+          is.logical(data[[i]]) ~ "bool",
+          TRUE ~ typeof(data[[i]])
+        )
+        if (faux_options("verbose")) {
+          message(vm[[i]]$name, " set to type ", vm[[i]]$type)
+        }
+      }
+      
+      # get levels for factors if not specified ----
+      if (is.factor(data[[i]]) | !is.null(vm[[i]]$levels)) {
+        if (is.null(vm[[i]]$levels)) {
+          lvls <- levels(data[[i]])
+          names(lvls) <- lvls
+          vm[[i]]$levels <- lvls
+        }
+        # make sure it is a list because named vectors don't render right in jsonlite
+        vm[[i]]$levels <- as.list(vm[[i]]$levels)
+        
+        if (is.null(vm[[i]]$ordered)) {
+          vm[[i]]$ordered <- is.ordered(data[[i]])
+        }
       }
     }
+    schema$variableMeasured <- vm
   }
-  
-  schema$variableMeasured <- vm
   
   if (isTRUE(interactive)) {
     schema <- interactive_codebook(data, schema)
@@ -222,10 +223,10 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
   
   if (return == "data") {
     # convert data ----
-    r_pds <- c(character = "string", 
-                logical = "bool",
-                integer = "int",
-                double = "float")
+    r_pds <- c(character = "string",
+               logical = "bool",
+               integer = "int",
+               double = "float")
     for (v in schema$variableMeasured) {
       col <- data[[v$name]]
       ctype <- typeof(col)
@@ -238,9 +239,9 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
           } else if (v$type == "bool") {
             convcol <- as.logical(col)
           } else if (v$type == "int") {
-              convcol <- as.integer(col)
+            convcol <- as.integer(col)
           } else if (v$type == "float") {
-              convcol <- as.double(col)
+            convcol <- as.double(col)
           } else {
             convcol <- col
           }
@@ -261,14 +262,13 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
     return(schema)
   }
 }
-
 #' Interactive Codebook
 #'
 #' @param data The data frame to generate a codebook for
 #' @param cb The codebook in list format if already generated
 #'
 #' @return codebook list
-#' 
+#'
 #' @export
 #'
 interactive_codebook <- function(data, cb = NULL) {
@@ -296,9 +296,9 @@ interactive_codebook <- function(data, cb = NULL) {
     }
     
     # check type guess ----
-    message(sprintf("\n%s has %d unique values (%s)", 
+    message(sprintf("\n%s has %d unique values (%s)",
                     v$name, length(unique_vals), range))
-   
+    
     t <- readline_check(
       type_q, "grep",
       pattern = "^(i|s|f|b)$",
@@ -310,8 +310,8 @@ interactive_codebook <- function(data, cb = NULL) {
     cb$variableMeasured[[i]]$type <- type
     
     # description ----
-    desc <- readline_check("  Column description", 
-                           type = "length", min = 1, 
+    desc <- readline_check("  Column description",
+                           type = "length", min = 1,
                            default = v$description)
     cb$variableMeasured[[i]]$description <- desc
     
@@ -319,7 +319,7 @@ interactive_codebook <- function(data, cb = NULL) {
     is_factor <- "n"
     if (type != "float") {
       is_factor <- readline_check(
-        "  Is this column a factor? [y/n]", 
+        "  Is this column a factor? [y/n]",
         "grep", pattern = "^(y|n)$",
         warning = "Enter only y or n",
         ignore.case = TRUE) %>% tolower()
@@ -335,7 +335,7 @@ interactive_codebook <- function(data, cb = NULL) {
         # missing from cb levels
         cb_missing <- setdiff(unique_vals, cb_levels)
         if (length(cb_missing) > 0) {
-          message("Levels are undefined for: ", 
+          message("Levels are undefined for: ",
                   paste(cb_missing, collapse = ", "))
         }
         
@@ -349,7 +349,7 @@ interactive_codebook <- function(data, cb = NULL) {
       }
       
       lvl_n <- readline_check(
-        "  How many levels does it have?", "integer", min = 0, 
+        "  How many levels does it have?", "integer", min = 0,
         default = length(v$levels)
       )
       
@@ -371,7 +371,7 @@ interactive_codebook <- function(data, cb = NULL) {
           cur_desc <- v$levels[[lvl_name]]
           cur_desc <- ifelse(is.null(cur_desc), lvl_name, cur_desc)
           lvl_desc <- readline_check(
-            paste(lvl_name, "description"), 
+            paste(lvl_name, "description"),
             "length", min = 1, default = cur_desc)
           
           if (lvl_desc == "") {
@@ -406,7 +406,7 @@ print.psychds_codebook <- function(x, ...) {
     # list dataset parameters ----
     cat("===== Dataset Parameters =====\n")
     omit_names <- c("@context", "@type", "variableMeasured")
-    dataset_params <- setdiff(names(x), omit_names) 
+    dataset_params <- setdiff(names(x), omit_names)
     cat(nested_list(x[dataset_params]))
     
     # list column parameters ----
@@ -426,14 +426,14 @@ print.psychds_codebook <- function(x, ...) {
         } else {
           lvls <- paste0(names(v$levels), ": ", v$levels)
         }
-
+        
         extras <- sprintf(
           "\n  * Levels\n    * %s\n  * Ordered: %s",
           paste(lvls, collapse = "\n    * "),
           ifelse(is.null(v$ordered), FALSE, v$ordered)
         )
       }
-
+      
       vars[v$name] = sprintf(
         "* %s (%s)%s%s",
         v$name, v$type, desc, extras
@@ -445,6 +445,7 @@ print.psychds_codebook <- function(x, ...) {
     utils::str(x)
   }
 }
+
 
 
 #' Output a nested list in RMarkdown list format
@@ -494,14 +495,14 @@ nested_list <- function(x, pre = "") {
         } else {
           # terminal named list entry
           entry <- paste(x[[y]], collapse = ", ")
-          txt[length(txt)+1] <- 
+          txt[length(txt)+1] <-
             paste0(pre, "* ", y, ": ", entry)
         }
       }
     }
-  } else { 
+  } else {
     # terminal unnamed list entry
-    txt[length(txt)+1] <- paste0(pre, "* ", 
+    txt[length(txt)+1] <- paste0(pre, "* ",
                                  paste(x, collapse = ", "))
   }
   
@@ -511,7 +512,7 @@ nested_list <- function(x, pre = "") {
   list_txt
 }
 
-#' Print Codebook Object
+#' Print Nested List
 #'
 #' @param x The nested_list string
 #' @param ... Additional parameters for print
