@@ -2,7 +2,7 @@
 #'
 #' @param data The data frame to generate a codebook for
 #' @param name The name of this dataset (if NULL, will be the same as `data`)
-#' @param vardesc Optional variable properties in the format of a named list of vectors (can be named or unnamed and in the same order as the data) from the options description, privacy, type, propertyID, minValue, maxValue, levels, ordered, na, naValues, alternateName, unitCode
+#' @param vardesc Optional variable properties in the format of a named list of vectors (can be named or unnamed and in the same order as the data) from the options "description", "privacy", "dataType", "identifier", "minValue", "maxValue", "levels", "levelsOrdered", "na", "naValue", "alternateName", "privacy", "unitCode", "unitText"
 #' @param ... Further dataset properties (e.g., description, license, author, citation, funder, url, identifier, keywords, privacyPolicy)
 #' @param schemaVersion defaults to "Psych-DS 0.1.0"
 #' @param return Whether the output should be in JSON format (json), a list (list) or the reformatted data with the codebook as an attribute (data)
@@ -114,10 +114,10 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
   }
   
   # check vardesc ----
-  possible_vals <- c("description", "privacy", "type",
-                     "propertyID", "minValue", "maxValue",
-                     "levels", "ordered", "na", "naValues",
-                     "alternateName", "unitCode")
+  possible_vals <- c("name", "description", "privacy",
+                     "dataType", "identifier", "minValue", "maxValue",
+                     "levels", "levelsOrdered", "na", "naValue",
+                     "alternateName", "privacy", "unitCode", "unitText")
   
   non_standard <- setdiff(names(vardesc), possible_vals)
   if (length(non_standard) > 0) {
@@ -158,23 +158,23 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
       }
       
       # set type if not specified ---
-      if (!is.null(vm[[i]]$type)) {
-        if ((vm[[i]]$type %in% names(types))) {
-          vm[[i]]$type <- types[[vm[[i]]$type]]
+      if (!is.null(vm[[i]]$dataType)) {
+        if ((vm[[i]]$dataType %in% names(types))) {
+          vm[[i]]$dataType <- types[[vm[[i]]$dataType]]
         } else {
           # not a valid type, so set to null and get from data
-          warning(vm[[i]]$name, " does not have a valid type (",
-                  vm[[i]]$type, ")")
-          vm[[i]]$type <- NULL
+          warning(vm[[i]]$name, " does not have a valid dataType (",
+                  vm[[i]]$dataType, ")")
+          vm[[i]]$dataType <- NULL
         }
       }
       
-      if (is.null(vm[[i]]$type)) {
+      if (is.null(vm[[i]]$dataType)) {
         can_be_int <- isTRUE(all(
           data[[i]] == suppressWarnings(as.integer(data[[i]]))
         ))
         
-        vm[[i]]$type <- dplyr::case_when(
+        vm[[i]]$dataType <- dplyr::case_when(
           is.factor(data[[i]]) ~ "string",
           is.character(data[[i]]) ~ "string",
           is.integer(data[[i]]) ~ "int",
@@ -184,7 +184,7 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
           TRUE ~ typeof(data[[i]])
         )
         if (faux_options("verbose")) {
-          message(vm[[i]]$name, " set to type ", vm[[i]]$type)
+          message(vm[[i]]$name, " set to dataType ", vm[[i]]$dataType)
         }
       }
       
@@ -198,8 +198,8 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
         # make sure it is a list because named vectors don't render right in jsonlite
         vm[[i]]$levels <- as.list(vm[[i]]$levels)
         
-        if (is.null(vm[[i]]$ordered)) {
-          vm[[i]]$ordered <- is.ordered(data[[i]])
+        if (is.null(vm[[i]]$levelsOrdered)) {
+          vm[[i]]$levelsOrdered <- is.ordered(data[[i]])
         }
       }
     }
@@ -230,17 +230,17 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
     for (v in schema$variableMeasured) {
       col <- data[[v$name]]
       ctype <- typeof(col)
-      if (r_pds[ctype] != v$type) {
-        message("Converting ", v$name, " from ", r_pds[ctype], " to ", v$type)
+      if (r_pds[ctype] != v$dataType) {
+        message("Converting ", v$name, " from ", r_pds[ctype], " to ", v$dataType)
         # types don't match so convert
         suppressWarnings(
-          if (v$type == "string") {
+          if (v$dataType == "string") {
             convcol <- as.character(col)
-          } else if (v$type == "bool") {
+          } else if (v$dataType == "bool") {
             convcol <- as.logical(col)
-          } else if (v$type == "int") {
+          } else if (v$dataType == "int") {
             convcol <- as.integer(col)
-          } else if (v$type == "float") {
+          } else if (v$dataType == "float") {
             convcol <- as.double(col)
           } else {
             convcol <- col
@@ -304,10 +304,10 @@ interactive_codebook <- function(data, cb = NULL) {
       pattern = "^(i|s|f|b)$",
       warning = "Enter only i, s, f or b",
       ignore.case = TRUE,
-      default = substr(v$type, 1, 1)
+      default = substr(v$dataType, 1, 1)
     ) %>% tolower()
     type <- types[t]
-    cb$variableMeasured[[i]]$type <- type
+    cb$variableMeasured[[i]]$dataType <- type
     
     # description ----
     desc <- readline_check("  Column description",
@@ -430,13 +430,13 @@ print.psychds_codebook <- function(x, ...) {
         extras <- sprintf(
           "\n  * Levels\n    * %s\n  * Ordered: %s",
           paste(lvls, collapse = "\n    * "),
-          ifelse(is.null(v$ordered), FALSE, v$ordered)
+          ifelse(is.null(v$levelsOrdered), FALSE, v$levelsOrdered)
         )
       }
       
       vars[v$name] = sprintf(
         "* %s (%s)%s%s",
-        v$name, v$type, desc, extras
+        v$name, v$dataType, desc, extras
       )
     }
     
