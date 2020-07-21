@@ -13,13 +13,13 @@ test_that("defaults", {
             "@type": "PropertyValue",
             "name": "id",
             "description": "id",
-            "type": "string"
+            "dataType": "string"
         },
         {
             "@type": "PropertyValue",
             "name": "y",
             "description": "value",
-            "type": "float"
+            "dataType": "float"
         }
     ]
 }
@@ -34,14 +34,13 @@ test_that("warnings", {
   # all valid properties
   vardesc <- list("description" = c(id = "Subject ID"), 
                   "privacy" = c(T, F), 
-                  "type" = c("string", "float"),
-                  "propertyID" = c(id = "ID7"), 
+                  "dataType" = c("string", "float"),
                   "minValue" = c(y = -100), 
                   "maxValue" = c(y = 100),
                   "levels" = list(id = LETTERS), 
-                  "ordered" = c(id = TRUE), 
+                  "levelsOrdered" = c(id = TRUE), 
                   "na" = c(id = "NA"), 
-                  "naValues" = c(id = "NOPE"),
+                  "naValue" = c(id = "NOPE"),
                   "alternateName" = c(id = "part_id"), 
                   "unitCode" = c(id = "huh?"))
   expect_silent(cb <- codebook(data, "data", vardesc, return = "list"))
@@ -49,14 +48,13 @@ test_that("warnings", {
   expect_equal(cb$variableMeasured[[1]], 
                list(`@type` = "PropertyValue",
                      name = "id",
-                     description ="Subject ID",
-                     privacy =TRUE,
-                     type ="string",
-                     propertyID = "ID7",
+                     description = "Subject ID",
+                     privacy = TRUE,
+                     dataType = "string",
                      levels = as.list(LETTERS),
-                     ordered = TRUE,
+                     levelsOrdered = TRUE,
                      na = "NA",
-                     naValues = "NOPE",
+                     naValue = "NOPE",
                      alternateName = "part_id",
                      unitCode = "huh?"))
   
@@ -65,7 +63,7 @@ test_that("warnings", {
                     name = "y",
                     description= "value",
                     privacy = FALSE,
-                    type = "float",
+                    dataType = "float",
                     minValue = -100,
                     maxValue = 100))
   
@@ -88,24 +86,24 @@ test_that("no vardesc", {
   expect_equal(vm[[1]], list(`@type` = "PropertyValue",
                              name = "id",
                              description = "id", 
-                             type = "string"))
+                             dataType = "string"))
   
   expect_equal(vm[[2]], list(`@type` = "PropertyValue",
                              name = "B",
                              description = "B",
                              levels = list(B1 = "B1", B2 = "B2"),
-                             type = "string",
-                             ordered = FALSE))
+                             dataType = "string",
+                             levelsOrdered = FALSE))
   
   expect_equal(vm[[3]], list(`@type` = "PropertyValue",
                              name = "A1",
                              description = "A1", 
-                             type = "float"))
+                             dataType = "float"))
   
   expect_equal(vm[[4]], list(`@type` = "PropertyValue",
                              name = "A2",
                              description = "A2", 
-                             type = "float"))
+                             dataType = "float"))
 })
 
 test_that("named factor levels", {
@@ -116,9 +114,9 @@ test_that("named factor levels", {
                      dv = list(y = "Happiness Score"),
                      id = list(id = "Subject ID"),
                      plot = FALSE)
-  expect_message(cb <- codebook(data), "id set to type string")
-  expect_message(cb <- codebook(data), "pet set to type string")
-  expect_message(cb <- codebook(data, return = "list"), "y set to type float")
+  expect_message(cb <- codebook(data), "id set to dataType string")
+  expect_message(cb <- codebook(data), "pet set to dataType string")
+  expect_message(cb <- codebook(data, return = "list"), "y set to dataType float")
   
   output <- capture_output(print(cb))
   expect_equal(output, "Codebook for data (Psych-DS 0.1.0)\n========================================\n\n===== Dataset Parameters =====\n* name: data\n* schemaVersion: Psych-DS 0.1.0\n===== Column Parameters =====\n* id (string): Subject ID\n* pet (string)\n  * Levels\n    * cat: Has a cat\n    * dog: Has a dog\n  * Ordered: FALSE\n* y (float): Happiness Score")
@@ -193,7 +191,7 @@ test_that("conversion", {
   expect_equal(typeof(ndata$l), "integer")
   
   # convert all to string
-  vd <- list(type = rep("s", 6))
+  vd <- list(dataType = rep("s", 6))
   ndata <- codebook(data, vardesc = vd, return = "data")
   expect_equal(typeof(ndata$i), "character")
   expect_equal(typeof(ndata$d), "character")
@@ -203,7 +201,7 @@ test_that("conversion", {
   expect_equal(typeof(ndata$l), "character")
   
   # convert all to int
-  vd <- list(type = rep("i", 6))
+  vd <- list(dataType = rep("i", 6))
   ndata <- codebook(data, vardesc = vd, return = "data")
   expect_equal(typeof(ndata$i), "integer")
   expect_equal(typeof(ndata$d), "integer")
@@ -213,7 +211,7 @@ test_that("conversion", {
   expect_equal(typeof(ndata$l), "integer")
   
   # convert all to float
-  vd <- list(type = rep("f", 6))
+  vd <- list(dataType = rep("f", 6))
   ndata <- codebook(data, vardesc = vd, return = "data")
   expect_equal(typeof(ndata$i), "double")
   expect_equal(typeof(ndata$d), "double")
@@ -223,7 +221,7 @@ test_that("conversion", {
   expect_equal(typeof(ndata$l), "double")
   
   # convert all to bool
-  vd <- list(type = rep("b", 6))
+  vd <- list(dataType = rep("b", 6))
   ndata <- codebook(data, vardesc = vd, return = "data")
   expect_equal(typeof(ndata$i), "integer")
   expect_equal(typeof(ndata$d), "double")
