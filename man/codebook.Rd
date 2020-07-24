@@ -19,9 +19,9 @@ codebook(
 
 \item{name}{The name of this dataset (if NULL, will be the same as `data`)}
 
-\item{vardesc}{Optional variable properties in the format of a named list of vectors (can be named or unnamed and in the same order as the data) from the options description, privacy, type, propertyID, minValue, maxValue, levels, ordered, na, naValues, alternateName, unitCode}
+\item{vardesc}{Optional variable properties in the format of a named list of vectors (can be named or unnamed and in the same order as the data) from the options "description", "privacy", "dataType", "identifier", "minValue", "maxValue", "levels", "levelsOrdered", "na", "naValue", "alternateName", "privacy", "unitCode", "unitText"}
 
-\item{...}{Further dataset properties (e.g., description, license, author, citation, funder, url, doi/sameAs, keywords, temporalCoverage, spatialCoverage, datePublished, dateCreated)}
+\item{...}{Further dataset properties (e.g., description, license, author, citation, funder, url, identifier, keywords, privacyPolicy)}
 
 \item{schemaVersion}{defaults to "Psych-DS 0.1.0"}
 

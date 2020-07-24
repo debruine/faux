@@ -36,6 +36,7 @@ reference:
   - '`get_design_long`'
   - '`interactive_design`'
   - '`is_pos_def`'
+  - '`nested_list`'
   - '`plot_design`'
   - '`pos_def_limits`'
   - '`readline_check`'
