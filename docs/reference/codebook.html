@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.1</span>
       </span>
     </div>
 
@@ -104,6 +104,9 @@
   <ul class="dropdown-menu" role="menu">
     <li>
       <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
+      <a href="../articles/continuous.html">Faux Continuous Predictors</a>
     </li>
     <li>
       <a href="../articles/plots.html">Plotting</a>
@@ -178,11 +181,11 @@
     </tr>
     <tr>
       <th>vardesc</th>
-      <td><p>Optional variable properties in the format of a named list of vectors (can be named or unnamed and in the same order as the data) from the options description, privacy, type, propertyID, minValue, maxValue, levels, ordered, na, naValues, alternateName, unitCode</p></td>
+      <td><p>Optional variable properties in the format of a named list of vectors (can be named or unnamed and in the same order as the data) from the options "description", "privacy", "dataType", "identifier", "minValue", "maxValue", "levels", "levelsOrdered", "na", "naValue", "alternateName", "privacy", "unitCode", "unitText"</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Further dataset properties (e.g., description, license, author, citation, funder, url, doi/sameAs, keywords, temporalCoverage, spatialCoverage, datePublished, dateCreated)</p></td>
+      <td><p>Further dataset properties (e.g., description, license, author, citation, funder, url, identifier, keywords, privacyPolicy)</p></td>
     </tr>
     <tr>
       <th>schemaVersion</th>
@@ -212,7 +215,7 @@
                   <span class='st'>"The flower species"</span>),
   <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"float"</span>, <span class='st'>"float"</span>, <span class='st'>"float"</span>, <span class='st'>"float"</span>, <span class='st'>"string"</span>)
 )
-<span class='fu'>codebook</span>(<span class='no'>iris</span>, <span class='kw'>vardesc</span> <span class='kw'>=</span> <span class='no'>vardesc</span>)</div><div class='output co'>#&gt; {
+<span class='fu'>codebook</span>(<span class='no'>iris</span>, <span class='kw'>vardesc</span> <span class='kw'>=</span> <span class='no'>vardesc</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The following variable properties are not standard: type</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to dataType string</span><span></span></div><div class='output co'>#&gt; {
 #&gt;     "@context": "https://schema.org/",
 #&gt;     "@type": "Dataset",
 #&gt;     "name": "iris",
@@ -222,42 +225,47 @@
 #&gt;             "@type": "PropertyValue",
 #&gt;             "name": "Sepal.Length",
 #&gt;             "description": "Length of the sepal",
-#&gt;             "type": "float"
+#&gt;             "type": "float",
+#&gt;             "dataType": "float"
 #&gt;         },
 #&gt;         {
 #&gt;             "@type": "PropertyValue",
 #&gt;             "name": "Sepal.Width",
 #&gt;             "description": "Width of the sepal",
-#&gt;             "type": "float"
+#&gt;             "type": "float",
+#&gt;             "dataType": "float"
 #&gt;         },
 #&gt;         {
 #&gt;             "@type": "PropertyValue",
 #&gt;             "name": "Petal.Length",
 #&gt;             "description": "Length of the petal",
-#&gt;             "type": "float"
+#&gt;             "type": "float",
+#&gt;             "dataType": "float"
 #&gt;         },
 #&gt;         {
 #&gt;             "@type": "PropertyValue",
 #&gt;             "name": "Petal.Width",
 #&gt;             "description": "Width of the petal",
-#&gt;             "type": "float"
+#&gt;             "type": "float",
+#&gt;             "dataType": "float"
 #&gt;         },
 #&gt;         {
 #&gt;             "@type": "PropertyValue",
 #&gt;             "name": "Species",
 #&gt;             "description": "The flower species",
 #&gt;             "type": "string",
+#&gt;             "dataType": "string",
 #&gt;             "levels": {
 #&gt;                 "setosa": "setosa",
 #&gt;                 "versicolor": "versicolor",
 #&gt;                 "virginica": "virginica"
 #&gt;             },
-#&gt;             "ordered": false
+#&gt;             "levelsOrdered": false
 #&gt;         }
 #&gt;     ]
 #&gt; }
 #&gt;  </div><div class='input'>
-</div></pre>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
