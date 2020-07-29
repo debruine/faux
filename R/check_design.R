@@ -47,15 +47,15 @@ check_design <- function(within = list(), between = list(),
   }
   
   # name anonymous factors ----
-  if (is.numeric(within) && within %in% 2:10 %>% mean() == 1) { # vector of level numbers
+  if (is.numeric(within) && all(within %in% 2:10)) { # vector of level numbers
     within_names <- LETTERS[1:length(within)]
-    within <- purrr::map2(within_names, within, ~paste0(.x, 1:.y))
-    names(within) <- within_names
+    indices <- lapply(within, function(.) seq(1:.))
+    within <- mapply(paste0, within_names, indices, SIMPLIFY = FALSE)
   }
-  if (is.numeric(between) && between %in% 2:10 %>% mean() == 1) { # vector of level numbers
+  if (is.numeric(between) && all(between %in% 2:10)) { # vector of level numbers
     between_names <- LETTERS[(length(within)+1):(length(within)+length(between))]
-    between <- purrr::map2(between_names, between, ~paste0(.x, 1:.y))
-    names(between) <- between_names
+    indices <- lapply(between, function(.) seq(1:.))
+    between <- mapply(paste0, between_names, indices, SIMPLIFY = FALSE)
   }
   
   # check factor specification ----
@@ -65,16 +65,18 @@ check_design <- function(within = list(), between = list(),
   
   # if within or between factors are named vectors, 
   # use their names as column names and values as labels for plots
-  between <- purrr::map(between, fix_name_labels, pattern = "_")
-  within <- purrr::map(within, fix_name_labels, pattern = "_")
+  between <- lapply(between, fix_name_labels, pattern = "_")
+  within <- lapply(within, fix_name_labels, pattern = "_")
   dv <- fix_name_labels(dv, pattern = NULL)
   id <- fix_name_labels(id, pattern = NULL)
   
   # check for duplicate factor names ----
-  factor_overlap <- intersect(names(within), names(between))
-  if (length(factor_overlap)) {
+  all_names <- c(names(within), names(between))
+  factor_overlap <- duplicated(all_names)
+  if (sum(factor_overlap) > 0) {
+    dupes <- unique(all_names[factor_overlap])
     stop("You have multiple factors with the same name (", 
-         paste(factor_overlap, collapse = ", "),
+         paste(dupes, collapse = ", "),
          "). Please give all factors unique names.")
   }
   
@@ -88,7 +90,7 @@ check_design <- function(within = list(), between = list(),
   if (sum(dupes)) {
     dupelevels <- c(within, between) %>% 
       names() %>% 
-      magrittr::extract(dupes) %>% 
+      `[`(dupes) %>% 
       paste(collapse = ", ")
     stop("You have duplicate levels for factor(s): ", dupelevels)
   }
@@ -139,14 +141,14 @@ check_design <- function(within = list(), between = list(),
   if (unlist(sd) %>% is.na() %>% sum()) { stop("All sd must be numbers") }
   if (sum(unlist(sd) < 0)) { stop("All sd must be >= 0") }
   
-  
-  d <- c(between, within) %>%
-    lapply(unlist) %>%
-    purrr::map(~factor(., levels = .)) %>%
-    do.call(tidyr::crossing, .)
+  # start param table ----
+  fnames <- lapply(c(between, within), names)
+  d <- do.call(expand.grid, rev(fnames))
   
   if (nrow(d) == 0 & ncol(d) == 0) {
-    d = as.data.frame(dv)
+    d <- as.data.frame(dv)
+  } else {
+    d <- d[,ncol(d):1] %>% as.data.frame()
   }
   
   if (length(within)) {

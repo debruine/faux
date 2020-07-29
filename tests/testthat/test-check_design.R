@@ -29,10 +29,22 @@ test_that("errors", {
   expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = "20")))
   expect_error(
     check_design(between = 2, sd = list("A1" = 10, "A2" = "B")),
-    "All sd must be numbers"
+    "All sd must be numbers", fixed = TRUE
   )
   
-  expect_error(check_design(sd = -1), "All sd must be >= 0")
+  expect_error(check_design(sd = -1), "All sd must be >= 0", fixed = TRUE)
+  
+  err <- "You have duplicate levels for factor(s): A"
+  expect_error(check_design(list(A = c("A1", "A1"))), err, fixed = TRUE)
+  
+  err <- "You have duplicate levels for factor(s): A, B"
+  expect_error(check_design(list(A = c("A1", "A1"), B = c("B1", "B1"))), err, fixed = TRUE)
+  
+  err <- "You have multiple factors with the same name (A). Please give all factors unique names."
+  expect_error(check_design(list(A = c("A1", "A2"), A = c("B1", "B2"))), err, fixed = TRUE)
+  expect_error(check_design(list(A = c("A1", "A2")), 
+                            list(A = c("B1", "B2"))), 
+               err, fixed = TRUE)
 })
 
 # no factors
