@@ -35,7 +35,6 @@ Imports:
     purrr,
     magrittr,
     tibble,
-    tidyselect,
     stats,
     ggplot2 (>= 3.3.0),
     rlang (>= 0.1.2),

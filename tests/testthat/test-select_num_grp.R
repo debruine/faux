@@ -48,7 +48,7 @@ test_that("columns", {
   # columns by name
   irisnames <- c("Sepal.Length", "Sepal.Width")
   checkiris <- select_num_grp(iris, cols = irisnames)
-  iris_manual <- dplyr::select(iris, tidyselect::one_of(irisnames))
+  iris_manual <- dplyr::select(iris, all_of(irisnames))
   
   expect_equal(nrow(checkiris), nrow(iris))
   expect_equal(ncol(checkiris), 2)
@@ -59,7 +59,7 @@ test_that("columns", {
   irisnum <- 1:2
   checkiris <- select_num_grp(iris, cols = irisnum)
   irisnames <- names(iris[irisnum])
-  iris_manual <- dplyr::select(iris, tidyselect::one_of(irisnames))
+  iris_manual <- dplyr::select(iris, all_of(irisnames))
   
   expect_equal(nrow(checkiris), nrow(iris))
   expect_equal(ncol(checkiris), 2)

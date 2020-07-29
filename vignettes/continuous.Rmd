@@ -15,7 +15,9 @@ knitr::opts_chunk$set(
 )
 
 library(faux)
-library(tidyverse)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 library(cowplot) # for multi-panel plots
 ```
 

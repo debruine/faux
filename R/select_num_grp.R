@@ -22,22 +22,20 @@ select_num_grp <- function(data, between = c(), cols = NULL) {
   # select only grouping and numeric columns -----------------
   if (is.null(between)) {
     # no grouping, so select all numeric columns
-    numdat <- dplyr::select_if(data, is.numeric)
+    numdat <- data[sapply(data, is.numeric)]
     grpdat <- numdat
   } else if (is.numeric(between) || is.character(between)) {
     # get grouping column names if specified by index
     if (is.numeric(between)) between <- names(data)[between]
     
     # numeric columns, excluding grouping columns
-    numdat <- data %>%
-      dplyr::select(-tidyselect::one_of(between)) %>%
-      dplyr::select_if(is.numeric)
+    nobtwn <- data[which(!names(data) %in% between)]
+    numdat <- nobtwn[sapply(nobtwn, is.numeric)]
     
     # get grouping columns, add remaining numeric columns, and group
-    grpdat <- data %>%
-      dplyr::select(tidyselect::one_of(between)) %>%
-      dplyr::bind_cols(numdat) %>%
-      dplyr::group_by_at(dplyr::vars(tidyselect::one_of(between)))
+    keep <- c(between, names(numdat))
+    grpdat <- data[keep]
+    grpdat <- dplyr::group_by_at(grpdat, between)
   } else {
     stop("between must be a numeric or character vector")
   }
@@ -45,9 +43,7 @@ select_num_grp <- function(data, between = c(), cols = NULL) {
   if (!is.null(cols)) {
     # return only grouping and cols
     if (is.numeric(cols)) cols <- names(data)[cols]
-    
-    grpdat <- grpdat %>%
-      dplyr::select(tidyselect::one_of(c(between, cols)))
+    grpdat <- grpdat[, c(between, cols)]
   }
   
   return(grpdat) 

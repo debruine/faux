@@ -28,17 +28,24 @@ long2wide <- function(data, within = c(), between = c(), dv = "y", id = "id") {
   }
   
   d1 <- data %>% dplyr::ungroup() %>%
-    dplyr::select(tidyselect::one_of(c(id, between, within, dv))) %>%
+    dplyr::select(dplyr::all_of(c(id, between, within, dv))) %>%
     # fix within values so they match design 
     dplyr::mutate_at(c(within), ~gsub("_", ".", .))
+  
+  d1 <- data[c(id, between, within, dv)]
+  
   if (length(within)) {
-    d1 <- tidyr::unite(d1, ".tmpwithin.", tidyselect::one_of(within))
+    #d1 <- tidyr::unite(d1, ".tmpwithin.", dplyr::all_of(within))
+    tmpw <- d1[within]
+    tmpw$sep <- faux_options("sep")
+    d1$`.tmpwithin.` <- do.call(paste, tmpw)
+    d1[within] <- NULL
   }
   if (length(between)) {
     d1 <- dplyr::group_by_at(d1, between)
   }
   if (length(within)) {
-    d1 <- tidyr::spread(d1, ".tmpwithin.", !!quo(dv))
+    d1 <- tidyr::spread(d1, ".tmpwithin.", !!dv)
   }
   
   for (b in between) {

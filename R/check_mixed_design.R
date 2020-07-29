@@ -35,13 +35,14 @@ check_mixed_design <- function(data, dv = 1, sub_id = 2, item_id = 3, formula = 
   grand_i <- lme4::fixef(mod)[["(Intercept)"]]
   
   sds <- lme4::VarCorr(mod) %>% as.data.frame()
-  sub_sd <- dplyr::filter(sds, .data$grp == sub_id, 
-                          .data$var1 == "(Intercept)", 
-                          is.na(.data$var2)) %>% dplyr::pull(.data$sdcor)
-  item_sd <- dplyr::filter(sds, .data$grp == item_id, 
-                           .data$var1 == "(Intercept)", 
-                           is.na(.data$var2)) %>% dplyr::pull(.data$sdcor)
-  error_sd <- dplyr::filter(sds, .data$grp == "Residual") %>% dplyr::pull(.data$sdcor)
+  
+  sub_sd <- sds[which((sds$grp==sub_id & 
+                       sds$var1== "(Intercept)") & 
+                       is.na(sds$var2)), "sdcor"]
+  item_sd <- sds[which((sds$grp==item_id & 
+                        sds$var1== "(Intercept)") & 
+                        is.na(sds$var2)), "sdcor"]
+  error_sd <- sds[which(sds$grp=="Residual"), "sdcor"]
   
   random_effects <- lme4::ranef(mod)
   

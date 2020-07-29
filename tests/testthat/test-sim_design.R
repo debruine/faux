@@ -100,7 +100,7 @@ test_that("2b", {
   
   df <- sim_design(within, between, n = 100, mu = mu, 
                    empirical = TRUE)
-  chk <- check_sim_stats(df, between = "B")
+  chk <- get_params(df, between = "B")
   
   comp <- tibble::tribble(
     ~B,    ~n,  ~var, ~y, ~mean, ~sd,
@@ -569,4 +569,39 @@ test_that("multiple reps", {
   expect_equal(nrow(df$data[[1]]), 2*n)
   expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]])))
   expect_equal(names(df$data[[1]]), c("id", "A", "y"))
+})
+
+# empirical ----
+test_that("empirical", {
+  tol = .000001
+  for (i in 1:10) {
+    for (n in seq(10,30, 10)) {
+      df <- sim_design(2, r = 0.5, n = n, empirical = TRUE, plot = FALSE)
+      
+      # equal to parameters within tolerance
+      expect_equal(cor(df$A1, df$A2), 0.5, tolerance = tol)
+      expect_equal(mean(df$A1), 0, tolerance = tol)
+      expect_equal(mean(df$A2), 0, tolerance = tol)
+      expect_equal(sd(df$A1), 1, tolerance = tol)
+      expect_equal(sd(df$A1), 1, tolerance = tol)
+    }
+  }
+  
+  m1 = c(); m2 = c(); sd1 = c(); sd2 = c(); r = c();
+  for (i in 1:100) {
+    tol = .000001
+    df <- sim_design(2, n = 10, r = 0.5, empirical = FALSE, plot = FALSE)
+    r[i] <- abs(cor(df$A1, df$A2)-0.5)
+    m1[i] <- abs(mean(df$A1))
+    m2[i] <- abs(mean(df$A2))
+    sd1[i] <- abs(sd(df$A1)-1)
+    sd2[i] <- abs(sd(df$A2)-1)
+  }
+  
+  # most at least .1 off empirical
+  expect_true(mean(r>.1) > .5)
+  expect_true(mean(m1>.1) > .5)
+  expect_true(mean(m2>.1) > .5)
+  expect_true(mean(sd1>.1) > .5)
+  expect_true(mean(sd2>.1) > .5)
 })
