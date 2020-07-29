@@ -71,7 +71,8 @@ convert_param <- function (param, cells_w, cells_b, type = "this parameter") {
       stop("The ", type, " data table is misspecified.")
     }
     # convert to named list with names = cells_b
-    param <- as.list(param) %>% lapply(magrittr::set_names, rownames(param))
+    rnames <- rownames(param)
+    param <- lapply(as.list(param), function(x) { names(x) <- rnames; x })
   }
   
   if (is.null(names(param)) & length(param) == all_n) {
