@@ -14,7 +14,8 @@
 #' fix_name_labels(source)
 #' 
 fix_name_labels <- function(x, pattern = NA, replacement = ".") {
-  if (!is.list(x) & !is.vector(x)) stop("x must be a vector or list")
+  if (!is.list(x) & !is.vector(x) & !is.factor(x)) 
+    stop("x must be a vector or list")
 
   if (is.null(names(x))) { names(x) <- x }
   nm <- names(x)
