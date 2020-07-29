@@ -21,7 +21,7 @@ get_params <- function(data, between = c(), within = c(),
   if (length(within) && length(dv) && length(id)) {
     # convert long to wide
     data <- long2wide(data, within, between, dv, id) %>%
-      dplyr::select(-tidyselect::one_of(id))
+      dplyr::select(-dplyr::all_of(id))
   }
   
   grpdat <- select_num_grp(data, between)
@@ -38,14 +38,14 @@ get_params <- function(data, between = c(), within = c(),
     tidyr::spread(.data$stat, .data$val)
   
   stats <- grpdat %>%
-    tidyr::nest("multisim_data" = tidyselect::one_of(numvars)) %>%
+    tidyr::nest("multisim_data" = dplyr::all_of(numvars)) %>%
     dplyr::mutate("multisim_cor" = purrr::map(.data$multisim_data, function(d) {
       cor(d) %>% round(digits) %>% tibble::as_tibble(rownames = "var")
     })) %>%
     dplyr::select(-.data$multisim_data) %>%
     tidyr::unnest(cols = "multisim_cor") %>%
     dplyr::left_join(descriptives, by = c(between, "var")) %>%
-    dplyr::select(tidyselect::one_of(c(between, "n", "var", numvars, "mean", "sd"))) %>%
+    dplyr::select(dplyr::all_of(c(between, "n", "var", numvars, "mean", "sd"))) %>%
     dplyr::ungroup()
     
   stats

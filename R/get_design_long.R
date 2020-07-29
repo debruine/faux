@@ -53,7 +53,7 @@ get_design_long <- function(data, dv = "y", id = "id", plot = faux_options("plot
   chk <- check_sim_stats(data, between_factors, within_factors, dv, id, digits = 8)
   
   if (length(between_factors)) {
-    chk_b <- tidyr::unite(chk, ".between", tidyselect::one_of(between_factors)) %>%
+    chk_b <- tidyr::unite(chk, ".between", dplyr::all_of(between_factors)) %>%
       dplyr::mutate(".between" = forcats::fct_relevel(.data$.between, cells_b)) %>%
       dplyr::arrange(.data$.between)
   } else {
@@ -63,26 +63,26 @@ get_design_long <- function(data, dv = "y", id = "id", plot = faux_options("plot
   n <- chk_b %>%
     dplyr::select(.data$.between, .data$var, .data$n) %>%
     tidyr::spread(.data$var, .data$n) %>%
-    dplyr::select(tidyselect::one_of(c(".between", cells_w))) %>%
+    dplyr::select(dplyr::all_of(c(".between", cells_w))) %>%
     tibble::column_to_rownames(".between") %>% 
     as.data.frame()
   
   mu <- chk_b %>%
     dplyr::select(.data$.between, .data$var, .data$mean) %>%
     tidyr::spread(.data$var, .data$mean) %>%
-    dplyr::select(tidyselect::one_of(c(".between", cells_w))) %>%
+    dplyr::select(dplyr::all_of(c(".between", cells_w))) %>%
     tibble::column_to_rownames(".between") %>% 
     as.data.frame()
   
   sd <- chk_b %>%
     dplyr::select(.data$.between, .data$var, .data$sd) %>%
     tidyr::spread(.data$var, .data$sd) %>%
-    dplyr::select(tidyselect::one_of(c(".between", cells_w))) %>%
+    dplyr::select(dplyr::all_of(c(".between", cells_w))) %>%
     tibble::column_to_rownames(".between") %>% 
     as.data.frame()
   
   cors <- chk_b %>%
-    dplyr::select(tidyselect::one_of(c(".between", "var", cells_w))) %>%
+    dplyr::select(dplyr::all_of(c(".between", "var", cells_w))) %>%
     dplyr::mutate("var" = forcats::fct_relevel(.data$var, cells_w)) %>%
     dplyr::arrange(.data$var) %>%
     dplyr::group_by(.data$.between) %>%

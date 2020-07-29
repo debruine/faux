@@ -159,7 +159,7 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
     dplyr::mutate(!!id := make_id(sub_n)) %>%
     dplyr::ungroup(.data$`.rep.`) %>%
     dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
-    dplyr::select(tidyselect::one_of(col_order))
+    dplyr::select(dplyr::all_of(col_order))
   
   # put factors in order
   factors_to_order <- setdiff(between_factors, ".tmpvar.")
@@ -173,9 +173,9 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
       setdiff(".tmpvar.")
     
     df_long <- df_wide %>%
-      tidyr::gather("w_in", !!dv, tidyselect::one_of(cells_w)) %>%
+      tidyr::gather("w_in", !!dv, dplyr::all_of(cells_w)) %>%
       tidyr::separate("w_in", within_factors, sep = sep) %>%
-      dplyr::select(tidyselect::one_of(col_order)) %>%
+      dplyr::select(dplyr::all_of(col_order)) %>%
       dplyr::mutate_at(within_factors, ~as.factor(.))
     
     # put factors in order

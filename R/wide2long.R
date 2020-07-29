@@ -38,7 +38,7 @@ wide2long <- function(data, within_factors = c(), within_cols = c(),
   }
   
   longdat <- data %>% dplyr::ungroup() %>%
-    tidyr::gather(".tmpwithin.", !!dplyr::sym(dv), tidyselect::one_of(within_cols)) %>%
+    tidyr::gather(".tmpwithin.", !!dplyr::sym(dv), dplyr::all_of(within_cols)) %>%
     tidyr::separate(".tmpwithin.", within_factors, sep = sep)
   
   if ("design" %in% names(attributes(data))) {

@@ -77,7 +77,7 @@ sim_df <- function (data, n = 100, within = c(), between = c(), id = "id", dv = 
     tidyr::unnest(.data$newsim) %>%
     dplyr::ungroup() %>%
     dplyr::mutate(!!id := make_id(nrow(.))) %>%
-    dplyr::select(!!id, tidyselect::everything())
+    dplyr::select(!!id, dplyr::everything())
   
   return(simdat)
 }
