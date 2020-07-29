@@ -132,7 +132,7 @@ is_pos_def <- function(cor_mat, tol=1e-08) {
 #' @export
 #' 
 pos_def_limits <- function(..., steps = .01, tol = 1e-08) {
-  cors <- list(...) %>% unlist()
+  cors <- unlist(list(...))
   if (sum(is.na(cors)) != 1) stop("cors needs to have exactly 1 NA")
   
   x <- seq(-1, 1, steps)
@@ -143,10 +143,10 @@ pos_def_limits <- function(..., steps = .01, tol = 1e-08) {
   min <- 0
   while (!ipd & min < l) {
     min <- min + 1
-    ipd <- cors %>%
-      tidyr::replace_na(x[min]) %>%
-      cormat_from_triangle() %>%
-      is_pos_def(tol = tol)
+    cors2 <- cors
+    cors2[is.na(cors)] <- x[min]
+    cft <- cormat_from_triangle(cors2)
+    ipd <- is_pos_def(cft, tol = tol)
   }
   
   # search for max pos_def value only if ipd was ever true
@@ -155,10 +155,10 @@ pos_def_limits <- function(..., steps = .01, tol = 1e-08) {
     max <- l+1
     while (!ipd & max > 1) {
       max <- max - 1
-      ipd <- cors %>%
-        tidyr::replace_na(x[max]) %>%
-        cormat_from_triangle() %>%
-        is_pos_def(tol = tol)
+      cors2 <- cors
+      cors2[is.na(cors)] <- x[max]
+      cft <- cormat_from_triangle(cors2)
+      ipd <-  is_pos_def(cft, tol = tol)
     }
     
     min <- x[min]
