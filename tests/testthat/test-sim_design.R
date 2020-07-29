@@ -100,7 +100,7 @@ test_that("2b", {
   
   df <- sim_design(within, between, n = 100, mu = mu, 
                    empirical = TRUE)
-  chk <- check_sim_stats(df, between = "B")
+  chk <- get_params(df, between = "B")
   
   comp <- tibble::tribble(
     ~B,    ~n,  ~var, ~y, ~mean, ~sd,

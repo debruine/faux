@@ -1,4 +1,6 @@
-library(tidyverse)
+library(dplyr)
+library(readr)
+library(tidyr)
 
 faceinfo <- readr::read_csv("data-raw/london_faces_info.csv")
 faceratings <- 

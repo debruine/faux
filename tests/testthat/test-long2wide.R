@@ -109,8 +109,8 @@ test_that("from design", {
   # from data not made by faux and grouped
   data <- fr4 %>%
     dplyr::group_by(rater_id, rater_sex, face_eth) %>%
-    dplyr::summarise(rating = mean(rating))
+    dplyr::summarise(rating = mean(rating), .groups = "drop")
   
   dwide <- long2wide(data, within = "face_eth", between = "rater_sex", dv = "rating", id = "rater_id")
-  expect_equal(names(dwide), c("rater_id", "rater_sex", "black", "east.asian", "west.asian", "white"))
+  expect_equal(names(dwide), c("rater_id", "rater_sex", "black", "east_asian", "west_asian", "white"))
 })
