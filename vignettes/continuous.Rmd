@@ -1,12 +1,19 @@
 ---
-title: "Faux Continuous Predictors"
-author: "Lisa DeBruine"
-date: "21/07/2020"
-output: html_document
+title: "Continuous Predictors"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Continuous Predictors}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE, out.width = "100%")
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  out.width = "100%"
+)
+
 library(faux)
 library(tidyverse)
 library(cowplot) # for multi-panel plots
