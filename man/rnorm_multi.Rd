@@ -6,7 +6,7 @@
 \usage{
 rnorm_multi(
   n,
-  vars = 3,
+  vars = NULL,
   mu = 0,
   sd = 1,
   r = 0,
