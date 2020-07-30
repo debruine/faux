@@ -1,7 +1,7 @@
 context("rnorm_multi")
 
 test_that("error messages", {
-  expect_warning(rnorm_multi(n = 1, empirical = TRUE),
+  expect_warning(rnorm_multi(n = 1, vars = 3, empirical = TRUE),
     "When n = 1 and empirical = TRUE, returned data are equal to mu")
   
   expect_error(rnorm_multi(), "argument \"n\" is missing, with no default")
@@ -56,7 +56,7 @@ test_that("error messages", {
 
 test_that("correct default parameters", {
   n <- 1e5
-  dat <- rnorm_multi(n)
+  dat <- rnorm_multi(n, vars = 3)
   r <- cor(dat)
   means <- dplyr::summarise_all(dat, mean)
   sds <- dplyr::summarise_all(dat, stats::sd)
@@ -69,7 +69,7 @@ test_that("correct default parameters", {
 
 test_that("correct default parameters with empirical = TRUE", {
   n <- 50
-  dat <- rnorm_multi(n, empirical = TRUE)
+  dat <- rnorm_multi(n, vars = 3, empirical = TRUE)
   r <- cor(dat)
   means <- dplyr::summarise_all(dat, mean)
   sds <- dplyr::summarise_all(dat, stats::sd)
@@ -126,4 +126,22 @@ test_that("small n", {
     rnorm_multi(n = 2, vars = 3, r = 0.5, empirical = TRUE),
     "The correlated variables could not be generated."
   )
+})
+
+# guessing vars ----
+test_that("guessing vars", {
+  err <- "The number of variables (vars) was not explicitly set and can't be guessed from the input."
+  
+  expect_error(rnorm_multi(n = 10), err, fixed = TRUE)
+  expect_error(rnorm_multi(n = 10, r = c(.5, .5, .25)), err, fixed = TRUE)
+  
+  msg <- "The number of variables (vars) was guessed from the input to be 2"
+  expect_message(rnorm_multi(10, mu = c(1,2)), msg, fixed = TRUE)
+  expect_message(rnorm_multi(10, sd = c(1,2)), msg, fixed = TRUE)
+  covmat <- matrix(c(1,.5,.5, 1), nrow = 2)
+  expect_message(rnorm_multi(10, r = covmat), msg, fixed = TRUE)
+  
+  faux_options(verbose = FALSE)
+  expect_silent(rnorm_multi(10, r = covmat))
+  faux_options(verbose = TRUE)
 })
