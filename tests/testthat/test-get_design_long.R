@@ -6,7 +6,7 @@ test_that("2w", {
   between <- list()
   mu <- c(1,2)
   d <- check_design(within, between, mu = mu, plot = FALSE)
-  data <- faux:::sim_data(d, long = TRUE, empirical= TRUE)
+  data <- sim_data(d, long = TRUE, empirical= TRUE)
   d2 <- get_design_long(data, plot = FALSE)
   
   expect_equal(d$within, d2$within)

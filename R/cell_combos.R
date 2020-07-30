@@ -21,7 +21,7 @@ cell_combos <- function(factors, dv = "y") {
     cells = dv
   } else {
     fnames <- lapply(factors, names)
-    exp <- do.call(expand.grid, rev(fnames))
+    exp <- expand.grid(rev(fnames))
     cells <- apply(exp, 1, function(x) { 
       paste(rev(x), collapse = faux_options("sep")) 
     })

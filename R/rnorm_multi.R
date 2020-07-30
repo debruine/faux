@@ -18,7 +18,7 @@
 #' 
 #' @export
 
-rnorm_multi <- function(n, vars = 3, mu = 0, sd = 1, r = 0,
+rnorm_multi <- function(n, vars = NULL, mu = 0, sd = 1, r = 0,
                        varnames = NULL, 
                        empirical = FALSE, 
                        as.matrix = FALSE, 
@@ -35,6 +35,27 @@ rnorm_multi <- function(n, vars = 3, mu = 0, sd = 1, r = 0,
   
   if (!(empirical  %in% c(TRUE, FALSE))) {
     stop("empirical must be TRUE or FALSE")
+  }
+  
+  # try to guess vars if not set ----
+  if (is.null(vars)) {
+    if (!is.null(varnames)) {
+      vars <- length(varnames)
+    } else if (length(mu) > 1) {
+      vars <- length(mu)
+    } else if (length(sd) > 1) {
+      vars <- length(sd)
+    } else if (is.matrix(r)) {
+      vars <- ncol(r)
+    }
+    
+    if (!is.null(vars)) {
+      if (faux_options("verbose")) {
+        message("The number of variables (vars) was guessed from the input to be ", vars)
+      }
+    } else {
+      stop("The number of variables (vars) was not explicitly set and can't be guessed from the input.")
+    }
   }
   
   if (length(mu) == 1) {

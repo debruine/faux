@@ -1,7 +1,7 @@
 #' Create PsychDS Codebook from Data
 #'
 #' @param data The data frame to generate a codebook for
-#' @param name The name of this dataset (if NULL, will be the same as `data`)
+#' @param name The name of this dataset (if NULL, will be the same as `data`, limited to 64 characters)
 #' @param vardesc Optional variable properties in the format of a named list of vectors (can be named or unnamed and in the same order as the data) from the options "description", "privacy", "dataType", "identifier", "minValue", "maxValue", "levels", "levelsOrdered", "na", "naValue", "alternateName", "privacy", "unitCode", "unitText"
 #' @param ... Further dataset properties (e.g., description, license, author, citation, funder, url, identifier, keywords, privacyPolicy)
 #' @param schemaVersion defaults to "Psych-DS 0.1.0"
@@ -32,6 +32,9 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
   
   if (is.null(name)) {
     name <- utils::capture.output(match.call()$data)
+    name <- name[[1]] 
+    name <- substr(name, 1, 64) # in case name is a long function call
+    if (name == ".") name <- "[unnamed data]" # df passed through pipe
   }
   
   # all possible type abbreviations ----
@@ -72,7 +75,7 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
       sub("^doi\\:", "", .) %>%
       sub("^https://doi.org/", "", .)
     datadesc$doi <- NULL
-    datadesc$sameAs <- paste0("https://doi.org/", doi)
+    datadesc$identifier <- paste0("https://doi.org/", doi)
   }
   
   possible_vals <- c("license", "author", "citation", "funder", "url", "identifier", "privacyPolicy", "keywords")
@@ -93,10 +96,21 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
     if (win %in% names(data)) {
       # in long format
       lvls <-  c(design$between, design$within)
-      descs <- design$id
+      descs <- c(design$id, design$dv)
     } else {
       lvls <- design$between
-      descs <- c(design$id, design$dv)
+      if (length(design$within) > 0) {
+        # add within levels as vardesc
+        cnames <- cell_combos(design$within)
+        exp <- expand.grid(rev(design$within))
+        cells <- apply(exp, 1, function(x) { 
+          paste(rev(x), collapse = " ") 
+        })
+        names(cells) <- cnames
+        descs <- c(design$id, design$dv, cells)
+      } else {
+        descs <- c(design$id, design$dv)
+      }
     }
     
     # overwrite levels and descriptions in design with vardesc
@@ -152,6 +166,9 @@ codebook <- function(data, name = NULL, vardesc = list(), ...,
         } else if (length(vals) == ncol(data)) {
           # set from position
           vm[[i]][vd] <- vals[i]
+        } else if (length(vals) == 1) {
+          # set all to same
+          vm[[i]][vd] <- vals[1]
         } else {
           warning("Couldn't set ", vd, " for ", col)
         }
@@ -275,7 +292,7 @@ interactive_codebook <- function(data, cb = NULL) {
   if (is.null(cb)) {
     # run codebook function to get best guess ----
     name <- utils::capture.output(match.call()$data)
-    cb <- codebook(data, name, as_json = FALSE)
+    cb <- codebook(data, name, return = "list")
   }
   
   types <- c(i = "int", s = "string", f = "float", b = "bool")
@@ -400,17 +417,16 @@ print.psychds_codebook <- function(x, ...) {
   if ("Psych-DS 0.1.0" == x$schemaVersion &
       length(x$variableMeasured) > 0) {
     
-    cat("Codebook for", x$name, "(Psych-DS 0.1.0)\n")
-    cat("========================================\n\n")
+    cat("Codebook for", x$name, "(Psych-DS 0.1.0)\n\n")
     
     # list dataset parameters ----
-    cat("===== Dataset Parameters =====\n")
+    cat("Dataset Parameters\n\n")
     omit_names <- c("@context", "@type", "variableMeasured")
     dataset_params <- setdiff(names(x), omit_names)
     cat(nested_list(x[dataset_params]))
     
     # list column parameters ----
-    cat("\n===== Column Parameters =====\n")
+    cat("\n\nColumn Parameters\n\n")
     vars <- list()
     for (v in x$variableMeasured) {
       desc <- ifelse(v$name == v$description,
