@@ -43,7 +43,7 @@ sim_df <- function (data, n = 100, within = c(), between = c(), id = "id", dv = 
   
   if (!is.null(grp_by)) {
     warning("grp_by is deprecated, please use between")
-    if (between == c()) between = grp_by # set between to grp_by if between is not set
+    if (length(between) == 0) between = grp_by # set between to grp_by if between is not set
   }
   
   if (length(within)) {

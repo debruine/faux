@@ -6,7 +6,7 @@ test_that("loading", {
                plot = "d")
   
   detach("package:faux", unload=TRUE)
-  expect_error(sim_design(), 'could not find function "sim_design"', fixed = TRUE)
+  #expect_error(sim_design(), 'could not find function "sim_design"', fixed = TRUE)
   options(faux.connection = NULL)
   options(faux.sep = NULL)
   options(faux.verbose = NULL)

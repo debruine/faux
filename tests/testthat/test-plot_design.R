@@ -265,7 +265,7 @@ test_that("geoms", {
   expect_equal(sd, sd_se)
 })
 
-# S3 functions
+# S3 functions ----
 test_that("S3 functions", {
   des <- check_design()
   dat <- sim_design()
@@ -280,6 +280,15 @@ test_that("S3 functions", {
   
   expect_equal(p_des[1], "GeomPoint")
   expect_equal(p_dat[1], "GeomPoint")
+})
+
+# reps ----
+test_that("reps", {
+  
+  data <- sim_design(2, 2, rep = 3)
+  p <- plot_design(data)
+  
+  expect_equal(names(p$facet$params$rows), "rep")
 })
 
 faux_options(plot = TRUE)

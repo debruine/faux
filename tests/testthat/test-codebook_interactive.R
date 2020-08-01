@@ -100,4 +100,5 @@ test_that("warnings and defaults", {
 
 options(faux.connection = stdin()) # reset connection
 close(f) # close the file
+faux_options(verbose = TRUE)
 
