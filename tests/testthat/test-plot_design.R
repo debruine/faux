@@ -281,3 +281,5 @@ test_that("S3 functions", {
   expect_equal(p_des[1], "GeomPoint")
   expect_equal(p_dat[1], "GeomPoint")
 })
+
+faux_options(plot = TRUE)

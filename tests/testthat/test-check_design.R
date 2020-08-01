@@ -282,3 +282,5 @@ test_that("params table", {
   expect_true(des$params %>% nrow() == 24)
   expect_true(all(des$params %>% names() == nm))
 })
+
+faux_options(plot = TRUE)

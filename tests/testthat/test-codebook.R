@@ -379,5 +379,15 @@ test_that("vardesc", {
 
 # interactive ----
 test_that("interactive", {
-  #cb <- codebook(cars, interactive = TRUE)
+  data <- data.frame(x = rnorm(10))
+  f <- file()
+  write("\nxx", f)
+  options(faux.connection = f)
+  cb <- codebook(data, interactive = TRUE, return = "list")
+  options(faux.connection = stdin()) # reset connection
+  close(f) # close the file
+  
+  x <- cb$variableMeasured[[1]]
+  expect_equal(x$description, "xx")
+  expect_equal(x$dataType[[1]], "float")
 })

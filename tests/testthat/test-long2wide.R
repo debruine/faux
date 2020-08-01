@@ -114,3 +114,5 @@ test_that("from design", {
   dwide <- long2wide(data, within = "face_eth", between = "rater_sex", dv = "rating", id = "rater_id")
   expect_equal(names(dwide), c("rater_id", "rater_sex", "black", "east_asian", "west_asian", "white"))
 })
+
+faux_options(plot = TRUE)

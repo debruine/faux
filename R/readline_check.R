@@ -21,12 +21,10 @@
 #' }
 readline_check <- function(prompt, type = c("numeric", "integer", "length", "grep"), 
                            min = -Inf, max = Inf, warning = NULL, default = NULL, ...) {
-  if (getOption("faux.connection") %>% is.null()) {
-    options(faux.connection = stdin())
-  }
-  if (!is.null(default)) prompt <- sprintf("%s [%s] ", prompt, default)
-  cat(prompt)
-  input <- readLines(con = getOption("faux.connection"), n = 1)
+  con <- getOption("faux.connection", stdin())
+  if (!is.null(default)) prompt <- sprintf("%s [%s]", prompt, default)
+  cat(paste0(prompt, "\n"))
+  input <- readLines(con = con, n = 1)
   
   if (!is.null(default) & input == "") {
     return(default)
@@ -35,31 +33,31 @@ readline_check <- function(prompt, type = c("numeric", "integer", "length", "gre
   type <- match.arg(type)
   if (type == "numeric") {
     if (min != -Inf | max != Inf) {
-      warn_text <- paste0("The input must be a number between ", min, " and ", max, ": ")
+      warn_text <- paste0("The input must be a number between ", min, " and ", max, ":")
     } else {
-      warn_text <- "The input must be a number: "
+      warn_text <- "The input must be a number:"
     }
     input <- suppressWarnings(as.numeric(input))
     check <- !is.na(input)
     check <- check & (input >= min) & (input <= max)
   } else if (type == "integer") {
     if (min != -Inf | max != Inf) {
-      warn_text <- paste0("The input must be an integer between ", min, " and ", max, ": ")
+      warn_text <- paste0("The input must be an integer between ", min, " and ", max, ":")
     } else {
-      warn_text <- "The input must be an integer: "
+      warn_text <- "The input must be an integer:"
     }
     check <- grep("^\\d+$", input) %>% length() > 0
     input <- suppressWarnings(as.integer(input))
     check <- check & (input >= min) & (input <= max)
   } else if (type == "length") {
     min <- max(min, 0) # min can't be smaller than 0 for text
-    warn_text <- paste0("The input must be between ", min, " and " , max, " characters long: ")
+    warn_text <- paste0("The input must be between ", min, " and " , max, " characters long:")
     check <- (nchar(input) >= min) & (nchar(input) <= max)
   } else if (type == "grep") {
-    warn_text <- "The input is incorrect: "
+    warn_text <- "The input is incorrect:"
     check <- grep(x = input, ...) %>% length() > 0
   } else {
-    warn_text <- "The input is incorrect: "
+    warn_text <- "The input is incorrect:"
     check <- FALSE # default false if type is wrong?
   }
   

@@ -605,3 +605,5 @@ test_that("empirical", {
   expect_true(mean(sd1>.1) > .5)
   expect_true(mean(sd2>.1) > .5)
 })
+
+faux_options(plot = TRUE)
