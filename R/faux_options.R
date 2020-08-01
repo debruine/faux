@@ -26,6 +26,8 @@ faux_options <- function (...) {
     return(faux_op)
   } else if (is.list(dots[[1]])) {
     newop <- dots[[1]]
+    if (is.null(names(newop))) 
+        stop("Format lists with names like list(sep = '.', verbose = FALSE)")
     names(newop) <- paste0("faux.", names(newop))
     options(newop)
   } else if (!is.null(names(dots))) {
@@ -33,10 +35,14 @@ faux_options <- function (...) {
     names(newop) <- paste0("faux.", names(newop))
     options(newop)
   } else if (is.null(names(dots))) {
-    if (length(dots) > 1) 
-      stop("faux_options() can only return the value of a single option.",
-           call. = FALSE)
-    return(getOption(paste0("faux.", unlist(dots))))
+    opnames <- paste0("faux.", unlist(dots))
+    getop <- sapply(opnames, getOption)
+    if (length(opnames) == 1) {
+      names(getop) <- NULL
+    } else {
+      names(getop) <- unlist(dots)
+    }
+    return(getop)
   } else {
     warning("Unsupported command to faux_options(), nothing done.", 
             call. = FALSE)
