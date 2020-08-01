@@ -35,8 +35,28 @@ test_that("errors", {
   param <- list("W1_X1" = 1:4, "W2_X1" = 1:4, "W1_X2" = 1:4)
   expect_error(convert_param(param, cells_w, c("y"), "mu"), 
                "The number of mu for cell W1_X1 is not correct. Please specify either 1 or a vector of 1 per cell")
+  
+  param <- c(10, 11)
+  expect_error(faux:::convert_param(param, cells_w, cells_b, "mu"), 
+                           "The number of mu is not correct. Please specify 1, a vector of 16, or use the list format")
 })
 
+# matrix specifications ----
+test_that("matrix specifications", {
+  cells_b <- c("A1", "A2", "A3")
+  cells_w <- c("B1", "B2")
+  
+  # matrix
+  param <- matrix(10:15, nrow = 2)
+  rownames(param) <- cells_w
+  colnames(param) <- cells_b
+  target <- list(A1 = list(B1 = 10, B2 = 11),
+                 A2 = list(B1 = 12, B2 = 13),
+                 A3 = list(B1 = 14, B2 = 15))
+  conv <- faux:::convert_param(param, cells_w, cells_b)
+  
+  expect_equal(conv, target)
+})
 
 # vector specifications ----
 test_that("vector specifications", {
@@ -299,4 +319,22 @@ test_that("df specifications", {
 
 })
 
-
+# guess row/col ----
+test_that("matrix specifications", {
+  cells_b <- c("A1", "A2", "A3")
+  cells_w <- c("B1", "B2")
+  
+  # unnamed list
+  param <- list(10:11, 12:13, 14:15)
+  target <- list(A1 = list(B1 = 10, B2 = 11),
+                 A2 = list(B1 = 12, B2 = 13),
+                 A3 = list(B1 = 14, B2 = 15))
+  conv <- faux:::convert_param(param, cells_w, cells_b)
+  
+  expect_equal(conv, target)
+  
+  param <- list(c(10, 12, 14), c(11, 13, 15))
+  conv <- faux:::convert_param(param, cells_w, cells_b)
+  
+  expect_equal(conv, target)
+})

@@ -606,4 +606,21 @@ test_that("empirical", {
   expect_true(mean(sd2>.1) > .5)
 })
 
+# interactive ----
+test_that("interactive", {
+  f <- file()
+  faux_options(connection = f)
+  c("0", "0", "A", "B", "10", "100", "10") %>%
+    paste(collapse = "\n") %>%
+    write(f)
+  
+  x <- capture_output_lines(d <- sim_design(interactive = TRUE))
+  
+  expect_equal(nrow(d), 10)
+  expect_equal(names(d), c("B", "A"))
+  
+  close(f)
+  faux_options(connection = stdin())
+})
+
 faux_options(plot = TRUE)

@@ -1,5 +1,10 @@
 context("faux_options")
 
+faux_options(list(sep = "_", 
+                  verbose = TRUE, 
+                  plot = TRUE, 
+                  connection = stdin()))
+
 test_that("default", {
   o <- faux_options()
   expect_equal(names(o), c("connection", "plot", "sep", "verbose"))
