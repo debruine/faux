@@ -1,6 +1,7 @@
 #' Get design from long data
 #' 
 #' Makes a best guess at the design of a long-format data frame. 
+#' 
 #' Finds all columns that contain a single value per unit of analysis (between factors), 
 #' all columns that contain the same values per unit of analysis (within factors), and 
 #' all columns that differ over units of analysis (dv, continuous factors)
@@ -10,17 +11,20 @@
 #' @param id the column name(s) that identify a unit of analysis
 #' @param plot whether to show a plot of the design
 #' 
-#' @return the data frame in long format
+#' @return a design list
 #' 
 #' @export
 #'
-get_design_long <- function(data, dv = "y", id = "id", plot = faux_options("plot")) {
-  data <- dplyr::ungroup(data)
-  
-  cnames <- setdiff(names(data), c(id, dv))
+get_design_long <- function(data, 
+                            dv = c(y = "score"), 
+                            id = c(id = "id"), 
+                            plot = faux_options("plot")) {
+  #data <- dplyr::ungroup(data)
+  if (is.null(names(id))) names(id) <- id
+  if (is.null(names(dv))) names(dv) <- dv
   
   # check for columns where there is only ever one value per id
-  y <- by(data, data[id], function(x) {
+  y <- by(data, data[names(id)], function(x) {
     unique_vals <- lapply(x, unique)
     n_unique_vals <- lapply(unique_vals, length)
     as.data.frame(n_unique_vals)
@@ -30,7 +34,9 @@ get_design_long <- function(data, dv = "y", id = "id", plot = faux_options("plot
   factors <- lapply(z, function(x) {
     ifelse(max(x) > 1, "W", "B")
   })
+  
   # get rid of id and dv columns
+  cnames <- setdiff(names(data), c(names(id), names(dv)))
   factors <- factors[names(factors) %in% cnames]
   
   between_factors <- names(factors[which(factors == "B")])
@@ -46,51 +52,49 @@ get_design_long <- function(data, dv = "y", id = "id", plot = faux_options("plot
   between <- lvls[which(names(lvls) %in% between_factors)]
   
   # define columns
-  cells_w <- cell_combos(within, dv)
-  cells_b <- cell_combos(between, dv) 
+  cells_w <- faux:::cell_combos(within, names(dv))
+  cells_b <- faux:::cell_combos(between, names(dv)) 
   
   # get n, mu, sd, r per cell
-  chk <- check_sim_stats(data, between_factors, within_factors, dv, id, digits = 8)
+  chk <- get_params(data, between_factors, within_factors, 
+                    names(dv), names(id), digits = 8)
   
   if (length(between_factors)) {
-    chk_b <- tidyr::unite(chk, ".between", dplyr::all_of(between_factors)) %>%
-      dplyr::mutate(".between" = forcats::fct_relevel(.data$.between, cells_b)) %>%
-      dplyr::arrange(.data$.between)
+    chk_b <- chk
+
+    x <- chk[between_factors]; x$sep = "_";
+    b <- do.call(paste, x)
+    chk_b$`.between` <- factor(b, cells_b)
+    chk_b <- chk_b[order(chk_b$`.between`), , drop = FALSE]
+    chk_b[between_factors] <- NULL
   } else {
-    chk_b <- dplyr::mutate(chk, ".between" = dv)
+    chk_b <- chk
+    chk_b$`.between` <- names(dv)
   }
   
-  n <- chk_b %>%
-    dplyr::select(.data$.between, .data$var, .data$n) %>%
-    tidyr::spread(.data$var, .data$n) %>%
-    dplyr::select(dplyr::all_of(c(".between", cells_w))) %>%
-    tibble::column_to_rownames(".between") %>% 
-    as.data.frame()
+  get_stat <- function(stat) {
+    x <- as.data.frame(chk_b[, c(".between", "var", stat)])
+    y <- reshape(x, timevar = "var", idvar = ".between", direction = "wide")
+    rownames(y) <- y$`.between`
+    y$`.between` <- NULL
+    names(y) <- gsub(paste0(stat, "\\."), "", names(y))
+    y <- y[, order(cells_w)] # FIX: check if needed?
+    y
+  }
   
-  mu <- chk_b %>%
-    dplyr::select(.data$.between, .data$var, .data$mean) %>%
-    tidyr::spread(.data$var, .data$mean) %>%
-    dplyr::select(dplyr::all_of(c(".between", cells_w))) %>%
-    tibble::column_to_rownames(".between") %>% 
-    as.data.frame()
+  n <- get_stat("n")
+  sd <- get_stat("sd")
+  mu <- get_stat("mean")
   
-  sd <- chk_b %>%
-    dplyr::select(.data$.between, .data$var, .data$sd) %>%
-    tidyr::spread(.data$var, .data$sd) %>%
-    dplyr::select(dplyr::all_of(c(".between", cells_w))) %>%
-    tibble::column_to_rownames(".between") %>% 
-    as.data.frame()
+  x <- chk_b[, c(".between", "var", cells_w)] %>% as.data.frame()
+  r <- by(x, x$`.between`, function(y) {
+    rownames(y) <- y$var
+    y <- y[cells_w, cells_w]
+    as.matrix(y)
+  })
   
-  cors <- chk_b %>%
-    dplyr::select(dplyr::all_of(c(".between", "var", cells_w))) %>%
-    dplyr::mutate("var" = forcats::fct_relevel(.data$var, cells_w)) %>%
-    dplyr::arrange(.data$var) %>%
-    dplyr::group_by(.data$.between) %>%
-    tidyr::nest("r" = -.data$.between) %>%
-    as.list() 
-  
-  r <- purrr::map(cors$r, ~tibble::column_to_rownames(., "var") %>% as.matrix())
-  names(r) <- cors$.between
+  attr(r, "call") <- NULL
+  class(r) <- "list"
   
   check_design(within, between, n, mu, sd, r, dv, id, plot)
 }

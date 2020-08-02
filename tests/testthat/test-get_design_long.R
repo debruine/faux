@@ -71,3 +71,16 @@ test_that("2w*2b", {
   expect_equal(d$sd, d2$sd)
   expect_equal(d$r, d2$r)
 })
+
+# complex ----
+test_that("complex", {
+  within <- c(2, 3)
+  between <- c(2, 3)
+  id <- c(sub_id = "ID")
+  dv <- c(dv = "My DV")
+  d <- check_design(within, between, dv = dv, id = id, plot = FALSE)
+  data <- sim_design(within, between, dv = dv, id = id, 
+                     empirical = TRUE, long = TRUE, plot = 0)
+  d2 <- get_design_long(data, dv = dv, id = id, plot = FALSE)
+  expect_equal(d, d2)
+})
