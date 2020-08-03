@@ -14,6 +14,7 @@ test_that("error", {
   expect_error(norm2beta(1, 1), "argument \"shape2\" is missing, with no default")
 })
 
+set.seed(1)
 reps <- 1
 
 # unif2norm ----

@@ -1,9 +1,9 @@
-#' Convert faux design to ANOVApower design
+#' Convert faux design to Superpower ANOVA_design
 #'
 #' @param design faux design list (e.g., from check_design)
-#' @param plot whether to show the plot from ANOVApower::ANOVA_design
+#' @param plot whether to show the plot from Superpower::ANOVA_design
 #'
-#' @return a design list for ANOVApower
+#' @return a design list for Superpower
 #' @export
 #'
 #' @examples
@@ -13,16 +13,16 @@
 #' apower_des <- faux2ANOVA_design(faux_des)
 #' 
 faux2ANOVA_design <- function(design, plot = TRUE) {
-  # if (!requireNamespace("ANOVApower", quietly = TRUE)) {
-  #   stop("Package \"ANOVApower\" needed for this function to work. Please install it.",
-  #        call. = FALSE)
-  # }
+  if (!requireNamespace("Superpower", quietly = TRUE)) {
+    stop("Package \"Superpower\" needed for this function to work. Please install it.",
+         call. = FALSE)
+  }
   
   factors <- c(design$between, design$within)
   if (length(factors) < 1) {
-    stop("You need at least one factor to use ANOVApower")
+    stop("You need at least one factor to use Superpower")
   } else if (length(factors) > 3) {
-    stop("You can't use ANOVApower with more than 3 factors")
+    stop("You can't use Superpower with more than 3 factors")
   }
   
   b <- design$between %>% lapply(length) %>% lapply(paste0, "b")
@@ -33,7 +33,7 @@ faux2ANOVA_design <- function(design, plot = TRUE) {
   n <- design$n %>%  unlist() %>% unique()
   if (length(n) > 1) {
     n <- design$n %>%  unlist() %>% mean() %>% round()
-    warning("Your design has different n for the between-subject factors. ANOVApower does not support this, so will use the mean n of ", n)
+    warning("Your design has different n for the between-subject factors. Superpower does not support this, so will use the mean n of ", n)
   }
   
   # labelnames
@@ -60,7 +60,6 @@ faux2ANOVA_design <- function(design, plot = TRUE) {
     }
   }
   
-  
   ap <- list(
     design = string,
     n = n[[1]], # update when they vary n
@@ -71,6 +70,5 @@ faux2ANOVA_design <- function(design, plot = TRUE) {
     plot = plot
   )
   
-  #do.call(ANOVApower::ANOVA_design, ap)
-  return(ap)
+  do.call(Superpower::ANOVA_design, ap)
 }

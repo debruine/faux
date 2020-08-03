@@ -10,7 +10,6 @@ reference:
   desc: ~
   contents:
   - '`codebook`'
-  - '`faux2ANOVA_design`'
   - '`get_params`'
   - '`json_design`'
   - '`make_id`'
@@ -41,7 +40,6 @@ reference:
   - '`pos_def_limits`'
   - '`readline_check`'
   - '`sample_from_pop`'
-  - '`select_num_grp`'
   - '`sim_data`'
   - '`unique_pairs`'
 - title: Distribution functions

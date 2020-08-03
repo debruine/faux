@@ -26,7 +26,7 @@ unique_pairs <- function(v) {
 
 #' Set design interactively
 #' 
-#' @param output what type of design to output (for faux or ANOVApower)
+#' @param output what type of design to output (faux)
 #' @param plot whether to show a plot of the design
 #'
 #' @return list
@@ -34,7 +34,7 @@ unique_pairs <- function(v) {
 #'
 #' @examples
 #' \dontrun{des <- interactive_design()}
-interactive_design <- function(output = c("faux", "ANOVApower"),
+interactive_design <- function(output = c("faux"),
                                plot = faux_options("plot")) {
   # within factors ----
   wn <- readline_check("How many within-subject factors do you have?: ", "integer")
@@ -152,9 +152,9 @@ interactive_design <- function(output = c("faux", "ANOVApower"),
   message("\033[32mYour design is ready!\033[39m")
   
   output <- match.arg(output)
-  if (output == "ANOVApower") {
-    faux2ANOVA_design(design)
-  } else {
+  #if (output == "ANOVApower") {
+  #  faux2ANOVA_design(design)
+  #} else {
     design
-  }
+  #}
 }

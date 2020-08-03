@@ -19,7 +19,6 @@ get_design_long <- function(data,
                             dv = c(y = "score"), 
                             id = c(id = "id"), 
                             plot = faux_options("plot")) {
-  #data <- dplyr::ungroup(data)
   if (is.null(names(id))) names(id) <- id
   if (is.null(names(dv))) names(dv) <- dv
   
