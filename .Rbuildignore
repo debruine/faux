@@ -1,5 +1,6 @@
 ^codecov\.yml$
 ^\.travis\.yml$
+^\.zenodo.json$
 ^CODE_OF_CONDUCT\.md$
 ^Meta$
 ^doc$
@@ -17,3 +18,4 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 ^CRAN-RELEASE$
+^LICENSE\.md$

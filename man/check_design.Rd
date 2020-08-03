@@ -13,6 +13,7 @@ check_design(
   r = 0,
   dv = list(y = "value"),
   id = list(id = "id"),
+  vardesc = list(),
   plot = faux_options("plot"),
   design = NULL
 )
@@ -34,6 +35,8 @@ check_design(
 
 \item{id}{the name of the ID column list(id = "id")}
 
+\item{vardesc}{a list of variable descriptions having the names of the within- and between-subject factors}
+
 \item{plot}{whether to show a plot of the design}
 
 \item{design}{a design list including within, between, n, mu, sd, r, dv, id}
@@ -42,19 +45,22 @@ check_design(
 list
 }
 \description{
-Specify any number of within- and between-subject factors with any number of 
-levels. Specify n for each between-subject cell; mu and sd for each cell, and
-r for the within-subject cells for each between-subject cell.
+Specify any number of within- and between-subject factors with any number of levels.
 }
 \details{
+Specify n for each between-subject cell; mu and sd for each cell, and r for the within-subject cells for each between-subject cell.
+
 This function returns a validated design list for use in sim_data to simulate a data table with this design, or to archive your design.
+
+See \href{../doc/sim_design.html}{\code{vignette("sim_design", package = "faux")}} for details.
 }
 \examples{
 
 within <- list(time = c("day", "night"))
 between <- list(pet = c("dog", "cat"))
 mu <- list(dog = 10, cat = 5)
-check_design(within, between, mu = mu)
+vardesc <- list(time = "Time of Day", pet = "Type of Pet")
+check_design(within, between, mu = mu, vardesc = vardesc)
 
 between <- list(language = c("dutch", "thai"),
                 pet = c("dog", "cat"))

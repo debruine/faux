@@ -1,8 +1,6 @@
-
-
 #' Convert design to JSON
 #' 
-#' Convert a design list to a 
+#' Convert a design list to JSON notation for archiving (e.g. in scienceverse)
 #'
 #' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' @param filename option name of faile to save the json to

@@ -1,6 +1,6 @@
 #' Plot design
 #'
-#' \code{plot_design()} plots the specified within and between design
+#' Plots the specified within and between design. See \href{../doc/plots.html}{\code{vignette("plots", package = "faux")}} for examples and details.
 #'
 #' @param x A list of design parameters created by check_design() or a data tbl (in long format)
 #' @param ... A list of factor names to determine visualisation (see vignette)
@@ -48,7 +48,7 @@ plot_design <- function(x, ..., geoms = NULL, palette = "Dark2") {
     }
     if (all(names(data)[1:2] == c("rep", "data"))) {
       # nested data, just graph first row
-      data <- tidyr::unnest(data, data)
+      data <- data$data[[1]]
       attr(data, "design") <- design
     }
     if (!(names(design$dv) %in% names(data))) {
@@ -60,10 +60,10 @@ plot_design <- function(x, ..., geoms = NULL, palette = "Dark2") {
   }
   
   factors <- c(design$within, design$between)
-  if ("rep" %in% names(data)) {
-    factors$rep <- as.list(unique(data$rep))
-    names(factors$rep) <- factors$rep
-  }
+  # if ("rep" %in% names(data)) {
+  #   factors$rep <- as.list(unique(data$rep))
+  #   names(factors$rep) <- factors$rep
+  # }
   factor_n <- length(factors)
   f <- syms(names(factors)) # make it possible to use strings to specify columns
   dv <- sym(names(design$dv))
@@ -102,10 +102,10 @@ plot_design <- function(x, ..., geoms = NULL, palette = "Dark2") {
     expr <- switch(factor_n,
       NULL,
       NULL,
-      rlang::expr(!!f[[3]] ~ .),
-      rlang::expr(!!f[[3]] ~ !!f[[4]]),
-      rlang::expr(!!f[[3]] ~ !!f[[4]] * !!f[[5]]),
-      rlang::expr(!!f[[3]] * !!f[[4]] ~ !!f[[5]] * !!f[[6]])
+      dplyr::expr(!!f[[3]] ~ .),
+      dplyr::expr(!!f[[3]] ~ !!f[[4]]),
+      dplyr::expr(!!f[[3]] ~ !!f[[4]] * !!f[[5]]),
+      dplyr::expr(!!f[[3]] * !!f[[4]] ~ !!f[[5]] * !!f[[6]])
     )
     p <- p + facet_grid(eval(expr), labeller = "label_both")
   }

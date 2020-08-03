@@ -1,7 +1,7 @@
 Package: faux
 Title: Simulation for Factorial Designs
-Version: 0.0.1.1
-Date: 2020-06-25
+Version: 0.0.1.2
+Date: 2020-08-03
 Authors@R: c(
     person(
         given = "Lisa", 
@@ -24,36 +24,30 @@ Authors@R: c(
         email = "andrew@andrewheiss.com",
         comment = c(ORCID = "0000-0002-3948-3914")
     ))
-Description: The faux package provides functions for quickly simulating datasets with factorial structure.
+Description: Create datasets with factorial structure through simulation by specifying variable parameters. Extended documentation at <https://debruine.github.io/faux/>. Described in DeBruine(2020) <doi:10.5281/zenodo.2669586>.
 Depends:
     R (>= 3.2.4)
 Imports:
-    MASS,
     lme4,
     dplyr,
-    tidyr,
-    purrr,
-    magrittr,
-    tibble,
-    stats,
     ggplot2 (>= 3.3.0),
-    rlang (>= 0.1.2),
     jsonlite,
     truncnorm
 License: MIT + file LICENSE
 Suggests:
     testthat (>= 2.1.0),
+    tidyr,
     knitr,
     rmarkdown,
-    forcats,
     roxygen2,
     covr,
     cowplot,
     ggExtra,
+    purrr,
     broom,
     broom.mixed
 VignetteBuilder: knitr
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.1
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/debruine/faux

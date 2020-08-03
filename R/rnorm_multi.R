@@ -1,4 +1,6 @@
-#' Make normally distributed vectors with specified relationships
+#' Multiple correlated normal distributions
+#' 
+#' Make normally distributed vectors with specified relationships. See \href{../doc/rnorm_multi.html}{\code{vignette("rnorm_multi", package = "faux")}} for details.
 #'
 #' @param n the number of samples required
 #' @param vars the number of variables to return
@@ -8,7 +10,6 @@
 #' @param varnames optional names for the variables (string vector of length vars) defaults if r is a matrix with column names
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param as.matrix logical. If true, returns a matrix
-#' @param cors (deprecated; use r)
 #' 
 #' @return a tbl of vars vectors
 #' 
@@ -21,13 +22,7 @@
 rnorm_multi <- function(n, vars = NULL, mu = 0, sd = 1, r = 0,
                        varnames = NULL, 
                        empirical = FALSE, 
-                       as.matrix = FALSE, 
-                       cors = NULL) {
-  if (!is.null(cors)) {
-    warning("cors is deprecated, please use r")
-    if (r == 0) r = cors # set r to cors if r is not set
-  }
-  
+                       as.matrix = FALSE) {
   # error handling ----
   if ( !is.numeric(n) || n %% 1 > 0 || n < 1 ) {
     stop("n must be an integer > 0")
@@ -84,11 +79,33 @@ rnorm_multi <- function(n, vars = NULL, mu = 0, sd = 1, r = 0,
     # get data from mvn ----
     cor_mat <- cormat(r, vars)
     sigma <- (sd %*% t(sd)) * cor_mat
+    # tryCatch({
+    #   mvn <- MASS::mvrnorm(n, mu, sigma, empirical = empirical)
+    # }, error = function(e) {
+    #   stop("The correlated variables could not be generated. If empirical = TRUE, try increasing the N or setting empirical = FALSE.")
+    # })
+    
+    err <- "The correlated variables could not be generated."
+    if (empirical) err <- paste(err, "Try increasing the N or setting empirical = FALSE.")
+    
+    # code from MASS:mvrnorm
+    p <- length(mu)
+    if (!all(dim(sigma) == c(p, p))) stop(err)
+    eS <- eigen(sigma, symmetric = TRUE)
+    ev <- eS$values
+    if (!all(ev >= -1e-06 * abs(ev[1L]))) stop(paste(err))
+    X <- matrix(stats::rnorm(p * n), n)
+    if (empirical) {
+      X <- scale(X, TRUE, FALSE)
+      X <- X %*% svd(X, nu = 0)$v
+      X <- scale(X, FALSE, TRUE)
+    }
     tryCatch({
-      mvn <- MASS::mvrnorm(n, mu, sigma, empirical = empirical)
-    }, error = function(e) {
-      stop("The correlated variables could not be generated. If empirical = TRUE, try increasing the N or setting empirical = FALSE.")
-    })
+      X <- drop(mu) + eS$vectors %*% 
+        diag(sqrt(pmax(ev, 0)), p) %*%  t(X)
+    }, error = function(e) { stop(err) })
+    
+    mvn <- t(X)
   }
   
   # coerce to matrix if vector when n == 1

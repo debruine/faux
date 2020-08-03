@@ -30,10 +30,10 @@ codebook(
 \item{interactive}{Whether the function should prompt the user to describe columns and factor levels}
 }
 \value{
-a list or json-formatted codebook, or reformatted data withthe codebook as an attribute
+a list or json-formatted codebook, or reformatted data with the codebook as an attribute
 }
 \description{
-Create PsychDS Codebook from Data
+See \href{../doc/codebook.html}{\code{vignette("codebook", package = "faux")}} for details.
 }
 \examples{
 

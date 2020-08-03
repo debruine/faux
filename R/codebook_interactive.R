@@ -1,11 +1,11 @@
 #' Interactive Codebook
+#' 
+#' Create a Psych-DS formatted codebook from data by answering questions interactively in the console.
 #'
 #' @param data The data frame to generate a codebook for
 #' @param cb The codebook in list format if already generated
 #'
 #' @return codebook list
-#'
-#' @export
 #'
 codebook_interactive <- function(data, cb = NULL) {
   if (is.null(cb)) {

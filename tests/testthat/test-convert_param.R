@@ -37,7 +37,7 @@ test_that("errors", {
                "The number of mu for cell W1_X1 is not correct. Please specify either 1 or a vector of 1 per cell")
   
   param <- c(10, 11)
-  expect_error(faux:::convert_param(param, cells_w, cells_b, "mu"), 
+  expect_error(convert_param(param, cells_w, cells_b, "mu"), 
                            "The number of mu is not correct. Please specify 1, a vector of 16, or use the list format")
 })
 
@@ -53,7 +53,7 @@ test_that("matrix specifications", {
   target <- list(A1 = list(B1 = 10, B2 = 11),
                  A2 = list(B1 = 12, B2 = 13),
                  A3 = list(B1 = 14, B2 = 15))
-  conv <- faux:::convert_param(param, cells_w, cells_b)
+  conv <- convert_param(param, cells_w, cells_b)
   
   expect_equal(conv, target)
 })
@@ -329,12 +329,12 @@ test_that("matrix specifications", {
   target <- list(A1 = list(B1 = 10, B2 = 11),
                  A2 = list(B1 = 12, B2 = 13),
                  A3 = list(B1 = 14, B2 = 15))
-  conv <- faux:::convert_param(param, cells_w, cells_b)
+  conv <- convert_param(param, cells_w, cells_b)
   
   expect_equal(conv, target)
   
   param <- list(c(10, 12, 14), c(11, 13, 15))
-  conv <- faux:::convert_param(param, cells_w, cells_b)
+  conv <- convert_param(param, cells_w, cells_b)
   
   expect_equal(conv, target)
 })

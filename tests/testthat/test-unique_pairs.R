@@ -10,6 +10,8 @@ test_that("number", {
 test_that("levels", {
   expect_equal(unique_pairs(c("dog", "cat")), "dog-cat")
   expect_equal(unique_pairs(c("Z", "A", "P")), c("Z-A", "Z-P", "A-P"))
+  expect_equal(unique_pairs(4:2), c("4-3", "4-2", "3-2"))
+  expect_equal(unique_pairs(c("first", "next", "last")), c("first-next", "first-last", "next-last"))
   expect_equal(unique_pairs(c("a.name", "another.name")), "a.name-another.name")
   expect_error(unique_pairs(c("same", "same")), "You have duplicate levels")
   expect_error(unique_pairs(c("one")), "There must be at least 2 levels")

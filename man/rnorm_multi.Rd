@@ -2,7 +2,7 @@
 % Please edit documentation in R/rnorm_multi.R
 \name{rnorm_multi}
 \alias{rnorm_multi}
-\title{Make normally distributed vectors with specified relationships}
+\title{Multiple correlated normal distributions}
 \usage{
 rnorm_multi(
   n,
@@ -12,8 +12,7 @@ rnorm_multi(
   r = 0,
   varnames = NULL,
   empirical = FALSE,
-  as.matrix = FALSE,
-  cors = NULL
+  as.matrix = FALSE
 )
 }
 \arguments{
@@ -32,14 +31,12 @@ rnorm_multi(
 \item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
 
 \item{as.matrix}{logical. If true, returns a matrix}
-
-\item{cors}{(deprecated; use r)}
 }
 \value{
 a tbl of vars vectors
 }
 \description{
-Make normally distributed vectors with specified relationships
+Make normally distributed vectors with specified relationships. See \href{../doc/rnorm_multi.html}{\code{vignette("rnorm_multi", package = "faux")}} for details.
 }
 \examples{
 rnorm_multi(100, 3, 0, 1, c(0.2, 0.4, 0.5), varnames=c("A", "B", "C"))

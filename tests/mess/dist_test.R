@@ -16,7 +16,7 @@ check_likert <- function(n = 100, r = 0.5,
 # compare the correlations between simulated normally distributed data and the truncated version
 check_trunc <- function(n = 100, mu = 0, sd = 1, r = 0.5,
                         min = -Inf, max = Inf) {
-  df <- faux::rnorm_multi(n, 2, mu, sd, r) %>%
+  df <- rnorm_multi(n, 2, mu, sd, r) %>%
     dplyr::mutate(
       T1 = norm2trunc(X1, min, max, mu, sd),
       T2 = norm2trunc(X2, min, max, mu, sd)

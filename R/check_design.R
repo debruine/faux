@@ -1,10 +1,12 @@
 #' Validates the specified design
 #' 
-#' Specify any number of within- and between-subject factors with any number of 
-#' levels. Specify n for each between-subject cell; mu and sd for each cell, and
-#' r for the within-subject cells for each between-subject cell.
+#' Specify any number of within- and between-subject factors with any number of levels. 
+#' 
+#' Specify n for each between-subject cell; mu and sd for each cell, and r for the within-subject cells for each between-subject cell.
 #' 
 #' This function returns a validated design list for use in sim_data to simulate a data table with this design, or to archive your design.
+#' 
+#' See \href{../doc/sim_design.html}{\code{vignette("sim_design", package = "faux")}} for details.
 #' 
 #' @param within a list of the within-subject factors
 #' @param between a list of the between-subject factors
@@ -14,6 +16,7 @@
 #' @param r the correlations among the variables (can be a single number, full correlation matrix as a matric or vector, or a vector of the upper right triangle of the correlation matrix
 #' @param dv the name of the DV column list(y = "value")
 #' @param id the name of the ID column list(id = "id")
+#' @param vardesc a list of variable descriptions having the names of the within- and between-subject factors
 #' @param plot whether to show a plot of the design
 #' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' 
@@ -24,7 +27,8 @@
 #' within <- list(time = c("day", "night"))
 #' between <- list(pet = c("dog", "cat"))
 #' mu <- list(dog = 10, cat = 5)
-#' check_design(within, between, mu = mu)
+#' vardesc <- list(time = "Time of Day", pet = "Type of Pet")
+#' check_design(within, between, mu = mu, vardesc = vardesc)
 #' 
 #' between <- list(language = c("dutch", "thai"),
 #'                 pet = c("dog", "cat"))
@@ -36,6 +40,7 @@ check_design <- function(within = list(), between = list(),
                          n = 100, mu = 0, sd = 1, r = 0, 
                          dv = list(y = "value"), 
                          id = list(id = "id"), 
+                         vardesc = list(),
                          plot = faux_options("plot"), design = NULL) {
   # design passed as design list
   if (!is.null(design)) {
@@ -180,5 +185,31 @@ check_design <- function(within = list(), between = list(),
   if (plot) { plot_design(design) %>% print() }
   
   invisible(design)
+}
+
+#' Print Design List
+#'
+#' @param x The design list
+#' @param ... Additional parameters for print
+#'
+#' @export
+#'
+print.design <- function(x, ...) {
+  if (!"quote" %in% names(list(...))) quote <- ""
+  
+  txt <- "Design\n\n"
+  txt <- sprintf("%s* [DV] %s: %s%s%s  \n", 
+                 txt, names(x$dv), quote, x$dv, quote)
+  txt <- sprintf("%s* [ID] %s: %s%s%s  \n\n", 
+                 txt, names(x$id), quote, x$id, quote)
+  txt <- sprintf("%sWithin-subject variables:\n\n%s\n\n", 
+                 txt, nested_list(x$within, quote = quote))
+  txt <- sprintf("%sBetween-subject variables:\n\n%s\n\n", 
+                 txt, nested_list(x$between, quote = quote))
+  txt <- knitr::kable(x$params) %>%
+    paste(collapse = "\n") %>%
+    sprintf("%sParameters:\n\n%s\n\n",  txt, .)
+  
+  cat(txt)
 }
 

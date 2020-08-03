@@ -22,6 +22,8 @@ library(broom.mixed)
 library(lme4)
 ```
 
+The mixed design functions are extremely basic. I plan to work on more useful functions, but this [paper](https://osf.io/3cz2e/) provides a tutorial and examples for more complex designs. 
+
 ## sim_mixed_cc
 
 This function produces a data table for a basic cross-classified design with random intercepts for subjects and items. 

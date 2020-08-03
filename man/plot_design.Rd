@@ -25,7 +25,7 @@ plot_design(x, ..., geoms = NULL, palette = "Dark2")
 plot
 }
 \description{
-\code{plot_design()} plots the specified within and between design
+Plots the specified within and between design. See \href{../doc/plots.html}{\code{vignette("plots", package = "faux")}} for examples and details.
 }
 \section{Methods (by generic)}{
 \itemize{

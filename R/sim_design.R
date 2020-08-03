@@ -1,6 +1,6 @@
 #' Simulate data from design
 #'
-#' \code{sim_design()} generates a data table with a specified within and between design.
+#' Generates a data table with a specified within and between design. See \href{../doc/sim_design.html}{\code{vignette("sim_design", package = "faux")}} for examples and details.
 #'
 #' @param within a list of the within-subject factors
 #' @param between a list of the between-subject factors
@@ -21,7 +21,6 @@
 #' @return a tbl
 #' 
 #' @export
-#' @importFrom rlang := 
 #' 
 sim_design <- function(within = list(), between = list(), 
                        n = 100, mu = 0, sd = 1, r = 0, 
@@ -62,7 +61,7 @@ sim_design <- function(within = list(), between = list(),
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' @param rep the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep
 #' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
-#' @param sep separator for within-columns, defaults to _ (see tidyr::separate)
+#' @param sep separator for within-columns, defaults to _
 #' 
 #' @return a tbl
 #' @export
@@ -128,20 +127,20 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
         varnames = cells_w, 
         empirical = empirical
       )
-      cell_vars$btwn <- cell
+      cell_vars$.btwn. <- cell
       
       # add cell values to df
       if (cell == cells_b[1]) { 
         sub_df <- cell_vars # first cell sets up the df
       } else {
-        sub_df <- dplyr::bind_rows(sub_df, cell_vars)
+        sub_df <- rbind(sub_df, cell_vars)
       }
     }
     sub_df$`.rep.` <- rep_n
     if (rep_n == 1) {
       df <- sub_df
     } else {
-      df <- dplyr::bind_rows(df, sub_df)
+      df <- rbind(df, sub_df)
     }
   }
   
@@ -153,13 +152,16 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
   sub_n <- unlist(n) %>% sum()
   
   # create wide dataframe
-  df_wide <- df %>%
-    tidyr::separate("btwn", between_factors, sep = sep) %>%
-    dplyr::group_by(.data$`.rep.`) %>%
-    dplyr::mutate(!!id := make_id(sub_n)) %>%
-    dplyr::ungroup(.data$`.rep.`) %>%
-    dplyr::mutate_at(c(between_factors), ~as.factor(.)) %>%
-    dplyr::select(dplyr::all_of(col_order))
+  btwn <- strsplit(df$.btwn., sep) %>% 
+    unlist() %>% matrix(nrow = length(between_factors)) %>% 
+    t() %>% as.data.frame()
+  names(btwn) <- between_factors
+  df_wide <- cbind(df, btwn)
+  df_wide$.btwn. <- NULL
+  df_wide <- by(df_wide, df_wide$.rep., function(x) {
+    x[id] <- make_id(sub_n); x
+  }) %>% do.call(rbind, .)
+  df_wide <- df_wide[col_order]
   
   # put factors in order
   factors_to_order <- setdiff(between_factors, ".tmpvar.")
@@ -172,11 +174,18 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
     col_order <- c(".rep.", id, between_factors, within_factors, dv) %>%
       setdiff(".tmpvar.")
     
-    df_long <- df_wide %>%
-      tidyr::gather("w_in", !!dv, dplyr::all_of(cells_w)) %>%
-      tidyr::separate("w_in", within_factors, sep = sep) %>%
-      dplyr::select(dplyr::all_of(col_order)) %>%
-      dplyr::mutate_at(within_factors, ~as.factor(.))
+    df_long <- stats::reshape(
+      df_wide, cells_w, direction = "long", 
+      idvar = c(".rep.", id),  v.names = dv, 
+      timevar = ".win.")
+    
+    w_in <- cells_w[df_long$.win.] %>%
+      strsplit(sep) %>% 
+      unlist() %>% matrix(nrow = length(within_factors)) %>% 
+      t() %>% as.data.frame()
+    names(w_in) <- within_factors
+    df_long$.win. <- NULL
+    df_long <- cbind(df_long, w_in)[col_order]
     
     # put factors in order
     factors_to_order <- setdiff(within_factors, ".tmpvar.")
@@ -192,12 +201,16 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
   class(df_return) <- c("faux", "data.frame")
   
   if (rep == 1) {
-    df_return$`.rep.` <- NULL
+    df_return$.rep. <- NULL
   } else {
-    df_return <- df_return %>%
-      dplyr::group_by(.data$`.rep.`) %>%
-      tidyr::nest() %>%
-      dplyr::rename("rep" = .data$`.rep.`)
+    # nest reps
+    df_rep <- by(df_return, df_return$.rep., function(x) {
+      x$.rep. <- NULL
+      x
+    })
+    df_return <- data.frame(rep = 1:rep)
+    df_return$data <- df_rep
+    
   }
   return(df_return)
 }

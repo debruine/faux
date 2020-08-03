@@ -52,8 +52,8 @@ get_design_long <- function(data,
   between <- lvls[which(names(lvls) %in% between_factors)]
   
   # define columns
-  cells_w <- faux:::cell_combos(within, names(dv))
-  cells_b <- faux:::cell_combos(between, names(dv)) 
+  cells_w <- cell_combos(within, names(dv))
+  cells_b <- cell_combos(between, names(dv)) 
   
   # get n, mu, sd, r per cell
   chk <- get_params(data, between_factors, within_factors, 
@@ -74,7 +74,9 @@ get_design_long <- function(data,
   
   get_stat <- function(stat) {
     x <- as.data.frame(chk_b[, c(".between", "var", stat)])
-    y <- reshape(x, timevar = "var", idvar = ".between", direction = "wide")
+    y <- stats::reshape(x, timevar = "var", 
+                        idvar = ".between", 
+                        direction = "wide")
     rownames(y) <- y$`.between`
     y$`.between` <- NULL
     names(y) <- gsub(paste0(stat, "\\."), "", names(y))

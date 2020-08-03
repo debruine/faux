@@ -1,3 +1,9 @@
+# faux 0.0.1.2 (2020-08-03)
+
+* Removed some dependencies
+* Various bug fixes
+* Submitting to CRAN again!
+
 # faux 0.0.1.1 (2020-06-25)
 
 * Still not accepted to CRAN (but haven't worked on it in a long time)

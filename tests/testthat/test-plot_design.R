@@ -167,6 +167,10 @@ test_that("2w", {
   d <- sim_design(within, between, mu = mu, dv = dv, id = id, long = TRUE)
   p <- plot_design(d)
   expect_equal(class(p), c("gg", "ggplot"))
+  expect_equal(p$labels$x, "time")
+  expect_equal(p$labels$y, "rt")
+  expect_equal(p$labels$fill, "time")
+  expect_equal(p$labels$colour, "time")
 })
 
 # 2w*2b ----
@@ -203,6 +207,10 @@ test_that("2w*2w*2b", {
   p <- check_design(within, between, mu = mu) %>%
     plot_design()
   expect_equal(class(p), c("gg", "ggplot"))
+  expect_equal(p$labels$x, "condition")
+  expect_equal(p$labels$y, "value")
+  expect_equal(p$labels$fill, "time")
+  expect_equal(p$labels$colour, "time")
 })
 
 # 2w*2w*2b*2b ----
@@ -216,6 +224,12 @@ test_that("2w*2w*2b*2b", {
   design <- check_design(within, between, mu = mu)
   p <- plot_design(design)
   expect_equal(class(p), c("gg", "ggplot"))
+  expect_equal(names(p$facet$params$rows), "time")
+  expect_equal(names(p$facet$params$cols), "age")
+  expect_equal(p$labels$x, "condition")
+  expect_equal(p$labels$y, "value")
+  expect_equal(p$labels$fill, "pet")
+  expect_equal(p$labels$colour, "pet")
 })
 
 # geoms ----
@@ -288,7 +302,7 @@ test_that("reps", {
   data <- sim_design(2, 2, rep = 3)
   p <- plot_design(data)
   
-  expect_equal(names(p$facet$params$rows), "rep")
+  expect_equal(p$facet$params, list())
 })
 
 faux_options(plot = TRUE)

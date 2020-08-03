@@ -45,10 +45,13 @@ test_that("2w", {
                    r = r, dv = dv, id = id, empirical = TRUE)
   chk <- check_sim_stats(df)
   
-  comp <- tibble::tribble(
-    ~n, ~var,  ~W1, ~W2, ~mean, ~sd,
-    100, "W1", 1.0, 0.3,     1,   1,
-    100, "W2", 0.3, 1.0,     2,   2
+  comp <- data.frame(
+    n = c(100, 100),
+    var = c("W1", "W2"),
+    W1 = c(1.0, 0.3),
+    W2 = c(0.3, 1.0),
+    mean = c(1, 2),
+    sd = c(1, 2)
   )
   
   attr <- attributes(df)
@@ -76,12 +79,15 @@ test_that("2w*2w", {
   df <- sim_design(within, between, empirical = TRUE)
   chk <- check_sim_stats(df)
 
-  comp <- tibble::tribble(
-    ~n, ~var, ~W1_X1, ~W1_X2, ~W2_X1, ~W2_X2, ~mean, ~sd,
-    100, "W1_X1", 1,     0,     0,     0,     0,     1,
-    100, "W1_X2", 0,     1,     0,     0,     0,     1,
-    100, "W2_X1", 0,     0,     1,     0,     0,     1,
-    100, "W2_X2", 0,     0,     0,     1,     0,     1
+  comp <- data.frame(
+    n = rep(100, 4),
+    var = c("W1_X1", "W1_X2", "W2_X1", "W2_X2"),
+    W1_X1 = c(1, 0, 0, 0),
+    W1_X2 = c(0, 1, 0, 0),
+    W2_X1 = c(0, 0, 1, 0),
+    W2_X2 = c(0, 0, 0, 1),
+    mean = rep(0, 4),
+    sd = rep(1, 4)
   )
   
   expect_equal(nrow(df), 100)
@@ -102,17 +108,17 @@ test_that("2b", {
                    empirical = TRUE)
   chk <- get_params(df, between = "B")
   
-  comp <- tibble::tribble(
-    ~B,    ~n,  ~var, ~y, ~mean, ~sd,
-    "B1", 100, "y",    1,     1,   1,
-    "B2", 100, "y",    1,     2,   1
-  ) %>%
-    dplyr::mutate(B = as.factor(B))
+  comp <- data.frame(
+    B = factor(c("B1","B2")),
+    n = c(100, 100),
+    mean = c(1, 2),
+    sd = c(1, 1)
+  )
   
   expect_equal(nrow(df), 200)
   expect_equal(ncol(df), 3)
   expect_equal(names(df), c("id", "B", "y"))
-  expect_equal(as.data.frame(chk), as.data.frame(comp))
+  expect_equal(chk, comp)
 })
 
 # 2b*2b ----
@@ -123,23 +129,24 @@ test_that("2b*2b", {
   )
   within <- list()
   
-  df <- sim_design(within, between, n = 100, 
+  df <- sim_design(within, between, n = 100, mu = 1:4,
                    empirical = TRUE)
   chk <- check_sim_stats(df, between = c("A","B"))
   
-  comp <- tibble::tribble(
-    ~A, ~B, ~n, ~var, ~y, ~mean, ~sd,
-    "A1", "B1", 100, "y", 1,   0,     1,
-    "A1", "B2", 100, "y", 1,   0,     1,
-    "A2", "B1", 100, "y", 1,   0,     1,
-    "A2", "B2", 100, "y", 1,   0,     1
-  ) %>%
-    dplyr::mutate(A = as.factor(A), B = as.factor(B))
+  comp <- data.frame(
+    A = factor(c("A1", "A1", "A2", "A2"), 
+               levels = c("A1", "A2")),
+    B = factor(c("B1", "B2", "B1", "B2"), 
+               levels = c("B1", "B2")),
+    n = rep(100, 4),
+    mean = 1:4,
+    sd = rep(1, 4) 
+  )
   
   expect_equal(nrow(df), 400)
   expect_equal(ncol(df), 4)
   expect_equal(names(df), c("id", "A", "B", "y"))
-  expect_equal(as.data.frame(chk), as.data.frame(comp))
+  expect_equal(chk, comp)
 })
 
 # 2w*2b basic ----
@@ -171,14 +178,15 @@ test_that("2w*2b basic", {
   df <- sim_design(within, between, n, mu, sd, r, TRUE)
   chk <- check_sim_stats(df, between = "B")
   
-  comp <- tibble::tribble(
-    ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
-    "B1", 60, "W1", 1,     0.2,    10,     3,
-    "B1", 60, "W2", 0.2,   1,      20,     4,
-    "B2", 40, "W1", 1,     0.5,    10,     5,
-    "B2", 40, "W2", 0.5,   1,      30,     6
-  ) %>%
-    dplyr::mutate(B = as.factor(B))
+  comp <- data.frame(
+    B = factor(c("B1", "B1", "B2", "B2"), c("B1", "B2")),
+    n = c(60, 60, 40, 40),
+    var = c("W1", "W2", "W1", "W2"),
+    W1 = c(1, .2, 1, .5),
+    W2 = c(.2, 1, .5, 1),
+    mean = c(10, 20, 10, 30),
+    sd = 3:6
+  )
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
@@ -192,7 +200,6 @@ test_that("2w*2b alt", {
   between <- list(
     "B" = c(B1 = "First between level", B2 = "Second between level")
   )
-
   within <- list(
     "W" = c(W1 = "First within level", W2 = "Second within level")
   )
@@ -216,14 +223,15 @@ test_that("2w*2b alt", {
   df <- sim_design(within, between, n, mu, sd, r, TRUE)
   chk <- check_sim_stats(df, between = "B")
   
-  comp <- tibble::tribble(
-    ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
-    "B1", 60, "W1", 1,     0.2,    10,     3,
-    "B1", 60, "W2", 0.2,   1,      20,     4,
-    "B2", 40, "W1", 1,     0.5,    10,     5,
-    "B2", 40, "W2", 0.5,   1,      30,     6
-  ) %>%
-    dplyr::mutate(B = as.factor(B))
+  comp <- data.frame(
+    B = factor(c("B1", "B1", "B2", "B2"), c("B1", "B2")),
+    n = c(60, 60, 40, 40),
+    var = c("W1", "W2", "W1", "W2"),
+    W1 = c(1, .2, 1, .5),
+    W2 = c(.2, 1, .5, 1),
+    mean = c(10, 20, 10, 30),
+    sd = 3:6
+  )
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
@@ -252,17 +260,16 @@ test_that("2w*2b within order", {
   )
   
   df <- sim_design(within, between, 50, mu, sd, .5, TRUE)
-  check_sim_stats(df, between = "B")
-  
   chk <- check_sim_stats(df, between = "B")
-  comp <- tibble::tribble(
-    ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
-    "B1", 50, "W1", 1,     0.5,    10,     3,
-    "B1", 50, "W2", 0.5,   1,      20,     4,
-    "B2", 50, "W1", 1,     0.5,    10,     5,
-    "B2", 50, "W2", 0.5,   1,      30,     6
-  ) %>%
-    dplyr::mutate(B = as.factor(B))
+  comp <- data.frame(
+    B = factor(c("B1", "B1", "B2", "B2"), c("B1", "B2")),
+    n = rep(50, 4),
+    var = c("W1", "W2", "W1", "W2"),
+    W1 = c(1, .5, 1, .5),
+    W2 = c(.5, 1, .5, 1),
+    mean = c(10, 20, 10, 30),
+    sd = 3:6
+  )
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
@@ -300,17 +307,16 @@ test_that("2w*2b order", {
   )
   
   df <- sim_design(within, between, n, mu, sd, r, TRUE)
-  check_sim_stats(df, between = "B")
-  
   chk <- check_sim_stats(df, between = "B")
-  comp <- tibble::tribble(
-    ~B, ~n, ~var, ~W1, ~W2, ~mean, ~sd,
-    "B1", 60, "W1", 1,     0.2,    10,     3,
-    "B1", 60, "W2", 0.2,   1,      20,     4,
-    "B2", 40, "W1", 1,     0.5,    10,     5,
-    "B2", 40, "W2", 0.5,   1,      30,     6
-  ) %>%
-    dplyr::mutate(B = as.factor(B))
+  comp <- data.frame(
+    B = factor(c("B1", "B1", "B2", "B2"), c("B1", "B2")),
+    n = c(60, 60, 40, 40),
+    var = c("W1", "W2", "W1", "W2"),
+    W1 = c(1, .2, 1, .5),
+    W2 = c(.2, 1, .5, 1),
+    mean = c(10, 20, 10, 30),
+    sd = 3:6
+  )
   
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
@@ -318,6 +324,7 @@ test_that("2w*2b order", {
   expect_equal(chk, comp)
 })
 
+# 2w*2b*2b ----
 test_that("2w*2b*2b", {
   between <- list(
     A = c("A1", "A2"),
@@ -561,6 +568,7 @@ test_that("multiple reps", {
   expect_equal(nrow(df$data[[1]]), n)
   expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]])))
   expect_equal(names(df$data[[1]]), c("id", "A1", "A2"))
+  expect_equal(nrow(df$data[[1]]), n)
   
   df <- sim_design(2, n = n, rep = rep, 
                    long = TRUE, plot = FALSE)
@@ -569,6 +577,7 @@ test_that("multiple reps", {
   expect_equal(nrow(df$data[[1]]), 2*n)
   expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]])))
   expect_equal(names(df$data[[1]]), c("id", "A", "y"))
+  expect_equal(nrow(df$data[[1]]), n*2)
 })
 
 # empirical ----

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Attractiveness rating subset — fr4 • faux</title>
+<title>Interactive Codebook — codebook_interactive • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,8 @@
 
 
 
-<meta property="og:title" content="Attractiveness rating subset — fr4" />
-<meta property="og:description" content="The faceratings dataset cut down for demos to the first 4 raters of each sex 
-and sexpref and the first 4 faces of each sex and ethnicity with non-NA ages" />
+<meta property="og:title" content="Interactive Codebook — codebook_interactive" />
+<meta property="og:description" content="Create a Psych-DS formatted codebook from data by answering questions interactively in the console." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -150,37 +149,33 @@ and sexpref and the first 4 faces of each sex and ethnicity with non-NA ages" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Attractiveness rating subset</h1>
-    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/faceratings.R'><code>R/faceratings.R</code></a></small>
-    <div class="hidden name"><code>fr4.Rd</code></div>
+    <h1>Interactive Codebook</h1>
+    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/codebook_interactive.R'><code>R/codebook_interactive.R</code></a></small>
+    <div class="hidden name"><code>codebook_interactive.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The faceratings dataset cut down for demos to the first 4 raters of each sex 
-and sexpref and the first 4 faces of each sex and ethnicity with non-NA ages</p>
+    <p>Create a Psych-DS formatted codebook from data by answering questions interactively in the console.</p>
     </div>
 
-    <pre class="usage"><span class='no'>fr4</span></pre>
+    <pre class="usage"><span class='fu'>codebook_interactive</span>(<span class='no'>data</span>, <span class='kw'>cb</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>The data frame to generate a codebook for</p></td>
+    </tr>
+    <tr>
+      <th>cb</th>
+      <td><p>The codebook in list format if already generated</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="format"><a class="anchor" href="#format"></a>Format</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data frame with 768 rows and 9 variables:</p><dl'>
-  <dt>rater_id</dt><dd><p>rater's ID</p></dd>
-  <dt>rater_sex</dt><dd><p>rater's sex (female, male)</p></dd>
-  <dt>rater_age</dt><dd><p>rater's age (17.4-54.3 years)</p></dd>
-  <dt>rater_sexpref</dt><dd><p>rater's preferred sex for romantic relationships (either, men, women)</p></dd>
-  <dt>face_id</dt><dd><p>face's ID</p></dd>
-  <dt>face_sex</dt><dd><p>face's sex (female, male)</p></dd>
-  <dt>face_age</dt><dd><p>face's age (19-47 years)</p></dd>
-  <dt>face_eth</dt><dd><p>face's ethnic group (black, east_asian, west_asian, white)</p></dd>
-  <dt>rating</dt><dd><p>attractiveness rating on a scale from 1 (much less attractive than average) to 7 (much more attractive than average)</p></dd>
-
-</dl>
-
-    <h2 class="hasAnchor" id="source"><a class="anchor" href="#source"></a>Source</h2>
-
-    <p><a href='https://figshare.com/articles/Face_Research_Lab_London_Set/5047666'>https://figshare.com/articles/Face_Research_Lab_London_Set/5047666</a></p>
+    <p>codebook list</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

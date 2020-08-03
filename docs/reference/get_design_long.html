@@ -47,10 +47,7 @@
 
 
 <meta property="og:title" content="Get design from long data — get_design_long" />
-<meta property="og:description" content="Makes a best guess at the design of a long-format data frame. 
-Finds all columns that contain a single value per unit of analysis (between factors), 
-all columns that contain the same values per unit of analysis (within factors), and 
-all columns that differ over units of analysis (dv, continuous factors)" />
+<meta property="og:description" content="Makes a best guess at the design of a long-format data frame." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -83,7 +80,7 @@ all columns that differ over units of analysis (dv, continuous factors)" />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.2</span>
       </span>
     </div>
 
@@ -158,13 +155,15 @@ all columns that differ over units of analysis (dv, continuous factors)" />
     </div>
 
     <div class="ref-description">
-    <p>Makes a best guess at the design of a long-format data frame. 
-Finds all columns that contain a single value per unit of analysis (between factors), 
-all columns that contain the same values per unit of analysis (within factors), and 
-all columns that differ over units of analysis (dv, continuous factors)</p>
+    <p>Makes a best guess at the design of a long-format data frame.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_design_long</span>(<span class='no'>data</span>, <span class='kw'>dv</span> <span class='kw'>=</span> <span class='st'>"y"</span>, <span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"id"</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fu'><a href='faux_options.html'>faux_options</a></span>(<span class='st'>"plot"</span>))</pre>
+    <pre class="usage"><span class='fu'>get_design_long</span>(
+  <span class='no'>data</span>,
+  <span class='kw'>dv</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"score"</span>),
+  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"id"</span>),
+  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fu'><a href='faux_options.html'>faux_options</a></span>(<span class='st'>"plot"</span>)
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -189,7 +188,12 @@ all columns that differ over units of analysis (dv, continuous factors)</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the data frame in long format</p>
+    <p>a design list</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>Finds all columns that contain a single value per unit of analysis (between factors), 
+all columns that contain the same values per unit of analysis (within factors), and 
+all columns that differ over units of analysis (dv, continuous factors)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

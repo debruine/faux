@@ -46,6 +46,7 @@ df <- sim_design(within, between,
 ```
 
 
+
 ## Specification of design parameters
 
 ### Factor and level names

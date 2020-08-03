@@ -4,7 +4,12 @@
 \alias{get_design_long}
 \title{Get design from long data}
 \usage{
-get_design_long(data, dv = "y", id = "id", plot = faux_options("plot"))
+get_design_long(
+  data,
+  dv = c(y = "score"),
+  id = c(id = "id"),
+  plot = faux_options("plot")
+)
 }
 \arguments{
 \item{data}{the data frame (in long format)}
@@ -16,10 +21,12 @@ get_design_long(data, dv = "y", id = "id", plot = faux_options("plot"))
 \item{plot}{whether to show a plot of the design}
 }
 \value{
-the data frame in long format
+a design list
 }
 \description{
-Makes a best guess at the design of a long-format data frame. 
+Makes a best guess at the design of a long-format data frame.
+}
+\details{
 Finds all columns that contain a single value per unit of analysis (between factors), 
 all columns that contain the same values per unit of analysis (within factors), and 
 all columns that differ over units of analysis (dv, continuous factors)
