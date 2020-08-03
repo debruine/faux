@@ -4,13 +4,10 @@
 \alias{interactive_design}
 \title{Set design interactively}
 \usage{
-interactive_design(
-  output = c("faux", "ANOVApower"),
-  plot = faux_options("plot")
-)
+interactive_design(output = c("faux"), plot = faux_options("plot"))
 }
 \arguments{
-\item{output}{what type of design to output (for faux or ANOVApower)}
+\item{output}{what type of design to output (faux)}
 
 \item{plot}{whether to show a plot of the design}
 }

@@ -4,12 +4,39 @@ context("test-faux2anova_design")
 test_that("errors", {
   design <- check_design(plot = FALSE)
   expect_error(faux2ANOVA_design(design), 
-               "You need at least one factor to use ANOVApower")
+               "You need at least one factor to use Superpower")
   
   design <- check_design(c(2,2,2,2), plot = FALSE)
   expect_error(faux2ANOVA_design(design), 
-               "You can't use ANOVApower with more than 3 factors")
+               "You can't use Superpower with more than 3 factors")
 })
+
+test_that("?",  {
+  mu <- c(1.1, 1.2, 1.3, 1.4)
+  r <- c(0.91, 0.92, 0.93, 
+               0.94, 0.95, 
+                     0.96)
+  within <- list(COLOR = c("red", "blue"),
+                 SPEED = c("fast","slow"))
+  design <- check_design(within, 
+                         n = 80, mu = mu, sd = 1, r = r)
+  design_av <- faux2ANOVA_design(design)
+  
+  design_sp <- Superpower::ANOVA_design(
+    design = "2w*2w",
+    n = 80,
+    mu = c(1.1, 1.2, 1.3, 1.4),
+    sd = 1,
+    r = c(0.91, 0.92, 0.93, 0.94, 0.95, 0.96),
+    labelnames = c("COLOR", "red", "blue",
+                   "SPEED", "fast", "slow"),
+    plot = TRUE
+  )
+  
+  names(design_sp)
+  design$within
+})
+
 
 # 2w ----
 test_that("2w", {
