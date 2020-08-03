@@ -21,7 +21,7 @@ json_design(design, filename = NULL, digits = 8, pretty = FALSE, ...)
 a JSON string
 }
 \description{
-Convert a design list to a
+Convert a design list to JSON notation for archiving (e.g. in scienceverse)
 }
 \examples{
 des <- check_design(2,2)

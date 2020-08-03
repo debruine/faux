@@ -9,8 +9,6 @@ test_that("error messages", {
   expect_error(rnorm_multi(10.3), "n must be an integer > 0")
   expect_error(rnorm_multi("A"), "n must be an integer > 0")
   
-  expect_warning(rnorm_multi(100, 3, cors = .5), "cors is deprecated, please use r")
-  
   expect_error(
     rnorm_multi(10, 3, 1:2),
     "the length of mu must be 1 or vars"

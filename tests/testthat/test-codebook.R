@@ -383,7 +383,9 @@ test_that("interactive", {
   f <- file()
   write("\nxx", f)
   options(faux.connection = f)
-  cb <- codebook(data, interactive = TRUE, return = "list")
+  ol <- capture_output_lines(
+    cb <- codebook(data, interactive = TRUE, return = "list")
+  )
   options(faux.connection = stdin()) # reset connection
   close(f) # close the file
   

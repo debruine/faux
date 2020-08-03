@@ -27,38 +27,35 @@ long2wide <- function(data, within = c(), between = c(), dv = "y", id = "id") {
     #design <- get_design_long(data, dv = dv, id = id, plot = FALSE)
   }
   
-  d1 <- data %>% dplyr::ungroup() %>%
-    dplyr::select(dplyr::all_of(c(id, between, within, dv))) %>%
-    # fix within values so they match design 
-    dplyr::mutate_at(c(within), ~gsub("_", ".", .))
+  if (length(within) == 0) return(data)
   
-  d1 <- data[c(id, between, within, dv)]
+  d1 <- data[c(id, between, within, dv)] %>% as.data.frame()
+  sep <- faux_options("sep")
+  sep_replace <- "~-~" # avoid odd parsing
+  for (w in within) d1[w] <- gsub(sep, sep_replace, d1[[w]])
   
-  if (length(within)) {
-    #d1 <- tidyr::unite(d1, ".tmpwithin.", dplyr::all_of(within))
-    tmpw <- d1[within]
-    tmpw$sep <- faux_options("sep")
-    d1$`.tmpwithin.` <- do.call(paste, tmpw)
-    d1[within] <- NULL
-  }
-  if (length(between)) {
-    d1 <- dplyr::group_by_at(d1, between)
-  }
-  if (length(within)) {
-    d1 <- tidyr::spread(d1, ".tmpwithin.", !!dv)
-  }
+  tmpw <- d1[within]
+  tmpw$sep <- sep
+  d1$.tmpwithin. <- do.call(paste, tmpw)
+  d1[within] <- NULL
+
+  d1 <- stats::reshape(d1, idvar = c(id, between), 
+                      timevar = ".tmpwithin.", 
+                      direction = "wide")
+  pat <- paste0("^", dv, "\\.")
+  names(d1) <- gsub(pat, "", names(d1))
   
-  for (b in between) {
-    # FIX: get levels from design if available
-    d1[[b]] <- factor(d1[[b]])
-  }
+  # FIX: get levels from design if available
+  for (b in between) d1[[b]] <- factor(d1[[b]])
   
-  widedat <- dplyr::ungroup(d1)
+  # fix names 
+  names(d1) <- gsub(sep_replace, sep, names(d1))
+  
   if ("design" %in% names(attributes(data))) {
-    attributes(widedat)$design <- design
+    attributes(d1)$design <- design
   }
-  class(widedat) <- c("faux", "data.frame")
+  class(d1) <- c("faux", "data.frame")
   
-  widedat
+  d1
 }
 

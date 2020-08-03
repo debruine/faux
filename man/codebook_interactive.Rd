@@ -15,5 +15,5 @@ codebook_interactive(data, cb = NULL)
 codebook list
 }
 \description{
-Interactive Codebook
+Create a Psych-DS formatted codebook from data by answering questions interactively in the console.
 }

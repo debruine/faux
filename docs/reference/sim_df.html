@@ -47,9 +47,8 @@
 
 
 <meta property="og:title" content="Simulate an existing dataframe — sim_df" />
-<meta property="og:description" content="sim_df Produces a data table with the same distributions and correlations 
-as an existing data table Only returns numeric columns and simulates all numeric 
-variables from a continuous normal distribution (for now)." />
+<meta property="og:description" content="Produces a data table with the same distributions and correlations 
+as an existing data table Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now)." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -82,7 +81,7 @@ variables from a continuous normal distribution (for now)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.2</span>
       </span>
     </div>
 
@@ -157,9 +156,8 @@ variables from a continuous normal distribution (for now)." />
     </div>
 
     <div class="ref-description">
-    <p><code>sim_df</code> Produces a data table with the same distributions and correlations 
-as an existing data table Only returns numeric columns and simulates all numeric 
-variables from a continuous normal distribution (for now).</p>
+    <p>Produces a data table with the same distributions and correlations 
+as an existing data table Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).</p>
     </div>
 
     <pre class="usage"><span class='fu'>sim_df</span>(
@@ -171,8 +169,7 @@ variables from a continuous normal distribution (for now).</p>
   <span class='kw'>dv</span> <span class='kw'>=</span> <span class='st'>"value"</span>,
   <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>long</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>grp_by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -214,15 +211,14 @@ variables from a continuous normal distribution (for now).</p>
       <th>seed</th>
       <td><p>a single value, interpreted as an integer, or NULL (see set.seed)</p></td>
     </tr>
-    <tr>
-      <th>grp_by</th>
-      <td><p>(deprecated; use between)</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a tbl</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>See <a href='../doc/sim_df.html'><code><a href='../articles/sim_df.html'>vignette("sim_df", package = "faux")</a></code></a> for details.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>iris100</span> <span class='kw'>&lt;-</span> <span class='fu'>sim_df</span>(<span class='no'>iris</span>, <span class='fl'>100</span>)

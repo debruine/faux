@@ -57,5 +57,5 @@ sim_design(
 a tbl
 }
 \description{
-\code{sim_design()} generates a data table with a specified within and between design.
+Generates a data table with a specified within and between design. See \href{../doc/sim_design.html}{\code{vignette("sim_design", package = "faux")}} for examples and details.
 }

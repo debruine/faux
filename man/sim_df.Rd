@@ -13,8 +13,7 @@ sim_df(
   dv = "value",
   empirical = FALSE,
   long = FALSE,
-  seed = NULL,
-  grp_by = NULL
+  seed = NULL
 )
 }
 \arguments{
@@ -35,16 +34,16 @@ sim_df(
 \item{long}{whether to return the data table in long format}
 
 \item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
-
-\item{grp_by}{(deprecated; use between)}
 }
 \value{
 a tbl
 }
 \description{
-\code{sim_df} Produces a data table with the same distributions and correlations 
-as an existing data table Only returns numeric columns and simulates all numeric 
-variables from a continuous normal distribution (for now).
+Produces a data table with the same distributions and correlations 
+as an existing data table Only returns numeric columns and simulates all numeric variables from a continuous normal distribution (for now).
+}
+\details{
+See \href{../doc/sim_df.html}{\code{vignette("sim_df", package = "faux")}} for details.
 }
 \examples{
 iris100 <- sim_df(iris, 100)

@@ -24,7 +24,7 @@ sim_data(
 
 \item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 
-\item{sep}{separator for within-columns, defaults to _ (see tidyr::separate)}
+\item{sep}{separator for within-columns, defaults to _}
 }
 \value{
 a tbl

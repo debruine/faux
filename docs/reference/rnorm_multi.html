@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make normally distributed vectors with specified relationships — rnorm_multi • faux</title>
+<title>Multiple correlated normal distributions — rnorm_multi • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Make normally distributed vectors with specified relationships — rnorm_multi" />
-<meta property="og:description" content="Make normally distributed vectors with specified relationships" />
+<meta property="og:title" content="Multiple correlated normal distributions — rnorm_multi" />
+<meta property="og:description" content="Make normally distributed vectors with specified relationships. See vignette(&quot;rnorm_multi&quot;, package = &quot;faux&quot;) for details." />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.2</span>
       </span>
     </div>
 
@@ -149,25 +149,24 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make normally distributed vectors with specified relationships</h1>
+    <h1>Multiple correlated normal distributions</h1>
     <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/rnorm_multi.R'><code>R/rnorm_multi.R</code></a></small>
     <div class="hidden name"><code>rnorm_multi.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Make normally distributed vectors with specified relationships</p>
+    <p>Make normally distributed vectors with specified relationships. See <a href='../doc/rnorm_multi.html'><code><a href='../articles/rnorm_multi.html'>vignette("rnorm_multi", package = "faux")</a></code></a> for details.</p>
     </div>
 
     <pre class="usage"><span class='fu'>rnorm_multi</span>(
   <span class='no'>n</span>,
-  <span class='kw'>vars</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+  <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0</span>,
   <span class='kw'>varnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>as.matrix</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cors</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
+  <span class='kw'>as.matrix</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -204,10 +203,6 @@
     <tr>
       <th>as.matrix</th>
       <td><p>logical. If true, returns a matrix</p></td>
-    </tr>
-    <tr>
-      <th>cors</th>
-      <td><p>(deprecated; use r)</p></td>
     </tr>
     </table>
 

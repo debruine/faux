@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.2</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
       <h1 data-toc-skip>Simulate by Design</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2020-07-29</h4>
+            <h4 class="date">2020-08-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/sim_design.Rmd"><code>vignettes/sim_design.Rmd</code></a></small>
       <div class="hidden name"><code>sim_design.Rmd</code></div>
@@ -636,12 +636,11 @@
 <div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="no">df</span> <span class="kw">%&gt;%</span>
   <span class="fu">mutate</span>(<span class="kw">analysis</span> <span class="kw">=</span> <span class="kw pkg">purrr</span><span class="kw ns">::</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="no">data</span>, <span class="kw">function</span>(<span class="no">data</span>) {
     <span class="kw pkg">stats</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span>(<span class="no">y</span> ~ <span class="no">B</span> * <span class="no">A</span> + <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">Error</a></span>(<span class="no">id</span>/<span class="no">A</span>), <span class="kw">data</span> <span class="kw">=</span> <span class="no">data</span>) <span class="kw">%&gt;%</span>
-      <span class="kw pkg">broom</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/broom/man/reexports.html">tidy</a></span>()
+      <span class="kw pkg">broom</span><span class="kw ns">::</span><span class="fu"><a href="https://broom.tidymodels.org/reference/reexports.html">tidy</a></span>()
   })) <span class="kw">%&gt;%</span>
   <span class="fu">select</span>(-<span class="no">data</span>) <span class="kw">%&gt;%</span>
   <span class="fu">unnest</span>(<span class="no">analysis</span>)
 <span class="co">#&gt; # A tibble: 25 x 8</span>
-<span class="co">#&gt; # Groups:   rep [5]</span>
 <span class="co">#&gt;      rep stratum term         df   sumsq meansq statistic      p.value</span>
 <span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;        &lt;dbl&gt;</span>
 <span class="co">#&gt;  1     1 id      B             1   0.941  0.941     0.608  0.437      </span>

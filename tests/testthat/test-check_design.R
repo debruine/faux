@@ -251,12 +251,12 @@ test_that("params table", {
   expect_equal(des$params, params)
   
   within <- list(
-    time = c("morning", "night"),
-    condition = c("A", "B", "C")
+    time = c("morning" = "am", "night" = "pm"),
+    condition = c("A" = "cond 1", "B" = "cond 2", "C" = "cond 3")
   )
   between <- list(
-    pet = c("dog", "cat"),
-    x = c("X1", "X2"))
+    pet = c("dog" = "Dogs", "cat" = "Cats"),
+    x = c("X1" = "First", "X2" = "Second"))
   
   n <- list(
     dog_X1 = 100,
@@ -273,7 +273,7 @@ test_that("params table", {
   )
   
   des <- check_design(within, between, n = n, mu = 1:24, 
-               sd = 1:24, r = r)
+               sd = 1:24, r = r, id = c(id = "ID"))
   
   nm <- c("pet", "x", "time", "condition", "morning_A", 
           "morning_B", "morning_C", "night_A", "night_B",
@@ -281,6 +281,35 @@ test_that("params table", {
   
   expect_true(des$params %>% nrow() == 24)
   expect_true(all(des$params %>% names() == nm))
+  
+  expected <- c(
+    "Design",
+    "",
+    "* [DV] y: value  ",
+    "* [ID] id: ID  ",
+    "",
+    "Within-subject variables:",
+    "",
+    "* time: ",
+    "  * morning: am",
+    "  * night: pm",
+    "* condition: ",
+    "  * A: cond 1",
+    "  * B: cond 2",
+    "  * C: cond 3",
+    "",
+    "Between-subject variables:",
+    "",
+    "* pet: ",
+    "  * dog: Dogs",
+    "  * cat: Cats",
+    "* x: ",
+    "  * X1: First",
+    "  * X2: Second"
+  )
+  
+  op <- capture.output(des)
+  expect_equal(op[1:length(expected)], expected)
 })
 
 faux_options(plot = TRUE)

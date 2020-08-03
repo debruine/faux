@@ -6,9 +6,6 @@ test_that("error messages", {
   expect_error( sim_df(iris, "A"), "n must be an integer > 2" )
   expect_error( sim_df(iris, 2), "n must be an integer > 2" )
   expect_error( sim_df(iris, 10, between = FALSE), "between must be a numeric or character vector" )
-  
-  expect_warning( sim_df(iris, grp_by = "Species"), 
-                  "grp_by is deprecated, please use between")
 })
 
 # default parameters ----
@@ -23,8 +20,7 @@ test_that("default parameters", {
 # specified parameters ----
 test_that("specified parameters", {
   n <- 100
-  dat <- tibble::as_tibble(iris) %>%
-    dplyr::select_if(is.numeric)
+  dat <- dplyr::select_if(iris, is.numeric)
   cors <- cor(dat)
   means <- dplyr::summarise_all(dat, mean) %>%
     as.data.frame()

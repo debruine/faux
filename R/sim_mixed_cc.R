@@ -1,6 +1,6 @@
 #' Generate a cross-classified sample 
 #' 
-#' Makes a basic cross-classified design with random intercepts for subjects and items
+#' Makes a basic cross-classified design with random intercepts for subjects and items. See \href{../doc/sim_mixed.html}{\code{vignette("sim_mixed", package = "faux")}} for examples and details.
 #'
 #' @param sub_n the number of subjects
 #' @param item_n the number of items
@@ -74,20 +74,17 @@ sim_mixed_cc <- function(sub_n = 100, item_n = 20, grand_i = 0,
     )
   }
   
-  new_obs <- tidyr::crossing(
-    sub_id = new_sub$sub_id,
-    item_id = new_item$item_id
-  ) %>%
-    dplyr::left_join(new_sub, by = "sub_id") %>%
-    dplyr::left_join(new_item, by = "item_id") %>%
-    dplyr::mutate(
-      "grand_i" = grand_i,
-      "err" = stats::rnorm(nrow(.), 0, error_sd),
-      "y" = .data$grand_i + .data$sub_i + .data$item_i + .data$err
-    ) %>%
-    dplyr::select(.data$sub_id, .data$item_id, 
-                  .data$y, .data$grand_i, 
-                  .data$sub_i, .data$item_i, .data$err)
+  ids <- expand.grid(item_id = new_item$item_id,
+                    sub_id = new_sub$sub_id)
+  ids_sub <- merge(ids, new_sub, by = "sub_id", sort = FALSE)
+  new_obs <- merge(ids_sub, new_item, by= "item_id", sort = FALSE)
+  new_obs <- new_obs[order(new_obs$sub_id, new_obs$item_id), 
+                     c("sub_id", "item_id", "sub_i", "item_i")]
+  new_obs$grand_i <- grand_i
+  new_obs$err <- stats::rnorm(nrow(new_obs), 0, error_sd)
+  new_obs$y <- new_obs$grand_i + new_obs$sub_i + new_obs$item_i + new_obs$err
+  colorder <- c("sub_id", "item_id", "y", "grand_i", "sub_i", "item_i", "err")
+  new_obs <- new_obs[colorder]
   
   new_obs
 }

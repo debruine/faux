@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.2</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
       <h1 data-toc-skip>Simulate from Existing Data</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2020-07-29</h4>
+            <h4 class="date">2020-08-03</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/sim_df.Rmd"><code>vignettes/sim_df.Rmd</code></a></small>
       <div class="hidden name"><code>sim_df.Rmd</code></div>
@@ -143,19 +143,21 @@ Simulated cars dataset
 <div id="between-subject-variables" class="section level2">
 <h2 class="hasAnchor">
 <a href="#between-subject-variables" class="anchor"></a>Between-subject variables</h2>
-<p>You can also optionally add between-subject variables. For example, here is the relationship between sepal length and width in the built-in dataset <code>iris</code>.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">iris</span> <span class="kw">%&gt;%</span>
-  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">Species</span>)) +
+<p>You can also optionally add between-subject variables. For example, here is the relationship between horsepower (<code>hp</code>) and weight (<code>wt</code>) for automatic (<code>am = 0</code>) versus manual (<code>am = 1</code>) transmission in the built-in dataset <code>mtcars</code>.</p>
+<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">mtcars</span> <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(<span class="kw">transmission</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">am</span>, <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"automatic"</span>, <span class="st">"manual"</span>))) <span class="kw">%&gt;%</span>
+  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="no">hp</span>, <span class="no">wt</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">transmission</span>)) +
   <span class="fu">geom_point</span>() +
   <span class="fu">geom_smooth</span>(<span class="kw">method</span> <span class="kw">=</span> <span class="st">"lm"</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="st">"y~x"</span>)</pre></body></html></div>
 <div class="figure">
-<img src="sim_df_files/figure-html/plot-iris-orig-1.png" alt="Original iris dataset" width="768"><p class="caption">
-Original iris dataset
+<img src="sim_df_files/figure-html/plot-mtcars-orig-1.png" alt="Original mtcars dataset" width="768"><p class="caption">
+Original mtcars dataset
 </p>
 </div>
-<p>And here is a new sample with 50 observations of each species, made with the code <code><a href="../reference/sim_df.html">sim_df(iris, 100, "Species")</a></code>.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/sim_df.html">sim_df</a></span>(<span class="no">iris</span>, <span class="fl">50</span>, <span class="kw">between</span> <span class="kw">=</span> <span class="st">"Species"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">Species</span>)) +
+<p>And here is a new sample with 50 observations of each.</p>
+<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/sim_df.html">sim_df</a></span>(<span class="no">mtcars</span>, <span class="fl">50</span> , <span class="kw">between</span> <span class="kw">=</span> <span class="st">"am"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(<span class="kw">transmission</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">am</span>, <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"automatic"</span>, <span class="st">"manual"</span>))) <span class="kw">%&gt;%</span>
+  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="no">hp</span>, <span class="no">wt</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">transmission</span>)) +
   <span class="fu">geom_point</span>() +
   <span class="fu">geom_smooth</span>(<span class="kw">method</span> <span class="kw">=</span> <span class="st">"lm"</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="st">"y~x"</span>)</pre></body></html></div>
 <div class="figure">
@@ -168,15 +170,16 @@ Simulated iris dataset
 <h2 class="hasAnchor">
 <a href="#empirical" class="anchor"></a>Empirical</h2>
 <p>Set <code>empirical = TRUE</code> to return a data frame with <em>exactly</em> the same means, SDs, and correlations as the original dataset.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">exact_iris</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sim_df.html">sim_df</a></span>(<span class="no">iris</span>, <span class="fl">50</span>, <span class="kw">between</span> <span class="kw">=</span> <span class="st">"Species"</span>, <span class="kw">empirical</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="no">exact_mtcars</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sim_df.html">sim_df</a></span>(<span class="no">mtcars</span>, <span class="fl">50</span>, <span class="kw">between</span> <span class="kw">=</span> <span class="st">"am"</span>, <span class="kw">empirical</span> <span class="kw">=</span> <span class="fl">TRUE</span>)</pre></body></html></div>
 </div>
 <div id="rounding" class="section level2">
 <h2 class="hasAnchor">
 <a href="#rounding" class="anchor"></a>Rounding</h2>
 <p>For now, the function only creates new variables sampled from a continuous normal distribution. I hope to add in other sampling distributions in the future. So you’d need to do any rounding or truncating yourself.</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/sim_df.html">sim_df</a></span>(<span class="no">iris</span>, <span class="fl">50</span>, <span class="kw">between</span> <span class="kw">=</span> <span class="st">"Species"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">mutate_if</span>(<span class="no">is.numeric</span>, <span class="no">round</span>, <span class="fl">1</span>) <span class="kw">%&gt;%</span>
-  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="no">Sepal.Width</span>, <span class="no">Sepal.Length</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">Species</span>)) +
+<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/sim_df.html">sim_df</a></span>(<span class="no">mtcars</span>, <span class="fl">50</span>, <span class="kw">between</span> <span class="kw">=</span> <span class="st">"am"</span>) <span class="kw">%&gt;%</span>
+  <span class="fu">mutate</span>(<span class="kw">hp</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span>(<span class="no">hp</span>),
+         <span class="kw">transmission</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">am</span>, <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"automatic"</span>, <span class="st">"manual"</span>))) <span class="kw">%&gt;%</span>
+  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="no">hp</span>, <span class="no">wt</span>, <span class="kw">color</span> <span class="kw">=</span> <span class="no">transmission</span>)) +
   <span class="fu">geom_point</span>() +
   <span class="fu">geom_smooth</span>(<span class="kw">method</span> <span class="kw">=</span> <span class="st">"lm"</span>, <span class="kw">formula</span> <span class="kw">=</span> <span class="st">"y~x"</span>)</pre></body></html></div>
 <div class="figure">

@@ -9,20 +9,18 @@
 #' unique_pairs(c("O", "C", "E", "A", "N"))
 #' unique_pairs(3)
 unique_pairs <- function(v) {
-  if (is.numeric(v)) { v <- LETTERS[1:v] }
+  if (is.numeric(v) & length(v) == 1) { v <- LETTERS[1:v] }
   if (length(v) < 2) { stop("There must be at least 2 levels") }
   if (duplicated(v) %>% sum()) { stop("You have duplicate levels") }
   v <- factor(v, levels = v)
   
-  expand.grid(a = v, b = v) %>% 
-    dplyr::filter(.data$a != .data$b) %>% t() %>% 
-    as.data.frame() %>% 
-    dplyr::mutate_all(factor, levels = v) %>%
-    dplyr::mutate_all(sort) %>% t() %>%
-    as.data.frame() %>% 
-    tidyr::unite("combo", 1:2, sep = "-") %>%
-    dplyr::distinct(.data$combo) %>%
-    dplyr::pull(.data$combo)
+  all <- expand.grid(a = v, b = v)
+  diff <- all[all$a != all$b, ]
+  a_less <- as.integer(diff$a) < as.integer(diff$b)
+  a <- as.character(diff$a)
+  b <- as.character(diff$b)
+  pairs <- ifelse(a_less, paste0(a, "-", b), paste0(b, "-", a))
+  unique(pairs)
 }
 
 
@@ -83,8 +81,8 @@ interactive_design <- function(output = c("faux", "ANOVApower"),
   dv <- readline_check("DV column name (default is y): ", "length", min = 1)
   id <- readline_check("ID column name (default is id): ", "length", min = 1)
   
-  within <- purrr::map(within, fix_name_labels)
-  between <- purrr::map(between, fix_name_labels)
+  within <- lapply(within, fix_name_labels)
+  between <- lapply(between, fix_name_labels)
   
   cells_w <- cell_combos(within, dv)
   cells_b <- cell_combos(between, dv)
@@ -109,7 +107,7 @@ interactive_design <- function(output = c("faux", "ANOVApower"),
   pattern <- paste0("^\\s?(-?\\d*\\.?\\d?\\s?,\\s?){0,", (length(cells_w)-1), "}\\s?(-?\\d*\\.?\\d?)\\s?$")
   
   # ask for mu ----
-  mu <- purrr::map(cells_b, function(b) {
+  mu <- lapply(cells_b, function(b) {
     p <- paste0("Means of ", wlist, " in condition ", b, ": ")
     input <- readline_check(p, "grep", pattern = pattern, perl = TRUE) %>%
       strsplit("\\s?,\\s?") %>% unlist()
@@ -120,7 +118,7 @@ interactive_design <- function(output = c("faux", "ANOVApower"),
     as.data.frame()
 
   # ask for SD ----
-  sd <- purrr::map(cells_b, function(b) {
+  sd <- lapply(cells_b, function(b) {
     p <- paste0("SDs of ", wlist, " in condition ", b, ": ")
     input <- readline_check(p, "grep", pattern = pattern, perl = TRUE) %>%
       strsplit("\\s?,\\s?") %>% unlist()
@@ -135,7 +133,7 @@ interactive_design <- function(output = c("faux", "ANOVApower"),
     up <- unique_pairs(cells_w)
     uplist <- paste(up, collapse = ", ")
     pattern <- paste0("^\\s?(-?\\d*\\.?\\d?\\s?,\\s?){0,", (length(up)-1), "}\\s?(-?\\d*\\.?\\d?)\\s?$")
-    r <- purrr::map(cells_b, function(b) {
+    r <- lapply(cells_b, function(b) {
       p <- paste0("Cors (r) of ", uplist, " in condition ", b, ": ")
       input <- readline_check(p, "grep", pattern = pattern, perl = TRUE) %>%
         strsplit("\\s?,\\s?") %>% unlist()

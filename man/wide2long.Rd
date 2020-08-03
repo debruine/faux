@@ -9,7 +9,7 @@ wide2long(
   within_factors = c(),
   within_cols = c(),
   dv = "y",
-  id = NULL,
+  id = "id",
   sep = faux_options("sep")
 )
 }
@@ -22,9 +22,9 @@ wide2long(
 
 \item{dv}{the name of the dv column (defaults to "y")}
 
-\item{id}{the name of the ID column(s) if they don't exist, a new column will be made}
+\item{id}{the name of the ID column(s) if they don't exist, a new column will be made (defaults to ("id")}
 
-\item{sep}{separator for within-columns, defaults to _ (see tidyr::separate)}
+\item{sep}{separator for within-columns (to be used in strsplit, so can be regex), defaults to "_"}
 }
 \value{
 a tbl in long format
@@ -33,6 +33,6 @@ a tbl in long format
 Convert data from wide to long format
 }
 \examples{
-wide2long(iris, c("Feature", "Measure"), 1:4)
+wide2long(iris, c("Feature", "Measure"), 1:4, sep = "\\\\.")
 
 }

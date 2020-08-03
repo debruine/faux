@@ -60,7 +60,7 @@ test_that("iris", {
   
   iris_wide <- long2wide(iris_long, within = c("Feature", "Measure"), 
                          between = "Species", dv = "y", id = "id")
-  inames <- c("id", "Species", "Petal_Length", "Petal_Width", "Sepal_Length", "Sepal_Width")
+  inames <- c("id", "Species", "Sepal_Length", "Sepal_Width", "Petal_Length", "Petal_Width")
   expect_equal(names(iris_wide), inames)
   expect_equal(nrow(iris_wide), 150)
   
@@ -80,12 +80,16 @@ test_that("wide2long", {
     within_factors = c("feature", "dimension"),
     within_cols = c("Petal.Length", "Petal.Width", "Sepal.Length", "Sepal.Width"),
     dv = "value",
-    id = "id",
+    id = "ID",
     sep = "\\."
   )
   
   expect_equal(nrow(long_iris), 600)
-  expect_equal(names(long_iris), c("Species", "id", "feature", "dimension", "value"))
+  expect_equal(names(long_iris), c("ID", "Species", "feature", "dimension", "value"))
+  
+  long_iris <- wide2long(iris, c("Feature", "Measure"), 1:4, sep = "\\.")
+  expect_equal(nrow(long_iris), 600)
+  expect_equal(names(long_iris), c("id", "Species", "Feature", "Measure", "y"))
 })
 
 # from design ----
@@ -113,6 +117,18 @@ test_that("from design", {
   
   dwide <- long2wide(data, within = "face_eth", between = "rater_sex", dv = "rating", id = "rater_id")
   expect_equal(names(dwide), c("rater_id", "rater_sex", "black", "east_asian", "west_asian", "white"))
+  
+  # same data made by faux
+  within <- list(face_eth = c("black", "east_asian", "west_asian", "white"))
+  between <- list(rater_sex = c("male", "female"))
+  dv <- "rating"
+  id <- "rater_id"
+  data2 <- sim_design(within, between, n = 12,
+                      dv = dv, id = id, long = TRUE)
+  
+  data2["face_eth"] <- gsub("\\.", "_", data2[["face_eth"]])
+  dwide2 <- long2wide(data2, within = "face_eth", between = "rater_sex", dv = "rating", id = "rater_id")
+  expect_equal(names(dwide2), c("rater_id", "rater_sex", "black", "east_asian", "west_asian", "white"))
 })
 
 faux_options(plot = TRUE)

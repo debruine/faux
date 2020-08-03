@@ -17,37 +17,70 @@
 
 get_params <- function(data, between = c(), within = c(), 
                        dv = "y", id = "id", digits = 2) {
+  # error checking -----------------
+  if (is.matrix(data)) {
+    data <- as.data.frame(data)
+  } else if (!is.data.frame(data)) {
+    stop("data must be a data frame or matrix")
+  }
+  
+  if (is.numeric(between)) between <- names(data)[between]
+  
+  if (length(between) > 0 & !is.character(between)) {
+    stop("between must be a numeric or character vector")
+  }
   
   if (length(within) && length(dv) && length(id)) {
     # convert long to wide
-    data <- long2wide(data, within, between, dv, id) %>%
-      dplyr::select(-dplyr::all_of(id))
+    data <- long2wide(data, within, between, dv, id)
+    data$id <- NULL
   }
   
-  grpdat <- select_num_grp(data, between)
-  grpvars <- dplyr::group_vars(grpdat)
-  numvars <- names(grpdat)[!names(grpdat) %in% grpvars]
+  numvars <- setdiff(names(data), c(names(id), names(dv), between))
+  is_num <- sapply(data[numvars], is.numeric)
+  numvars <- numvars[is_num]
   
-  descriptives <- dplyr::bind_rows(
-    dplyr::summarise_all(grpdat, ~mean(.)) %>% dplyr::mutate(stat = "mean"),
-    dplyr::summarise_all(grpdat, ~stats::sd(.)) %>% dplyr::mutate(stat = "sd"),
-    dplyr::summarise_all(grpdat, ~dplyr::n()) %>% dplyr::mutate(stat = "n")
-  ) %>%
-    tidyr::gather("var", "val", dplyr::one_of(numvars)) %>%
-    dplyr::mutate("val" = round(.data$val, digits)) %>%
-    tidyr::spread(.data$stat, .data$val)
+  grps <- data[between]
+  if (length(grps) == 0) grps <- rep(1, nrow(data))
   
-  stats <- grpdat %>%
-    tidyr::nest("multisim_data" = dplyr::all_of(numvars)) %>%
-    dplyr::mutate("multisim_cor" = purrr::map(.data$multisim_data, function(d) {
-      cor(d) %>% round(digits) %>% tibble::as_tibble(rownames = "var")
-    })) %>%
-    dplyr::select(-.data$multisim_data) %>%
-    tidyr::unnest(cols = "multisim_cor") %>%
-    dplyr::left_join(descriptives, by = c(between, "var")) %>%
-    dplyr::select(dplyr::all_of(c(between, "n", "var", numvars, "mean", "sd"))) %>%
-    dplyr::ungroup()
+  desc <- by(data, grps, function(x) {
+    m <- apply(x[numvars], 2, mean)
+    sd <- apply(x[numvars], 2, sd)
+    desc <- data.frame(var = names(m),
+                       mean = round(m, digits), 
+                       n = nrow(x), 
+                       sd = round(sd, digits))
+    for (b in between) desc[b] <- unique(x[[b]])
+    desc[, c(between, "var", "mean", "n", "sd")]
+  })
+  
+  desc <- do.call(rbind, desc)
+  ord <- do.call(order, desc[c(between, "var")])
+  descriptives <- desc[ord, ]
+  
+  if (length(numvars) > 1) {
+    r <- by(data, grps, function(x) {
+      r <- cor(x[numvars]) %>% round(digits) %>% as.data.frame()
+      r$var <- row.names(r)
+      for (b in between) r[b] <- unique(x[b])
+      r
+    })
     
+    r <- do.call(rbind, r)
+    ord <- do.call(order, r[c(between, "var")])
+    r <- r[ord, ]
+    
+    descriptives[c(between, "var")] <- NULL
+    stats <- cbind(r, descriptives)
+    var_order <- c(between, "n", "var", numvars, "mean", "sd")
+  } else {
+    stats <- descriptives
+    var_order <- c(between, "n", "mean", "sd")
+  }
+  stats <- stats[, var_order] %>%
+    as.data.frame()
+  row.names(stats) <- NULL
+  
   stats
 }
 

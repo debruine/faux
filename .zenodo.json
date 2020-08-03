@@ -1,0 +1,23 @@
+{
+    "description": "Create datasets with factorial structure through simulation by specifying variable parameters.", 
+    "license": "MIT", 
+    "title": "faux: Simulation for Factorial Designs", 
+    "version": "0.0.1.2",
+    "upload_type": "software", 
+    "publication_date": "2020-08-03", 
+    "creators": [
+        {
+            "name": "Lisa DeBruine",
+            "affiliation": "University of Glasgow",
+            "orcid": "0000-0002-7523-5539"
+        }
+    ], 
+    "access_right": "open", 
+    "related_identifiers": [
+        {
+            "scheme": "url", 
+            "identifier": "https://debruine.github.io/faux/", 
+            "relation": "isSupplementTo"
+        }
+    ]
+}
