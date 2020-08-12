@@ -11,8 +11,7 @@ sim_mixed_cc(
   sub_sd = 1,
   item_sd = 1,
   error_sd = 1,
-  empirical = FALSE,
-  seed = NULL
+  empirical = FALSE
 )
 }
 \arguments{
@@ -29,8 +28,6 @@ sim_mixed_cc(
 \item{error_sd}{the SD of the error term}
 
 \item{empirical}{Should the returned data have these exact parameters? (versus be sampled from a population with these parameters)}
-
-\item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 }
 \value{
 a tbl

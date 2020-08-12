@@ -1,5 +1,8 @@
 context("test-plot_design")
 
+user_opts <- faux_options("sep", "verbose", "plot", "connection")
+on.exit(faux_options(user_opts))
+
 faux_options(plot = FALSE)
 
 # error ----
@@ -19,11 +22,13 @@ test_that("error", {
 
 # wide2long ----
 test_that("wide2long", {
-  df <- sim_design(, seed = 1)
+  set.seed(1)
+  df <- sim_design()
   p1 <- plot_design(df)
   expect_equal(class(p1), c("gg", "ggplot"))
   
-  df <- sim_design(long = TRUE, , seed = 1)
+  set.seed(1)
+  df <- sim_design(long = TRUE)
   p2 <- plot_design(df)
   expect_equal(class(p2), c("gg", "ggplot"))
   expect_equal(p1, p2)

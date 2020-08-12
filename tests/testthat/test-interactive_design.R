@@ -5,16 +5,18 @@ test_that("default", {
   
   # set up interactive answers
   f <- file()
-  options(faux.connection = f)
+  faux_options(connection = f)
+  on.exit({
+    faux_options(connection = stdin()) # reset connection
+    close(f) # close the file
+  })
+  
   lines <- c("0", "0", "y", "id", "100", "0", "1")
   ans <- paste(lines, collapse = "\n")
   write(ans, f)
   
   capture_output_lines({des <- interactive_design()})
-  
-  options(faux.connection = stdin()) # reset connection
-  close(f) # close the file
-  
+
   # check match
   expect_equal(des$within,  des2$within)
   expect_equal(des$between, des2$between)
@@ -44,7 +46,12 @@ test_that("default", {
   
   # set up interactive answers
   f <- file()
-  options(faux.connection = f)
+  faux_options(connection = f)
+  on.exit({
+    faux_options(connection = stdin()) # reset connection
+    close(f) # close the file
+  })
+  
   lines <- c(
     "1", "A", "3", "A1", "A2", "A3", "1", "B", "2", "B1", "B2", 
     "rt", "subid", "10", "1,2,3", "4,5,6", "1", "1", ".5", ".4, .5, .6"
@@ -53,9 +60,6 @@ test_that("default", {
   write(ans, f)
   
   capture_output_lines({des <- interactive_design()})
-  
-  options(faux.connection = stdin()) # reset connection
-  close(f) # close the file
   
   # check match
   expect_equal(des$within,  des2$within)
@@ -86,7 +90,12 @@ test_that("get it wrong", {
   
   # set up interactive answers
   f <- file()
-  options(faux.connection = f)
+  faux_options(connection = f)
+  on.exit({
+    faux_options(connection = stdin()) # reset connection
+    close(f) # close the file
+  })
+  
   lines <- c(
     "X", "1", "", "A", "X", "3", "", "A1", "", "A2", "", "A3", "X", "1", 
     "", "B", "X", "2", "", "B1", "", "B2", 
@@ -97,9 +106,6 @@ test_that("get it wrong", {
   write(ans, f)
   
   capture_output_lines({des <- interactive_design(plot = FALSE)})
-  
-  options(faux.connection = stdin()) # reset connection
-  close(f) # close the file
   
   # check match
   expect_equal(des$within,  des2$within)

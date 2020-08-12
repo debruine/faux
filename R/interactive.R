@@ -33,7 +33,7 @@ unique_pairs <- function(v) {
 #' @export
 #'
 #' @examples
-#' \dontrun{des <- interactive_design()}
+#' if(interactive()){ des <- interactive_design() }
 interactive_design <- function(output = c("faux"),
                                plot = faux_options("plot")) {
   # within factors ----

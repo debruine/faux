@@ -16,7 +16,6 @@ sim_design(
   dv = list(y = "value"),
   id = list(id = "id"),
   plot = faux_options("plot"),
-  seed = NULL,
   interactive = FALSE,
   design = NULL,
   rep = 1
@@ -44,8 +43,6 @@ sim_design(
 \item{id}{the name of the id column (defaults to id)}
 
 \item{plot}{whether to show a plot of the design}
-
-\item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 
 \item{interactive}{whether to run the function interactively}
 

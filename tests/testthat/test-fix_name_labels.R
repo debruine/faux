@@ -106,9 +106,8 @@ test_that("data.frame", {
   expect_equal(test, target)
   
   faux_options(sep = ".")
+  on.exit(faux_options(sep = "_")) # reset sep
   test2 <- fix_name_labels(target)
   target2 <- as.list(df)
   expect_equal(test2, target2)
-  
-  faux_options(sep = "_") # reset sep
 })

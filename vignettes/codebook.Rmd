@@ -7,14 +7,19 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.height = 5,
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "100%"
 )
+ggplot2::theme_set(ggplot2::theme_bw())
+set.seed(8675309)
 ```
 
-```{r setup}
+```{r, warning=FALSE, message=FALSE}
 library(faux)
 ```
 
@@ -50,10 +55,8 @@ cb
 
 If you set `return` to "list", you get the codebook in an R list that prints like this.
 
-```{r}
-faux_options(verbose = FALSE) # turn off messages
+```{r, messages = FALSE}
 cb <- codebook(pet_data, return = "list")
-faux_options(verbose = TRUE) # turn on messages
 cb
 ```
 

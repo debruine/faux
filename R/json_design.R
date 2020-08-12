@@ -3,7 +3,7 @@
 #' Convert a design list to JSON notation for archiving (e.g. in scienceverse)
 #'
 #' @param design a design list including within, between, n, mu, sd, r, dv, id
-#' @param filename option name of faile to save the json to
+#' @param filename option name of file to save the json to
 #' @param digits number of digits to save
 #' @param pretty whether to print condensed or readable
 #' @param ... other options to send to jsonlite::toJSON

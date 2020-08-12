@@ -20,9 +20,13 @@
 #' @export
 
 rnorm_multi <- function(n, vars = NULL, mu = 0, sd = 1, r = 0,
-                       varnames = NULL, 
-                       empirical = FALSE, 
+                       varnames = NULL, empirical = FALSE, 
                        as.matrix = FALSE) {
+  # if (!is.null(seed)) {
+  #   # reinstate system seed after simulation
+  #   gs <- global_seed(); on.exit(global_seed(gs))
+  # }
+  
   # error handling ----
   if ( !is.numeric(n) || n %% 1 > 0 || n < 1 ) {
     stop("n must be an integer > 0")

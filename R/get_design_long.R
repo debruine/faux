@@ -97,6 +97,8 @@ get_design_long <- function(data,
   attr(r, "call") <- NULL
   class(r) <- "list"
   
-  check_design(within, between, n, mu, sd, r, dv, id, plot)
+  check_design(within = within, between = between, 
+               n = n, mu = mu, sd = sd, r = r, 
+               dv = dv, id = id, plot = plot)
 }
 

@@ -1,5 +1,3 @@
-context("sim_mixed_df")
-
 # specified dv and IDs ----
 test_that("specified dv and IDs", {
   s <- sim_mixed_df(fr4, 10, 10, "rating", "rater_id", "face_id")
@@ -20,16 +18,16 @@ test_that("numeric spec", {
 })
 
 # seed ----
-test_that("seed", {
-  df1 <- sim_mixed_df(fr4, 10, 10, "rating", "rater_id", "face_id", seed = 1)
-  df2 <- sim_mixed_df(fr4, 10, 10, "rating", "rater_id", "face_id", seed = 1)
-  
-  expect_equal(df1, df2)
-  
-  df3 <- sim_mixed_df(fr4, 10, 10, "rating", "rater_id", "face_id", seed = 90210)
-  
-  expect_true(!identical(df1, df3))
-})
+# test_that("seed", {
+#   df1 <- sim_mixed_df(fr4, 10, 10, "rating", "rater_id", "face_id", seed = 1)
+#   df2 <- sim_mixed_df(fr4, 10, 10, "rating", "rater_id", "face_id", seed = 1)
+#   
+#   expect_equal(df1, df2)
+#   
+#   df3 <- sim_mixed_df(fr4, 10, 10, "rating", "rater_id", "face_id", seed = 90210)
+#   
+#   expect_true(!identical(df1, df3))
+# })
 
 # exact items ----
 test_that("exact items", {

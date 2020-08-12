@@ -9,7 +9,6 @@ sim_data(
   empirical = FALSE,
   long = FALSE,
   rep = 1,
-  seed = NULL,
   sep = faux_options("sep")
 )
 }
@@ -21,8 +20,6 @@ sim_data(
 \item{long}{Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format}
 
 \item{rep}{the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep}
-
-\item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 
 \item{sep}{separator for within-columns, defaults to _}
 }

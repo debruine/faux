@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.4</span>
       </span>
     </div>
 
@@ -194,9 +194,13 @@
 #&gt; $verbose
 #&gt; [1] TRUE
 #&gt; </div><div class='input'>
-<span class='fu'>faux_options</span>(<span class='st'>"sep"</span>) <span class='co'># see value of faux.sep</span></div><div class='output co'>#&gt; [1] "_"</div><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>faux_options</span>(<span class='st'>"sep"</span>) <span class='co'># see value of faux.sep</span></div><div class='output co'>#&gt; [1] "_"</div><div class='input'>
+<span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
 <span class='co'># changes cell separator (e.g., A1.B2)</span>
 <span class='fu'>faux_options</span>(<span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"."</span>)
+
+<span class='co'># changes cell separator back to default (e.g., A1_B2)</span>
+<span class='fu'>faux_options</span>(<span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"_"</span>)
 }</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

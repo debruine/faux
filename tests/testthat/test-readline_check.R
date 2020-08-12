@@ -4,7 +4,11 @@ context("test-readline_check")
 # https://stackoverflow.com/questions/41372146/test-interaction-with-users-in-r-package
 
 f <- file()
-options(faux.connection = f)
+faux_options(connection = f)
+on.exit({
+  faux_options(connection = stdin()) # reset connection
+  close(f) # close the file
+})
 
 test_that("error", {
   expect_error(readline_check(), "argument \"prompt\" is missing, with no default", fixed = TRUE)
@@ -127,6 +131,3 @@ test_that("repeats", {
   expect_equal(ol[[2]], err)
   expect_equal(ol[[3]], err)
 })
-
-options(faux.connection = stdin()) # reset connection
-close(f) # close the file

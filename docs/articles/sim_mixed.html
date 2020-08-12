@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.4</span>
       </span>
     </div>
 
@@ -117,11 +117,11 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">faux</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lme4</span>)
 <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">broom.mixed</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lme4</span>)</pre></body></html></div>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">faux</span>)</pre></body></html></div>
 <p>The mixed design functions are extremely basic. I plan to work on more useful functions, but this <a href="https://osf.io/3cz2e/">paper</a> provides a tutorial and examples for more complex designs.</p>
 <div id="sim_mixed_cc" class="section level2">
 <h2 class="hasAnchor">
@@ -154,15 +154,15 @@
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">9.755</td>
-<td align="right">0.293</td>
-<td align="right">33.287</td>
+<td align="right">10.129</td>
+<td align="right">0.261</td>
+<td align="right">38.836</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">0.986</td>
+<td align="right">0.940</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -170,7 +170,7 @@
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.928</td>
+<td align="right">1.693</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -178,7 +178,7 @@
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">2.996</td>
+<td align="right">3.063</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -204,15 +204,15 @@
 <td align="left">fixed</td>
 <td align="left">NA</td>
 <td align="left">(Intercept)</td>
-<td align="right">-0.096</td>
-<td align="right">0.416</td>
-<td align="right">-0.23</td>
+<td align="right">0.633</td>
+<td align="right">0.456</td>
+<td align="right">1.387</td>
 </tr>
 <tr class="even">
 <td align="left">ran_pars</td>
 <td align="left">sub_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">1.258</td>
+<td align="right">1.537</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -220,7 +220,7 @@
 <td align="left">ran_pars</td>
 <td align="left">item_id</td>
 <td align="left">sd__(Intercept)</td>
-<td align="right">2.620</td>
+<td align="right">2.870</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>
@@ -228,7 +228,7 @@
 <td align="left">ran_pars</td>
 <td align="left">Residual</td>
 <td align="left">sd__Observation</td>
-<td align="right">10.068</td>
+<td align="right">9.950</td>
 <td align="right">NA</td>
 <td align="right">NA</td>
 </tr>

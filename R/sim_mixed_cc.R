@@ -9,7 +9,6 @@
 #' @param item_sd the SD of item random intercepts (or an item_n-length named vector of random intercepts for each item)
 #' @param error_sd the SD of the error term
 #' @param empirical Should the returned data have these exact parameters? (versus be sampled from a population with these parameters)
-#' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #'
 #' @return a tbl 
 #' @export
@@ -19,19 +18,12 @@
 #' sim_mixed_cc(10, 10)
 sim_mixed_cc <- function(sub_n = 100, item_n = 20, grand_i = 0, 
                          sub_sd = 1, item_sd = 1, error_sd = 1, 
-                         empirical = FALSE, seed = NULL) {
-  if (!is.null(seed)) {
-    # reinstate system seed after simulation
-    sysSeed <- .GlobalEnv$.Random.seed
-    on.exit({
-      if (!is.null(sysSeed)) {
-        .GlobalEnv$.Random.seed <- sysSeed 
-      } else {
-        rm(".Random.seed", envir = .GlobalEnv)
-      }
-    })
-    set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
-  }
+                         empirical = FALSE) {
+  # if (!is.null(seed)) {
+  #   # reinstate system seed after simulation
+  #   gs <- global_seed(); on.exit(global_seed(gs))
+  #   set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
+  # }
   
   # sample subject random intercepts----
   if (length(sub_sd) == sub_n) {

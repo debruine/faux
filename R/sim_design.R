@@ -13,7 +13,6 @@
 #' @param dv the name of the dv for long plots (defaults to y)
 #' @param id the name of the id column (defaults to id)
 #' @param plot whether to show a plot of the design
-#' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param interactive whether to run the function interactively
 #' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' @param rep the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep
@@ -28,7 +27,7 @@ sim_design <- function(within = list(), between = list(),
                        dv = list(y = "value"), 
                        id = list(id = "id"),
                        plot = faux_options("plot"), 
-                       seed = NULL, interactive = FALSE, 
+                       interactive = FALSE, 
                        design = NULL, rep = 1) {
   # check the design is specified correctly
   if (interactive) {
@@ -47,7 +46,7 @@ sim_design <- function(within = list(), between = list(),
   }
   
   # simulate the data
-  data <- sim_data(design, empirical = empirical, long = long, seed = seed, rep = rep)
+  data <- sim_data(design, empirical = empirical, long = long, rep = rep)
   
   attr(data, "design") <- design
   
@@ -60,14 +59,13 @@ sim_design <- function(within = list(), between = list(),
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' @param rep the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep
-#' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' @param sep separator for within-columns, defaults to _
 #' 
 #' @return a tbl
 #' @export
 #' 
 sim_data <- function(design, empirical = FALSE, long = FALSE, 
-                     rep = 1, seed = NULL, sep = faux_options("sep")) {
+                     rep = 1, sep = faux_options("sep")) {
   if (!is.numeric(rep)) {
     stop("rep must be a number")
   } else if (rep < 1) {
@@ -76,18 +74,11 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
     warning("rep should be an integer")
   }
   
-  if (!is.null(seed)) {
-    # reinstate system seed after simulation
-    sysSeed <- .GlobalEnv$.Random.seed
-    on.exit({
-      if (!is.null(sysSeed)) {
-        .GlobalEnv$.Random.seed <- sysSeed 
-      } else {
-        rm(".Random.seed", envir = .GlobalEnv)
-      }
-    })
-    set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
-  }
+  # if (!is.null(seed)) {
+  #   # reinstate system seed after simulation
+  #   gs <- global_seed(); on.exit(global_seed(gs))
+  #   set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
+  # }
   
   # defaults
   within <- list()

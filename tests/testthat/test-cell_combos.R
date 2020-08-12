@@ -1,5 +1,8 @@
 context("test-cell_combos")
 
+user_opts <- faux_options("sep", "verbose", "plot", "connection")
+on.exit(faux_options(user_opts))
+
 test_that("0 factors", {
   expect_equal(cell_combos(list()), "y")
   expect_equal(cell_combos(list(), "DV"), "DV")

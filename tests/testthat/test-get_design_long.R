@@ -1,13 +1,16 @@
-context("test-get_design_long")
+user_opts <- faux_options("sep", "verbose", "plot", "connection")
+on.exit(faux_options(user_opts))
+
+faux_options(plot = FALSE)
 
 # 2w ----
 test_that("2w", {
   within <- list(time = c("day", "night"))
   between <- list()
   mu <- c(1,2)
-  d <- check_design(within, between, mu = mu, plot = FALSE)
+  d <- check_design(within, between, mu = mu)
   data <- sim_data(d, long = TRUE, empirical= TRUE)
-  d2 <- get_design_long(data, plot = FALSE)
+  d2 <- get_design_long(data)
   
   expect_equal(d$within, d2$within)
   expect_equivalent(d$between, d2$between)
@@ -19,9 +22,9 @@ test_that("2w", {
 
 # get_design_long ----
 test_that("get_design_long", {
-  design <- check_design(2, 2, n = 10, mu = 5, sd = 2, r = 0.5, plot = 0)
-  df_long <- sim_design(design = design, long = TRUE, empirical = TRUE, plot = 0)
-  d <- get_design_long(df_long, plot = FALSE)
+  design <- check_design(2, 2, n = 10, mu = 5, sd = 2, r = 0.5)
+  df_long <- sim_design(design = design, long = TRUE, empirical = TRUE)
+  d <- get_design_long(df_long)
   
   n <- list(B1 = 10, B2 = 10)
   mu <- list(B1 = list(A1 = 5, A2 = 5), B2 = list(A1 = 5, A2 = 5))
@@ -37,8 +40,8 @@ test_that("get_design_long", {
   expect_equal(d$r$B2, r)
   
   df_long <- sim_design(c(2, 2, 2), c(2, 2, 2), long = TRUE, 
-                        empirical = TRUE, plot = 0)
-  d <- get_design_long(df_long, plot = FALSE)
+                        empirical = TRUE)
+  d <- get_design_long(df_long)
   
   expect_equal(d$mu[[1]] %>% names(), 
                c("A1_B1_C1", "A1_B1_C2", "A1_B2_C1", "A1_B2_C2", 
@@ -60,10 +63,10 @@ test_that("2w*2b", {
     dog = c(1,2),
     cat = c(2,3)
   )
-  d <- check_design(within, between, mu = mu, plot = FALSE)
+  d <- check_design(within, between, mu = mu)
   data <- sim_design(within, between, mu = mu, long = TRUE, 
-                     empirical = TRUE, plot = 0)
-  d2 <- get_design_long(data, plot = FALSE)
+                     empirical = TRUE)
+  d2 <- get_design_long(data)
   expect_equal(d$within, d2$within)
   expect_equivalent(d$between, d2$between)
   expect_equal(d$n, d2$n)
@@ -78,9 +81,9 @@ test_that("complex", {
   between <- c(2, 3)
   id <- c(sub_id = "ID")
   dv <- c(dv = "My DV")
-  d <- check_design(within, between, dv = dv, id = id, plot = FALSE)
+  d <- check_design(within, between, dv = dv, id = id)
   data <- sim_design(within, between, dv = dv, id = id, 
-                     empirical = TRUE, long = TRUE, plot = 0)
-  d2 <- get_design_long(data, dv = dv, id = id, plot = FALSE)
+                     empirical = TRUE, long = TRUE)
+  d2 <- get_design_long(data, dv = dv, id = id)
   expect_equal(d, d2)
 })

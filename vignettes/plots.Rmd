@@ -7,16 +7,19 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.width = 10, 
-  fig.height = 7
+  fig.height = 7,
+  out.width = "100%"
 )
+ggplot2::theme_set(ggplot2::theme_bw())
+set.seed(8675309)
 ```
 
-```{r setup, warning=FALSE, message=FALSE}
+```{r, warning=FALSE, message=FALSE}
 library(faux)
 ```
 

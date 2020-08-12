@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.4</span>
       </span>
     </div>
 
@@ -133,7 +133,7 @@
 <span class="no">p6</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fl">6</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
 
 <span class="kw pkg">cowplot</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="no">p1</span>, <span class="no">p2</span>, <span class="no">p3</span>, <span class="no">p4</span>, <span class="no">p5</span>, <span class="no">p6</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">2</span>)</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-2-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-2-1.png" width="100%"></p>
 </div>
 <div id="two-factor-designs" class="section level3">
 <h3 class="hasAnchor">
@@ -146,31 +146,31 @@
 <span class="no">p6</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>,<span class="fl">4</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">12</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
 
 <span class="kw pkg">cowplot</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="no">p1</span>, <span class="no">p2</span>, <span class="no">p3</span>, <span class="no">p4</span>, <span class="no">p5</span>, <span class="no">p6</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-3-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-3-1.png" width="100%"></p>
 </div>
 <div id="three-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#three-factor-designs" class="anchor"></a>Three-factor designs</h3>
 <div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">2</span>^<span class="fl">3</span>)</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-4-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-4-1.png" width="100%"></p>
 </div>
 <div id="four-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#four-factor-designs" class="anchor"></a>Four-factor designs</h3>
 <div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">2</span>^<span class="fl">4</span>)</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-5-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-5-1.png" width="100%"></p>
 </div>
 <div id="five-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#five-factor-designs" class="anchor"></a>Five-factor designs</h3>
 <div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:(<span class="fl">2</span>^<span class="fl">5</span>))</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-6-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-6-1.png" width="100%"></p>
 </div>
 <div id="six-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#six-factor-designs" class="anchor"></a>Six-factor designs</h3>
 <div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:(<span class="fl">2</span>^<span class="fl">6</span>))</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-7-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
 </div>
 </div>
 <div id="plotting-data" class="section level2">
@@ -182,24 +182,24 @@
 <a href="#one-factor-data" class="anchor"></a>One-factor data</h3>
 <div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="fl">2</span>, <span class="fl">2</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">4</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>)</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-8-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
 <div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"violin"</span>)</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-9-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
 <div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"box"</span>)</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-10-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-10-1.png" width="100%"></p>
 <div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"pointrangeSD"</span>)</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-11-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-11-1.png" width="100%"></p>
 <div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"violin"</span>, <span class="st">"pointrangeSE"</span>))</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-12-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-12-1.png" width="100%"></p>
 <div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"violin"</span>, <span class="st">"jitter"</span>))</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-13-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
 </div>
 <div id="two-factor-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#two-factor-data" class="anchor"></a>Two-factor data</h3>
 <div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="fl">2</span>, <span class="fl">2</span>, <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">4</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
 <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>)</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-14-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-14-1.png" width="100%"></p>
 </div>
 <div id="change-order-of-factors" class="section level3">
 <h3 class="hasAnchor">
@@ -214,10 +214,10 @@
 
 <span class="kw pkg">cowplot</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="no">abc</span>, <span class="no">acb</span>, <span class="no">bac</span>, <span class="no">bca</span>, <span class="no">cab</span>, <span class="no">cba</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>,
                    <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"abc"</span>, <span class="st">"acb"</span>, <span class="st">"bac"</span>, <span class="st">"bca"</span>, <span class="st">"cab"</span>, <span class="st">"cba"</span>))</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-15-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-15-1.png" width="100%"></p>
 <div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">5</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">40</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span>
   <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="st">"D"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>)</pre></body></html></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-16-1.png" width="960"></p>
+<p><img src="plots_files/figure-html/unnamed-chunk-16-1.png" width="100%"></p>
 </div>
 </div>
   </div>

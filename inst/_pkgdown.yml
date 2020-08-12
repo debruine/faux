@@ -1,3 +1,15 @@
+articles:
+- title: Demos
+  navbar: ~
+  contents:
+  - sim_design
+  - sim_df
+  - rnorm_multi
+  - continuous
+  - plots
+  - sim_mixed
+  - codebook
+
 reference:
 - title: Simulation functions
   desc: ~

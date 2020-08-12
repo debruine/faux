@@ -18,5 +18,5 @@ list
 Set design interactively
 }
 \examples{
-\dontrun{des <- interactive_design()}
+if(interactive()){ des <- interactive_design() }
 }

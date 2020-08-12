@@ -1,5 +1,3 @@
-context("test-check_mixed_design")
-
 test_that("errors", {
   err <- "data must be a data frame or matrix"
   expect_error(check_mixed_design(1), err)
