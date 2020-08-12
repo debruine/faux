@@ -295,16 +295,18 @@ print.psychds_codebook <- function(x, ...) {
   if ("Psych-DS 0.1.0" == x$schemaVersion &
       length(x$variableMeasured) > 0) {
     
-    cat("Codebook for", x$name, "(Psych-DS 0.1.0)\n\n")
+    txt <- ""
+    txt <- sprintf("%sCodebook for %s (Psych-DS 0.1.0)\n\n",
+                   txt, x$name)
     
     # list dataset parameters ----
-    cat("Dataset Parameters\n\n")
+    txt <- sprintf("%sDataset Parameters\n\n", txt)
     omit_names <- c("@context", "@type", "variableMeasured")
     dataset_params <- setdiff(names(x), omit_names)
-    cat(nested_list(x[dataset_params]))
+    txt <- sprintf("%s%s", txt, nested_list(x[dataset_params]))
     
     # list column parameters ----
-    cat("\n\nColumn Parameters\n\n")
+    txt <- sprintf("%s\n\nColumn Parameters\n\n", txt)
     vars <- list()
     for (v in x$variableMeasured) {
       desc <- ifelse(v$name == v$description,
@@ -334,7 +336,9 @@ print.psychds_codebook <- function(x, ...) {
       )
     }
     
-    paste(vars, collapse = "\n") %>%cat()
+    txt <- sprintf("%s%s", txt, paste(vars, collapse = "\n"))
+    
+    cat(txt)
   } else {
     utils::str(x)
   }

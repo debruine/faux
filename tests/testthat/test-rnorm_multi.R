@@ -1,5 +1,3 @@
-context("rnorm_multi")
-
 test_that("error messages", {
   expect_warning(rnorm_multi(n = 1, vars = 3, empirical = TRUE),
     "When n = 1 and empirical = TRUE, returned data are equal to mu")
@@ -140,6 +138,23 @@ test_that("guessing vars", {
   expect_message(rnorm_multi(10, r = covmat), msg, fixed = TRUE)
   
   faux_options(verbose = FALSE)
+  on.exit(faux_options(verbose = TRUE))
   expect_silent(rnorm_multi(10, r = covmat))
-  faux_options(verbose = TRUE)
+  
 })
+
+# seed ----
+# test_that("seed", {
+#   set.seed(10)
+#   x1 <- rnorm(1)
+#   x2 <- rnorm(1)
+#   
+#   set.seed(10)
+#   x1b <- rnorm(1)
+#   r1 <- rnorm_multi(n = 1, vars = 1, seed = 10)
+#   x2b <- rnorm(1)
+#   
+#   expect_equal(x1, x1b)
+#   expect_equal(x2, x2b) # returns to global state
+#   expect_equal(x1, r1[[1]])
+# })

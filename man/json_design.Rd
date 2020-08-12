@@ -9,7 +9,7 @@ json_design(design, filename = NULL, digits = 8, pretty = FALSE, ...)
 \arguments{
 \item{design}{a design list including within, between, n, mu, sd, r, dv, id}
 
-\item{filename}{option name of faile to save the json to}
+\item{filename}{option name of file to save the json to}
 
 \item{digits}{number of digits to save}
 

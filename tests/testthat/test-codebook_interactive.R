@@ -1,8 +1,15 @@
 f <- file()
-options(faux.connection = f)
+faux_options(connection = f)
 faux_options(verbose = FALSE)
 
-data <- sim_design(2, 2, plot = FALSE, seed = 1)
+on.exit({
+  faux_options(connection = stdin()) # reset connection
+  close(f) # close the file
+  faux_options(verbose = TRUE)
+})
+
+set.seed(1)
+data <- sim_design(2, 2, plot = FALSE)
 
 test_that("interactive", {
   desc <- c("Subject ID", "Factor B", "Level 1 of Factor A", "Level 2 of Factor A")
@@ -98,7 +105,5 @@ test_that("warnings and defaults", {
                list(B1 = "B1", B2 = "B2"))
 })
 
-options(faux.connection = stdin()) # reset connection
-close(f) # close the file
-faux_options(verbose = TRUE)
+
 

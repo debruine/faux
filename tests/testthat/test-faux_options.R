@@ -1,5 +1,8 @@
 context("faux_options")
 
+user_opts <- faux_options("sep", "verbose", "plot", "connection")
+on.exit(faux_options(user_opts))
+
 faux_options(list(sep = "_", 
                   verbose = TRUE, 
                   plot = TRUE, 
@@ -15,6 +18,9 @@ test_that("default", {
 })
 
 test_that("set", {
+  user_sep <- faux_options("sep")
+  on.exit(faux_options(sep = user_sep))
+  
   faux_options(sep = ".")
   expect_equal(faux_options("sep"), ".")
   
@@ -35,8 +41,10 @@ test_that("set", {
 
 test_that("get", {
   expect_equal(faux_options("sep"), "_")
-  expect_equal(faux_options("sep", "verbose"), c(sep = "_", verbose = TRUE))
-  expect_equal(faux_options(c("sep", "verbose")), c(sep = "_", verbose = TRUE))
+  expect_equal(faux_options("sep", "verbose"), 
+               list(sep = "_", verbose = TRUE))
+  expect_equal(faux_options(c("sep", "verbose")), 
+               list(sep = "_", verbose = TRUE))
 })
 
 test_that("error", {

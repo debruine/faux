@@ -1,3 +1,15 @@
+# faux 0.0.1.4 (2020-08-12)
+
+* Even more fixes for CRAN
+* Removed all `seed` arguments (at the request of CRAN)
+* Faster unit tests
+
+# faux 0.0.1.3 (2020-08-10)
+
+* More fixes for CRAN (fingers crossed!)
+* Added a `seed` argument to `rnorm_multi()`
+* User options are no longer changed in vignettes
+
 # faux 0.0.1.2 (2020-08-03)
 
 * Removed some dependencies

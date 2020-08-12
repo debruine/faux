@@ -10,8 +10,7 @@ sim_mixed_df(
   item_n = NULL,
   dv = "y",
   sub_id = "sub_id",
-  item_id = "item_id",
-  seed = NULL
+  item_id = "item_id"
 )
 }
 \arguments{
@@ -26,8 +25,6 @@ sim_mixed_df(
 \item{sub_id}{the column name or index for the subject IDs}
 
 \item{item_id}{the column name or index for the item IDs}
-
-\item{seed}{a single value, interpreted as an integer, or NULL (see set.seed)}
 }
 \value{
 a tbl

@@ -14,15 +14,18 @@ knitr::opts_chunk$set(
   fig.width = 8,
   fig.height = 5,
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "100%"
 )
+ggplot2::theme_set(ggplot2::theme_bw())
+set.seed(8675309)
+```
 
+```{r, warning=FALSE, message=FALSE}
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(faux)
-theme_set(theme_bw())
-set.seed(200)
 ```
 
 The `rnorm_multi()` function makes multiple normally distributed vectors with specified parameters and relationships. 

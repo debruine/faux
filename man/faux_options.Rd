@@ -20,8 +20,12 @@ Global afex options are used, for example, to set the default separator for cell
 faux_options() # see all options
 
 faux_options("sep") # see value of faux.sep
+
 \dontrun{
 # changes cell separator (e.g., A1.B2)
 faux_options(sep = ".")
+
+# changes cell separator back to default (e.g., A1_B2)
+faux_options(sep = "_")
 }
 }

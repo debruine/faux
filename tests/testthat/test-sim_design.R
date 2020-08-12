@@ -1,4 +1,5 @@
-context("test-sim_design")
+user_opts <- faux_options("sep", "verbose", "plot", "connection")
+on.exit(faux_options(user_opts))
 
 faux_options(plot = FALSE)
 
@@ -507,26 +508,26 @@ test_that("label order", {
 
 # seed ----
 test_that("seed", {
-  # setting seed returns same DF, but is reset
-  set.seed(1)
-  rnd0 <- rnorm(1)
-  df1 <- sim_design(2, 2, n = 10, seed = 910210)
-  rnd1 <- rnorm(1)
-  df2 <- sim_design(2, 2, n = 10, seed = 910210)
-  rnd2 <- rnorm(1)
-  set.seed(1)
-  rnd0b <- rnorm(1)
-  rnd1b <- rnorm(1)
-  rnd2b <- rnorm(1)
-  df3 <- sim_design(2, 2, n = 10, seed = 8675309)
-  
-  expect_equal(df1, df2)
-  
-  expect_false(rnd1 == rnd2)
-  expect_equal(rnd0, rnd0b)
-  expect_equal(rnd1, rnd1b)
-  expect_equal(rnd2, rnd2b)
-  expect_true(!identical(df1, df3))
+  # # setting seed returns same DF, but is reset
+  # set.seed(1)
+  # rnd0 <- rnorm(1)
+  # df1 <- sim_design(2, 2, n = 10, seed = 910210)
+  # rnd1 <- rnorm(1)
+  # df2 <- sim_design(2, 2, n = 10, seed = 910210)
+  # rnd2 <- rnorm(1)
+  # set.seed(1)
+  # rnd0b <- rnorm(1)
+  # rnd1b <- rnorm(1)
+  # rnd2b <- rnorm(1)
+  # df3 <- sim_design(2, 2, n = 10, seed = 8675309)
+  # 
+  # expect_equal(df1, df2)
+  # 
+  # expect_false(rnd1 == rnd2)
+  # expect_equal(rnd0, rnd0b)
+  # expect_equal(rnd1, rnd1b)
+  # expect_equal(rnd2, rnd2b)
+  # expect_true(!identical(df1, df3))
   
   # user sets seed externally
   set.seed(1)
@@ -629,7 +630,4 @@ test_that("interactive", {
   expect_equal(names(d), c("B", "A"))
   
   close(f)
-  faux_options(connection = stdin())
 })
-
-faux_options(plot = TRUE)

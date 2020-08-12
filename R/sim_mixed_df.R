@@ -9,7 +9,6 @@
 #' @param dv the column name or index containing the DV
 #' @param sub_id the column name or index for the subject IDs
 #' @param item_id the column name or index for the item IDs
-#' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' 
 #' @return a tbl
 #' @examples
@@ -17,7 +16,7 @@
 #' @export
 
 sim_mixed_df <- function(data, sub_n = NULL, item_n = NULL, 
-                        dv = "y", sub_id = "sub_id", item_id = "item_id", seed = NULL) {
+                        dv = "y", sub_id = "sub_id", item_id = "item_id") {
   
   params <- check_mixed_design(data, dv, sub_id, item_id)
   
@@ -34,8 +33,7 @@ sim_mixed_df <- function(data, sub_n = NULL, item_n = NULL,
   }
   
   new_obs <- sim_mixed_cc(sub_n, item_n, params$grand_i, 
-                          params$sub_sd, params$item_sd, params$error_sd, 
-                          seed = seed)
+                          params$sub_sd, params$item_sd, params$error_sd)
   
   new_obs
 }

@@ -13,7 +13,6 @@
 #' @param id the names of the column(s) for grouping observations
 #' @param empirical Should the returned data have these exact parameters? (versus be sampled from a population with these parameters)
 #' @param long whether to return the data table in long format
-#' @param seed a single value, interpreted as an integer, or NULL (see set.seed)
 #' 
 #' @return a tbl
 #' @examples
@@ -23,20 +22,12 @@
 
 sim_df <- function (data, n = 100, within = c(), between = c(), 
                     id = "id", dv = "value",
-                    empirical = FALSE, long = FALSE, 
-                    seed = NULL) {
-  if (!is.null(seed)) {
-    # reinstate system seed after simulation
-    sysSeed <- .GlobalEnv$.Random.seed
-    on.exit({
-      if (!is.null(sysSeed)) {
-        .GlobalEnv$.Random.seed <- sysSeed 
-      } else {
-        rm(".Random.seed", envir = .GlobalEnv)
-      }
-    })
-    set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
-  }
+                    empirical = FALSE, long = FALSE) {
+  # if (!is.null(seed)) {
+  #   # reinstate system seed after simulation
+  #   gs <- global_seed(); on.exit(global_seed(gs))
+  #   set.seed(seed, kind = "Mersenne-Twister", normal.kind = "Inversion")
+  # }
   
   # error checking ------
   if ( !is.numeric(n) || n %% 1 > 0 || n < 3 ) {

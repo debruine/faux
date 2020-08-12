@@ -7,15 +7,6 @@
 #' 
 #' @return a list
 #' @keywords internal
-#' 
-#' @examples 
-#' 
-#' factors <- list(
-#'   speed = c(fast = "Fast Condition", slow = "Slow Condition"),
-#'   condition = c(A = "Condition A", B = "Condition B")
-#' )
-#' faux:::cell_combos(factors)
-#' 
 cell_combos <- function(factors, dv = "y") {
   if (length(factors) == 0) {
     cells = dv

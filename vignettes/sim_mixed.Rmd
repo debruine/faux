@@ -7,19 +7,24 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
+  fig.width = 8,
+  fig.height = 5,
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "100%"
 )
+ggplot2::theme_set(ggplot2::theme_bw())
+set.seed(8675309)
 ```
 
-```{r setup, warning=FALSE, message=FALSE}
-library(faux)
+```{r, warning=FALSE, message=FALSE}
 library(dplyr)
 library(tidyr)
-library(broom.mixed)
 library(lme4)
+library(broom.mixed)
+library(faux)
 ```
 
 The mixed design functions are extremely basic. I plan to work on more useful functions, but this [paper](https://osf.io/3cz2e/) provides a tutorial and examples for more complex designs. 

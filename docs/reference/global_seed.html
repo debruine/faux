@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get design from long data — get_design_long • faux</title>
+<title>Get or set seed — global_seed • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Get design from long data — get_design_long" />
-<meta property="og:description" content="Makes a best guess at the design of a long-format data frame." />
+<meta property="og:title" content="Get or set seed — global_seed" />
+<meta property="og:description" content="Get or set seed" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.3</span>
       </span>
     </div>
 
@@ -149,51 +149,29 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get design from long data</h1>
-    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/get_design_long.R'><code>R/get_design_long.R</code></a></small>
-    <div class="hidden name"><code>get_design_long.Rd</code></div>
+    <h1>Get or set seed</h1>
+    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/global_seed.R'><code>R/global_seed.R</code></a></small>
+    <div class="hidden name"><code>global_seed.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Makes a best guess at the design of a long-format data frame.</p>
+    <p>Get or set seed</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_design_long</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>dv</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>y</span> <span class='kw'>=</span> <span class='st'>"score"</span>),
-  <span class='kw'>id</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='kw'>id</span> <span class='kw'>=</span> <span class='st'>"id"</span>),
-  <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fu'><a href='faux_options.html'>faux_options</a></span>(<span class='st'>"plot"</span>)
-)</pre>
+    <pre class="usage"><span class='fu'>global_seed</span>(<span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
-      <td><p>the data frame (in long format)</p></td>
-    </tr>
-    <tr>
-      <th>dv</th>
-      <td><p>the column name that identifies the DV</p></td>
-    </tr>
-    <tr>
-      <th>id</th>
-      <td><p>the column name(s) that identify a unit of analysis</p></td>
-    </tr>
-    <tr>
-      <th>plot</th>
-      <td><p>whether to show a plot of the design</p></td>
+      <th>seed</th>
+      <td><p>The seed to set; gets global seed if NULL</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a design list</p>
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    <p>Finds all columns that contain a single value per unit of analysis (between factors), 
-all columns that contain the same values per unit of analysis (within factors), and 
-all columns that differ over units of analysis (dv, continuous factors)</p>
+    <p>The global seed (if seed argument is null)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

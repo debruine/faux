@@ -16,6 +16,8 @@ test_that("error", {
 
 set.seed(1)
 reps <- 1
+mapreps <- 1:100
+tol <- 0.1
 
 # unif2norm ----
 test_that("unif2norm", {
@@ -23,7 +25,7 @@ test_that("unif2norm", {
     mu <- runif(1, -100, 100)
     sd <- runif(1, 1, 5)
     
-    s <- purrr::map_df(1:1000, ~{
+    s <- purrr::map_df(mapreps, ~{
       x <- runif(100)
       y <- unif2norm(x, mu, sd)
       y2 <- rnorm(100, mu, sd)
@@ -32,7 +34,7 @@ test_that("unif2norm", {
            m_2 = mean(y2), sd_2 = sd(y2))
     }) 
     summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
-    expect_equal(summ, c(mu, sd, mu, sd), tolerance = 0.1)
+    expect_equal(summ, c(mu, sd, mu, sd), tolerance = tol)
   }
 })
 
@@ -42,7 +44,7 @@ test_that("norm2unif", {
     min <- runif(1, -100, 100)
     max <- min + runif(1, 1, 100)
     
-    s <- purrr::map_df(1:1000, ~{
+    s <- purrr::map_df(mapreps, ~{
       x <- rnorm(100)
       y <- norm2unif(x, min, max)
       
@@ -53,7 +55,7 @@ test_that("norm2unif", {
     })
     
     summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
-    expect_equal(summ, c(min, max, min, max), tolerance = 0.1)
+    expect_equal(summ, c(min, max, min, max), tolerance = tol)
   }
 })
 
@@ -62,7 +64,7 @@ test_that("norm2pois", {
   for (i in 1:reps) {
     lambda <- sample(1:10, 1)
     
-    s <- purrr::map_df(1:1000, ~{
+    s <- purrr::map_df(mapreps, ~{
       x <- rnorm(100)
       y <- norm2pois(x, lambda)
       
@@ -72,7 +74,7 @@ test_that("norm2pois", {
     })
     
     summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
-    expect_equal(summ, c(lambda, lambda), tolerance = 0.1)
+    expect_equal(summ, c(lambda, lambda), tolerance = tol)
   }
 })
 
@@ -90,7 +92,7 @@ test_that("norm2beta", {
     shape1 <- sample(1:10, 1)
     shape2 <- sample(1:10, 1)
     
-    s <- purrr::map_df(1:1000, ~{
+    s <- purrr::map_df(mapreps, ~{
       x <- rnorm(100)
       y <- norm2beta(x, shape1, shape2)
       
@@ -112,7 +114,7 @@ test_that("norm2binom", {
     prob <- runif(1)
     size <- sample(1:10, 1)
     
-    s <- purrr::map_df(1:1000, ~{
+    s <- purrr::map_df(mapreps, ~{
       x <- rnorm(100)
       y <- norm2binom(x, size, prob)
       
@@ -122,7 +124,7 @@ test_that("norm2binom", {
     })
     
     summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
-    expect_equal(summ, c(prob*size, prob*size), tolerance = 0.1)
+    expect_equal(summ, c(prob*size, prob*size), tolerance = tol)
   }
 })
 
@@ -134,7 +136,7 @@ test_that("norm2trunc", {
     mu <- (max + min)/2
     sd <- runif(1, 1, 5)
     
-    s <- purrr::map_df(1:1000, ~{
+    s <- purrr::map_df(mapreps, ~{
       x <- rnorm(100, mu, sd)
       y <- norm2trunc(x, min, max, mu, sd)
       
@@ -143,7 +145,7 @@ test_that("norm2trunc", {
            m_2 = mean(y2), sd_2 = sd(y2))
     }) 
     summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
-    expect_equal(summ, c(mu, sd, mu, sd), tolerance = 0.1)
+    expect_equal(summ, c(mu, sd, mu, sd), tolerance = tol)
   }
 })
 
@@ -177,7 +179,7 @@ test_that("trunc2norm", {
   
   # defaults
   for (i in 1:reps) {
-    s <- purrr::map_df(1:1000, ~{
+    s <- purrr::map_df(mapreps, ~{
       x <- truncnorm::rtruncnorm(100)
       suppressMessages(suppressWarnings(y <- trunc2norm(x)))
       y2 <- rnorm(100)
@@ -186,7 +188,7 @@ test_that("trunc2norm", {
            m_2 = mean(y2), sd_2 = sd(y2))
     }) 
     summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
-    expect_equal(summ, c(0, 1, 0, 1), tolerance = 0.1)
+    expect_equal(summ, c(0, 1, 0, 1), tolerance = tol)
   }
   
   # set min, max, mean and sd
@@ -196,7 +198,7 @@ test_that("trunc2norm", {
     mu <- (max + min)/2
     sd <- runif(1, 1, 5)
     
-    s <- purrr::map_df(1:1000, ~{
+    s <- purrr::map_df(mapreps, ~{
       x <- truncnorm::rtruncnorm(100, min, max, mu, sd)
       suppressWarnings(
         y <- trunc2norm(x, min, max, mu, sd)
@@ -207,7 +209,7 @@ test_that("trunc2norm", {
            m_2 = mean(y2), sd_2 = sd(y2))
     }) 
     summ <- dplyr::summarise_all(s, mean) %>% unlist() %>% unname()
-    expect_equal(summ, c(mu, sd, mu, sd), tolerance = 0.1)
+    expect_equal(summ, c(mu, sd, mu, sd), tolerance = tol)
   }
 })
 
@@ -220,19 +222,19 @@ test_that("norm2likert", {
   expect_error(norm2likert(x, 2), "argument \"prob\" must add up to 1")
   
   y <- norm2likert(x, c(.25, .5, .25))
-  expect_equal(mean(y == 1), .25, tolerance = 0.1)
-  expect_equal(mean(y == 2), .50, tolerance = 0.1)
-  expect_equal(mean(y == 3), .25, tolerance = 0.1)
+  expect_equal(mean(y == 1), .25, tolerance = tol)
+  expect_equal(mean(y == 2), .50, tolerance = tol)
+  expect_equal(mean(y == 3), .25, tolerance = tol)
   
   y <- norm2likert(x, c(.1, .2, .3, .4))
-  expect_equal(mean(y == 1), .1, tolerance = 0.1)
-  expect_equal(mean(y == 2), .2, tolerance = 0.1)
-  expect_equal(mean(y == 3), .3, tolerance = 0.1)
-  expect_equal(mean(y == 4), .4, tolerance = 0.1)
+  expect_equal(mean(y == 1), .1, tolerance = tol)
+  expect_equal(mean(y == 2), .2, tolerance = tol)
+  expect_equal(mean(y == 3), .3, tolerance = tol)
+  expect_equal(mean(y == 4), .4, tolerance = tol)
   
   y <- norm2likert(x, c(.4, .3, .2, .1))
-  expect_equal(mean(y == 1), .4, tolerance = 0.1)
-  expect_equal(mean(y == 2), .3, tolerance = 0.1)
-  expect_equal(mean(y == 3), .2, tolerance = 0.1)
-  expect_equal(mean(y == 4), .1, tolerance = 0.1)
+  expect_equal(mean(y == 1), .4, tolerance = tol)
+  expect_equal(mean(y == 2), .3, tolerance = tol)
+  expect_equal(mean(y == 3), .2, tolerance = tol)
+  expect_equal(mean(y == 4), .1, tolerance = tol)
 })

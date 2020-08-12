@@ -1,7 +1,7 @@
 Package: faux
 Title: Simulation for Factorial Designs
-Version: 0.0.1.2
-Date: 2020-08-03
+Version: 0.0.1.4
+Date: 2020-08-12
 Authors@R: c(
     person(
         given = "Lisa", 

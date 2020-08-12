@@ -1,7 +1,11 @@
+user_opts <- faux_options("sep", "verbose", "plot", "connection")
+on.exit(faux_options(user_opts))
+
+set.seed(8675309)
+data <- sim_design()
+
 # defaults ----
 test_that("defaults", {
-  data <- sim_design(seed = 8675309)
-  
   cb <- codebook(data)
   
   compare <- '{
@@ -32,7 +36,6 @@ test_that("defaults", {
 
 # warnings ----
 test_that("warnings", {
-  data <- sim_design(seed = 8675309)
   # all valid properties
   vardesc <- list("description" = c(id = "Subject ID"), 
                   "privacy" = c(T, F), 
@@ -144,7 +147,8 @@ test_that("no name", {
 
 # no vardesc ----
 test_that("no vardesc", {
-  data <- sim_design(2, 2, seed = 8675309, plot = FALSE)
+  set.seed(8675309)
+  data <- sim_design(2, 2, plot = FALSE)
   cb <- codebook(data, return = "list")
   
   vm <- cb$variableMeasured
@@ -195,7 +199,8 @@ test_that("named factor levels", {
 
 # with vardesc ----
 test_that("with vardesc", {
-  data <- sim_design(2, 2, seed = 8675309, plot = FALSE)
+  set.seed(8675309)
+  data <- sim_design(2, 2, plot = FALSE)
   vardesc <- list(description = c(id = "Subject ID",
                                   B = "Between-subject factor",
                                   A1 = "Condition 1",
@@ -224,7 +229,8 @@ test_that("with vardesc", {
 })
 
 test_that("ignores extra vardesc", {
-  data <- sim_design(2, 2, seed = 8675309, plot = FALSE)
+  set.seed(8675309)
+  data <- sim_design(2, 2,, plot = FALSE)
   vardesc <- list(description = c(id = "Subject ID",
                                   B = "Between-subject factor",
                                   C = "Extra Factor",
@@ -382,12 +388,15 @@ test_that("interactive", {
   data <- data.frame(x = rnorm(10))
   f <- file()
   write("\nxx", f)
-  options(faux.connection = f)
+  faux_options(connection = f)
+  on.exit({
+    faux_options(connection = stdin()) # reset connection
+    close(f) # close the file
+  })
+  
   ol <- capture_output_lines(
     cb <- codebook(data, interactive = TRUE, return = "list")
   )
-  options(faux.connection = stdin()) # reset connection
-  close(f) # close the file
   
   x <- cb$variableMeasured[[1]]
   expect_equal(x$description, "xx")

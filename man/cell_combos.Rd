@@ -17,13 +17,4 @@ a list
 \description{
 Creates wide cell combination names, such as A1_B1, A2_B1, A1_B2, A2_B2.
 }
-\examples{
-
-factors <- list(
-  speed = c(fast = "Fast Condition", slow = "Slow Condition"),
-  condition = c(A = "Condition A", B = "Condition B")
-)
-faux:::cell_combos(factors)
-
-}
 \keyword{internal}

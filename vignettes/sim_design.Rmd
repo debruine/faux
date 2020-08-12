@@ -14,13 +14,15 @@ knitr::opts_chunk$set(
   fig.width = 8,
   fig.height = 5,
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  out.width = "100%"
 )
+ggplot2::theme_set(ggplot2::theme_bw())
+set.seed(8675309)
+```
 
-library(dplyr)
-library(tidyr)
+```{r, warning=FALSE, message=FALSE}
 library(faux)
-set.seed(200)
 ```
 
 The `sim_design()` function creates a dataset with a specific between- and within-subjects design. 
@@ -381,12 +383,16 @@ plot_design(df)
 You can access an individual data frame using `df$data[[1]]` or run the same function on each data frame using a pattern like below:
 
 ```{r}
+# using tidyverse functions
+analyse <- function(data) {
+  stats::aov(y ~ B * A + Error(id/A), data = data) %>% 
+    broom::tidy()
+}
+
 df %>%
-  mutate(analysis = purrr::map(data, function(data) {
-    stats::aov(y ~ B * A + Error(id/A), data = data) %>% 
-      broom::tidy()
-  })) %>%
-  select(-data) %>%
-  unnest(analysis)
+  dplyr::mutate(analysis = lapply(data, analyse)) %>%
+  dplyr::select(-data) %>%
+  tidyr::unnest(analysis)
 ```
+
 

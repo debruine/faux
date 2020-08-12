@@ -1,4 +1,5 @@
-context("rnorm_pre")
+set.seed(90210)
+tol <- 0.1
 
 test_that("error messages", {
   expect_error(rnorm_pre(matrix(1:9, 3, 3)), "x must be a vector")
@@ -42,7 +43,7 @@ test_that("empirical = FALSE", {
   r <- 0
   mu <- 0
   sd <- 1
-  simdat <- purrr::map_df(1:1000, ~{
+  simdat <- purrr::map_df(1:100, ~{
     v1 <- rnorm(n)
     v2 <- rnorm_pre(v1, mu, sd, r)
     
@@ -53,11 +54,11 @@ test_that("empirical = FALSE", {
     )
   })
   
-  expect_equal(mean(simdat$mu), mu, tolerance = .01)
-  expect_equal(mean(simdat$sd), sd, tolerance = .01)
-  expect_equal(mean(simdat$r), r, tolerance = .01)
+  expect_equal(mean(simdat$mu), mu, tolerance = tol)
+  expect_equal(mean(simdat$sd), sd, tolerance = tol)
+  expect_equal(mean(simdat$r), r, tolerance = tol)
   
-  expect_equal(sd(simdat$mu), sd / sqrt(n), tolerance = .01)
-  expect_equal(sd(simdat$sd), sd / sqrt(2*n), tolerance = .01)
-  expect_equal(sd(simdat$r), sqrt(1/n) * (1-r^2), tolerance = .01)
+  expect_equal(sd(simdat$mu), sd / sqrt(n), tolerance = tol)
+  expect_equal(sd(simdat$sd), sd / sqrt(2*n), tolerance = tol)
+  expect_equal(sd(simdat$r), sqrt(1/n) * (1-r^2), tolerance = tol)
 })

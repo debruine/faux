@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.2</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.4</span>
       </span>
     </div>
 
@@ -192,7 +192,7 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
 <span class='no'>x</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>truncnorm</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/truncnorm/man/dtruncnorm.html'>rtruncnorm</a></span>(<span class='fl'>10000</span>, <span class='fl'>1</span>, <span class='fl'>7</span>, <span class='fl'>3.5</span>, <span class='fl'>2</span>)
-<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>trunc2norm</span>(<span class='no'>x</span>, <span class='fl'>1</span>, <span class='fl'>7</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>mu was set to 3.73237635720503</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>sd was set to 1.47353558610771</span><span></span></div><div class='input'><span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() + <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
+<span class='no'>y</span> <span class='kw'>&lt;-</span> <span class='fu'>trunc2norm</span>(<span class='no'>x</span>, <span class='fl'>1</span>, <span class='fl'>7</span>)</div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>mu was set to 3.73077559382645</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>sd was set to 1.47408109949904</span><span></span></div><div class='input'><span class='no'>g</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span>() + <span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span>(<span class='kw pkg'>ggplot2</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span>(<span class='no'>x</span>, <span class='no'>y</span>))
 <span class='kw pkg'>ggExtra</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/ggExtra/man/ggMarginal.html'>ggMarginal</a></span>(<span class='no'>g</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"histogram"</span>)</div><div class='img'><img src='trunc2norm-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></span></pre>
   </div>

@@ -12,7 +12,7 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
+#' if(interactive()){
 #' readline_check("Type a number: ", "numeric")
 #' readline_check("Type two characters: ", "length", min = 2, max = 2)
 #' readline_check("Type at least 3 characters: ", "length", min = 3)

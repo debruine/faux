@@ -12,6 +12,7 @@
 ^README_files$
 ^figure$
 ^data-raw$
+^mess$
 ^docs$
 ^shiny$
 ^pkgdown$
