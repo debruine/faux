@@ -20,3 +20,4 @@
 ^\.Rproj\.user$
 ^CRAN-RELEASE$
 ^LICENSE\.md$
+^cran-comments\.md$
