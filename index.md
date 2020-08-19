@@ -1,3 +1,7 @@
+---
+output: github_document
+---
+
 # faux <img src="reference/figures/logo.png" align="right" alt="" width="120" />
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -17,13 +21,18 @@ It is useful to be able to simulate data with a specified structure. The `faux` 
 
 ## Installation
 
-You can install the development version of faux from [GitHub](https://github.com/debruine/faux) with:
+You can install the released version of faux from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
-devtools::install_github("debruine/faux")
+install.packages("faux")
 ```
 
-Because faux is still in early development, some features might break in future versions. Include sessioninfo::package_info() in your script to list the versions of all loaded packages.
+And the development version from [GitHub](https://github.com/debruine/faux) with:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("debruine/faux")
+```
 
 ## Quick overview
 
