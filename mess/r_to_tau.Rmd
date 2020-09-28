@@ -1,0 +1,157 @@
+---
+title: "R to Tau"
+author: "Lisa DeBruine"
+date: "31/08/2020"
+output: html_document
+---
+  
+```{r}
+knitr::opts_chunk$set(echo = TRUE, out.width = "100%", plot.width = 8, plot.height = 6)
+library(lme4)
+library(faux)
+library(tidyverse)
+```
+
+## Function
+
+Simulates data for DV `y` with `n_subj` subjects doing `n_trials` repeated trials across 2 conditions (`B`) with effect size `beta`. The subject random intercept SD is `tau_0` and the error SD is `sigma`.
+
+Runs a mixed model with formula `y ~ B + (1 | id)` and a Cronbach's alpha.
+
+```{r}
+x <- function(n_subj = 10, 
+              n_trials = 10, 
+              beta = 0, 
+              tau_0 = 0, 
+              sigma = 1) {
+  subj <- data.frame(
+    id = 1:n_subj,
+    T_0s = rnorm(n_subj, 0, tau_0),
+    B = rep(c(-0.5, 0.5), n_subj/2)
+  )
+  
+  dat <- crossing(subj, trial = 1:n_trials) %>%
+    mutate(err = rnorm(nrow(.), 0, sigma),
+           y = B*beta + T_0s + err)
+
+  mod <- lmer(y ~ B + (1 | id), dat)
+  
+  # so much output to trash!
+  trash <- suppressWarnings(
+    suppressMessages(
+      capture.output(
+        alpha <- dat %>%
+          select(id, trial, y) %>%
+          spread(trial, y) %>%
+          select(-id) %>%
+          psych::alpha(warnings = FALSE, check.keys = FALSE) %>% summary()
+  )))
+  
+  list(
+    # params
+    n_trials = n_trials,
+    n_subj = n_subj,
+    beta = beta,
+    tau_0 = tau_0,
+    sigma = sigma, 
+    # psych::alpha output
+    std.alpha = alpha$std.alpha,
+    raw.alpha = alpha$raw_alpha,
+    average_r = alpha$average_r,
+    # lmer output
+    B = fixef(mod)[[2]],
+    T0 = sqrt(unlist(VarCorr(mod))),
+    S =  sigma(mod)
+  )
+}
+```
+
+
+```{r eval = FALSE}
+params <- expand.grid(
+  rep = 1:10,
+  beta = seq(0, 1, .25),
+  n_trials = c(10, 20),
+  n_subj = c(10, 20),
+  tau_0 = seq(0, 1.5, .25),
+  sigma = seq(0.5, 1.5, .25)
+) %>%
+  select(-rep)
+y <- purrr::pmap_df(params, x)
+
+save(y, file = "y")
+```
+
+
+```{r}
+load("y")
+```
+
+
+```{r}
+dat <- y %>%
+  mutate(
+    calc_avg_r = std_alpha2average_r(std.alpha, n_trials),
+    prop_var = tau_0^2 / (tau_0^2 + sigma^2),
+    calc_tau_0 = average_r2tau_0(calc_avg_r, sigma)) %>%
+  group_by(n_subj, n_trials, beta, tau_0, sigma) %>%
+  summarise(calc_tau_0 = mean(calc_tau_0, na.rm = T),
+            std.alpha = mean(std.alpha, na.rm = T), 
+            avg_r = mean(average_r, na.rm = T),
+            prop_var = mean(prop_var, na.rm = T),
+            calc_avg_r = mean(calc_avg_r, na.rm = T),
+            T0 = mean(T0, na.rm = T),
+            S = mean(S, na.rm = T),
+            B = mean(B, na.rm = T),
+            .groups = "drop")
+```
+
+## Parameter tau_0 versus estimate T0
+```{r}
+ggplot(dat, aes(tau_0, T0, color = as.factor(n_trials))) +
+  geom_abline(slope = 1) + 
+  geom_point(alpha = 0.5) + 
+  facet_grid(beta~sigma, labeller = label_both)
+```
+
+## Parameter tau_0 versus estimate from std_alpha
+```{r}
+ggplot(dat, aes(tau_0, calc_tau_0, color = sigma)) +
+  geom_abline(slope = 1) + 
+  geom_point(alpha = .2) + 
+  stat_summary(fun = "mean", geom = "point", size = 3) +
+  facet_grid(~beta, labeller = label_both)
+```
+
+## Parameter sigma versus estimate S
+```{r}
+ggplot(dat, aes(sigma, S, color = tau_0)) +
+  geom_point() + 
+  geom_abline(slope = 1) + 
+  facet_grid(n_trials~n_subj)
+```
+
+## Parameter beta versus estimate B
+```{r}
+ggplot(dat, aes(beta, B, color = tau_0)) +
+  geom_abline(slope = 1) + 
+  geom_point(alpha = .5) + 
+  stat_summary(fun = "mean", geom = "point", size = 3) +
+  facet_grid(sigma~tau_0, labeller = label_both)
+``` 
+
+## Estimate average_r versus calculated average_r
+```{r}
+ggplot(dat, aes(avg_r, calc_avg_r, color = sigma)) +
+  geom_point() + 
+  geom_abline(slope = 1) + 
+  facet_grid(beta~sigma, labeller = label_both)
+```
+
+## Parameter proportion variance versus calculated average_r
+```{r}
+ggplot(dat, aes(prop_var, calc_avg_r, color = beta)) +
+  geom_point() + 
+  geom_abline(slope = 1) + 
+  facet_grid(beta~sigma, labeller = label_both)
+```
