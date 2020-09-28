@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.5</span>
       </span>
     </div>
 
@@ -103,7 +103,13 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/codebook.html">Codebook Demo</a>
+      <a href="../articles/sim_design.html">Simulate by Design</a>
+    </li>
+    <li>
+      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
+    </li>
+    <li>
+      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
     </li>
     <li>
       <a href="../articles/continuous.html">Continuous Predictors</a>
@@ -112,16 +118,10 @@
       <a href="../articles/plots.html">Plotting</a>
     </li>
     <li>
-      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
-    </li>
-    <li>
-      <a href="../articles/sim_design.html">Simulate by Design</a>
-    </li>
-    <li>
-      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
-    </li>
-    <li>
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
+    </li>
+    <li>
+      <a href="../articles/codebook.html">Codebook Demo</a>
     </li>
   </ul>
 </li>
@@ -165,7 +165,8 @@
   <span class='kw'>sub_sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>item_sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>error_sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -198,6 +199,10 @@
     <tr>
       <th>empirical</th>
       <td><p>Should the returned data have these exact parameters? (versus be sampled from a population with these parameters)</p></td>
+    </tr>
+    <tr>
+      <th>seed</th>
+      <td><p>DEPRECATED use set.seed() instead</p></td>
     </tr>
     </table>
 
