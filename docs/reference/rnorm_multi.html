@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.6</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/debruine/faux/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -158,17 +158,17 @@
     <p>Make normally distributed vectors with specified relationships. See <a href='../doc/rnorm_multi.html'><code><a href='../articles/rnorm_multi.html'>vignette("rnorm_multi", package = "faux")</a></code></a> for details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rnorm_multi</span>(
-  <span class='no'>n</span>,
-  <span class='kw'>vars</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>mu</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>sd</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>r</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>varnames</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>empirical</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>as.matrix</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>seed</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
-)</pre>
+    <pre class="usage"><span class='fu'>rnorm_multi</span><span class='op'>(</span>
+  <span class='va'>n</span>,
+  vars <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mu <span class='op'>=</span> <span class='fl'>0</span>,
+  sd <span class='op'>=</span> <span class='fl'>1</span>,
+  r <span class='op'>=</span> <span class='fl'>0</span>,
+  varnames <span class='op'>=</span> <span class='cn'>NULL</span>,
+  empirical <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  as.matrix <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  seed <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -216,7 +216,8 @@
     <p>a tbl of vars vectors</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>rnorm_multi</span>(<span class='fl'>100</span>, <span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>0.2</span>, <span class='fl'>0.4</span>, <span class='fl'>0.5</span>), <span class='kw'>varnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>))</div><div class='output co'>#&gt;                A           B            C
+    <pre class="examples"><div class='input'><span class='fu'>rnorm_multi</span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='fl'>0.4</span>, <span class='fl'>0.5</span><span class='op'>)</span>, varnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;                A           B            C
 #&gt; 1   -0.031164989 -0.48416524 -0.607375989
 #&gt; 2   -0.290046163  0.10501131  0.291631309
 #&gt; 3    1.688621841  0.27019969  1.607796739
@@ -316,7 +317,8 @@
 #&gt; 97   1.615540439  0.40076976  0.239514983
 #&gt; 98  -0.171941987  0.40161232  0.410496962
 #&gt; 99   0.069848823  0.15154019  1.027457851
-#&gt; 100  1.642966478  1.00439841  1.167481073</div><div class='input'><span class='fu'>rnorm_multi</span>(<span class='fl'>100</span>, <span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0.2</span>, -<span class='fl'>0.5</span>, <span class='fl'>0.2</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, -<span class='fl'>0.5</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span>), <span class='kw'>varnames</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span>))</div><div class='output co'>#&gt;               A             B           C
+#&gt; 100  1.642966478  1.00439841  1.167481073</div><div class='input'><span class='fu'>rnorm_multi</span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>3</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0.2</span>, <span class='op'>-</span><span class='fl'>0.5</span>, <span class='fl'>0.2</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span>, <span class='op'>-</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span>, <span class='fl'>1</span><span class='op'>)</span>, varnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;               A             B           C
 #&gt; 1    0.53812566 -1.4352349159 -1.33286140
 #&gt; 2   -0.34219863  0.6138994463  0.14068087
 #&gt; 3    0.46951083  1.4443882573 -0.18869774
@@ -433,7 +435,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -12,7 +12,7 @@ test_that("empty", {
   expect_equal(nested_list(""), ac(""))
   
   x <- list(list(list()))
-  comp <- "1. \n  1. {empty}" %>% ac()
+  comp <- "1.     1. {empty}" %>% ac()
   expect_equal(nested_list(x), comp)
 })
 
@@ -88,17 +88,17 @@ test_that("named lists", {
 ## nested lists ----
 test_that("nested lists", {
   x <- list(list("A", "B"), list("C", "D"))
-  comp <- paste0("1. \n  1. A\n  2. B\n",
-                 "2. \n  1. C\n  2. D") %>% ac()
+  comp <- paste0("1. \n    1. A\n    2. B\n",
+                 "2. \n    1. C\n    2. D") %>% ac()
   expect_equal(nested_list(x), comp)
   
   x <- list(x1 = list("A", "B"), x2 = list("C", "D"))
-  comp <- paste0("* x1: \n  1. A\n  2. B\n",
-                 "* x2: \n  1. C\n  2. D") %>% ac()
+  comp <- paste0("* x1: \n    1. A\n    2. B\n",
+                 "* x2: \n    1. C\n    2. D") %>% ac()
   expect_equal(nested_list(x), comp)
   
   x <- list(x1 = list(a = "A", b = "B"), x2 = list())
-  comp <- paste0("* x1: \n  * a: A\n  * b: B\n",
+  comp <- paste0("* x1: \n    * a: A\n    * b: B\n",
                  "* x2: {empty}") %>% ac()
   expect_equal(nested_list(x), comp)
 })
@@ -155,30 +155,30 @@ test_that("example", {
   )
   
   comp <- "* a: 
-  * a1: Named
-  * a2: List
+    * a1: Named
+    * a2: List
 * b: 
-  1. Unnamed
-  2. List
+    1. Unnamed
+    2. List
 * c: 
-  * c1: Named
-  * c2: Vector
+    * c1: Named
+    * c2: Vector
 * d: 
-  1. Unnamed
-  2. Vector
+    1. Unnamed
+    2. Vector
 * e: 
-  * e1: 
-    1. A
-    2. B
-    3. C
-  * e2: 
-    * a: A
-    * b: B
-  * e3: 
-    1. A
-    2. B
-    3. C
-  * e4: 100
+    * e1: 
+        1. A
+        2. B
+        3. C
+    * e2: 
+        * a: A
+        * b: B
+    * e3: 
+        1. A
+        2. B
+        3. C
+    * e4: 100
 * f: not a list or vector" %>% ac()
   
   expect_equal(nested_list(x), comp)

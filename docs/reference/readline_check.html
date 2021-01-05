@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.6</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/debruine/faux/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -158,15 +158,15 @@
     <p>Check readline input</p>
     </div>
 
-    <pre class="usage"><span class='fu'>readline_check</span>(
-  <span class='no'>prompt</span>,
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"numeric"</span>, <span class='st'>"integer"</span>, <span class='st'>"length"</span>, <span class='st'>"grep"</span>),
-  <span class='kw'>min</span> <span class='kw'>=</span> -<span class='fl'>Inf</span>,
-  <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>Inf</span>,
-  <span class='kw'>warning</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>default</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>readline_check</span><span class='op'>(</span>
+  <span class='va'>prompt</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"numeric"</span>, <span class='st'>"integer"</span>, <span class='st'>"length"</span>, <span class='st'>"grep"</span><span class='op'>)</span>,
+  min <span class='op'>=</span> <span class='op'>-</span><span class='cn'>Inf</span>,
+  max <span class='op'>=</span> <span class='cn'>Inf</span>,
+  warning <span class='op'>=</span> <span class='cn'>NULL</span>,
+  default <span class='op'>=</span> <span class='cn'>NULL</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -206,13 +206,14 @@
     <p>the validated result of readline</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span>(<span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span>()){
-<span class='fu'>readline_check</span>(<span class='st'>"Type a number: "</span>, <span class='st'>"numeric"</span>)
-<span class='fu'>readline_check</span>(<span class='st'>"Type two characters: "</span>, <span class='st'>"length"</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>2</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>2</span>)
-<span class='fu'>readline_check</span>(<span class='st'>"Type at least 3 characters: "</span>, <span class='st'>"length"</span>, <span class='kw'>min</span> <span class='kw'>=</span> <span class='fl'>3</span>)
-<span class='fu'>readline_check</span>(<span class='st'>"Type no more than 4 characters: "</span>, <span class='st'>"length"</span>, <span class='kw'>max</span> <span class='kw'>=</span> <span class='fl'>44</span>)
-<span class='fu'>readline_check</span>(<span class='st'>"Type a letter and a number: "</span>, <span class='st'>"grep"</span>, <span class='kw'>pattern</span> <span class='kw'>=</span> <span class='st'>"^[a-zA-Z]\\d$"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/interactive.html'>interactive</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>{</span>
+<span class='fu'>readline_check</span><span class='op'>(</span><span class='st'>"Type a number: "</span>, <span class='st'>"numeric"</span><span class='op'>)</span>
+<span class='fu'>readline_check</span><span class='op'>(</span><span class='st'>"Type two characters: "</span>, <span class='st'>"length"</span>, min <span class='op'>=</span> <span class='fl'>2</span>, max <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'>readline_check</span><span class='op'>(</span><span class='st'>"Type at least 3 characters: "</span>, <span class='st'>"length"</span>, min <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>readline_check</span><span class='op'>(</span><span class='st'>"Type no more than 4 characters: "</span>, <span class='st'>"length"</span>, max <span class='op'>=</span> <span class='fl'>44</span><span class='op'>)</span>
+<span class='fu'>readline_check</span><span class='op'>(</span><span class='st'>"Type a letter and a number: "</span>, <span class='st'>"grep"</span>, pattern <span class='op'>=</span> <span class='st'>"^[a-zA-Z]\\d$"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -228,7 +229,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

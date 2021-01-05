@@ -17,7 +17,8 @@
 #'            e2 = list(a = "A", b = "B"),
 #'            e3 = c("A", "B", "C"),
 #'            e4 = 100),
-#'   f = "not a list or vector"
+#'   f = "single item vector",
+#'   g = list()
 #' )
 #' nested_list(x)
 nested_list <- function(x, pre = "", quote = "") {
@@ -29,14 +30,14 @@ nested_list <- function(x, pre = "", quote = "") {
       jsonlite::fromJSON()
     
     txt <- c("```r", fnc, "```") %>%
-      paste0(pre, "  ", .)
-  } else if (!is.null(x) & !is.vector(x) & !is.list(x)) {
+      paste0(pre, .)
+  } else if (!is.null(x) & !is.atomic(x) & !is.vector(x) & !is.list(x)) {
     # not a displayable type
     txt <- class(x)[1] %>% paste0("{", ., "}")
   } else if (is.null(x) | length(x) == 0) {
     txt <- "{empty}"
-  } else if (length(x) == 1 & 
-             is.null(names(x)) & 
+  } else if (length(x) == 1 &
+             is.null(names(x)) &
              !is.list(x)) { # single-item unnamed vector
     txt <- paste0(quote, x, quote)
   } else { # x is a list, named vector, or vector length > 1
@@ -50,11 +51,12 @@ nested_list <- function(x, pre = "", quote = "") {
       bullet <- paste0("* ", list_names, ": ")
     }
     
-    pre2 <- paste0(pre, "  ")
+    pre2 <- paste0(pre, "    ")
     txt <- lapply(seq_along(x), function(i) {
       item <- x[[i]]
-      sub <- nested_list(item, pre2, quote) 
-      lbreak <- ifelse(length(item) > 1 | (is.list(item) & length(item) > 0), "\n", "")
+      sub <- nested_list(item, pre2, quote)
+      # add line break unless item is unnamed and length = 1
+      lbreak <- ifelse(length(item) > 1 | (length(names(item)) > 0), "\n", "")
       if (grepl("\n", sub)) lbreak <- "\n"
       paste0(pre, bullet[i], lbreak, sub)
     })

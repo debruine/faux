@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.6</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/debruine/faux/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -158,15 +158,15 @@
     <p>See <a href='../doc/codebook.html'><code><a href='../articles/codebook.html'>vignette("codebook", package = "faux")</a></code></a> for details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>codebook</span>(
-  <span class='no'>data</span>,
-  <span class='kw'>name</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>vardesc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='no'>...</span>,
-  <span class='kw'>schemaVersion</span> <span class='kw'>=</span> <span class='st'>"Psych-DS 0.1.0"</span>,
-  <span class='kw'>return</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"json"</span>, <span class='st'>"list"</span>, <span class='st'>"data"</span>),
-  <span class='kw'>interactive</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>codebook</span><span class='op'>(</span>
+  <span class='va'>data</span>,
+  name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  vardesc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>,
+  schemaVersion <span class='op'>=</span> <span class='st'>"Psych-DS 0.1.0"</span>,
+  return <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"json"</span>, <span class='st'>"list"</span>, <span class='st'>"data"</span><span class='op'>)</span>,
+  interactive <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -207,15 +207,16 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>vardesc</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(
-  <span class='kw'>description</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"Length of the sepal"</span>,
+<span class='va'>vardesc</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>
+  description <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Length of the sepal"</span>,
                   <span class='st'>"Width of the sepal"</span>,
                   <span class='st'>"Length of the petal"</span>,
                   <span class='st'>"Width of the petal"</span>,
-                  <span class='st'>"The flower species"</span>),
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"float"</span>, <span class='st'>"float"</span>, <span class='st'>"float"</span>, <span class='st'>"float"</span>, <span class='st'>"string"</span>)
-)
-<span class='fu'>codebook</span>(<span class='no'>iris</span>, <span class='kw'>vardesc</span> <span class='kw'>=</span> <span class='no'>vardesc</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The following variable properties are not standard: type</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to dataType string</span><span></span></div><div class='output co'>#&gt; {
+                  <span class='st'>"The flower species"</span><span class='op'>)</span>,
+  type <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"float"</span>, <span class='st'>"float"</span>, <span class='st'>"float"</span>, <span class='st'>"float"</span>, <span class='st'>"string"</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='fu'>codebook</span><span class='op'>(</span><span class='va'>iris</span>, vardesc <span class='op'>=</span> <span class='va'>vardesc</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The following variable properties are not standard: type</span></div><div class='output co'>#&gt; <span class='message'><span style='color: #00BB00;'>Sepal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Sepal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Length set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Petal.Width set to dataType float</span><span></span></div><div class='output co'>#&gt; <span class='message'></span><span style='color: #00BB00;'>Species set to dataType string</span><span></span></div><div class='output co'>#&gt; {
 #&gt;     "@context": "https://schema.org/",
 #&gt;     "@type": "Dataset",
 #&gt;     "name": "iris",
@@ -281,7 +282,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

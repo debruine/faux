@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.6</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -90,7 +90,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/debruine/faux/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -117,7 +117,8 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">faux</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span></pre></div>
 <div id="plotting-designs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-designs" class="anchor"></a>Plotting Designs</h2>
@@ -125,51 +126,57 @@
 <div id="one-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#one-factor-designs" class="anchor"></a>One-factor designs</h3>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
-<span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fl">2</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
-<span class="no">p3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fl">3</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
-<span class="no">p4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fl">4</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
-<span class="no">p5</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fl">5</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
-<span class="no">p6</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fl">6</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span>plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">3</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">4</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">6</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="kw pkg">cowplot</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="no">p1</span>, <span class="no">p2</span>, <span class="no">p3</span>, <span class="no">p4</span>, <span class="no">p5</span>, <span class="no">p6</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">2</span>)</pre></body></html></div>
+<span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>, <span class="va">p3</span>, <span class="va">p4</span>, <span class="va">p5</span>, <span class="va">p6</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-2-1.png" width="100%"></p>
 </div>
 <div id="two-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#two-factor-designs" class="anchor"></a>Two-factor designs</h3>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">4</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
-<span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">3</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">6</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
-<span class="no">p3</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">4</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">8</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
-<span class="no">p4</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>,<span class="fl">2</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">6</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
-<span class="no">p5</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>,<span class="fl">3</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">9</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
-<span class="no">p6</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">3</span>,<span class="fl">4</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">12</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>()
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">4</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p4</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">2</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">6</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p5</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">3</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">9</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
+<span class="va">p6</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="op">)</span>
 
-<span class="kw pkg">cowplot</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="no">p1</span>, <span class="no">p2</span>, <span class="no">p3</span>, <span class="no">p4</span>, <span class="no">p5</span>, <span class="no">p6</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
+<span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>, <span class="va">p3</span>, <span class="va">p4</span>, <span class="va">p5</span>, <span class="va">p6</span>, nrow <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-3-1.png" width="100%"></p>
 </div>
 <div id="three-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#three-factor-designs" class="anchor"></a>Three-factor designs</h3>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">2</span>^<span class="fl">3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">^</span><span class="fl">3</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-4-1.png" width="100%"></p>
 </div>
 <div id="four-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#four-factor-designs" class="anchor"></a>Four-factor designs</h3>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">2</span>^<span class="fl">4</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">^</span><span class="fl">4</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-5-1.png" width="100%"></p>
 </div>
 <div id="five-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#five-factor-designs" class="anchor"></a>Five-factor designs</h3>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:(<span class="fl">2</span>^<span class="fl">5</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit">
+<span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fl">2</span><span class="op">^</span><span class="fl">5</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-6-1.png" width="100%"></p>
 </div>
 <div id="six-factor-designs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#six-factor-designs" class="anchor"></a>Six-factor designs</h3>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/check_design.html">check_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:(<span class="fl">2</span>^<span class="fl">6</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="op">(</span><span class="fl">2</span><span class="op">^</span><span class="fl">6</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
 </div>
 </div>
@@ -180,43 +187,52 @@
 <div id="one-factor-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#one-factor-data" class="anchor"></a>One-factor data</h3>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="fl">2</span>, <span class="fl">2</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="fl">20</span>, <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">4</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, n <span class="op">=</span> <span class="fl">20</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-8-1.png" width="100%"></p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"violin"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-9-1.png" width="100%"></p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"box"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, geoms <span class="op">=</span> <span class="st">"box"</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-10-1.png" width="100%"></p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"pointrangeSD"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, geoms <span class="op">=</span> <span class="st">"pointrangeSD"</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-11-1.png" width="100%"></p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"violin"</span>, <span class="st">"pointrangeSE"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, geoms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"violin"</span>, <span class="st">"pointrangeSE"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-12-1.png" width="100%"></p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"violin"</span>, <span class="st">"jitter"</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, geoms <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"violin"</span>, <span class="st">"jitter"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-13-1.png" width="100%"></p>
 </div>
 <div id="two-factor-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#two-factor-data" class="anchor"></a>Two-factor data</h3>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="fl">2</span>, <span class="fl">2</span>, <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">4</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit">
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-14-1.png" width="100%"></p>
 </div>
 <div id="change-order-of-factors" class="section level3">
 <h3 class="hasAnchor">
 <a href="#change-order-of-factors" class="anchor"></a>Change order of factors</h3>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">data</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>), <span class="kw">n</span> <span class="kw">=</span> <span class="fl">50</span>, <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">8</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">16</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-<span class="no">abc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"violin"</span>)
-<span class="no">acb</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"violin"</span>)
-<span class="no">bac</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"violin"</span>)
-<span class="no">bca</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"violin"</span>)
-<span class="no">cab</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"violin"</span>)
-<span class="no">cba</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="no">data</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="kw">geoms</span> <span class="kw">=</span> <span class="st">"violin"</span>)
+<div class="sourceCode" id="cb15"><pre class="downlit">
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">50</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, sd <span class="op">=</span> <span class="fl">16</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="va">abc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">acb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">bac</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">bca</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">cab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">cba</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
 
-<span class="kw pkg">cowplot</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="no">abc</span>, <span class="no">acb</span>, <span class="no">bac</span>, <span class="no">bca</span>, <span class="no">cab</span>, <span class="no">cba</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">3</span>,
-                   <span class="kw">labels</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"abc"</span>, <span class="st">"acb"</span>, <span class="st">"bac"</span>, <span class="st">"bca"</span>, <span class="st">"cab"</span>, <span class="st">"cba"</span>))</pre></body></html></div>
+<span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">abc</span>, <span class="va">acb</span>, <span class="va">bac</span>, <span class="va">bca</span>, <span class="va">cab</span>, <span class="va">cba</span>, nrow <span class="op">=</span> <span class="fl">3</span>, 
+                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"acb"</span>, <span class="st">"bac"</span>, <span class="st">"bca"</span>, <span class="st">"cab"</span>, <span class="st">"cba"</span><span class="op">)</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-15-1.png" width="100%"></p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="fu"><a href="../reference/sim_design.html">sim_design</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">5</span>), <span class="kw">mu</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">40</span>, <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">plot</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span>(<span class="st">"D"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit">
+<span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">5</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">40</span>, sd <span class="op">=</span> <span class="fl">5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="st">"D"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span><span class="op">)</span></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-16-1.png" width="100%"></p>
 </div>
 </div>
@@ -237,7 +253,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -1,3 +1,8 @@
+# faux 0.0.1.6 (2021-01-05)
+
+* `nested_list()` updated to match scienceverse version and handle edge cases better
+* changes to tests for changes in CRAN development environments
+
 # faux 0.0.1.5 (2020-09-11)
 
 * Removed a test using markdown that failed on Solaris (causing faux to be pulled from CRAN) Back on CRAN!

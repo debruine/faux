@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.6</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/debruine/faux/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -158,7 +158,7 @@
     <p>Make IDs with fixed length and a prefix (e.g., S001, S002, ..., S100).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>make_id</span>(<span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>prefix</span> <span class='kw'>=</span> <span class='st'>"S"</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='st'>""</span>)</pre>
+    <pre class="usage"><span class='fu'>make_id</span><span class='op'>(</span>n <span class='op'>=</span> <span class='fl'>100</span>, prefix <span class='op'>=</span> <span class='st'>"S"</span>, digits <span class='op'>=</span> <span class='fl'>0</span>, suffix <span class='op'>=</span> <span class='st'>""</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -187,10 +187,12 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='fu'>make_id</span>(<span class='fl'>20</span>, <span class='st'>"SUBJECT_"</span>)</div><div class='output co'>#&gt;  [1] "SUBJECT_01" "SUBJECT_02" "SUBJECT_03" "SUBJECT_04" "SUBJECT_05"
+<span class='fu'>make_id</span><span class='op'>(</span><span class='fl'>20</span>, <span class='st'>"SUBJECT_"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "SUBJECT_01" "SUBJECT_02" "SUBJECT_03" "SUBJECT_04" "SUBJECT_05"
 #&gt;  [6] "SUBJECT_06" "SUBJECT_07" "SUBJECT_08" "SUBJECT_09" "SUBJECT_10"
 #&gt; [11] "SUBJECT_11" "SUBJECT_12" "SUBJECT_13" "SUBJECT_14" "SUBJECT_15"
-#&gt; [16] "SUBJECT_16" "SUBJECT_17" "SUBJECT_18" "SUBJECT_19" "SUBJECT_20"</div><div class='input'><span class='fu'>make_id</span>(<span class='fl'>10</span>:<span class='fl'>30</span>, <span class='kw'>digits</span> <span class='kw'>=</span> <span class='fl'>3</span>)</div><div class='output co'>#&gt;  [1] "S010" "S011" "S012" "S013" "S014" "S015" "S016" "S017" "S018" "S019"
+#&gt; [16] "SUBJECT_16" "SUBJECT_17" "SUBJECT_18" "SUBJECT_19" "SUBJECT_20"</div><div class='input'><span class='fu'>make_id</span><span class='op'>(</span><span class='fl'>10</span><span class='op'>:</span><span class='fl'>30</span>, digits <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;  [1] "S010" "S011" "S012" "S013" "S014" "S015" "S016" "S017" "S018" "S019"
 #&gt; [11] "S020" "S021" "S022" "S023" "S024" "S025" "S026" "S027" "S028" "S029"
 #&gt; [21] "S030"</div><div class='input'>
 </div></pre>
@@ -209,7 +211,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

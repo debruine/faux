@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.6</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -90,7 +90,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/debruine/faux/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -117,29 +117,32 @@
 
     
     
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidyr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">lme4</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">broom.mixed</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">faux</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/bbolker/broom.mixed">broom.mixed</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span></pre></div>
 <p>The mixed design functions are extremely basic. I plan to work on more useful functions, but this <a href="https://osf.io/3cz2e/">paper</a> provides a tutorial and examples for more complex designs.</p>
 <div id="sim_mixed_cc" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sim_mixed_cc" class="anchor"></a>sim_mixed_cc</h2>
 <p>This function produces a data table for a basic cross-classified design with random intercepts for subjects and items.</p>
 <p>For example, the following code produces the data for 100 subjects responding to 50 items where the response has an overall mean (<code>grand_i</code>) of 10. Subjects vary in their average response with an SD of 1, items vary in their average response with an SD of 2, and the residual error term has an SD of 3.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="no">dat_cc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sim_mixed_cc.html">sim_mixed_cc</a></span>(
-  <span class="kw">sub_n</span> <span class="kw">=</span> <span class="fl">100</span>,   <span class="co"># subject sample size</span>
-  <span class="kw">item_n</span> <span class="kw">=</span> <span class="fl">50</span>,  <span class="co"># item sample size</span>
-  <span class="kw">grand_i</span> <span class="kw">=</span> <span class="fl">10</span>,  <span class="co"># overall mean of the score</span>
-  <span class="kw">sub_sd</span> <span class="kw">=</span> <span class="fl">1</span>,   <span class="co"># SD of subject random intercepts</span>
-  <span class="kw">item_sd</span> <span class="kw">=</span> <span class="fl">2</span>,  <span class="co"># SD of item random intercepts</span>
-  <span class="kw">error_sd</span> <span class="kw">=</span> <span class="fl">3</span>  <span class="co"># SD of residual error</span>
-)</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="va">dat_cc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_mixed_cc.html">sim_mixed_cc</a></span><span class="op">(</span>
+  sub_n <span class="op">=</span> <span class="fl">100</span>,   <span class="co"># subject sample size</span>
+  item_n <span class="op">=</span> <span class="fl">50</span>,  <span class="co"># item sample size</span>
+  grand_i <span class="op">=</span> <span class="fl">10</span>,  <span class="co"># overall mean of the score</span>
+  sub_sd <span class="op">=</span> <span class="fl">1</span>,   <span class="co"># SD of subject random intercepts</span>
+  item_sd <span class="op">=</span> <span class="fl">2</span>,  <span class="co"># SD of item random intercepts</span>
+  error_sd <span class="op">=</span> <span class="fl">3</span>  <span class="co"># SD of residual error</span>
+<span class="op">)</span></pre></div>
 <p>You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="kw pkg">lme4</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span>(<span class="no">y</span> ~ <span class="fl">1</span> + (<span class="fl">1</span> <span class="kw">|</span> <span class="no">sub_id</span>) + (<span class="fl">1</span> <span class="kw">|</span> <span class="no">item_id</span>), <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat_cc</span>) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">broom.mixed</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/broom.mixed/man/reexports.html">tidy</a></span>() <span class="kw">%&gt;%</span>
-  <span class="kw pkg">knitr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">digits</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">sub_id</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">item_id</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">dat_cc</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">broom.mixed</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">effect</th>
@@ -185,11 +188,12 @@
 </tbody>
 </table>
 <p>For example, changing <code>grand_i</code> to 0 changes the estimate for the fixed effect of the intercept <code>(Intercept)</code>. Changing <code>sub_sd</code> to 1.5 and <code>item_sd</code> to 3 change the estimate for the SD of their corresponding random effects. Changing <code>error_sd</code> to 10 changes the estimate from the Residual SD.</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">dat_cc</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sim_mixed_cc.html">sim_mixed_cc</a></span>(<span class="fl">100</span>, <span class="fl">50</span>, <span class="fl">0</span>, <span class="fl">1.5</span>, <span class="fl">3</span>, <span class="fl">10</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">dat_cc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_mixed_cc.html">sim_mixed_cc</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">50</span>, <span class="fl">0</span>, <span class="fl">1.5</span>, <span class="fl">3</span>, <span class="fl">10</span><span class="op">)</span>
 
-<span class="kw pkg">lme4</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span>(<span class="no">y</span> ~ <span class="fl">1</span> + (<span class="fl">1</span> <span class="kw">|</span> <span class="no">sub_id</span>) + (<span class="fl">1</span> <span class="kw">|</span> <span class="no">item_id</span>), <span class="kw">data</span> <span class="kw">=</span> <span class="no">dat_cc</span>) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">broom.mixed</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/broom.mixed/man/reexports.html">tidy</a></span>() <span class="kw">%&gt;%</span>
-  <span class="kw pkg">knitr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">digits</span> <span class="kw">=</span> <span class="fl">3</span>)</pre></body></html></div>
+<span class="fu">lme4</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="fl">1</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">sub_id</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">item_id</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">dat_cc</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">broom.mixed</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">knitr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span><span class="op">(</span>digits <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">effect</th>
@@ -240,13 +244,14 @@
 <a href="#sim_mixed_df" class="anchor"></a>sim_mixed_df</h2>
 <p>This function uses <code><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lme4::lmer()</a></code> to get subject, item and error SDs from an existing dataset and simulates a new dataset with the specified number of subjects and items with distributions drawn from the example data.</p>
 <p>This example uses the <code>fr4</code> dataset from this package to simulate 100 new subjects viewing 50 new faces.</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r">
-<span class="no">new_dat</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/sim_mixed_df.html">sim_mixed_df</a></span>(<span class="no">fr4</span>,
-                        <span class="kw">sub_n</span> <span class="kw">=</span> <span class="fl">100</span>,
-                        <span class="kw">item_n</span> <span class="kw">=</span> <span class="fl">50</span>,
-                        <span class="kw">dv</span> <span class="kw">=</span> <span class="st">"rating"</span>,
-                        <span class="kw">sub_id</span> <span class="kw">=</span> <span class="st">"rater_id"</span>,
-                        <span class="kw">item_id</span> <span class="kw">=</span> <span class="st">"face_id"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+
+<span class="va">new_dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_mixed_df.html">sim_mixed_df</a></span><span class="op">(</span><span class="va">fr4</span>, 
+                        sub_n <span class="op">=</span> <span class="fl">100</span>, 
+                        item_n <span class="op">=</span> <span class="fl">50</span>, 
+                        dv <span class="op">=</span> <span class="st">"rating"</span>, 
+                        sub_id <span class="op">=</span> <span class="st">"rater_id"</span>, 
+                        item_id <span class="op">=</span> <span class="st">"face_id"</span><span class="op">)</span></pre></div>
 </div>
   </div>
 
@@ -265,7 +270,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
