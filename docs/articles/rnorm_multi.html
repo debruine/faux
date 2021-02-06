@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
       </span>
     </div>
 
@@ -110,7 +110,7 @@
       <h1 data-toc-skip>Simulate Correlated Variables</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2021-01-05</h4>
+            <h4 class="date">2021-02-06</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/rnorm_multi.Rmd"><code>vignettes/rnorm_multi.Rmd</code></a></small>
       <div class="hidden name"><code>rnorm_multi.Rmd</code></div>
@@ -136,8 +136,7 @@
                   sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>,
                   r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span><span class="op">)</span>, 
                   varnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span>,
-                  empirical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="co">#&gt; The number of variables (vars) was guessed from the input to be 3</span></pre></div>
+                  empirical <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></pre></div>
 <table class="table">
 <caption>Sample stats</caption>
 <thead><tr class="header">
@@ -290,26 +289,6 @@
 <tbody>
 <tr class="odd">
 <td align="right">100</td>
-<td align="left">Petal.Length</td>
-<td align="right">0.87</td>
-<td align="right">-0.58</td>
-<td align="right">1.00</td>
-<td align="right">0.96</td>
-<td align="right">0.04</td>
-<td align="right">1.03</td>
-</tr>
-<tr class="even">
-<td align="right">100</td>
-<td align="left">Petal.Width</td>
-<td align="right">0.82</td>
-<td align="right">-0.52</td>
-<td align="right">0.96</td>
-<td align="right">1.00</td>
-<td align="right">0.05</td>
-<td align="right">1.04</td>
-</tr>
-<tr class="odd">
-<td align="right">100</td>
 <td align="left">Sepal.Length</td>
 <td align="right">1.00</td>
 <td align="right">-0.24</td>
@@ -327,6 +306,26 @@
 <td align="right">-0.52</td>
 <td align="right">0.07</td>
 <td align="right">1.08</td>
+</tr>
+<tr class="odd">
+<td align="right">100</td>
+<td align="left">Petal.Length</td>
+<td align="right">0.87</td>
+<td align="right">-0.58</td>
+<td align="right">1.00</td>
+<td align="right">0.96</td>
+<td align="right">0.04</td>
+<td align="right">1.03</td>
+</tr>
+<tr class="even">
+<td align="right">100</td>
+<td align="left">Petal.Width</td>
+<td align="right">0.82</td>
+<td align="right">-0.52</td>
+<td align="right">0.96</td>
+<td align="right">1.00</td>
+<td align="right">0.05</td>
+<td align="right">1.04</td>
 </tr>
 </tbody>
 </table>

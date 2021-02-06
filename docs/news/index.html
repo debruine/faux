@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
       </span>
     </div>
 
@@ -152,14 +152,28 @@
       <small>Source: <a href='https://github.com/debruine/faux/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="faux-0016-2021-01-05" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.1.6">
-<a href="#faux-0016-2021-01-05" class="anchor"></a>faux 0.0.1.6 (2021-01-05)<small> Unreleased </small>
+    <div id="faux-0017-2021-02-06" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.7">
+<a href="#faux-0017-2021-02-06" class="anchor"></a>faux 0.0.1.7 (2021-02-06)<small> Unreleased </small>
 </h1>
 <ul>
-<li>added <code>check.environment=FALSE</code> to any functions using all.equal (CRAN issue affecting mainly tests)</li>
+<li>
+<code><a href="../reference/get_params.html">get_params()</a></code> doesn’t require within and between set for data made with faux (that has a “design” attribute)</li>
+<li>fixed bug in <code><a href="../reference/get_params.html">get_params()</a></code> where the var column was alphabetised, but the corresponding columns for the correlation table were in factor order</li>
+<li>several new distribution conversion functions and a vignette</li>
+<li>this version isn’t on CRAN yet</li>
+</ul>
+</div>
+    <div id="faux-0016-2021-01-05" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.6">
+<a href="#faux-0016-2021-01-05" class="anchor"></a>faux 0.0.1.6 (2021-01-05)<small> 2021-01-21 </small>
+</h1>
+<ul>
 <li>
 <code><a href="../reference/nested_list.html">nested_list()</a></code> updated to match scienceverse version and handle edge cases better</li>
+<li>changes to tests for changes in CRAN development environments</li>
+<li>
+<code><a href="../reference/rnorm_multi.html">rnorm_multi()</a></code> can get column names from mu, sd, or r names</li>
 </ul>
 </div>
     <div id="faux-0015-2020-09-11" class="section level1">

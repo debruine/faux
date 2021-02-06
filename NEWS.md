@@ -1,7 +1,15 @@
+# faux 0.0.1.7 (2021-02-06)
+
+* `get_params()` doesn't require within and between set for data made with faux (that has a "design" attribute)
+* fixed bug in `get_params()` where the var column was alphabetised, but the corresponding columns for the correlation table were in factor order
+* several new distribution conversion functions and a vignette
+* this version isn't on CRAN yet
+
 # faux 0.0.1.6 (2021-01-05)
 
 * `nested_list()` updated to match scienceverse version and handle edge cases better
 * changes to tests for changes in CRAN development environments
+* `rnorm_multi()` can get column names from mu, sd, or r names
 
 # faux 0.0.1.5 (2020-09-11)
 
