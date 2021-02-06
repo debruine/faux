@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
       </span>
     </div>
 
@@ -88,7 +88,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -132,7 +132,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/debruine/faux/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -158,13 +158,13 @@
     <p>Plots the specified within and between design. See <a href='../doc/plots.html'><code><a href='../articles/plots.html'>vignette("plots", package = "faux")</a></code></a> for examples and details.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_design</span>(<span class='no'>x</span>, <span class='no'>...</span>, <span class='kw'>geoms</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='st'>"Dark2"</span>)
+    <pre class="usage"><span class='fu'>plot_design</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, geoms <span class='op'>=</span> <span class='cn'>NULL</span>, palette <span class='op'>=</span> <span class='st'>"Dark2"</span><span class='op'>)</span>
 
 <span class='co'># S3 method for design</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for faux</span>
-<span class='fu'><a href='https://rdrr.io/r/base/plot.html'>plot</a></span>(<span class='no'>x</span>, <span class='no'>...</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -200,12 +200,14 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>within</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>time</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"day"</span>, <span class='st'>"night"</span>))
-<span class='no'>between</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(<span class='kw'>pet</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"dog"</span>, <span class='st'>"cat"</span>))
-<span class='no'>des</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='check_design.html'>check_design</a></span>(<span class='no'>within</span>, <span class='no'>between</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>plot_design</span>(<span class='no'>des</span>)</div><div class='img'><img src='plot_design-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='sim_design.html'>sim_design</a></span>(<span class='no'>within</span>, <span class='no'>between</span>, <span class='kw'>plot</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
-<span class='fu'>plot_design</span>(<span class='no'>data</span>)</div><div class='img'><img src='plot_design-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>within</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>time <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"day"</span>, <span class='st'>"night"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>between</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>pet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"dog"</span>, <span class='st'>"cat"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>des</span> <span class='op'>&lt;-</span> <span class='fu'><a href='check_design.html'>check_design</a></span><span class='op'>(</span><span class='va'>within</span>, <span class='va'>between</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>plot_design</span><span class='op'>(</span><span class='va'>des</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_design-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sim_design.html'>sim_design</a></span><span class='op'>(</span><span class='va'>within</span>, <span class='va'>between</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
+<span class='fu'>plot_design</span><span class='op'>(</span><span class='va'>data</span><span class='op'>)</span>
+</div><div class='img'><img src='plot_design-2.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -222,7 +224,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

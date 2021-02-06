@@ -29,6 +29,33 @@ test_that("error messages", {
   expect_warning(sim_design(rep = 2.2), "rep should be an integer")
 })
 
+# set mu ----
+test_that("mu", {
+  x <- sim_design(within = 2, mu = 1, empirical = TRUE)
+  expect_equal(mean(x$A1), 1, tolerance = 1e3)
+  expect_equal(mean(x$A2), 1, tolerance = 1e3)
+  
+  x <- sim_design(within = 2, mu = c(1, 2), empirical = TRUE)
+  expect_equal(mean(x$A1), 1, tolerance = 1e3)
+  expect_equal(mean(x$A2), 2, tolerance = 1e3)
+  
+  x <- sim_design(within = 2, mu = c(A2 = 2, A1 = 1), empirical = TRUE)
+  expect_equal(mean(x$A1), 1, tolerance = 1e3)
+  expect_equal(mean(x$A2), 2, tolerance = 1e3)
+  
+  x <- sim_design(within = 2, mu = list(A2 = 2, A1 = 1), empirical = TRUE)
+  expect_equal(mean(x$A1), 1, tolerance = 1e3)
+  expect_equal(mean(x$A2), 2, tolerance = 1e3)
+  
+  x <- sim_design(within = 2, mu = data.frame(A2 = 2, A1 = 1), empirical = TRUE)
+  expect_equal(mean(x$A1), 1, tolerance = 1e3)
+  expect_equal(mean(x$A2), 2, tolerance = 1e3)
+  
+  x <- sim_design(within = 2, mu = data.frame(y = 2:1, row.names = c("A2", "A1")), empirical = TRUE)
+  expect_equal(mean(x$A1), 1, tolerance = 1e3)
+  expect_equal(mean(x$A2), 2, tolerance = 1e3)
+})
+
 # 2w ----
 test_that("2w", {
   within <- list(
@@ -48,7 +75,7 @@ test_that("2w", {
   
   comp <- data.frame(
     n = c(100, 100),
-    var = c("W1", "W2"),
+    var = factor(c("W1", "W2")),
     W1 = c(1.0, 0.3),
     W2 = c(0.3, 1.0),
     mean = c(1, 2),
@@ -66,7 +93,7 @@ test_that("2w", {
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 3)
   expect_equal(names(df), c("sub_id", "W1", "W2"))
-  expect_equal(chk, comp)
+  expect_equivalent(chk, comp)
 })
 
 # 2w*2w ----
@@ -82,7 +109,7 @@ test_that("2w*2w", {
 
   comp <- data.frame(
     n = rep(100, 4),
-    var = c("W1_X1", "W1_X2", "W2_X1", "W2_X2"),
+    var = factor(c("W1_X1", "W1_X2", "W2_X1", "W2_X2")),
     W1_X1 = c(1, 0, 0, 0),
     W1_X2 = c(0, 1, 0, 0),
     W2_X1 = c(0, 0, 1, 0),
@@ -94,7 +121,7 @@ test_that("2w*2w", {
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 5)
   expect_equal(names(df), c("id", "W1_X1", "W1_X2", "W2_X1", "W2_X2"))
-  expect_equal(chk, comp)
+  expect_equivalent(chk, comp)
 })
 
 # 2b ----
@@ -119,7 +146,7 @@ test_that("2b", {
   expect_equal(nrow(df), 200)
   expect_equal(ncol(df), 3)
   expect_equal(names(df), c("id", "B", "y"))
-  expect_equal(chk, comp)
+  expect_equivalent(chk, comp)
 })
 
 # 2b*2b ----
@@ -147,7 +174,7 @@ test_that("2b*2b", {
   expect_equal(nrow(df), 400)
   expect_equal(ncol(df), 4)
   expect_equal(names(df), c("id", "A", "B", "y"))
-  expect_equal(chk, comp)
+  expect_equivalent(chk, comp)
 })
 
 # 2w*2b basic ----
@@ -182,7 +209,7 @@ test_that("2w*2b basic", {
   comp <- data.frame(
     B = factor(c("B1", "B1", "B2", "B2"), c("B1", "B2")),
     n = c(60, 60, 40, 40),
-    var = c("W1", "W2", "W1", "W2"),
+    var = factor(c("W1", "W2", "W1", "W2")),
     W1 = c(1, .2, 1, .5),
     W2 = c(.2, 1, .5, 1),
     mean = c(10, 20, 10, 30),
@@ -192,7 +219,7 @@ test_that("2w*2b basic", {
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
   expect_equal(names(df), c("id", "B", "W1", "W2"))
-  expect_equal(chk, comp)
+  expect_equivalent(chk, comp)
 })
 
 # 2w*2b alt ----
@@ -227,7 +254,7 @@ test_that("2w*2b alt", {
   comp <- data.frame(
     B = factor(c("B1", "B1", "B2", "B2"), c("B1", "B2")),
     n = c(60, 60, 40, 40),
-    var = c("W1", "W2", "W1", "W2"),
+    var = factor(c("W1", "W2", "W1", "W2")),
     W1 = c(1, .2, 1, .5),
     W2 = c(.2, 1, .5, 1),
     mean = c(10, 20, 10, 30),
@@ -237,7 +264,7 @@ test_that("2w*2b alt", {
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
   expect_equal(names(df), c("id", "B", "W1", "W2"))
-  expect_equal(chk, comp)
+  expect_equivalent(chk, comp)
 })
 
 
@@ -265,7 +292,7 @@ test_that("2w*2b within order", {
   comp <- data.frame(
     B = factor(c("B1", "B1", "B2", "B2"), c("B1", "B2")),
     n = rep(50, 4),
-    var = c("W1", "W2", "W1", "W2"),
+    var = factor(c("W1", "W2", "W1", "W2")),
     W1 = c(1, .5, 1, .5),
     W2 = c(.5, 1, .5, 1),
     mean = c(10, 20, 10, 30),
@@ -275,7 +302,7 @@ test_that("2w*2b within order", {
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
   expect_equal(names(df), c("id", "B", "W1", "W2"))
-  expect_equal(chk, comp)
+  expect_equivalent(chk, comp)
 })
 
 
@@ -312,7 +339,7 @@ test_that("2w*2b order", {
   comp <- data.frame(
     B = factor(c("B1", "B1", "B2", "B2"), c("B1", "B2")),
     n = c(60, 60, 40, 40),
-    var = c("W1", "W2", "W1", "W2"),
+    var = factor(c("W1", "W2", "W1", "W2")),
     W1 = c(1, .2, 1, .5),
     W2 = c(.2, 1, .5, 1),
     mean = c(10, 20, 10, 30),
@@ -322,7 +349,7 @@ test_that("2w*2b order", {
   expect_equal(nrow(df), 100)
   expect_equal(ncol(df), 4)
   expect_equal(names(df), c("id", "B", "W1", "W2"))
-  expect_equal(chk, comp)
+  expect_equivalent(chk, comp)
 })
 
 # 2w*2b*2b ----
@@ -567,7 +594,8 @@ test_that("multiple reps", {
   
   expect_equal(nrow(df), rep)
   expect_equal(nrow(df$data[[1]]), n)
-  expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]])))
+  expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]], 
+                                check.environment=FALSE)))
   expect_equal(names(df$data[[1]]), c("id", "A1", "A2"))
   expect_equal(nrow(df$data[[1]]), n)
   
@@ -576,7 +604,8 @@ test_that("multiple reps", {
   
   expect_equal(nrow(df), rep)
   expect_equal(nrow(df$data[[1]]), 2*n)
-  expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]])))
+  expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]], 
+                      check.environment=FALSE)))
   expect_equal(names(df$data[[1]]), c("id", "A", "y"))
   expect_equal(nrow(df$data[[1]]), n*2)
 })

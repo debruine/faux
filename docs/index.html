@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.5</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -90,7 +90,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/debruine/faux/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -107,7 +107,6 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<hr>
 <div id="faux-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#faux-" class="anchor"></a>faux <img src="reference/figures/logo.png" align="right" alt="" width="120">
@@ -121,10 +120,12 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the released version of faux from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"faux"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"faux"</span><span class="op">)</span></pre></div>
 <p>And the development version from <a href="https://github.com/debruine/faux">GitHub</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"debruine/faux"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"debruine/faux"</span><span class="op">)</span></pre></div>
 </div>
 <div id="quick-overview" class="section level2">
 <h2 class="hasAnchor">
@@ -132,31 +133,34 @@
 <div id="simulate-data-for-a-factorial-design" class="section level3">
 <h3 class="hasAnchor">
 <a href="#simulate-data-for-a-factorial-design" class="anchor"></a>Simulate data for a factorial design</h3>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="no">between</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">pet</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">cat</span> <span class="kw">=</span> <span class="st">"Cat Owners"</span>,
-                        <span class="kw">dog</span> <span class="kw">=</span> <span class="st">"Dog Owners"</span>))
-<span class="no">within</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">time</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"morning"</span>,
-                        <span class="st">"noon"</span>,
-                        <span class="st">"evening"</span>,
-                        <span class="st">"night"</span>))
-<span class="no">mu</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-  <span class="kw">cat</span>    <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">12</span>, <span class="fl">14</span>, <span class="fl">16</span>),
-  <span class="kw">dog</span>    <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">20</span>, <span class="fl">25</span>),
-  <span class="kw">row.names</span> <span class="kw">=</span> <span class="no">within</span>$<span class="no">time</span>
-)
-<span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sim_design.html">sim_design</a></span>(<span class="no">within</span>, <span class="no">between</span>,
-                 <span class="kw">n</span> <span class="kw">=</span> <span class="fl">100</span>, <span class="kw">mu</span> <span class="kw">=</span> <span class="no">mu</span>,
-                 <span class="kw">sd</span> <span class="kw">=</span> <span class="fl">5</span>, <span class="kw">r</span> <span class="kw">=</span> <span class="fl">.5</span>)</pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Cat Owners"</span>, 
+                        dog <span class="op">=</span> <span class="st">"Dog Owners"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"morning"</span>, 
+                        <span class="st">"noon"</span>, 
+                        <span class="st">"evening"</span>, 
+                        <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+  cat    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">12</span>, <span class="fl">14</span>, <span class="fl">16</span><span class="op">)</span>,
+  dog    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">20</span>, <span class="fl">25</span><span class="op">)</span>,
+  row.names <span class="op">=</span> <span class="va">within</span><span class="op">$</span><span class="va">time</span>
+<span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, 
+                 n <span class="op">=</span> <span class="fl">100</span>, mu <span class="op">=</span> <span class="va">mu</span>, 
+                 sd <span class="op">=</span> <span class="fl">5</span>, r <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/plot-sim-design-1.png" alt="Default design plot"></p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="no">p1</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/plot_design.html">plot_design</a></span>(<span class="no">df</span>)
-<span class="no">p2</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/plot_design.html">plot_design</a></span>(<span class="no">df</span>, <span class="st">"pet"</span>, <span class="st">"time"</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
+<span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"pet"</span>, <span class="st">"time"</span><span class="op">)</span>
 
-<span class="kw pkg">cowplot</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span>(<span class="no">p1</span>, <span class="no">p2</span>, <span class="kw">nrow</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">align</span> <span class="kw">=</span> <span class="st">"v"</span>)</pre></div>
+<span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>, nrow <span class="op">=</span> <span class="fl">2</span>, align <span class="op">=</span> <span class="st">"v"</span><span class="op">)</span></pre></div>
 <p><img src="reference/figures/plot-design-1.png" alt="Plot the data with different visualisations."></p>
 </div>
 <div id="simulate-new-data-from-an-existing-data-table" class="section level3">
 <h3 class="hasAnchor">
 <a href="#simulate-new-data-from-an-existing-data-table" class="anchor"></a>Simulate new data from an existing data table</h3>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="no">new_iris</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/sim_df.html">sim_df</a></span>(<span class="no">iris</span>, <span class="fl">50</span>, <span class="kw">between</span> <span class="kw">=</span> <span class="st">"Species"</span>)</pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="va">new_iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">50</span>, between <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span> </pre></div>
 <p><img src="reference/figures/plot-iris-sim-1.png" alt="Simulated iris dataset"></p>
 </div>
 </div>
@@ -240,7 +244,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

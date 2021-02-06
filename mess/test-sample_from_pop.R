@@ -26,7 +26,7 @@ test_that("calculations for sample_from_pop", {
     dplyr::pull(diff) %>% 
     mean()
   
-  expect_equal(r_diff, 0, tolerance = tol)
+  expect_equal(r_diff, 0, tolerance = tol , check.environment=FALSE)
   
   
   # SD of sample means = sd / sqrt(n)
@@ -45,7 +45,7 @@ test_that("calculations for sample_from_pop", {
     dplyr::pull(diff) %>% 
     mean()
   
-  expect_equal(mu_diff, 0, tolerance = tol)
+  expect_equal(mu_diff, 0, tolerance = tol , check.environment=FALSE)
   
   # SD of sample SDs = sd / sqrt(2*n)
   sim_sd <- function(n, sd) {
@@ -61,6 +61,6 @@ test_that("calculations for sample_from_pop", {
     dplyr::pull(diff) %>% 
     mean()
   
-  expect_equal(sd_diff, 0, tolerance = tol)
+  expect_equal(sd_diff, 0, tolerance = tol, check.environment=FALSE)
   
 })
