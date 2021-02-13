@@ -7,18 +7,18 @@
 getcols(data, ..., as_index = FALSE)
 }
 \arguments{
-\item{data}{}
+\item{data}{the existing tbl}
 
-\item{...}{}
+\item{...}{Columns to get}
 
-\item{as}{}
+\item{as_index}{return the column indices (defaults to name)}
 }
 \value{
-
+vector of column names or indices
 }
 \description{
 Get columns from a data table by specifying the index, column name as a string, or unquoted column name. Returns the column names or indices.
 }
 \examples{
-getcols(mtcars, 1L, cyl, "disp", 4.0)
+getcols(mtcars, 1, cyl, "disp", 5:7)
 }

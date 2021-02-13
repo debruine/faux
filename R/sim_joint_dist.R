@@ -5,7 +5,7 @@
 #' @param n the number of total observations to return
 #' @param empirical Should the returned data have the exact same distribution of conditions? (versus be sampled from a population with this distribution)
 #'
-#' @return
+#' @return data table
 #' @export
 #'
 #' @examples

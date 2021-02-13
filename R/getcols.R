@@ -2,11 +2,11 @@
 #' 
 #' Get columns from a data table by specifying the index, column name as a string, or unquoted column name. Returns the column names or indices.
 #'
-#' @param data 
-#' @param ... 
-#' @param as 
+#' @param data the existing tbl
+#' @param ... Columns to get
+#' @param as_index return the column indices (defaults to name) 
 #'
-#' @return
+#' @return vector of column names or indices
 #' @export
 #'
 #' @examples
