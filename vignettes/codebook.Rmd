@@ -1,8 +1,6 @@
 ---
 title: "Codebook Demo"
-output: 
-  rmarkdown::html_vignette:
-    df_print: kable
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Codebook Demo}
   %\VignetteEngine{knitr::rmarkdown}

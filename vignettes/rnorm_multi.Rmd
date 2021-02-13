@@ -2,9 +2,7 @@
 title: "Simulate Correlated Variables"
 author: "Lisa DeBruine"
 date: "`r Sys.Date()`"
-output: 
-  rmarkdown::html_vignette:
-    df_print: kable
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Simulate Correlated Variables}
   %\VignetteEngine{knitr::rmarkdown}
