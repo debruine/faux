@@ -2,7 +2,9 @@
 title: "Simulate from Existing Data"
 author: "Lisa DeBruine"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    df_print: kable
 vignette: >
   %\VignetteIndexEntry{Simulate from Existing Data}
   %\VignetteEngine{knitr::rmarkdown}

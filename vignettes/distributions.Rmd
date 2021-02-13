@@ -1,6 +1,8 @@
 ---
 title: "Distribution Conversions"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    df_print: kable
 vignette: >
   %\VignetteIndexEntry{Distribution Conversions}
   %\VignetteEngine{knitr::rmarkdown}

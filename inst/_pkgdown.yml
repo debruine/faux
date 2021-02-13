@@ -3,11 +3,12 @@ articles:
   navbar: ~
   contents:
   - sim_design
-  - sim_df
   - rnorm_multi
+  - sim_df
   - continuous
   - plots
   - sim_mixed
+  - distributions
   - codebook
 
 reference:

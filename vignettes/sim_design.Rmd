@@ -2,7 +2,9 @@
 title: "Simulate by Design"
 author: "Lisa DeBruine"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    df_print: kable
 vignette: >
   %\VignetteIndexEntry{Simulate by Design}
   %\VignetteEngine{knitr::rmarkdown}

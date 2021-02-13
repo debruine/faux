@@ -1,6 +1,8 @@
 ---
 title: "Continuous Predictors"
-output: rmarkdown::html_vignette
+output: 
+  rmarkdown::html_vignette:
+    df_print: kable
 vignette: >
   %\VignetteIndexEntry{Continuous Predictors}
   %\VignetteEngine{knitr::rmarkdown}
