@@ -5,7 +5,7 @@
 * `sim_df()` now has an option to include missing data, it simulates the joint distribution of missingness for each between-subject cell
 * some functions (`sim_df()` and `messy()`) can choose columns with unquoted names now (e.g., `messy(mtcars, .5, mpg)`)
 * `messy()` now takes a vector of proportions so you can simulate different amounts of missing data per selected column
-
+* `sample_from_pop()` is now vectorised
 
 # faux 0.0.1.7 (2021-02-06)
 
