@@ -16,7 +16,7 @@ sim_joint_dist(data, ..., n = 100, empirical = FALSE)
 \item{empirical}{Should the returned data have the exact same distribution of conditions? (versus be sampled from a population with this distribution)}
 }
 \value{
-
+data table
 }
 \description{
 Simulate category joint distribution

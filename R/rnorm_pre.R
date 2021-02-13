@@ -51,6 +51,10 @@ sample_from_pop <- function(n = 100, mu = 0, sd = 1, r = 0) {
 #' v1 <- rnorm(10)
 #' v2 <- rnorm_pre(v1, 0, 1, 0.5)
 #' cor(v1, v2)
+#' 
+#' x <- rnorm_multi(50, 2, .5)
+#' x$y <- rnorm_pre(x, r = c(0.5, 0.25))
+#' cor(x)
 #' @export
 rnorm_pre <- function (x, mu=0, sd=1, r=0, empirical = FALSE, threshold = 1e-12) {
   # error checking
@@ -74,7 +78,7 @@ rnorm_pre <- function (x, mu=0, sd=1, r=0, empirical = FALSE, threshold = 1e-12)
   # Process the arguments.
   if (is.data.frame(x)) x <- as.matrix(x)
   x <- scale(x, center=FALSE) # Makes computations simpler
-  y <- rnorm(n)
+  y <- stats::rnorm(n)
   
   # Remove the effects of `x` on `y`.
   e <- stats::residuals(stats::lm(y ~ x))
@@ -87,7 +91,7 @@ rnorm_pre <- function (x, mu=0, sd=1, r=0, empirical = FALSE, threshold = 1e-12)
     # so that the correlation of `x` with the linear combination 
     # x.dual %*% rho + sigma*e is the desired vector.
     x.dual <- with(svd(x), (n-1)*u %*% diag(ifelse(d > threshold, 1/d, 0)) %*% t(v))
-    sigma2 <- c((1 - rho %*% cov(x.dual) %*% rho) / var(e))
+    sigma2 <- c((1 - rho %*% stats::cov(x.dual) %*% rho) / stats::var(e))
     
     # Return this linear combination.
     if (sigma2 >= 0) {

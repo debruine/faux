@@ -91,7 +91,7 @@ test_that("missing data", {
   newdf <- sim_df(data, n = 1000, missing = TRUE)
   
   dplyr::mutate_all(newdf[2:5], is.na) %>%
-    summarise_all(mean)
+    dplyr::summarise_all(mean)
 })
 
 # within ----

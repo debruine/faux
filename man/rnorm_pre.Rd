@@ -4,18 +4,20 @@
 \alias{rnorm_pre}
 \title{Make a normal vector correlated to an existing vector}
 \usage{
-rnorm_pre(x, mu = 0, sd = 1, r = 0, empirical = FALSE)
+rnorm_pre(x, mu = 0, sd = 1, r = 0, empirical = FALSE, threshold = 1e-12)
 }
 \arguments{
-\item{x}{the existing vector}
+\item{x}{the existing vector or data table of all vectors}
 
 \item{mu}{desired mean of returned vector}
 
 \item{sd}{desired SD of returned vector}
 
-\item{r}{desired correlation between existing and returned vectors}
+\item{r}{desired correlation(s) between existing and returned vectors}
 
 \item{empirical}{logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance}
+
+\item{threshold}{for checking correaltion matrix}
 }
 \value{
 vector
@@ -27,4 +29,8 @@ vector
 v1 <- rnorm(10)
 v2 <- rnorm_pre(v1, 0, 1, 0.5)
 cor(v1, v2)
+
+x <- rnorm_multi(50, 2, .5)
+x$y <- rnorm_pre(x, r = c(0.5, 0.25))
+cor(x)
 }
