@@ -16,7 +16,7 @@
 #' @param interactive whether to run the function interactively
 #' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' @param rep the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep
-#' @param seed DEPRECATED use set.seed() instead
+#' @param seed DEPRECATED use set.seed() instead before running this function
 #' 
 #' @return a tbl
 #' 
@@ -65,7 +65,7 @@ sim_design <- function(within = list(), between = list(),
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' @param rep the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep
 #' @param sep separator for within-columns, defaults to _
-#' @param seed DEPRECATED use set.seed() instead
+#' @param seed DEPRECATED use set.seed() instead before running this function
 #' 
 #' @return a tbl
 #' @export
@@ -210,5 +210,7 @@ sim_data <- function(design, empirical = FALSE, long = FALSE,
     df_return$data <- df_rep
     
   }
+  
+  rownames(df_return) <- c() # get rid of row names
   return(df_return)
 }

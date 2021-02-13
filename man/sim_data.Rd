@@ -24,7 +24,7 @@ sim_data(
 
 \item{sep}{separator for within-columns, defaults to _}
 
-\item{seed}{DEPRECATED use set.seed() instead}
+\item{seed}{DEPRECATED use set.seed() instead before running this function}
 }
 \value{
 a tbl
