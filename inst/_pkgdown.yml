@@ -3,11 +3,12 @@ articles:
   navbar: ~
   contents:
   - sim_design
-  - sim_df
   - rnorm_multi
+  - sim_df
   - continuous
   - plots
   - sim_mixed
+  - distributions
   - codebook
 
 reference:
@@ -18,6 +19,7 @@ reference:
   - '`sim_df`'
   - '`sim_mixed_cc`'
   - '`sim_mixed_df`'
+  - '`sim_joint_dist`'
 - title: Other useful functions
   desc: ~
   contents:
@@ -45,6 +47,7 @@ reference:
   - '`cormat_from_triangle`'
   - '`fix_name_labels`'
   - '`get_design_long`'
+  - '`getcols`'
   - '`interactive_design`'
   - '`is_pos_def`'
   - '`nested_list`'
@@ -61,8 +64,12 @@ reference:
   - '`norm2likert`'
   - '`norm2beta`'
   - '`norm2binom`'
+  - '`norm2gamma`'
   - '`norm2pois`'
   - '`norm2trunc`'
   - '`trunc2norm`'
   - '`norm2unif`'
+  - '`beta2norm`'
+  - '`binom2norm`'
+  - '`gamma2norm`'
   - '`unif2norm`'
