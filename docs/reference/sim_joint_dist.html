@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>faux: Simulation Functions. — faux • faux</title>
+<title>Simulate category joint distribution — sim_joint_dist • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="faux: Simulation Functions. — faux" />
-<meta property="og:description" content="The faux package provides functions for simulating datasets with specified structure." />
+<meta property="og:title" content="Simulate category joint distribution — sim_joint_dist" />
+<meta property="og:description" content="Simulate category joint distribution" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -149,18 +149,67 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>faux: Simulation Functions.</h1>
-    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/faux-package.R'><code>R/faux-package.R</code></a></small>
-    <div class="hidden name"><code>faux.Rd</code></div>
+    <h1>Simulate category joint distribution</h1>
+    <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/sim_joint_dist.R'><code>R/sim_joint_dist.R</code></a></small>
+    <div class="hidden name"><code>sim_joint_dist.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The faux package provides functions for simulating datasets with specified structure.</p>
+    <p>Simulate category joint distribution</p>
     </div>
 
+    <pre class="usage"><span class='fu'>sim_joint_dist</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>...</span>, n <span class='op'>=</span> <span class='fl'>100</span>, empirical <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>data</th>
+      <td><p>the existing tbl</p></td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td><p>columns to calculate the joint distribution from, if none are chose, all columns with 10 or fewer unique values will be chosen</p></td>
+    </tr>
+    <tr>
+      <th>n</th>
+      <td><p>the number of total observations to return</p></td>
+    </tr>
+    <tr>
+      <th>empirical</th>
+      <td><p>Should the returned data have the exact same distribution of conditions? (versus be sampled from a population with this distribution)</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    
 
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'>sim_joint_dist</span><span class='op'>(</span><span class='va'>mtcars</span>, <span class='va'>cyl</span>, <span class='va'>vs</span>, <span class='va'>am</span>, n <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;    cyl vs am
+#&gt; 1    6  1  0
+#&gt; 2    4  1  0
+#&gt; 3    8  0  0
+#&gt; 4    4  1  0
+#&gt; 5    4  1  1
+#&gt; 6    4  1  1
+#&gt; 7    6  1  0
+#&gt; 8    8  0  1
+#&gt; 9    4  1  1
+#&gt; 10   4  1  0
+#&gt; 11   8  0  0
+#&gt; 12   4  1  1
+#&gt; 13   4  1  0
+#&gt; 14   6  1  0
+#&gt; 15   4  1  0
+#&gt; 16   8  0  0
+#&gt; 17   4  1  1
+#&gt; 18   6  1  0
+#&gt; 19   8  0  0
+#&gt; 20   8  0  0</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

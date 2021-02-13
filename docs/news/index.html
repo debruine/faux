@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.8</span>
       </span>
     </div>
 
@@ -152,6 +152,21 @@
       <small>Source: <a href='https://github.com/debruine/faux/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="faux-0018-2021-03-136" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.8">
+<a href="#faux-0018-2021-03-136" class="anchor"></a>faux 0.0.1.8 (2021-03-136)<small> Unreleased </small>
+</h1>
+<ul>
+<li>new <code><a href="../reference/sim_joint_dist.html">sim_joint_dist()</a></code> function to simulate the joint distribution of categories</li>
+<li>
+<code><a href="../reference/sim_df.html">sim_df()</a></code> no longer breaks if there are NAs in the DV columns</li>
+<li>
+<code><a href="../reference/sim_df.html">sim_df()</a></code> now has an option to include missing data, it simulates the joint distribution of missingness for each between-subject cell</li>
+<li>some functions (<code><a href="../reference/sim_df.html">sim_df()</a></code> and <code><a href="../reference/messy.html">messy()</a></code>) can choose columns with unquoted names now (e.g., <code><a href="../reference/messy.html">messy(mtcars, .5, mpg)</a></code>)</li>
+<li>
+<code><a href="../reference/messy.html">messy()</a></code> now takes a vector of proportions so you can simulate different amounts of missing data per selected column</li>
+</ul>
+</div>
     <div id="faux-0017-2021-02-06" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.1.7">
 <a href="#faux-0017-2021-02-06" class="anchor"></a>faux 0.0.1.7 (2021-02-06)<small> Unreleased </small>

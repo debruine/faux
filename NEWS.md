@@ -1,3 +1,12 @@
+# faux 0.0.1.8 (2021-03-136)
+
+* new `sim_joint_dist()` function to simulate the joint distribution of categories
+* `sim_df()` no longer breaks if there are NAs in the DV columns
+* `sim_df()` now has an option to include missing data, it simulates the joint distribution of missingness for each between-subject cell
+* some functions (`sim_df()` and `messy()`) can choose columns with unquoted names now (e.g., `messy(mtcars, .5, mpg)`)
+* `messy()` now takes a vector of proportions so you can simulate different amounts of missing data per selected column
+
+
 # faux 0.0.1.7 (2021-02-06)
 
 * `get_params()` doesn't require within and between set for data made with faux (that has a "design" attribute)

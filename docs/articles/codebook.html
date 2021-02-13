@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.8</span>
       </span>
     </div>
 
@@ -291,13 +291,13 @@
 <span class="co">#&gt; Converting pet from int to string</span>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">converted_data</span><span class="op">)</span>
-<span class="co">#&gt;      id pet     happy followup</span>
-<span class="co">#&gt; 1.1 S01 cat  9.646541        0</span>
-<span class="co">#&gt; 1.2 S02 cat 10.324561        0</span>
-<span class="co">#&gt; 1.3 S03 cat 15.552581        0</span>
-<span class="co">#&gt; 1.4 S04 cat  9.906358        1</span>
-<span class="co">#&gt; 1.5 S05 dog 15.950371        1</span>
-<span class="co">#&gt; 1.6 S06 dog 11.421215        0</span></pre></div>
+<span class="co">#&gt;    id pet     happy followup</span>
+<span class="co">#&gt; 1 S01 cat  9.646541        0</span>
+<span class="co">#&gt; 2 S02 cat 10.324561        0</span>
+<span class="co">#&gt; 3 S03 cat 15.552581        0</span>
+<span class="co">#&gt; 4 S04 cat  9.906358        1</span>
+<span class="co">#&gt; 5 S05 dog 15.950371        1</span>
+<span class="co">#&gt; 6 S06 dog 11.421215        0</span></pre></div>
 <p>The codebook is attached to the returned converted data as an attribute and can be accessed as follows.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit">
 <span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">converted_data</span>, <span class="st">"codebook"</span><span class="op">)</span>

@@ -2,7 +2,7 @@
 title: "Distribution Conversions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{distributions}
+  %\VignetteIndexEntry{Distribution Conversions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

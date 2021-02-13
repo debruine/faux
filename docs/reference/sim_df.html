@@ -81,7 +81,7 @@ as an existing data table Only returns numeric columns and simulates all numeric
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.8</span>
       </span>
     </div>
 
@@ -169,7 +169,8 @@ as an existing data table Only returns numeric columns and simulates all numeric
   dv <span class='op'>=</span> <span class='st'>"value"</span>,
   empirical <span class='op'>=</span> <span class='cn'>FALSE</span>,
   long <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  seed <span class='op'>=</span> <span class='cn'>NULL</span>
+  seed <span class='op'>=</span> <span class='cn'>NULL</span>,
+  missing <span class='op'>=</span> <span class='cn'>FALSE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -177,7 +178,7 @@ as an existing data table Only returns numeric columns and simulates all numeric
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>data</th>
-      <td><p>the existing tbl (must be in wide format)</p></td>
+      <td><p>the existing tbl</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -185,11 +186,11 @@ as an existing data table Only returns numeric columns and simulates all numeric
     </tr>
     <tr>
       <th>within</th>
-      <td><p>a list of the within-subject columns</p></td>
+      <td><p>a list of the within-subject factor columns (if long format)</p></td>
     </tr>
     <tr>
       <th>between</th>
-      <td><p>a list of the between-subject columns</p></td>
+      <td><p>a list of the between-subject factor columns</p></td>
     </tr>
     <tr>
       <th>id</th>
@@ -209,7 +210,11 @@ as an existing data table Only returns numeric columns and simulates all numeric
     </tr>
     <tr>
       <th>seed</th>
-      <td><p>DEPRECATED use set.seed() instead</p></td>
+      <td><p>DEPRECATED use set.seed() instead before running this function</p></td>
+    </tr>
+    <tr>
+      <th>missing</th>
+      <td><p>simulate missing data?</p></td>
     </tr>
     </table>
 
