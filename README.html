@@ -20,27 +20,27 @@ tt, code, pre {
 }
 
 h1 { 
-   font-size:2.2em; 
+   font-size:2.2em;
 }
 
 h2 { 
-   font-size:1.8em; 
+   font-size:1.8em;
 }
 
 h3 { 
-   font-size:1.4em; 
+   font-size:1.4em;
 }
 
 h4 { 
-   font-size:1.0em; 
+   font-size:1.0em;
 }
 
 h5 { 
-   font-size:0.9em; 
+   font-size:0.9em;
 }
 
 h6 { 
-   font-size:0.8em; 
+   font-size:0.8em;
 }
 
 a:visited {
@@ -83,19 +83,19 @@ hr {
 
 @media print {
    * { 
-      background: transparent !important; 
-      color: black !important; 
-      filter:none !important; 
-      -ms-filter: none !important; 
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
    }
 
    body { 
-      font-size:12pt; 
-      max-width:100%; 
+      font-size:12pt;
+      max-width:100%;
    }
        
    a, a:visited { 
-      text-decoration: underline; 
+      text-decoration: underline;
    }
 
    hr { 
@@ -104,32 +104,32 @@ hr {
    }
 
    pre, blockquote { 
-      padding-right: 1em; 
-      page-break-inside: avoid; 
+      padding-right: 1em;
+      page-break-inside: avoid;
    }
 
    tr, img { 
-      page-break-inside: avoid; 
+      page-break-inside: avoid;
    }
 
    img { 
-      max-width: 100% !important; 
+      max-width: 100% !important;
    }
 
    @page :left { 
-      margin: 15mm 20mm 15mm 10mm; 
+      margin: 15mm 20mm 15mm 10mm;
    }
      
    @page :right { 
-      margin: 15mm 10mm 15mm 20mm; 
+      margin: 15mm 10mm 15mm 20mm;
    }
 
    p, h2, h3 { 
-      orphans: 3; widows: 3; 
+      orphans: 3; widows: 3;
    }
 
    h2, h3 { 
-      page-break-after: avoid; 
+      page-break-after: avoid;
    }
 }
 
@@ -260,23 +260,34 @@ df &lt;- sim_design(within, between,
 <tr>
 <td align="left">cat</td>
 <td align="right">100</td>
-<td align="left">evening</td>
-<td align="right">0.5</td>
-<td align="right">0.5</td>
-<td align="right">1.0</td>
-<td align="right">0.5</td>
-<td align="right">14</td>
-<td align="right">5</td>
-</tr>
-<tr>
-<td align="left">cat</td>
-<td align="right">100</td>
 <td align="left">morning</td>
 <td align="right">1.0</td>
 <td align="right">0.5</td>
 <td align="right">0.5</td>
 <td align="right">0.5</td>
 <td align="right">10</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="left">cat</td>
+<td align="right">100</td>
+<td align="left">noon</td>
+<td align="right">0.5</td>
+<td align="right">1.0</td>
+<td align="right">0.5</td>
+<td align="right">0.5</td>
+<td align="right">12</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="left">cat</td>
+<td align="right">100</td>
+<td align="left">evening</td>
+<td align="right">0.5</td>
+<td align="right">0.5</td>
+<td align="right">1.0</td>
+<td align="right">0.5</td>
+<td align="right">14</td>
 <td align="right">5</td>
 </tr>
 <tr>
@@ -291,14 +302,25 @@ df &lt;- sim_design(within, between,
 <td align="right">5</td>
 </tr>
 <tr>
-<td align="left">cat</td>
+<td align="left">dog</td>
+<td align="right">100</td>
+<td align="left">morning</td>
+<td align="right">1.0</td>
+<td align="right">0.5</td>
+<td align="right">0.5</td>
+<td align="right">0.5</td>
+<td align="right">10</td>
+<td align="right">5</td>
+</tr>
+<tr>
+<td align="left">dog</td>
 <td align="right">100</td>
 <td align="left">noon</td>
 <td align="right">0.5</td>
 <td align="right">1.0</td>
 <td align="right">0.5</td>
 <td align="right">0.5</td>
-<td align="right">12</td>
+<td align="right">15</td>
 <td align="right">5</td>
 </tr>
 <tr>
@@ -315,34 +337,12 @@ df &lt;- sim_design(within, between,
 <tr>
 <td align="left">dog</td>
 <td align="right">100</td>
-<td align="left">morning</td>
-<td align="right">1.0</td>
-<td align="right">0.5</td>
-<td align="right">0.5</td>
-<td align="right">0.5</td>
-<td align="right">10</td>
-<td align="right">5</td>
-</tr>
-<tr>
-<td align="left">dog</td>
-<td align="right">100</td>
 <td align="left">night</td>
 <td align="right">0.5</td>
 <td align="right">0.5</td>
 <td align="right">0.5</td>
 <td align="right">1.0</td>
 <td align="right">25</td>
-<td align="right">5</td>
-</tr>
-<tr>
-<td align="left">dog</td>
-<td align="right">100</td>
-<td align="left">noon</td>
-<td align="right">0.5</td>
-<td align="right">1.0</td>
-<td align="right">0.5</td>
-<td align="right">0.5</td>
-<td align="right">15</td>
 <td align="right">5</td>
 </tr>
 </tbody></table>
@@ -469,7 +469,6 @@ dat &lt;- rnorm_multi(
   varnames = c(&quot;A&quot;, &quot;B&quot;, &quot;C&quot;),
   empirical = FALSE
 )
-#&gt; [32mThe number of variables (vars) was guessed from the input to be 3[39m
 </code></pre>
 
 <table><thead>
@@ -530,7 +529,7 @@ list(
   r = cor(x,y)
 ) %&gt;% str()
 #&gt; List of 3
-#&gt;  $ mean: num -1.24e-17
+#&gt;  $ mean: num -1.53e-17
 #&gt;  $ sd  : num 1
 #&gt;  $ r   : num 0.5
 </code></pre>
@@ -579,26 +578,6 @@ iris5 &lt;- messy(iris, 0.5, &quot;Species&quot;, replace = &quot;NOPE&quot;)
 </thead><tbody>
 <tr>
 <td align="right">150</td>
-<td align="left">Petal.Length</td>
-<td align="right">0.87</td>
-<td align="right">-0.43</td>
-<td align="right">1.00</td>
-<td align="right">0.96</td>
-<td align="right">3.76</td>
-<td align="right">1.77</td>
-</tr>
-<tr>
-<td align="right">150</td>
-<td align="left">Petal.Width</td>
-<td align="right">0.82</td>
-<td align="right">-0.37</td>
-<td align="right">0.96</td>
-<td align="right">1.00</td>
-<td align="right">1.20</td>
-<td align="right">0.76</td>
-</tr>
-<tr>
-<td align="right">150</td>
 <td align="left">Sepal.Length</td>
 <td align="right">1.00</td>
 <td align="right">-0.12</td>
@@ -616,6 +595,26 @@ iris5 &lt;- messy(iris, 0.5, &quot;Species&quot;, replace = &quot;NOPE&quot;)
 <td align="right">-0.37</td>
 <td align="right">3.06</td>
 <td align="right">0.44</td>
+</tr>
+<tr>
+<td align="right">150</td>
+<td align="left">Petal.Length</td>
+<td align="right">0.87</td>
+<td align="right">-0.43</td>
+<td align="right">1.00</td>
+<td align="right">0.96</td>
+<td align="right">3.76</td>
+<td align="right">1.77</td>
+</tr>
+<tr>
+<td align="right">150</td>
+<td align="left">Petal.Width</td>
+<td align="right">0.82</td>
+<td align="right">-0.37</td>
+<td align="right">0.96</td>
+<td align="right">1.00</td>
+<td align="right">1.20</td>
+<td align="right">0.76</td>
 </tr>
 </tbody></table>
 
@@ -642,28 +641,6 @@ iris5 &lt;- messy(iris, 0.5, &quot;Species&quot;, replace = &quot;NOPE&quot;)
 <tr>
 <td align="left">setosa</td>
 <td align="right">50</td>
-<td align="left">Petal.Length</td>
-<td align="right">0.27</td>
-<td align="right">0.18</td>
-<td align="right">1.00</td>
-<td align="right">0.33</td>
-<td align="right">1.46</td>
-<td align="right">0.17</td>
-</tr>
-<tr>
-<td align="left">setosa</td>
-<td align="right">50</td>
-<td align="left">Petal.Width</td>
-<td align="right">0.28</td>
-<td align="right">0.23</td>
-<td align="right">0.33</td>
-<td align="right">1.00</td>
-<td align="right">0.25</td>
-<td align="right">0.11</td>
-</tr>
-<tr>
-<td align="left">setosa</td>
-<td align="right">50</td>
 <td align="left">Sepal.Length</td>
 <td align="right">1.00</td>
 <td align="right">0.74</td>
@@ -684,26 +661,26 @@ iris5 &lt;- messy(iris, 0.5, &quot;Species&quot;, replace = &quot;NOPE&quot;)
 <td align="right">0.38</td>
 </tr>
 <tr>
-<td align="left">versicolor</td>
+<td align="left">setosa</td>
 <td align="right">50</td>
 <td align="left">Petal.Length</td>
-<td align="right">0.75</td>
-<td align="right">0.56</td>
+<td align="right">0.27</td>
+<td align="right">0.18</td>
 <td align="right">1.00</td>
-<td align="right">0.79</td>
-<td align="right">4.26</td>
-<td align="right">0.47</td>
+<td align="right">0.33</td>
+<td align="right">1.46</td>
+<td align="right">0.17</td>
 </tr>
 <tr>
-<td align="left">versicolor</td>
+<td align="left">setosa</td>
 <td align="right">50</td>
 <td align="left">Petal.Width</td>
-<td align="right">0.55</td>
-<td align="right">0.66</td>
-<td align="right">0.79</td>
+<td align="right">0.28</td>
+<td align="right">0.23</td>
+<td align="right">0.33</td>
 <td align="right">1.00</td>
-<td align="right">1.33</td>
-<td align="right">0.20</td>
+<td align="right">0.25</td>
+<td align="right">0.11</td>
 </tr>
 <tr>
 <td align="left">versicolor</td>
@@ -728,26 +705,26 @@ iris5 &lt;- messy(iris, 0.5, &quot;Species&quot;, replace = &quot;NOPE&quot;)
 <td align="right">0.31</td>
 </tr>
 <tr>
-<td align="left">virginica</td>
+<td align="left">versicolor</td>
 <td align="right">50</td>
 <td align="left">Petal.Length</td>
-<td align="right">0.86</td>
-<td align="right">0.40</td>
+<td align="right">0.75</td>
+<td align="right">0.56</td>
 <td align="right">1.00</td>
-<td align="right">0.32</td>
-<td align="right">5.55</td>
-<td align="right">0.55</td>
+<td align="right">0.79</td>
+<td align="right">4.26</td>
+<td align="right">0.47</td>
 </tr>
 <tr>
-<td align="left">virginica</td>
+<td align="left">versicolor</td>
 <td align="right">50</td>
 <td align="left">Petal.Width</td>
-<td align="right">0.28</td>
-<td align="right">0.54</td>
-<td align="right">0.32</td>
+<td align="right">0.55</td>
+<td align="right">0.66</td>
+<td align="right">0.79</td>
 <td align="right">1.00</td>
-<td align="right">2.03</td>
-<td align="right">0.27</td>
+<td align="right">1.33</td>
+<td align="right">0.20</td>
 </tr>
 <tr>
 <td align="left">virginica</td>
@@ -770,6 +747,28 @@ iris5 &lt;- messy(iris, 0.5, &quot;Species&quot;, replace = &quot;NOPE&quot;)
 <td align="right">0.54</td>
 <td align="right">2.97</td>
 <td align="right">0.32</td>
+</tr>
+<tr>
+<td align="left">virginica</td>
+<td align="right">50</td>
+<td align="left">Petal.Length</td>
+<td align="right">0.86</td>
+<td align="right">0.40</td>
+<td align="right">1.00</td>
+<td align="right">0.32</td>
+<td align="right">5.55</td>
+<td align="right">0.55</td>
+</tr>
+<tr>
+<td align="left">virginica</td>
+<td align="right">50</td>
+<td align="left">Petal.Width</td>
+<td align="right">0.28</td>
+<td align="right">0.54</td>
+<td align="right">0.32</td>
+<td align="right">1.00</td>
+<td align="right">2.03</td>
+<td align="right">0.27</td>
 </tr>
 </tbody></table>
 
@@ -802,7 +801,6 @@ df_wide &lt;- long2wide(df_long)
 
 <table><thead>
 <tr>
-<th align="left"></th>
 <th align="left">id</th>
 <th align="left">pet</th>
 <th align="right">day</th>
@@ -810,42 +808,36 @@ df_wide &lt;- long2wide(df_long)
 </tr>
 </thead><tbody>
 <tr>
-<td align="left">1.S001.1</td>
 <td align="left">S001</td>
 <td align="left">cat</td>
 <td align="right">0.5230799</td>
 <td align="right">0.5415126</td>
 </tr>
 <tr>
-<td align="left">1.S002.1</td>
 <td align="left">S002</td>
 <td align="left">cat</td>
 <td align="right">-1.2129722</td>
 <td align="right">-0.6874280</td>
 </tr>
 <tr>
-<td align="left">1.S003.1</td>
 <td align="left">S003</td>
 <td align="left">cat</td>
 <td align="right">-0.5516822</td>
 <td align="right">-0.7844739</td>
 </tr>
 <tr>
-<td align="left">1.S004.1</td>
 <td align="left">S004</td>
 <td align="left">cat</td>
 <td align="right">-0.6098251</td>
 <td align="right">-0.6234040</td>
 </tr>
 <tr>
-<td align="left">1.S005.1</td>
 <td align="left">S005</td>
 <td align="left">cat</td>
 <td align="right">0.2853363</td>
 <td align="right">2.3027620</td>
 </tr>
 <tr>
-<td align="left">1.S006.1</td>
 <td align="left">S006</td>
 <td align="left">cat</td>
 <td align="right">-0.2490935</td>

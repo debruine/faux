@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
       </span>
     </div>
 
@@ -107,7 +107,7 @@
 
       
 
-      </header><script src="codebook_files/accessible-code-block-0.0.1/empty-anchor.js"></script><div class="row">
+      </header><script src="codebook_files/header-attrs-2.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Codebook Demo</h1>
@@ -120,15 +120,15 @@
 
     
     
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span></code></pre></div>
 <p>Codebooks in faux follow the <a href="https://docs.google.com/document/d/1u8o5jnWk0Iqp_J06PTu5NjBfVsdoPbBhstht6W0fFp0/edit">Psych-DS 0.1.0 format</a>, which is still in development.</p>
 <div id="simulated-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#simulated-data" class="anchor"></a>Simulated Data</h2>
 <p>When you simulate data with <code>sim_design</code>, the codebook function reads some parameters of the design.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="va">pet_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">pet_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>
   between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Cat Owners"</span>, 
                          dog <span class="op">=</span> <span class="st">"Dog Owners"</span><span class="op">)</span><span class="op">)</span>,
   n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">4</span>, <span class="fl">6</span><span class="op">)</span>,
@@ -136,17 +136,17 @@
   id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"Subject ID"</span><span class="op">)</span>,
   mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">12</span><span class="op">)</span>,
   sd <span class="op">=</span> <span class="fl">4</span>
-<span class="op">)</span></pre></div>
+<span class="op">)</span></code></pre></div>
 <p><img src="codebook_files/figure-html/unnamed-chunk-2-1.png" width="100%"></p>
 <p>You can set up a codebook with the function <code><a href="../reference/codebook.html">codebook()</a></code>. If you don’t specify the name, it defaults to the variable name (<code>pet_data</code>).</p>
-<div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">pet_data</span><span class="op">)</span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">pet_data</span><span class="op">)</span>
 <span class="co">#&gt; id set to dataType string</span>
 <span class="co">#&gt; pet set to dataType string</span>
-<span class="co">#&gt; happy set to dataType float</span></pre></div>
+<span class="co">#&gt; happy set to dataType float</span></code></pre></div>
 <p>If you just type the codebook object into the console, you’ll see the info in JSON format like this.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="va">cb</span>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cb</span>
 <span class="co">#&gt; {</span>
 <span class="co">#&gt;     "@context": "https://schema.org/",</span>
 <span class="co">#&gt;     "@type": "Dataset",</span>
@@ -178,10 +178,10 @@
 <span class="co">#&gt;         }</span>
 <span class="co">#&gt;     ]</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; </span></pre></div>
+<span class="co">#&gt; </span></code></pre></div>
 <p>If you set <code>return</code> to “list”, you get the codebook in an R list that prints like this.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">pet_data</span>, return <span class="op">=</span> <span class="st">"list"</span><span class="op">)</span>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">pet_data</span>, return <span class="op">=</span> <span class="st">"list"</span><span class="op">)</span>
 <span class="co">#&gt; id set to dataType string</span>
 <span class="co">#&gt; pet set to dataType string</span>
 <span class="co">#&gt; happy set to dataType float</span>
@@ -201,10 +201,10 @@
 <span class="co">#&gt;     * cat: Cat Owners</span>
 <span class="co">#&gt;     * dog: Dog Owners</span>
 <span class="co">#&gt;   * Ordered: FALSE</span>
-<span class="co">#&gt; * happy (float): Happiness Score</span></pre></div>
+<span class="co">#&gt; * happy (float): Happiness Score</span></code></pre></div>
 <p>But the codebook is actually a nested list formatted like this:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">cb</span><span class="op">)</span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">cb</span><span class="op">)</span>
 <span class="co">#&gt; List of 5</span>
 <span class="co">#&gt;  $ @context        : chr "https://schema.org/"</span>
 <span class="co">#&gt;  $ @type           : chr "Dataset"</span>
@@ -230,13 +230,13 @@
 <span class="co">#&gt;   .. ..$ name       : chr "happy"</span>
 <span class="co">#&gt;   .. ..$ description: chr "Happiness Score"</span>
 <span class="co">#&gt;   .. ..$ dataType   : chr "float"</span>
-<span class="co">#&gt;  - attr(*, "class")= chr [1:2] "psychds_codebook" "list"</span></pre></div>
+<span class="co">#&gt;  - attr(*, "class")= chr [1:2] "psychds_codebook" "list"</span></code></pre></div>
 <div id="variable-parameters" class="section level3">
 <h3 class="hasAnchor">
 <a href="#variable-parameters" class="anchor"></a>Variable parameters</h3>
 <p>Above you saw messages about the data type that codebook guesses for each column. You can override this by setting the values manually. Below, we’ll create a new column called <code>followup</code> consisting of 0 and 1 values, change the type of the column from integer to boolean (T/F) and also set descriptions for <code>id</code>, <code>pet</code> and <code>followup</code>. The <code>id</code> column had a description of “Subject ID” from the <code>sim_design</code> function, but properties set in using <code>vardesc</code> will override this. You can also add unobserved levels to a factor.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit">
-
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">pet_data</span><span class="op">$</span><span class="va">followup</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">pet_data</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -280,11 +280,11 @@
 <span class="co">#&gt;   * Levels</span>
 <span class="co">#&gt;     * 0: No</span>
 <span class="co">#&gt;     * 1: Yes</span>
-<span class="co">#&gt;   * Ordered: FALSE</span></pre></div>
+<span class="co">#&gt;   * Ordered: FALSE</span></code></pre></div>
 <p>You can change the type of a column in the codebook, but this won’t affect the data itself unless you set the <code>return</code> argument to “data”. This runs type conversion on each column and gives you a warning if type can’t be converted.</p>
 <p>Note how we had to change the levels for the variable <code>followup</code> because we’re converting them to boolean (logical) values and how the names in the levels vector have to be strings.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="va">vardesc</span><span class="op">$</span><span class="va">levels</span><span class="op">$</span><span class="va">followup</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"FALSE"</span> <span class="op">=</span> <span class="st">"No"</span>, <span class="st">"TRUE"</span> <span class="op">=</span> <span class="st">"Yes"</span><span class="op">)</span>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">vardesc</span><span class="op">$</span><span class="va">levels</span><span class="op">$</span><span class="va">followup</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"FALSE"</span> <span class="op">=</span> <span class="st">"No"</span>, <span class="st">"TRUE"</span> <span class="op">=</span> <span class="st">"Yes"</span><span class="op">)</span>
 <span class="va">converted_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">pet_data</span>, <span class="st">"pets"</span>, <span class="va">vardesc</span>, return <span class="op">=</span> <span class="st">"data"</span><span class="op">)</span>
 <span class="co">#&gt; Warning in codebook(pet_data, "pets", vardesc, return = "data"): The following variable properties are not standard: type</span>
 <span class="co">#&gt; id set to dataType string</span>
@@ -300,10 +300,10 @@
 <span class="co">#&gt; 3 S03 cat 15.552581        0</span>
 <span class="co">#&gt; 4 S04 cat  9.906358        1</span>
 <span class="co">#&gt; 5 S05 dog 15.950371        1</span>
-<span class="co">#&gt; 6 S06 dog 11.421215        0</span></pre></div>
+<span class="co">#&gt; 6 S06 dog 11.421215        0</span></code></pre></div>
 <p>The codebook is attached to the returned converted data as an attribute and can be accessed as follows.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">converted_data</span>, <span class="st">"codebook"</span><span class="op">)</span>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attr.html">attr</a></span><span class="op">(</span><span class="va">converted_data</span>, <span class="st">"codebook"</span><span class="op">)</span>
 <span class="co">#&gt; Codebook for pets (Psych-DS 0.1.0)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Dataset Parameters</span>
@@ -325,18 +325,18 @@
 <span class="co">#&gt;   * Levels</span>
 <span class="co">#&gt;     * FALSE: No</span>
 <span class="co">#&gt;     * TRUE: Yes</span>
-<span class="co">#&gt;   * Ordered: FALSE</span></pre></div>
+<span class="co">#&gt;   * Ordered: FALSE</span></code></pre></div>
 <p>You can set other variable parameters than name, type, description, and levels. The variable parameters that Psych-DS currently supports are: “description”, “privacy”, “type”, “propertyID”, “minValue”, “maxValue”, “levels”, “ordered”, “na”, “naValues”, “alternateName”, and “unitCode”. See the <a href="https://docs.google.com/document/d/1u8o5jnWk0Iqp_J06PTu5NjBfVsdoPbBhstht6W0fFp0/edit">technical specs</a> for descriptions of these properties. You can add custom parameters, but will get a warning.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit">
-<span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">pet_data</span>, vardesc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>new_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"YES"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">pet_data</span>, vardesc <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>new_param <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>id <span class="op">=</span> <span class="st">"YES"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
 <span class="co">#&gt; Warning in codebook(pet_data, vardesc = list(new_param = c(id = "YES"))): The following variable properties are not standard: new_param</span>
 <span class="co">#&gt; id set to dataType string</span>
 <span class="co">#&gt; pet set to dataType string</span>
 <span class="co">#&gt; happy set to dataType float</span>
-<span class="co">#&gt; followup set to dataType int</span></pre></div>
+<span class="co">#&gt; followup set to dataType int</span></code></pre></div>
 <p>If you have a column that is an ordered factor, the codebook will look like this:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit">
-<span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   initial <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">LETTERS</span>, <span class="fl">10</span><span class="op">)</span>
 <span class="op">)</span>
 
@@ -384,14 +384,14 @@
 <span class="co">#&gt;     * X: The letter X</span>
 <span class="co">#&gt;     * Y: The letter Y</span>
 <span class="co">#&gt;     * Z: The letter Z</span>
-<span class="co">#&gt;   * Ordered: TRUE</span></pre></div>
+<span class="co">#&gt;   * Ordered: TRUE</span></code></pre></div>
 </div>
 <div id="dataset-parameters" class="section level3">
 <h3 class="hasAnchor">
 <a href="#dataset-parameters" class="anchor"></a>Dataset Parameters</h3>
 <p>You can add extra parameters to the whole data set. Psych-DS supports the following: “license”, “author”, “citation”, “funder”, “url”, “sameAs”, “keywords”, “temporalCoverage”, “spatialCoverage”, “datePublished”, “dateCreated”. As with variable parameters, you can add custom parameters and will just get a warning.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit">
-<span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">pet_data</span>, license <span class="op">=</span> <span class="st">"CC-BY 3.0"</span>, author <span class="op">=</span> <span class="st">"Lisa DeBruine"</span>, source <span class="op">=</span> <span class="st">"faux"</span><span class="op">)</span>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">pet_data</span>, license <span class="op">=</span> <span class="st">"CC-BY 3.0"</span>, author <span class="op">=</span> <span class="st">"Lisa DeBruine"</span>, source <span class="op">=</span> <span class="st">"faux"</span><span class="op">)</span>
 <span class="co">#&gt; Warning in codebook(pet_data, license = "CC-BY 3.0", author = "Lisa DeBruine", : The following dataset properties are not standard: source</span>
 <span class="co">#&gt; id set to dataType string</span>
 <span class="co">#&gt; pet set to dataType string</span>
@@ -437,10 +437,10 @@
 <span class="co">#&gt;         }</span>
 <span class="co">#&gt;     ]</span>
 <span class="co">#&gt; }</span>
-<span class="co">#&gt; </span></pre></div>
+<span class="co">#&gt; </span></code></pre></div>
 <p>You can also add parameters as lists.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit">
-<span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>plot<span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>plot<span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
 <span class="va">author_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -479,15 +479,15 @@
 <span class="co">#&gt; Column Parameters</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; * id (string)</span>
-<span class="co">#&gt; * y (float): value</span></pre></div>
+<span class="co">#&gt; * y (float): value</span></code></pre></div>
 </div>
 </div>
 <div id="existing-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#existing-data" class="anchor"></a>Existing Data</h2>
 <p>You can run the codebook function on existing data not created in faux, but will need to manually input column descriptions and factor levels.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit">
-
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
 <span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   description <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
     mpg <span class="op">=</span> <span class="st">"Miles/(US) gallon"</span>,
@@ -562,15 +562,15 @@
 <span class="co">#&gt;     * 1: manual</span>
 <span class="co">#&gt;   * Ordered: FALSE</span>
 <span class="co">#&gt; * gear (int): Number of forward gears</span>
-<span class="co">#&gt; * carb (int): Number of carburetors</span></pre></div>
+<span class="co">#&gt; * carb (int): Number of carburetors</span></code></pre></div>
 </div>
 <div id="interactive-editing" class="section level2">
 <h2 class="hasAnchor">
 <a href="#interactive-editing" class="anchor"></a>Interactive Editing</h2>
 <p>There is an experimental argument to edit the codebook interactively. It runs the codebook function, then asks you to confirm types and edit descriptions. Only run this in the console, not in an RMarkdown file or a script meant to be run non-interactively.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit">
-
-<span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">mtcars</span>, interactive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R">
+<span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">mtcars</span>, interactive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 

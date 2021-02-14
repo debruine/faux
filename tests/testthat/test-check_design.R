@@ -1,5 +1,3 @@
-context("test-check_design")
-
 faux_options(plot = FALSE)
 
 # errors ----
@@ -7,7 +5,11 @@ test_that("errors", {
   expect_error(check_design(n = -1), "All n must be >= 0")
   expect_warning(check_design(n = 0), "Some cell Ns are 0. Make sure this is intentional.")
   expect_warning(check_design(n = 10.3), "Some cell Ns are not integers. They have been rounded up to the nearest integer.")
-  
+})
+
+
+# params ----
+test_that("params", {
   # numeric n
   expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = 20)))
   expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = "20")))
@@ -47,7 +49,7 @@ test_that("errors", {
                err, fixed = TRUE)
 })
 
-# no factors
+# no factors ----
 test_that("no factors", {
   design <- check_design()
   expect_equal(design$within, list())

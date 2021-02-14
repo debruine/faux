@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
       </span>
     </div>
 
@@ -161,14 +161,14 @@
     <p><code>rnorm_pre</code> Produces a random normally distributed vector with the specified correlation to an existing vector</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rnorm_pre</span><span class='op'>(</span><span class='va'>x</span>, mu <span class='op'>=</span> <span class='fl'>0</span>, sd <span class='op'>=</span> <span class='fl'>1</span>, r <span class='op'>=</span> <span class='fl'>0</span>, empirical <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>rnorm_pre</span><span class='op'>(</span><span class='va'>x</span>, mu <span class='op'>=</span> <span class='fl'>0</span>, sd <span class='op'>=</span> <span class='fl'>1</span>, r <span class='op'>=</span> <span class='fl'>0</span>, empirical <span class='op'>=</span> <span class='cn'>FALSE</span>, threshold <span class='op'>=</span> <span class='fl'>1e-12</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>the existing vector</p></td>
+      <td><p>the existing vector or data table of all vectors</p></td>
     </tr>
     <tr>
       <th>mu</th>
@@ -180,11 +180,15 @@
     </tr>
     <tr>
       <th>r</th>
-      <td><p>desired correlation between existing and returned vectors</p></td>
+      <td><p>desired correlation(s) between existing and returned vectors</p></td>
     </tr>
     <tr>
       <th>empirical</th>
       <td><p>logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance</p></td>
+    </tr>
+    <tr>
+      <th>threshold</th>
+      <td><p>for checking correaltion matrix</p></td>
     </tr>
     </table>
 
@@ -196,7 +200,14 @@
     <pre class="examples"><div class='input'><span class='va'>v1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
 <span class='va'>v2</span> <span class='op'>&lt;-</span> <span class='fu'>rnorm_pre</span><span class='op'>(</span><span class='va'>v1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>v1</span>, <span class='va'>v2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.320861</div></pre>
+</div><div class='output co'>#&gt; [1] 0.320861</div><div class='input'>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rnorm_multi.html'>rnorm_multi</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>2</span>, <span class='fl'>.5</span><span class='op'>)</span>
+<span class='va'>x</span><span class='op'>$</span><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>rnorm_pre</span><span class='op'>(</span><span class='va'>x</span>, r <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.25</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;            X1          X2          y
+#&gt; X1  1.0000000 -0.28453616 0.31888458
+#&gt; X2 -0.2845362  1.00000000 0.08278116
+#&gt; y   0.3188846  0.08278116 1.00000000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
