@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.8</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
       </span>
     </div>
 
@@ -155,9 +155,17 @@
       <small>Source: <a href='https://github.com/debruine/faux/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="faux-0018-2021-03-136" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.1.8">
-<a href="#faux-0018-2021-03-136" class="anchor"></a>faux 0.0.1.8 (2021-03-136)<small> Unreleased </small>
+    <div id="faux-0017-2021-03-14" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.7">
+<a href="#faux-0017-2021-03-14" class="anchor"></a>faux 0.0.1.7 (2021-03-14)<small> Unreleased </small>
+</h1>
+<ul>
+<li>fixed bug in <code><a href="../reference/sim_design.html">sim_design()</a></code> where parameters specified as a named vector couldn’t be in a different order unless both between and within factors were specified (e.g., <code>mu = c(A2 = 2, A1 = 1)</code> resulted in a mu of 2 for A1 and 1 for A2).</li>
+</ul>
+</div>
+    <div id="faux-0017-2021-03-13" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.7">
+<a href="#faux-0017-2021-03-13" class="anchor"></a>faux 0.0.1.7 (2021-03-13)<small> Unreleased </small>
 </h1>
 <ul>
 <li>new <code><a href="../reference/sim_joint_dist.html">sim_joint_dist()</a></code> function to simulate the joint distribution of categories</li>
@@ -168,6 +176,8 @@
 <li>some functions (<code><a href="../reference/sim_df.html">sim_df()</a></code> and <code><a href="../reference/messy.html">messy()</a></code>) can choose columns with unquoted names now (e.g., <code><a href="../reference/messy.html">messy(mtcars, .5, mpg)</a></code>)</li>
 <li>
 <code><a href="../reference/messy.html">messy()</a></code> now takes a vector of proportions so you can simulate different amounts of missing data per selected column</li>
+<li>
+<code><a href="../reference/sample_from_pop.html">sample_from_pop()</a></code> is now vectorised</li>
 </ul>
 </div>
     <div id="faux-0017-2021-02-06" class="section level1">

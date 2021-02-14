@@ -1,4 +1,8 @@
-# faux 0.0.1.8 (2021-03-136)
+# faux 0.0.1.7 (2021-03-14)
+
+* fixed bug in `sim_design()` where parameters specified as a named vector couldn't be in a different order unless both between and within factors were specified (e.g., `mu = c(A2 = 2, A1 = 1)` resulted in a mu of 2 for A1 and 1 for A2).
+
+# faux 0.0.1.7 (2021-03-13)
 
 * new `sim_joint_dist()` function to simulate the joint distribution of categories
 * `sim_df()` no longer breaks if there are NAs in the DV columns

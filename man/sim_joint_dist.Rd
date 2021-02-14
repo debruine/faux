@@ -9,7 +9,7 @@ sim_joint_dist(data, ..., n = 100, empirical = FALSE)
 \arguments{
 \item{data}{the existing tbl}
 
-\item{...}{columns to calculate the joint distribution from, if none are chose, all columns with 10 or fewer unique values will be chosen}
+\item{...}{columns to calculate the joint distribution from, if none are chosen, all columns with 10 or fewer unique values will be chosen}
 
 \item{n}{the number of total observations to return}
 
@@ -19,8 +19,8 @@ sim_joint_dist(data, ..., n = 100, empirical = FALSE)
 data table
 }
 \description{
-Simulate category joint distribution
+This function is mainly used internally, such as for simulating  missing data patterns, but is available in case anyone finds it useful.
 }
 \examples{
-sim_joint_dist(mtcars, cyl, vs, am, n = 20)
+sim_joint_dist(ggplot2::diamonds, cut, color, n = 10)
 }

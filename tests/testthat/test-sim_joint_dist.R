@@ -46,4 +46,14 @@ test_that("empirical", {
   n <- dplyr::count(emp, A, B)$n
   expect_equal(n, c(25, 25, 25, 25))
   
+  # more categories than n
+  set.seed(1)
+  data <- expand.grid(A = 1:10, B = 1:10)
+  emp <- sim_joint_dist(data, A, B, n = 10, empirical = TRUE)
+  n <- dplyr::count(emp, A, B)$n
+  expect_equal(n, rep(1, 10))
+  
+  # samples differently each time
+  emp2 <- sim_joint_dist(data, A, B, n = 10, empirical = TRUE)
+  expect_false(all(emp$A == emp2$A))
 })

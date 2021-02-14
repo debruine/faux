@@ -3,7 +3,7 @@ output: github_document
 always_allow_html: yes
 ---
 
-# faux
+# faux 
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
@@ -74,14 +74,14 @@ df <- sim_design(within, between,
 
 |pet |   n|var     | morning| noon| evening| night| mean| sd|
 |:---|---:|:-------|-------:|----:|-------:|-----:|----:|--:|
-|cat | 100|evening |     0.5|  0.5|     1.0|   0.5|   14|  5|
 |cat | 100|morning |     1.0|  0.5|     0.5|   0.5|   10|  5|
-|cat | 100|night   |     0.5|  0.5|     0.5|   1.0|   16|  5|
 |cat | 100|noon    |     0.5|  1.0|     0.5|   0.5|   12|  5|
-|dog | 100|evening |     0.5|  0.5|     1.0|   0.5|   20|  5|
+|cat | 100|evening |     0.5|  0.5|     1.0|   0.5|   14|  5|
+|cat | 100|night   |     0.5|  0.5|     0.5|   1.0|   16|  5|
 |dog | 100|morning |     1.0|  0.5|     0.5|   0.5|   10|  5|
-|dog | 100|night   |     0.5|  0.5|     0.5|   1.0|   25|  5|
 |dog | 100|noon    |     0.5|  1.0|     0.5|   0.5|   15|  5|
+|dog | 100|evening |     0.5|  0.5|     1.0|   0.5|   20|  5|
+|dog | 100|night   |     0.5|  0.5|     0.5|   1.0|   25|  5|
 
 
 Table: Sample `sim_design()` stats
@@ -185,7 +185,6 @@ dat <- rnorm_multi(
   varnames = c("A", "B", "C"),
   empirical = FALSE
 )
-#> [32mThe number of variables (vars) was guessed from the input to be 3[39m
 ```
 
 
@@ -219,7 +218,7 @@ list(
   r = cor(x,y)
 ) %>% str()
 #> List of 3
-#>  $ mean: num -1.24e-17
+#>  $ mean: num -1.53e-17
 #>  $ sd  : num 1
 #>  $ r   : num 0.5
 ```
@@ -264,10 +263,10 @@ get_params(iris)
 
 |   n|var          | Sepal.Length| Sepal.Width| Petal.Length| Petal.Width| mean|   sd|
 |---:|:------------|------------:|-----------:|------------:|-----------:|----:|----:|
-| 150|Petal.Length |         0.87|       -0.43|         1.00|        0.96| 3.76| 1.77|
-| 150|Petal.Width  |         0.82|       -0.37|         0.96|        1.00| 1.20| 0.76|
 | 150|Sepal.Length |         1.00|       -0.12|         0.87|        0.82| 5.84| 0.83|
 | 150|Sepal.Width  |        -0.12|        1.00|        -0.43|       -0.37| 3.06| 0.44|
+| 150|Petal.Length |         0.87|       -0.43|         1.00|        0.96| 3.76| 1.77|
+| 150|Petal.Width  |         0.82|       -0.37|         0.96|        1.00| 1.20| 0.76|
 
 
 
@@ -284,18 +283,18 @@ get_params(iris,
 
 |Species    |  n|var          | Sepal.Length| Sepal.Width| Petal.Length| Petal.Width| mean|   sd|
 |:----------|--:|:------------|------------:|-----------:|------------:|-----------:|----:|----:|
-|setosa     | 50|Petal.Length |         0.27|        0.18|         1.00|        0.33| 1.46| 0.17|
-|setosa     | 50|Petal.Width  |         0.28|        0.23|         0.33|        1.00| 0.25| 0.11|
 |setosa     | 50|Sepal.Length |         1.00|        0.74|         0.27|        0.28| 5.01| 0.35|
 |setosa     | 50|Sepal.Width  |         0.74|        1.00|         0.18|        0.23| 3.43| 0.38|
-|versicolor | 50|Petal.Length |         0.75|        0.56|         1.00|        0.79| 4.26| 0.47|
-|versicolor | 50|Petal.Width  |         0.55|        0.66|         0.79|        1.00| 1.33| 0.20|
+|setosa     | 50|Petal.Length |         0.27|        0.18|         1.00|        0.33| 1.46| 0.17|
+|setosa     | 50|Petal.Width  |         0.28|        0.23|         0.33|        1.00| 0.25| 0.11|
 |versicolor | 50|Sepal.Length |         1.00|        0.53|         0.75|        0.55| 5.94| 0.52|
 |versicolor | 50|Sepal.Width  |         0.53|        1.00|         0.56|        0.66| 2.77| 0.31|
-|virginica  | 50|Petal.Length |         0.86|        0.40|         1.00|        0.32| 5.55| 0.55|
-|virginica  | 50|Petal.Width  |         0.28|        0.54|         0.32|        1.00| 2.03| 0.27|
+|versicolor | 50|Petal.Length |         0.75|        0.56|         1.00|        0.79| 4.26| 0.47|
+|versicolor | 50|Petal.Width  |         0.55|        0.66|         0.79|        1.00| 1.33| 0.20|
 |virginica  | 50|Sepal.Length |         1.00|        0.46|         0.86|        0.28| 6.59| 0.64|
 |virginica  | 50|Sepal.Width  |         0.46|        1.00|         0.40|        0.54| 2.97| 0.32|
+|virginica  | 50|Petal.Length |         0.86|        0.40|         1.00|        0.32| 5.55| 0.55|
+|virginica  | 50|Petal.Width  |         0.28|        0.54|         0.32|        1.00| 2.03| 0.27|
 
 
 
@@ -334,14 +333,14 @@ df_wide <- long2wide(df_long)
 ```
 
 
-|         |id   |pet |        day|      night|
-|:--------|:----|:---|----------:|----------:|
-|1.S001.1 |S001 |cat |  0.5230799|  0.5415126|
-|1.S002.1 |S002 |cat | -1.2129722| -0.6874280|
-|1.S003.1 |S003 |cat | -0.5516822| -0.7844739|
-|1.S004.1 |S004 |cat | -0.6098251| -0.6234040|
-|1.S005.1 |S005 |cat |  0.2853363|  2.3027620|
-|1.S006.1 |S006 |cat | -0.2490935| -0.6530662|
+|id   |pet |        day|      night|
+|:----|:---|----------:|----------:|
+|S001 |cat |  0.5230799|  0.5415126|
+|S002 |cat | -1.2129722| -0.6874280|
+|S003 |cat | -0.5516822| -0.7844739|
+|S004 |cat | -0.6098251| -0.6234040|
+|S005 |cat |  0.2853363|  2.3027620|
+|S006 |cat | -0.2490935| -0.6530662|
 
 If you have a data table not made by faux, you need to specify the within-subject columns, the between-subject columns, the DV column, and the ID column.
 

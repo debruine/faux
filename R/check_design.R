@@ -45,7 +45,7 @@ check_design <- function(within = list(), between = list(),
                          plot = faux_options("plot"), 
                          design = NULL, fix_names = TRUE) {
   # design passed as design list
-  if (!is.null(design)) {
+  if (!is.null(design) && is.list(design)) {
     # double-check the entered design
     list2env(design, envir = environment())
   } else if ("design" %in% class(within)) {
@@ -54,12 +54,12 @@ check_design <- function(within = list(), between = list(),
   }
   
   # name anonymous factors ----
-  if (is.numeric(within) && all(within %in% 2:10)) { # vector of level numbers
+  if (is.numeric(within) && all(within %in% 2:20)) { # vector of level numbers
     within_names <- LETTERS[1:length(within)]
     indices <- lapply(within, function(.) seq(1:.))
     within <- mapply(paste0, within_names, indices, SIMPLIFY = FALSE)
   }
-  if (is.numeric(between) && all(between %in% 2:10)) { # vector of level numbers
+  if (is.numeric(between) && all(between %in% 2:20)) { # vector of level numbers
     between_names <- LETTERS[(length(within)+1):(length(within)+length(between))]
     indices <- lapply(between, function(.) seq(1:.))
     between <- mapply(paste0, between_names, indices, SIMPLIFY = FALSE)
@@ -109,7 +109,7 @@ check_design <- function(within = list(), between = list(),
   cells_b <- cell_combos(between, names(dv)) 
   
   # convert n, mu and sd  ----
-  cell_n  <- convert_param(n,  cells_w, cells_b, "Ns")
+  cell_n  <- convert_param(n, cells_w, cells_b, "Ns")
   for (i in names(cell_n)) {
     cell_n[[i]] <- cell_n[[i]][[1]]
   }
