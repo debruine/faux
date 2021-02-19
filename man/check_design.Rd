@@ -16,7 +16,8 @@ check_design(
   vardesc = list(),
   plot = faux_options("plot"),
   design = NULL,
-  fix_names = TRUE
+  fix_names = TRUE,
+  sep = faux_options("sep")
 )
 }
 \arguments{
@@ -43,6 +44,8 @@ check_design(
 \item{design}{a design list including within, between, n, mu, sd, r, dv, id}
 
 \item{fix_names}{fix variable names so special characters become . or _ (default TRUE)}
+
+\item{sep}{separator for factor levels if wide}
 }
 \value{
 list

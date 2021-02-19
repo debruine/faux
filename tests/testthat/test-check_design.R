@@ -188,7 +188,7 @@ test_that("design spec", {
   
   design <- check_design(within, between, n, mu, sd, r, dv, id)
   
-  design_elements <- c("within", "between", "dv", "id", "n", "mu", "sd", "r", "params")
+  design_elements <- c("within", "between", "dv", "id", "n", "mu", "sd", "r", "sep", "params")
   
   expect_equal(names(design), design_elements)
   expect_equal(design$dv, dv)
@@ -215,7 +215,7 @@ test_that("anon factors", {
 
 # wierd factor names ----
 test_that("wierd factor names", {
-  # only replaces undervalues
+  # only replaces underscores
   within <- list("A" = c("A_1", "A 2"),
                  "B" = c("B~1", "B'2"))
   design <- check_design(within)
@@ -314,4 +314,45 @@ test_that("params table", {
   expect_equal(op[1:length(expected)], expected)
 })
 
+# sep ----
+test_that("sep", {
+  faux_options(sep = ".")
+  design <- check_design(
+    within = list(
+      A = c("A_1", "A_2"),
+      B = c("B_1", "B_2")
+    ),
+    n = 5,
+    plot = FALSE
+  )
+  
+  wide <- sim_data(design = design)
+  expect_equal(names(wide), c("id", "A_1.B_1", "A_1.B_2", "A_2.B_1", "A_2.B_2"))
+  
+  long <- sim_data(design = design, long = TRUE)
+  expect_equal(unique(long$A), factor(c("A_1", "A_2")))
+  expect_equal(unique(long$B), factor(c("B_1", "B_2")))
+})
+
+# fix_names = FALSE ----
+test_that("fix_names = FALSE", {
+  faux_options(sep = ".")
+  design <- check_design(
+    within = list(
+      A = c("A.1", "A.2"),
+      B = c("B_1", "B_2")
+    ),
+    n = 5,
+    fix_names = FALSE
+  )
+  
+  wide <- sim_data(design = design)
+  expect_equal(names(wide), c("id", "A.1.B_1", "A.1.B_2", "A.2.B_1", "A.2.B_2"))
+  
+  long <- sim_data(design = design, long = TRUE)
+  expect_equal(unique(long$A), factor(c("A.1", "A.2")))
+  expect_equal(unique(long$B), factor(c("B_1", "B_2")))
+})
+
 faux_options(plot = TRUE)
+faux_options(sep = "_")

@@ -113,7 +113,7 @@
       <h1 data-toc-skip>Simulate by Design</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2021-02-14</h4>
+            <h4 class="date">2021-02-19</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/sim_design.Rmd"><code>vignettes/sim_design.Rmd</code></a></small>
       <div class="hidden name"><code>sim_design.Rmd</code></div>
@@ -174,11 +174,55 @@
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p><img src="sim_design_files/figure-html/unnamed-chunk-3-1.png" width="100%"></p>
 </div>
+<div id="levels-with-underscores" class="section level4">
+<h4 class="hasAnchor">
+<a href="#levels-with-underscores" class="anchor"></a>Levels with underscores</h4>
+<p>In wide format, faux uses an underscore to separate level names. Therefore, any underscores in factor level names will be replaced with ‘.’.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># with default sep = _</span>
+<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A_1"</span>, <span class="st">"A_2"</span><span class="op">)</span>,
+  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B_1"</span>, <span class="st">"B_2"</span><span class="op">)</span>
+<span class="op">)</span>
+
+<span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, n <span class="op">=</span> <span class="fl">5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt;   id     A.1_B.1    A.1_B.2     A.2_B.1    A.2_B.2</span>
+<span class="co">#&gt; 1 S1  0.26758568 -1.0427328 -0.76117907 -1.4205876</span>
+<span class="co">#&gt; 2 S2 -1.26342118 -0.6933384 -0.27144145 -0.3073318</span>
+<span class="co">#&gt; 3 S3 -1.05053275  0.9666903  1.63505565  0.6926959</span>
+<span class="co">#&gt; 4 S4  0.65104622  0.2780749  0.77626277 -0.9197527</span>
+<span class="co">#&gt; 5 S5  0.01020941 -0.1250620 -0.04939468  0.4310845</span></code></pre></div>
+<p>You can change this default with <code><a href="../reference/faux_options.html">faux_options()</a></code>. If the separator is set to ‘.’, all ‘.’ in names will be changed to ’_’.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/faux_options.html">faux_options</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"."</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, n <span class="op">=</span> <span class="fl">5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt;   id    A_1.B_1    A_1.B_2     A_2.B_1     A_2.B_2</span>
+<span class="co">#&gt; 1 S1  1.0670977  0.1536347 -0.68339593  0.09736345</span>
+<span class="co">#&gt; 2 S2  0.4258553 -0.5537698  1.09080991 -1.15833475</span>
+<span class="co">#&gt; 3 S3  1.4700845 -0.2352752  0.05678022  0.05402887</span>
+<span class="co">#&gt; 4 S4  0.7489665 -0.3583634  1.02274503  0.76136018</span>
+<span class="co">#&gt; 5 S5 -0.3584922  0.6442344  0.72930278 -1.08585336</span></code></pre></div>
+<p>If you output your data in long format, faux won’t mangle the names, regardless of the separator value.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/faux_options.html">faux_options</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, n <span class="op">=</span> <span class="fl">2</span>, long <span class="op">=</span> <span class="cn">TRUE</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="co">#&gt;   id   A   B           y</span>
+<span class="co">#&gt; 1 S1 A_1 B_1  0.19326686</span>
+<span class="co">#&gt; 2 S2 A_1 B_1 -0.53052593</span>
+<span class="co">#&gt; 3 S1 A_1 B_2  0.14013014</span>
+<span class="co">#&gt; 4 S2 A_1 B_2 -0.47596242</span>
+<span class="co">#&gt; 5 S1 A_2 B_1  0.60350267</span>
+<span class="co">#&gt; 6 S2 A_2 B_1  1.33326396</span>
+<span class="co">#&gt; 7 S1 A_2 B_2 -0.05572240</span>
+<span class="co">#&gt; 8 S2 A_2 B_2  0.03343228</span></code></pre></div>
+</div>
 <div id="list-of-named-vectorslists" class="section level4">
 <h4 class="hasAnchor">
 <a href="#list-of-named-vectorslists" class="anchor"></a>List of named vectors/lists</h4>
 <p>You can also specify factors as a list of named vectors or lists where the item names are the factor labels, the vector names are the level labels that are used in the data table, and the vector items are the long labels for a codebook or plot.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Is a cat person"</span>, dog <span class="op">=</span> <span class="st">"Is a dog person"</span><span class="op">)</span>
 <span class="op">)</span>
@@ -186,14 +230,14 @@
   time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="st">"Tested during the day"</span>, night <span class="op">=</span> <span class="st">"Tested at night"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-4-1.png" width="100%"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-7-1.png" width="100%"></p>
 </div>
 </div>
 <div id="check_design" class="section level3">
 <h3 class="hasAnchor">
 <a href="#check_design" class="anchor"></a>check_design</h3>
 <p>The <code><a href="../reference/check_design.html">check_design()</a></code> function converts this to the fully expanded version; it checks your design specification when you run <code><a href="../reference/sim_design.html">sim_design()</a></code> or you can run it on its own to create a validated design list. You can view this in JSON format using the function <code><a href="../reference/json_design.html">json_design()</a></code>.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, n <span class="op">=</span> <span class="fl">10</span>, 
                        mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, r <span class="op">=</span> <span class="fl">0.5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
@@ -250,7 +294,8 @@
 <span class="co">#&gt;       [1, 0.5],</span>
 <span class="co">#&gt;       [0.5, 1]</span>
 <span class="co">#&gt;     ]</span>
-<span class="co">#&gt;   }</span>
+<span class="co">#&gt;   },</span>
+<span class="co">#&gt;   "sep": "_"</span>
 <span class="co">#&gt; }</span></code></pre></div>
 </div>
 <div id="specifying-n" class="section level3">
@@ -261,7 +306,7 @@
 <h4 class="hasAnchor">
 <a href="#single-number" class="anchor"></a>Single number</h4>
 <p>You usually want to specify <code>n</code> as a single number. This is N per cell, not total sample size.</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">20</span> <span class="co"># n per cell, not total</span>
 <span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">n</span><span class="op">)</span>
@@ -275,7 +320,7 @@
 <h4 class="hasAnchor">
 <a href="#named-list" class="anchor"></a>Named list</h4>
 <p>You can also specify <code>n</code> as a named list of Ns per between-subject cell.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   B1_C1 <span class="op">=</span> <span class="fl">10</span>, 
   B1_C2 <span class="op">=</span> <span class="fl">20</span>, 
@@ -294,7 +339,7 @@
 <h4 class="hasAnchor">
 <a href="#dataframe" class="anchor"></a>Dataframe</h4>
 <p>Or as a data frame. You just need to get the row or column names right, but they don’t have to be in the right order.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   B2_C2 <span class="op">=</span> <span class="fl">40</span>,
   B1_C1 <span class="op">=</span> <span class="fl">10</span>, 
@@ -309,7 +354,7 @@
 <span class="co">#&gt;  $ B2_C1: num 30</span>
 <span class="co">#&gt;  $ B2_C2: num 40</span></code></pre></div>
 <p>You can specify the cells as row names or column names and <code><a href="../reference/check_design.html">check_design()</a></code> will fix them. Since <code>n</code> <strong>has</strong> to be the same for each within-subject factor, you can specify n as a single column with any name.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span><span class="op">)</span>,
                 row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B1_C1"</span>, <span class="st">"B1_C2"</span>, <span class="st">"B2_C1"</span>, <span class="st">"B2_C2"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -329,7 +374,7 @@
 <h4 class="hasAnchor">
 <a href="#unnamed-vector" class="anchor"></a>Unnamed vector</h4>
 <p>An unnamed vector is a quick way to specify means and SDs, but the order relative to your between- and within-subject cells can be confusing.</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span>, 
                 condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>,   <span class="st">"B"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">within</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
@@ -354,7 +399,7 @@
 <h4 class="hasAnchor">
 <a href="#named-list-of-named-vectors" class="anchor"></a>Named list of named vectors</h4>
 <p>A named list of named vectors prevents confusion due to order. The levels of the between-subject factors are the list names and the levels of the within-subject factors are the vector names, but their order doesn’t matter.</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   cat_B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>night <span class="op">=</span> <span class="fl">40</span>, day <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,
   cat_A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">10</span>, night <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,
@@ -377,7 +422,7 @@
 <span class="co">#&gt;   ..$ day  : num 70</span>
 <span class="co">#&gt;   ..$ night: num 80</span></code></pre></div>
 <p>Alternatively, you can specify them as data frames.</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   cat_A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span>,
   cat_B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">40</span><span class="op">)</span>,
@@ -401,7 +446,7 @@
 <span class="co">#&gt;   ..$ day  : num 70</span>
 <span class="co">#&gt;   ..$ night: num 80</span></code></pre></div>
 <p>If you transpose the dataframe, this works out fine unless your within- and between-subject cells have identical names.</p>
-<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
   day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">30</span>, <span class="fl">50</span>, <span class="fl">70</span><span class="op">)</span>,
   night <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span><span class="op">)</span>,
@@ -428,7 +473,7 @@
 <h3 class="hasAnchor">
 <a href="#correlations" class="anchor"></a>Correlations</h3>
 <p>If you have any within-subject factors, you need to set the correlation for each between-cell. Here, we only have two levels of one within-subject factor, so can only set one correlation per between-cell.</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   cat_A <span class="op">=</span> <span class="fl">.5</span>,
   cat_B <span class="op">=</span> <span class="fl">.5</span>,
@@ -460,7 +505,7 @@
 <h4 class="hasAnchor">
 <a href="#upper-right-triangle" class="anchor"></a>Upper right triangle</h4>
 <p>If you have more than 2 within-subject cells, you can specify each specific correlation in the upper right triangle of the correlation matrix as a vector.</p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   B1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.10</span>, <span class="fl">.20</span>, <span class="fl">.30</span>, 
               <span class="fl">.40</span>, <span class="fl">.50</span>, 
@@ -489,7 +534,7 @@
 <h4 class="hasAnchor">
 <a href="#correlation-matrix" class="anchor"></a>Correlation matrix</h4>
 <p>You can also enter the correlation matrix from <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>.</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"speed"</span>, <span class="st">"dist"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>half <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"last"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -514,7 +559,7 @@
 <h3 class="hasAnchor">
 <a href="#empirical" class="anchor"></a>Empirical</h3>
 <p>If you set <code>empirical = TRUE</code>, you will get the <em>exact</em> means, SDs and correlations you specified. If you set <code>empirical = FALSE</code> or omit that argument, your data will be sampled from a population with those parameters, but your dataset will not have exactly those values (just on average).</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">within</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
 <span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
@@ -532,7 +577,7 @@
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, n <span class="op">=</span> <span class="fl">100</span>, 
                  mu <span class="op">=</span> <span class="va">mu</span>, sd <span class="op">=</span> <span class="va">sd</span>, r <span class="op">=</span> <span class="va">r</span>,
                  empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-17-1.png" width="100%"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-20-1.png" width="100%"></p>
 <table class="table">
 <thead><tr class="header">
 <th align="left">pet</th>
@@ -588,9 +633,9 @@
 <h2 class="hasAnchor">
 <a href="#more-factors" class="anchor"></a>More factors</h2>
 <p>Here is a 2w*3w*2b*2b example. When you have multiple within or between factors, you need to specify parameters by cell. Cell names are the level names, in the order they are listed in the <code>within</code> or <code>between</code> arguments, separated by underscores.</p>
-<p>Foe example, if you have one within-subject factor of condition with levels <code>con</code> and <code>inc</code>, and another within-subject factor of version wiith levels <code>easy</code>, <code>med</code>, and <code>hard</code>, your cell lables will be: <code>con_easy</code>, <code>inc_easy</code>, <code>con_med</code>, <code>inc_med</code>, <code>con_hard</code>, and <code>inc_hard</code>.</p>
+<p>Foe example, if you have one within-subject factor of condition with levels <code>con</code> and <code>inc</code>, and another within-subject factor of version with levels <code>easy</code>, <code>med</code>, and <code>hard</code>, your cell labels will be: <code>con_easy</code>, <code>inc_easy</code>, <code>con_med</code>, <code>inc_med</code>, <code>con_hard</code>, and <code>inc_hard</code>.</p>
 <p>If you have any characters in your level names except letters and numbers, they will be replaced by a full stop (e.g., <code>my super-good level_name</code> will become <code>my.super.good.level.name</code>).</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>con <span class="op">=</span> <span class="st">"Mean of congruent trials"</span>, 
                 inc <span class="op">=</span> <span class="st">"Mean of incongruent trials"</span><span class="op">)</span>,
@@ -613,7 +658,7 @@
   expert_night <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">15</span>
 <span class="op">)</span></code></pre></div>
 <p>You can set the correlation for each between-cell to a single number.</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   novice_day <span class="op">=</span> <span class="fl">0.3</span>,
   novice_night <span class="op">=</span> <span class="fl">0.2</span>,
@@ -621,7 +666,7 @@
   expert_night <span class="op">=</span> <span class="fl">0.4</span>
 <span class="op">)</span></code></pre></div>
 <p>Or you can set the full correlation matrix with a vector or matrix. Since we have 6 within-cells, this is a 6x6 matrix or a vector of the upper right 15 values.</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># upper right triangle correlation specification</span>
 <span class="co"># inc and con have r = 0.5 within each difficultly level, 0.2 otherwise</span>
 <span class="co">#          ce,  ie,  cm,  im,  ch,  ih</span>
@@ -639,29 +684,29 @@
   expert_night <span class="op">=</span> <span class="va">triangle</span>
 <span class="op">)</span></code></pre></div>
 <p>You can set <code>long = TRUE</code> to return the data frame in long format, which is usually easier for plotting.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, n <span class="op">=</span> <span class="fl">100</span>, 
                  mu <span class="op">=</span> <span class="va">mu</span>, sd <span class="op">=</span> <span class="fl">2</span>, r <span class="op">=</span> <span class="va">r</span>, 
                  dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>rt <span class="op">=</span> <span class="st">"Reaction Time"</span><span class="op">)</span>, long <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-21-1.png" width="100%"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-24-1.png" width="100%"></p>
 </div>
 <div id="multiple-datasets" class="section level2">
 <h2 class="hasAnchor">
 <a href="#multiple-datasets" class="anchor"></a>Multiple datasets</h2>
 <p>You can simulate multiple datasets by setting the <code>rep</code> argument of <code><a href="../reference/sim_design.html">sim_design()</a></code> to a number greater than 1. This will return a nested data frame with one column called <code>rep</code> and another column called <code>data</code>, that contains each individual data frame. This method is ** much** faster than repeatedly calling <code><a href="../reference/sim_design.html">sim_design()</a></code>, which will check the syntax of your design each time.</p>
 <p>The code below creates 5 data frames with a 2W*2B design.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>within <span class="op">=</span> <span class="fl">2</span>, between <span class="op">=</span> <span class="fl">2</span>, 
                  n <span class="op">=</span> <span class="fl">50</span>, mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1.5</span><span class="op">)</span>, 
                  sd <span class="op">=</span> <span class="fl">1</span>, r <span class="op">=</span> <span class="fl">0.5</span>, 
                  long <span class="op">=</span> <span class="cn">TRUE</span>, rep <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-22-1.png" width="100%"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-25-1.png" width="100%"></p>
 <p>The <code><a href="../reference/plot_design.html">plot_design()</a></code> function will plot each replication in a different facet.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></code></pre></div>
-<p><img src="sim_design_files/figure-html/unnamed-chunk-23-1.png" width="100%"></p>
+<p><img src="sim_design_files/figure-html/unnamed-chunk-26-1.png" width="100%"></p>
 <p>You can access an individual data frame using <code>df$data[[1]]</code> or run the same function on each data frame using a pattern like below:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># using tidyverse functions</span>
 <span class="va">analyse</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span>
   <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">B</span> <span class="op">*</span> <span class="va">A</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">Error</a></span><span class="op">(</span><span class="va">id</span><span class="op">/</span><span class="va">A</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
@@ -673,18 +718,18 @@
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/nest.html">unnest</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 25 x 8</span>
-<span class="co">#&gt;      rep stratum term         df   sumsq meansq statistic  p.value</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1     1 id      B             1   3.25   3.25      1.85   0.176  </span>
-<span class="co">#&gt;  2     1 id      Residuals    98 171.     1.75     NA     NA      </span>
-<span class="co">#&gt;  3     1 id:A    A             1   3.41   3.41      6.00   0.0161 </span>
-<span class="co">#&gt;  4     1 id:A    B:A           1   4.61   4.61      8.11   0.00536</span>
-<span class="co">#&gt;  5     1 id:A    Residuals    98  55.7    0.568    NA     NA      </span>
-<span class="co">#&gt;  6     2 id      B             1   0.752  0.752     0.611  0.436  </span>
-<span class="co">#&gt;  7     2 id      Residuals    98 121.     1.23     NA     NA      </span>
-<span class="co">#&gt;  8     2 id:A    A             1   2.59   2.59      4.93   0.0287 </span>
-<span class="co">#&gt;  9     2 id:A    B:A           1   1.50   1.50      2.86   0.0938 </span>
-<span class="co">#&gt; 10     2 id:A    Residuals    98  51.4    0.525    NA     NA      </span>
+<span class="co">#&gt;      rep stratum term         df   sumsq meansq statistic   p.value</span>
+<span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;</span>
+<span class="co">#&gt;  1     1 id      B             1   9.08   9.08      5.46   0.0214  </span>
+<span class="co">#&gt;  2     1 id      Residuals    98 163.     1.66     NA     NA       </span>
+<span class="co">#&gt;  3     1 id:A    A             1   6.58   6.58     11.7    0.000898</span>
+<span class="co">#&gt;  4     1 id:A    B:A           1   6.98   6.98     12.5    0.000635</span>
+<span class="co">#&gt;  5     1 id:A    Residuals    98  54.9    0.561    NA     NA       </span>
+<span class="co">#&gt;  6     2 id      B             1   1.25   1.25      0.814  0.369   </span>
+<span class="co">#&gt;  7     2 id      Residuals    98 150.     1.53     NA     NA       </span>
+<span class="co">#&gt;  8     2 id:A    A             1   1.70   1.70      3.78   0.0547  </span>
+<span class="co">#&gt;  9     2 id:A    B:A           1   0.139  0.139     0.309  0.579   </span>
+<span class="co">#&gt; 10     2 id:A    Residuals    98  44.0    0.449    NA     NA       </span>
 <span class="co">#&gt; # … with 15 more rows</span></code></pre></div>
 </div>
   </div>

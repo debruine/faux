@@ -20,6 +20,7 @@
 #' @param plot whether to show a plot of the design
 #' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' @param fix_names fix variable names so special characters become . or _ (default TRUE)
+#' @param sep separator for factor levels if wide
 #' 
 #' @return list
 #' 
@@ -43,7 +44,8 @@ check_design <- function(within = list(), between = list(),
                          id = list(id = "id"), 
                          vardesc = list(),
                          plot = faux_options("plot"), 
-                         design = NULL, fix_names = TRUE) {
+                         design = NULL, fix_names = TRUE,
+                         sep = faux_options("sep")) {
   # design passed as design list
   if (!is.null(design) && is.list(design)) {
     # double-check the entered design
@@ -73,7 +75,12 @@ check_design <- function(within = list(), between = list(),
   # if within or between factors are named vectors, 
   # use their names as column names and values as labels for plots
   pattern <- NULL
-  if (fix_names) pattern <- "_"
+  if (fix_names) {
+    pattern <- sep
+    special_regex <- strsplit(".|[]()*", character(0), fixed = TRUE)[[1]]
+    if (pattern %in% special_regex) pattern  <- paste0("\\", pattern)
+  }
+  
   between <- lapply(between, fix_name_labels, pattern = pattern)
   within <- lapply(within, fix_name_labels, pattern = pattern)
   dv <- fix_name_labels(dv, pattern = NULL)
@@ -105,8 +112,8 @@ check_design <- function(within = list(), between = list(),
   }
   
   # define columns ----
-  cells_w <- cell_combos(within, names(dv))
-  cells_b <- cell_combos(between, names(dv)) 
+  cells_w <- cell_combos(within, names(dv), sep)
+  cells_b <- cell_combos(between, names(dv), sep) 
   
   # convert n, mu and sd  ----
   cell_n  <- convert_param(n, cells_w, cells_b, "Ns")
@@ -181,6 +188,7 @@ check_design <- function(within = list(), between = list(),
     mu = cell_mu,
     sd = cell_sd,
     r = cell_r,
+    sep = sep,
     params = d
   )
   

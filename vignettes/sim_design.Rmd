@@ -77,6 +77,36 @@ within <- list(
 df <- sim_design(within, between, mu = 1:4)
 ```
 
+#### Levels with underscores
+
+In wide format, faux uses an underscore to separate level names. Therefore, any underscores in factor level names will be replaced with '.'.
+
+```{r}
+# with default sep = _
+within <- list(
+  A = c("A_1", "A_2"),
+  B = c("B_1", "B_2")
+)
+
+sim_design(within, n = 5, plot = FALSE)
+```
+
+You can change this default with `faux_options()`. If the separator is set to '.', all '.' in names will be changed to '_'.
+
+```{r}
+faux_options(sep = ".")
+
+sim_design(within, n = 5, plot = FALSE)
+```
+
+If you output your data in long format, faux won't mangle the names, regardless of the separator value.
+
+```{r}
+faux_options(sep = "_")
+
+sim_design(within, n = 2, long = TRUE, plot = FALSE)
+```
+
 #### List of named vectors/lists
 
 You can also specify factors as a list of named vectors or lists where the item names are the factor labels, the vector names are the level labels that are used in the data table, and the vector items are the long labels for a codebook or plot.
@@ -293,7 +323,7 @@ df <- sim_design(within, between, n = 100,
 
 Here is a 2w\*3w\*2b\*2b example. When you have multiple within or between factors, you need to specify parameters by cell. Cell names are the level names, in the order they are listed in the `within` or `between` arguments, separated by underscores. 
 
-Foe example, if you have one within-subject factor of condition with levels `con` and `inc`, and another within-subject factor of version wiith levels `easy`, `med`, and `hard`, your cell lables will be: `con_easy`, `inc_easy`, `con_med`, `inc_med`, `con_hard`, and `inc_hard`.
+Foe example, if you have one within-subject factor of condition with levels `con` and `inc`, and another within-subject factor of version with levels `easy`, `med`, and `hard`, your cell labels will be: `con_easy`, `inc_easy`, `con_med`, `inc_med`, `con_hard`, and `inc_hard`.
 
 If you have any characters in your level names except letters and numbers, they will be replaced by a full stop (e.g., `my super-good level_name` will become `my.super.good.level.name`).
 
