@@ -660,3 +660,49 @@ test_that("interactive", {
   
   close(f)
 })
+
+# sep ----
+test_that("sep", {
+  within = list(A = c("A_1", "A.2", "A-3"),
+                B = c("B_1", "B.2", "B-3"))
+  
+  between = list(C = c("C_1", "C.2", "C-3"),
+                 D = c("D_1", "D.2", "D-3"))
+  
+  alevels <- factor(c("A_1", "A.2", "A-3"), levels = c("A_1", "A.2", "A-3"))
+  
+  faux_options(sep = "_")
+  datw <- sim_design(within, between, n=10)
+  datl <- sim_design(within, between, n=10, long = TRUE)
+  
+  nm <- c("id", "C", "D", 
+          "A.1_B.1", "A.1_B.2", "A.1_B-3", 
+          "A.2_B.1", "A.2_B.2", "A.2_B-3", 
+          "A-3_B.1", "A-3_B.2", "A-3_B-3")
+  expect_equal(names(datw), nm)
+  expect_equal(unique(datl$A), alevels) 
+  
+  faux_options(sep = ".")
+  datw <- sim_design(within, between, n=10)
+  datl <- sim_design(within, between, n=10, long = TRUE)
+  
+  nm <- c("id", "C", "D", 
+          "A_1.B_1", "A_1.B_2", "A_1.B-3", 
+          "A_2.B_1", "A_2.B_2", "A_2.B-3", 
+          "A-3.B_1", "A-3.B_2", "A-3.B-3")
+  expect_equal(names(datw), nm)
+  expect_equal(unique(datl$A), alevels) 
+  
+  faux_options(sep = "-")
+  datw <- sim_design(within, between, n=10)
+  datl <- sim_design(within, between, n=10, long = TRUE)
+  
+  nm <- c("id", "C", "D", 
+          "A_1-B_1", "A_1-B.2", "A_1-B.3", 
+          "A.2-B_1", "A.2-B.2", "A.2-B.3", 
+          "A.3-B_1", "A.3-B.2", "A.3-B.3")
+  expect_equal(names(datw), nm)
+  expect_equal(unique(datl$A), alevels) 
+})
+  
+faux_options(sep = "_")

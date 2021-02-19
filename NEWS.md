@@ -1,3 +1,8 @@
+# faux 0.0.1.7 (2021-03-19)
+
+* `sim_design()` should no longer mangle level values in long format if they have underscores
+* `sim_design()` should play better with different separator. FOr example, if you set `faux_options(sep = ".")` and have within-subject factors A and B with levels A_1/A_2 and B_1/B_2, your wide data will have columns A_1.B_1, A_1.B_2, A_2.B_1, A_2.B_2
+
 # faux 0.0.1.7 (2021-03-14)
 
 * fixed bug in `sim_design()` where parameters specified as a named vector couldn't be in a different order unless both between and within factors were specified (e.g., `mu = c(A2 = 2, A1 = 1)` resulted in a mu of 2 for A1 and 1 for A2).

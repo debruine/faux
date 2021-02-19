@@ -161,14 +161,7 @@
     <p>Simulate data from design (internal)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sim_data</span><span class='op'>(</span>
-  <span class='va'>design</span>,
-  empirical <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  long <span class='op'>=</span> <span class='cn'>FALSE</span>,
-  rep <span class='op'>=</span> <span class='fl'>1</span>,
-  sep <span class='op'>=</span> <span class='fu'><a href='faux_options.html'>faux_options</a></span><span class='op'>(</span><span class='st'>"sep"</span><span class='op'>)</span>,
-  seed <span class='op'>=</span> <span class='cn'>NULL</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>sim_data</span><span class='op'>(</span><span class='va'>design</span>, empirical <span class='op'>=</span> <span class='cn'>FALSE</span>, long <span class='op'>=</span> <span class='cn'>FALSE</span>, rep <span class='op'>=</span> <span class='fl'>1</span>, seed <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -188,10 +181,6 @@
     <tr>
       <th>rep</th>
       <td><p>the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep</p></td>
-    </tr>
-    <tr>
-      <th>sep</th>
-      <td><p>separator for within-columns, defaults to _</p></td>
     </tr>
     <tr>
       <th>seed</th>
