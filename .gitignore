@@ -29,3 +29,4 @@ rsconnect/
 .Rproj.user
 inst/doc
 faux.Rproj
+.Rprofile
