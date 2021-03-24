@@ -1,3 +1,5 @@
+# faux 1.0.0
+
 # faux 0.0.1.7 (2021-03-23)
 
 * Fixed a bug in `rnorm_pre()` when simulating a vector with correlations to more than 2 pre-existing vectors.
