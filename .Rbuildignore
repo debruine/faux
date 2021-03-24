@@ -24,3 +24,5 @@
 ^\.github$
 ^_pkgdown\.yml$
 ^_make\.R$
+^Makefile$
+^revdep$

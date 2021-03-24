@@ -29,6 +29,8 @@ reference:
 - title: Simulation functions
   desc: ~
   contents:
+  - '`rnorm_multi`'
+  - '`rnorm_pre`'
   - '`sim_design`'
   - '`sim_df`'
   - '`sim_mixed_cc`'
@@ -42,8 +44,6 @@ reference:
   - '`json_design`'
   - '`make_id`'
   - '`messy`'
-  - '`rnorm_multi`'
-  - '`rnorm_pre`'
   - '`long2wide`'
   - '`wide2long`'
   - '`faux_options`'

@@ -1,0 +1,13 @@
+citHeader("To cite faux in publications use:")
+
+citEntry(
+  entry    = "Manual",
+  title    = "faux: Simulation for Factorial Designs",
+  author   = "Lisa DeBruine",
+  doi      = "10.5281/zenodo.2669586",
+  publisher = "Zenodo",
+  year     = "2020",
+  note     = "R package version 1.0.0",
+  url      = "https://debruine.github.io/faux/",
+  textVersion = "Lisa DeBruine (2020). faux: Simulation for Factorial Designs. R package version 1.0.0. Zenodo. http://doi.org/10.5281/zenodo.2669586"
+)
