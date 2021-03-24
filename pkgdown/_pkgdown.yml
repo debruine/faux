@@ -1,3 +1,17 @@
+home:
+  title: Simulation for Factorial Designs
+  description: Create datasets with factorial structure through simulation by specifying variable parameters.
+  
+template:
+  opengraph:
+    image:
+      src: man/figures/card.png
+      alt: "Blue hexagon with the word FAUX in white"
+    twitter:
+      creator: "@lisadebruine"
+      site: "@lisadebruine"
+      card: summary_large_image
+      
 articles:
 - title: Demos
   navbar: ~

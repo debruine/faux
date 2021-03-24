@@ -11,8 +11,6 @@ vignette: >
 
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
-  fig.width = 8,
-  fig.height = 5,
   collapse = TRUE,
   comment = "#>",
   out.width = "100%"
@@ -110,13 +108,14 @@ simdat <- sim_df(data, between = "B", n = 1000,
                  missing = TRUE)
 ```
 
-```{r, echo = FALSE}
+```{r, echo = FALSE, results = 'asis'}
 simdat %>%
   mutate(A1 = ifelse(is.na(A1), "NA", "not NA"),
          A2 = ifelse(is.na(A2), "NA", "not NA")) %>%
   count(B, A1, A2) %>%
   group_by(B) %>%
-  mutate(n = round(n/sum(n), 2))
+  mutate(n = round(n/sum(n), 2)) %>%
+  knitr::kable()
 ```
 
 

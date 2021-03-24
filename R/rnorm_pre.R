@@ -35,16 +35,16 @@ sample_from_pop <- function(n = 100, mu = 0, sd = 1, r = 0) {
 
 
 
-#' Make a normal vector correlated to an existing vector
+#' Make a normal vector correlated to existing vectors
 #'
-#' \code{rnorm_pre} Produces a random normally distributed vector with the specified correlation to an existing vector
+#' \code{rnorm_pre} Produces a random normally distributed vector with the specified correlation to one or more existing vectors
 #'
 #' @param x the existing vector or data table of all vectors
 #' @param mu desired mean of returned vector
 #' @param sd desired SD of returned vector
 #' @param r desired correlation(s) between existing and returned vectors
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
-#' @param threshold for checking correaltion matrix
+#' @param threshold for checking correlation matrix
 #' 
 #' @return vector
 #' @examples
@@ -77,7 +77,7 @@ rnorm_pre <- function (x, mu=0, sd=1, r=0, empirical = FALSE, threshold = 1e-12)
   
   # Process the arguments.
   if (is.data.frame(x)) x <- as.matrix(x)
-  x <- scale(x, center=FALSE) # Makes computations simpler
+  x <- scale(x) # Makes computations simpler
   y <- stats::rnorm(n)
   
   # Remove the effects of `x` on `y`.
@@ -90,7 +90,7 @@ rnorm_pre <- function (x, mu=0, sd=1, r=0, empirical = FALSE, threshold = 1e-12)
     # Calculate the coefficient `sigma` of `e` 
     # so that the correlation of `x` with the linear combination 
     # x.dual %*% rho + sigma*e is the desired vector.
-    x.dual <- with(svd(x), (n-1)*u %*% diag(ifelse(d > threshold, 1/d, 0)) %*% t(v))
+    x.dual <- with(svd(x), (n-1)*u %*% diag(ifelse(d > 0, 1/d, 0)) %*% t(v))
     sigma2 <- c((1 - rho %*% stats::cov(x.dual) %*% rho) / stats::var(e))
     
     # Return this linear combination.

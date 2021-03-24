@@ -47,7 +47,11 @@
 
 
 <meta property="og:title" content="Changelog" />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="/reference/figures/card.png" />
+<meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@lisadebruine" />
+<meta name="twitter:site" content="@lisadebruine" />
 
 
 
@@ -102,28 +106,28 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/sim_design.html">Simulate by Design</a>
-    </li>
-    <li>
-      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
-    </li>
-    <li>
-      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
+      <a href="../articles/codebook.html">Codebook Demo</a>
     </li>
     <li>
       <a href="../articles/continuous.html">Continuous Predictors</a>
     </li>
     <li>
-      <a href="../articles/plots.html">Plotting</a>
-    </li>
-    <li>
-      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
-    </li>
-    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
-      <a href="../articles/codebook.html">Codebook Demo</a>
+      <a href="../articles/plots.html">Plotting</a>
+    </li>
+    <li>
+      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
+    </li>
+    <li>
+      <a href="../articles/sim_design.html">Simulate by Design</a>
+    </li>
+    <li>
+      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
+    </li>
+    <li>
+      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
   </ul>
 </li>
@@ -155,6 +159,15 @@
       <small>Source: <a href='https://github.com/debruine/faux/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="faux-0017-2021-03-23" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.7">
+<a href="#faux-0017-2021-03-23" class="anchor"></a>faux 0.0.1.7 (2021-03-23)<small> Unreleased </small>
+</h1>
+<ul>
+<li>Fixed a bug in <code><a href="../reference/rnorm_pre.html">rnorm_pre()</a></code> when simulating a vector with correlations to more than 2 pre-existing vectors.</li>
+<li>Updated vignettes for new functions and changes.</li>
+</ul>
+</div>
     <div id="faux-0017-2021-03-19" class="section level1">
 <h1 class="page-header" data-toc-text="0.0.1.7">
 <a href="#faux-0017-2021-03-19" class="anchor"></a>faux 0.0.1.7 (2021-03-19)<small> Unreleased </small>

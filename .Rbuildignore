@@ -22,3 +22,5 @@
 ^LICENSE\.md$
 ^cran-comments\.md$
 ^\.github$
+^_pkgdown\.yml$
+^_make\.R$

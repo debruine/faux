@@ -8,7 +8,7 @@ citEntry(
   publisher = "Zenodo",
   year     = "2020",
   month    = "September",
-  note     = "R package version 0.0.1.5",
+  note     = "R package version 0.0.1.7",
   url      = "https://debruine.github.io/faux/",
-  textVersion = paste("Lisa DeBruine (2020). faux: Simulation for Factorial Designs. R package version 0.0.1.5. Zenodo. http://doi.org/10.5281/zenodo.2669586")
+  textVersion = "Lisa DeBruine (2020). faux: Simulation for Factorial Designs. R package version 0.0.1.7. Zenodo. http://doi.org/10.5281/zenodo.2669586"
 )

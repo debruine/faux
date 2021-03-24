@@ -1,3 +1,8 @@
+# faux 0.0.1.7 (2021-03-23)
+
+* Fixed a bug in `rnorm_pre()` when simulating a vector with correlations to more than 2 pre-existing vectors.
+* Updated vignettes for new functions and changes.
+
 # faux 0.0.1.7 (2021-03-19)
 
 * `sim_design()` should no longer mangle level values in long format if they have underscores

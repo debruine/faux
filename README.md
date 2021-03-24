@@ -9,7 +9,9 @@ always_allow_html: yes
 
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/163506566.svg)](https://zenodo.org/badge/latestdoi/163506566)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
+![CRAN version](https://www.r-pkg.org/badges/version-last-release/faux)
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/faux)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Travis build status](https://travis-ci.org/debruine/faux.svg?branch=master)](https://travis-ci.org/debruine/faux)
 [![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/debruine/faux?branch=master)
 [![R-CMD-check](https://github.com/debruine/faux/workflows/R-CMD-check/badge.svg)](https://github.com/debruine/faux/actions)
@@ -219,7 +221,7 @@ list(
   r = cor(x,y)
 ) %>% str()
 #> List of 3
-#>  $ mean: num -1.53e-17
+#>  $ mean: num -6.16e-19
 #>  $ sd  : num 1
 #>  $ r   : num 0.5
 ```
@@ -450,7 +452,7 @@ json_design(design)
 ```
 
 <pre>
-{"within":{"feature":{"Sepal":"Sepal","Petal":"Petal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":{"value":"value"},"id":{"flower_id":"flower_id"},"n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Sepal_Length":5.006,"Sepal_Width":3.428,"Petal_Length":1.462,"Petal_Width":0.246},"versicolor":{"Sepal_Length":5.936,"Sepal_Width":2.77,"Petal_Length":4.26,"Petal_Width":1.326},"virginica":{"Sepal_Length":6.588,"Sepal_Width":2.974,"Petal_Length":5.552,"Petal_Width":2.026}},"sd":{"setosa":{"Sepal_Length":0.35248969,"Sepal_Width":0.37906437,"Petal_Length":0.173664,"Petal_Width":0.10538559},"versicolor":{"Sepal_Length":0.51617115,"Sepal_Width":0.31379832,"Petal_Length":0.46991098,"Petal_Width":0.19775268},"virginica":{"Sepal_Length":0.63587959,"Sepal_Width":0.32249664,"Petal_Length":0.5518947,"Petal_Width":0.27465006}},"r":{"setosa":[[1,0.74254669,0.26717576,0.27809835],[0.74254669,1,0.17769997,0.23275201],[0.26717576,0.17769997,1,0.33163004],[0.27809835,0.23275201,0.33163004,1]],"versicolor":[[1,0.52591072,0.75404896,0.54646107],[0.52591072,1,0.56052209,0.66399872],[0.75404896,0.56052209,1,0.78666809],[0.54646107,0.66399872,0.78666809,1]],"virginica":[[1,0.45722782,0.86422473,0.28110771],[0.45722782,1,0.40104458,0.53772803],[0.86422473,0.40104458,1,0.32210822],[0.28110771,0.53772803,0.32210822,1]]}}
+{"within":{"feature":{"Sepal":"Sepal","Petal":"Petal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":{"value":"value"},"id":{"flower_id":"flower_id"},"n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Sepal_Length":5.006,"Sepal_Width":3.428,"Petal_Length":1.462,"Petal_Width":0.246},"versicolor":{"Sepal_Length":5.936,"Sepal_Width":2.77,"Petal_Length":4.26,"Petal_Width":1.326},"virginica":{"Sepal_Length":6.588,"Sepal_Width":2.974,"Petal_Length":5.552,"Petal_Width":2.026}},"sd":{"setosa":{"Sepal_Length":0.35248969,"Sepal_Width":0.37906437,"Petal_Length":0.173664,"Petal_Width":0.10538559},"versicolor":{"Sepal_Length":0.51617115,"Sepal_Width":0.31379832,"Petal_Length":0.46991098,"Petal_Width":0.19775268},"virginica":{"Sepal_Length":0.63587959,"Sepal_Width":0.32249664,"Petal_Length":0.5518947,"Petal_Width":0.27465006}},"r":{"setosa":[[1,0.74254669,0.26717576,0.27809835],[0.74254669,1,0.17769997,0.23275201],[0.26717576,0.17769997,1,0.33163004],[0.27809835,0.23275201,0.33163004,1]],"versicolor":[[1,0.52591072,0.75404896,0.54646107],[0.52591072,1,0.56052209,0.66399872],[0.75404896,0.56052209,1,0.78666809],[0.54646107,0.66399872,0.78666809,1]],"virginica":[[1,0.45722782,0.86422473,0.28110771],[0.45722782,1,0.40104458,0.53772803],[0.86422473,0.40104458,1,0.32210822],[0.28110771,0.53772803,0.32210822,1]]},"sep":"_"}
 </pre>
 
 
@@ -548,7 +550,8 @@ json_design(design, pretty = TRUE)
       [0.86422473, 0.40104458, 1, 0.32210822],
       [0.28110771, 0.53772803, 0.32210822, 1]
     ]
-  }
+  },
+  "sep": "_"
 }
 </pre>
 

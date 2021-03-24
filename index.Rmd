@@ -1,10 +1,11 @@
 # faux <img src="reference/figures/logo.png" align="right" alt="" width="120" />
 <!-- rmarkdown v1 -->
-<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/163506566.svg)](https://zenodo.org/badge/latestdoi/163506566)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://www.tidyverse.org/lifecycle/#stable)
+![CRAN version](https://www.r-pkg.org/badges/version-last-release/faux)
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/faux)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Travis build status](https://travis-ci.org/debruine/faux.svg?branch=master)](https://travis-ci.org/debruine/faux)
 [![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/debruine/faux?branch=master)
 [![R-CMD-check](https://github.com/debruine/faux/workflows/R-CMD-check/badge.svg)](https://github.com/debruine/faux/actions)
