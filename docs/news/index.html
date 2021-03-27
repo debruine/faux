@@ -83,7 +83,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.1.7</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
       </span>
     </div>
 
@@ -106,28 +106,28 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/codebook.html">Codebook Demo</a>
-    </li>
-    <li>
-      <a href="../articles/continuous.html">Continuous Predictors</a>
-    </li>
-    <li>
-      <a href="../articles/distributions.html">Distribution Conversions</a>
-    </li>
-    <li>
-      <a href="../articles/plots.html">Plotting</a>
+      <a href="../articles/sim_design.html">Simulate by Design</a>
     </li>
     <li>
       <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
     </li>
     <li>
-      <a href="../articles/sim_design.html">Simulate by Design</a>
-    </li>
-    <li>
       <a href="../articles/sim_df.html">Simulate from Existing Data</a>
     </li>
     <li>
+      <a href="../articles/continuous.html">Continuous Predictors</a>
+    </li>
+    <li>
+      <a href="../articles/plots.html">Plotting</a>
+    </li>
+    <li>
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
+    </li>
+    <li>
+      <a href="../articles/distributions.html">Distribution Conversions</a>
+    </li>
+    <li>
+      <a href="../articles/codebook.html">Codebook Demo</a>
     </li>
   </ul>
 </li>
@@ -159,18 +159,32 @@
       <small>Source: <a href='https://github.com/debruine/faux/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="faux-0017-2021-03-23" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.1.7">
-<a href="#faux-0017-2021-03-23" class="anchor"></a>faux 0.0.1.7 (2021-03-23)<small> Unreleased </small>
+    <div id="faux-development-version" class="section level1">
+<h1 class="page-header" data-toc-text="development version">
+<a href="#faux-development-version" class="anchor"></a>faux (development version)<small> Unreleased </small>
+</h1>
+</div>
+    <div id="faux-100" class="section level1">
+<h1 class="page-header" data-toc-text="1.0.0">
+<a href="#faux-100" class="anchor"></a>faux 1.0.0<small> 2021-03-26 </small>
+</h1>
+<ul>
+<li>Ready for a new release.</li>
+<li>Fixed a typo in faceratings for one face_eth (“eats asian/white” =&gt; “east asian/white”)</li>
+</ul>
+</div>
+    <div id="faux-00165-2021-03-23" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.65">
+<a href="#faux-00165-2021-03-23" class="anchor"></a>faux 0.0.1.65 (2021-03-23)<small> Unreleased </small>
 </h1>
 <ul>
 <li>Fixed a bug in <code><a href="../reference/rnorm_pre.html">rnorm_pre()</a></code> when simulating a vector with correlations to more than 2 pre-existing vectors.</li>
 <li>Updated vignettes for new functions and changes.</li>
 </ul>
 </div>
-    <div id="faux-0017-2021-03-19" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.1.7">
-<a href="#faux-0017-2021-03-19" class="anchor"></a>faux 0.0.1.7 (2021-03-19)<small> Unreleased </small>
+    <div id="faux-00164-2021-03-19" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.64">
+<a href="#faux-00164-2021-03-19" class="anchor"></a>faux 0.0.1.64 (2021-03-19)<small> Unreleased </small>
 </h1>
 <ul>
 <li>
@@ -179,17 +193,17 @@
 <code><a href="../reference/sim_design.html">sim_design()</a></code> should play better with different separator. FOr example, if you set <code><a href="../reference/faux_options.html">faux_options(sep = ".")</a></code> and have within-subject factors A and B with levels A_1/A_2 and B_1/B_2, your wide data will have columns A_1.B_1, A_1.B_2, A_2.B_1, A_2.B_2</li>
 </ul>
 </div>
-    <div id="faux-0017-2021-03-14" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.1.7">
-<a href="#faux-0017-2021-03-14" class="anchor"></a>faux 0.0.1.7 (2021-03-14)<small> Unreleased </small>
+    <div id="faux-00163-2021-03-14" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.63">
+<a href="#faux-00163-2021-03-14" class="anchor"></a>faux 0.0.1.63 (2021-03-14)<small> Unreleased </small>
 </h1>
 <ul>
 <li>fixed bug in <code><a href="../reference/sim_design.html">sim_design()</a></code> where parameters specified as a named vector couldn’t be in a different order unless both between and within factors were specified (e.g., <code>mu = c(A2 = 2, A1 = 1)</code> resulted in a mu of 2 for A1 and 1 for A2).</li>
 </ul>
 </div>
-    <div id="faux-0017-2021-03-13" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.1.7">
-<a href="#faux-0017-2021-03-13" class="anchor"></a>faux 0.0.1.7 (2021-03-13)<small> Unreleased </small>
+    <div id="faux-00162-2021-03-13" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.62">
+<a href="#faux-00162-2021-03-13" class="anchor"></a>faux 0.0.1.62 (2021-03-13)<small> Unreleased </small>
 </h1>
 <ul>
 <li>new <code><a href="../reference/sim_joint_dist.html">sim_joint_dist()</a></code> function to simulate the joint distribution of categories</li>
@@ -204,9 +218,9 @@
 <code><a href="../reference/sample_from_pop.html">sample_from_pop()</a></code> is now vectorised</li>
 </ul>
 </div>
-    <div id="faux-0017-2021-02-06" class="section level1">
-<h1 class="page-header" data-toc-text="0.0.1.7">
-<a href="#faux-0017-2021-02-06" class="anchor"></a>faux 0.0.1.7 (2021-02-06)<small> Unreleased </small>
+    <div id="faux-00161-2021-02-06" class="section level1">
+<h1 class="page-header" data-toc-text="0.0.1.61">
+<a href="#faux-00161-2021-02-06" class="anchor"></a>faux 0.0.1.61 (2021-02-06)<small> Unreleased </small>
 </h1>
 <ul>
 <li>
