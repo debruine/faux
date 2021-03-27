@@ -1,8 +1,6 @@
-# faux (development version)
+# faux 1.0.0 (2021-03-27)
 
-# faux 1.0.0
-
-* Ready for a new release.
+* Released on CRAN
 * Fixed a typo in faceratings for one face_eth ("eats asian/white" => "east asian/white")
 
 # faux 0.0.1.65 (2021-03-23)
