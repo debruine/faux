@@ -48,7 +48,11 @@
 
 <meta property="og:title" content="Simulate category joint distribution — sim_joint_dist" />
 <meta property="og:description" content="This function is mainly used internally, such as for simulating  missing data patterns, but is available in case anyone finds it useful." />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="/reference/figures/card.png" />
+<meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@lisadebruine" />
+<meta name="twitter:site" content="@lisadebruine" />
 
 
 
@@ -103,28 +107,28 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/sim_design.html">Simulate by Design</a>
-    </li>
-    <li>
-      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
-    </li>
-    <li>
-      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
+      <a href="../articles/codebook.html">Codebook Demo</a>
     </li>
     <li>
       <a href="../articles/continuous.html">Continuous Predictors</a>
     </li>
     <li>
-      <a href="../articles/plots.html">Plotting</a>
-    </li>
-    <li>
-      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
-    </li>
-    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
-      <a href="../articles/codebook.html">Codebook Demo</a>
+      <a href="../articles/plots.html">Plotting</a>
+    </li>
+    <li>
+      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
+    </li>
+    <li>
+      <a href="../articles/sim_design.html">Simulate by Design</a>
+    </li>
+    <li>
+      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
+    </li>
+    <li>
+      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
   </ul>
 </li>
@@ -190,19 +194,19 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>sim_joint_dist</span><span class='op'>(</span><span class='fu'>ggplot2</span><span class='fu'>::</span><span class='va'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span>, <span class='va'>cut</span>, <span class='va'>color</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 10 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 2</span><span>
 #&gt;    cut       color
-#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;ord&gt;</span><span>     </span><span style='color: #555555;font-style: italic;'>&lt;ord&gt;</span><span>
-#&gt; </span><span style='color: #555555;'> 1</span><span> Ideal     E    
-#&gt; </span><span style='color: #555555;'> 2</span><span> Very Good I    
-#&gt; </span><span style='color: #555555;'> 3</span><span> Ideal     F    
-#&gt; </span><span style='color: #555555;'> 4</span><span> Very Good H    
-#&gt; </span><span style='color: #555555;'> 5</span><span> Very Good I    
-#&gt; </span><span style='color: #555555;'> 6</span><span> Ideal     G    
-#&gt; </span><span style='color: #555555;'> 7</span><span> Ideal     H    
-#&gt; </span><span style='color: #555555;'> 8</span><span> Premium   J    
-#&gt; </span><span style='color: #555555;'> 9</span><span> Ideal     F    
-#&gt; </span><span style='color: #555555;'>10</span><span> Ideal     E    </div></span></pre>
+#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;ord&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;ord&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Ideal     E    
+#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Very Good I    
+#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Ideal     F    
+#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Very Good H    
+#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Very Good I    
+#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Ideal     G    
+#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Ideal     H    
+#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Premium   J    
+#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Ideal     F    
+#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Ideal     E    </div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -1,13 +1,23 @@
-# faux 0.0.1.7 (2021-03-19)
+# faux 1.0.0
+
+* Ready for a new release.
+* Fixed a typo in faceratings for one face_eth ("eats asian/white" => "east asian/white")
+
+# faux 0.0.1.65 (2021-03-23)
+
+* Fixed a bug in `rnorm_pre()` when simulating a vector with correlations to more than 2 pre-existing vectors.
+* Updated vignettes for new functions and changes.
+
+# faux 0.0.1.64 (2021-03-19)
 
 * `sim_design()` should no longer mangle level values in long format if they have underscores
 * `sim_design()` should play better with different separator. FOr example, if you set `faux_options(sep = ".")` and have within-subject factors A and B with levels A_1/A_2 and B_1/B_2, your wide data will have columns A_1.B_1, A_1.B_2, A_2.B_1, A_2.B_2
 
-# faux 0.0.1.7 (2021-03-14)
+# faux 0.0.1.63 (2021-03-14)
 
 * fixed bug in `sim_design()` where parameters specified as a named vector couldn't be in a different order unless both between and within factors were specified (e.g., `mu = c(A2 = 2, A1 = 1)` resulted in a mu of 2 for A1 and 1 for A2).
 
-# faux 0.0.1.7 (2021-03-13)
+# faux 0.0.1.62 (2021-03-13)
 
 * new `sim_joint_dist()` function to simulate the joint distribution of categories
 * `sim_df()` no longer breaks if there are NAs in the DV columns
@@ -16,7 +26,7 @@
 * `messy()` now takes a vector of proportions so you can simulate different amounts of missing data per selected column
 * `sample_from_pop()` is now vectorised
 
-# faux 0.0.1.7 (2021-02-06)
+# faux 0.0.1.61 (2021-02-06)
 
 * `get_params()` doesn't require within and between set for data made with faux (that has a "design" attribute)
 * fixed bug in `get_params()` where the var column was alphabetised, but the corresponding columns for the correlation table were in factor order

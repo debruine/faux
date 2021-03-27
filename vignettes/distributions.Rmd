@@ -28,7 +28,6 @@ library(truncnorm)
 
 For now, `sim_design()` only simulates multivariate normal distributions. You can use the conversion functions to convert values between distributions.
 
-**I updated these in version 0.0.1.7 on 2021-02-06, which isn't on CRAN yet, but is available in the development version.**
 
 ## Truncated normal
 

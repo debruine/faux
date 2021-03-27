@@ -47,7 +47,11 @@
 
 
 <meta property="og:title" content="Function reference" />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:image" content="/reference/figures/card.png" />
+<meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@lisadebruine" />
+<meta name="twitter:site" content="@lisadebruine" />
 
 
 
@@ -102,28 +106,28 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/sim_design.html">Simulate by Design</a>
-    </li>
-    <li>
-      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
-    </li>
-    <li>
-      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
+      <a href="../articles/codebook.html">Codebook Demo</a>
     </li>
     <li>
       <a href="../articles/continuous.html">Continuous Predictors</a>
     </li>
     <li>
-      <a href="../articles/plots.html">Plotting</a>
-    </li>
-    <li>
-      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
-    </li>
-    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
-      <a href="../articles/codebook.html">Codebook Demo</a>
+      <a href="../articles/plots.html">Plotting</a>
+    </li>
+    <li>
+      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
+    </li>
+    <li>
+      <a href="../articles/sim_design.html">Simulate by Design</a>
+    </li>
+    <li>
+      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
+    </li>
+    <li>
+      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
   </ul>
 </li>
@@ -165,7 +169,7 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-simulation-functions" class="hasAnchor"><a href="#section-simulation-functions" class="anchor"></a>Simulation functions</h2>
+          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
           <p class="section-desc"></p>
         </th>
       </tr>
@@ -177,145 +181,22 @@
       <tr>
         
         <td>
-          <p><code><a href="sim_design.html">sim_design()</a></code> </p>
+          <p><code><a href="average_r2tau_0.html">average_r2tau_0()</a></code> </p>
         </td>
-        <td><p>Simulate data from design</p></td>
+        <td><p>Average r to Random Intercept SD</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="sim_df.html">sim_df()</a></code> </p>
+          <p><code><a href="beta2norm.html">beta2norm()</a></code> </p>
         </td>
-        <td><p>Simulate an existing dataframe</p></td>
+        <td><p>Convert beta to normal</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="sim_mixed_cc.html">sim_mixed_cc()</a></code> </p>
+          <p><code><a href="binom2norm.html">binom2norm()</a></code> </p>
         </td>
-        <td><p>Generate a cross-classified sample</p></td>
+        <td><p>Convert binomial to normal</p></td>
       </tr><tr>
-        
-        <td>
-          <p><code><a href="sim_mixed_df.html">sim_mixed_df()</a></code> </p>
-        </td>
-        <td><p>Generate a mixed design from existing data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sim_joint_dist.html">sim_joint_dist()</a></code> </p>
-        </td>
-        <td><p>Simulate category joint distribution</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-other-useful-functions" class="hasAnchor"><a href="#section-other-useful-functions" class="anchor"></a>Other useful functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="codebook.html">codebook()</a></code> </p>
-        </td>
-        <td><p>Create PsychDS Codebook from Data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="get_params.html">get_params()</a></code> <code><a href="get_params.html">check_sim_stats()</a></code> </p>
-        </td>
-        <td><p>Get parameters from a data table</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="json_design.html">json_design()</a></code> </p>
-        </td>
-        <td><p>Convert design to JSON</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="make_id.html">make_id()</a></code> </p>
-        </td>
-        <td><p>Make ID</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="messy.html">messy()</a></code> </p>
-        </td>
-        <td><p>Simulate missing data</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rnorm_multi.html">rnorm_multi()</a></code> </p>
-        </td>
-        <td><p>Multiple correlated normal distributions</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="rnorm_pre.html">rnorm_pre()</a></code> </p>
-        </td>
-        <td><p>Make a normal vector correlated to an existing vector</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="long2wide.html">long2wide()</a></code> </p>
-        </td>
-        <td><p>Convert data from long to wide format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="wide2long.html">wide2long()</a></code> </p>
-        </td>
-        <td><p>Convert data from wide to long format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="faux_options.html">faux_options()</a></code> </p>
-        </td>
-        <td><p>Set/get global faux options</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-datasets" class="hasAnchor"><a href="#section-datasets" class="anchor"></a>Datasets</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="faceratings.html">faceratings</a></code> </p>
-        </td>
-        <td><p>Attractiveness ratings of faces</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="fr4.html">fr4</a></code> </p>
-        </td>
-        <td><p>Attractiveness rating subset</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-helper-functions" class="hasAnchor"><a href="#section-helper-functions" class="anchor"></a>Helper functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
         
         <td>
           <p><code><a href="check_design.html">check_design()</a></code> </p>
@@ -327,6 +208,18 @@
           <p><code><a href="check_mixed_design.html">check_mixed_design()</a></code> </p>
         </td>
         <td><p>Get random intercepts for subjects and items</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="codebook.html">codebook()</a></code> </p>
+        </td>
+        <td><p>Create PsychDS Codebook from Data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="codebook_interactive.html">codebook_interactive()</a></code> </p>
+        </td>
+        <td><p>Interactive Codebook</p></td>
       </tr><tr>
         
         <td>
@@ -342,15 +235,51 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="faceratings.html">faceratings</a></code> </p>
+        </td>
+        <td><p>Attractiveness ratings of faces</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="faux.html">faux</a></code> </p>
+        </td>
+        <td><p>faux: Simulation Functions.</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="faux_options.html">faux_options()</a></code> </p>
+        </td>
+        <td><p>Set/get global faux options</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="fix_name_labels.html">fix_name_labels()</a></code> </p>
         </td>
         <td><p>Fix name labels</p></td>
       </tr><tr>
         
         <td>
+          <p><code><a href="fr4.html">fr4</a></code> </p>
+        </td>
+        <td><p>Attractiveness rating subset</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gamma2norm.html">gamma2norm()</a></code> </p>
+        </td>
+        <td><p>Convert gamma to normal</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="get_design_long.html">get_design_long()</a></code> </p>
         </td>
         <td><p>Get design from long data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="get_params.html">get_params()</a></code> <code><a href="get_params.html">check_sim_stats()</a></code> </p>
+        </td>
+        <td><p>Get parameters from a data table</p></td>
       </tr><tr>
         
         <td>
@@ -372,70 +301,33 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="json_design.html">json_design()</a></code> </p>
+        </td>
+        <td><p>Convert design to JSON</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="long2wide.html">long2wide()</a></code> </p>
+        </td>
+        <td><p>Convert data from long to wide format</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="make_id.html">make_id()</a></code> </p>
+        </td>
+        <td><p>Make ID</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="messy.html">messy()</a></code> </p>
+        </td>
+        <td><p>Simulate missing data</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="nested_list.html">nested_list()</a></code> </p>
         </td>
         <td><p>Output a nested list in RMarkdown list format</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="plot_design.html">plot_design()</a></code> <code><a href="plot_design.html">plot(<i>&lt;design&gt;</i>)</a></code> <code><a href="plot_design.html">plot(<i>&lt;faux&gt;</i>)</a></code> </p>
-        </td>
-        <td><p>Plot design</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="pos_def_limits.html">pos_def_limits()</a></code> </p>
-        </td>
-        <td><p>Limits on Missing Value for Positive Definite Matrix</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="readline_check.html">readline_check()</a></code> </p>
-        </td>
-        <td><p>Check readline input</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sample_from_pop.html">sample_from_pop()</a></code> </p>
-        </td>
-        <td><p>Sample Parameters from Population Parameters</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="sim_data.html">sim_data()</a></code> </p>
-        </td>
-        <td><p>Simulate data from design (internal)</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="unique_pairs.html">unique_pairs()</a></code> </p>
-        </td>
-        <td><p>Make unique pairs of level names for correlations</p></td>
-      </tr>
-    </tbody><tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-distribution-functions" class="hasAnchor"><a href="#section-distribution-functions" class="anchor"></a>Distribution functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="std_alpha2average_r.html">std_alpha2average_r()</a></code> </p>
-        </td>
-        <td><p>Standardized Alpha to Average R</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="norm2likert.html">norm2likert()</a></code> </p>
-        </td>
-        <td><p>Convert normal to likert</p></td>
       </tr><tr>
         
         <td>
@@ -457,6 +349,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="norm2likert.html">norm2likert()</a></code> </p>
+        </td>
+        <td><p>Convert normal to likert</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="norm2pois.html">norm2pois()</a></code> </p>
         </td>
         <td><p>Convert normal to poisson</p></td>
@@ -469,39 +367,129 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="trunc2norm.html">trunc2norm()</a></code> </p>
-        </td>
-        <td><p>Convert truncated normal to normal</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="norm2unif.html">norm2unif()</a></code> </p>
         </td>
         <td><p>Convert normal to uniform</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="beta2norm.html">beta2norm()</a></code> </p>
+          <p><code><a href="plot_design.html">plot_design()</a></code> <code><a href="plot_design.html">plot(<i>&lt;design&gt;</i>)</a></code> <code><a href="plot_design.html">plot(<i>&lt;faux&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Convert beta to normal</p></td>
+        <td><p>Plot design</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="binom2norm.html">binom2norm()</a></code> </p>
+          <p><code><a href="pos_def_limits.html">pos_def_limits()</a></code> </p>
         </td>
-        <td><p>Convert binomial to normal</p></td>
+        <td><p>Limits on Missing Value for Positive Definite Matrix</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="gamma2norm.html">gamma2norm()</a></code> </p>
+          <p><code><a href="print.design.html">print(<i>&lt;design&gt;</i>)</a></code> </p>
         </td>
-        <td><p>Convert gamma to normal</p></td>
+        <td><p>Print Design List</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.nested_list.html">print(<i>&lt;nested_list&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Print Nested List</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="print.psychds_codebook.html">print(<i>&lt;psychds_codebook&gt;</i>)</a></code> </p>
+        </td>
+        <td><p>Print Codebook Object</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="readline_check.html">readline_check()</a></code> </p>
+        </td>
+        <td><p>Check readline input</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rnorm_multi.html">rnorm_multi()</a></code> </p>
+        </td>
+        <td><p>Multiple correlated normal distributions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="rnorm_pre.html">rnorm_pre()</a></code> </p>
+        </td>
+        <td><p>Make a normal vector correlated to existing vectors</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sample_from_pop.html">sample_from_pop()</a></code> </p>
+        </td>
+        <td><p>Sample Parameters from Population Parameters</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sim_data.html">sim_data()</a></code> </p>
+        </td>
+        <td><p>Simulate data from design (internal)</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sim_design.html">sim_design()</a></code> </p>
+        </td>
+        <td><p>Simulate data from design</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sim_df.html">sim_df()</a></code> </p>
+        </td>
+        <td><p>Simulate an existing dataframe</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sim_joint_dist.html">sim_joint_dist()</a></code> </p>
+        </td>
+        <td><p>Simulate category joint distribution</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sim_mixed_cc.html">sim_mixed_cc()</a></code> </p>
+        </td>
+        <td><p>Generate a cross-classified sample</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sim_mixed_df.html">sim_mixed_df()</a></code> </p>
+        </td>
+        <td><p>Generate a mixed design from existing data</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="std_alpha2average_r.html">std_alpha2average_r()</a></code> </p>
+        </td>
+        <td><p>Standardized Alpha to Average R</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="trunc2norm.html">trunc2norm()</a></code> </p>
+        </td>
+        <td><p>Convert truncated normal to normal</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="unif2norm.html">unif2norm()</a></code> </p>
         </td>
         <td><p>Convert uniform to normal</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="unique_pairs.html">unique_pairs()</a></code> </p>
+        </td>
+        <td><p>Make unique pairs of level names for correlations</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="wide2long.html">wide2long()</a></code> </p>
+        </td>
+        <td><p>Convert data from wide to long format</p></td>
       </tr>
     </tbody>
     </table>

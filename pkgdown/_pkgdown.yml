@@ -1,3 +1,17 @@
+home:
+  title: Simulation for Factorial Designs
+  description: Create datasets with factorial structure through simulation by specifying variable parameters.
+  
+template:
+  opengraph:
+    image:
+      src: man/figures/card.png
+      alt: "Blue hexagon with the word FAUX in white"
+    twitter:
+      creator: "@lisadebruine"
+      site: "@lisadebruine"
+      card: summary_large_image
+      
 articles:
 - title: Demos
   navbar: ~
@@ -15,6 +29,8 @@ reference:
 - title: Simulation functions
   desc: ~
   contents:
+  - '`rnorm_multi`'
+  - '`rnorm_pre`'
   - '`sim_design`'
   - '`sim_df`'
   - '`sim_mixed_cc`'
@@ -28,8 +44,6 @@ reference:
   - '`json_design`'
   - '`make_id`'
   - '`messy`'
-  - '`rnorm_multi`'
-  - '`rnorm_pre`'
   - '`long2wide`'
   - '`wide2long`'
   - '`faux_options`'

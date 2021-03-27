@@ -19,8 +19,8 @@
 #' @param vardesc a list of variable descriptions having the names of the within- and between-subject factors
 #' @param plot whether to show a plot of the design
 #' @param design a design list including within, between, n, mu, sd, r, dv, id
-#' @param fix_names fix variable names so special characters become . or _ (default TRUE)
-#' @param sep separator for factor levels if wide
+#' @param fix_names deprecated
+#' @param sep separator for factor levels
 #' 
 #' @return list
 #' 
@@ -44,7 +44,7 @@ check_design <- function(within = list(), between = list(),
                          id = list(id = "id"), 
                          vardesc = list(),
                          plot = faux_options("plot"), 
-                         design = NULL, fix_names = TRUE,
+                         design = NULL, fix_names = FALSE,
                          sep = faux_options("sep")) {
   # design passed as design list
   if (!is.null(design) && is.list(design)) {
@@ -74,18 +74,35 @@ check_design <- function(within = list(), between = list(),
   
   # if within or between factors are named vectors, 
   # use their names as column names and values as labels for plots
-  pattern <- NULL
-  if (fix_names) {
-    pattern <- sep
-    special_regex <- strsplit(".|[]()*", character(0), fixed = TRUE)[[1]]
-    if (pattern %in% special_regex) pattern  <- paste0("\\", pattern)
-  }
-  
-  between <- lapply(between, fix_name_labels, pattern = pattern)
-  within <- lapply(within, fix_name_labels, pattern = pattern)
+  between <- lapply(between, fix_name_labels, pattern = NULL)
+  within <- lapply(within, fix_name_labels, pattern = NULL)
   dv <- fix_name_labels(dv, pattern = NULL)
   id <- fix_name_labels(id, pattern = NULL)
   
+  # check if sep is in any level names
+  all_levels <- lapply(c(between, within), names) %>% 
+    unlist() %>% unname()
+  has_sep <- grepl(sep, all_levels, fixed = TRUE)
+  if (any(has_sep)) {
+    # see which separators are safe
+    seps <- c("_", ".", "-", "~", "_x_", "*")
+    names(seps) <- seps
+    safe_sep <- lapply(seps, grepl, x = all_levels, fixed = TRUE) %>%
+      sapply(any)
+    
+    stop("These level names have the separator '", sep, "' in them: ", 
+            paste(all_levels[has_sep], collapse = ", "),
+            "\nPlease change the names (see fix_name_labels) or choose another separator character using the sep argument or faux_options(sep = '~')\n",
+         "safe separators for your factor labels are: ",
+         paste(seps[safe_sep], collapse = ","))
+  }
+  
+  # if (fix_names) {
+  #   pattern <- gsub("([.|()\\^{}+$*?]|\\[|\\])", "\\\\\\1", sep)
+  #   between <- lapply(between, fix_name_labels, pattern = pattern)
+  #   within <- lapply(within, fix_name_labels, pattern = pattern)
+  # }
+
   # check for duplicate factor names ----
   all_names <- c(names(within), names(between))
   factor_overlap <- duplicated(all_names)

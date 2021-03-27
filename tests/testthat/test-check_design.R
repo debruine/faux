@@ -195,6 +195,21 @@ test_that("design spec", {
   expect_equal(design$id, id)
 })
 
+# interactions ----
+test_that("interactions", {
+  faux_options(sep = "_")
+  n <- list(
+    B1_C1 = 10, 
+    B1_C2 = 20, 
+    B2_C1 = 30, 
+    B2_C2 = 40
+  )
+
+  design <- check_design(2, c(2,2), n = n, plot = FALSE)
+  
+  expect_equal(design$n, n)
+})
+
 # anon factors ----
 test_that("anon factors", {
   design <- check_design(c(2, 4), c(2, 2))
@@ -218,10 +233,7 @@ test_that("wierd factor names", {
   # only replaces underscores
   within <- list("A" = c("A_1", "A 2"),
                  "B" = c("B~1", "B'2"))
-  design <- check_design(within)
-  
-  expect_equal(design$within$A %>% names(), c("A.1", "A 2"))
-  expect_equal(design$within$B %>% names(), c("B~1", "B'2"))
+  expect_error(check_design(within))
 })
 
 # make_id ----
@@ -331,26 +343,6 @@ test_that("sep", {
   
   long <- sim_data(design = design, long = TRUE)
   expect_equal(unique(long$A), factor(c("A_1", "A_2")))
-  expect_equal(unique(long$B), factor(c("B_1", "B_2")))
-})
-
-# fix_names = FALSE ----
-test_that("fix_names = FALSE", {
-  faux_options(sep = ".")
-  design <- check_design(
-    within = list(
-      A = c("A.1", "A.2"),
-      B = c("B_1", "B_2")
-    ),
-    n = 5,
-    fix_names = FALSE
-  )
-  
-  wide <- sim_data(design = design)
-  expect_equal(names(wide), c("id", "A.1.B_1", "A.1.B_2", "A.2.B_1", "A.2.B_2"))
-  
-  long <- sim_data(design = design, long = TRUE)
-  expect_equal(unique(long$A), factor(c("A.1", "A.2")))
   expect_equal(unique(long$B), factor(c("B_1", "B_2")))
 })
 

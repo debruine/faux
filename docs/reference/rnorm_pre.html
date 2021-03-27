@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Make a normal vector correlated to an existing vector — rnorm_pre • faux</title>
+<title>Make a normal vector correlated to existing vectors — rnorm_pre • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,13 @@
 
 
 
-<meta property="og:title" content="Make a normal vector correlated to an existing vector — rnorm_pre" />
-<meta property="og:description" content="rnorm_pre Produces a random normally distributed vector with the specified correlation to an existing vector" />
-<meta property="og:image" content="/logo.png" />
+<meta property="og:title" content="Make a normal vector correlated to existing vectors — rnorm_pre" />
+<meta property="og:description" content="rnorm_pre Produces a random normally distributed vector with the specified correlation to one or more existing vectors" />
+<meta property="og:image" content="/reference/figures/card.png" />
+<meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:creator" content="@lisadebruine" />
+<meta name="twitter:site" content="@lisadebruine" />
 
 
 
@@ -103,28 +107,28 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/sim_design.html">Simulate by Design</a>
-    </li>
-    <li>
-      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
-    </li>
-    <li>
-      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
+      <a href="../articles/codebook.html">Codebook Demo</a>
     </li>
     <li>
       <a href="../articles/continuous.html">Continuous Predictors</a>
     </li>
     <li>
-      <a href="../articles/plots.html">Plotting</a>
-    </li>
-    <li>
-      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
-    </li>
-    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
-      <a href="../articles/codebook.html">Codebook Demo</a>
+      <a href="../articles/plots.html">Plotting</a>
+    </li>
+    <li>
+      <a href="../articles/rnorm_multi.html">Simulate Correlated Variables</a>
+    </li>
+    <li>
+      <a href="../articles/sim_design.html">Simulate by Design</a>
+    </li>
+    <li>
+      <a href="../articles/sim_df.html">Simulate from Existing Data</a>
+    </li>
+    <li>
+      <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
   </ul>
 </li>
@@ -152,13 +156,13 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Make a normal vector correlated to an existing vector</h1>
+    <h1>Make a normal vector correlated to existing vectors</h1>
     <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/rnorm_pre.R'><code>R/rnorm_pre.R</code></a></small>
     <div class="hidden name"><code>rnorm_pre.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><code>rnorm_pre</code> Produces a random normally distributed vector with the specified correlation to an existing vector</p>
+    <p><code>rnorm_pre</code> Produces a random normally distributed vector with the specified correlation to one or more existing vectors</p>
     </div>
 
     <pre class="usage"><span class='fu'>rnorm_pre</span><span class='op'>(</span><span class='va'>x</span>, mu <span class='op'>=</span> <span class='fl'>0</span>, sd <span class='op'>=</span> <span class='fl'>1</span>, r <span class='op'>=</span> <span class='fl'>0</span>, empirical <span class='op'>=</span> <span class='cn'>FALSE</span>, threshold <span class='op'>=</span> <span class='fl'>1e-12</span><span class='op'>)</span></pre>
@@ -188,7 +192,7 @@
     </tr>
     <tr>
       <th>threshold</th>
-      <td><p>for checking correaltion matrix</p></td>
+      <td><p>for checking correlation matrix</p></td>
     </tr>
     </table>
 
@@ -204,10 +208,10 @@
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rnorm_multi.html'>rnorm_multi</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>2</span>, <span class='fl'>.5</span><span class='op'>)</span>
 <span class='va'>x</span><span class='op'>$</span><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>rnorm_pre</span><span class='op'>(</span><span class='va'>x</span>, r <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.25</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;            X1          X2          y
-#&gt; X1  1.0000000 -0.28453616 0.31888458
-#&gt; X2 -0.2845362  1.00000000 0.08278116
-#&gt; y   0.3188846  0.08278116 1.00000000</div></pre>
+</div><div class='output co'>#&gt;            X1         X2         y
+#&gt; X1  1.0000000 -0.2845362 0.4339307
+#&gt; X2 -0.2845362  1.0000000 0.1814306
+#&gt; y   0.4339307  0.1814306 1.0000000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

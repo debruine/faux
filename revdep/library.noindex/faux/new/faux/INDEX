@@ -1,0 +1,56 @@
+average_r2tau_0         Average r to Random Intercept SD
+beta2norm               Convert beta to normal
+binom2norm              Convert binomial to normal
+check_design            Validates the specified design
+check_mixed_design      Get random intercepts for subjects and items
+codebook                Create PsychDS Codebook from Data
+codebook_interactive    Interactive Codebook
+cormat                  Make a correlation matrix
+cormat_from_triangle    Make Correlation Matrix from Triangle
+faceratings             Attractiveness ratings of faces
+faux                    faux: Simulation Functions.
+faux_options            Set/get global faux options
+fix_name_labels         Fix name labels
+fr4                     Attractiveness rating subset
+gamma2norm              Convert gamma to normal
+get_design_long         Get design from long data
+get_params              Get parameters from a data table
+getcols                 Get data columns
+interactive_design      Set design interactively
+is_pos_def              Check a Matrix is Positive Definite
+json_design             Convert design to JSON
+long2wide               Convert data from long to wide format
+make_id                 Make ID
+messy                   Simulate missing data
+nested_list             Output a nested list in RMarkdown list format
+norm2beta               Convert normal to beta
+norm2binom              Convert normal to binomial
+norm2gamma              Convert normal to gamma
+norm2likert             Convert normal to likert
+norm2pois               Convert normal to poisson
+norm2trunc              Convert normal to truncated normal
+norm2unif               Convert normal to uniform
+plot_design             Plot design
+pos_def_limits          Limits on Missing Value for Positive Definite
+                        Matrix
+print.design            Print Design List
+print.nested_list       Print Nested List
+print.psychds_codebook
+                        Print Codebook Object
+readline_check          Check readline input
+rnorm_multi             Multiple correlated normal distributions
+rnorm_pre               Make a normal vector correlated to existing
+                        vectors
+sample_from_pop         Sample Parameters from Population Parameters
+sim_data                Simulate data from design (internal)
+sim_design              Simulate data from design
+sim_df                  Simulate an existing dataframe
+sim_joint_dist          Simulate category joint distribution
+sim_mixed_cc            Generate a cross-classified sample
+sim_mixed_df            Generate a mixed design from existing data
+std_alpha2average_r     Standardized Alpha to Average R
+trunc2norm              Convert truncated normal to normal
+unif2norm               Convert uniform to normal
+unique_pairs            Make unique pairs of level names for
+                        correlations
+wide2long               Convert data from wide to long format

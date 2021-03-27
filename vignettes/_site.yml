@@ -1,4 +1,0 @@
-output:
-  rmarkdown::html_document:
-    df_print: kable
-

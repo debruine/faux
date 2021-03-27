@@ -188,7 +188,9 @@ hljs.initHighlightingOnLoad();
 <!-- badges: start -->
 
 <p><a href="https://zenodo.org/badge/latestdoi/163506566"><img src="https://zenodo.org/badge/163506566.svg" alt="DOI"/></a>
-<a href="https://www.tidyverse.org/lifecycle/#stable"><img src="https://img.shields.io/badge/lifecycle-stable-green.svg" alt="Lifecycle: experimental"/></a>
+<img src="https://www.r-pkg.org/badges/version-last-release/faux" alt="CRAN version"/>
+<img src="https://cranlogs.r-pkg.org/badges/grand-total/faux" alt="Downloads"/>
+<a href="https://lifecycle.r-lib.org/articles/stages.html#stable"><img src="https://img.shields.io/badge/lifecycle-stable-green.svg" alt="Lifecycle: stable"/></a>
 <a href="https://travis-ci.org/debruine/faux"><img src="https://travis-ci.org/debruine/faux.svg?branch=master" alt="Travis build status"/></a>
 <a href="https://codecov.io/github/debruine/faux?branch=master"><img src="https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg" alt="Coverage status"/></a>
 <a href="https://github.com/debruine/faux/actions"><img src="https://github.com/debruine/faux/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"/></a></p>
@@ -528,7 +530,7 @@ list(
   r = cor(x,y)
 ) %&gt;% str()
 #&gt; List of 3
-#&gt;  $ mean: num -1.53e-17
+#&gt;  $ mean: num -6.16e-19
 #&gt;  $ sd  : num 1
 #&gt;  $ r   : num 0.5
 </code></pre>
@@ -1074,7 +1076,7 @@ df_long &lt;- wide2long(df_wide)
 </code></pre>
 
 <pre>
-{"within":{"feature":{"Sepal":"Sepal","Petal":"Petal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":{"value":"value"},"id":{"flower_id":"flower_id"},"n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Sepal_Length":5.006,"Sepal_Width":3.428,"Petal_Length":1.462,"Petal_Width":0.246},"versicolor":{"Sepal_Length":5.936,"Sepal_Width":2.77,"Petal_Length":4.26,"Petal_Width":1.326},"virginica":{"Sepal_Length":6.588,"Sepal_Width":2.974,"Petal_Length":5.552,"Petal_Width":2.026}},"sd":{"setosa":{"Sepal_Length":0.35248969,"Sepal_Width":0.37906437,"Petal_Length":0.173664,"Petal_Width":0.10538559},"versicolor":{"Sepal_Length":0.51617115,"Sepal_Width":0.31379832,"Petal_Length":0.46991098,"Petal_Width":0.19775268},"virginica":{"Sepal_Length":0.63587959,"Sepal_Width":0.32249664,"Petal_Length":0.5518947,"Petal_Width":0.27465006}},"r":{"setosa":[[1,0.74254669,0.26717576,0.27809835],[0.74254669,1,0.17769997,0.23275201],[0.26717576,0.17769997,1,0.33163004],[0.27809835,0.23275201,0.33163004,1]],"versicolor":[[1,0.52591072,0.75404896,0.54646107],[0.52591072,1,0.56052209,0.66399872],[0.75404896,0.56052209,1,0.78666809],[0.54646107,0.66399872,0.78666809,1]],"virginica":[[1,0.45722782,0.86422473,0.28110771],[0.45722782,1,0.40104458,0.53772803],[0.86422473,0.40104458,1,0.32210822],[0.28110771,0.53772803,0.32210822,1]]}}
+{"within":{"feature":{"Sepal":"Sepal","Petal":"Petal"},"dimension":{"Length":"Length","Width":"Width"}},"between":{"Species":{"setosa":"setosa","versicolor":"versicolor","virginica":"virginica"}},"dv":{"value":"value"},"id":{"flower_id":"flower_id"},"n":{"setosa":50,"versicolor":50,"virginica":50},"mu":{"setosa":{"Sepal_Length":5.006,"Sepal_Width":3.428,"Petal_Length":1.462,"Petal_Width":0.246},"versicolor":{"Sepal_Length":5.936,"Sepal_Width":2.77,"Petal_Length":4.26,"Petal_Width":1.326},"virginica":{"Sepal_Length":6.588,"Sepal_Width":2.974,"Petal_Length":5.552,"Petal_Width":2.026}},"sd":{"setosa":{"Sepal_Length":0.35248969,"Sepal_Width":0.37906437,"Petal_Length":0.173664,"Petal_Width":0.10538559},"versicolor":{"Sepal_Length":0.51617115,"Sepal_Width":0.31379832,"Petal_Length":0.46991098,"Petal_Width":0.19775268},"virginica":{"Sepal_Length":0.63587959,"Sepal_Width":0.32249664,"Petal_Length":0.5518947,"Petal_Width":0.27465006}},"r":{"setosa":[[1,0.74254669,0.26717576,0.27809835],[0.74254669,1,0.17769997,0.23275201],[0.26717576,0.17769997,1,0.33163004],[0.27809835,0.23275201,0.33163004,1]],"versicolor":[[1,0.52591072,0.75404896,0.54646107],[0.52591072,1,0.56052209,0.66399872],[0.75404896,0.56052209,1,0.78666809],[0.54646107,0.66399872,0.78666809,1]],"virginica":[[1,0.45722782,0.86422473,0.28110771],[0.45722782,1,0.40104458,0.53772803],[0.86422473,0.40104458,1,0.32210822],[0.28110771,0.53772803,0.32210822,1]]},"sep":"_"}
 </pre>
 
 <pre><code class="r">json_design(design, pretty = TRUE)
@@ -1169,7 +1171,8 @@ df_long &lt;- wide2long(df_wide)
       [0.86422473, 0.40104458, 1, 0.32210822],
       [0.28110771, 0.53772803, 0.32210822, 1]
     ]
-  }
+  },
+  "sep": "_"
 }
 </pre>
 

@@ -17,6 +17,7 @@
 #' @param design a design list including within, between, n, mu, sd, r, dv, id
 #' @param rep the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep
 #' @param seed DEPRECATED use set.seed() instead before running this function
+#' @param sep separator for factor levels
 #' 
 #' @return a tbl
 #' 
@@ -29,21 +30,23 @@ sim_design <- function(within = list(), between = list(),
                        id = list(id = "id"),
                        plot = faux_options("plot"), 
                        interactive = FALSE, 
-                       design = NULL, rep = 1, seed = NULL) {
+                       design = NULL, rep = 1, seed = NULL,
+                       sep = faux_options("sep")) {
   # check the design is specified correctly
   if (interactive) {
     design <- interactive_design(plot = plot)
   } else if (!is.null(design)) { 
     #& !("design" %in% class(design))) {
     # double-check the entered design
-    design <- check_design(design = design, plot = plot, fix_names = !long)
+    
+    design <- check_design(design = design, plot = plot, sep = sep)
   } else if ("design" %in% class(within)) {
     # design given as first argument: not ideal but handle it
-    design <- check_design(design = within, plot = plot, fix_names = !long)
+    design <- check_design(design = within, plot = plot, sep = sep)
   } else {
     design <- check_design(within = within, between = between, 
                          n = n, mu = mu, sd = sd, r = r, 
-                         dv = dv, id = id, plot = plot, fix_names = !long)
+                         dv = dv, id = id, plot = plot, sep = sep)
   }
   
   if (!is.null(seed)) {
