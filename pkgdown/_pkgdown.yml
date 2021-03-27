@@ -1,3 +1,8 @@
+url: https://debruine.github.io/faux
+
+development:
+  mode: auto
+
 home:
   title: Simulation for Factorial Designs
   description: Create datasets with factorial structure through simulation by specifying variable parameters.
