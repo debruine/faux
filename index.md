@@ -5,7 +5,7 @@
 [![DOI](https://zenodo.org/badge/163506566.svg)](https://zenodo.org/badge/latestdoi/163506566)
 ![CRAN version](https://www.r-pkg.org/badges/version-last-release/faux)
 ![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/faux)
-[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-green.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Travis build status](https://travis-ci.org/debruine/faux.svg?branch=master)](https://travis-ci.org/debruine/faux)
 [![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/debruine/faux?branch=master)
 [![R-CMD-check](https://github.com/debruine/faux/workflows/R-CMD-check/badge.svg)](https://github.com/debruine/faux/actions)
@@ -19,13 +19,13 @@ It is useful to be able to simulate data with a specified structure. The `faux` 
 
 ## Installation
 
-You can install the released version of faux (0.0.1.6) from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of faux (1.0.0) from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("faux")
 ```
 
-And the development version (0.0.1.7) from [GitHub](https://github.com/debruine/faux) with:
+And the development version (1.0.0.9000) from [GitHub](https://github.com/debruine/faux) with:
 
 ``` r
 # install.packages("devtools")
