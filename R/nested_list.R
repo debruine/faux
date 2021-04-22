@@ -54,7 +54,7 @@ nested_list <- function(x, type = "unordered", pre = "", quote = "") {
     list_names <- names(x)
     if (is.null(list_names)) {
       bullet <- paste0(1:length(x), ". ")
-      if (type == "headers") bullet <- paste0(parameters[1], 1:length(x), "no_title", parameters[3])
+      if (type == "headers") bullet <- paste0(parameters[1], 1:length(x), "_no_title", parameters[3])
     } else {
       blanks <- grep("^$", list_names)
       list_names[blanks] <- paste0("{", blanks, "}")
@@ -71,8 +71,9 @@ nested_list <- function(x, type = "unordered", pre = "", quote = "") {
       paste0(pre, bullet[i], lbreak, sub)
     })
   }
+  collapsing = ifelse (type == "headers","\n\n","\n")
   
-  list_txt <- paste(txt, collapse = "\n\n")
+  list_txt <- paste(txt, collapse = collapsing)
   class(list_txt) <- c("nested_list", "character")
   
   list_txt
@@ -88,5 +89,3 @@ nested_list <- function(x, type = "unordered", pre = "", quote = "") {
 print.nested_list <- function(x, ...) {
   cat(x)
 }
-
-
