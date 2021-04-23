@@ -24,7 +24,7 @@
 #' nested_list(x)
 #' nested_list(x, pre = "    ")
 #' nested_list(x, type = "headers", pre= "#", quote = "'")
-nested_list <- function(x, type = "unordered", pre = "", quote = "") {
+nested_list <- function(x,  pre = "", quote = "", type = "unordered") {
   txt <- c()
   if (type == "unordered") parameters= c("* ","    ",": ")
   if (type == "ordered") parameters= c("1. ","    ",": ")
@@ -64,7 +64,7 @@ nested_list <- function(x, type = "unordered", pre = "", quote = "") {
     pre2 <- paste0(pre, parameters[2])
     txt <- lapply(seq_along(x), function(i) {
       item <- x[[i]]
-      sub <- nested_list(item, type,pre2, quote)
+      sub <- nested_list(item, pre2, quote,type)
       # add line break unless item is unnamed and length = 1
       lbreak <- ifelse(length(item) > 1 | (length(names(item)) > 0), "\n", "")
       if (grepl("\n", sub)) lbreak <- "\n"
