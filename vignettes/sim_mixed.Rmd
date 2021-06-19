@@ -32,23 +32,36 @@ This [paper](https://osf.io/3cz2e/) provides a tutorial and examples for more co
 
 ## Building mixed effects designs
 
-You can build up a mixed effects model by adding random factors in a stepwise fashion using `add_random()`. The example below simulates 3 schools with 2 classes nested in each school, then a different number of pupils nested in each class, and finally crossed with 10 questions.
+You can build up a mixed effects model by adding random factors in a stepwise fashion using `add_random()`. The example below simulates 3 schools with 2, 3 and 4 classes nested in each school.
 
 ```{r add-random}
 data <- add_random(NULL, school = 3) %>%
-  add_random(class = 2, nested_in = "school") %>%
-  add_random(pupil = c(20, 24, 23, 21, 25, 24), nested_in = "class") %>%
-  add_random(question = 10)
+  add_random(class = c(2, 3, 4), nested_in = "school")
 ```
 
-A cross-classified design with 100 subjects and 20 items.
+`r kableExtra::kable(data)`
+
+A cross-classified design with 2 subjects and 3 items.
 
 ```{r}
-data <- add_random(NULL, subj = 100, item = 20)
+data <- add_random(NULL, subj = 2, item = 3)
 ```
+
+`r kableExtra::kable(data)`
 
 
 ## Adding fixed factors
+
+Add within factors with `add_within()`.
+
+
+```{r}
+data <- add_random(NULL, subj = 2) %>%
+  add_within("subj", time = c("pre", "post"),
+             condition = c("control", "test"))
+```
+
+`r kableExtra::kable(data)`
 
 Add between factors with `add_between()`. If you have more than one factor, they will be crossed. If you set `shuffle = TRUE`, the factors will be added randomly (not in "order"), and separately added factors may end up confounded. This simulates true random allocation.
 
@@ -56,11 +69,11 @@ Add between factors with `add_between()`. If you have more than one factor, they
 data <- add_random(NULL, subj = 4, item = 2) %>%
   add_between("subj", cond = c("control", "test"), gen = c("X", "Z")) %>%
   add_between("item", version = c("A", "B")) %>%
-  add_between(c("subj", "item"), x = 1:4, shuffle = TRUE) %>%
-  add_between(c("subj", "item"), y = 1:4, shuffle = FALSE)
+  add_between(c("subj", "item"), shuffled = 1:4, shuffle = TRUE) %>%
+  add_between(c("subj", "item"), not_shuffled = 1:4, shuffle = FALSE)
 ```
 
-`r knitr::kable(data)`
+`r kableExtra::kable(data)`
 
 ### Unequal cells
 
@@ -72,45 +85,68 @@ data <- add_random(NULL, subj = 10) %>%
   add_between("subj", age = c("young", "old"), prob = c(.8, .2))
 ```
 
-`r knitr::kable(data)`
+`r kableExtra::kable(data)`
 
 ### Counterbalanced designs
 
-You can use the `filter()` function from dplyr to create counterbalanced designs. For example, if your items are grouped into A and B counterbalanced groups, add a between-subjects and a between-items factor with the same levels and filter only rows where the subject value matches the item value. In the example below, subjects 1-3 only see the odd-numbered items, while subjects 4-6 only see the even-numbered items.
+You can use the `filter()` function from dplyr to create counterbalanced designs. For example, if your items are grouped into A and B counterbalanced groups, add a between-subjects and a between-items factor with the same levels and filter only rows where the subject value matches the item value. In the example below, subjects 1-2 only see the odd-numbered items, while subjects 3-4 only see the even-numbered items.
 
 ```{r}
-data <- add_random(NULL, subj = 6, item = 6) %>%
+data <- add_random(NULL, subj = 4, item = 4) %>%
   add_between("subj", subj_cb = c("A", "B")) %>%
   add_between("item", item_cb = c("A", "B")) %>%
   dplyr::filter(subj_cb == item_cb)
 ```
 
-`r knitr::kable(data)`
+`r kableExtra::kable(data)`
+
+### Recoding
+
+To set up data for analysis, you often need to recode categorical variables. Use the helper function `add_recode()` for this. The code below creates effect-coded and treatment-coded versions of "cond" and the two variables needed to treatment-code the 3-level variable "type". See this blog post by Dale Barr to learn more about [coding categorical predictor variables in factorial designs](https://talklab.psy.gla.ac.uk/tvw/catpred/)
+
+```{r}
+data <- add_random(NULL, subj = 2, item = 3) %>%
+  add_between("subj", cond = c("A", "B")) %>%
+  add_between("item", type = c("X", "Y", "Z")) %>%
+  add_recode("cond", "cond.e", A = -0.5, B = 0.5) %>%
+  add_recode("cond", "cond.t", A = 0, B = 1) %>%
+  add_recode("type", "type.Y", X = 0, Y = 1, Z = 0) %>%
+  add_recode("type", "type.Z", X = 0, Y = 0, Z = 1)
+```
+
+`r kableExtra::kable(data)`
+
 
 ## Adding random effects
 
-The code below sets up a simple cross-classified design where 2 subjects are crossed with 2 items. You can use the function `add_ranef()` to add random effects for subject, item, and their interaction, as well as an error term (`sigma`). If you add more than one random effect for the same group (e.g., a random intercept and a random slope), you can specify their correlation with `.cors` (you can specify correlations in the same way as for `rnorm_multi()`).
+To simulate multilevel data, you need to add random intercepts and slopes for each random factor (or combination of random factors). These are randomly sampled each time you simulate a new sample, so you can only characterise them by their standard deviation. You can use the function `add_ranef()` to add random effects with specified SDs. If you add more than one random effect for the same group (e.g., a random intercept and a random slope), you can specify their correlation with `.cors` (you can specify correlations in the same way as for `rnorm_multi()`).
+
+The code below sets up a simple cross-classified design where 2 subjects are crossed with 2 items. It adds a between-subject, within-item factor of "version". Then it adds random effects by subject, item, and their interaction, as well as an error term (`sigma`). 
 
 ```{r add-ranef}
-data <- add_random(NULL, subj = 2, item = 2) %>%
+data <- add_random(NULL, subj = 4, item = 2) %>%
+  add_between("subj", version = 1:2) %>%
+  # add by-subject random intercept
   add_ranef("subj", u0s = 1.3) %>%
+  # add by-item random intercept and slope
   add_ranef("item", u0i = 1.5, u1i = 1.5, .cors = 0.3) %>%
+  # add by-subject:item random intercept
   add_ranef(c("subj", "item"), u0si = 1.7) %>%
+  # add error term (by observation)
   add_ranef(sigma = 2.2)
 ```
 
-`r knitr::kable(data, digits = 3)`
+`r kableExtra::kable(data, digits = 3)`
 
 
 ## Simulating data
 
-Now you can define your data-generating parameters and put everything together to simulate a dataset. 
-
+Now you can define your data-generating parameters and put everything together to simulate a dataset. In this example,subject are crossed with items, and there is a single treatment-coded between-subject, within-item fixed factor of condition with levels "control" and "test". The intercept and effect of condition are both set to 0. The SDs of the random intercepts and slopes are all set to 1 (you will need pilot data to estimate realistic values for your design), the correlation between the random intercept and slope by items is set to 0. The SD of the error term is set to 2.
 
 ```{r}
 # define parameters
-subj_n = 2   # number of subjects
-item_n = 3   # number of items
+subj_n = 10  # number of subjects
+item_n = 10  # number of items
 b0 = 0       # intercept
 b1 = 0       # fixed effect of condition
 u0s_sd = 1   # random intercept SD for subjects
@@ -132,7 +168,17 @@ data <- add_random(NULL, subj = subj_n, item = item_n) %>%
   mutate(dv = b0 + u0s + u0i + (b1 + u1i) * cond.t + sigma)
 ```
 
-`r knitr::kable(data, digits = 3)`
+`r kableExtra::kable(head(data), digits = 3)`
+
+## Analysing your multilevel data
+
+You can analyse these data with lme4::lmer().
+
+```{r}
+m <- lmer(dv ~ cond.t + (1 | subj) + (1 + cond.t | item), data = data)
+
+summary(m)
+```
 
 
 Include this code in a function so you can easily change the Ns, fixed effects, and random effects to any values. Then run a mixed effects model on the data and return the model.
@@ -141,9 +187,10 @@ Include this code in a function so you can easily change the Ns, fixed effects, 
 sim <- function(subj_n = 10, item_n = 10,
                 b0 = 0, b1 = 0,         # fixed effects 
                 u0s_sd = 1, u0i_sd = 1, # random intercepts
-                u1i_sd = 1, r01i = 0,   # random slope and correlation
+                u1i_sd = 1, r01i = 0,   # random slope and cor
                 sigma_sd = 2,           # error term
-                ...) {
+                ... # helps the function work with pmap() below
+                ) {
 
   # set up data structure
   data <- add_random(NULL, subj = subj_n, item = item_n) %>%
