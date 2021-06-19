@@ -193,10 +193,28 @@
     <p>data frame with new fixed effects columns</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='add_random.html'>add_random</a></span><span class='op'>(</span><span class='cn'>NULL</span>, subj <span class='op'>=</span> <span class='fl'>4</span>, item <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+    <pre class="examples"><div class='input'><span class='fu'><a href='add_random.html'>add_random</a></span><span class='op'>(</span>subj <span class='op'>=</span> <span class='fl'>4</span>, item <span class='op'>=</span> <span class='fl'>4</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'><a href='add_between.html'>add_between</a></span><span class='op'>(</span><span class='st'>"subj"</span>, cond <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cntl"</span>, <span class='st'>"test"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
   <span class='fu'>add_recode</span><span class='op'>(</span><span class='st'>"cond"</span>, <span class='st'>"cond.t"</span>, cntl <span class='op'>=</span> <span class='fl'>0</span>, test <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
-</div></pre>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 16 x 4</span>
+#&gt;    subj  item  cond  cond.t
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>  <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> s1    i1    cntl       0
+#&gt; <span style='color: #BCBCBC;'> 2</span> s1    i2    cntl       0
+#&gt; <span style='color: #BCBCBC;'> 3</span> s1    i3    cntl       0
+#&gt; <span style='color: #BCBCBC;'> 4</span> s1    i4    cntl       0
+#&gt; <span style='color: #BCBCBC;'> 5</span> s2    i1    test       1
+#&gt; <span style='color: #BCBCBC;'> 6</span> s2    i2    test       1
+#&gt; <span style='color: #BCBCBC;'> 7</span> s2    i3    test       1
+#&gt; <span style='color: #BCBCBC;'> 8</span> s2    i4    test       1
+#&gt; <span style='color: #BCBCBC;'> 9</span> s3    i1    cntl       0
+#&gt; <span style='color: #BCBCBC;'>10</span> s3    i2    cntl       0
+#&gt; <span style='color: #BCBCBC;'>11</span> s3    i3    cntl       0
+#&gt; <span style='color: #BCBCBC;'>12</span> s3    i4    cntl       0
+#&gt; <span style='color: #BCBCBC;'>13</span> s4    i1    test       1
+#&gt; <span style='color: #BCBCBC;'>14</span> s4    i2    test       1
+#&gt; <span style='color: #BCBCBC;'>15</span> s4    i3    test       1
+#&gt; <span style='color: #BCBCBC;'>16</span> s4    i4    test       1</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

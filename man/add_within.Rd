@@ -4,12 +4,12 @@
 \alias{add_within}
 \title{Add within factors}
 \usage{
-add_within(data, .grp = NULL, ...)
+add_within(.data, .by = NULL, ...)
 }
 \arguments{
-\item{data}{the data frame}
+\item{.data}{the data frame}
 
-\item{.grp}{the grouping column (groups by row if NULL)}
+\item{.by}{the grouping column (groups by row if NULL)}
 
 \item{...}{the names and levels of the new factors}
 }
@@ -20,7 +20,6 @@ data frame
 Add within factors
 }
 \examples{
-
-data <- add_random(NULL, subj = 2, item =  2) \%>\%
+add_random(subj = 2, item =  2) \%>\%
   add_within("subj", time = c("pre", "post"))
 }

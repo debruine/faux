@@ -4,12 +4,12 @@
 \alias{add_ranef}
 \title{Add random effects to a data frame}
 \usage{
-add_ranef(data, .grp = NULL, ..., .cors = 0, empirical = FALSE)
+add_ranef(data, .by = NULL, ..., .cors = 0, empirical = FALSE)
 }
 \arguments{
 \item{data}{the data frame}
 
-\item{.grp}{the grouping column (groups by row if NULL)}
+\item{.by}{the grouping column (groups by row if NULL)}
 
 \item{...}{the name and standard deviation of each random effect}
 
@@ -24,11 +24,7 @@ data frame with new random effects columns
 Add random effects to a data frame
 }
 \examples{
-sim_df <- expand.grid(
-  rater = make_id(2, "R"),
-  stimulus = make_id(3, "S"),
-  time = make_id(4, "T")
-) \%>\%
+add_random(rater = 2, stimulus = 2, time = 2) \%>\%
   add_ranef("rater", u0r = 1.5) \%>\%
   add_ranef("stimulus", u0s = 2.2, u1s = 0.75, .cors = 0.5) \%>\%
   add_ranef(c("rater", "stimulus"), u0sr = 1.2)
