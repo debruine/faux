@@ -1,0 +1,17 @@
+pandoc: '2.13'
+pkgdown: 1.6.1
+pkgdown_sha: ~
+articles:
+  codebook: codebook.html
+  continuous: continuous.html
+  distributions: distributions.html
+  plots: plots.html
+  rnorm_multi: rnorm_multi.html
+  sim_design: sim_design.html
+  sim_df: sim_df.html
+  sim_mixed: sim_mixed.html
+last_built: 2021-06-19T21:23Z
+urls:
+  reference: https://debruine.github.io/faux/reference
+  article: https://debruine.github.io/faux/articles
+

@@ -31,27 +31,28 @@ test_that("error messages", {
 
 # set mu ----
 test_that("mu", {
-  x <- sim_design(within = 2, mu = 1, empirical = TRUE)
+  w <- list("A" = c("A1", "A2"))
+  x <- sim_design(within = w, mu = 1, empirical = TRUE)
   expect_equal(mean(x$A1), 1, tolerance = 1e3)
   expect_equal(mean(x$A2), 1, tolerance = 1e3)
   
-  x <- sim_design(within = 2, mu = c(1, 2), empirical = TRUE)
+  x <- sim_design(within = w, mu = c(1, 2), empirical = TRUE)
   expect_equal(mean(x$A1), 1, tolerance = 1e3)
   expect_equal(mean(x$A2), 2, tolerance = 1e3)
   
-  x <- sim_design(within = 2, mu = c(A2 = 2, A1 = 1), empirical = TRUE)
+  x <- sim_design(within = w, mu = c(A2 = 2, A1 = 1), empirical = TRUE)
   expect_equal(mean(x$A1), 1, tolerance = 1e3)
   expect_equal(mean(x$A2), 2, tolerance = 1e3)
   
-  x <- sim_design(within = 2, mu = list(A2 = 2, A1 = 1), empirical = TRUE)
+  x <- sim_design(within = w, mu = list(A2 = 2, A1 = 1), empirical = TRUE)
   expect_equal(mean(x$A1), 1, tolerance = 1e3)
   expect_equal(mean(x$A2), 2, tolerance = 1e3)
   
-  x <- sim_design(within = 2, mu = data.frame(A2 = 2, A1 = 1), empirical = TRUE)
+  x <- sim_design(within = w, mu = data.frame(A2 = 2, A1 = 1), empirical = TRUE)
   expect_equal(mean(x$A1), 1, tolerance = 1e3)
   expect_equal(mean(x$A2), 2, tolerance = 1e3)
   
-  x <- sim_design(within = 2, mu = data.frame(y = 2:1, row.names = c("A2", "A1")), empirical = TRUE)
+  x <- sim_design(within = w, mu = data.frame(y = 2:1, row.names = c("A2", "A1")), empirical = TRUE)
   expect_equal(mean(x$A1), 1, tolerance = 1e3)
   expect_equal(mean(x$A2), 2, tolerance = 1e3)
 })
@@ -575,7 +576,7 @@ test_that("multiple reps", {
   expect_equal(nrow(df$data[[1]]), n)
   expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]], 
                                 check.environment=FALSE)))
-  expect_equal(names(df$data[[1]]), c("id", "A1", "A2"))
+  expect_equal(names(df$data[[1]]), c("id", "W1a", "W1b"))
   expect_equal(nrow(df$data[[1]]), n)
   
   df <- sim_design(2, n = n, rep = rep, 
@@ -585,16 +586,17 @@ test_that("multiple reps", {
   expect_equal(nrow(df$data[[1]]), 2*n)
   expect_false(isTRUE(all.equal(df$data[[1]], df$data[[2]], 
                       check.environment=FALSE)))
-  expect_equal(names(df$data[[1]]), c("id", "A", "y"))
+  expect_equal(names(df$data[[1]]), c("id", "W1", "y"))
   expect_equal(nrow(df$data[[1]]), n*2)
 })
 
 # empirical ----
 test_that("empirical", {
   tol = .000001
+  A <- list(A = c("A1", "A2"))
   for (i in 1:10) {
     for (n in seq(10,30, 10)) {
-      df <- sim_design(2, r = 0.5, n = n, empirical = TRUE, plot = FALSE)
+      df <- sim_design(A, r = 0.5, n = n, empirical = TRUE, plot = FALSE)
       
       # equal to parameters within tolerance
       expect_equal(cor(df$A1, df$A2), 0.5, tolerance = tol)
@@ -608,7 +610,7 @@ test_that("empirical", {
   m1 = c(); m2 = c(); sd1 = c(); sd2 = c(); r = c();
   for (i in 1:100) {
     tol = .000001
-    df <- sim_design(2, n = 10, r = 0.5, empirical = FALSE, plot = FALSE)
+    df <- sim_design(A, n = 10, r = 0.5, empirical = FALSE, plot = FALSE)
     r[i] <- abs(cor(df$A1, df$A2)-0.5)
     m1[i] <- abs(mean(df$A1))
     m2[i] <- abs(mean(df$A2))

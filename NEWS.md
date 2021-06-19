@@ -1,3 +1,10 @@
+# faux 1.0.9001 (2021-03-27)
+
+* added new mixed effect builder functions
+* updated mixed effects vignette
+* anonymous within and between factors in `sim_design()` are now named W and B or Wa, Wb, Wc, ..., Ba, Bb, ... instead of A, B, C, ... (and fixed relevant tests and vignette code)
+* fixed `get_params()` so it doesn't need between, within, id, and dv set for date created by `sim_design()`
+
 # faux 1.0.0 (2021-03-27)
 
 * Released on CRAN

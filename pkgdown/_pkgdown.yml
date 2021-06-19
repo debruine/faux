@@ -38,9 +38,17 @@ reference:
   - '`rnorm_pre`'
   - '`sim_design`'
   - '`sim_df`'
+  - '`sim_joint_dist`'
+- title: Mixed effects functions
+  desc: ~
+  contents:
+  - '`add_random`'
+  - '`add_within`'
+  - '`add_between`'
+  - '`add_recode`'
+  - '`add_ranef`'
   - '`sim_mixed_cc`'
   - '`sim_mixed_df`'
-  - '`sim_joint_dist`'
 - title: Other useful functions
   desc: ~
   contents:

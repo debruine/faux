@@ -11,26 +11,26 @@ test_that("errors", {
 # params ----
 test_that("params", {
   # numeric n
-  expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = 20)))
-  expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = "20")))
+  expect_silent(check_design(between = 2, n = list("B1a" = 10, "B1b" = 20)))
+  expect_silent(check_design(between = 2, n = list("B1a" = 10, "B1b" = "20")))
   expect_error(
-    check_design(between = 2, n = list("A1" = 10, "A2" = "B")),
+    check_design(between = 2, n = list("B1a" = 10, "B1b" = "B")),
     "All n must be numbers"
   )
   
   # numeric mu
-  expect_silent(check_design(between = 2, mu = list("A1" = 10, "A2" = 20)))
-  expect_silent(check_design(between = 2, mu = list("A1" = 10, "A2" = "20")))
+  expect_silent(check_design(between = 2, mu = list("B1a" = 10, "B1b" = 20)))
+  expect_silent(check_design(between = 2, mu = list("B1a" = 10, "B1b" = "20")))
   expect_error(
-    check_design(between = 2, mu = list("A1" = 10, "A2" = "B")),
+    check_design(between = 2, mu = list("B1a" = 10, "B1b" = "B")),
     "All mu must be numbers"
   )
   
   # numeric sd
-  expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = 20)))
-  expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = "20")))
+  expect_silent(check_design(between = 2, sd = list("B1a" = 10, "B1b" = 20)))
+  expect_silent(check_design(between = 2, sd = list("B1a" = 10, "B1b" = "20")))
   expect_error(
-    check_design(between = 2, sd = list("A1" = 10, "A2" = "B")),
+    check_design(between = 2, sd = list("B1a" = 10, "B1b" = "B")),
     "All sd must be numbers", fixed = TRUE
   )
   
@@ -199,10 +199,10 @@ test_that("design spec", {
 test_that("interactions", {
   faux_options(sep = "_")
   n <- list(
-    B1_C1 = 10, 
-    B1_C2 = 20, 
-    B2_C1 = 30, 
-    B2_C2 = 40
+    B1a_B2a = 10, 
+    B1a_B2b = 20, 
+    B1b_B2a = 30, 
+    B1b_B2b = 40
   )
 
   design <- check_design(2, c(2,2), n = n, plot = FALSE)
@@ -215,13 +215,13 @@ test_that("anon factors", {
   design <- check_design(c(2, 4), c(2, 2))
   
   w <- list(
-    A = list(A1="A1", A2="A2"),
-    B = list(B1="B1", B2="B2", B3="B3", B4="B4")
+    W1 = list(W1a="W1a", W1b="W1b"),
+    W2 = list(W2a="W2a", W2b="W2b", W2c="W2c", W2d="W2d")
   )
   
   b <- list(
-    C = list(C1="C1",C2="C2"),
-    D = list(D1="D1", D2="D2")
+    B1 = list(B1a="B1a",B1b="B1b"),
+    B2 = list(B2a="B2a", B2b="B2b")
   )
   
   expect_equal(design$within, w)
