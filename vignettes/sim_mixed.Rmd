@@ -89,10 +89,10 @@ data <- add_random(subj = 10) %>%
 
 ### Counterbalanced designs
 
-You can use the `filter()` function from dplyr to create counterbalanced designs. For example, if your items are grouped into A and B counterbalanced groups, add a between-subjects and a between-items factor with the same levels and filter only rows where the subject value matches the item value. In the example below, subjects 1-2 only see the odd-numbered items, while subjects 3-4 only see the even-numbered items.
+You can use the `filter()` function from dplyr to create counterbalanced designs. For example, if your items are grouped into A and B counterbalanced groups, add a between-subjects and a between-items factor with the same levels and filter only rows where the subject value matches the item value. In the example below, odd-numbered subjects only respond to odd-numbered items.
 
 ```{r}
-data <- add_random(NULL, subj = 4, item = 4) %>%
+data <- add_random(subj = 4, item = 4) %>%
   add_between("subj", subj_cb = c("A", "B")) %>%
   add_between("item", item_cb = c("A", "B")) %>%
   dplyr::filter(subj_cb == item_cb)
