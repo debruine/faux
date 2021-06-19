@@ -48,7 +48,7 @@ test_that("x and y", {
 
 test_that("add_random", {
   # start a data frame
-  data1 <- add_random(NULL, school = 3)
+  data1 <- add_random(school = 3)
   expect_equal(data1$school, paste0("s", 1:3))
   # nest classes in schools (2 classes per school)
   data2 <- add_random(data1, class = 2, nested_in = "school")
@@ -69,7 +69,7 @@ test_that("add_random", {
   expect_equal(data6$Q, rep(c("Q1", "Q2"), 6))
   
   # compare nesting in 2 different factors
-  data <- add_random(NULL, A = 2., B = 2)
+  data <- add_random(A = 2., B = 2)
   nested_in_A <- add_random(data, C = 2, nested_in = "A")
   nested_in_B <- add_random(data, C = 2, nested_in = "B")
   expect_false(all(nested_in_A$C == nested_in_B$C))

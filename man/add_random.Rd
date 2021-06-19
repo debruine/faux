@@ -4,14 +4,14 @@
 \alias{add_random}
 \title{Add random factors to a data structure}
 \usage{
-add_random(data = NULL, ..., nested_in = NULL)
+add_random(.data = NULL, ..., nested_in = NULL)
 }
 \arguments{
-\item{data}{the data frame}
-
 \item{...}{the new random factor column name and the number of values of the random factor (if crossed) or the n per group (if nested); can be a vector of n per group if nested}
 
 \item{nested_in}{the column(s) to nest in (if NULL, the factor is crossed with all columns)}
+
+\item{data}{the data frame}
 }
 \value{
 a data frame
@@ -21,7 +21,7 @@ Add random factors to a data structure
 }
 \examples{
 # start a data frame
-data1 <- add_random(NULL, school = 3)
+data1 <- add_random(school = 3)
 # nest classes in schools (2 classes per school)
 data2 <- add_random(data1, class = 2, nested_in = "school")
 # nest pupils in each class (different n per class)
@@ -29,12 +29,8 @@ data3 <- add_random(data2, pupil = c(20, 24, 23, 21, 25, 24), nested_in = "class
 # cross each pupil with 10 questions
 data4 <- add_random(data3, question = 10)
 
-# add crossed random factor to existing dataset
-data5 <- sim_design(within = 2, n = 3, long = TRUE) \%>\%
-  add_random(Q = 2)
-  
 # compare nesting in 2 different factors
-data <- add_random(NULL, A = 2, B = 2)
-nested_in_A <- add_random(data, C = 2, nested_in = "A")
-nested_in_B <- add_random(data, C = 2, nested_in = "B")
+data <- add_random(A = 2, B = 2)
+add_random(data, C = 2, nested_in = "A")
+add_random(data, C = 2, nested_in = "B")
 }

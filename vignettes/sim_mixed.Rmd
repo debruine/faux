@@ -35,7 +35,7 @@ This [paper](https://osf.io/3cz2e/) provides a tutorial and examples for more co
 You can build up a mixed effects model by adding random factors in a stepwise fashion using `add_random()`. The example below simulates 3 schools with 2, 3 and 4 classes nested in each school.
 
 ```{r add-random}
-data <- add_random(NULL, school = 3) %>%
+data <- add_random(school = 3) %>%
   add_random(class = c(2, 3, 4), nested_in = "school")
 ```
 
@@ -44,7 +44,7 @@ data <- add_random(NULL, school = 3) %>%
 A cross-classified design with 2 subjects and 3 items.
 
 ```{r}
-data <- add_random(NULL, subj = 2, item = 3)
+data <- add_random(subj = 2, item = 3)
 ```
 
 `r kableExtra::kable(data)`
@@ -56,7 +56,7 @@ Add within factors with `add_within()`.
 
 
 ```{r}
-data <- add_random(NULL, subj = 2) %>%
+data <- add_random(subj = 2) %>%
   add_within("subj", time = c("pre", "post"),
              condition = c("control", "test"))
 ```
@@ -66,7 +66,7 @@ data <- add_random(NULL, subj = 2) %>%
 Add between factors with `add_between()`. If you have more than one factor, they will be crossed. If you set `shuffle = TRUE`, the factors will be added randomly (not in "order"), and separately added factors may end up confounded. This simulates true random allocation.
 
 ```{r}
-data <- add_random(NULL, subj = 4, item = 2) %>%
+data <- add_random(subj = 4, item = 2) %>%
   add_between("subj", cond = c("control", "test"), gen = c("X", "Z")) %>%
   add_between("item", version = c("A", "B")) %>%
   add_between(c("subj", "item"), shuffled = 1:4, shuffle = TRUE) %>%
@@ -80,7 +80,7 @@ data <- add_random(NULL, subj = 4, item = 2) %>%
 If the levels of a factor don't have equal probability, set the probability with `prob`. If the sum of the values equals the number of groups, you will always get those exact numbers (e.g., always 8 control and 2 test; set shuffle = TRUE to get them in a random order). Otherwise, the values are sampled and the exact proportions will change for each simulation.
 
 ```{r}
-data <- add_random(NULL, subj = 10) %>%
+data <- add_random(subj = 10) %>%
   add_between("subj", cond = c("control", "test"), prob = c(8, 2)) %>%
   add_between("subj", age = c("young", "old"), prob = c(.8, .2))
 ```
@@ -105,7 +105,7 @@ data <- add_random(NULL, subj = 4, item = 4) %>%
 To set up data for analysis, you often need to recode categorical variables. Use the helper function `add_recode()` for this. The code below creates effect-coded and treatment-coded versions of "cond" and the two variables needed to treatment-code the 3-level variable "type". See this blog post by Dale Barr to learn more about [coding categorical predictor variables in factorial designs](https://talklab.psy.gla.ac.uk/tvw/catpred/)
 
 ```{r}
-data <- add_random(NULL, subj = 2, item = 3) %>%
+data <- add_random(subj = 2, item = 3) %>%
   add_between("subj", cond = c("A", "B")) %>%
   add_between("item", type = c("X", "Y", "Z")) %>%
   add_recode("cond", "cond.e", A = -0.5, B = 0.5) %>%
@@ -124,7 +124,7 @@ To simulate multilevel data, you need to add random intercepts and slopes for ea
 The code below sets up a simple cross-classified design where 2 subjects are crossed with 2 items. It adds a between-subject, within-item factor of "version". Then it adds random effects by subject, item, and their interaction, as well as an error term (`sigma`). 
 
 ```{r add-ranef}
-data <- add_random(NULL, subj = 4, item = 2) %>%
+data <- add_random(subj = 4, item = 2) %>%
   add_between("subj", version = 1:2) %>%
   # add by-subject random intercept
   add_ranef("subj", u0s = 1.3) %>%
@@ -156,13 +156,13 @@ r01i = 0     # correlation between random effects 0 and 1 for items
 sigma_sd = 2 # error SD
   
 # set up data structure
-data <- add_random(NULL, subj = subj_n, item = item_n) %>%
+data <- add_random(subj = subj_n, item = item_n) %>%
   # add and recode categorical variables
   add_between("subj", cond = c("control", "test")) %>%
   add_recode("cond", "cond.t", control = 0, test = 1) %>%
   # add random effects 
-  add_ranef("subj", u0s = 1.3) %>%
-  add_ranef("item", u0i = 1.5, u1i = 1.5, .cors = 0.3) %>%
+  add_ranef("subj", u0s = u0s_sd) %>%
+  add_ranef("item", u0i = u0i_sd, u1i = u1i_sd, .cors = r01i) %>%
   add_ranef(sigma = sigma_sd) %>%
   # calculate DV
   mutate(dv = b0 + u0s + u0i + (b1 + u1i) * cond.t + sigma)
@@ -180,6 +180,7 @@ m <- lmer(dv ~ cond.t + (1 | subj) + (1 + cond.t | item), data = data)
 summary(m)
 ```
 
+## Power simulation
 
 Include this code in a function so you can easily change the Ns, fixed effects, and random effects to any values. Then run a mixed effects model on the data and return the model.
 

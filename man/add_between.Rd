@@ -4,12 +4,12 @@
 \alias{add_between}
 \title{Add between factors}
 \usage{
-add_between(data, .grp = NULL, ..., shuffle = FALSE, prob = NULL)
+add_between(.data, .by = NULL, ..., shuffle = FALSE, prob = NULL)
 }
 \arguments{
-\item{data}{the data frame}
+\item{.data}{the data frame}
 
-\item{.grp}{the grouping column (groups by row if NULL)}
+\item{.by}{the grouping column (groups by row if NULL)}
 
 \item{...}{the names and levels of the new factors}
 
@@ -24,8 +24,7 @@ data frame
 Add between factors
 }
 \examples{
-
-data <- add_random(NULL, subj = 4, item = 4) \%>\%
+add_random(subj = 4, item = 2) \%>\%
   add_between("subj", condition = c("cntl", "test")) \%>\%
   add_between("item", version = c("A", "B"))
 }

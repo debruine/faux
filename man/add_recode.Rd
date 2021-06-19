@@ -22,7 +22,7 @@ data frame with new fixed effects columns
 Recode a categorical column
 }
 \examples{
-data <- add_random(NULL, subj = 4, item = 4) \%>\%
+add_random(subj = 4, item = 4) \%>\%
   add_between("subj", cond = c("cntl", "test")) \%>\%
   add_recode("cond", "cond.t", cntl = 0, test = 1)
 }
