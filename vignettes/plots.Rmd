@@ -118,20 +118,20 @@ plot_design(data)
 
 ```{r}
 data <- sim_design(c(2,2,2), n = 50, mu = 1:8, sd = 16, plot = FALSE)
-abc <- plot_design(data, "A", "B", "C", geoms = "violin")
-acb <- plot_design(data, "A", "C", "B", geoms = "violin")
-bac <- plot_design(data, "B", "A", "C", geoms = "violin")
-bca <- plot_design(data, "B", "C", "A", geoms = "violin")
-cab <- plot_design(data, "C", "A", "B", geoms = "violin")
-cba <- plot_design(data, "C", "B", "A", geoms = "violin")
+abc <- plot_design(data, "W1", "W2", "W3", geoms = "violin")
+acb <- plot_design(data, "W1", "W3", "W2", geoms = "violin")
+bac <- plot_design(data, "W2", "W1", "W3", geoms = "violin")
+bca <- plot_design(data, "W2", "W3", "W1", geoms = "violin")
+cab <- plot_design(data, "W3", "W1", "W2", geoms = "violin")
+cba <- plot_design(data, "W3", "W2", "W1", geoms = "violin")
 
 cowplot::plot_grid(abc, acb, bac, bca, cab, cba, nrow = 3, 
-                   labels = c("abc", "acb", "bac", "bca", "cab", "cba"))
+                   labels = c("123", "132", "213", "231", "312", "321"))
 ```
 
 
 
 ```{r}
 sim_design(c(2,2,2,5), mu = 1:40, sd = 5, plot = FALSE) %>% 
-  plot_design("D", "B", "C", "A")
+  plot_design("W4", "W2", "W3", "W1")
 ```

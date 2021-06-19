@@ -11,7 +11,7 @@ test_that("defaults", {
   
   des <- check_design(2,2, plot = FALSE)
   json <- json_design(des)
-  txt <- '{"within":{"A":{"A1":"A1","A2":"A2"}},"between":{"B":{"B1":"B1","B2":"B2"}},"dv":{"y":"value"},"id":{"id":"id"},"n":{"B1":100,"B2":100},"mu":{"B1":{"A1":0,"A2":0},"B2":{"A1":0,"A2":0}},"sd":{"B1":{"A1":1,"A2":1},"B2":{"A1":1,"A2":1}},"r":{"B1":[[1,0],[0,1]],"B2":[[1,0],[0,1]]},"sep":"_"}'
+  txt <- '{"within":{"W1":{"W1a":"W1a","W1b":"W1b"}},"between":{"B1":{"B1a":"B1a","B1b":"B1b"}},"dv":{"y":"value"},"id":{"id":"id"},"n":{"B1a":100,"B1b":100},"mu":{"B1a":{"W1a":0,"W1b":0},"B1b":{"W1a":0,"W1b":0}},"sd":{"B1a":{"W1a":1,"W1b":1},"B1b":{"W1a":1,"W1b":1}},"r":{"B1a":[[1,0],[0,1]],"B1b":[[1,0],[0,1]]},"sep":"_"}'
   class(txt) <- "json"
   
   expect_equal(json, txt)
@@ -89,3 +89,4 @@ test_that("pretty", {
   class(txt) <- "json"
   expect_equal(json, txt)
 })
+

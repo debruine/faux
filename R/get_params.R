@@ -16,7 +16,7 @@
 #' 
 
 get_params <- function(data, between = NULL, within = NULL, 
-                       dv = NULL, id = "id", digits = 2) {
+                       dv = NULL, id = NULL, digits = 2) {
   # error checking -----------------
   if (is.matrix(data)) {
     data <- as.data.frame(data)

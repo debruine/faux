@@ -57,13 +57,13 @@ check_design <- function(within = list(), between = list(),
   
   # name anonymous factors ----
   if (is.numeric(within) && all(within %in% 2:20)) { # vector of level numbers
-    within_names <- LETTERS[1:length(within)]
-    indices <- lapply(within, function(.) seq(1:.))
+    within_names <- paste0("W", 1:length(within))
+    indices <- lapply(within, function(.) letters[seq(1:.)])
     within <- mapply(paste0, within_names, indices, SIMPLIFY = FALSE)
   }
   if (is.numeric(between) && all(between %in% 2:20)) { # vector of level numbers
-    between_names <- LETTERS[(length(within)+1):(length(within)+length(between))]
-    indices <- lapply(between, function(.) seq(1:.))
+    between_names <- paste0("B", 1:length(between))
+    indices <- lapply(between, function(.) letters[seq(1:.)])
     between <- mapply(paste0, between_names, indices, SIMPLIFY = FALSE)
   }
   
