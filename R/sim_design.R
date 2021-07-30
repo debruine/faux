@@ -7,14 +7,15 @@
 #' @param n the number of samples required
 #' @param mu the means of the variables
 #' @param sd the standard deviations of the variables
-#' @param r the correlations among the variables (can be a single number, full correlation matrix as a matric or vector, or a vector of the upper right triangle of the correlation matrix
+#' @param r the correlations among the variables (can be a single number, full correlation matrix as a matrix or vector, or a vector of the upper right triangle of the correlation matrix
 #' @param empirical logical. If true, mu, sd and r specify the empirical not population mean, sd and covariance 
 #' @param long Whether the returned tbl is in wide (default = FALSE) or long (TRUE) format
 #' @param dv the name of the dv for long plots (defaults to y)
 #' @param id the name of the id column (defaults to id)
+#' @param vardesc a list of variable descriptions having the names of the within- and between-subject factors
 #' @param plot whether to show a plot of the design
 #' @param interactive whether to run the function interactively
-#' @param design a design list including within, between, n, mu, sd, r, dv, id
+#' @param design a design list including within, between, n, mu, sd, r, dv, id, and vardesc
 #' @param rep the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep
 #' @param seed DEPRECATED use set.seed() instead before running this function
 #' @param sep separator for factor levels
@@ -28,6 +29,7 @@ sim_design <- function(within = list(), between = list(),
                        empirical = FALSE, long = FALSE, 
                        dv = list(y = "value"), 
                        id = list(id = "id"),
+                       vardesc = list(),
                        plot = faux_options("plot"), 
                        interactive = FALSE, 
                        design = NULL, rep = 1, seed = NULL,
@@ -46,7 +48,8 @@ sim_design <- function(within = list(), between = list(),
   } else {
     design <- check_design(within = within, between = between, 
                          n = n, mu = mu, sd = sd, r = r, 
-                         dv = dv, id = id, plot = plot, sep = sep)
+                         dv = dv, id = id, vardesc = vardesc,
+                         plot = plot, sep = sep)
   }
   
   if (!is.null(seed)) {

@@ -113,6 +113,23 @@ check_design <- function(within = list(), between = list(),
          "). Please give all factors unique names.")
   }
   
+  # check vardesc ----
+  if (length(vardesc) == 0) {
+    vardesc <- setNames(all_names, all_names)
+  } else {
+    # handle missing or extra names
+    missing_names <- setdiff(all_names, names(vardesc))
+    if (length(missing_names) > 0) {
+      warning("vardesc is missing definitions for factors: ",
+              paste(missing_names, collapse = ", "))
+    }
+    missing_vardesc <- setNames(missing_names, missing_names)
+    inclued_names <- intersect(all_names, names(vardesc))
+    included_vardesc <- vardesc[inclued_names]
+    vardesc <- c(included_vardesc, missing_vardesc)
+  }
+  vardesc <- as.list(vardesc)
+  
   # check for duplicate level names within any factor ----
   dupes <- c(within, between) %>%
     lapply(duplicated) %>%
@@ -201,6 +218,7 @@ check_design <- function(within = list(), between = list(),
     between = between,
     dv = dv,
     id = id,
+    vardesc = vardesc,
     n = cell_n,
     mu = cell_mu,
     sd = cell_sd,
@@ -225,6 +243,16 @@ check_design <- function(within = list(), between = list(),
 #'
 print.design <- function(x, ...) {
   if (!"quote" %in% names(list(...))) quote <- ""
+  
+  # add factor labels from vardesc
+  if (!is.null(x$vardesc)) {
+    wn <- names(x$within)
+    wv <- x$vardesc[wn]
+    if (!setequal(wn, wv)) names(x$within) <- paste0(wn, ": ", wv)
+    bn <- names(x$between)
+    bv <- x$vardesc[bn]
+    if (!setequal(bn, bv)) names(x$between) <- paste0(bn, ": ", bv)
+  }
   
   txt <- "Design\n\n"
   txt <- sprintf("%s* [DV] %s: %s%s%s  \n", 

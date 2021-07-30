@@ -6,6 +6,7 @@
 #' @param ... A list of factor names to determine visualisation (see vignette)
 #' @param geoms A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter
 #' @param palette A brewer palette, defaults to "Dark2"
+#' @param labeller How to label the facets (see ggplot2::facet_grid). "label_value" is used by default.
 #' 
 #' @return plot
 #' 
@@ -21,7 +22,7 @@
 #' 
 #' @export
 #' 
-plot_design <- function(x, ..., geoms = NULL, palette = "Dark2") {
+plot_design <- function(x, ..., geoms = NULL, palette = "Dark2", labeller = "label_value") {
   outlier.alpha <- 1
   if (!is.data.frame(x) && is.list(x)) {
     if (is.null(geoms)) geoms <- "pointrangeSD"
@@ -90,12 +91,34 @@ plot_design <- function(x, ..., geoms = NULL, palette = "Dark2") {
                           fill = !!f[[1]],
                           color = !!f[[1]])) + 
       theme_bw() +
-      theme(legend.position = "none")
+      theme(legend.position = "none") + 
+      labs(x = design$vardesc[[rlang::as_string(f[[1]])]])
   } else {
     p <- ggplot(data, aes(!!f[[2]], !!dv,
                           fill = !!f[[1]],
                           color = !!f[[1]])) + 
-      theme_bw()
+      theme_bw() + 
+      labs(x = design$vardesc[[rlang::as_string(f[[2]])]],
+           fill = design$vardesc[[rlang::as_string(f[[1]])]],
+           color = design$vardesc[[rlang::as_string(f[[1]])]])
+  }
+  
+  # create labelling function ----
+  if ((is.function(labeller) && 
+      isTRUE(all.equal.function(labeller, label_both))) ||
+      (is.character(labeller) && labeller == "label_both")) {
+    label_func <- f[-(1:2)] %>%
+      lapply(rlang::as_string) %>%
+      setNames(., .) %>%
+      lapply(function(nm) {
+        label <- design$vardesc[[nm]]
+        names <- unlist(factors[[nm]])
+        trans_list <- setNames(paste0(label, ": ", names), names)
+        ggplot2::as_labeller(trans_list)
+      }) %>%
+      do.call(ggplot2::labeller, .)
+  } else {
+    label_func <- labeller
   }
   
   if (factor_n > 2) {
@@ -107,7 +130,7 @@ plot_design <- function(x, ..., geoms = NULL, palette = "Dark2") {
       dplyr::expr(!!f[[3]] ~ !!f[[4]] * !!f[[5]]),
       dplyr::expr(!!f[[3]] * !!f[[4]] ~ !!f[[5]] * !!f[[6]])
     )
-    p <- p + facet_grid(eval(expr), labeller = "label_both")
+    p <- p + facet_grid(eval(expr), labeller = label_func)
   }
   
   # add text y-label to all plots
@@ -172,4 +195,5 @@ plot.design <- function(x, ...) {
 plot.faux <- function(x, ...) {
   plot_design(x, ...)
 }
+
 

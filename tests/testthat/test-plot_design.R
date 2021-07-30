@@ -1,5 +1,21 @@
 context("test-plot_design")
 
+factor_maker <- function(factors) {
+  if (is.numeric(factors)) factors <- LETTERS[factors]
+  factors %>% setNames(., .) %>% as.list() %>%
+    lapply(function(x) {
+      obj <- paste0("Level ", x, 1:2)
+      nm <- paste0(x, 1:2)
+      setNames(obj, nm)
+    })
+}
+
+vardesc_maker <- function(factors) {
+  if (is.numeric(factors)) factors <- LETTERS[factors]
+  
+  factors %>% setNames(paste("Factor", .), .)
+}
+
 user_opts <- faux_options("sep", "verbose", "plot", "connection")
 on.exit(faux_options(user_opts))
 
@@ -33,20 +49,20 @@ test_that("wide2long", {
   expect_equal(class(p2), c("gg", "ggplot"))
   
   skip_on_cran()
-  expect_equal(p1, p2)
+  expect_true(all.equal.function(p1, p2))
 })
 
 # order ----
 test_that("order", {
   des <- check_design(c(2,2,2,2,2,2))
   
-  p <- plot_design(des, "F", "E", "D", "C", "B", "A")
+  p <- plot_design(des, "W6", "W5", "W4", "W3", "W2", "W1")
   
-  expect_equal(p$labels$x, "E")
-  expect_equal(p$labels$fill, "F")
-  expect_equal(p$labels$colour, "F")
-  expect_equal(p$facet$params$rows %>% names(), c("D", "C"))
-  expect_equal(p$facet$params$cols %>% names(), c("B", "A"))
+  expect_equal(p$labels$x, "W5")
+  expect_equal(p$labels$fill, "W6")
+  expect_equal(p$labels$colour, "W6")
+  expect_equal(p$facet$params$rows %>% names(), c("W4", "W3"))
+  expect_equal(p$facet$params$cols %>% names(), c("W2", "W1"))
 })
 
 # from design ----
@@ -284,8 +300,8 @@ test_that("geoms", {
   sd$plot_env$geoms <- NULL
   
   skip_on_cran()
-  expect_equal(se_sd, sd_se)
-  expect_equal(sd, sd_se)
+  expect_true(all.equal.function(se_sd, sd_se))
+  expect_true(all.equal.function(sd, sd_se))
 })
 
 # S3 functions ----
@@ -312,6 +328,60 @@ test_that("reps", {
   p <- plot_design(data)
   
   expect_equal(p$facet$params, list())
+})
+
+# vardesc ----
+test_that("vardesc", {
+  between <- factor_maker("B")
+  within <- factor_maker("W")
+  vardesc <- vardesc_maker(c("B", "W"))
+  
+  # 1 factor
+  p <- check_design(within, vardesc = vardesc) %>% plot_design()
+  expect_equal(p$labels$x, vardesc[["W"]])
+  
+  # 2 factors
+  p <- check_design(within, between, vardesc = vardesc) %>% plot_design()
+  expect_equal(p$labels$x, vardesc[["B"]])
+  expect_equal(p$labels$colour, vardesc[["W"]])
+  expect_equal(p$labels$fill, vardesc[["W"]])
+  
+  # 6 factors
+  within <- factor_maker(1:6)
+  vardesc <- vardesc_maker(1:6)
+  p <- check_design(within, vardesc = vardesc) %>% plot_design()
+  expect_equal(p$labels$x, vardesc[["B"]])
+  expect_equal(p$labels$colour, vardesc[["A"]])
+  expect_equal(p$labels$fill, vardesc[["A"]])
+  
+  expect_equal(names(p$facet$params$rows), c("C", "D"))
+  expect_equal(names(p$facet$params$cols), c("E", "F"))
+  
+  # check custom labeller
+  design <- check_design(within, vardesc = vardesc)
+  p_value_st <- plot_design(design, labeller = "label_value")
+  p_both_st  <- plot_design(design, labeller = "label_both")
+  p_value_fu <- plot_design(design, labeller = label_value)
+  p_both_fu  <- plot_design(design, labeller = label_both)
+  
+  df <- c(design$within, design$between) %>%
+    `[`(LETTERS[3:6]) %>%
+    lapply(unlist) %>%
+    as.data.frame()
+  # or get from plot
+  # df <- ggplot_build(p_both_st)$layout$layout[LETTERS[3:6]]
+  
+  both_labs <- LETTERS[3:6] %>%
+    lapply(function(x) paste0("Factor ", x, ": Level ", x , 1:2)) %>%
+    setNames(LETTERS[3:6])
+  value_labs <- LETTERS[3:6] %>%
+    lapply(function(x) paste0("Level ", x , 1:2)) %>%
+    setNames(LETTERS[3:6])
+  
+  expect_equal(p_value_st$facet$params$labeller(df), value_labs)
+  expect_equal(p_both_st$facet$params$labeller(df), both_labs)
+  expect_equal(p_value_fu$facet$params$labeller(df), value_labs)
+  expect_equal(p_both_fu$facet$params$labeller(df), both_labs)
 })
 
 faux_options(plot = TRUE)
