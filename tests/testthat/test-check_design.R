@@ -297,29 +297,23 @@ test_that("params table", {
   expect_true(all(des$params %>% names() == nm))
   
   expected <- c(
-    "Design",
-    "",
     "* [DV] y: value  ",
     "* [ID] id: ID  ",
-    "",
-    "Within-subject variables:",
-    "",
-    "* time: ",
-    "    * morning: am",
-    "    * night: pm",
-    "* condition: ",
-    "    * A: cond 1",
-    "    * B: cond 2",
-    "    * C: cond 3",
-    "",
-    "Between-subject variables:",
-    "",
-    "* pet: ",
-    "    * dog: Dogs",
-    "    * cat: Cats",
-    "* x: ",
-    "    * X1: First",
-    "    * X2: Second"
+    "* Within-subject variables:",
+    "    * time: ",
+    "        * morning: am",
+    "        * night: pm",
+    "    * condition: ",
+    "        * A: cond 1",
+    "        * B: cond 2",
+    "        * C: cond 3",
+    "* Between-subject variables:",
+    "    * pet: ",
+    "        * dog: Dogs",
+    "        * cat: Cats",
+    "    * x: ",
+    "        * X1: First",
+    "        * X2: Second"
   )
   
   op <- capture.output(des)
@@ -363,16 +357,16 @@ test_that("vardesc", {
   expect_mapequal(design$vardesc, vardesc)
   
   op <- capture.output(design)
-  expect_equal(op[8], "* W: Within-Subject Factor: ")
-  expect_equal(op[14], "* B: Between-Subject Factor: ")
+  expect_equal(op[4], "    * W: Within-Subject Factor: ")
+  expect_equal(op[8], "    * B: Between-Subject Factor: ")
   
   # no vardesc
   design <- check_design(within, between)
   expect_mapequal(design$vardesc, list(W = "W", B = "B"))
   # no repeats on identical factor name and label
   op <- capture.output(design)
-  expect_equal(op[8], "* W: ")
-  expect_equal(op[14], "* B: ")
+  expect_equal(op[4], "    * W: ")
+  expect_equal(op[8], "    * B: ")
   
   # warns on missing value and replaces with unlabelled
   vardesc_missing <- list(B = "Between-Subject Factor")

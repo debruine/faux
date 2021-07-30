@@ -254,18 +254,18 @@ print.design <- function(x, ...) {
     if (!setequal(bn, bv)) names(x$between) <- paste0(bn, ": ", bv)
   }
   
-  txt <- "Design\n\n"
+  txt <- "" #"Design\n\n"
   txt <- sprintf("%s* [DV] %s: %s%s%s  \n", 
                  txt, names(x$dv), quote, x$dv, quote)
-  txt <- sprintf("%s* [ID] %s: %s%s%s  \n\n", 
+  txt <- sprintf("%s* [ID] %s: %s%s%s  \n", 
                  txt, names(x$id), quote, x$id, quote)
-  txt <- sprintf("%sWithin-subject variables:\n\n%s\n\n", 
-                 txt, nested_list(x$within, quote = quote))
-  txt <- sprintf("%sBetween-subject variables:\n\n%s\n\n", 
-                 txt, nested_list(x$between, quote = quote))
+  txt <- sprintf("%s* Within-subject variables:\n%s\n", 
+                 txt, nested_list(x$within, quote = quote, pre = "    "))
+  txt <- sprintf("%s* Between-subject variables:\n%s\n", 
+                 txt, nested_list(x$between, quote = quote, pre = "    "))
   txt <- knitr::kable(x$params) %>%
-    paste(collapse = "\n") %>%
-    sprintf("%sParameters:\n\n%s\n\n",  txt, .)
+    paste(collapse = "\n    ") %>%
+    sprintf("%s* Parameters:\n    %s\n\n",  txt, .)
   
   cat(txt)
 }
