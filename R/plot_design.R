@@ -42,15 +42,14 @@ plot_design <- function(x, ..., geoms = NULL, palette = "Dark2", labeller = "lab
   } else if (is.data.frame(x)) {
     if (is.null(geoms)) geoms <- c("violin", "box")
     data <- x
-    if ("design" %in% names(attributes(data))) {
-      design <- attributes(data)$design
-    } else {
+    design <- get_design(data)
+    if (is.null(design)) {
       stop("The data table must have a design attribute")
     }
     if (all(names(data)[1:2] == c("rep", "data"))) {
       # nested data, just graph first row
-      data <- data$data[[1]]
-      attr(data, "design") <- design
+      data <- data$data[[1]] %>%
+        set_design(design)
     }
     if (!(names(design$dv) %in% names(data))) {
       # get data into long format

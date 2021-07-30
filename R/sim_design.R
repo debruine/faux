@@ -38,13 +38,11 @@ sim_design <- function(within = list(), between = list(),
   if (interactive) {
     design <- interactive_design(plot = plot)
   } else if (!is.null(design)) { 
-    #& !("design" %in% class(design))) {
-    # double-check the entered design
-    
-    design <- check_design(design = design, plot = plot, sep = sep)
+    #design <- check_design(design = design, plot = plot, sep = design$sep)
   } else if ("design" %in% class(within)) {
     # design given as first argument: not ideal but handle it
-    design <- check_design(design = within, plot = plot, sep = sep)
+    #design <- check_design(design = within, plot = plot, sep = within$sep)
+    design <- within
   } else {
     design <- check_design(within = within, between = between, 
                          n = n, mu = mu, sd = sd, r = r, 
@@ -53,13 +51,12 @@ sim_design <- function(within = list(), between = list(),
   }
   
   if (!is.null(seed)) {
-    warning("The seed argument is deprecated. Please set seed using set.seed() instead")
+    warning("The seed argument is deprecated. Please set seed using set.seed() before running sim_design() instead")
   }
   
   # simulate the data
-  data <- sim_data(design, empirical = empirical, long = long, rep = rep)
-  
-  attr(data, "design") <- design
+  data <- sim_data(design, empirical = empirical, long = long, rep = rep) %>%
+    set_design(design)
   
   return(data)
 }

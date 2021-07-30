@@ -17,7 +17,7 @@
 long2wide <- function(data, within = c(), between = c(), dv = "y", id = "id") {
   if ("design" %in% names(attributes(data))) {
     # get parameters from design
-    design <- attributes(data)$design
+    design <- get_design(data)
     
     within <- names(design$within)
     between <- names(design$between)

@@ -380,5 +380,23 @@ test_that("vardesc", {
   expect_mapequal(design$vardesc, vardesc)
 })
 
+# get_design ----
+test_that("get_design", {
+  data <- sim_design(2, 2)
+  design <- get_design(data)
+  expect_equal(design, attributes(data)$design)
+  expect_equal(design$id, list(id = "id"))
+})
+
+# set_design ----
+test_that("set_design", {
+  design <- check_design()
+  data <- data.frame(id = 1:100, y = rnorm(100))
+  data_design <- set_design(data, design)
+  
+  expect_equal(design, get_design(data_design))
+  expect_equal(class(data_design), c("faux", "data.frame"))
+})
+
 faux_options(plot = TRUE)
 faux_options(sep = "_")

@@ -700,6 +700,6 @@ test_that("vardesc", {
                        W = "Within-Subject Factor")
   
   expect_silent(dat <- sim_design(within, between, vardesc = vardesc))
-  design <- attr(dat, "design")
+  design <- get_design(dat)
   expect_mapequal(design$vardesc, vardesc)
 })

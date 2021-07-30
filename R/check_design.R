@@ -270,3 +270,43 @@ print.design <- function(x, ...) {
   cat(txt)
 }
 
+
+#' Get design
+#' 
+#' Get the design specification from a data table created in faux. This can be used to create more simulated data with the same design.
+#'
+#' @param data The data table to check
+#'
+#' @return list with class design
+#' @export
+#'
+#' @examples
+#' data <- sim_design(2, 2, plot = FALSE)
+#' design <- get_design(data)
+#' data2 <- sim_design(design, plot = FALSE)
+get_design <- function(data) {
+  attributes(data)$design
+}
+
+
+#' Set design
+#' 
+#' Add a design specification to a data table
+#'
+#' @param data The data table
+#' @param design The design list
+#'
+#' @return A data frame with a design attribute
+#' @export
+#'
+#' @examples
+#' design <- check_design()
+#' data <- data.frame(id = 1:100, y = rnorm(100)) %>%
+#'   set_design(design)
+set_design <- function(data, design) {
+  attr(data, "design") <- design
+  class(data) <- c("faux", "data.frame")
+  
+  data
+}
+

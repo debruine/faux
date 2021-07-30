@@ -25,7 +25,7 @@ get_params <- function(data, between = NULL, within = NULL,
   }
   
   # get between/within from design if not specified
-  design <- attr(data, "design")
+  design <- get_design(data)
   if (!is.null(design)) {
     if (is.null(between)) between <- names(design$between)
     if (is.null(within)) within <- names(design$within)
