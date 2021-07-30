@@ -55,6 +55,7 @@ long2wide <- function(data, within = c(), between = c(), dv = "y", id = "id") {
     attributes(d1)$design <- design
   }
   class(d1) <- c("faux", "data.frame")
+  rownames(d1) <- NULL
   
   d1
 }

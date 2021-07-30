@@ -86,6 +86,8 @@ test_that("wide2long", {
   
   expect_equal(nrow(long_iris), 600)
   expect_equal(names(long_iris), c("ID", "Species", "feature", "dimension", "value"))
+  expect_true(is.factor(long_iris$feature))
+  expect_true(is.factor(long_iris$dimension))
   
   long_iris <- wide2long(iris, c("Feature", "Measure"), 1:4, sep = "\\.")
   expect_equal(nrow(long_iris), 600)
