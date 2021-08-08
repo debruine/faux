@@ -19,6 +19,7 @@ set.seed(8675309)
 
 ```{r, warning=FALSE, message=FALSE}
 library(faux)
+library(ggplot2)
 ```
 
 ## Plotting Designs
@@ -114,7 +115,34 @@ data <- sim_design(2, 2, mu = 1:4, plot = FALSE)
 plot_design(data)
 ```
 
+### Palettes
+
+You can change the default brewer palette from "Dark2" to any of the options (see `?ggplot2::scale_colour_brewer` for the options).
+
+```{r}
+data <- sim_design(5, n = 20, mu = 1:5, plot = FALSE)
+cowplot::plot_grid(
+  plot_design(data, palette = "Purples") + ggtitle("Purples"),
+  plot_design(data, palette = "Pastel2") + ggtitle("Pastel2"),
+  plot_design(data, palette = "Spectral") + ggtitle("Spectral"),
+  nrow = 1
+)
+```
+
+You can also add a non-brewer palette (or any other ggplot function). You will get a message about a duplicate scale, but you can suppress this with `suppressMessages()` or in the r chunk.
+
+```{r}
+plot_design(data) + 
+  scale_fill_viridis_d() +
+  theme_classic() +
+  xlab("") +
+  ggtitle("Plot with viridis fill and classic theme")
+```
+
+
 ### Change order of factors
+
+List the factors you want to show in the order of fill/colour, x-axis, facet row(s), facet column(s).
 
 ```{r}
 data <- sim_design(c(2,2,2), n = 50, mu = 1:8, sd = 16, plot = FALSE)
@@ -129,9 +157,57 @@ cowplot::plot_grid(abc, acb, bac, bca, cab, cba, nrow = 3,
                    labels = c("123", "132", "213", "231", "312", "321"))
 ```
 
-
+You can also plot a subset of the factors.
 
 ```{r}
-sim_design(c(2,2,2,5), mu = 1:40, sd = 5, plot = FALSE) %>% 
-  plot_design("W4", "W2", "W3", "W1")
+# main effects, no interactions
+intercept <- 0
+effect_code <- list(a = -.5, b = .5)
+W1 <- lapply(effect_code, `*`, 2)
+W2 <- lapply(effect_code, `*`, -1)
+W3 <- lapply(effect_code, `*`, 0)
+
+mu <- list(W1a_W2a_W3a = intercept + W1$a + W2$a + W3$a,
+           W1b_W2a_W3a = intercept + W1$b + W2$a + W3$a,
+           W1a_W2b_W3a = intercept + W1$a + W2$b + W3$a,
+           W1b_W2b_W3a = intercept + W1$b + W2$b + W3$a,
+           W1a_W2a_W3b = intercept + W1$a + W2$a + W3$b,
+           W1b_W2a_W3b = intercept + W1$b + W2$a + W3$b,
+           W1a_W2b_W3b = intercept + W1$a + W2$b + W3$b,
+           W1b_W2b_W3b = intercept + W1$b + W2$b + W3$b)
+
+data <- sim_design(c(2,2,2), n = 50, mu = mu, sd = 2, plot = FALSE)
+
+# make plots
+geoms <- c("pointrangeSD")
+W1 <- plot_design(data, "W1", geoms = geoms) + ggtitle("W1")
+W2 <- plot_design(data, "W2", geoms = geoms) + ggtitle("W2")
+W3 <- plot_design(data, "W3", geoms = geoms) + ggtitle("W3")
+W12 <- plot_design(data, "W1", "W2", geoms = geoms) + ggtitle("W1 & W2")
+W13 <- plot_design(data, "W1", "W3", geoms = geoms) + ggtitle("W1 & W3")
+W23 <- plot_design(data, "W2", "W3", geoms = geoms) + ggtitle("W2 & W3")
+
+cowplot::plot_grid(W1, W2, W3, W12, W13, W23, nrow = 2)
+```
+
+### Facet Labels
+
+Set the labeller to "label_both" if you want facets to include the factor label.
+
+```{r}
+within <- list(
+  pet = c(cat = "Cats", dog = "Dogs"),
+  time = c(am = "Morning", pm = "Night"),
+  grp = c(ctl = "Control", exp = "Experimental"),
+  dose = 1:5
+)
+  
+factor_labels  <- list(pet = "Type of Pet",
+                       time = "Time of Day",
+                       grp = "Group",
+                       dose = "Treatment Dose")
+
+sim_design(within, vardesc = factor_labels,
+           mu = 1:40, sd = 5, plot = FALSE) %>% 
+  plot_design("dose", "pet", "time", "grp", labeller = "label_both", palette = "Spectral")
 ```

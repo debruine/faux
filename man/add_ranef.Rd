@@ -4,10 +4,10 @@
 \alias{add_ranef}
 \title{Add random effects to a data frame}
 \usage{
-add_ranef(data, .by = NULL, ..., .cors = 0, empirical = FALSE)
+add_ranef(.data, .by = NULL, ..., .cors = 0, .empirical = FALSE)
 }
 \arguments{
-\item{data}{the data frame}
+\item{.data}{the data frame}
 
 \item{.by}{the grouping column (groups by row if NULL)}
 
@@ -15,7 +15,7 @@ add_ranef(data, .by = NULL, ..., .cors = 0, empirical = FALSE)
 
 \item{.cors}{the correlations among multiple random effects, to be passed to \code{\link{rnorm_multi}} as r}
 
-\item{empirical}{logical. To be passed to \code{\link{rnorm_multi}} as empirical}
+\item{.empirical}{logical. To be passed to \code{\link{rnorm_multi}} as empirical}
 }
 \value{
 data frame with new random effects columns

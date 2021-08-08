@@ -188,7 +188,7 @@ test_that("design spec", {
   
   design <- check_design(within, between, n, mu, sd, r, dv, id)
   
-  design_elements <- c("within", "between", "dv", "id", "n", "mu", "sd", "r", "sep", "params")
+  design_elements <- c("within", "between", "dv", "id", "vardesc", "n", "mu", "sd", "r", "sep", "params")
   
   expect_equal(names(design), design_elements)
   expect_equal(design$dv, dv)
@@ -297,29 +297,23 @@ test_that("params table", {
   expect_true(all(des$params %>% names() == nm))
   
   expected <- c(
-    "Design",
-    "",
     "* [DV] y: value  ",
     "* [ID] id: ID  ",
-    "",
-    "Within-subject variables:",
-    "",
-    "* time: ",
-    "    * morning: am",
-    "    * night: pm",
-    "* condition: ",
-    "    * A: cond 1",
-    "    * B: cond 2",
-    "    * C: cond 3",
-    "",
-    "Between-subject variables:",
-    "",
-    "* pet: ",
-    "    * dog: Dogs",
-    "    * cat: Cats",
-    "* x: ",
-    "    * X1: First",
-    "    * X2: Second"
+    "* Within-subject variables:",
+    "    * time: ",
+    "        * morning: am",
+    "        * night: pm",
+    "    * condition: ",
+    "        * A: cond 1",
+    "        * B: cond 2",
+    "        * C: cond 3",
+    "* Between-subject variables:",
+    "    * pet: ",
+    "        * dog: Dogs",
+    "        * cat: Cats",
+    "    * x: ",
+    "        * X1: First",
+    "        * X2: Second"
   )
   
   op <- capture.output(des)
@@ -344,6 +338,64 @@ test_that("sep", {
   long <- sim_data(design = design, long = TRUE)
   expect_equal(unique(long$A), factor(c("A_1", "A_2")))
   expect_equal(unique(long$B), factor(c("B_1", "B_2")))
+  faux_options(sep = "_")
+})
+
+# vardesc ----
+test_that("vardesc", {
+  between <- list(
+    B = c(B1 = "Level 1B", B2 = "Level 2B")
+  )
+  within <- list(
+    W = c(W1 = "Level 1W", W2 = "Level 2W")
+  )
+  
+  # includes vardesc
+  vardesc <- list(B = "Between-Subject Factor",
+                  W = "Within-Subject Factor")
+  expect_silent(design <- check_design(within, between, vardesc = vardesc))
+  expect_mapequal(design$vardesc, vardesc)
+  
+  op <- capture.output(design)
+  expect_equal(op[4], "    * W: Within-Subject Factor: ")
+  expect_equal(op[8], "    * B: Between-Subject Factor: ")
+  
+  # no vardesc
+  design <- check_design(within, between)
+  expect_mapequal(design$vardesc, list(W = "W", B = "B"))
+  # no repeats on identical factor name and label
+  op <- capture.output(design)
+  expect_equal(op[4], "    * W: ")
+  expect_equal(op[8], "    * B: ")
+  
+  # warns on missing value and replaces with unlabelled
+  vardesc_missing <- list(B = "Between-Subject Factor")
+  expect_warning(design <- check_design(within, between, vardesc = vardesc_missing))
+  expect_equal(design$vardesc$W, "W")
+  
+  # converts vectors to list
+  vardesc_vec <- c(B = "Between-Subject Factor",
+                   W = "Within-Subject Factor")
+  expect_silent(design <- check_design(within, between, vardesc = vardesc_vec))
+  expect_mapequal(design$vardesc, vardesc)
+})
+
+# get_design ----
+test_that("get_design", {
+  data <- sim_design(2, 2)
+  design <- get_design(data)
+  expect_equal(design, attributes(data)$design)
+  expect_equal(design$id, list(id = "id"))
+})
+
+# set_design ----
+test_that("set_design", {
+  design <- check_design()
+  data <- data.frame(id = 1:100, y = rnorm(100))
+  data_design <- set_design(data, design)
+  
+  expect_equal(design, get_design(data_design))
+  expect_equal(class(data_design), c("faux", "data.frame"))
 })
 
 faux_options(plot = TRUE)

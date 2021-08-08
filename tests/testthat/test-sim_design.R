@@ -590,6 +590,15 @@ test_that("multiple reps", {
   expect_equal(nrow(df$data[[1]]), n*2)
 })
 
+# unnested reps ----
+test_that("unnested reps", {
+  rep <- 5
+  n <- 10
+  df <- sim_design(2, n = n, rep = rep, nested = FALSE, plot = FALSE)
+  expect_equal(nrow(df), rep*n)
+  expect_equal(df$rep, rep(1:rep, each = n))
+})
+
 # empirical ----
 test_that("empirical", {
   tol = .000001
@@ -684,6 +693,22 @@ test_that("sep", {
              n = 10, mu = mu, sd = 2, r = .5,
              empirical = TRUE, plot = FALSE
   )
+  faux_options(sep = "_")
 })
+
+# vardesc ----
+test_that("vardesc", {
+  between <- list(
+    B = c(B1 = "Level 1B", B2 = "Level 2B")
+  )
+  within <- list(
+    W = c(W1 = "Level 1W", W2 = "Level 2W")
+  )
   
-faux_options(sep = "_")
+  vardesc <- list(B = "Between-Subject Factor",
+                       W = "Within-Subject Factor")
+  
+  expect_silent(dat <- sim_design(within, between, vardesc = vardesc))
+  design <- get_design(dat)
+  expect_mapequal(design$vardesc, vardesc)
+})

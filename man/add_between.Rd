@@ -4,7 +4,7 @@
 \alias{add_between}
 \title{Add between factors}
 \usage{
-add_between(.data, .by = NULL, ..., shuffle = FALSE, prob = NULL)
+add_between(.data, .by = NULL, ..., .shuffle = FALSE, .prob = NULL)
 }
 \arguments{
 \item{.data}{the data frame}
@@ -13,9 +13,9 @@ add_between(.data, .by = NULL, ..., shuffle = FALSE, prob = NULL)
 
 \item{...}{the names and levels of the new factors}
 
-\item{shuffle}{whether to assign cells randomly or in "order"}
+\item{.shuffle}{whether to assign cells randomly or in "order"}
 
-\item{prob}{probability of each level, equal if NULL}
+\item{.prob}{probability of each level, equal if NULL}
 }
 \value{
 data frame

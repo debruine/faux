@@ -51,12 +51,12 @@ test_that("add_random", {
   data1 <- add_random(school = 3)
   expect_equal(data1$school, paste0("s", 1:3))
   # nest classes in schools (2 classes per school)
-  data2 <- add_random(data1, class = 2, nested_in = "school")
+  data2 <- add_random(data1, class = 2, .nested_in = "school")
   expect_equal(data2$class, paste0("c", 1:6))
   expect_equal(data2$school, rep(data1$school, each = 2))
   # nest students in each class (different n per class)
   n <- c(20, 24, 23, 21, 25, 24)
-  data3 <- add_random(data2, student = n, nested_in = "class")
+  data3 <- add_random(data2, student = n, .nested_in = "class")
   expect_equal(nrow(data3), sum(n))
   # cross each student with 10 questions
   data4 <- add_random(data3, question = 10)
@@ -70,7 +70,7 @@ test_that("add_random", {
   
   # compare nesting in 2 different factors
   data <- add_random(A = 2., B = 2)
-  nested_in_A <- add_random(data, C = 2, nested_in = "A")
-  nested_in_B <- add_random(data, C = 2, nested_in = "B")
+  nested_in_A <- add_random(data, C = 2, .nested_in = "A")
+  nested_in_B <- add_random(data, C = 2, .nested_in = "B")
   expect_false(all(nested_in_A$C == nested_in_B$C))
 })
