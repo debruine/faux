@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9002</span>
       </span>
     </div>
 
@@ -112,7 +112,7 @@
 
       
 
-      </header><script src="sim_mixed_files/header-attrs-2.9/header-attrs.js"></script><div class="row">
+      </header><script src="sim_mixed_files/header-attrs-2.9.4/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Mixed Design Simulation</h1>
@@ -135,13 +135,13 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/bbolker/broom.mixed">broom.mixed</a></span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span></code></pre></div>
 <p>This <a href="https://osf.io/3cz2e/">paper</a> provides a tutorial and examples for more complex designs.</p>
-<div id="building-mixed-effects-designs" class="section level2">
+<div id="building-multilevel-designs" class="section level2">
 <h2 class="hasAnchor">
-<a href="#building-mixed-effects-designs" class="anchor"></a>Building mixed effects designs</h2>
+<a href="#building-multilevel-designs" class="anchor"></a>Building multilevel designs</h2>
 <p>You can build up a mixed effects model by adding random factors in a stepwise fashion using <code><a href="../reference/add_random.html">add_random()</a></code>. The example below simulates 3 schools with 2, 3 and 4 classes nested in each school.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>school <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, nested_in <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, .nested_in <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -401,13 +401,13 @@ test
 </tr>
 </tbody>
 </table>
-<p>Add between factors with <code><a href="../reference/add_between.html">add_between()</a></code>. If you have more than one factor, they will be crossed. If you set <code>shuffle = TRUE</code>, the factors will be added randomly (not in “order”), and separately added factors may end up confounded. This simulates true random allocation.</p>
+<p>Add between factors with <code><a href="../reference/add_between.html">add_between()</a></code>. If you have more than one factor, they will be crossed. If you set <code>.shuffle = TRUE</code>, the factors will be added randomly (not in “order”), and separately added factors may end up confounded. This simulates true random allocation.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">4</span>, item <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span>, gen <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X"</span>, <span class="st">"Z"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"item"</span>, version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, shuffled <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, shuffle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, not_shuffled <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, shuffle <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, shuffled <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, .shuffle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, not_shuffled <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, .shuffle <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -622,11 +622,11 @@ B
 <div id="unequal-cells" class="section level3">
 <h3 class="hasAnchor">
 <a href="#unequal-cells" class="anchor"></a>Unequal cells</h3>
-<p>If the levels of a factor don’t have equal probability, set the probability with <code>prob</code>. If the sum of the values equals the number of groups, you will always get those exact numbers (e.g., always 8 control and 2 test; set shuffle = TRUE to get them in a random order). Otherwise, the values are sampled and the exact proportions will change for each simulation.</p>
+<p>If the levels of a factor don’t have equal probability, set the probability with <code>.prob</code>. If the sum of the values equals the number of groups, you will always get those exact numbers (e.g., always 8 control and 2 test; set shuffle = TRUE to get them in a random order). Otherwise, the values are sampled and the exact proportions will change for each simulation.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"young"</span>, <span class="st">"old"</span><span class="op">)</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">.2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span>, .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"young"</span>, <span class="st">"old"</span><span class="op">)</span>, .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">.2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -1662,7 +1662,7 @@ control
 <span class="co">#&gt; 5 ran_pars item    cor__(Intercept).…   0.256     NA        NA      NA    NA    </span>
 <span class="co">#&gt; 6 ran_pars item    sd__cond.t           1.16      NA        NA      NA    NA    </span>
 <span class="co">#&gt; 7 ran_pars Residu… sd__Observation      2.08      NA        NA      NA    NA</span></code></pre></div>
-<p>Run the simulation repeatedly. I’m only running it 50 times per parameter combination here so my demo doesn’t take forever to run, but once you are done testing a range of parameters, you probably want to run the final simulation 100-1000 times. You might get a few warnings like “Model failed to converge” or “singular boundary”. You don’t need to worry too much if you only get a few of there. If most of your models have warning, the simulation parameters are likely to be off.</p>
+<p>Run the simulation repeatedly. I’m only running it 50 times per parameter combination here so my demo doesn’t take forever to run, but once you are done testing a range of parameters, you probably want to run the final simulation 100-1000 times. You might get a few warnings like “Model failed to converge” or “singular boundary”. You don’t need to worry too much if you only get a few of these. If most of your models have warnings, the simulation parameters are likely to be off.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidyr.tidyverse.org/reference/expand.html">crossing</a></span><span class="op">(</span>
   rep <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span>, <span class="co"># number of replicates</span>

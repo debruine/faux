@@ -19,7 +19,7 @@ plot_design(x, ..., geoms = NULL, palette = "Dark2", labeller = "label_value")
 
 \item{geoms}{A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter}
 
-\item{palette}{A brewer palette, defaults to "Dark2"}
+\item{palette}{A brewer palette, defaults to "Dark2" (see ggplot2::scale_colour_brewer)}
 
 \item{labeller}{How to label the facets (see ggplot2::facet_grid). "label_value" is used by default.}
 }

@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9002</span>
       </span>
     </div>
 
@@ -165,21 +165,21 @@
     <p>Recode a categorical column</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_recode</span><span class='op'>(</span><span class='va'>data</span>, <span class='va'>col</span>, newcol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>col</span>, <span class='st'>".c"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>add_recode</span><span class='op'>(</span><span class='va'>.data</span>, <span class='va'>.col</span>, .newcol <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span><span class='op'>(</span><span class='va'>col</span>, <span class='st'>".c"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>data</th>
+      <th>.data</th>
       <td><p>the data frame</p></td>
     </tr>
     <tr>
-      <th>col</th>
+      <th>.col</th>
       <td><p>the column to recode</p></td>
     </tr>
     <tr>
-      <th>newcol</th>
+      <th>.newcol</th>
       <td><p>the name of the recoded column (defaults to col.c)</p></td>
     </tr>
     <tr>

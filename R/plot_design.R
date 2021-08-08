@@ -5,7 +5,7 @@
 #' @param x A list of design parameters created by check_design() or a data tbl (in long format)
 #' @param ... A list of factor names to determine visualisation (see vignette) in the order color, x, facet row(s), facet col(s)
 #' @param geoms A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter
-#' @param palette A brewer palette, defaults to "Dark2"
+#' @param palette A brewer palette, defaults to "Dark2" (see ggplot2::scale_colour_brewer)
 #' @param labeller How to label the facets (see ggplot2::facet_grid). "label_value" is used by default.
 #' 
 #' @return plot

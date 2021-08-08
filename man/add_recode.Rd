@@ -4,14 +4,14 @@
 \alias{add_recode}
 \title{Recode a categorical column}
 \usage{
-add_recode(data, col, newcol = paste0(col, ".c"), ...)
+add_recode(.data, .col, .newcol = paste0(col, ".c"), ...)
 }
 \arguments{
-\item{data}{the data frame}
+\item{.data}{the data frame}
 
-\item{col}{the column to recode}
+\item{.col}{the column to recode}
 
-\item{newcol}{the name of the recoded column (defaults to col.c)}
+\item{.newcol}{the name of the recoded column (defaults to col.c)}
 
 \item{...}{coding for categorical column}
 }

@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9002</span>
       </span>
     </div>
 
@@ -165,7 +165,7 @@
     <p>Add between factors</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_between</span><span class='op'>(</span><span class='va'>.data</span>, .by <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, shuffle <span class='op'>=</span> <span class='cn'>FALSE</span>, prob <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>add_between</span><span class='op'>(</span><span class='va'>.data</span>, .by <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, .shuffle <span class='op'>=</span> <span class='cn'>FALSE</span>, .prob <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,11 +183,11 @@
       <td><p>the names and levels of the new factors</p></td>
     </tr>
     <tr>
-      <th>shuffle</th>
+      <th>.shuffle</th>
       <td><p>whether to assign cells randomly or in "order"</p></td>
     </tr>
     <tr>
-      <th>prob</th>
+      <th>.prob</th>
       <td><p>probability of each level, equal if NULL</p></td>
     </tr>
     </table>

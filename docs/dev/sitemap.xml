@@ -70,6 +70,9 @@
     <loc>https://debruine.github.io/faux/reference/gamma2norm.html</loc>
   </url>
   <url>
+    <loc>https://debruine.github.io/faux/reference/get_design.html</loc>
+  </url>
+  <url>
     <loc>https://debruine.github.io/faux/reference/get_design_long.html</loc>
   </url>
   <url>
@@ -152,6 +155,9 @@
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/sample_from_pop.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/set_design.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/sim_data.html</loc>

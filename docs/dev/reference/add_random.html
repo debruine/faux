@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9002</span>
       </span>
     </div>
 
@@ -165,22 +165,22 @@
     <p>Add random factors to a data structure</p>
     </div>
 
-    <pre class="usage"><span class='fu'>add_random</span><span class='op'>(</span>.data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, nested_in <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>add_random</span><span class='op'>(</span>.data <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span>, .nested_in <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
+      <th>.data</th>
+      <td><p>the data frame</p></td>
+    </tr>
+    <tr>
       <th>...</th>
       <td><p>the new random factor column name and the number of values of the random factor (if crossed) or the n per group (if nested); can be a vector of n per group if nested</p></td>
     </tr>
     <tr>
-      <th>nested_in</th>
+      <th>.nested_in</th>
       <td><p>the column(s) to nest in (if NULL, the factor is crossed with all columns)</p></td>
-    </tr>
-    <tr>
-      <th>data</th>
-      <td><p>the data frame</p></td>
     </tr>
     </table>
 
@@ -192,15 +192,15 @@
     <pre class="examples"><div class='input'><span class='co'># start a data frame</span>
 <span class='va'>data1</span> <span class='op'>&lt;-</span> <span class='fu'>add_random</span><span class='op'>(</span>school <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
 <span class='co'># nest classes in schools (2 classes per school)</span>
-<span class='va'>data2</span> <span class='op'>&lt;-</span> <span class='fu'>add_random</span><span class='op'>(</span><span class='va'>data1</span>, class <span class='op'>=</span> <span class='fl'>2</span>, nested_in <span class='op'>=</span> <span class='st'>"school"</span><span class='op'>)</span>
+<span class='va'>data2</span> <span class='op'>&lt;-</span> <span class='fu'>add_random</span><span class='op'>(</span><span class='va'>data1</span>, class <span class='op'>=</span> <span class='fl'>2</span>, .nested_in <span class='op'>=</span> <span class='st'>"school"</span><span class='op'>)</span>
 <span class='co'># nest pupils in each class (different n per class)</span>
-<span class='va'>data3</span> <span class='op'>&lt;-</span> <span class='fu'>add_random</span><span class='op'>(</span><span class='va'>data2</span>, pupil <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>24</span>, <span class='fl'>23</span>, <span class='fl'>21</span>, <span class='fl'>25</span>, <span class='fl'>24</span><span class='op'>)</span>, nested_in <span class='op'>=</span> <span class='st'>"class"</span><span class='op'>)</span>
+<span class='va'>data3</span> <span class='op'>&lt;-</span> <span class='fu'>add_random</span><span class='op'>(</span><span class='va'>data2</span>, pupil <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>24</span>, <span class='fl'>23</span>, <span class='fl'>21</span>, <span class='fl'>25</span>, <span class='fl'>24</span><span class='op'>)</span>, .nested_in <span class='op'>=</span> <span class='st'>"class"</span><span class='op'>)</span>
 <span class='co'># cross each pupil with 10 questions</span>
 <span class='va'>data4</span> <span class='op'>&lt;-</span> <span class='fu'>add_random</span><span class='op'>(</span><span class='va'>data3</span>, question <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 
 <span class='co'># compare nesting in 2 different factors</span>
 <span class='va'>data</span> <span class='op'>&lt;-</span> <span class='fu'>add_random</span><span class='op'>(</span>A <span class='op'>=</span> <span class='fl'>2</span>, B <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-<span class='fu'>add_random</span><span class='op'>(</span><span class='va'>data</span>, C <span class='op'>=</span> <span class='fl'>2</span>, nested_in <span class='op'>=</span> <span class='st'>"A"</span><span class='op'>)</span>
+<span class='fu'>add_random</span><span class='op'>(</span><span class='va'>data</span>, C <span class='op'>=</span> <span class='fl'>2</span>, .nested_in <span class='op'>=</span> <span class='st'>"A"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 3</span>
 #&gt;   A     B     C    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>
@@ -211,7 +211,7 @@
 #&gt; <span style='color: #BCBCBC;'>5</span> A2    B1    C3   
 #&gt; <span style='color: #BCBCBC;'>6</span> A2    B1    C4   
 #&gt; <span style='color: #BCBCBC;'>7</span> A2    B2    C3   
-#&gt; <span style='color: #BCBCBC;'>8</span> A2    B2    C4   </div><div class='input'><span class='fu'>add_random</span><span class='op'>(</span><span class='va'>data</span>, C <span class='op'>=</span> <span class='fl'>2</span>, nested_in <span class='op'>=</span> <span class='st'>"B"</span><span class='op'>)</span>
+#&gt; <span style='color: #BCBCBC;'>8</span> A2    B2    C4   </div><div class='input'><span class='fu'>add_random</span><span class='op'>(</span><span class='va'>data</span>, C <span class='op'>=</span> <span class='fl'>2</span>, .nested_in <span class='op'>=</span> <span class='st'>"B"</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 3</span>
 #&gt;   A     B     C    
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span> <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>

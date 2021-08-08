@@ -36,7 +36,7 @@ You can build up a mixed effects model by adding random factors in a stepwise fa
 
 ```{r add-random}
 data <- add_random(school = 3) %>%
-  add_random(class = c(2, 3, 4), nested_in = "school")
+  add_random(class = c(2, 3, 4), .nested_in = "school")
 ```
 
 `r kableExtra::kable(data)`
@@ -63,26 +63,26 @@ data <- add_random(subj = 2) %>%
 
 `r kableExtra::kable(data)`
 
-Add between factors with `add_between()`. If you have more than one factor, they will be crossed. If you set `shuffle = TRUE`, the factors will be added randomly (not in "order"), and separately added factors may end up confounded. This simulates true random allocation.
+Add between factors with `add_between()`. If you have more than one factor, they will be crossed. If you set `.shuffle = TRUE`, the factors will be added randomly (not in "order"), and separately added factors may end up confounded. This simulates true random allocation.
 
 ```{r}
 data <- add_random(subj = 4, item = 2) %>%
   add_between("subj", cond = c("control", "test"), gen = c("X", "Z")) %>%
   add_between("item", version = c("A", "B")) %>%
-  add_between(c("subj", "item"), shuffled = 1:4, shuffle = TRUE) %>%
-  add_between(c("subj", "item"), not_shuffled = 1:4, shuffle = FALSE)
+  add_between(c("subj", "item"), shuffled = 1:4, .shuffle = TRUE) %>%
+  add_between(c("subj", "item"), not_shuffled = 1:4, .shuffle = FALSE)
 ```
 
 `r kableExtra::kable(data)`
 
 ### Unequal cells
 
-If the levels of a factor don't have equal probability, set the probability with `prob`. If the sum of the values equals the number of groups, you will always get those exact numbers (e.g., always 8 control and 2 test; set shuffle = TRUE to get them in a random order). Otherwise, the values are sampled and the exact proportions will change for each simulation.
+If the levels of a factor don't have equal probability, set the probability with `.prob`. If the sum of the values equals the number of groups, you will always get those exact numbers (e.g., always 8 control and 2 test; set shuffle = TRUE to get them in a random order). Otherwise, the values are sampled and the exact proportions will change for each simulation.
 
 ```{r}
 data <- add_random(subj = 10) %>%
-  add_between("subj", cond = c("control", "test"), prob = c(8, 2)) %>%
-  add_between("subj", age = c("young", "old"), prob = c(.8, .2))
+  add_between("subj", cond = c("control", "test"), .prob = c(8, 2)) %>%
+  add_between("subj", age = c("young", "old"), .prob = c(.8, .2))
 ```
 
 `r kableExtra::kable(data)`
