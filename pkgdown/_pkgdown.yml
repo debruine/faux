@@ -73,6 +73,7 @@ reference:
   - '`cormat`'
   - '`cormat_from_triangle`'
   - '`fix_name_labels`'
+  - '`get_design`'
   - '`get_design_long`'
   - '`getcols`'
   - '`interactive_design`'
@@ -82,7 +83,7 @@ reference:
   - '`pos_def_limits`'
   - '`readline_check`'
   - '`sample_from_pop`'
-  - '`sim_data`'
+  - '`set_design`'
   - '`unique_pairs`'
 - title: Distribution functions
   desc: ~

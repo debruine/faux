@@ -40,9 +40,13 @@ mu <- data.frame(
   dog    = c(10, 15, 20, 25),
   row.names = within$time
 )
+# add factor labels for plotting
+vardesc <- c(pet = "Type of Pet",
+             time = "Time of Day")
+
 df <- sim_design(within, between, 
                  n = 100, mu = mu, sd = 5, r = .5,
-                 empirical = TRUE, plot = TRUE)
+                 empirical = TRUE, vardesc = vardesc, plot = TRUE)
 ```
 
 
@@ -117,17 +121,28 @@ within <- list(
 )
 df <- sim_design(within, between, mu = 1:4)
 ```
+#### Factor labels
 
-### check_design
-
-The `check_design()` function converts this to the fully expanded version; it checks your design specification when you run `sim_design()` or you can run it on its own to create a validated design list. You can view this in JSON format using the function `json_design()`.
+Add factor labels with the `vardesc` argument. You can also customise the ID and DV column names (they default to `c(id = "id")` and `c(y = "value")`). 
 
 ```{r}
-design <- check_design(within, between, n = 10, 
-                       mu = 1:4, sd = 1:4, r = 0.5, plot = FALSE)
+vardesc <- c(pet = "Type of Pet",
+             time = "Time of Day")
 
-json_design(design, pretty = TRUE)
+df <- sim_design(within, between, mu = 1:4, 
+                 id = c(pet_id = "Pet ID"),
+                 dv = c(score = "Score on the Test"),
+                 vardesc = vardesc)
 ```
+
+If you have any within-subjects factors and your table is in wide format, you will only see the DV name in plots. But it will be used if you convert the table from wide to long.
+
+```{r}
+wide2long(df) %>% head()
+```
+
+
+
 
 
 ### Specifying N
@@ -393,7 +408,11 @@ head(df)
 
 ## Multiple datasets
 
-You can simulate multiple datasets by setting the `rep` argument of `sim_design()` to a number greater than 1. This will return a nested data frame with one column called `rep` and another column called `data`, that contains each individual data frame. This method is ** much** faster than repeatedly calling `sim_design()`, which will check the syntax of your design each time.
+You might want to make multiple datasets with the same design for simulations. It can be inefficient to just put `sim_design()` in an apply function or a for loop (especially if you leave plot = TRUE). The patterns below make this faster.
+
+### rep argument
+
+You can simulate multiple datasets by setting the `rep` argument of `sim_design()` to a number greater than 1. This will return a nested data frame with one column called `rep` and another column called `data`, that contains each individual data frame. This method is faster than repeatedly calling `sim_design()`, which will check the syntax of your design each time, and returns a nested dataset that makes it easy to apply the same analysis to each replicate.
 
 The code below creates 5 data frames with a 2W*2B design.
 
@@ -422,4 +441,40 @@ df %>%
   tidyr::unnest(analysis)
 ```
 
+### Unnested reps
 
+You can also get an unnested data frame by setting `nested = FALSE`. This is a bit faster to return, but less useful for the pattern above.
+
+```{r}
+df <- sim_design(within = 2, between = 2, 
+                 n = 2, mu = c(1, 1, 1, 1.5), 
+                 sd = 1, r = 0.5, plot = FALSE, 
+                 long = TRUE, rep = 2, nested = FALSE)
+
+df
+```
+
+
+
+### Simulate by design
+
+The `check_design()` function converts any abbreviated design specification to the fully expanded version; it checks your design specification when you run `sim_design()` or you can run it on its own to create a validated design list. 
+
+```{r, results='asis'}
+between <- list(pet = c("cat", "dog"))
+within <- list(time = c("day", "night"))
+vardesc <- c(pet = "Type of Pet",
+             time = "Time of Day")
+design <- check_design(within, between, n = 10, 
+                       mu = 1:4, sd = 1:4, r = 0.5, 
+                       vardesc = vardesc, plot = FALSE)
+
+design
+```
+
+
+You can then use the design object to create simulated datasets. If you set the design for `sim_design()` with the `design` argument instead of specifying parameters, it will skip the time-consuming checks, which can speed up simulations by 30% or more.
+
+```{r}
+data <- sim_design(design = design)
+```

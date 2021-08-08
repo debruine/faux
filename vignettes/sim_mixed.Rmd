@@ -30,7 +30,7 @@ library(faux)
 
 This [paper](https://osf.io/3cz2e/) provides a tutorial and examples for more complex designs. 
 
-## Building mixed effects designs
+## Building multilevel designs
 
 You can build up a mixed effects model by adding random factors in a stepwise fashion using `add_random()`. The example below simulates 3 schools with 2, 3 and 4 classes nested in each school.
 
@@ -218,7 +218,7 @@ Check the function. Here, we're simulating a fixed effect of condition (b1) of 0
 sim(subj_n = 50, item_n = 40, b1 = 0.5, r01i = 0.2)
 ```
 
-Run the simulation repeatedly. I'm only running it 50 times per parameter combination here so my demo doesn't take forever to run, but once you are done testing a range of parameters, you probably want to run the final simulation 100-1000 times. You might get a few warnings like "Model failed to converge" or "singular boundary". You don't need to worry too much if you only get a few of there. If most of your models have warning, the simulation parameters are likely to be off.
+Run the simulation repeatedly. I'm only running it 50 times per parameter combination here so my demo doesn't take forever to run, but once you are done testing a range of parameters, you probably want to run the final simulation 100-1000 times. You might get a few warnings like "Model failed to converge" or "singular boundary". You don't need to worry too much if you only get a few of these. If most of your models have warnings, the simulation parameters are likely to be off.
 
 ```{r}
 x <- crossing(

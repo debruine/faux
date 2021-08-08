@@ -115,7 +115,7 @@ check_design <- function(within = list(), between = list(),
   
   # check vardesc ----
   if (length(vardesc) == 0) {
-    vardesc <- setNames(all_names, all_names)
+    vardesc <- stats::setNames(all_names, all_names)
   } else {
     # handle missing or extra names
     missing_names <- setdiff(all_names, names(vardesc))
@@ -123,7 +123,7 @@ check_design <- function(within = list(), between = list(),
       warning("vardesc is missing definitions for factors: ",
               paste(missing_names, collapse = ", "))
     }
-    missing_vardesc <- setNames(missing_names, missing_names)
+    missing_vardesc <- stats::setNames(missing_names, missing_names)
     inclued_names <- intersect(all_names, names(vardesc))
     included_vardesc <- vardesc[inclued_names]
     vardesc <- c(included_vardesc, missing_vardesc)
