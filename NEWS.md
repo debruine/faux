@@ -3,6 +3,7 @@
 * `plot_design()` can display a subset of factors
 * updated plotting vignette to explain changing palettes
 * updated mixed effects builder functions to avoid column name clashes
+* added experimental coding functions and vignette
 
 # faux 1.0.9001 (2021-03-27)
 

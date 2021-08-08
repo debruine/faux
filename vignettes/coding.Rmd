@@ -1,0 +1,162 @@
+---
+title: "Coding Schemes"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Coding Schemes}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+options(digits = 3)
+set.seed(8675309)
+```
+
+```{r setup}
+library(faux)
+```
+
+Marissa Barlaz has a really great explainer for [contrasts in R](https://marissabarlaz.github.io/portfolio/contrastcoding/), which inspired the contrast functions in faux.
+
+
+First, we'll set up a simple experimental design and analyse it with `lm()`. Notice that the default contrast is treatment coding, with cat as the baseline condition.
+
+```{r}
+df <- sim_design(between = list(pet = c("cat", "dog")), 
+                 mu = c(1, 2))
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+## Contrast Coding
+
+Contrast coding sets the grand mean as the intercept. Each contrast compares one level with a reference level.
+
+Use the function `contrast_code()` to recode the `pet` factor using contrast coding. The reference level defaults to the first level. Notice how the intercept changes. It is now estimating the overall mean instead of the baseline group mean.
+
+```{r}
+df$pet <- contrast_code(df$pet)
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+Set `base = "dog"` to change the comparison group. Notice how the sign of the main effect changes.
+
+```{r}
+df$pet <- contrast_code(df$pet, base = "dog")
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+Let's try it with a three-level factor. I set `empirical = TRUE` to make interpreting the estimates easier. In all the subsequent examples, try putting into words what the estimates for the intercept and terms mean in relation to the mean values for each group in the data.
+
+```{r}
+df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
+                 n = c(50, 100, 200), mu = c(2, 4, 9), empirical = TRUE)
+```
+
+Default treatment coding. The estimate for the intercept is the mean value for cats, while the term `petdog` is the mean value for dogs minus the mean value for cats, and the term `petferret` is the mean value for ferrets minus the mean value for cats.
+
+```{r}
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+Contrast coding with the first level ("cat") as the default base. Now the intercept is the grand mean, which is the mean of the three group means ($(2 + 4 + 9)/3$). Notice that this is different from the mean value of y in our dataset (`r mean(df$y)`, since the number of pets in each group is unbalanced. The term `pet_dog.vs.cat` is the mean value for dogs minus cats ($4 - 2$) and the term `pet_ferret.vs.cat` is the mean value for ferrets minus cats ($9 - 2$).
+
+```{r}
+df$pet <- contrast_code(df$pet)
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+Contrast coding with "dog" as the base. How does the interpretation of the terms change?
+
+```{r}
+df$pet <- contrast_code(df$pet, base = "dog")
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+Contrast coding with the third level ("ferret") as the base.
+
+```{r}
+df$pet <- contrast_code(df$pet, base = 3)
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+## Sum Coding
+
+Sum coding also sets the grand mean as the intercept. Each contrast compares one level with the grand mean. Therefore, the estimate for `pet_cat.vs.intercept` is the difference between the mean value for cats and the grand mean ($2 - 5$).
+
+```{r}
+df$pet <- sum_code(df$pet)
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+You can't compare all levels with the grand mean, and have to omit one level. This is the last level by default, but you can change it with the `omit` argument.
+
+```{r}
+df$pet <- sum_code(df$pet, omit = "dog")
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+Omit the first level ("cat").
+
+```{r}
+df$pet <- sum_code(df$pet, omit = 1)
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+## Treatment Coding
+
+Treatment coding sets the mean of the reference group as the intercept. This is the same type of coding as the default for factors (unless you change your default using `options()`) but with clearer term labels. 
+
+```{r}
+df$pet <- treatment_code(df$pet)
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+Each contrast compares one level with the reference level, which defaults to the first level, but you can set with the `base` argument. Now the intercept estimates the mean value for dogs ($4$).
+
+```{r}
+df$pet <- treatment_code(df$pet, base = "dog")
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+Set the reference level to the third level ("ferret").
+
+```{r}
+df$pet <- treatment_code(df$pet, base = 3)
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+
+## Helmert Coding
+
+Helmert coding sets the grand mean as the intercept. Each contrast compares one level with the mean of previous levels. This coding is somewhat different than the results from `stats::contr.helmert()` to make it easier to interpret the estimates. This, `pet_ferret.vs.cat.dog` is the mean value for ferrets minus the mean value for cats and dogs averaged together ($9-(2+4)/2$).
+
+```{r}
+df$pet <- helmert_code(df$pet)
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```
+
+You can change the comparisons by reordering the levels.
+
+```{r}
+df$pet <- helmert_code(df$pet, levels = c("ferret", "dog", "cat"))
+contrasts(df$pet)
+lm(y ~ pet, df) %>% broom::tidy()
+```

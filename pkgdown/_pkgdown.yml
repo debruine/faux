@@ -29,6 +29,7 @@ articles:
   - sim_mixed
   - distributions
   - codebook
+  - coding
 
 reference:
 - title: Simulation functions
@@ -49,6 +50,13 @@ reference:
   - '`add_ranef`'
   - '`sim_mixed_cc`'
   - '`sim_mixed_df`'
+- title: Contrasts
+  desc: ~
+  contents:
+  - '`contrast_code`'
+  - '`sum_code`'
+  - '`treatment_code`'
+  - '`helmert_code`'
 - title: Other useful functions
   desc: ~
   contents:
