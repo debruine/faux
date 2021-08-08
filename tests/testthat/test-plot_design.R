@@ -2,18 +2,18 @@ context("test-plot_design")
 
 factor_maker <- function(factors) {
   if (is.numeric(factors)) factors <- LETTERS[factors]
-  factors %>% setNames(., .) %>% as.list() %>%
+  factors %>% stats::setNames(., .) %>% as.list() %>%
     lapply(function(x) {
       obj <- paste0("Level ", x, 1:2)
       nm <- paste0(x, 1:2)
-      setNames(obj, nm)
+      stats::setNames(obj, nm)
     })
 }
 
 vardesc_maker <- function(factors) {
   if (is.numeric(factors)) factors <- LETTERS[factors]
   
-  factors %>% setNames(paste("Factor", .), .)
+  factors %>% stats::setNames(paste("Factor", .), .)
 }
 
 user_opts <- faux_options("sep", "verbose", "plot", "connection")
@@ -63,6 +63,45 @@ test_that("order", {
   expect_equal(p$labels$colour, "W6")
   expect_equal(p$facet$params$rows %>% names(), c("W4", "W3"))
   expect_equal(p$facet$params$cols %>% names(), c("W2", "W1"))
+})
+
+# subset ----
+test_that("subset", {
+  des <- check_design(c(2,2,2,2,2,2))
+  p1 <- plot_design(des, "W1")
+  expect_equal(p1$labels$x, "W1")
+  expect_equal(p1$labels$fill, "W1")
+  expect_equal(p1$labels$colour, "W1")
+  expect_equal(p1$facet$params$rows %>% names(), NULL)
+  expect_equal(p1$facet$params$cols %>% names(), NULL)
+  
+  p2 <- plot_design(des, "W2", "W1")
+  expect_equal(p2$labels$x, "W1")
+  expect_equal(p2$labels$fill, "W2")
+  expect_equal(p2$labels$colour, "W2")
+  expect_equal(p2$facet$params$rows %>% names(), NULL)
+  expect_equal(p2$facet$params$cols %>% names(), NULL)
+  
+  p3 <- plot_design(des, "W3", "W2", "W1")
+  expect_equal(p3$labels$x, "W2")
+  expect_equal(p3$labels$fill, "W3")
+  expect_equal(p3$labels$colour, "W3")
+  expect_equal(p3$facet$params$rows %>% names(), "W1")
+  expect_equal(p3$facet$params$cols %>% names(), character(0))
+  
+  p4 <- plot_design(des, "W4", "W3", "W2", "W1")
+  expect_equal(p4$labels$x, "W3")
+  expect_equal(p4$labels$fill, "W4")
+  expect_equal(p4$labels$colour, "W4")
+  expect_equal(p4$facet$params$rows %>% names(), "W2")
+  expect_equal(p4$facet$params$cols %>% names(), "W1")
+  
+  p5 <- plot_design(des, "W5", "W4", "W3", "W2", "W1")
+  expect_equal(p5$labels$x, "W4")
+  expect_equal(p5$labels$fill, "W5")
+  expect_equal(p5$labels$colour, "W5")
+  expect_equal(p5$facet$params$rows %>% names(), "W3")
+  expect_equal(p5$facet$params$cols %>% names(), c("W2", "W1"))
 })
 
 # from design ----
@@ -373,10 +412,10 @@ test_that("vardesc", {
   
   both_labs <- LETTERS[3:6] %>%
     lapply(function(x) paste0("Factor ", x, ": Level ", x , 1:2)) %>%
-    setNames(LETTERS[3:6])
+    stats::setNames(LETTERS[3:6])
   value_labs <- LETTERS[3:6] %>%
     lapply(function(x) paste0("Level ", x , 1:2)) %>%
-    setNames(LETTERS[3:6])
+    stats::setNames(LETTERS[3:6])
   
   expect_equal(p_value_st$facet$params$labeller(df), value_labs)
   expect_equal(p_both_st$facet$params$labeller(df), both_labs)

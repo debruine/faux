@@ -3,7 +3,7 @@
 #' Plots the specified within and between design. See \href{../doc/plots.html}{\code{vignette("plots", package = "faux")}} for examples and details.
 #'
 #' @param x A list of design parameters created by check_design() or a data tbl (in long format)
-#' @param ... A list of factor names to determine visualisation (see vignette)
+#' @param ... A list of factor names to determine visualisation (see vignette) in the order color, x, facet row(s), facet col(s)
 #' @param geoms A list of ggplot2 geoms to display, defaults to "pointrangeSD" (mean ± 1SD) for designs and c("violin", "box") for data, options are: pointrangeSD, pointrangeSE, violin, box, jitter
 #' @param palette A brewer palette, defaults to "Dark2"
 #' @param labeller How to label the facets (see ggplot2::facet_grid). "label_value" is used by default.
@@ -23,7 +23,9 @@
 #' @export
 #' 
 plot_design <- function(x, ..., geoms = NULL, palette = "Dark2", labeller = "label_value") {
-  outlier.alpha <- 1
+  outlier.alpha <- 1 # default value, might be overridden
+  
+  # turn x to data and design ----
   if (!is.data.frame(x) && is.list(x)) {
     if (is.null(geoms)) geoms <- "pointrangeSD"
     design <- x
@@ -59,21 +61,22 @@ plot_design <- function(x, ..., geoms = NULL, palette = "Dark2", labeller = "lab
     stop("x must be a design list or a data frame")
   }
   
+  # set factors to plot ----
   factors <- c(design$within, design$between)
   # if ("rep" %in% names(data)) {
   #   factors$rep <- as.list(unique(data$rep))
   #   names(factors$rep) <- factors$rep
   # }
-  factor_n <- length(factors)
   f <- syms(names(factors)) # make it possible to use strings to specify columns
   dv <- sym(names(design$dv))
   
   if (c(...) %>% length()) {
     f <- syms(c(...))
   }
+  factor_n <- length(f)
   
-  # use long names for factors
-  for (col in names(factors)) {
+  # use long names for factors ----
+  for (col in f) {
     lvl <- factors[[col]] %>% names()
     lbl <- factors[[col]]
     data[[col]] <- factor(data[[col]], levels = lvl, labels = lbl)
@@ -108,11 +111,11 @@ plot_design <- function(x, ..., geoms = NULL, palette = "Dark2", labeller = "lab
       (is.character(labeller) && labeller == "label_both")) {
     label_func <- f[-(1:2)] %>%
       lapply(rlang::as_string) %>%
-      setNames(., .) %>%
+      stats::setNames(., .) %>%
       lapply(function(nm) {
         label <- design$vardesc[[nm]]
         names <- unlist(factors[[nm]])
-        trans_list <- setNames(paste0(label, ": ", names), names)
+        trans_list <- stats::setNames(paste0(label, ": ", names), names)
         ggplot2::as_labeller(trans_list)
       }) %>%
       do.call(ggplot2::labeller, .)
