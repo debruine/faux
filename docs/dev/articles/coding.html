@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9003</span>
       </span>
     </div>
 
@@ -142,614 +142,2348 @@
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span>, 
                  mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="coding_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;     dog</span>
-<span class="co">#&gt; cat   0</span>
-<span class="co">#&gt; dog   1</span></code></pre></div>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+dog
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">0.995</td>
-<td align="right">0.101</td>
-<td align="right">9.89</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">petdog</td>
-<td align="right">0.877</td>
-<td align="right">0.142</td>
-<td align="right">6.17</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
 </tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+0.995
+</td>
+<td style="text-align:right;">
+0.101
+</td>
+<td style="text-align:right;">
+9.89
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+petdog
+</td>
+<td style="text-align:right;">
+0.877
+</td>
+<td style="text-align:right;">
+0.142
+</td>
+<td style="text-align:right;">
+6.17
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
 </table>
 <div id="contrast-coding" class="section level2">
 <h2 class="hasAnchor">
 <a href="#contrast-coding" class="anchor"></a>Contrast Coding</h2>
 <p>Contrast coding sets the grand mean as the intercept. Each contrast compares one level with a reference level.</p>
 <p>Use the function <code><a href="../reference/contrast_code.html">contrast_code()</a></code> to recode the <code>pet</code> factor using contrast coding. The reference level defaults to the first level. Notice how the intercept changes. It is now estimating the overall mean instead of the baseline group mean.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contrast_code.html">contrast_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;     _dog.vs.cat</span>
-<span class="co">#&gt; cat        -0.5</span>
-<span class="co">#&gt; dog         0.5</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contrast_code.html">contrast_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.dog-cat
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">1.434</td>
-<td align="right">0.071</td>
-<td align="right">20.16</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+-0.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_dog.vs.cat</td>
-<td align="right">0.877</td>
-<td align="right">0.142</td>
-<td align="right">6.17</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+0.5
+</td>
 </tr>
 </tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+1.434
+</td>
+<td style="text-align:right;">
+0.071
+</td>
+<td style="text-align:right;">
+20.16
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.dog-cat
+</td>
+<td style="text-align:right;">
+0.877
+</td>
+<td style="text-align:right;">
+0.142
+</td>
+<td style="text-align:right;">
+6.17
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
 </table>
 <p>Set <code>base = "dog"</code> to change the comparison group. Notice how the sign of the main effect changes.</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contrast_code.html">contrast_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, base <span class="op">=</span> <span class="st">"dog"</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;     _cat.vs.dog</span>
-<span class="co">#&gt; cat         0.5</span>
-<span class="co">#&gt; dog        -0.5</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contrast_code.html">contrast_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, base <span class="op">=</span> <span class="st">"dog"</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.cat-dog
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">1.434</td>
-<td align="right">0.071</td>
-<td align="right">20.16</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0.5
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_cat.vs.dog</td>
-<td align="right">-0.877</td>
-<td align="right">0.142</td>
-<td align="right">-6.17</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+-0.5
+</td>
 </tr>
 </tbody>
 </table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+1.434
+</td>
+<td style="text-align:right;">
+0.071
+</td>
+<td style="text-align:right;">
+20.16
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.cat-dog
+</td>
+<td style="text-align:right;">
+-0.877
+</td>
+<td style="text-align:right;">
+0.142
+</td>
+<td style="text-align:right;">
+-6.17
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
+</table>
 <p>Let’s try it with a three-level factor. I set <code>empirical = TRUE</code> to make interpreting the estimates easier. In all the subsequent examples, try putting into words what the estimates for the intercept and terms mean in relation to the mean values for each group in the data.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"ferret"</span><span class="op">)</span><span class="op">)</span>, 
                  n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">100</span>, <span class="fl">200</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">9</span><span class="op">)</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="coding_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 <p>Default treatment coding. The estimate for the intercept is the mean value for cats (<span class="math inline">\(2\)</span>), while the term <code>petdog</code> is the mean value for dogs minus cats (<span class="math inline">\(4 - 2\)</span>), and the term <code>petferret</code> is the mean value for ferrets minus cats (<span class="math inline">\(9 - 2\)</span>).</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        dog ferret</span>
-<span class="co">#&gt; cat      0      0</span>
-<span class="co">#&gt; dog      1      0</span>
-<span class="co">#&gt; ferret   0      1</span></code></pre></div>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+dog
+</th>
+<th style="text-align:right;">
+ferret
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">2</td>
-<td align="right">0.141</td>
-<td align="right">14.1</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">petdog</td>
-<td align="right">2</td>
-<td align="right">0.173</td>
-<td align="right">11.5</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">petferret</td>
-<td align="right">7</td>
-<td align="right">0.158</td>
-<td align="right">44.3</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
 </tbody>
 </table>
-<p>Contrast coding with the first level (“cat”) as the default base. Now the intercept is the grand mean, which is the mean of the three group means (<span class="math inline">\((2 + 4 + 9)/3\)</span>). Notice that this is different from the mean value of y in our dataset (6.571, since the number of pets in each group is unbalanced. The term <code>pet_dog.vs.cat</code> is the mean value for dogs minus cats (<span class="math inline">\(4 - 2\)</span>) and the term <code>pet_ferret.vs.cat</code> is the mean value for ferrets minus cats (<span class="math inline">\(9 - 2\)</span>).</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contrast_code.html">contrast_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _dog.vs.cat _ferret.vs.cat</span>
-<span class="co">#&gt; cat         -0.333         -0.333</span>
-<span class="co">#&gt; dog          0.667         -0.333</span>
-<span class="co">#&gt; ferret      -0.333          0.667</span></code></pre></div>
+</td>
+<td>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">5</td>
-<td align="right">0.062</td>
-<td align="right">80.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.141
+</td>
+<td style="text-align:right;">
+14.1
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_dog.vs.cat</td>
-<td align="right">2</td>
-<td align="right">0.173</td>
-<td align="right">11.5</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+petdog
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.173
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_ferret.vs.cat</td>
-<td align="right">7</td>
-<td align="right">0.158</td>
-<td align="right">44.3</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+petferret
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.158
+</td>
+<td style="text-align:right;">
+44.3
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
 </tbody>
+</table>
+</td>
+</tr></tbody>
+</table>
+<p>Contrast coding with the first level (“cat”) as the default base. Now the intercept is the grand mean, which is the mean of the three group means (<span class="math inline">\((2 + 4 + 9)/3\)</span>). Notice that this is different from the mean value of y in our dataset (6.571, since the number of pets in each group is unbalanced. The term <code>pet_dog-cat</code> is the mean value for dogs minus cats (<span class="math inline">\(4 - 2\)</span>) and the term <code>pet_ferret-cat</code> is the mean value for ferrets minus cats (<span class="math inline">\(9 - 2\)</span>).</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contrast_code.html">contrast_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.dog-cat
+</th>
+<th style="text-align:right;">
+.ferret-cat
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+80.2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.dog-cat
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.173
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.ferret-cat
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:right;">
+0.158
+</td>
+<td style="text-align:right;">
+44.3
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
 </table>
 <p>Contrast coding with “dog” as the base. How does the interpretation of the terms change?</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contrast_code.html">contrast_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, base <span class="op">=</span> <span class="st">"dog"</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _cat.vs.dog _ferret.vs.dog</span>
-<span class="co">#&gt; cat          0.667         -0.333</span>
-<span class="co">#&gt; dog         -0.333         -0.333</span>
-<span class="co">#&gt; ferret      -0.333          0.667</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contrast_code.html">contrast_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, base <span class="op">=</span> <span class="st">"dog"</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.cat-dog
+</th>
+<th style="text-align:right;">
+.ferret-dog
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">5</td>
-<td align="right">0.062</td>
-<td align="right">80.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_cat.vs.dog</td>
-<td align="right">-2</td>
-<td align="right">0.173</td>
-<td align="right">-11.5</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_ferret.vs.dog</td>
-<td align="right">5</td>
-<td align="right">0.122</td>
-<td align="right">40.8</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+<td style="text-align:right;">
+0.667
+</td>
 </tr>
 </tbody>
 </table>
-<p>Contrast coding with the third level (“ferret”) as the base.</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contrast_code.html">contrast_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, base <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _cat.vs.ferret _dog.vs.ferret</span>
-<span class="co">#&gt; cat             0.667         -0.333</span>
-<span class="co">#&gt; dog            -0.333          0.667</span>
-<span class="co">#&gt; ferret         -0.333         -0.333</span></code></pre></div>
+</td>
+<td>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">5</td>
-<td align="right">0.062</td>
-<td align="right">80.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+80.2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_cat.vs.ferret</td>
-<td align="right">-7</td>
-<td align="right">0.158</td>
-<td align="right">-44.3</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+pet.cat-dog
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0.173
+</td>
+<td style="text-align:right;">
+-11.5
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_dog.vs.ferret</td>
-<td align="right">-5</td>
-<td align="right">0.122</td>
-<td align="right">-40.8</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+pet.ferret-dog
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.122
+</td>
+<td style="text-align:right;">
+40.8
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
 </tbody>
+</table>
+</td>
+</tr></tbody>
+</table>
+<p>Contrast coding with the third level (“ferret”) as the base.</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contrast_code.html">contrast_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, base <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.cat-ferret
+</th>
+<th style="text-align:right;">
+.dog-ferret
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+80.2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.cat-ferret
+</td>
+<td style="text-align:right;">
+-7
+</td>
+<td style="text-align:right;">
+0.158
+</td>
+<td style="text-align:right;">
+-44.3
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.dog-ferret
+</td>
+<td style="text-align:right;">
+-5
+</td>
+<td style="text-align:right;">
+0.122
+</td>
+<td style="text-align:right;">
+-40.8
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
+</table>
+</div>
+<div id="succesive-differences-coding" class="section level2">
+<h2 class="hasAnchor">
+<a href="#succesive-differences-coding" class="anchor"></a>Succesive Differences Coding</h2>
+<p>A slightly different form of contrast coding is successive differences. It compares each level to the previous one.</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdif_code.html">sdif_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.dog-cat
+</th>
+<th style="text-align:right;">
+.ferret-dog
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+-0.667
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+0.333
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+0.333
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+80.2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.dog-cat
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.173
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.ferret-dog
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.122
+</td>
+<td style="text-align:right;">
+40.8
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
+</table>
+<p>If you want to change which levels are compared, you need to re-order the factor levels.</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdif_code.html">sdif_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ferret"</span>, <span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.cat-ferret
+</th>
+<th style="text-align:right;">
+.dog-cat
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+-0.667
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0.333
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+0.333
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+80.2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.cat-ferret
+</td>
+<td style="text-align:right;">
+-7
+</td>
+<td style="text-align:right;">
+0.158
+</td>
+<td style="text-align:right;">
+-44.3
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.dog-cat
+</td>
+<td style="text-align:right;">
+2
+</td>
+<td style="text-align:right;">
+0.173
+</td>
+<td style="text-align:right;">
+11.5
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
 </table>
 </div>
 <div id="sum-coding" class="section level2">
 <h2 class="hasAnchor">
 <a href="#sum-coding" class="anchor"></a>Sum Coding</h2>
-<p>Sum coding also sets the grand mean as the intercept. Each contrast compares one level with the grand mean. Therefore, the estimate for <code>pet_cat.vs.intercept</code> is the difference between the mean value for cats and the grand mean (<span class="math inline">\(2 - 5\)</span>).</p>
+<p>Sum coding also sets the grand mean as the intercept. Each contrast compares one level with the grand mean. Therefore, the estimate for <code>pet_cat-intercept</code> is the difference between the mean value for cats and the grand mean (<span class="math inline">\(2 - 5\)</span>).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sum_code.html">sum_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _cat.vs.intercept _dog.vs.intercept</span>
-<span class="co">#&gt; cat                    1                 0</span>
-<span class="co">#&gt; dog                    0                 1</span>
-<span class="co">#&gt; ferret                -1                -1</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sum_code.html">sum_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.ferret-intercept
+</th>
+<th style="text-align:right;">
+.cat-intercept
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">5</td>
-<td align="right">0.062</td>
-<td align="right">80.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_cat.vs.intercept</td>
-<td align="right">-3</td>
-<td align="right">0.103</td>
-<td align="right">-29.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_dog.vs.intercept</td>
-<td align="right">-1</td>
-<td align="right">0.085</td>
-<td align="right">-11.8</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+-1
+</td>
+<td style="text-align:right;">
+-1
+</td>
 </tr>
 </tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+80.2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.ferret-intercept
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.075
+</td>
+<td style="text-align:right;">
+53.7
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.cat-intercept
+</td>
+<td style="text-align:right;">
+-3
+</td>
+<td style="text-align:right;">
+0.103
+</td>
+<td style="text-align:right;">
+-29.2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
 </table>
 <p>You can’t compare all levels with the grand mean, and have to omit one level. This is the last level by default, but you can change it with the <code>omit</code> argument.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sum_code.html">sum_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, omit <span class="op">=</span> <span class="st">"dog"</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _cat.vs.intercept _ferret.vs.intercept</span>
-<span class="co">#&gt; cat                    1                    0</span>
-<span class="co">#&gt; dog                   -1                   -1</span>
-<span class="co">#&gt; ferret                 0                    1</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sum_code.html">sum_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, omit <span class="op">=</span> <span class="st">"dog"</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.ferret-intercept
+</th>
+<th style="text-align:right;">
+.cat-intercept
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">5</td>
-<td align="right">0.062</td>
-<td align="right">80.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_cat.vs.intercept</td>
-<td align="right">-3</td>
-<td align="right">0.103</td>
-<td align="right">-29.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_ferret.vs.intercept</td>
-<td align="right">4</td>
-<td align="right">0.075</td>
-<td align="right">53.7</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+-1
+</td>
+<td style="text-align:right;">
+-1
+</td>
 </tr>
 </tbody>
 </table>
-<p>Omit the first level (“cat”).</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sum_code.html">sum_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, omit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _dog.vs.intercept _ferret.vs.intercept</span>
-<span class="co">#&gt; cat                    0                    1</span>
-<span class="co">#&gt; dog                   -1                   -1</span>
-<span class="co">#&gt; ferret                 1                    0</span></code></pre></div>
+</td>
+<td>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">5</td>
-<td align="right">0.062</td>
-<td align="right">80.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+80.2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_dog.vs.intercept</td>
-<td align="right">4</td>
-<td align="right">0.075</td>
-<td align="right">53.7</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+pet.ferret-intercept
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.075
+</td>
+<td style="text-align:right;">
+53.7
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_ferret.vs.intercept</td>
-<td align="right">-3</td>
-<td align="right">0.103</td>
-<td align="right">-29.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+pet.cat-intercept
+</td>
+<td style="text-align:right;">
+-3
+</td>
+<td style="text-align:right;">
+0.103
+</td>
+<td style="text-align:right;">
+-29.2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
 </tbody>
+</table>
+</td>
+</tr></tbody>
+</table>
+<p>Omit the first level (“cat”).</p>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sum_code.html">sum_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, omit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.cat-intercept
+</th>
+<th style="text-align:right;">
+.dog-intercept
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+-1
+</td>
+<td style="text-align:right;">
+-1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+80.2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.cat-intercept
+</td>
+<td style="text-align:right;">
+-1
+</td>
+<td style="text-align:right;">
+0.085
+</td>
+<td style="text-align:right;">
+-11.8
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.dog-intercept
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.075
+</td>
+<td style="text-align:right;">
+53.7
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
 </table>
 </div>
 <div id="treatment-coding" class="section level2">
 <h2 class="hasAnchor">
 <a href="#treatment-coding" class="anchor"></a>Treatment Coding</h2>
-<p>Treatment coding sets the mean of the reference group as the intercept. This is the same type of coding as the default for factors (unless you change your default using <code><a href="https://rdrr.io/r/base/options.html">options()</a></code>) but with clearer term labels.</p>
+<p>Treatment coding (also called dummy coding) sets the mean of the reference group as the intercept. This is the same type of coding as the default for factors (unless you change your default using <code><a href="https://rdrr.io/r/base/options.html">options()</a></code>), but with clearer term labels.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/treatment_code.html">treatment_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _dog.vs.cat _ferret.vs.cat</span>
-<span class="co">#&gt; cat              0              0</span>
-<span class="co">#&gt; dog              1              0</span>
-<span class="co">#&gt; ferret           0              1</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/treatment_code.html">treatment_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
+<p>Each contrast compares one level with the reference level, which defaults to the first level, but you can set with the <code>base</code> argument. Now the intercept estimates the mean value for dogs (<span class="math inline">\(4\)</span>).</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/treatment_code.html">treatment_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, base <span class="op">=</span> <span class="st">"dog"</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.ferret-dog
+</th>
+<th style="text-align:right;">
+.cat-dog
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">2</td>
-<td align="right">0.141</td>
-<td align="right">14.1</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_dog.vs.cat</td>
-<td align="right">2</td>
-<td align="right">0.173</td>
-<td align="right">11.5</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_ferret.vs.cat</td>
-<td align="right">7</td>
-<td align="right">0.158</td>
-<td align="right">44.3</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
 </tbody>
 </table>
-<p>Each contrast compares one level with the reference level, which defaults to the first level, but you can set with the <code>base</code> argument. Now the intercept estimates the mean value for dogs (<span class="math inline">\(4\)</span>).</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/treatment_code.html">treatment_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, base <span class="op">=</span> <span class="st">"dog"</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _cat.vs.dog _ferret.vs.dog</span>
-<span class="co">#&gt; cat              1              0</span>
-<span class="co">#&gt; dog              0              0</span>
-<span class="co">#&gt; ferret           0              1</span></code></pre></div>
+</td>
+<td>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">4</td>
-<td align="right">0.100</td>
-<td align="right">40.0</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.100
+</td>
+<td style="text-align:right;">
+40.0
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_cat.vs.dog</td>
-<td align="right">-2</td>
-<td align="right">0.173</td>
-<td align="right">-11.5</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+pet.ferret-dog
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.122
+</td>
+<td style="text-align:right;">
+40.8
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_ferret.vs.dog</td>
-<td align="right">5</td>
-<td align="right">0.122</td>
-<td align="right">40.8</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+pet.cat-dog
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0.173
+</td>
+<td style="text-align:right;">
+-11.5
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
 </tbody>
+</table>
+</td>
+</tr></tbody>
 </table>
 <p>Set the reference level to the third level (“ferret”).</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/treatment_code.html">treatment_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, base <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _cat.vs.ferret _dog.vs.ferret</span>
-<span class="co">#&gt; cat                 1              0</span>
-<span class="co">#&gt; dog                 0              1</span>
-<span class="co">#&gt; ferret              0              0</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/treatment_code.html">treatment_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, base <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.ferret-dog
+</th>
+<th style="text-align:right;">
+.cat-dog
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">9</td>
-<td align="right">0.071</td>
-<td align="right">127.3</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_cat.vs.ferret</td>
-<td align="right">-7</td>
-<td align="right">0.158</td>
-<td align="right">-44.3</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_dog.vs.ferret</td>
-<td align="right">-5</td>
-<td align="right">0.122</td>
-<td align="right">-40.8</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
 </tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0.100
+</td>
+<td style="text-align:right;">
+40.0
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.ferret-dog
+</td>
+<td style="text-align:right;">
+5
+</td>
+<td style="text-align:right;">
+0.122
+</td>
+<td style="text-align:right;">
+40.8
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.cat-dog
+</td>
+<td style="text-align:right;">
+-2
+</td>
+<td style="text-align:right;">
+0.173
+</td>
+<td style="text-align:right;">
+-11.5
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
 </table>
 </div>
 <div id="helmert-coding" class="section level2">
 <h2 class="hasAnchor">
 <a href="#helmert-coding" class="anchor"></a>Helmert Coding</h2>
-<p>Helmert coding sets the grand mean as the intercept. Each contrast compares one level with the mean of previous levels. This coding is somewhat different than the results from <code><a href="https://rdrr.io/r/stats/contrast.html">stats::contr.helmert()</a></code> to make it easier to interpret the estimates. This, <code>pet_ferret.vs.cat.dog</code> is the mean value for ferrets minus the mean value for cats and dogs averaged together (<span class="math inline">\(9-(2+4)/2\)</span>).</p>
+<p>Helmert coding sets the grand mean as the intercept. Each contrast compares one level with the mean of previous levels. This coding is somewhat different than the results from <code><a href="https://rdrr.io/r/stats/contrast.html">stats::contr.helmert()</a></code> to make it easier to interpret the estimates. This, <code>pet_ferret-cat.dog</code> is the mean value for ferrets minus the mean value for cats and dogs averaged together (<span class="math inline">\(9-(2+4)/2\)</span>).</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/helmert_code.html">helmert_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _dog.vs.cat _ferret.vs.cat.dog</span>
-<span class="co">#&gt; cat           -0.5             -0.333</span>
-<span class="co">#&gt; dog            0.5             -0.333</span>
-<span class="co">#&gt; ferret         0.0              0.667</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/helmert_code.html">helmert_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.cat-ferret
+</th>
+<th style="text-align:right;">
+.dog-ferret.cat
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">5</td>
-<td align="right">0.062</td>
-<td align="right">80.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+-0.5
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_dog.vs.cat</td>
-<td align="right">2</td>
-<td align="right">0.173</td>
-<td align="right">11.5</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_ferret.vs.cat.dog</td>
-<td align="right">6</td>
-<td align="right">0.112</td>
-<td align="right">53.7</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.667
+</td>
 </tr>
 </tbody>
 </table>
-<p>You can change the comparisons by reordering the levels.</p>
-<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/helmert_code.html">helmert_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ferret"</span>, <span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">a</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/contrasts.html">contrasts</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span>
-<span class="co">#&gt;        _dog.vs.ferret _cat.vs.ferret.dog</span>
-<span class="co">#&gt; ferret           -0.5             -0.333</span>
-<span class="co">#&gt; dog               0.5             -0.333</span>
-<span class="co">#&gt; cat               0.0              0.667</span></code></pre></div>
+</td>
+<td>
 <table class="table">
-<thead><tr class="header">
-<th align="left">term</th>
-<th align="right">estimate</th>
-<th align="right">std.error</th>
-<th align="right">statistic</th>
-<th align="right">p.value</th>
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
 </tr></thead>
 <tbody>
-<tr class="odd">
-<td align="left">(Intercept)</td>
-<td align="right">5.0</td>
-<td align="right">0.062</td>
-<td align="right">80.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+80.2
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="even">
-<td align="left">pet_dog.vs.ferret</td>
-<td align="right">-5.0</td>
-<td align="right">0.122</td>
-<td align="right">-40.8</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+pet.cat-ferret
+</td>
+<td style="text-align:right;">
+-7.0
+</td>
+<td style="text-align:right;">
+0.158
+</td>
+<td style="text-align:right;">
+-44.3
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
-<tr class="odd">
-<td align="left">pet_cat.vs.ferret.dog</td>
-<td align="right">-4.5</td>
-<td align="right">0.154</td>
-<td align="right">-29.2</td>
-<td align="right">0</td>
+<tr>
+<td style="text-align:left;">
+pet.dog-ferret.cat
+</td>
+<td style="text-align:right;">
+-1.5
+</td>
+<td style="text-align:right;">
+0.127
+</td>
+<td style="text-align:right;">
+-11.8
+</td>
+<td style="text-align:right;">
+0
+</td>
 </tr>
 </tbody>
+</table>
+</td>
+</tr></tbody>
+</table>
+<p>You can change the comparisons by reordering the levels.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/helmert_code.html">helmert_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ferret"</span>, <span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:right;">
+.dog-ferret
+</th>
+<th style="text-align:right;">
+.cat-ferret.dog
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+ferret
+</td>
+<td style="text-align:right;">
+-0.5
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+dog
+</td>
+<td style="text-align:right;">
+0.5
+</td>
+<td style="text-align:right;">
+-0.333
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+cat
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.667
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+5.0
+</td>
+<td style="text-align:right;">
+0.062
+</td>
+<td style="text-align:right;">
+80.2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.dog-ferret
+</td>
+<td style="text-align:right;">
+-5.0
+</td>
+<td style="text-align:right;">
+0.122
+</td>
+<td style="text-align:right;">
+-40.8
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+pet.cat-ferret.dog
+</td>
+<td style="text-align:right;">
+-4.5
+</td>
+<td style="text-align:right;">
+0.154
+</td>
+<td style="text-align:right;">
+-29.2
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
+</table>
+</div>
+<div id="polynomial-coding" class="section level2">
+<h2 class="hasAnchor">
+<a href="#polynomial-coding" class="anchor"></a>Polynomial Coding</h2>
+<p>Polynomial coding is the default for ordered factors in R. We’ll set up a new data simulation with five ordered times.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,
+                 mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">*</span> <span class="fl">0.25</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="fl">0.5</span>,
+                 long <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<p><img src="coding_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<p>The function <code><a href="../reference/poly_code.html">poly_code()</a></code> uses <code><a href="https://rdrr.io/r/stats/contrast.html">contr.poly()</a></code> to set up the polynomial contrasts for the linear (<code>^1</code>), quadratic (<code>^2</code>), cubic (<code>^3</code>), and quartic (<code>^4</code>) components.</p>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/poly_code.html">poly_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">time</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr>
+<th>
+Contrasts
+</th>
+<th>
+lm(y ~ pet, df)
+</th>
+</tr></thead>
+<tbody><tr>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:right;">
+^1
+</th>
+<th style="text-align:right;">
+^2
+</th>
+<th style="text-align:right;">
+^3
+</th>
+<th style="text-align:right;">
+^4
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:right;">
+-0.632
+</td>
+<td style="text-align:right;">
+0.535
+</td>
+<td style="text-align:right;">
+-0.316
+</td>
+<td style="text-align:right;">
+0.120
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+-0.316
+</td>
+<td style="text-align:right;">
+-0.267
+</td>
+<td style="text-align:right;">
+0.632
+</td>
+<td style="text-align:right;">
+-0.478
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+-0.535
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+0.717
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.316
+</td>
+<td style="text-align:right;">
+-0.267
+</td>
+<td style="text-align:right;">
+-0.632
+</td>
+<td style="text-align:right;">
+-0.478
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.632
+</td>
+<td style="text-align:right;">
+0.535
+</td>
+<td style="text-align:right;">
+0.316
+</td>
+<td style="text-align:right;">
+0.120
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+<td>
+<table class="table">
+<thead><tr>
+<th style="text-align:left;">
+term
+</th>
+<th style="text-align:right;">
+estimate
+</th>
+<th style="text-align:right;">
+std.error
+</th>
+<th style="text-align:right;">
+statistic
+</th>
+<th style="text-align:right;">
+p.value
+</th>
+</tr></thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:right;">
+1.712
+</td>
+<td style="text-align:right;">
+0.048
+</td>
+<td style="text-align:right;">
+35.510
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+time^1
+</td>
+<td style="text-align:right;">
+0.834
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+7.735
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+time^2
+</td>
+<td style="text-align:right;">
+1.801
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+16.708
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+time^3
+</td>
+<td style="text-align:right;">
+0.041
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+0.376
+</td>
+<td style="text-align:right;">
+0.707
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+time^4
+</td>
+<td style="text-align:right;">
+-0.035
+</td>
+<td style="text-align:right;">
+0.108
+</td>
+<td style="text-align:right;">
+-0.329
+</td>
+<td style="text-align:right;">
+0.742
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr></tbody>
 </table>
 </div>
   </div>

@@ -1,9 +1,14 @@
+# faux 1.0.9003 (2021-08-09)
+
+* added new contrast functions and changed labelling of others
+* updated contrasts vignette 
+
 # faux 1.0.9002 (2021-08-08)
 
 * `plot_design()` can display a subset of factors
 * updated plotting vignette to explain changing palettes
 * updated mixed effects builder functions to avoid column name clashes
-* added experimental coding functions and vignette
+* added experimental contrast functions and vignette
 
 # faux 1.0.9001 (2021-03-27)
 

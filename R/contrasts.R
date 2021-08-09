@@ -39,11 +39,10 @@ contrast_code <- function(fct, levels = NULL, base = 1) {
   n <- length(levels)
   if (!is.numeric(base)) base <- which(levels == base)
   tr_code <- stats::contr.treatment(n, base)
-  ef_code <- matrix(rep(1/n, n*(n-1)), ncol=(n-1))
-  my_code <- tr_code - ef_code
+  my_code <- tr_code - 1/n
   
   # create column names
-  colnames <- paste0("_", levels[-base], ".vs.", levels[base])
+  colnames <- paste0(".", levels[-base], "-", levels[base])
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -96,7 +95,7 @@ sum_code <- function(fct, levels = NULL, omit = length(levels)) {
   }
   
   # create column names
-  colnames <- paste0("_", levels[-omit], ".vs.intercept")
+  colnames <- paste0(".", levels[-omit], "-intercept")
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -149,7 +148,7 @@ treatment_code <- function(fct, levels = NULL, base = 1) {
   my_code <- stats::contr.treatment(n, base)
   
   # create column names
-  colnames <- paste0("_", levels[-base], ".vs.", levels[base])
+  colnames <- paste0(".", levels[-base], "-", levels[base])
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -206,7 +205,90 @@ helmert_code <- function(fct, levels = NULL) {
   comparison <- lapply(1:(n-1), function(x) {
     paste(levels[1:x], collapse = ".")
   })
-  colnames <- paste0("_", levels[-1], ".vs.", comparison)
+  colnames <- paste0(".", levels[-1], "-", comparison)
+  dimnames(my_code) <- list(levels, colnames)
+  
+  # set contrast and return factor
+  stats::contrasts(fct) <- my_code
+  fct
+}
+
+
+#' Polynomial code a factor
+#'
+#' @param fct the factor to contrast code (or a vector)
+#' @param levels the levels of the factor in order
+#'
+#' @return the factor with contrasts set
+#' @export
+#'
+#' @examples
+#' df <- sim_design(within = list(time = 1:6), 
+#'                  mu = 1:6 + (1:6-3.5)^2, 
+#'                  long = TRUE, plot = FALSE)
+#'                  
+#' df$time <- poly_code(df$time)
+#' lm(y ~ time, df) %>% broom::tidy()
+#' 
+poly_code <- function(fct, levels = NULL) {
+  # make sure fct is a factor with correct levels
+  if (is.null(levels)) {
+    levels <- levels(fct)
+  } else {
+    fct <- factor(fct, levels)
+  }
+  
+  # create coding matrix
+  n <- length(levels)
+  my_code <- stats::contr.poly(n)
+  
+  # create column names
+  colnames <- paste0("^", 1:(n-1))
+    
+  dimnames(my_code) <- list(levels, colnames)
+  
+  # set contrast and return factor
+  stats::contrasts(fct) <- my_code
+  fct
+}
+
+
+#' Successive differences code a factor
+#' 
+#' Successive differences  coding sets the grand mean as the intercept. 
+#' Each contrast compares one level with the previous level.
+#'
+#' @param fct the factor to contrast code (or a vector)
+#' @param levels the levels of the factor in order
+#'
+#' @return the factor with contrasts set
+#' @export
+#'
+#' @examples
+#' df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
+#'                  mu = c(2, 4, 9), empirical = TRUE, plot = FALSE)
+#'                  
+#' df$pet <- sdif_code(df$pet)
+#' lm(y ~ pet, df) %>% broom::tidy()
+#' 
+sdif_code <- function(fct, levels = NULL) {
+  # make sure fct is a factor with correct levels
+  if (is.null(levels)) {
+    levels <- levels(fct)
+  } else {
+    fct <- factor(fct, levels)
+  }
+  
+  # create coding matrix
+  n <- length(levels)
+  sdif_code <- .col(n:(n-1))
+  upper.tri <- !lower.tri(sdif_code)
+  sdif_code[upper.tri] <- sdif_code[upper.tri] - n
+  my_code <- sdif_code / n
+  
+  # create column names
+  colnames <- paste0(".", levels[2:n], "-", levels[1:(n-1)])
+  
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
