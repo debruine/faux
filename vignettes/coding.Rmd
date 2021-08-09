@@ -41,12 +41,12 @@ Contrasts often have multiple names. Here are the names I'm using:
 
 | My name               | Other names         | Related function |
 |:----------------------|:--------------------|:----------|
-| Treatment | Dummy | `contr.treatment` |
-| Deviation | Simple, Orthogonal (Davis), Contrast (Barlaz) | `contr.treatment - 1/n` |
-| Successive differences | Contrast | `MASS::contr.sdif` |
-| Sum | Effects (Barlaz)| `contr.sum` |
-| Helmert | Reverse helmert (Barlaz), Trend (Davis) | `contr.helmert` |
-| Polynomial | Trend (Davis) | `contr.poly` |
+| Treatment | [Dummy](https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#dummy) | `contr.treatment` |
+| Deviation | [Simple](https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#SIMPLE), [ Contrast](https://marissabarlaz.github.io/portfolio/contrastcoding/#contrast-coding) | `contr.treatment - 1/n` |
+| Difference | Contrast, [Forward difference](https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#forward) | `MASS::contr.sdif` |
+| Sum | [Deviation](https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#SIMPLE) | `contr.sum` |
+| Helmert | [Reverse helmert](https://marissabarlaz.github.io/portfolio/contrastcoding/#reverse-helmert-coding) | `contr.helmert` |
+| Polynomial | [Orthogonal](https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#ORTHOGONAL), Trend (Davis) | `contr.poly` |
 
 
 First, we'll set up a simple experimental design and analyse it with `lm()`. I set `empirical = TRUE` to make interpreting the estimates easier. 
@@ -119,20 +119,20 @@ df$pet <- deviation_code(df$pet, base = 3)
 
 `r ctable(df)`
 
-## Succesive Differences Coding
+## Difference Coding
 
-A slightly different form of contrast coding is successive differences. It compares each level to the previous one, rather than to a baseline level.
+A slightly different form of contrast coding is difference coding, also called forward, backward, or successive differences coding. It compares each level to the previous one, rather than to a baseline level.
 
 ```{r}
-df$pet <- sdif_code(df$pet)
+df$pet <- difference_code(df$pet)
 ```
 
 `r ctable(df)`
 
-If you want to change which levels are compared, you need to re-order the factor levels.
+If you want to change which levels are compared, you can re-order the factor levels.
 
 ```{r}
-df$pet <- sdif_code(df$pet, levels = c("ferret", "cat", "dog"))
+df$pet <- difference_code(df$pet, levels = c("ferret", "cat", "dog"))
 ```
 
 `r ctable(df)`
@@ -140,7 +140,7 @@ df$pet <- sdif_code(df$pet, levels = c("ferret", "cat", "dog"))
 
 ```{r, include = FALSE}
 # get levels back to normal
-df$pet <- sdif_code(df$pet, levels = c("cat", "dog", "ferret"))
+df$pet <- difference_code(df$pet, levels = c("cat", "dog", "ferret"))
 ```
 
 ## Sum Coding

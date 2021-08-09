@@ -134,11 +134,11 @@ test_that("poly_code", {
   expect_equal(contrasts(x2), mat2, tol = .001)
 })
 
-# sdif_code ----
-test_that("sdif_code", {
+# difference_code ----
+test_that("difference_code", {
   x <- factor(1:3, labels = LETTERS[1:3])
-  x1 <- sdif_code(x)
-  x2 <- sdif_code(x, levels = c("C", "B", "A"))
+  x1 <- difference_code(x)
+  x2 <- difference_code(x, levels = c("C", "B", "A"))
   mat1 <- matrix(c(-2/3, 1/3, 1/3, -1/3, -1/3, 2/3), 3, 
                  dimnames = list(LETTERS[1:3], c(".B-A", ".C-B")))
   mat2 <- mat1
