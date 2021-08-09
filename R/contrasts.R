@@ -1,6 +1,6 @@
-#' Contrast code a factor
+#' Deviation code a factor
 #' 
-#' Contrast coding sets the grand mean as the intercept. 
+#' Deviation coding sets the grand mean as the intercept. 
 #' Each contrast compares one level with the reference level (base).
 #'
 #' @param fct the factor to contrast code (or a vector)
@@ -13,21 +13,21 @@
 #' @examples
 #' df <- sim_design(between = list(pet = c("cat", "dog")), 
 #'                  mu = c(10, 20), plot = FALSE)
-#' df$pet <- contrast_code(df$pet)
+#' df$pet <- deviation_code(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
 #' df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
 #'                  mu = c(2, 4, 9), empirical = TRUE, plot = FALSE)
 #'                  
-#' df$pet <- contrast_code(df$pet, base = 1)
+#' df$pet <- deviation_code(df$pet, base = 1)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- contrast_code(df$pet, base = 2)
+#' df$pet <- deviation_code(df$pet, base = 2)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- contrast_code(df$pet, base = "ferret")
+#' df$pet <- deviation_code(df$pet, base = "ferret")
 #' lm(y ~ pet, df) %>% broom::tidy()
-contrast_code <- function(fct, levels = NULL, base = 1) {
+deviation_code <- function(fct, levels = NULL, base = 1) {
   # make sure fct is a factor with correct levels
   if (is.null(levels)) {
     levels <- levels(fct)
@@ -66,8 +66,8 @@ contrast_code <- function(fct, levels = NULL, base = 1) {
 #' @export
 #'
 #' @examples
-#' df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
-#'                  mu = c(2, 4, 9), empirical = TRUE, plot = FALSE)
+#' df <- sim_design(between = list(pet = c("cat", "dog", "bird", "ferret")), 
+#'                  mu = c(2, 4, 9, 13), empirical = TRUE, plot = FALSE)
 #' 
 #' df$pet <- sum_code(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
@@ -91,6 +91,7 @@ sum_code <- function(fct, levels = NULL, omit = length(levels)) {
   my_code <- stats::contr.sum(n)
   if (n != omit) {
     reorder <- c(setdiff(1:n, omit), omit)
+    reorder <- sapply(1:n, function(x) which(x == reorder))
     my_code <- my_code[reorder, , drop = FALSE]
   }
   
@@ -102,7 +103,6 @@ sum_code <- function(fct, levels = NULL, omit = length(levels)) {
   stats::contrasts(fct) <- my_code
   fct
 }
-
 
 
 #' Treatment code a factor
