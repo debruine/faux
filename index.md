@@ -25,12 +25,14 @@ You can install the released version of faux (1.0.0) from [CRAN](https://CRAN.R-
 install.packages("faux")
 ```
 
-And the development version (1.0.0.9001) from [GitHub](https://github.com/debruine/faux) with:
+And the development version (1.0.0.9002) from [GitHub](https://github.com/debruine/faux) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("debruine/faux")
 ```
+
+See the [development version manual](https://github.com/debruine/faux/dev/).
 
 ## Quick overview
 
