@@ -52,6 +52,8 @@ And the development version from [GitHub](https://github.com/debruine/faux) with
 devtools::install_github("debruine/faux")
 ```
 
+See the [development version manual](https://debruine.github.io/faux/dev/).
+
 ## How to use faux
 
 * [sim_design](#sim_design)

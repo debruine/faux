@@ -20,64 +20,230 @@ set.seed(8675309)
 ```{r, warning=FALSE, message=FALSE}
 library(dplyr)
 library(tidyr)
+library(ggplot2)
+library(purrr)
 library(lme4)
+library(lmerTest)
 library(broom.mixed)
 library(faux)
 ```
 
-The mixed design functions are extremely basic. I plan to work on more useful functions, but this [paper](https://osf.io/3cz2e/) provides a tutorial and examples for more complex designs. 
+This [paper](https://osf.io/3cz2e/) provides a tutorial and examples for more complex designs. 
 
-## sim_mixed_cc
+## Building multilevel designs
 
-This function produces a data table for a basic cross-classified design with random intercepts for subjects and items. 
+You can build up a mixed effects model by adding random factors in a stepwise fashion using `add_random()`. The example below simulates 3 schools with 2, 3 and 4 classes nested in each school.
 
-For example, the following code produces the data for 100 subjects responding to 50 items where the response has an overall mean (`grand_i`) of 10. Subjects vary in their average response with an SD of 1, items vary in their average response with an SD of 2, and the residual error term has an SD of 3.
+```{r add-random}
+data <- add_random(school = 3) %>%
+  add_random(class = c(2, 3, 4), .nested_in = "school")
+```
+
+`r kableExtra::kable(data)`
+
+A cross-classified design with 2 subjects and 3 items.
 
 ```{r}
-dat_cc <- sim_mixed_cc(
-  sub_n = 100,   # subject sample size
-  item_n = 50,  # item sample size
-  grand_i = 10,  # overall mean of the score
-  sub_sd = 1,   # SD of subject random intercepts
-  item_sd = 2,  # SD of item random intercepts
-  error_sd = 3  # SD of residual error
-)
+data <- add_random(subj = 2, item = 3)
 ```
 
-You can then see how changing these numbers affects the random effects in an intercept-only mixed effects model.
+`r kableExtra::kable(data)`
 
-```{r, results='asis'}
-lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat_cc) %>%
-  broom.mixed::tidy() %>%
-  knitr::kable(digits = 3)
+
+## Adding fixed factors
+
+Add within factors with `add_within()`.
+
+
+```{r}
+data <- add_random(subj = 2) %>%
+  add_within("subj", time = c("pre", "post"),
+             condition = c("control", "test"))
 ```
 
-For example, changing `grand_i` to 0 changes the estimate for the fixed effect of the intercept `(Intercept)`. Changing `sub_sd` to 1.5 and `item_sd` to 3 change the estimate for the SD of their corresponding random effects. Changing `error_sd` to 10 changes the estimate from the Residual SD. 
+`r kableExtra::kable(data)`
 
-```{r, results='asis'}
-dat_cc <- sim_mixed_cc(100, 50, 0, 1.5, 3, 10)
+Add between factors with `add_between()`. If you have more than one factor, they will be crossed. If you set `.shuffle = TRUE`, the factors will be added randomly (not in "order"), and separately added factors may end up confounded. This simulates true random allocation.
 
-lme4::lmer(y ~ 1 + (1 | sub_id) + (1 | item_id), data = dat_cc) %>%
-  broom.mixed::tidy() %>%
-  knitr::kable(digits = 3)
+```{r}
+data <- add_random(subj = 4, item = 2) %>%
+  add_between("subj", cond = c("control", "test"), gen = c("X", "Z")) %>%
+  add_between("item", version = c("A", "B")) %>%
+  add_between(c("subj", "item"), shuffled = 1:4, .shuffle = TRUE) %>%
+  add_between(c("subj", "item"), not_shuffled = 1:4, .shuffle = FALSE)
 ```
 
-## sim_mixed_df
+`r kableExtra::kable(data)`
 
-This function uses `lme4::lmer()` to get subject, item and error SDs from an existing dataset and simulates a new dataset with the specified number of subjects and items with distributions drawn from the example data.
+### Unequal cells
 
-This example uses the `fr4` dataset from this package to simulate 100 new subjects viewing 50 new faces.
+If the levels of a factor don't have equal probability, set the probability with `.prob`. If the sum of the values equals the number of groups, you will always get those exact numbers (e.g., always 8 control and 2 test; set shuffle = TRUE to get them in a random order). Otherwise, the values are sampled and the exact proportions will change for each simulation.
 
-```{r, eval = FALSE}
+```{r}
+data <- add_random(subj = 10) %>%
+  add_between("subj", cond = c("control", "test"), .prob = c(8, 2)) %>%
+  add_between("subj", age = c("young", "old"), .prob = c(.8, .2))
+```
 
-new_dat <- sim_mixed_df(fr4, 
-                        sub_n = 100, 
-                        item_n = 50, 
-                        dv = "rating", 
-                        sub_id = "rater_id", 
-                        item_id = "face_id")
+`r kableExtra::kable(data)`
 
+### Counterbalanced designs
+
+You can use the `filter()` function from dplyr to create counterbalanced designs. For example, if your items are grouped into A and B counterbalanced groups, add a between-subjects and a between-items factor with the same levels and filter only rows where the subject value matches the item value. In the example below, odd-numbered subjects only respond to odd-numbered items.
+
+```{r}
+data <- add_random(subj = 4, item = 4) %>%
+  add_between("subj", subj_cb = c("A", "B")) %>%
+  add_between("item", item_cb = c("A", "B")) %>%
+  dplyr::filter(subj_cb == item_cb)
+```
+
+`r kableExtra::kable(data)`
+
+### Recoding
+
+To set up data for analysis, you often need to recode categorical variables. Use the helper function `add_recode()` for this. The code below creates effect-coded and treatment-coded versions of "cond" and the two variables needed to treatment-code the 3-level variable "type". See this blog post by Dale Barr to learn more about [coding categorical predictor variables in factorial designs](https://talklab.psy.gla.ac.uk/tvw/catpred/)
+
+```{r}
+data <- add_random(subj = 2, item = 3) %>%
+  add_between("subj", cond = c("A", "B")) %>%
+  add_between("item", type = c("X", "Y", "Z")) %>%
+  add_recode("cond", "cond.e", A = -0.5, B = 0.5) %>%
+  add_recode("cond", "cond.t", A = 0, B = 1) %>%
+  add_recode("type", "type.Y", X = 0, Y = 1, Z = 0) %>%
+  add_recode("type", "type.Z", X = 0, Y = 0, Z = 1)
+```
+
+`r kableExtra::kable(data)`
+
+
+## Adding random effects
+
+To simulate multilevel data, you need to add random intercepts and slopes for each random factor (or combination of random factors). These are randomly sampled each time you simulate a new sample, so you can only characterise them by their standard deviation. You can use the function `add_ranef()` to add random effects with specified SDs. If you add more than one random effect for the same group (e.g., a random intercept and a random slope), you can specify their correlation with `.cors` (you can specify correlations in the same way as for `rnorm_multi()`).
+
+The code below sets up a simple cross-classified design where 2 subjects are crossed with 2 items. It adds a between-subject, within-item factor of "version". Then it adds random effects by subject, item, and their interaction, as well as an error term (`sigma`). 
+
+```{r add-ranef}
+data <- add_random(subj = 4, item = 2) %>%
+  add_between("subj", version = 1:2) %>%
+  # add by-subject random intercept
+  add_ranef("subj", u0s = 1.3) %>%
+  # add by-item random intercept and slope
+  add_ranef("item", u0i = 1.5, u1i = 1.5, .cors = 0.3) %>%
+  # add by-subject:item random intercept
+  add_ranef(c("subj", "item"), u0si = 1.7) %>%
+  # add error term (by observation)
+  add_ranef(sigma = 2.2)
+```
+
+`r kableExtra::kable(data, digits = 3)`
+
+
+## Simulating data
+
+Now you can define your data-generating parameters and put everything together to simulate a dataset. In this example,subject are crossed with items, and there is a single treatment-coded between-subject, within-item fixed factor of condition with levels "control" and "test". The intercept and effect of condition are both set to 0. The SDs of the random intercepts and slopes are all set to 1 (you will need pilot data to estimate realistic values for your design), the correlation between the random intercept and slope by items is set to 0. The SD of the error term is set to 2.
+
+```{r}
+# define parameters
+subj_n = 10  # number of subjects
+item_n = 10  # number of items
+b0 = 0       # intercept
+b1 = 0       # fixed effect of condition
+u0s_sd = 1   # random intercept SD for subjects
+u0i_sd = 1   # random intercept SD for items
+u1i_sd = 1   # random b1 slope SD for items
+r01i = 0     # correlation between random effects 0 and 1 for items
+sigma_sd = 2 # error SD
+  
+# set up data structure
+data <- add_random(subj = subj_n, item = item_n) %>%
+  # add and recode categorical variables
+  add_between("subj", cond = c("control", "test")) %>%
+  add_recode("cond", "cond.t", control = 0, test = 1) %>%
+  # add random effects 
+  add_ranef("subj", u0s = u0s_sd) %>%
+  add_ranef("item", u0i = u0i_sd, u1i = u1i_sd, .cors = r01i) %>%
+  add_ranef(sigma = sigma_sd) %>%
+  # calculate DV
+  mutate(dv = b0 + u0s + u0i + (b1 + u1i) * cond.t + sigma)
+```
+
+`r kableExtra::kable(head(data), digits = 3)`
+
+## Analysing your multilevel data
+
+You can analyse these data with lme4::lmer().
+
+```{r}
+m <- lmer(dv ~ cond.t + (1 | subj) + (1 + cond.t | item), data = data)
+
+summary(m)
+```
+
+## Power simulation
+
+Include this code in a function so you can easily change the Ns, fixed effects, and random effects to any values. Then run a mixed effects model on the data and return the model.
+
+```{r}
+sim <- function(subj_n = 10, item_n = 10,
+                b0 = 0, b1 = 0,         # fixed effects 
+                u0s_sd = 1, u0i_sd = 1, # random intercepts
+                u1i_sd = 1, r01i = 0,   # random slope and cor
+                sigma_sd = 2,           # error term
+                ... # helps the function work with pmap() below
+                ) {
+
+  # set up data structure
+  data <- add_random(NULL, subj = subj_n, item = item_n) %>%
+    # add and recode categorical variables
+    add_between("subj", cond = c("control", "test")) %>%
+    add_recode("cond", "cond.t", control = 0, test = 1) %>%
+    # add random effects 
+    add_ranef("subj", u0s = u0s_sd) %>%
+    add_ranef("item", u0i = u0i_sd, u1i = u1i_sd, .cors = r01i) %>%
+    add_ranef(sigma = sigma_sd) %>%
+    # calculate DV
+    mutate(dv = b0 + u0s + u0i + (b1 + u1i) * cond.t + sigma)
+
+  # run mixed effect model and return relevant values
+  m <- lmer(dv ~ cond.t + (1 | subj) + (1 + cond.t | item), data = data)
+
+  broom.mixed::tidy(m)
+}
+```
+
+Check the function. Here, we're simulating a fixed effect of condition (b1) of 0.5 for 50 subjects and 40 items, with a correlation between the random intercept and slope for items of 0.2, and the default values for all other parameters that we set above.
+
+```{r}
+sim(subj_n = 50, item_n = 40, b1 = 0.5, r01i = 0.2)
+```
+
+Run the simulation repeatedly. I'm only running it 50 times per parameter combination here so my demo doesn't take forever to run, but once you are done testing a range of parameters, you probably want to run the final simulation 100-1000 times. You might get a few warnings like "Model failed to converge" or "singular boundary". You don't need to worry too much if you only get a few of these. If most of your models have warnings, the simulation parameters are likely to be off.
+
+```{r}
+x <- crossing(
+  rep = 1:50, # number of replicates
+  subj_n = c(50, 100), # range of subject N
+  item_n = 25, # fixed item N
+  b1 = c(0.25, 0.5, 0.75), # range of effects
+  r01i = 0.2 # fixed correlation
+) %>%
+  mutate(analysis = pmap(., sim)) %>%
+  unnest(analysis)
 ```
 
 
+Filter and/or group the resulting table and calculate the proportion of p.values above your alpha threshold to get power for the fixed effects.
+
+```{r powerplot}
+# calculate power for alpha = 0.05
+filter(x, effect == "fixed", term == "cond.t") %>%
+  group_by(b1, subj_n) %>% 
+  summarise(power = mean(p.value < .05), 
+            .groups = "drop") %>%
+  ggplot(aes(b1, subj_n, fill = power)) +
+  geom_tile() +
+  geom_text(aes(label = sprintf("%.2f", power)), color = "white", size = 10) +
+  scale_fill_viridis_c(limits = c(0, 1))
+```
 

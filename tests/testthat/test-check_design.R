@@ -11,26 +11,26 @@ test_that("errors", {
 # params ----
 test_that("params", {
   # numeric n
-  expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = 20)))
-  expect_silent(check_design(between = 2, n = list("A1" = 10, "A2" = "20")))
+  expect_silent(check_design(between = 2, n = list("B1a" = 10, "B1b" = 20)))
+  expect_silent(check_design(between = 2, n = list("B1a" = 10, "B1b" = "20")))
   expect_error(
-    check_design(between = 2, n = list("A1" = 10, "A2" = "B")),
+    check_design(between = 2, n = list("B1a" = 10, "B1b" = "B")),
     "All n must be numbers"
   )
   
   # numeric mu
-  expect_silent(check_design(between = 2, mu = list("A1" = 10, "A2" = 20)))
-  expect_silent(check_design(between = 2, mu = list("A1" = 10, "A2" = "20")))
+  expect_silent(check_design(between = 2, mu = list("B1a" = 10, "B1b" = 20)))
+  expect_silent(check_design(between = 2, mu = list("B1a" = 10, "B1b" = "20")))
   expect_error(
-    check_design(between = 2, mu = list("A1" = 10, "A2" = "B")),
+    check_design(between = 2, mu = list("B1a" = 10, "B1b" = "B")),
     "All mu must be numbers"
   )
   
   # numeric sd
-  expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = 20)))
-  expect_silent(check_design(between = 2, sd = list("A1" = 10, "A2" = "20")))
+  expect_silent(check_design(between = 2, sd = list("B1a" = 10, "B1b" = 20)))
+  expect_silent(check_design(between = 2, sd = list("B1a" = 10, "B1b" = "20")))
   expect_error(
-    check_design(between = 2, sd = list("A1" = 10, "A2" = "B")),
+    check_design(between = 2, sd = list("B1a" = 10, "B1b" = "B")),
     "All sd must be numbers", fixed = TRUE
   )
   
@@ -188,7 +188,7 @@ test_that("design spec", {
   
   design <- check_design(within, between, n, mu, sd, r, dv, id)
   
-  design_elements <- c("within", "between", "dv", "id", "n", "mu", "sd", "r", "sep", "params")
+  design_elements <- c("within", "between", "dv", "id", "vardesc", "n", "mu", "sd", "r", "sep", "params")
   
   expect_equal(names(design), design_elements)
   expect_equal(design$dv, dv)
@@ -199,10 +199,10 @@ test_that("design spec", {
 test_that("interactions", {
   faux_options(sep = "_")
   n <- list(
-    B1_C1 = 10, 
-    B1_C2 = 20, 
-    B2_C1 = 30, 
-    B2_C2 = 40
+    B1a_B2a = 10, 
+    B1a_B2b = 20, 
+    B1b_B2a = 30, 
+    B1b_B2b = 40
   )
 
   design <- check_design(2, c(2,2), n = n, plot = FALSE)
@@ -215,13 +215,13 @@ test_that("anon factors", {
   design <- check_design(c(2, 4), c(2, 2))
   
   w <- list(
-    A = list(A1="A1", A2="A2"),
-    B = list(B1="B1", B2="B2", B3="B3", B4="B4")
+    W1 = list(W1a="W1a", W1b="W1b"),
+    W2 = list(W2a="W2a", W2b="W2b", W2c="W2c", W2d="W2d")
   )
   
   b <- list(
-    C = list(C1="C1",C2="C2"),
-    D = list(D1="D1", D2="D2")
+    B1 = list(B1a="B1a",B1b="B1b"),
+    B2 = list(B2a="B2a", B2b="B2b")
   )
   
   expect_equal(design$within, w)
@@ -297,29 +297,23 @@ test_that("params table", {
   expect_true(all(des$params %>% names() == nm))
   
   expected <- c(
-    "Design",
-    "",
     "* [DV] y: value  ",
     "* [ID] id: ID  ",
-    "",
-    "Within-subject variables:",
-    "",
-    "* time: ",
-    "    * morning: am",
-    "    * night: pm",
-    "* condition: ",
-    "    * A: cond 1",
-    "    * B: cond 2",
-    "    * C: cond 3",
-    "",
-    "Between-subject variables:",
-    "",
-    "* pet: ",
-    "    * dog: Dogs",
-    "    * cat: Cats",
-    "* x: ",
-    "    * X1: First",
-    "    * X2: Second"
+    "* Within-subject variables:",
+    "    * time: ",
+    "        * morning: am",
+    "        * night: pm",
+    "    * condition: ",
+    "        * A: cond 1",
+    "        * B: cond 2",
+    "        * C: cond 3",
+    "* Between-subject variables:",
+    "    * pet: ",
+    "        * dog: Dogs",
+    "        * cat: Cats",
+    "    * x: ",
+    "        * X1: First",
+    "        * X2: Second"
   )
   
   op <- capture.output(des)
@@ -344,6 +338,64 @@ test_that("sep", {
   long <- sim_data(design = design, long = TRUE)
   expect_equal(unique(long$A), factor(c("A_1", "A_2")))
   expect_equal(unique(long$B), factor(c("B_1", "B_2")))
+  faux_options(sep = "_")
+})
+
+# vardesc ----
+test_that("vardesc", {
+  between <- list(
+    B = c(B1 = "Level 1B", B2 = "Level 2B")
+  )
+  within <- list(
+    W = c(W1 = "Level 1W", W2 = "Level 2W")
+  )
+  
+  # includes vardesc
+  vardesc <- list(B = "Between-Subject Factor",
+                  W = "Within-Subject Factor")
+  expect_silent(design <- check_design(within, between, vardesc = vardesc))
+  expect_mapequal(design$vardesc, vardesc)
+  
+  op <- capture.output(design)
+  expect_equal(op[4], "    * W: Within-Subject Factor: ")
+  expect_equal(op[8], "    * B: Between-Subject Factor: ")
+  
+  # no vardesc
+  design <- check_design(within, between)
+  expect_mapequal(design$vardesc, list(W = "W", B = "B"))
+  # no repeats on identical factor name and label
+  op <- capture.output(design)
+  expect_equal(op[4], "    * W: ")
+  expect_equal(op[8], "    * B: ")
+  
+  # warns on missing value and replaces with unlabelled
+  vardesc_missing <- list(B = "Between-Subject Factor")
+  expect_warning(design <- check_design(within, between, vardesc = vardesc_missing))
+  expect_equal(design$vardesc$W, "W")
+  
+  # converts vectors to list
+  vardesc_vec <- c(B = "Between-Subject Factor",
+                   W = "Within-Subject Factor")
+  expect_silent(design <- check_design(within, between, vardesc = vardesc_vec))
+  expect_mapequal(design$vardesc, vardesc)
+})
+
+# get_design ----
+test_that("get_design", {
+  data <- sim_design(2, 2)
+  design <- get_design(data)
+  expect_equal(design, attributes(data)$design)
+  expect_equal(design$id, list(id = "id"))
+})
+
+# set_design ----
+test_that("set_design", {
+  design <- check_design()
+  data <- data.frame(id = 1:100, y = rnorm(100))
+  data_design <- set_design(data, design)
+  
+  expect_equal(design, get_design(data_design))
+  expect_equal(class(data_design), c("faux", "data.frame"))
 })
 
 faux_options(plot = TRUE)

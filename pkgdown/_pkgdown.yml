@@ -29,6 +29,7 @@ articles:
   - sim_mixed
   - distributions
   - codebook
+  - coding
 
 reference:
 - title: Simulation functions
@@ -38,9 +39,26 @@ reference:
   - '`rnorm_pre`'
   - '`sim_design`'
   - '`sim_df`'
+  - '`sim_joint_dist`'
+- title: Mixed effects functions
+  desc: ~
+  contents:
+  - '`add_random`'
+  - '`add_within`'
+  - '`add_between`'
+  - '`add_recode`'
+  - '`add_ranef`'
   - '`sim_mixed_cc`'
   - '`sim_mixed_df`'
-  - '`sim_joint_dist`'
+- title: Contrasts
+  desc: ~
+  contents:
+  - '`contrast_code`'
+  - '`sum_code`'
+  - '`treatment_code`'
+  - '`helmert_code`'
+  - '`poly_code`'
+  - '`sdif_code`'
 - title: Other useful functions
   desc: ~
   contents:
@@ -65,6 +83,7 @@ reference:
   - '`cormat`'
   - '`cormat_from_triangle`'
   - '`fix_name_labels`'
+  - '`get_design`'
   - '`get_design_long`'
   - '`getcols`'
   - '`interactive_design`'
@@ -74,7 +93,7 @@ reference:
   - '`pos_def_limits`'
   - '`readline_check`'
   - '`sample_from_pop`'
-  - '`sim_data`'
+  - '`set_design`'
   - '`unique_pairs`'
 - title: Distribution functions
   desc: ~
