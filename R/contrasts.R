@@ -253,9 +253,9 @@ poly_code <- function(fct, levels = NULL) {
 }
 
 
-#' Successive differences code a factor
+#' Difference code a factor
 #' 
-#' Successive differences  coding sets the grand mean as the intercept. 
+#' Difference coding sets the grand mean as the intercept. 
 #' Each contrast compares one level with the previous level.
 #'
 #' @param fct the factor to contrast code (or a vector)
@@ -268,10 +268,10 @@ poly_code <- function(fct, levels = NULL) {
 #' df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
 #'                  mu = c(2, 4, 9), empirical = TRUE, plot = FALSE)
 #'                  
-#' df$pet <- sdif_code(df$pet)
+#' df$pet <- difference_code(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-sdif_code <- function(fct, levels = NULL) {
+difference_code <- function(fct, levels = NULL) {
   # make sure fct is a factor with correct levels
   if (is.null(levels)) {
     levels <- levels(fct)
@@ -281,10 +281,10 @@ sdif_code <- function(fct, levels = NULL) {
   
   # create coding matrix
   n <- length(levels)
-  sdif_code <- .col(n:(n-1))
-  upper.tri <- !lower.tri(sdif_code)
-  sdif_code[upper.tri] <- sdif_code[upper.tri] - n
-  my_code <- sdif_code / n
+  dif_code <- .col(n:(n-1))
+  upper.tri <- !lower.tri(dif_code)
+  dif_code[upper.tri] <- dif_code[upper.tri] - n
+  my_code <- dif_code / n
   
   # create column names
   colnames <- paste0(".", levels[2:n], "-", levels[1:(n-1)])

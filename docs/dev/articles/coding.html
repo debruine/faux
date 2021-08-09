@@ -131,11 +131,6 @@
 <p>Marissa Barlaz has a really great explainer for <a href="https://marissabarlaz.github.io/portfolio/contrastcoding/">contrasts in R</a>, which inspired the contrast functions in faux, along with Dale Barr’s very clear post about <a href="https://talklab.psy.gla.ac.uk/tvw/catpred/">Coding categorical predictor variables in factorial designs</a>.</p>
 <p>Contrasts often have multiple names. Here are the names I’m using:</p>
 <table class="table">
-<colgroup>
-<col width="41%">
-<col width="38%">
-<col width="20%">
-</colgroup>
 <thead><tr class="header">
 <th align="left">My name</th>
 <th align="left">Other names</th>
@@ -144,32 +139,36 @@
 <tbody>
 <tr class="odd">
 <td align="left">Treatment</td>
-<td align="left">Dummy</td>
+<td align="left"><a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#dummy">Dummy</a></td>
 <td align="left"><code>contr.treatment</code></td>
 </tr>
 <tr class="even">
 <td align="left">Deviation</td>
-<td align="left">Simple, Orthogonal (Davis), Contrast (Barlaz)</td>
+<td align="left">
+<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#SIMPLE">Simple</a>, <a href="https://marissabarlaz.github.io/portfolio/contrastcoding/#contrast-coding">Contrast</a>
+</td>
 <td align="left"><code>contr.treatment - 1/n</code></td>
 </tr>
 <tr class="odd">
-<td align="left">Successive differences</td>
-<td align="left">Contrast</td>
+<td align="left">Difference</td>
+<td align="left">Contrast, <a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#forward">Forward difference</a>
+</td>
 <td align="left"><code><a href="https://rdrr.io/pkg/MASS/man/contr.sdif.html">MASS::contr.sdif</a></code></td>
 </tr>
 <tr class="even">
 <td align="left">Sum</td>
-<td align="left">Effects (Barlaz)</td>
+<td align="left"><a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#SIMPLE">Deviation</a></td>
 <td align="left"><code>contr.sum</code></td>
 </tr>
 <tr class="odd">
 <td align="left">Helmert</td>
-<td align="left">Reverse helmert (Barlaz), Trend (Davis)</td>
+<td align="left"><a href="https://marissabarlaz.github.io/portfolio/contrastcoding/#reverse-helmert-coding">Reverse helmert</a></td>
 <td align="left"><code>contr.helmert</code></td>
 </tr>
 <tr class="even">
 <td align="left">Polynomial</td>
-<td align="left">Trend (Davis)</td>
+<td align="left">
+<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#ORTHOGONAL">Orthogonal</a>, Trend (Davis)</td>
 <td align="left"><code>contr.poly</code></td>
 </tr>
 </tbody>
@@ -1153,12 +1152,12 @@ pet.dog-ferret
 </tr></tbody>
 </table>
 </div>
-<div id="succesive-differences-coding" class="section level2">
+<div id="difference-coding" class="section level2">
 <h2 class="hasAnchor">
-<a href="#succesive-differences-coding" class="anchor"></a>Succesive Differences Coding</h2>
-<p>A slightly different form of contrast coding is successive differences. It compares each level to the previous one, rather than to a baseline level.</p>
+<a href="#difference-coding" class="anchor"></a>Difference Coding</h2>
+<p>A slightly different form of contrast coding is difference coding, also called forward, backward, or successive differences coding. It compares each level to the previous one, rather than to a baseline level.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdif_code.html">sdif_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/difference_code.html">difference_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th>
@@ -1294,9 +1293,9 @@ pet.ferret-dog
 </td>
 </tr></tbody>
 </table>
-<p>If you want to change which levels are compared, you need to re-order the factor levels.</p>
+<p>If you want to change which levels are compared, you can re-order the factor levels.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sdif_code.html">sdif_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ferret"</span>, <span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/difference_code.html">difference_code</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ferret"</span>, <span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th>
