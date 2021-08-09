@@ -1,16 +1,16 @@
-test_that("contrast_code", {
+test_that("deviation_code", {
   x <- factor(1:2, labels = LETTERS[1:2])
-  x1 <- contrast_code(x, base = 1)
-  x2 <- contrast_code(x, base = 2)
+  x1 <- deviation_code(x, base = 1)
+  x2 <- deviation_code(x, base = 2)
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[1:2], ".B-A"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[1:2], ".A-B"))
   expect_equal(contrasts(x1), mat1)
   expect_equal(contrasts(x2), mat2)
   
   x <- factor(1:3, labels = LETTERS[1:3])
-  x1 <- contrast_code(x, base = 1)
-  x2 <- contrast_code(x, base = 2)
-  x3 <- contrast_code(x, base = 3)
+  x1 <- deviation_code(x, base = 1)
+  x2 <- deviation_code(x, base = 2)
+  x3 <- deviation_code(x, base = 3)
   mat1 <- matrix(c(-1/3,  2/3, -1/3, -1/3, -1/3, 2/3), nrow = 3,
                  dimnames = list(LETTERS[1:3], c(".B-A", ".C-A")))
   mat2 <- matrix(c(2/3, -1/3, -1/3, -1/3, -1/3, 2/3), nrow = 3,
@@ -22,23 +22,23 @@ test_that("contrast_code", {
   expect_equal(contrasts(x3), mat3)
 })
 
-# contrast_code, base by name ----
-test_that("contrast_code, base by name", {
+# deviation_code, base by name ----
+test_that("deviation_code, base by name", {
   x <- factor(1:2, labels = LETTERS[1:2])
-  xA <- contrast_code(x, base = "A")
-  xB <- contrast_code(x, base = "B")
+  xA <- deviation_code(x, base = "A")
+  xB <- deviation_code(x, base = "B")
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[1:2], ".B-A"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[1:2], ".A-B"))
   expect_equal(contrasts(xA), mat1)
   expect_equal(contrasts(xB), mat2)
 })
 
-# contrast_code, specify levels ----
-test_that("contrast_code, specify levels", {
+# deviation_code, specify levels ----
+test_that("deviation_code, specify levels", {
   x <- 1:2
   lvls <- c("A", "B")
-  x1 <- contrast_code(x, levels = lvls, base = 1)
-  x2 <- contrast_code(x, levels = lvls, base = 2)
+  x1 <- deviation_code(x, levels = lvls, base = 1)
+  x2 <- deviation_code(x, levels = lvls, base = 2)
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[1:2], ".B-A"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[1:2], ".A-B"))
   expect_equal(contrasts(x1), mat1)
@@ -47,8 +47,8 @@ test_that("contrast_code, specify levels", {
   
   x <- c("A", "B")
   lvls <- c("B", "A")
-  x1 <- contrast_code(x, levels = lvls, base = 1)
-  x2 <- contrast_code(x, levels = lvls, base = 2)
+  x1 <- deviation_code(x, levels = lvls, base = 1)
+  x2 <- deviation_code(x, levels = lvls, base = 2)
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[2:1], ".A-B"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[2:1], ".B-A"))
   expect_equal(contrasts(x1), mat1)
@@ -72,7 +72,7 @@ test_that("sum_code", {
   x2 <- sum_code(x, omit = 2)
   x3 <- sum_code(x)
   
-  expect_equal(contrasts(x1) %>% as.vector(), c(0, -1, 1, 1, -1, 0))
+  expect_equal(contrasts(x1) %>% as.vector(), c(-1, 1, 0, -1, 0, 1))
   expect_equal(contrasts(x2) %>% as.vector(), c(1, -1, 0, 0, -1, 1))
   expect_equal(contrasts(x3) %>% as.vector(), c(1, 0, -1, 0, 1, -1))
   expect_equal(

@@ -23,8 +23,8 @@ Sum coding sets the grand mean as the intercept.
 Each contrast compares one level with the grand mean.
 }
 \examples{
-df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
-                 mu = c(2, 4, 9), empirical = TRUE, plot = FALSE)
+df <- sim_design(between = list(pet = c("cat", "dog", "bird", "ferret")), 
+                 mu = c(2, 4, 9, 13), empirical = TRUE, plot = FALSE)
 
 df$pet <- sum_code(df$pet)
 lm(y ~ pet, df) \%>\% broom::tidy()
