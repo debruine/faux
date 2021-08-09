@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Treatment code a factor — treatment_code • faux</title>
+<title>Difference code a factor — difference_code • faux</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,9 @@
 
 
 
-<meta property="og:title" content="Treatment code a factor — treatment_code" />
-<meta property="og:description" content="Treatment coding sets the mean of the reference group as the intercept. 
-Each contrast compares one level with the reference level (base)." />
+<meta property="og:title" content="Difference code a factor — difference_code" />
+<meta property="og:description" content="Difference coding sets the grand mean as the intercept. 
+Each contrast compares one level with the previous level." />
 <meta property="og:image" content="https://debruine.github.io/faux/reference/figures/card.png" />
 <meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -160,17 +160,17 @@ Each contrast compares one level with the reference level (base)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Treatment code a factor</h1>
+    <h1>Difference code a factor</h1>
     <small class="dont-index">Source: <a href='https://github.com/debruine/faux/blob/master/R/contrasts.R'><code>R/contrasts.R</code></a></small>
-    <div class="hidden name"><code>treatment_code.Rd</code></div>
+    <div class="hidden name"><code>difference_code.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Treatment coding sets the mean of the reference group as the intercept. 
-Each contrast compares one level with the reference level (base).</p>
+    <p>Difference coding sets the grand mean as the intercept. 
+Each contrast compares one level with the previous level.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>treatment_code</span><span class='op'>(</span><span class='va'>fct</span>, levels <span class='op'>=</span> <span class='cn'>NULL</span>, base <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>difference_code</span><span class='op'>(</span><span class='va'>fct</span>, levels <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -183,10 +183,6 @@ Each contrast compares one level with the reference level (base).</p>
       <th>levels</th>
       <td><p>the levels of the factor in order</p></td>
     </tr>
-    <tr>
-      <th>base</th>
-      <td><p>the index of the level to use as baseline</p></td>
-    </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
@@ -194,42 +190,18 @@ Each contrast compares one level with the reference level (base).</p>
     <p>the factor with contrasts set</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sim_design.html'>sim_design</a></span><span class='op'>(</span>between <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>pet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cat"</span>, <span class='st'>"dog"</span><span class='op'>)</span><span class='op'>)</span>, 
-                 mu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>20</span><span class='op'>)</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='va'>df</span><span class='op'>$</span><span class='va'>pet</span> <span class='op'>&lt;-</span> <span class='fu'>treatment_code</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>pet</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>pet</span>, <span class='va'>df</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 2 x 5</span>
-#&gt;   term        estimate std.error statistic   p.value
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>          <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> (Intercept)    10.2      0.108      94.5 1.16<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-166</span>
-#&gt; <span style='color: #BCBCBC;'>2</span> pet.dog-cat     9.77     0.152      64.2 1.90<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-134</span></div><div class='input'>
-<span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sim_design.html'>sim_design</a></span><span class='op'>(</span>between <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>pet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cat"</span>, <span class='st'>"dog"</span>, <span class='st'>"ferret"</span><span class='op'>)</span><span class='op'>)</span>, 
+    <pre class="examples"><div class='input'><span class='va'>df</span> <span class='op'>&lt;-</span> <span class='fu'><a href='sim_design.html'>sim_design</a></span><span class='op'>(</span>between <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>pet <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"cat"</span>, <span class='st'>"dog"</span>, <span class='st'>"ferret"</span><span class='op'>)</span><span class='op'>)</span>, 
                  mu <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>4</span>, <span class='fl'>9</span><span class='op'>)</span>, empirical <span class='op'>=</span> <span class='cn'>TRUE</span>, plot <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
                  
-<span class='va'>df</span><span class='op'>$</span><span class='va'>pet</span> <span class='op'>&lt;-</span> <span class='fu'>treatment_code</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>pet</span><span class='op'>)</span>
+<span class='va'>df</span><span class='op'>$</span><span class='va'>pet</span> <span class='op'>&lt;-</span> <span class='fu'>difference_code</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>pet</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>pet</span>, <span class='va'>df</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 5</span>
 #&gt;   term           estimate std.error statistic   p.value
 #&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> (Intercept)        2.00     0.100      20.0 5.87<span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 57</span>
-#&gt; <span style='color: #BCBCBC;'>2</span> pet.dog-cat        2.00     0.141      14.1 4.53<span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 35</span>
-#&gt; <span style='color: #BCBCBC;'>3</span> pet.ferret-cat     7.00     0.141      49.5 1.67<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-145</span></div><div class='input'>
-<span class='va'>df</span><span class='op'>$</span><span class='va'>pet</span> <span class='op'>&lt;-</span> <span class='fu'>treatment_code</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>pet</span>, base <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>pet</span>, <span class='va'>df</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 5</span>
-#&gt;   term           estimate std.error statistic   p.value
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> (Intercept)        4.00     0.1        40.0 1.30<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-121</span>
-#&gt; <span style='color: #BCBCBC;'>2</span> pet.cat-dog       -<span style='color: #BB0000;'>2.00</span>     0.141     -<span style='color: #BB0000;'>14.1</span> 4.53<span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 35</span>
-#&gt; <span style='color: #BCBCBC;'>3</span> pet.ferret-dog     5.00     0.141      35.4 1.89<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-108</span></div><div class='input'>
-<span class='va'>df</span><span class='op'>$</span><span class='va'>pet</span> <span class='op'>&lt;-</span> <span class='fu'>treatment_code</span><span class='op'>(</span><span class='va'>df</span><span class='op'>$</span><span class='va'>pet</span>, base <span class='op'>=</span> <span class='st'>"ferret"</span><span class='op'>)</span>
-<span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'>~</span> <span class='va'>pet</span>, <span class='va'>df</span><span class='op'>)</span> <span class='op'>%&gt;%</span> <span class='fu'>broom</span><span class='fu'>::</span><span class='fu'><a href='https://generics.r-lib.org/reference/tidy.html'>tidy</a></span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 3 x 5</span>
-#&gt;   term           estimate std.error statistic   p.value
-#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>             <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;dbl&gt;</span>
-#&gt; <span style='color: #BCBCBC;'>1</span> (Intercept)        9.00     0.1        90.0 1.40<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-217</span>
-#&gt; <span style='color: #BCBCBC;'>2</span> pet.cat-ferret    -<span style='color: #BB0000;'>7.00</span>     0.141     -<span style='color: #BB0000;'>49.5</span> 1.67<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-145</span>
-#&gt; <span style='color: #BCBCBC;'>3</span> pet.dog-ferret    -<span style='color: #BB0000;'>5</span>        0.141     -<span style='color: #BB0000;'>35.4</span> 1.89<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-108</span></div></pre>
+#&gt; <span style='color: #BCBCBC;'>1</span> (Intercept)        5.00    0.057<span style='text-decoration: underline;'>7</span>      86.6 8.45<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-213</span>
+#&gt; <span style='color: #BCBCBC;'>2</span> pet.dog-cat        2.00    0.141       14.1 4.53<span style='color: #949494;'>e</span><span style='color: #BB0000;'>- 35</span>
+#&gt; <span style='color: #BCBCBC;'>3</span> pet.ferret-dog     5.00    0.141       35.4 1.89<span style='color: #949494;'>e</span><span style='color: #BB0000;'>-108</span></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

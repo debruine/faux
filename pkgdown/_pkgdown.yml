@@ -53,12 +53,12 @@ reference:
 - title: Contrasts
   desc: ~
   contents:
-  - '`contrast_code`'
+  - '`deviation_code`'
   - '`sum_code`'
+  - '`difference_code`'
   - '`treatment_code`'
   - '`helmert_code`'
   - '`poly_code`'
-  - '`sdif_code`'
 - title: Other useful functions
   desc: ~
   contents:
