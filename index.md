@@ -32,7 +32,7 @@ And the development version (1.0.0.9002) from [GitHub](https://github.com/debrui
 devtools::install_github("debruine/faux")
 ```
 
-See the [development version manual](https://github.com/debruine/faux/dev/).
+See the [development version manual](https://debruine.github.io/faux/dev/).
 
 ## Quick overview
 
