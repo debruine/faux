@@ -57,6 +57,8 @@ reference:
   - '`sum_code`'
   - '`treatment_code`'
   - '`helmert_code`'
+  - '`poly_code`'
+  - '`sdif_code`'
 - title: Other useful functions
   desc: ~
   contents:

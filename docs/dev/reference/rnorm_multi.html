@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9002</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9003</span>
       </span>
     </div>
 
@@ -228,26 +228,26 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># 4 10-item vectors each correlated r = .5</span>
 <span class='fu'>rnorm_multi</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span>, r <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;            X1         X2          X3          X4
-#&gt; 1  -1.7647485 -1.8513933 -1.12715660 -0.73124317
-#&gt; 2   0.6297134  0.3332850 -1.64962698  0.08072319
-#&gt; 3  -1.2348834 -0.3655223 -0.55329743 -0.25093360
-#&gt; 4  -1.0253721 -1.3591415 -1.23656010 -0.63395199
-#&gt; 5   1.1962863  0.6440892 -0.27605735 -0.28674106
-#&gt; 6   1.4475147  0.9169747  0.21254868  1.14760304
-#&gt; 7   0.3260213  1.1641642  0.30886118 -0.32930689
-#&gt; 8  -0.8863783 -1.4592325  0.94232073 -1.03644748
-#&gt; 9   0.1129999 -0.4163406  0.06864801 -1.06105383
-#&gt; 10  0.3918931 -1.6415429  0.66687578  1.11124887</div><div class='input'>
+</div><div class='output co'>#&gt;             X1          X2         X3         X4
+#&gt; 1   2.26228815  1.31587107  1.8786974  1.1974222
+#&gt; 2   2.61398540  1.46468317  1.1016009  1.2375080
+#&gt; 3   0.17535439 -0.58518686  0.5962949 -0.8329703
+#&gt; 4   0.65834141  1.62313347  0.6509768 -0.4341515
+#&gt; 5   0.56115125  0.08916298  0.4800961 -0.9100881
+#&gt; 6  -0.42675179 -0.57231410 -0.2732119 -1.0033730
+#&gt; 7   0.23949066  0.12638909  1.0504229  0.5078716
+#&gt; 8   0.97990748  1.87037107  1.5333944  1.4681412
+#&gt; 9   0.74322877  0.78589734 -1.0921895 -0.5364736
+#&gt; 10 -0.08677441 -0.24118622  0.9750865  1.1996270</div><div class='input'>
 <span class='co'># set r with the upper right triangle</span>
 <span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'>rnorm_multi</span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>.5</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>1</span>, 
                  r <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='op'>-</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span><span class='op'>)</span>, 
                  varnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            A         B          C
-#&gt; A  1.0000000 0.3251094 -0.4891226
-#&gt; B  0.3251094 1.0000000  0.4558722
-#&gt; C -0.4891226 0.4558722  1.0000000</div><div class='input'>
+#&gt; A  1.0000000 0.1295312 -0.4754863
+#&gt; B  0.1295312 1.0000000  0.5087928
+#&gt; C -0.4754863 0.5087928  1.0000000</div><div class='input'>
 <span class='co'># set r with a correlation matrix and column names from mu names</span>
 <span class='va'>c</span> <span class='op'>&lt;-</span> <span class='fu'>rnorm_multi</span><span class='op'>(</span>
   n <span class='op'>=</span> <span class='fl'>100</span>, 
@@ -258,9 +258,9 @@
 <span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>c</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            A         B          C
-#&gt; A  1.0000000 0.1003833 -0.4715536
-#&gt; B  0.1003833 1.0000000  0.5469251
-#&gt; C -0.4715536 0.5469251  1.0000000</div><div class='input'>
+#&gt; A  1.0000000 0.2838939 -0.4436183
+#&gt; B  0.2838939 1.0000000  0.5268825
+#&gt; C -0.4436183 0.5268825  1.0000000</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
