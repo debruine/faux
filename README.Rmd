@@ -52,7 +52,7 @@ And the development version from [GitHub](https://github.com/debruine/faux) with
 devtools::install_github("debruine/faux")
 ```
 
-See the [development version manual](https://github.com/debruine/faux/dev/).
+See the [development version manual](https://debruine.github.io/faux/dev/).
 
 ## How to use faux
 
