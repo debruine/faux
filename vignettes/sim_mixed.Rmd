@@ -39,7 +39,7 @@ data <- add_random(school = 3) %>%
   add_random(class = c(2, 3, 4), .nested_in = "school")
 ```
 
-`r kableExtra::kable(data)`
+`r knitr::kable(data)`
 
 A cross-classified design with 2 subjects and 3 items.
 
@@ -47,7 +47,7 @@ A cross-classified design with 2 subjects and 3 items.
 data <- add_random(subj = 2, item = 3)
 ```
 
-`r kableExtra::kable(data)`
+`r knitr::kable(data)`
 
 
 ## Adding fixed factors
@@ -61,7 +61,7 @@ data <- add_random(subj = 2) %>%
              condition = c("control", "test"))
 ```
 
-`r kableExtra::kable(data)`
+`r knitr::kable(data)`
 
 Add between factors with `add_between()`. If you have more than one factor, they will be crossed. If you set `.shuffle = TRUE`, the factors will be added randomly (not in "order"), and separately added factors may end up confounded. This simulates true random allocation.
 
@@ -73,7 +73,7 @@ data <- add_random(subj = 4, item = 2) %>%
   add_between(c("subj", "item"), not_shuffled = 1:4, .shuffle = FALSE)
 ```
 
-`r kableExtra::kable(data)`
+`r knitr::kable(data)`
 
 ### Unequal cells
 
@@ -85,7 +85,7 @@ data <- add_random(subj = 10) %>%
   add_between("subj", age = c("young", "old"), .prob = c(.8, .2))
 ```
 
-`r kableExtra::kable(data)`
+`r knitr::kable(data)`
 
 ### Counterbalanced designs
 
@@ -98,7 +98,7 @@ data <- add_random(subj = 4, item = 4) %>%
   dplyr::filter(subj_cb == item_cb)
 ```
 
-`r kableExtra::kable(data)`
+`r knitr::kable(data)`
 
 ### Recoding
 
@@ -114,7 +114,7 @@ data <- add_random(subj = 2, item = 3) %>%
   add_recode("type", "type.Z", X = 0, Y = 0, Z = 1)
 ```
 
-`r kableExtra::kable(data)`
+`r knitr::kable(data)`
 
 
 ## Adding random effects
@@ -136,7 +136,7 @@ data <- add_random(subj = 4, item = 2) %>%
   add_ranef(sigma = 2.2)
 ```
 
-`r kableExtra::kable(data, digits = 3)`
+`r knitr::kable(data, digits = 3)`
 
 
 ## Simulating data
@@ -168,7 +168,7 @@ data <- add_random(subj = subj_n, item = item_n) %>%
   mutate(dv = b0 + u0s + u0i + (b1 + u1i) * cond.t + sigma)
 ```
 
-`r kableExtra::kable(head(data), digits = 3)`
+`r knitr::kable(head(data), digits = 3)`
 
 ## Analysing your multilevel data
 
