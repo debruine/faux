@@ -1,3 +1,9 @@
+# faux 1.0.9004 (2021-08-10)
+
+* Updated contrasts vignette
+* new `add_contrast()` function
+* renamed the contrast functions to all start with `contr_code_`
+
 # faux 1.0.9003 (2021-08-09)
 
 * added new contrast functions and changed labelling of others

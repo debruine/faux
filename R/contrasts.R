@@ -13,27 +13,24 @@
 #' @examples
 #' df <- sim_design(between = list(pet = c("cat", "dog")), 
 #'                  mu = c(10, 20), plot = FALSE)
-#' df$pet <- deviation_code(df$pet)
+#' df$pet <- contr_code_deviation(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
 #' df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
 #'                  mu = c(2, 4, 9), empirical = TRUE, plot = FALSE)
 #'                  
-#' df$pet <- deviation_code(df$pet, base = 1)
+#' df$pet <- contr_code_deviation(df$pet, base = 1)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- deviation_code(df$pet, base = 2)
+#' df$pet <- contr_code_deviation(df$pet, base = 2)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- deviation_code(df$pet, base = "ferret")
+#' df$pet <- contr_code_deviation(df$pet, base = "ferret")
 #' lm(y ~ pet, df) %>% broom::tidy()
-deviation_code <- function(fct, levels = NULL, base = 1) {
+contr_code_deviation <- function(fct, levels = NULL, base = 1) {
   # make sure fct is a factor with correct levels
-  if (is.null(levels)) {
-    levels <- levels(fct)
-  } else {
-    fct <- factor(fct, levels)
-  }
+  if (is.null(levels)) levels <- levels(fct) %||% fct
+  fct <- factor(fct, levels)
   
   # create coding matrix
   n <- length(levels)
@@ -62,28 +59,24 @@ deviation_code <- function(fct, levels = NULL, base = 1) {
 #'
 #' @return the factor with contrasts set
 #'
-#' @return
 #' @export
 #'
 #' @examples
 #' df <- sim_design(between = list(pet = c("cat", "dog", "bird", "ferret")), 
 #'                  mu = c(2, 4, 9, 13), empirical = TRUE, plot = FALSE)
 #' 
-#' df$pet <- sum_code(df$pet)
+#' df$pet <- contr_code_sum(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- sum_code(df$pet, omit = "cat")
+#' df$pet <- contr_code_sum(df$pet, omit = "cat")
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- sum_code(df$pet, omit = 1)
+#' df$pet <- contr_code_sum(df$pet, omit = 1)
 #' lm(y ~ pet, df) %>% broom::tidy()
-sum_code <- function(fct, levels = NULL, omit = length(levels)) {
+contr_code_sum <- function(fct, levels = NULL, omit = length(levels)) {
   # make sure fct is a factor with correct levels
-  if (is.null(levels)) {
-    levels <- levels(fct)
-  } else {
-    fct <- factor(fct, levels)
-  }
+  if (is.null(levels)) levels <- levels(fct) %||% fct
+  fct <- factor(fct, levels)
   
   # create coding matrix
   n <- length(levels)
@@ -107,8 +100,8 @@ sum_code <- function(fct, levels = NULL, omit = length(levels)) {
 
 #' Treatment code a factor
 #' 
-#' Treatment coding sets the mean of the reference group as the intercept. 
-#' Each contrast compares one level with the reference level (base).
+#' Treatment coding sets the mean of the reference level (base) as the intercept. 
+#' Each contrast compares one level with the reference level.
 #'
 #' @param fct the factor to contrast code (or a vector)
 #' @param levels the levels of the factor in order
@@ -120,27 +113,24 @@ sum_code <- function(fct, levels = NULL, omit = length(levels)) {
 #' @examples
 #' df <- sim_design(between = list(pet = c("cat", "dog")), 
 #'                  mu = c(10, 20), plot = FALSE)
-#' df$pet <- treatment_code(df$pet)
+#' df$pet <- contr_code_treatment(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
 #' df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
 #'                  mu = c(2, 4, 9), empirical = TRUE, plot = FALSE)
 #'                  
-#' df$pet <- treatment_code(df$pet)
+#' df$pet <- contr_code_treatment(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- treatment_code(df$pet, base = 2)
+#' df$pet <- contr_code_treatment(df$pet, base = 2)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- treatment_code(df$pet, base = "ferret")
+#' df$pet <- contr_code_treatment(df$pet, base = "ferret")
 #' lm(y ~ pet, df) %>% broom::tidy()
-treatment_code <- function(fct, levels = NULL, base = 1) {
+contr_code_treatment <- function(fct, levels = NULL, base = 1) {
   # make sure fct is a factor with correct levels
-  if (is.null(levels)) {
-    levels <- levels(fct)
-  } else {
-    fct <- factor(fct, levels)
-  }
+  if (is.null(levels)) levels <- levels(fct) %||% fct
+  fct <- factor(fct, levels)
   
   # create coding matrix
   n <- length(levels)
@@ -172,27 +162,25 @@ treatment_code <- function(fct, levels = NULL, base = 1) {
 #' @examples
 #' df <- sim_design(between = list(pet = c("cat", "dog")), 
 #'                  mu = c(10, 20), plot = FALSE)
-#' df$pet <- helmert_code(df$pet)
+#' df$pet <- contr_code_helmert(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
 #' df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
 #'                  mu = c(2, 4, 9), empirical = TRUE, plot = FALSE)
 #'                  
-#' df$pet <- helmert_code(df$pet)
+#' df$pet <- contr_code_helmert(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- helmert_code(df$pet, levels = c("dog", "cat", "ferret"))
+#' # reorder the levels to change the comparisons
+#' df$pet <- contr_code_helmert(df$pet, levels = c("dog", "cat", "ferret"))
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- helmert_code(df$pet, levels = c("ferret", "dog", "cat"))
+#' df$pet <- contr_code_helmert(df$pet, levels = c("ferret", "dog", "cat"))
 #' lm(y ~ pet, df) %>% broom::tidy()
-helmert_code <- function(fct, levels = NULL) {
+contr_code_helmert <- function(fct, levels = NULL) {
   # make sure fct is a factor with correct levels
-  if (is.null(levels)) {
-    levels <- levels(fct)
-  } else {
-    fct <- factor(fct, levels)
-  }
+  if (is.null(levels)) levels <- levels(fct) %||% fct
+  fct <- factor(fct, levels)
   
   # create coding matrix
   n <- length(levels)
@@ -215,6 +203,9 @@ helmert_code <- function(fct, levels = NULL) {
 
 
 #' Polynomial code a factor
+#' 
+#' Polynomial coding sets the grand mean as the intercept. 
+#' Each contrast tests a trend (linear, quadratic, cubic, etc.). This is only suitable for ordered factors.
 #'
 #' @param fct the factor to contrast code (or a vector)
 #' @param levels the levels of the factor in order
@@ -227,16 +218,13 @@ helmert_code <- function(fct, levels = NULL) {
 #'                  mu = 1:6 + (1:6-3.5)^2, 
 #'                  long = TRUE, plot = FALSE)
 #'                  
-#' df$time <- poly_code(df$time)
+#' df$time <- contr_code_poly(df$time)
 #' lm(y ~ time, df) %>% broom::tidy()
 #' 
-poly_code <- function(fct, levels = NULL) {
-  # make sure fct is a factor with correct levels
-  if (is.null(levels)) {
-    levels <- levels(fct)
-  } else {
-    fct <- factor(fct, levels)
-  }
+contr_code_poly <- function(fct, levels = NULL) {
+  # make sure fct is an ordered factor with correct levels
+  if (is.null(levels)) levels <- levels(fct) %||% fct
+  fct <- factor(fct, levels, ordered = TRUE)
   
   # create coding matrix
   n <- length(levels)
@@ -244,7 +232,6 @@ poly_code <- function(fct, levels = NULL) {
   
   # create column names
   colnames <- paste0("^", 1:(n-1))
-    
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -268,16 +255,13 @@ poly_code <- function(fct, levels = NULL) {
 #' df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
 #'                  mu = c(2, 4, 9), empirical = TRUE, plot = FALSE)
 #'                  
-#' df$pet <- difference_code(df$pet)
+#' df$pet <- contr_code_difference(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-difference_code <- function(fct, levels = NULL) {
+contr_code_difference <- function(fct, levels = NULL) {
   # make sure fct is a factor with correct levels
-  if (is.null(levels)) {
-    levels <- levels(fct)
-  } else {
-    fct <- factor(fct, levels)
-  }
+  if (is.null(levels)) levels <- levels(fct) %||% fct
+  fct <- factor(fct, levels)
   
   # create coding matrix
   n <- length(levels)
@@ -288,7 +272,6 @@ difference_code <- function(fct, levels = NULL) {
   
   # create column names
   colnames <- paste0(".", levels[2:n], "-", levels[1:(n-1)])
-  
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -296,3 +279,51 @@ difference_code <- function(fct, levels = NULL) {
   fct
 }
 
+#' Add a contrast to a data frame
+#'
+#' @param data the data frame
+#' @param col the column to recode
+#' @param contrast the contrast to recode to
+#' @param levels the levels of the factor in order
+#' @param ... arguments to pass to the contrast function (base or omit)
+#' @param add_cols whether to just add the contrast to the existing column or also to create new explicit columns in the dataset (default)
+#' @param colnames optional list of column names for the added contrasts
+#'
+#' @return the data frame with the recoded column and added columns (if add_cols == TRUE)
+#' @export
+#'
+#' @examples
+#' df <- sim_design(between = list(time = 1:6), plot = FALSE) %>%
+#'    add_contrast("time", "poly")
+#' 
+#' # test all polynomial contrasts
+#' lm(y ~ time, df) %>% broom::tidy()
+#' 
+#' # test only the linear and quadratic contrasts
+#' lm(y ~ `time^1` + `time^2`, df) %>% broom::tidy()
+add_contrast <- function(data, col, contrast = c("deviation", "sum", "treatment", "helmert", "poly", "difference"), levels = NULL, ..., add_cols = TRUE, colnames = NULL) {
+  fct <- data[[col]]
+  contrast <- match.arg(contrast)
+  
+  f <- match.fun(paste0("contr_code_", contrast))
+  newfct <- f(fct, levels, ...)
+  
+  if (isTRUE(add_cols)) {
+    contr <- contrasts(newfct)
+    colnames(contr) <- colnames %||% paste0(col, colnames(contr))
+    contr <- dplyr::as_tibble(contr, rownames = col)
+    suffix <- switch(contrast, 
+                     deviation = ".dev", 
+                     sum = ".sum", 
+                     treatment = ".tr", 
+                     helmert = ".hmt", 
+                     poly = ".poly", 
+                     difference = ".dif")
+    data <- dplyr::left_join(data, contr, by = col, suffix = c("", suffix))
+  }
+  
+  # add after join, which removes factor from col
+  data[col] <- newfct 
+  
+  data
+}

@@ -29,7 +29,7 @@ articles:
   - sim_mixed
   - distributions
   - codebook
-  - coding
+  - contrasts
 
 reference:
 - title: Simulation functions
@@ -53,12 +53,13 @@ reference:
 - title: Contrasts
   desc: ~
   contents:
-  - '`deviation_code`'
-  - '`sum_code`'
-  - '`difference_code`'
-  - '`treatment_code`'
-  - '`helmert_code`'
-  - '`poly_code`'
+  - '`add_contrast`'
+  - '`contr_code_treatment`'
+  - '`contr_code_deviation`'
+  - '`contr_code_difference`'
+  - '`contr_code_sum`'
+  - '`contr_code_helmert`'
+  - '`contr_code_poly`'
 - title: Other useful functions
   desc: ~
   contents:
