@@ -1,16 +1,16 @@
-test_that("deviation_code", {
+test_that("contr_code_deviation", {
   x <- factor(1:2, labels = LETTERS[1:2])
-  x1 <- deviation_code(x, base = 1)
-  x2 <- deviation_code(x, base = 2)
+  x1 <- contr_code_deviation(x, base = 1)
+  x2 <- contr_code_deviation(x, base = 2)
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[1:2], ".B-A"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[1:2], ".A-B"))
   expect_equal(contrasts(x1), mat1)
   expect_equal(contrasts(x2), mat2)
   
   x <- factor(1:3, labels = LETTERS[1:3])
-  x1 <- deviation_code(x, base = 1)
-  x2 <- deviation_code(x, base = 2)
-  x3 <- deviation_code(x, base = 3)
+  x1 <- contr_code_deviation(x, base = 1)
+  x2 <- contr_code_deviation(x, base = 2)
+  x3 <- contr_code_deviation(x, base = 3)
   mat1 <- matrix(c(-1/3,  2/3, -1/3, -1/3, -1/3, 2/3), nrow = 3,
                  dimnames = list(LETTERS[1:3], c(".B-A", ".C-A")))
   mat2 <- matrix(c(2/3, -1/3, -1/3, -1/3, -1/3, 2/3), nrow = 3,
@@ -22,45 +22,52 @@ test_that("deviation_code", {
   expect_equal(contrasts(x3), mat3)
 })
 
-# deviation_code, base by name ----
-test_that("deviation_code, base by name", {
+# contr_code_deviation, base by name ----
+test_that("contr_code_deviation, base by name", {
   x <- factor(1:2, labels = LETTERS[1:2])
-  xA <- deviation_code(x, base = "A")
-  xB <- deviation_code(x, base = "B")
+  xA <- contr_code_deviation(x, base = "A")
+  xB <- contr_code_deviation(x, base = "B")
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[1:2], ".B-A"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[1:2], ".A-B"))
   expect_equal(contrasts(xA), mat1)
   expect_equal(contrasts(xB), mat2)
 })
 
-# deviation_code, specify levels ----
-test_that("deviation_code, specify levels", {
+# contr_code_deviation, specify levels ----
+test_that("contr_code_deviation, specify levels", {
   x <- 1:2
   lvls <- c("A", "B")
-  x1 <- deviation_code(x, levels = lvls, base = 1)
-  x2 <- deviation_code(x, levels = lvls, base = 2)
+  x1 <- contr_code_deviation(x, levels = lvls, base = 1)
+  x2 <- contr_code_deviation(x, levels = lvls, base = 2)
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[1:2], ".B-A"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[1:2], ".A-B"))
   expect_equal(contrasts(x1), mat1)
   expect_equal(contrasts(x2), mat2)
-  
+  expect_true(is.factor(x1))
+  expect_true(is.factor(x2))
+  expect_equal(levels(x1), lvls)
+  expect_equal(levels(x2), lvls)
   
   x <- c("A", "B")
   lvls <- c("B", "A")
-  x1 <- deviation_code(x, levels = lvls, base = 1)
-  x2 <- deviation_code(x, levels = lvls, base = 2)
+  x1 <- contr_code_deviation(x, levels = lvls, base = 1)
+  x2 <- contr_code_deviation(x, levels = lvls, base = 2)
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[2:1], ".A-B"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[2:1], ".B-A"))
   expect_equal(contrasts(x1), mat1)
   expect_equal(contrasts(x2), mat2)
+  expect_true(is.factor(x1))
+  expect_true(is.factor(x2))
+  expect_equal(levels(x1), lvls)
+  expect_equal(levels(x2), lvls)
 })
 
-# sum_code ----
-test_that("sum_code", {
+# contr_code_sum ----
+test_that("contr_code_sum", {
   x <- factor(1:2, labels = LETTERS[1:2])
-  x0 <- sum_code(x)
-  x1 <- sum_code(x, omit = 1)
-  x2 <- sum_code(x, omit = 2)
+  x0 <- contr_code_sum(x)
+  x1 <- contr_code_sum(x, omit = 1)
+  x2 <- contr_code_sum(x, omit = 2)
   mat1 <- matrix(c(-1, 1), dimnames = list(LETTERS[1:2], ".B-intercept"))
   mat2 <- matrix(c(1, -1), dimnames = list(LETTERS[1:2], ".A-intercept"))
   expect_equal(contrasts(x0), mat2)
@@ -68,9 +75,9 @@ test_that("sum_code", {
   expect_equal(contrasts(x2), mat2)
   
   x <- factor(1:3, labels = LETTERS[1:3])
-  x1 <- sum_code(x, omit = 1)
-  x2 <- sum_code(x, omit = 2)
-  x3 <- sum_code(x)
+  x1 <- contr_code_sum(x, omit = 1)
+  x2 <- contr_code_sum(x, omit = 2)
+  x3 <- contr_code_sum(x)
   
   expect_equal(contrasts(x1) %>% as.vector(), c(-1, 1, 0, -1, 0, 1))
   expect_equal(contrasts(x2) %>% as.vector(), c(1, -1, 0, 0, -1, 1))
@@ -90,12 +97,12 @@ test_that("sum_code", {
 })
 
 
-# treatment_code ----
-test_that("treatment_code", {
+# contr_code_treatment ----
+test_that("contr_code_treatment", {
   x <- factor(1:3, labels = LETTERS[1:3])
-  x1 <- treatment_code(x)
-  x2 <- treatment_code(x, base = "B")
-  x3 <- treatment_code(x, base = 3)
+  x1 <- contr_code_treatment(x)
+  x2 <- contr_code_treatment(x, base = "B")
+  x3 <- contr_code_treatment(x, base = 3)
   mat1 <- matrix(c(0,1,0,0,0,1), 3, 
                  dimnames = list(LETTERS[1:3], c(".B-A", ".C-A")))
   mat2 <- matrix(c(1,0,0,0,0,1), 3, 
@@ -108,11 +115,11 @@ test_that("treatment_code", {
 })
 
 
-# helmert_code ----
-test_that("helmert_code", {
+# contr_code_helmert ----
+test_that("contr_code_helmert", {
   x <- factor(1:3, labels = LETTERS[1:3])
-  x1 <- helmert_code(x)
-  x2 <- helmert_code(x, levels = c("C", "B", "A"))
+  x1 <- contr_code_helmert(x)
+  x2 <- contr_code_helmert(x, levels = c("C", "B", "A"))
   mat1 <- matrix(c(-.5, .5, 0, -1/3, -1/3, 2/3), 3, 
                  dimnames = list(LETTERS[1:3], c(".B-A", ".C-A.B")))
   mat2 <- matrix(c(-.5, .5, 0, -1/3, -1/3, 2/3), 3, 
@@ -121,28 +128,63 @@ test_that("helmert_code", {
   expect_equal(contrasts(x2), mat2)
 })
 
-# poly_code ----
-test_that("poly_code", {
+# contr_code_poly ----
+test_that("contr_code_poly", {
   x <- factor(1:3, labels = LETTERS[1:3])
-  x1 <- poly_code(x)
-  x2 <- poly_code(x, levels = c("C", "B", "A"))
+  x1 <- contr_code_poly(x)
+  lvl2 <- c("C", "B", "A")
+  x2 <- contr_code_poly(x, levels = lvl2)
   mat1 <- matrix(c(-.7071, 0, .7071, .408, -.8165, .408), 3, 
                  dimnames = list(LETTERS[1:3], c("^1", "^2")))
   mat2 <- mat1
-  dimnames(mat2)[[1]] <- c("C", "B", "A")
+  dimnames(mat2)[[1]] <- lvl2
   expect_equal(contrasts(x1), mat1, tol = .001)
   expect_equal(contrasts(x2), mat2, tol = .001)
+  
+  # make sure result is an ordered factor with the right levels
+  expect_true(is.ordered(x1))
+  expect_true(is.ordered(x2))
+  expect_equal(levels(x2), lvl2)
 })
 
-# difference_code ----
-test_that("difference_code", {
+# contr_code_difference ----
+test_that("contr_code_difference", {
   x <- factor(1:3, labels = LETTERS[1:3])
-  x1 <- difference_code(x)
-  x2 <- difference_code(x, levels = c("C", "B", "A"))
+  x1 <- contr_code_difference(x)
+  x2 <- contr_code_difference(x, levels = c("C", "B", "A"))
   mat1 <- matrix(c(-2/3, 1/3, 1/3, -1/3, -1/3, 2/3), 3, 
                  dimnames = list(LETTERS[1:3], c(".B-A", ".C-B")))
   mat2 <- mat1
   dimnames(mat2) <- list(LETTERS[3:1], c(".B-C", ".A-B"))
   expect_equal(contrasts(x1), mat1, tol = .001)
   expect_equal(contrasts(x2), mat2, tol = .001)
+})
+
+
+# add_contrast ----
+test_that("add_contrast", {
+  btwn <- list(pet = c("cat", "dog", "ferret")) 
+  df <- sim_design(between = btwn, n = 1, plot = FALSE)
+  suffix <- c(deviation = ".dev", 
+             sum = ".sum", 
+             treatment = ".tr", 
+             helmert = ".hmt", 
+             poly = ".poly", 
+             difference = ".dif")
+  names <- list(deviation = c("pet.dog-cat", "pet.ferret-cat"), 
+                sum = c("pet.cat-intercept", "pet.dog-intercept"), 
+                treatment = c("pet.dog-cat", "pet.ferret-cat"), 
+                helmert = c("pet.dog-cat", "pet.ferret-cat.dog"), 
+                poly = c("pet^1", "pet^2"), 
+                difference = c("pet.dog-cat", "pet.ferret-dog"))
+  contrasts <- c("deviation", "sum", "treatment", "helmert", "poly", "difference")
+  
+  for (ctrst in contrasts) {
+    df1 <- add_contrast(df, "pet", ctrst)
+    df2 <- add_contrast(df1, "pet", ctrst)
+    cnames1 <- c(colnames(df), names[[ctrst]])
+    cnames2 <- c(cnames1, paste0(names[[ctrst]], suffix[[ctrst]]))
+    expect_equal(colnames(df1), cnames1)
+    expect_equal(colnames(df2), cnames2)
+  }
 })

@@ -3,15 +3,15 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   codebook: codebook.html
-  coding: coding.html
   continuous: continuous.html
+  contrasts: contrasts.html
   distributions: distributions.html
   plots: plots.html
   rnorm_multi: rnorm_multi.html
   sim_design: sim_design.html
   sim_df: sim_df.html
   sim_mixed: sim_mixed.html
-last_built: 2021-08-09T11:09Z
+last_built: 2021-08-10T12:15Z
 urls:
   reference: https://debruine.github.io/faux/reference
   article: https://debruine.github.io/faux/articles

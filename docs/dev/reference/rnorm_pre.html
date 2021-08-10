@@ -84,7 +84,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9004</span>
       </span>
     </div>
 
@@ -131,7 +131,7 @@
       <a href="../articles/codebook.html">Codebook Demo</a>
     </li>
     <li>
-      <a href="../articles/coding.html">Coding Schemes</a>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -207,14 +207,14 @@
     <pre class="examples"><div class='input'><span class='va'>v1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
 <span class='va'>v2</span> <span class='op'>&lt;-</span> <span class='fu'>rnorm_pre</span><span class='op'>(</span><span class='va'>v1</span>, <span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.5</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>v1</span>, <span class='va'>v2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 0.5693768</div><div class='input'>
+</div><div class='output co'>#&gt; [1] 0.7712965</div><div class='input'>
 <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='rnorm_multi.html'>rnorm_multi</a></span><span class='op'>(</span><span class='fl'>50</span>, <span class='fl'>2</span>, <span class='fl'>.5</span><span class='op'>)</span>
 <span class='va'>x</span><span class='op'>$</span><span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'>rnorm_pre</span><span class='op'>(</span><span class='va'>x</span>, r <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.5</span>, <span class='fl'>0.25</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            X1         X2         y
-#&gt; X1  1.0000000 -0.0805276 0.4880132
-#&gt; X2 -0.0805276  1.0000000 0.2701725
-#&gt; y   0.4880132  0.2701725 1.0000000</div></pre>
+#&gt; X1 1.00000000 0.01447404 0.5566679
+#&gt; X2 0.01447404 1.00000000 0.2687557
+#&gt; y  0.55666790 0.26875572 1.0000000</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
