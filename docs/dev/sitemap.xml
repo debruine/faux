@@ -10,6 +10,9 @@
     <loc>https://debruine.github.io/faux/reference/add_between.html</loc>
   </url>
   <url>
+    <loc>https://debruine.github.io/faux/reference/add_contrast.html</loc>
+  </url>
+  <url>
     <loc>https://debruine.github.io/faux/reference/add_random.html</loc>
   </url>
   <url>
@@ -46,7 +49,22 @@
     <loc>https://debruine.github.io/faux/reference/codebook_interactive.html</loc>
   </url>
   <url>
-    <loc>https://debruine.github.io/faux/reference/contrast_code.html</loc>
+    <loc>https://debruine.github.io/faux/reference/contr_code_deviation.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/contr_code_difference.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/contr_code_helmert.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/contr_code_poly.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/contr_code_sum.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/contr_code_treatment.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/convert_param.html</loc>
@@ -86,9 +104,6 @@
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/getcols.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/reference/helmert_code.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/interactive_design.html</loc>
@@ -142,9 +157,6 @@
     <loc>https://debruine.github.io/faux/reference/plot_design.html</loc>
   </url>
   <url>
-    <loc>https://debruine.github.io/faux/reference/poly_code.html</loc>
-  </url>
-  <url>
     <loc>https://debruine.github.io/faux/reference/pos_def_limits.html</loc>
   </url>
   <url>
@@ -167,9 +179,6 @@
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/sample_from_pop.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/reference/sdif_code.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/set_design.html</loc>
@@ -196,12 +205,6 @@
     <loc>https://debruine.github.io/faux/reference/std_alpha2average_r.html</loc>
   </url>
   <url>
-    <loc>https://debruine.github.io/faux/reference/sum_code.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/reference/treatment_code.html</loc>
-  </url>
-  <url>
     <loc>https://debruine.github.io/faux/reference/trunc2norm.html</loc>
   </url>
   <url>
@@ -217,10 +220,10 @@
     <loc>https://debruine.github.io/faux/articles/codebook.html</loc>
   </url>
   <url>
-    <loc>https://debruine.github.io/faux/articles/coding.html</loc>
+    <loc>https://debruine.github.io/faux/articles/continuous.html</loc>
   </url>
   <url>
-    <loc>https://debruine.github.io/faux/articles/continuous.html</loc>
+    <loc>https://debruine.github.io/faux/articles/contrasts.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/articles/distributions.html</loc>

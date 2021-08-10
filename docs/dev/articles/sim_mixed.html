@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9003</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9004</span>
       </span>
     </div>
 
@@ -90,7 +90,7 @@
       <a href="../articles/codebook.html">Codebook Demo</a>
     </li>
     <li>
-      <a href="../articles/coding.html">Coding Schemes</a>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -146,86 +146,46 @@
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>school <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, .nested_in <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr>
-<th style="text-align:left;">
-school
-</th>
-<th style="text-align:left;">
-class
-</th>
+<thead><tr class="header">
+<th align="left">school</th>
+<th align="left">class</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-c1
-</td>
+<tr class="odd">
+<td align="left">s1</td>
+<td align="left">c1</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-c2
-</td>
+<tr class="even">
+<td align="left">s1</td>
+<td align="left">c2</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-c3
-</td>
+<tr class="odd">
+<td align="left">s2</td>
+<td align="left">c3</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-c4
-</td>
+<tr class="even">
+<td align="left">s2</td>
+<td align="left">c4</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-c5
-</td>
+<tr class="odd">
+<td align="left">s2</td>
+<td align="left">c5</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s3
-</td>
-<td style="text-align:left;">
-c6
-</td>
+<tr class="even">
+<td align="left">s3</td>
+<td align="left">c6</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s3
-</td>
-<td style="text-align:left;">
-c7
-</td>
+<tr class="odd">
+<td align="left">s3</td>
+<td align="left">c7</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s3
-</td>
-<td style="text-align:left;">
-c8
-</td>
+<tr class="even">
+<td align="left">s3</td>
+<td align="left">c8</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s3
-</td>
-<td style="text-align:left;">
-c9
-</td>
+<tr class="odd">
+<td align="left">s3</td>
+<td align="left">c9</td>
 </tr>
 </tbody>
 </table>
@@ -233,62 +193,34 @@ c9
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">2</span>, item <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr>
-<th style="text-align:left;">
-subj
-</th>
-<th style="text-align:left;">
-item
-</th>
+<thead><tr class="header">
+<th align="left">subj</th>
+<th align="left">item</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i1
-</td>
+<tr class="odd">
+<td align="left">s1</td>
+<td align="left">i1</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i2
-</td>
+<tr class="even">
+<td align="left">s1</td>
+<td align="left">i2</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i3
-</td>
+<tr class="odd">
+<td align="left">s1</td>
+<td align="left">i3</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i1
-</td>
+<tr class="even">
+<td align="left">s2</td>
+<td align="left">i1</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i2
-</td>
+<tr class="odd">
+<td align="left">s2</td>
+<td align="left">i2</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i3
-</td>
+<tr class="even">
+<td align="left">s2</td>
+<td align="left">i3</td>
 </tr>
 </tbody>
 </table>
@@ -302,105 +234,51 @@ i3
   <span class="fu"><a href="../reference/add_within.html">add_within</a></span><span class="op">(</span><span class="st">"subj"</span>, time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>, <span class="st">"post"</span><span class="op">)</span>,
              condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr>
-<th style="text-align:left;">
-subj
-</th>
-<th style="text-align:left;">
-time
-</th>
-<th style="text-align:left;">
-condition
-</th>
+<thead><tr class="header">
+<th align="left">subj</th>
+<th align="left">time</th>
+<th align="left">condition</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-post
-</td>
-<td style="text-align:left;">
-control
-</td>
+<tr class="odd">
+<td align="left">s1</td>
+<td align="left">post</td>
+<td align="left">control</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-post
-</td>
-<td style="text-align:left;">
-test
-</td>
+<tr class="even">
+<td align="left">s1</td>
+<td align="left">post</td>
+<td align="left">test</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-pre
-</td>
-<td style="text-align:left;">
-control
-</td>
+<tr class="odd">
+<td align="left">s1</td>
+<td align="left">pre</td>
+<td align="left">control</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-pre
-</td>
-<td style="text-align:left;">
-test
-</td>
+<tr class="even">
+<td align="left">s1</td>
+<td align="left">pre</td>
+<td align="left">test</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-post
-</td>
-<td style="text-align:left;">
-control
-</td>
+<tr class="odd">
+<td align="left">s2</td>
+<td align="left">post</td>
+<td align="left">control</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-post
-</td>
-<td style="text-align:left;">
-test
-</td>
+<tr class="even">
+<td align="left">s2</td>
+<td align="left">post</td>
+<td align="left">test</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-pre
-</td>
-<td style="text-align:left;">
-control
-</td>
+<tr class="odd">
+<td align="left">s2</td>
+<td align="left">pre</td>
+<td align="left">control</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-pre
-</td>
-<td style="text-align:left;">
-test
-</td>
+<tr class="even">
+<td align="left">s2</td>
+<td align="left">pre</td>
+<td align="left">test</td>
 </tr>
 </tbody>
 </table>
@@ -412,213 +290,87 @@ test
   <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, shuffled <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, .shuffle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, not_shuffled <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, .shuffle <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr>
-<th style="text-align:left;">
-subj
-</th>
-<th style="text-align:left;">
-item
-</th>
-<th style="text-align:left;">
-cond
-</th>
-<th style="text-align:left;">
-gen
-</th>
-<th style="text-align:left;">
-version
-</th>
-<th style="text-align:right;">
-shuffled
-</th>
-<th style="text-align:right;">
-not_shuffled
-</th>
+<thead><tr class="header">
+<th align="left">subj</th>
+<th align="left">item</th>
+<th align="left">cond</th>
+<th align="left">gen</th>
+<th align="left">version</th>
+<th align="right">shuffled</th>
+<th align="right">not_shuffled</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-X
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-1
-</td>
+<tr class="odd">
+<td align="left">s1</td>
+<td align="left">i1</td>
+<td align="left">control</td>
+<td align="left">X</td>
+<td align="left">A</td>
+<td align="right">2</td>
+<td align="right">1</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-X
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-2
-</td>
+<tr class="even">
+<td align="left">s1</td>
+<td align="left">i2</td>
+<td align="left">control</td>
+<td align="left">X</td>
+<td align="left">B</td>
+<td align="right">3</td>
+<td align="right">2</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-Z
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-3
-</td>
+<tr class="odd">
+<td align="left">s2</td>
+<td align="left">i1</td>
+<td align="left">control</td>
+<td align="left">Z</td>
+<td align="left">A</td>
+<td align="right">2</td>
+<td align="right">3</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-Z
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4
-</td>
+<tr class="even">
+<td align="left">s2</td>
+<td align="left">i2</td>
+<td align="left">control</td>
+<td align="left">Z</td>
+<td align="left">B</td>
+<td align="right">1</td>
+<td align="right">4</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s3
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:left;">
-test
-</td>
-<td style="text-align:left;">
-X
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-1
-</td>
+<tr class="odd">
+<td align="left">s3</td>
+<td align="left">i1</td>
+<td align="left">test</td>
+<td align="left">X</td>
+<td align="left">A</td>
+<td align="right">3</td>
+<td align="right">1</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s3
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:left;">
-test
-</td>
-<td style="text-align:left;">
-X
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-2
-</td>
+<tr class="even">
+<td align="left">s3</td>
+<td align="left">i2</td>
+<td align="left">test</td>
+<td align="left">X</td>
+<td align="left">B</td>
+<td align="right">4</td>
+<td align="right">2</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s4
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:left;">
-test
-</td>
-<td style="text-align:left;">
-Z
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:right;">
-4
-</td>
-<td style="text-align:right;">
-3
-</td>
+<tr class="odd">
+<td align="left">s4</td>
+<td align="left">i1</td>
+<td align="left">test</td>
+<td align="left">Z</td>
+<td align="left">A</td>
+<td align="right">4</td>
+<td align="right">3</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s4
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:left;">
-test
-</td>
-<td style="text-align:left;">
-Z
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4
-</td>
+<tr class="even">
+<td align="left">s4</td>
+<td align="left">i2</td>
+<td align="left">test</td>
+<td align="left">Z</td>
+<td align="left">B</td>
+<td align="right">1</td>
+<td align="right">4</td>
 </tr>
 </tbody>
 </table>
@@ -631,127 +383,61 @@ B
   <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span>, .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"young"</span>, <span class="st">"old"</span><span class="op">)</span>, .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">.2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr>
-<th style="text-align:left;">
-subj
-</th>
-<th style="text-align:left;">
-cond
-</th>
-<th style="text-align:left;">
-age
-</th>
+<thead><tr class="header">
+<th align="left">subj</th>
+<th align="left">cond</th>
+<th align="left">age</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-s01
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-old
-</td>
+<tr class="odd">
+<td align="left">s01</td>
+<td align="left">control</td>
+<td align="left">old</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s02
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-young
-</td>
+<tr class="even">
+<td align="left">s02</td>
+<td align="left">control</td>
+<td align="left">young</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s03
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-old
-</td>
+<tr class="odd">
+<td align="left">s03</td>
+<td align="left">control</td>
+<td align="left">old</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s04
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-young
-</td>
+<tr class="even">
+<td align="left">s04</td>
+<td align="left">control</td>
+<td align="left">young</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s05
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-young
-</td>
+<tr class="odd">
+<td align="left">s05</td>
+<td align="left">control</td>
+<td align="left">young</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s06
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-young
-</td>
+<tr class="even">
+<td align="left">s06</td>
+<td align="left">control</td>
+<td align="left">young</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s07
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-young
-</td>
+<tr class="odd">
+<td align="left">s07</td>
+<td align="left">control</td>
+<td align="left">young</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s08
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:left;">
-old
-</td>
+<tr class="even">
+<td align="left">s08</td>
+<td align="left">control</td>
+<td align="left">old</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s09
-</td>
-<td style="text-align:left;">
-test
-</td>
-<td style="text-align:left;">
-young
-</td>
+<tr class="odd">
+<td align="left">s09</td>
+<td align="left">test</td>
+<td align="left">young</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s10
-</td>
-<td style="text-align:left;">
-test
-</td>
-<td style="text-align:left;">
-young
-</td>
+<tr class="even">
+<td align="left">s10</td>
+<td align="left">test</td>
+<td align="left">young</td>
 </tr>
 </tbody>
 </table>
@@ -766,132 +452,60 @@ young
   <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"item"</span>, item_cb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span><span class="op">(</span><span class="va">subj_cb</span> <span class="op">==</span> <span class="va">item_cb</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr>
-<th style="text-align:left;">
-subj
-</th>
-<th style="text-align:left;">
-item
-</th>
-<th style="text-align:left;">
-subj_cb
-</th>
-<th style="text-align:left;">
-item_cb
-</th>
+<thead><tr class="header">
+<th align="left">subj</th>
+<th align="left">item</th>
+<th align="left">subj_cb</th>
+<th align="left">item_cb</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:left;">
-A
-</td>
+<tr class="odd">
+<td align="left">s1</td>
+<td align="left">i1</td>
+<td align="left">A</td>
+<td align="left">A</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i3
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:left;">
-A
-</td>
+<tr class="even">
+<td align="left">s1</td>
+<td align="left">i3</td>
+<td align="left">A</td>
+<td align="left">A</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:left;">
-B
-</td>
+<tr class="odd">
+<td align="left">s2</td>
+<td align="left">i2</td>
+<td align="left">B</td>
+<td align="left">B</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i4
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:left;">
-B
-</td>
+<tr class="even">
+<td align="left">s2</td>
+<td align="left">i4</td>
+<td align="left">B</td>
+<td align="left">B</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s3
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:left;">
-A
-</td>
+<tr class="odd">
+<td align="left">s3</td>
+<td align="left">i1</td>
+<td align="left">A</td>
+<td align="left">A</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s3
-</td>
-<td style="text-align:left;">
-i3
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:left;">
-A
-</td>
+<tr class="even">
+<td align="left">s3</td>
+<td align="left">i3</td>
+<td align="left">A</td>
+<td align="left">A</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s4
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:left;">
-B
-</td>
+<tr class="odd">
+<td align="left">s4</td>
+<td align="left">i2</td>
+<td align="left">B</td>
+<td align="left">B</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s4
-</td>
-<td style="text-align:left;">
-i4
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:left;">
-B
-</td>
+<tr class="even">
+<td align="left">s4</td>
+<td align="left">i4</td>
+<td align="left">B</td>
+<td align="left">B</td>
 </tr>
 </tbody>
 </table>
@@ -909,188 +523,76 @@ B
   <span class="fu"><a href="../reference/add_recode.html">add_recode</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"type.Y"</span>, X <span class="op">=</span> <span class="fl">0</span>, Y <span class="op">=</span> <span class="fl">1</span>, Z <span class="op">=</span> <span class="fl">0</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/add_recode.html">add_recode</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"type.Z"</span>, X <span class="op">=</span> <span class="fl">0</span>, Y <span class="op">=</span> <span class="fl">0</span>, Z <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr>
-<th style="text-align:left;">
-subj
-</th>
-<th style="text-align:left;">
-item
-</th>
-<th style="text-align:left;">
-cond
-</th>
-<th style="text-align:left;">
-type
-</th>
-<th style="text-align:right;">
-cond.e
-</th>
-<th style="text-align:right;">
-cond.t
-</th>
-<th style="text-align:right;">
-type.Y
-</th>
-<th style="text-align:right;">
-type.Z
-</th>
+<thead><tr class="header">
+<th align="left">subj</th>
+<th align="left">item</th>
+<th align="left">cond</th>
+<th align="left">type</th>
+<th align="right">cond.e</th>
+<th align="right">cond.t</th>
+<th align="right">type.Y</th>
+<th align="right">type.Z</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:left;">
-X
-</td>
-<td style="text-align:right;">
--0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
+<tr class="odd">
+<td align="left">s1</td>
+<td align="left">i1</td>
+<td align="left">A</td>
+<td align="left">X</td>
+<td align="right">-0.5</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:left;">
-Y
-</td>
-<td style="text-align:right;">
--0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
+<tr class="even">
+<td align="left">s1</td>
+<td align="left">i2</td>
+<td align="left">A</td>
+<td align="left">Y</td>
+<td align="right">-0.5</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i3
-</td>
-<td style="text-align:left;">
-A
-</td>
-<td style="text-align:left;">
-Z
-</td>
-<td style="text-align:right;">
--0.5
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
+<tr class="odd">
+<td align="left">s1</td>
+<td align="left">i3</td>
+<td align="left">A</td>
+<td align="left">Z</td>
+<td align="right">-0.5</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:left;">
-X
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0
-</td>
+<tr class="even">
+<td align="left">s2</td>
+<td align="left">i1</td>
+<td align="left">B</td>
+<td align="left">X</td>
+<td align="right">0.5</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:left;">
-Y
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
+<tr class="odd">
+<td align="left">s2</td>
+<td align="left">i2</td>
+<td align="left">B</td>
+<td align="left">Y</td>
+<td align="right">0.5</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">0</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i3
-</td>
-<td style="text-align:left;">
-B
-</td>
-<td style="text-align:left;">
-Z
-</td>
-<td style="text-align:right;">
-0.5
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
+<tr class="even">
+<td align="left">s2</td>
+<td align="left">i3</td>
+<td align="left">B</td>
+<td align="left">Z</td>
+<td align="right">0.5</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">1</td>
 </tr>
 </tbody>
 </table>
@@ -1113,240 +615,96 @@ Z
   <span class="co"># add error term (by observation)</span>
   <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span>sigma <span class="op">=</span> <span class="fl">2.2</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr>
-<th style="text-align:left;">
-subj
-</th>
-<th style="text-align:left;">
-item
-</th>
-<th style="text-align:right;">
-version
-</th>
-<th style="text-align:right;">
-u0s
-</th>
-<th style="text-align:right;">
-u0i
-</th>
-<th style="text-align:right;">
-u1i
-</th>
-<th style="text-align:right;">
-u0si
-</th>
-<th style="text-align:right;">
-sigma
-</th>
+<thead><tr class="header">
+<th align="left">subj</th>
+<th align="left">item</th>
+<th align="right">version</th>
+<th align="right">u0s</th>
+<th align="right">u0i</th>
+<th align="right">u1i</th>
+<th align="right">u0si</th>
+<th align="right">sigma</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1.175
-</td>
-<td style="text-align:right;">
--2.549
-</td>
-<td style="text-align:right;">
-0.952
-</td>
-<td style="text-align:right;">
--1.531
-</td>
-<td style="text-align:right;">
-1.503
-</td>
+<tr class="odd">
+<td align="left">s1</td>
+<td align="left">i1</td>
+<td align="right">1</td>
+<td align="right">1.175</td>
+<td align="right">-2.549</td>
+<td align="right">0.952</td>
+<td align="right">-1.531</td>
+<td align="right">1.503</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s1
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1.175
-</td>
-<td style="text-align:right;">
--0.811
-</td>
-<td style="text-align:right;">
--1.595
-</td>
-<td style="text-align:right;">
--0.256
-</td>
-<td style="text-align:right;">
-1.518
-</td>
+<tr class="even">
+<td align="left">s1</td>
+<td align="left">i2</td>
+<td align="right">1</td>
+<td align="right">1.175</td>
+<td align="right">-0.811</td>
+<td align="right">-1.595</td>
+<td align="right">-0.256</td>
+<td align="right">1.518</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
--2.014
-</td>
-<td style="text-align:right;">
--2.549
-</td>
-<td style="text-align:right;">
-0.952
-</td>
-<td style="text-align:right;">
--1.407
-</td>
-<td style="text-align:right;">
-1.174
-</td>
+<tr class="odd">
+<td align="left">s2</td>
+<td align="left">i1</td>
+<td align="right">2</td>
+<td align="right">-2.014</td>
+<td align="right">-2.549</td>
+<td align="right">0.952</td>
+<td align="right">-1.407</td>
+<td align="right">1.174</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s2
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
--2.014
-</td>
-<td style="text-align:right;">
--0.811
-</td>
-<td style="text-align:right;">
--1.595
-</td>
-<td style="text-align:right;">
-3.376
-</td>
-<td style="text-align:right;">
--0.409
-</td>
+<tr class="even">
+<td align="left">s2</td>
+<td align="left">i2</td>
+<td align="right">2</td>
+<td align="right">-2.014</td>
+<td align="right">-0.811</td>
+<td align="right">-1.595</td>
+<td align="right">3.376</td>
+<td align="right">-0.409</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s3
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1.329
-</td>
-<td style="text-align:right;">
--2.549
-</td>
-<td style="text-align:right;">
-0.952
-</td>
-<td style="text-align:right;">
-0.075
-</td>
-<td style="text-align:right;">
-0.842
-</td>
+<tr class="odd">
+<td align="left">s3</td>
+<td align="left">i1</td>
+<td align="right">1</td>
+<td align="right">1.329</td>
+<td align="right">-2.549</td>
+<td align="right">0.952</td>
+<td align="right">0.075</td>
+<td align="right">0.842</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s3
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1.329
-</td>
-<td style="text-align:right;">
--0.811
-</td>
-<td style="text-align:right;">
--1.595
-</td>
-<td style="text-align:right;">
--0.687
-</td>
-<td style="text-align:right;">
-0.828
-</td>
+<tr class="even">
+<td align="left">s3</td>
+<td align="left">i2</td>
+<td align="right">1</td>
+<td align="right">1.329</td>
+<td align="right">-0.811</td>
+<td align="right">-1.595</td>
+<td align="right">-0.687</td>
+<td align="right">0.828</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s4
-</td>
-<td style="text-align:left;">
-i1
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0.195
-</td>
-<td style="text-align:right;">
--2.549
-</td>
-<td style="text-align:right;">
-0.952
-</td>
-<td style="text-align:right;">
--0.804
-</td>
-<td style="text-align:right;">
-2.538
-</td>
+<tr class="odd">
+<td align="left">s4</td>
+<td align="left">i1</td>
+<td align="right">2</td>
+<td align="right">0.195</td>
+<td align="right">-2.549</td>
+<td align="right">0.952</td>
+<td align="right">-0.804</td>
+<td align="right">2.538</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s4
-</td>
-<td style="text-align:left;">
-i2
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0.195
-</td>
-<td style="text-align:right;">
--0.811
-</td>
-<td style="text-align:right;">
--1.595
-</td>
-<td style="text-align:right;">
--0.705
-</td>
-<td style="text-align:right;">
-3.465
-</td>
+<tr class="even">
+<td align="left">s4</td>
+<td align="left">i2</td>
+<td align="right">2</td>
+<td align="right">0.195</td>
+<td align="right">-0.811</td>
+<td align="right">-1.595</td>
+<td align="right">-0.705</td>
+<td align="right">3.465</td>
 </tr>
 </tbody>
 </table>
@@ -1379,209 +737,83 @@ i2
   <span class="co"># calculate DV</span>
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dv <span class="op">=</span> <span class="va">b0</span> <span class="op">+</span> <span class="va">u0s</span> <span class="op">+</span> <span class="va">u0i</span> <span class="op">+</span> <span class="op">(</span><span class="va">b1</span> <span class="op">+</span> <span class="va">u1i</span><span class="op">)</span> <span class="op">*</span> <span class="va">cond.t</span> <span class="op">+</span> <span class="va">sigma</span><span class="op">)</span></code></pre></div>
 <table class="table">
-<thead><tr>
-<th style="text-align:left;">
-subj
-</th>
-<th style="text-align:left;">
-item
-</th>
-<th style="text-align:left;">
-cond
-</th>
-<th style="text-align:right;">
-cond.t
-</th>
-<th style="text-align:right;">
-u0s
-</th>
-<th style="text-align:right;">
-u0i
-</th>
-<th style="text-align:right;">
-u1i
-</th>
-<th style="text-align:right;">
-sigma
-</th>
-<th style="text-align:right;">
-dv
-</th>
+<thead><tr class="header">
+<th align="left">subj</th>
+<th align="left">item</th>
+<th align="left">cond</th>
+<th align="right">cond.t</th>
+<th align="right">u0s</th>
+<th align="right">u0i</th>
+<th align="right">u1i</th>
+<th align="right">sigma</th>
+<th align="right">dv</th>
 </tr></thead>
 <tbody>
-<tr>
-<td style="text-align:left;">
-s01
-</td>
-<td style="text-align:left;">
-i01
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.589
-</td>
-<td style="text-align:right;">
-2.135
-</td>
-<td style="text-align:right;">
-0.684
-</td>
-<td style="text-align:right;">
--2.351
-</td>
-<td style="text-align:right;">
-0.373
-</td>
+<tr class="odd">
+<td align="left">s01</td>
+<td align="left">i01</td>
+<td align="left">control</td>
+<td align="right">0</td>
+<td align="right">0.589</td>
+<td align="right">2.135</td>
+<td align="right">0.684</td>
+<td align="right">-2.351</td>
+<td align="right">0.373</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s01
-</td>
-<td style="text-align:left;">
-i02
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.589
-</td>
-<td style="text-align:right;">
--0.214
-</td>
-<td style="text-align:right;">
--0.252
-</td>
-<td style="text-align:right;">
--0.284
-</td>
-<td style="text-align:right;">
-0.090
-</td>
+<tr class="even">
+<td align="left">s01</td>
+<td align="left">i02</td>
+<td align="left">control</td>
+<td align="right">0</td>
+<td align="right">0.589</td>
+<td align="right">-0.214</td>
+<td align="right">-0.252</td>
+<td align="right">-0.284</td>
+<td align="right">0.090</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s01
-</td>
-<td style="text-align:left;">
-i03
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.589
-</td>
-<td style="text-align:right;">
-0.947
-</td>
-<td style="text-align:right;">
--0.151
-</td>
-<td style="text-align:right;">
-1.802
-</td>
-<td style="text-align:right;">
-3.337
-</td>
+<tr class="odd">
+<td align="left">s01</td>
+<td align="left">i03</td>
+<td align="left">control</td>
+<td align="right">0</td>
+<td align="right">0.589</td>
+<td align="right">0.947</td>
+<td align="right">-0.151</td>
+<td align="right">1.802</td>
+<td align="right">3.337</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s01
-</td>
-<td style="text-align:left;">
-i04
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.589
-</td>
-<td style="text-align:right;">
-0.652
-</td>
-<td style="text-align:right;">
--0.875
-</td>
-<td style="text-align:right;">
-0.716
-</td>
-<td style="text-align:right;">
-1.957
-</td>
+<tr class="even">
+<td align="left">s01</td>
+<td align="left">i04</td>
+<td align="left">control</td>
+<td align="right">0</td>
+<td align="right">0.589</td>
+<td align="right">0.652</td>
+<td align="right">-0.875</td>
+<td align="right">0.716</td>
+<td align="right">1.957</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s01
-</td>
-<td style="text-align:left;">
-i05
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.589
-</td>
-<td style="text-align:right;">
--0.729
-</td>
-<td style="text-align:right;">
--1.977
-</td>
-<td style="text-align:right;">
--1.837
-</td>
-<td style="text-align:right;">
--1.977
-</td>
+<tr class="odd">
+<td align="left">s01</td>
+<td align="left">i05</td>
+<td align="left">control</td>
+<td align="right">0</td>
+<td align="right">0.589</td>
+<td align="right">-0.729</td>
+<td align="right">-1.977</td>
+<td align="right">-1.837</td>
+<td align="right">-1.977</td>
 </tr>
-<tr>
-<td style="text-align:left;">
-s01
-</td>
-<td style="text-align:left;">
-i06
-</td>
-<td style="text-align:left;">
-control
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-0.589
-</td>
-<td style="text-align:right;">
--1.050
-</td>
-<td style="text-align:right;">
-0.238
-</td>
-<td style="text-align:right;">
--2.644
-</td>
-<td style="text-align:right;">
--3.105
-</td>
+<tr class="even">
+<td align="left">s01</td>
+<td align="left">i06</td>
+<td align="left">control</td>
+<td align="right">0</td>
+<td align="right">0.589</td>
+<td align="right">-1.050</td>
+<td align="right">0.238</td>
+<td align="right">-2.644</td>
+<td align="right">-3.105</td>
 </tr>
 </tbody>
 </table>
