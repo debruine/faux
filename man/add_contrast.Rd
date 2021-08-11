@@ -7,7 +7,7 @@
 add_contrast(
   data,
   col,
-  contrast = c("deviation", "sum", "treatment", "helmert", "poly", "difference"),
+  contrast = c("anova", "sum", "treatment", "helmert", "poly", "difference"),
   levels = NULL,
   ...,
   add_cols = TRUE,

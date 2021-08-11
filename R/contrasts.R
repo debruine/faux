@@ -1,6 +1,6 @@
-#' Deviation code a factor
+#' Anova code a factor
 #' 
-#' Deviation coding sets the grand mean as the intercept. 
+#' Anova coding (also called deviation or simple coding) sets the grand mean as the intercept. 
 #' Each contrast compares one level with the reference level (base).
 #'
 #' @param fct the factor to contrast code (or a vector)
@@ -13,21 +13,21 @@
 #' @examples
 #' df <- sim_design(between = list(pet = c("cat", "dog")), 
 #'                  mu = c(10, 20), plot = FALSE)
-#' df$pet <- contr_code_deviation(df$pet)
+#' df$pet <- contr_code_anova(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
 #' df <- sim_design(between = list(pet = c("cat", "dog", "ferret")), 
 #'                  mu = c(2, 4, 9), empirical = TRUE, plot = FALSE)
 #'                  
-#' df$pet <- contr_code_deviation(df$pet, base = 1)
+#' df$pet <- contr_code_anova(df$pet, base = 1)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- contr_code_deviation(df$pet, base = 2)
+#' df$pet <- contr_code_anova(df$pet, base = 2)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-#' df$pet <- contr_code_deviation(df$pet, base = "ferret")
+#' df$pet <- contr_code_anova(df$pet, base = "ferret")
 #' lm(y ~ pet, df) %>% broom::tidy()
-contr_code_deviation <- function(fct, levels = NULL, base = 1) {
+contr_code_anova <- function(fct, levels = NULL, base = 1) {
   # make sure fct is a factor with correct levels
   if (is.null(levels)) levels <- levels(fct) %||% fct
   fct <- factor(fct, levels)
@@ -301,8 +301,9 @@ contr_code_difference <- function(fct, levels = NULL) {
 #' 
 #' # test only the linear and quadratic contrasts
 #' lm(y ~ `time^1` + `time^2`, df) %>% broom::tidy()
-add_contrast <- function(data, col, contrast = c("deviation", "sum", "treatment", "helmert", "poly", "difference"), levels = NULL, ..., add_cols = TRUE, colnames = NULL) {
+add_contrast <- function(data, col, contrast = c("anova", "sum", "treatment", "helmert", "poly", "difference"), levels = NULL, ..., add_cols = TRUE, colnames = NULL) {
   fct <- data[[col]]
+  if (is.null(fct)) stop("The column ", col, " doesn't exist", call. = FALSE)
   contrast <- match.arg(contrast)
   
   f <- match.fun(paste0("contr_code_", contrast))
@@ -313,7 +314,7 @@ add_contrast <- function(data, col, contrast = c("deviation", "sum", "treatment"
     colnames(contr) <- colnames %||% paste0(col, colnames(contr))
     contr <- dplyr::as_tibble(contr, rownames = col)
     suffix <- switch(contrast, 
-                     deviation = ".dev", 
+                     anova = ".aov", 
                      sum = ".sum", 
                      treatment = ".tr", 
                      helmert = ".hmt", 

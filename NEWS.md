@@ -1,3 +1,8 @@
+# faux 1.0.9005 (2021-08-11)
+
+* Updated contrasts vignette
+* renamed `contr_code_deviation()` to `contr_code_anova()`
+
 # faux 1.0.9004 (2021-08-10)
 
 * Updated contrasts vignette
