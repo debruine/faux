@@ -1,16 +1,16 @@
-test_that("contr_code_deviation", {
+test_that("contr_code_anova", {
   x <- factor(1:2, labels = LETTERS[1:2])
-  x1 <- contr_code_deviation(x, base = 1)
-  x2 <- contr_code_deviation(x, base = 2)
+  x1 <- contr_code_anova(x, base = 1)
+  x2 <- contr_code_anova(x, base = 2)
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[1:2], ".B-A"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[1:2], ".A-B"))
   expect_equal(contrasts(x1), mat1)
   expect_equal(contrasts(x2), mat2)
   
   x <- factor(1:3, labels = LETTERS[1:3])
-  x1 <- contr_code_deviation(x, base = 1)
-  x2 <- contr_code_deviation(x, base = 2)
-  x3 <- contr_code_deviation(x, base = 3)
+  x1 <- contr_code_anova(x, base = 1)
+  x2 <- contr_code_anova(x, base = 2)
+  x3 <- contr_code_anova(x, base = 3)
   mat1 <- matrix(c(-1/3,  2/3, -1/3, -1/3, -1/3, 2/3), nrow = 3,
                  dimnames = list(LETTERS[1:3], c(".B-A", ".C-A")))
   mat2 <- matrix(c(2/3, -1/3, -1/3, -1/3, -1/3, 2/3), nrow = 3,
@@ -22,23 +22,23 @@ test_that("contr_code_deviation", {
   expect_equal(contrasts(x3), mat3)
 })
 
-# contr_code_deviation, base by name ----
-test_that("contr_code_deviation, base by name", {
+# contr_code_anova, base by name ----
+test_that("contr_code_anova, base by name", {
   x <- factor(1:2, labels = LETTERS[1:2])
-  xA <- contr_code_deviation(x, base = "A")
-  xB <- contr_code_deviation(x, base = "B")
+  xA <- contr_code_anova(x, base = "A")
+  xB <- contr_code_anova(x, base = "B")
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[1:2], ".B-A"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[1:2], ".A-B"))
   expect_equal(contrasts(xA), mat1)
   expect_equal(contrasts(xB), mat2)
 })
 
-# contr_code_deviation, specify levels ----
-test_that("contr_code_deviation, specify levels", {
+# contr_code_anova, specify levels ----
+test_that("contr_code_anova, specify levels", {
   x <- 1:2
   lvls <- c("A", "B")
-  x1 <- contr_code_deviation(x, levels = lvls, base = 1)
-  x2 <- contr_code_deviation(x, levels = lvls, base = 2)
+  x1 <- contr_code_anova(x, levels = lvls, base = 1)
+  x2 <- contr_code_anova(x, levels = lvls, base = 2)
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[1:2], ".B-A"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[1:2], ".A-B"))
   expect_equal(contrasts(x1), mat1)
@@ -50,8 +50,8 @@ test_that("contr_code_deviation, specify levels", {
   
   x <- c("A", "B")
   lvls <- c("B", "A")
-  x1 <- contr_code_deviation(x, levels = lvls, base = 1)
-  x2 <- contr_code_deviation(x, levels = lvls, base = 2)
+  x1 <- contr_code_anova(x, levels = lvls, base = 1)
+  x2 <- contr_code_anova(x, levels = lvls, base = 2)
   mat1 <- matrix(c(-0.5, 0.5), dimnames = list(LETTERS[2:1], ".A-B"))
   mat2 <- matrix(c(0.5, -0.5), dimnames = list(LETTERS[2:1], ".B-A"))
   expect_equal(contrasts(x1), mat1)
@@ -165,19 +165,22 @@ test_that("contr_code_difference", {
 test_that("add_contrast", {
   btwn <- list(pet = c("cat", "dog", "ferret")) 
   df <- sim_design(between = btwn, n = 1, plot = FALSE)
-  suffix <- c(deviation = ".dev", 
+  suffix <- c(anova = ".aov", 
              sum = ".sum", 
              treatment = ".tr", 
              helmert = ".hmt", 
              poly = ".poly", 
              difference = ".dif")
-  names <- list(deviation = c("pet.dog-cat", "pet.ferret-cat"), 
+  names <- list(anova = c("pet.dog-cat", "pet.ferret-cat"), 
                 sum = c("pet.cat-intercept", "pet.dog-intercept"), 
                 treatment = c("pet.dog-cat", "pet.ferret-cat"), 
                 helmert = c("pet.dog-cat", "pet.ferret-cat.dog"), 
                 poly = c("pet^1", "pet^2"), 
                 difference = c("pet.dog-cat", "pet.ferret-dog"))
-  contrasts <- c("deviation", "sum", "treatment", "helmert", "poly", "difference")
+  contrasts <- c("anova", "sum", "treatment", "helmert", "poly", "difference")
+  
+  expect_error(add_contrast(df, "pet", "nope"))
+  expect_error(add_contrast(df, "nope", "treatment"))
   
   for (ctrst in contrasts) {
     df1 <- add_contrast(df, "pet", ctrst)

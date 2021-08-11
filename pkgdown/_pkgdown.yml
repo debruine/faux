@@ -55,9 +55,9 @@ reference:
   contents:
   - '`add_contrast`'
   - '`contr_code_treatment`'
-  - '`contr_code_deviation`'
-  - '`contr_code_difference`'
+  - '`contr_code_anova`'
   - '`contr_code_sum`'
+  - '`contr_code_difference`'
   - '`contr_code_helmert`'
   - '`contr_code_poly`'
 - title: Other useful functions
