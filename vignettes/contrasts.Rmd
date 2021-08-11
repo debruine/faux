@@ -17,14 +17,6 @@ vignette: >
 .ctable > tbody > tr > td+td { border-left: 2px solid #036; }
 </style>
 
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<script>
-  $( function() {
-    $( ".mytabset" ).tabs();
-  } );
-</script>
-
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -47,7 +39,7 @@ ctable <- function(df, predictor = "pet") {
     kable_styling()
   
   paste(
-    "<table class='ctable'>",
+    "<table class='ctable table'>",
     "<thead><tr><th>Contrasts</th><th>lm(y ~ pet, df)</th></thead>",
     "<tbody><tr><td>",
     contrast_table,
@@ -112,17 +104,9 @@ Notice that the default contrast is treatment coding, with "cat" as the baseline
 
 In all the subsequent examples, try putting into words what the estimates for the intercept and terms mean in relation to the mean values for each group in the data.
 
-<div id="tabs" class="mytabset">
-  <ul>
-    <li><a href="#tabs-treatment">Treatment</a></li>
-    <li><a href="#tabs-anova">Anova</a></li>
-    <li><a href="#tabs-sum">Sum</a></li>
-    <li><a href="#tabs-difference">Difference</a></li>
-    <li><a href="#tabs-helmert">Helmert</a></li>
-    <li><a href="#tabs-poly">Polynomial</a></li>
-  </ul>
+### {.tabset -}
 
-<div id = "tabs-treatment">
+#### Treatment {#treatment -}
 
 Treatment coding (also called dummy coding) sets the mean of the reference group as the intercept. It is straightforward to interpret, especially when your factors have an obvious default or baseline value. This is the same type of coding as the default for factors shown above (unless you change your default using `options()`), but with clearer term labels. 
 
@@ -148,10 +132,8 @@ df$pet <- contr_code_treatment(df$pet, base = 3)
 
 `r ctable(df)`
 
-</div>
-<div id = "tabs-anova">
 
-
+#### Anova {#anova -}
 
 Anova coding is identical to treatment coding, but sets the grand mean as the intercept. Each contrast compares one level with a reference level. This gives us values that are relatively easy to interpret and map onto ANOVA values.
 
@@ -179,10 +161,7 @@ df$pet <- contr_code_anova(df$pet, base = 3)
 
 `r ctable(df)`
 
-</div>
-<div id = "tabs-sum">
-
-
+#### Sum {#sum -}
 
 Sum coding also sets the grand mean as the intercept. Each contrast compares one level with the grand mean. Therefore, the estimate for `pet_cat-intercept` is the difference between the mean value for cats and the grand mean ($2 - 5$).
 
@@ -208,10 +187,7 @@ df$pet <- contr_code_sum(df$pet, omit = 1)
 
 `r ctable(df)`
 
-</div>
-<div id = "tabs-difference">
-
-
+#### Difference {#difference -}
 
 A slightly different form of contrast coding is difference coding, also called forward, backward, or successive differences coding. It compares each level to the previous one, rather than to a baseline level.
 
@@ -235,10 +211,9 @@ df$pet <- contr_code_difference(df$pet, levels = c("ferret", "cat", "dog"))
 df$pet <- contr_code_difference(df$pet, levels = c("cat", "dog", "ferret"))
 ```
 
-</div>
-<div id="tabs-helmert">
 
 
+#### Helmert {#helmert -}
 
 Helmert coding sets the grand mean as the intercept. Each contrast compares one level with the mean of previous levels. This coding is somewhat different than the results from `stats::contr.helmert()` to make it easier to interpret the estimates. Thus, `pet_ferret-cat.dog` is the mean value for ferrets minus the mean value for cats and dogs averaged together ($9-(2+4)/2$).
 
@@ -256,9 +231,7 @@ df$pet <- contr_code_helmert(df$pet, levels = c("ferret", "dog", "cat"))
 
 `r ctable(df)`
 
-</div>
-<div id="tabs-poly">
-
+#### Polynomial {#poly -}
 
 Polynomial coding is the default for ordered factors in R. We'll set up a new data simulation with five ordered times.
 
@@ -275,9 +248,6 @@ df$time <- contr_code_poly(df$time)
 ```
 
 `r ctable(df, "time")`
-
-</div>
-</div>
 
 ## Add Contrasts
 
@@ -372,16 +342,9 @@ The table below shows the cell and marginal means. The notation $Y_{..}$ is used
 | **pm**   | $Y_{cp} = `r Ycp`$ | $Y_{dp} = `r Ydp`$ | $Y_{.p} = `r Y.p`$ |
 | **mean** | $Y_{c.} = `r Yc.`$ | $Y_{d.} = `r Yd.`$ | $Y_{..} = `r Y..`$ |
 
-<div id="tabs22" class="mytabset">
-  <ul>
-    <li><a href="#tabs22-treatment">Treatment</a></li>
-    <li><a href="#tabs22-anova">Anova</a></li>
-    <li><a href="#tabs22-sum">Sum</a></li>
-    <li><a href="#tabs22-difference">Difference</a></li>
-    <li><a href="#tabs22-helmert">Helmert</a></li>
-  </ul>
+#### {.tabset}
 
-<div id="tabs22-treatment">
+##### Treatment {-}
 
 | term | interpretation | formula | value |
 |:-----|:---------------|:--------|:------|
@@ -398,8 +361,8 @@ df %>%
   broom::tidy() %>% kable() %>% kable_styling()
 ```
 
-</div>
-<div id="tabs22-anova">
+
+##### Anova {-}
 
 | term | interpretation | formula | value |
 |:-----|:---------------|:--------|:------|
@@ -416,8 +379,7 @@ df %>%
   broom::tidy() %>% kable() %>% kable_styling()
 ```
 
-</div>
-<div id="tabs22-sum">
+##### Sum {-}
 
 | term | interpretation | formula | value |
 |:-----|:---------------|:--------|:------|
@@ -435,8 +397,7 @@ df %>%
 ```
 
 
-</div>
-<div id="tabs22-diference">
+##### Difference {-}
 
 | term | interpretation | formula | value |
 |:-----|:---------------|:--------|:------|
@@ -453,8 +414,7 @@ df %>%
   broom::tidy() %>% kable() %>% kable_styling()
 ```
 
-</div>
-<div id="tabs22-helmert">
+##### Helmert {-}
 
 | term | interpretation | formula | value |
 |:-----|:---------------|:--------|:------|
@@ -471,7 +431,7 @@ df %>%
   broom::tidy() %>% kable() %>% kable_styling()
 ```
 
-</div></div>
+### {-}
 
 **N.B. In the case of 2-level factors, anova, difference, and Helmert coding are identical. Treatment coding differs only in the intercept.**
 
@@ -513,17 +473,9 @@ Y.. = ((Yca + Yda + Yfa + Ycp + Ydp + Yfp)/6) %>% round(2)
 | **mean** | $Y_{c.} = `r Yc.`$ | $Y_{d.} = `r Yd.`$ | $Y_{f.} = `r Yf.`$ | $Y_{..} = `r Y..`$ |
 
 
+#### {.tabset -}
 
-<div id="tabs23" class="mytabset">
-  <ul>
-    <li><a href="#tabs23-treatment">Treatment</a></li>
-    <li><a href="#tabs23-anova">Anova</a></li>
-    <li><a href="#tabs23-sum">Sum</a></li>
-    <li><a href="#tabs23-difference">Difference</a></li>
-    <li><a href="#tabs23-helmert">Helmert</a></li>
-  </ul>
-
-<div id="tabs23-treatment">
+##### Treatment {-}
 
 | term | interpretation | formula | value |
 |:-----|:---------------|:--------|:------|
@@ -543,8 +495,7 @@ df %>%
 ```
 
 
-</div>
-<div id="tabs23-anova">
+##### Anova {-}
 
 | term | interpretation | formula | value |
 |:-----|:---------------|:--------|:------|
@@ -563,8 +514,7 @@ df %>%
   broom::tidy() %>% kable() %>% kable_styling()
 ```
 
-</div>
-<div id="tabs23-sum">
+##### Sum {-}
 
 | term | interpretation | formula | value |
 |:-----|:---------------|:--------|:------|
@@ -584,8 +534,7 @@ df %>%
 ```
 
 
-</div>
-<div id="tabs23-difference">
+##### Difference {-}
 
 | term | interpretation | formula | value |
 |:-----|:---------------|:--------|:------|
@@ -604,8 +553,7 @@ df %>%
   broom::tidy() %>% kable() %>% kable_styling()
 ```
 
-</div>
-<div id="tabs23-helmert">
+##### Helmert {-}
 
 | term | interpretation | formula | value |
 |:-----|:---------------|:--------|:------|
@@ -625,7 +573,7 @@ df %>%
 ```
 
 
-</div></div>
+### {-}
 
 **N.B. In this case, difference coding is identical to anova coding except that the second pet contrast is ferret versus dog instead of ferret versus cat.**
 
