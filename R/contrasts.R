@@ -310,7 +310,7 @@ add_contrast <- function(data, col, contrast = c("anova", "sum", "treatment", "h
   newfct <- f(fct, levels, ...)
   
   if (isTRUE(add_cols)) {
-    contr <- contrasts(newfct)
+    contr <- stats::contrasts(newfct)
     colnames(contr) <- colnames %||% paste0(col, colnames(contr))
     contr <- dplyr::as_tibble(contr, rownames = col)
     suffix <- switch(contrast, 

@@ -109,7 +109,7 @@ test_that("add_between", {
   expect_false(all(data_shuffle$time == time))
   expect_equal(sum(data_shuffle$time == "morning"), 100)
   
-  # prob
+  # prob proportion
   set.seed(100)
   mean_prob <- replicate(100, {
     data_prob <- add_between(base, "subj", time = c("morning", "evening"), 
@@ -117,6 +117,56 @@ test_that("add_between", {
     mean(data_prob$time == "morning")
   }) %>% mean()
   expect_equal(mean_prob, .4, tol = .005)
+  
+  # exact prob
+  for (n in c(0, 10, 20, 30, 100)) {
+    data_prob <- add_between(base, "subj", time = c("morning", "evening"), 
+                             .prob = c(n, 100-n))
+    expect_equal(sum(data_prob$time == "morning"), n*2)
+  }
+  
+  # multiple prob
+  prob <- c(10, 20, 30, 40)
+  data_prob2 <- add_between(base, "subj", 
+                           cond = c("A", "B"),
+                           time = c("morning", "evening"),
+                           .prob = prob)
+  n <- dplyr::count(data_prob2, cond, time)$n
+  expect_equal(n, prob*2)
+  
+  expect_warning({data_prob3 <- 
+    add_between(base, "subj", 
+                cond = c("A", "B"),
+                time = c("morning", "evening"),
+                .prob = list(cond = c(10, 90),
+                            time = c(90, 10)))})
+  cond <- rep(c("A", "B"), c(10*2, 90*2)) %>% factor()
+  time <- rep(c("morning", "evening"), c(90*2, 10*2)) %>% 
+    factor(c("morning", "evening"))
+  expect_equal(data_prob3$cond, cond)
+  expect_equal(data_prob3$time, time)
+  
+  # independent joint probabilities
+  set.seed(100)
+  means <- replicate(100, {
+    data_prob4 <- add_between(base, "subj", 
+                            cond = c("A", "B"),
+                            time = c("morning", "evening"),
+                            .prob = list(cond = c(.3, .7),
+                                         time = c(.3, .7)))
+    list(
+      cond = mean(data_prob4$cond == "A"),
+      time = mean(data_prob4$time == "morning"),
+      joint = mean(data_prob4$cond == "A" & 
+                     data_prob4$time == "morning")
+    )
+  })
+  cond <- means["cond", ] %>% unlist() %>% mean()
+  time <- means["time", ] %>% unlist() %>% mean()
+  joint <- means["joint", ] %>% unlist() %>% mean()
+  expect_equal(cond, .3, tol = 0.01)
+  expect_equal(time, .3, tol = 0.01)
+  expect_equal(joint, .3*.3, tol = 0.01)
 })
 
 # add_within ----

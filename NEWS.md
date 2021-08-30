@@ -1,3 +1,10 @@
+# faux 1.0.9006 (2021-08-30)
+
+* fixed a bug in `sim_design()` when setting n with an unnamed vector and within-subjects factors (wouldn't run before).
+* Updated `add_between()` and `add_within()` to make new columns factors with the same ordering as the specification
+* Updated contrast functions to work with non-factor columns
+* `add_between()` .prob argument works as expected now (and has tests)
+
 # faux 1.0.9005 (2021-08-11)
 
 * Updated contrasts vignette
