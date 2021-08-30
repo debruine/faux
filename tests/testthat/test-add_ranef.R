@@ -74,3 +74,70 @@ test_that("add_random", {
   nested_in_B <- add_random(data, C = 2, .nested_in = "B")
   expect_false(all(nested_in_A$C == nested_in_B$C))
 })
+
+# add_between ----
+test_that("add_between", {
+  base <- add_random(subj = 4, item = 2)
+  
+  data <- add_between(base, "subj", cond = c("A", "B"))
+  cond <- rep(LETTERS[1:2], each = 2, times = 2) %>% factor()
+  expect_equal(data$cond, cond)
+  
+  data <- add_between(base, "item", cond = c("A", "B"))
+  cond <- rep(LETTERS[1:2], 4) %>% factor()
+  expect_equal(data$cond, cond)
+  
+  # 2b2b
+  data <- add_between(base, "subj", 
+                      cond = c("A", "B"),
+                      time = c("morning", "evening"))
+  cond <- rep(LETTERS[1:2], each = 4) %>% factor()
+  time <- rep(c("morning", "evening"), each = 2, times = 2) %>% 
+    factor(levels = c("morning", "evening"))
+  expect_equal(data$cond, cond)
+  expect_equal(data$time, time)
+  
+  # shuffle
+  set.seed(100)
+  base <- add_random(subj = 100, item = 2)
+  data <- add_between(base, "subj", time = c("morning", "evening"))
+  data_shuffle <- add_between(base, "subj", time = c("morning", "evening"), 
+                      .shuffle = TRUE)
+  time <- rep(c("morning", "evening"), each = 2, times = 50) %>% 
+    factor(levels = c("morning", "evening"))
+  expect_equal(data$time, time)
+  expect_false(all(data_shuffle$time == time))
+  expect_equal(sum(data_shuffle$time == "morning"), 100)
+  
+  # prob
+  set.seed(100)
+  mean_prob <- replicate(100, {
+    data_prob <- add_between(base, "subj", time = c("morning", "evening"), 
+                                .prob = c(.4, .6))
+    mean(data_prob$time == "morning")
+  }) %>% mean()
+  expect_equal(mean_prob, .4, tol = .005)
+})
+
+# add_within ----
+test_that("add_within", {
+  base <- add_random(subj = 4, item = 2)
+  
+  data <- add_within(base, "subj", cond = c("A", "B"))
+  cond <- rep(LETTERS[1:2], 4*2) %>% factor()
+  expect_equal(data$cond, cond)
+  
+  data <- add_within(base, "item", cond = c("A", "B"))
+  cond <- rep(LETTERS[1:2], 4*2) %>% factor()
+  expect_equal(data$cond, cond)
+  
+  # 2b2b
+  data <- add_within(base, "subj", 
+                      cond = c("A", "B"),
+                      time = c("morning", "evening"))
+  cond <- rep(LETTERS[1:2], each = 2, times = 8) %>% factor()
+  time <- rep(c("morning", "evening"), 16) %>% 
+    factor(levels = c("morning", "evening"))
+  expect_equal(data$cond, cond)
+  expect_equal(data$time, time)
+})

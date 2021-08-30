@@ -88,7 +88,7 @@ add_random <- function(.data = NULL, ..., .nested_in = NULL) {
     ids <- mapply(make_id, grps, prefix, SIMPLIFY = FALSE)
     ranfacs <- do.call(tidyr::crossing, ids)
     .mydata <- .data # stops rlang_data_pronoun warning
-    tidyr::crossing(.mydata, ranfacs)
+    new_data <- tidyr::crossing(.mydata, ranfacs)
   } else {
     if (length(grps) > 1) {
       stop("You can only add 1 nested random factor at a time")
@@ -111,8 +111,10 @@ add_random <- function(.data = NULL, ..., .nested_in = NULL) {
     newdat <- dplyr::left_join(ingrps, ids, by = ".row")
     newdat[".row"] <- NULL
     
-    dplyr::right_join(.data, newdat, by = .nested_in)
+    new_data <- dplyr::right_join(.data, newdat, by = .nested_in)
   }
+
+  new_data
 }
   
 #' Add between factors
@@ -143,13 +145,17 @@ add_between <- function(.data, .by = NULL, ..., .shuffle = FALSE, .prob = NULL) 
   if (is.null(.prob)) {
     # equal probability for each level
     # return as equal combos as possible 
-    vars <- tidyr::crossing(...)
+    vars <- list(...) %>%
+      mapply(factor, ., ., SIMPLIFY = FALSE) %>%
+      do.call(tidyr::crossing, .)
+      
     for (v in names(vars)) {
       grps[v] <- rep_len(vars[[v]], nrow(grps))
     }
   } else {
     # set prob for each level
-    vars <- list(...)
+    vars <- list(...) %>% mapply(factor, ., ., SIMPLIFY = FALSE)
+    
     for (v in names(vars)) {
       p <- if (is.na(.prob[v]) || is.null(.prob[[v]])) unlist(.prob) else .prob[[v]]
       p <- rep_len(p, length(vars[[v]]))
@@ -185,7 +191,10 @@ add_within <- function(.data, .by = NULL, ...) {
   } else {
     grps <- unique(.data[.by])
   }
-  vars <- list(...)
+  
+  # make vars factors, keep original order
+  vars <- list(...) %>% mapply(factor, ., ., SIMPLIFY = FALSE)
+  
   newdat <- c(list(grps), vars) %>%
     do.call(tidyr::crossing, .)
   
