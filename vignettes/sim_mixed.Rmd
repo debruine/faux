@@ -87,14 +87,26 @@ data <- add_random(subj = 10) %>%
 
 `r knitr::kable(data)`
 
+If you have more than one between-subject factor, setting them together allows you to set joint proportions for each cell.
+
+```{r}
+data <- add_random(subj = 10) %>%
+  add_between("subj", 
+              cond = c("control", "test"),
+              age = c("young", "old"), 
+              .prob = c(2, 3, 4, 1))
+```
+
+`r knitr::kable(data)`
+
 ### Counterbalanced designs
 
 You can use the `filter()` function from dplyr to create counterbalanced designs. For example, if your items are grouped into A and B counterbalanced groups, add a between-subjects and a between-items factor with the same levels and filter only rows where the subject value matches the item value. In the example below, odd-numbered subjects only respond to odd-numbered items.
 
 ```{r}
 data <- add_random(subj = 4, item = 4) %>%
-  add_between("subj", subj_cb = c("A", "B")) %>%
-  add_between("item", item_cb = c("A", "B")) %>%
+  add_between("subj", subj_cb = c("odd", "even")) %>%
+  add_between("item", item_cb = c("odd", "even")) %>%
   dplyr::filter(subj_cb == item_cb)
 ```
 
@@ -102,16 +114,20 @@ data <- add_random(subj = 4, item = 4) %>%
 
 ### Recoding
 
-To set up data for analysis, you often need to recode categorical variables. Use the helper function `add_recode()` for this. The code below creates effect-coded and treatment-coded versions of "cond" and the two variables needed to treatment-code the 3-level variable "type". See this blog post by Dale Barr to learn more about [coding categorical predictor variables in factorial designs](https://talklab.psy.gla.ac.uk/tvw/catpred/)
+To set up data for analysis, you often need to recode categorical variables. Use the helper function `add_contrast()` for this. The code below creates anova-coded and treatment-coded versions of "cond" and the two variables needed to treatment-code the 3-level variable "type". See the [contrasts vignette](contrasts.html) for more details.
+
+You can `add_recode()` for setting a manual contrast that isn't available in `add_contrast()`, such as weighted contrasts.
 
 ```{r}
 data <- add_random(subj = 2, item = 3) %>%
   add_between("subj", cond = c("A", "B")) %>%
   add_between("item", type = c("X", "Y", "Z")) %>%
-  add_recode("cond", "cond.e", A = -0.5, B = 0.5) %>%
-  add_recode("cond", "cond.t", A = 0, B = 1) %>%
-  add_recode("type", "type.Y", X = 0, Y = 1, Z = 0) %>%
-  add_recode("type", "type.Z", X = 0, Y = 0, Z = 1)
+  # add contrasts
+  add_contrast("cond", "anova", add_cols = TRUE) %>%
+  add_contrast("cond", "treatment", add_cols = TRUE) %>%
+  # you can change the default column names
+  add_contrast("type", "treatment", add_cols = TRUE, colnames = c("Y", "Z")) %>%
+  add_recode("type", "type.w", X = -1.3, Y = 0, Z = 0.92)
 ```
 
 `r knitr::kable(data)`
@@ -194,7 +210,7 @@ sim <- function(subj_n = 10, item_n = 10,
                 ) {
 
   # set up data structure
-  data <- add_random(NULL, subj = subj_n, item = item_n) %>%
+  data <- add_random(subj = subj_n, item = item_n) %>%
     # add and recode categorical variables
     add_between("subj", cond = c("control", "test")) %>%
     add_recode("cond", "cond.t", control = 0, test = 1) %>%

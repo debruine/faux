@@ -7,6 +7,26 @@ test_that("errors", {
   expect_warning(check_design(n = 10.3), "Some cell Ns are not integers. They have been rounded up to the nearest integer.")
 })
 
+# n as vector ----
+test_that("n as vector", {
+  # unnamed vector with 2b2w design
+  expect_silent(design <- check_design(within = 2, between = 2, n = c(10, 20)))
+  expect_equal(design$n, list(B1a = 10, B1b = 20))
+  
+  # unnamed vector with 2b2b2w design
+  n <- list(B1a_B2a = 10, B1a_B2b = 20, B1b_B2a = 30, B1b_B2b = 40)
+  design <- check_design(within = 2, between = c(2, 2), n = c(10, 20, 30, 40))
+  expect_equal(design$n, n)
+  
+  # unnamed vector with 2b2b2w2w design
+  design <- check_design(within = c(2, 2), between = c(2, 2), n = c(10, 20, 30, 40))
+  expect_equal(design$n, n)
+  
+  # named vector with 2b2w design
+  design <- check_design(within = 2, between = 2, n = c(B1b = 10, B1a = 20))
+  expect_equal(design$n, list(B1a = 20, B1b = 10))
+})
+
 
 # params ----
 test_that("params", {

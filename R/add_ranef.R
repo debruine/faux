@@ -88,7 +88,7 @@ add_random <- function(.data = NULL, ..., .nested_in = NULL) {
     ids <- mapply(make_id, grps, prefix, SIMPLIFY = FALSE)
     ranfacs <- do.call(tidyr::crossing, ids)
     .mydata <- .data # stops rlang_data_pronoun warning
-    tidyr::crossing(.mydata, ranfacs)
+    new_data <- tidyr::crossing(.mydata, ranfacs)
   } else {
     if (length(grps) > 1) {
       stop("You can only add 1 nested random factor at a time")
@@ -111,8 +111,10 @@ add_random <- function(.data = NULL, ..., .nested_in = NULL) {
     newdat <- dplyr::left_join(ingrps, ids, by = ".row")
     newdat[".row"] <- NULL
     
-    dplyr::right_join(.data, newdat, by = .nested_in)
+    new_data <- dplyr::right_join(.data, newdat, by = .nested_in)
   }
+
+  new_data
 }
   
 #' Add between factors
@@ -143,23 +145,43 @@ add_between <- function(.data, .by = NULL, ..., .shuffle = FALSE, .prob = NULL) 
   if (is.null(.prob)) {
     # equal probability for each level
     # return as equal combos as possible 
-    vars <- tidyr::crossing(...)
+    vars <- list(...) %>%
+      mapply(factor, ., ., SIMPLIFY = FALSE) %>%
+      do.call(tidyr::crossing, .)
+      
     for (v in names(vars)) {
       grps[v] <- rep_len(vars[[v]], nrow(grps))
     }
   } else {
     # set prob for each level
-    vars <- list(...)
-    for (v in names(vars)) {
-      p <- if (is.na(.prob[v]) || is.null(.prob[[v]])) unlist(.prob) else .prob[[v]]
-      p <- rep_len(p, length(vars[[v]]))
-      if (sum(p) == nrow(grps)) {
-        # exact N
-        grps[v] <- rep(vars[[v]], times = p)
-      } else {
-        # sampled N
-        grps[v] <- sample(vars[[v]], nrow(grps), T, prob = p)
+    vars <- list(...) %>% mapply(factor, ., ., SIMPLIFY = FALSE)
+    exact_prob <- (sum(unlist(.prob)) == nrow(grps))
+    crossed_vars <- do.call(tidyr::crossing, vars)
+    
+    if (exact_prob && nrow(crossed_vars) == length(.prob)) {
+      grps <- crossed_vars %>%
+        lapply(rep, times = .prob) %>%
+        as.data.frame() %>%
+        cbind(grps, .)
+    } else {
+      warn <- FALSE
+      for (v in names(vars)) {
+        p <- if (is.na(.prob[v]) || is.null(.prob[[v]])) unlist(.prob) else .prob[[v]]
+        p <- rep_len(p, length(vars[[v]]))
+        
+        if (sum(p) == nrow(grps)) {
+          if (!isTRUE(.shuffle) && length(vars) > 1) warn <- TRUE
+          grps[v] <- rep(vars[[v]], p)
+        } else {
+          # randomly sample
+          grps[v] <- sample(vars[[v]], nrow(grps), T, prob = p)
+        }
       }
+      
+      if (warn) {
+        warning("Allocation can be confounded with exact probabilities and no shuffling. Alternatively, you can specify an exact probability for each cell, e.g.:\n    .prob = c(A1_B1 = 10, A1_B2 = 20, A2_B1 = 30, A2_B2 = 40)")
+      }
+      
     }
   }
   
@@ -185,7 +207,10 @@ add_within <- function(.data, .by = NULL, ...) {
   } else {
     grps <- unique(.data[.by])
   }
-  vars <- list(...)
+  
+  # make vars factors, keep original order
+  vars <- list(...) %>% mapply(factor, ., ., SIMPLIFY = FALSE)
+  
   newdat <- c(list(grps), vars) %>%
     do.call(tidyr::crossing, .)
   

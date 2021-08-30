@@ -20,6 +20,15 @@ test_that("contr_code_anova", {
   expect_equal(contrasts(x1), mat1)
   expect_equal(contrasts(x2), mat2)
   expect_equal(contrasts(x3), mat3)
+  
+  # non-factor vector
+  x <- sample(LETTERS[1:3], 100, T)
+  x1 <- contr_code_anova(x, base = 1)
+  x2 <- contr_code_anova(x, base = 2)
+  x3 <- contr_code_anova(x, base = 3)
+  expect_equal(contrasts(x1), mat1)
+  expect_equal(contrasts(x2), mat2)
+  expect_equal(contrasts(x3), mat3)
 })
 
 # contr_code_anova, base by name ----
@@ -94,6 +103,15 @@ test_that("contr_code_sum", {
     contrasts(x3) %>% dimnames() %>% `[[`(2), 
     c(".A-intercept", ".B-intercept")
   )
+  
+  # non-factor vector
+  x <- sample(LETTERS[1:3], 100, T)
+  x1 <- contr_code_sum(x, omit = 1)
+  x2 <- contr_code_sum(x, omit = 2)
+  x3 <- contr_code_sum(x)
+  expect_equal(contrasts(x1) %>% as.vector(), c(-1, 1, 0, -1, 0, 1))
+  expect_equal(contrasts(x2) %>% as.vector(), c(1, -1, 0, 0, -1, 1))
+  expect_equal(contrasts(x3) %>% as.vector(), c(1, 0, -1, 0, 1, -1))
 })
 
 
@@ -112,6 +130,15 @@ test_that("contr_code_treatment", {
   expect_equal(contrasts(x1), mat1)
   expect_equal(contrasts(x2), mat2)
   expect_equal(contrasts(x3), mat3)
+  
+  # non-factor vector
+  x <- sample(LETTERS[1:3], 100, T)
+  x1 <- contr_code_treatment(x, base = "A")
+  x2 <- contr_code_treatment(x, base = "B")
+  x3 <- contr_code_treatment(x, base = 3)
+  expect_equal(contrasts(x1), mat1)
+  expect_equal(contrasts(x2), mat2)
+  expect_equal(contrasts(x3), mat3)
 })
 
 
@@ -124,6 +151,13 @@ test_that("contr_code_helmert", {
                  dimnames = list(LETTERS[1:3], c(".B-A", ".C-A.B")))
   mat2 <- matrix(c(-.5, .5, 0, -1/3, -1/3, 2/3), 3, 
                  dimnames = list(LETTERS[3:1], c(".B-C", ".A-C.B")))
+  expect_equal(contrasts(x1), mat1)
+  expect_equal(contrasts(x2), mat2)
+  
+  # non-factor vector
+  x <- sample(LETTERS[1:3], 100, T)
+  x1 <- contr_code_helmert(x, levels = c("A", "B", "C"))
+  x2 <- contr_code_helmert(x, levels = c("C", "B", "A"))
   expect_equal(contrasts(x1), mat1)
   expect_equal(contrasts(x2), mat2)
 })
@@ -145,6 +179,16 @@ test_that("contr_code_poly", {
   expect_true(is.ordered(x1))
   expect_true(is.ordered(x2))
   expect_equal(levels(x2), lvl2)
+  
+  # non-factor vector
+  x <- sample(LETTERS[1:3], 100, T)
+  x1 <- contr_code_poly(x)
+  x2 <- contr_code_poly(x, levels = lvl2)
+  expect_equal(contrasts(x1), mat1, tol = .001)
+  expect_equal(contrasts(x2), mat2, tol = .001)
+  expect_true(is.ordered(x1))
+  expect_true(is.ordered(x2))
+  expect_equal(levels(x2), lvl2)
 })
 
 # contr_code_difference ----
@@ -156,6 +200,13 @@ test_that("contr_code_difference", {
                  dimnames = list(LETTERS[1:3], c(".B-A", ".C-B")))
   mat2 <- mat1
   dimnames(mat2) <- list(LETTERS[3:1], c(".B-C", ".A-B"))
+  expect_equal(contrasts(x1), mat1, tol = .001)
+  expect_equal(contrasts(x2), mat2, tol = .001)
+  
+  # non-factor vector
+  x <- sample(LETTERS[1:3], 100, T)
+  x1 <- contr_code_difference(x)
+  x2 <- contr_code_difference(x, levels = c("C", "B", "A"))
   expect_equal(contrasts(x1), mat1, tol = .001)
   expect_equal(contrasts(x2), mat2, tol = .001)
 })

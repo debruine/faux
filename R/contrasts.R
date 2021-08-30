@@ -29,7 +29,7 @@
 #' lm(y ~ pet, df) %>% broom::tidy()
 contr_code_anova <- function(fct, levels = NULL, base = 1) {
   # make sure fct is a factor with correct levels
-  if (is.null(levels)) levels <- levels(fct) %||% fct
+  if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels)
   
   # create coding matrix
@@ -75,7 +75,7 @@ contr_code_anova <- function(fct, levels = NULL, base = 1) {
 #' lm(y ~ pet, df) %>% broom::tidy()
 contr_code_sum <- function(fct, levels = NULL, omit = length(levels)) {
   # make sure fct is a factor with correct levels
-  if (is.null(levels)) levels <- levels(fct) %||% fct
+  if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels)
   
   # create coding matrix
@@ -129,7 +129,7 @@ contr_code_sum <- function(fct, levels = NULL, omit = length(levels)) {
 #' lm(y ~ pet, df) %>% broom::tidy()
 contr_code_treatment <- function(fct, levels = NULL, base = 1) {
   # make sure fct is a factor with correct levels
-  if (is.null(levels)) levels <- levels(fct) %||% fct
+  if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels)
   
   # create coding matrix
@@ -179,7 +179,7 @@ contr_code_treatment <- function(fct, levels = NULL, base = 1) {
 #' lm(y ~ pet, df) %>% broom::tidy()
 contr_code_helmert <- function(fct, levels = NULL) {
   # make sure fct is a factor with correct levels
-  if (is.null(levels)) levels <- levels(fct) %||% fct
+  if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels)
   
   # create coding matrix
@@ -223,7 +223,7 @@ contr_code_helmert <- function(fct, levels = NULL) {
 #' 
 contr_code_poly <- function(fct, levels = NULL) {
   # make sure fct is an ordered factor with correct levels
-  if (is.null(levels)) levels <- levels(fct) %||% fct
+  if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels, ordered = TRUE)
   
   # create coding matrix
@@ -260,7 +260,7 @@ contr_code_poly <- function(fct, levels = NULL) {
 #' 
 contr_code_difference <- function(fct, levels = NULL) {
   # make sure fct is a factor with correct levels
-  if (is.null(levels)) levels <- levels(fct) %||% fct
+  if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels)
   
   # create coding matrix
@@ -310,7 +310,7 @@ add_contrast <- function(data, col, contrast = c("anova", "sum", "treatment", "h
   newfct <- f(fct, levels, ...)
   
   if (isTRUE(add_cols)) {
-    contr <- contrasts(newfct)
+    contr <- stats::contrasts(newfct)
     colnames(contr) <- colnames %||% paste0(col, colnames(contr))
     contr <- dplyr::as_tibble(contr, rownames = col)
     suffix <- switch(contrast, 

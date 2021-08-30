@@ -1,7 +1,7 @@
 Package: faux
 Title: Simulation for Factorial Designs
-Version: 1.0.0.9004
-Date: 2021-08-10
+Version: 1.0.0.9006
+Date: 2021-08-30
 Authors@R: c(
     person(
         given = "Lisa", 
@@ -48,7 +48,8 @@ Suggests:
     broom,
     broom.mixed,
     psych,
-    lmerTest
+    lmerTest,
+    kableExtra
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Encoding: UTF-8
