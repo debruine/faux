@@ -150,6 +150,10 @@ check_design <- function(within = list(), between = list(),
   cells_b <- cell_combos(between, names(dv), sep) 
   
   # convert n, mu and sd  ----
+  
+  if (is.atomic(n) && !is.matrix(n) && is.null(names(n)) && length(n) > 1) {
+    n <- as.list(n) # unnamed vector Ns have problems if there are within factors
+  }
   cell_n  <- convert_param(n, cells_w, cells_b, "Ns")
   for (i in names(cell_n)) {
     cell_n[[i]] <- cell_n[[i]][[1]]
