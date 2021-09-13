@@ -17,9 +17,9 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Continuous Predictors">
+<script src="../pkgdown.js"></script><script src="../extra.js"></script><meta property="og:title" content="Continuous Predictors">
 <meta property="og:description" content="faux">
-<meta property="og:image" content="/reference/figures/card.png">
+<meta property="og:image" content="https://debruine.github.io/faux/reference/figures/card.png">
 <meta property="og:image:alt" content="Blue hexagon with the word FAUX in white">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@lisadebruine">
@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -83,10 +83,16 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
       <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -111,7 +117,7 @@
 
       
 
-      </header><script src="continuous_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="continuous_files/header-attrs-2.10.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Continuous Predictors</h1>
@@ -220,10 +226,10 @@
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fl">2</span>, r <span class="op">=</span> <span class="fl">0.5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 <span class="va">dat</span><span class="op">$</span><span class="va">B</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span>, r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A1 <span class="op">=</span> <span class="fl">0.5</span>, A2 <span class="op">=</span> <span class="fl">0</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt;           A1        A2         B</span>
-<span class="co">#&gt; A1 1.0000000 0.2736529 0.6455051</span>
-<span class="co">#&gt; A2 0.2736529 1.0000000 0.1352178</span>
-<span class="co">#&gt; B  0.6455051 0.1352178 1.0000000</span></code></pre></div>
+<span class="co">#&gt;           W1a       W1b         B</span>
+<span class="co">#&gt; W1a 1.0000000 0.2736529 0.6455051</span>
+<span class="co">#&gt; W1b 0.2736529 1.0000000 0.1352178</span>
+<span class="co">#&gt; B   0.6455051 0.1352178 1.0000000</span></code></pre></div>
 <p>Not all correlation patterns are possible, so you’ll get an error message if the correlations you ask for are impossible.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span><span class="op">$</span><span class="va">C</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span><span class="op">(</span><span class="va">dat</span><span class="op">[</span>, <span class="fl">2</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span>, r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>A1 <span class="op">=</span> <span class="fl">0.9</span>, A2 <span class="op">=</span> <span class="fl">0.9</span>, B <span class="op">=</span> <span class="op">-</span><span class="fl">0.9</span><span class="op">)</span><span class="op">)</span>

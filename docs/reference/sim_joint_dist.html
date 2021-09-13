@@ -45,10 +45,12 @@
 
 
 
+  
+  <script src="../extra.js"></script>
 
 <meta property="og:title" content="Simulate category joint distribution — sim_joint_dist" />
 <meta property="og:description" content="This function is mainly used internally, such as for simulating  missing data patterns, but is available in case anyone finds it useful." />
-<meta property="og:image" content="/reference/figures/card.png" />
+<meta property="og:image" content="https://debruine.github.io/faux/reference/figures/card.png" />
 <meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@lisadebruine" />
@@ -84,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -125,10 +127,16 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
       <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -194,19 +202,19 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'>sim_joint_dist</span><span class='op'>(</span><span class='fu'>ggplot2</span><span class='fu'>::</span><span class='va'><a href='https://ggplot2.tidyverse.org/reference/diamonds.html'>diamonds</a></span>, <span class='va'>cut</span>, <span class='va'>color</span>, n <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 2</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 10 x 2</span>
 #&gt;    cut       color
-#&gt;    </span><span style='color: #949494;font-style: italic;'>&lt;ord&gt;</span><span>     </span><span style='color: #949494;font-style: italic;'>&lt;ord&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'> 1</span><span> Ideal     E    
-#&gt; </span><span style='color: #BCBCBC;'> 2</span><span> Very Good I    
-#&gt; </span><span style='color: #BCBCBC;'> 3</span><span> Ideal     F    
-#&gt; </span><span style='color: #BCBCBC;'> 4</span><span> Very Good H    
-#&gt; </span><span style='color: #BCBCBC;'> 5</span><span> Very Good I    
-#&gt; </span><span style='color: #BCBCBC;'> 6</span><span> Ideal     G    
-#&gt; </span><span style='color: #BCBCBC;'> 7</span><span> Ideal     H    
-#&gt; </span><span style='color: #BCBCBC;'> 8</span><span> Premium   J    
-#&gt; </span><span style='color: #BCBCBC;'> 9</span><span> Ideal     F    
-#&gt; </span><span style='color: #BCBCBC;'>10</span><span> Ideal     E    </div></span></pre>
+#&gt;    <span style='color: #949494; font-style: italic;'>&lt;ord&gt;</span>     <span style='color: #949494; font-style: italic;'>&lt;ord&gt;</span>
+#&gt; <span style='color: #BCBCBC;'> 1</span> Ideal     D    
+#&gt; <span style='color: #BCBCBC;'> 2</span> Very Good H    
+#&gt; <span style='color: #BCBCBC;'> 3</span> Ideal     F    
+#&gt; <span style='color: #BCBCBC;'> 4</span> Ideal     H    
+#&gt; <span style='color: #BCBCBC;'> 5</span> Premium   D    
+#&gt; <span style='color: #BCBCBC;'> 6</span> Premium   E    
+#&gt; <span style='color: #BCBCBC;'> 7</span> Premium   E    
+#&gt; <span style='color: #BCBCBC;'> 8</span> Ideal     G    
+#&gt; <span style='color: #BCBCBC;'> 9</span> Premium   E    
+#&gt; <span style='color: #BCBCBC;'>10</span> Ideal     I    </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

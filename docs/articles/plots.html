@@ -17,9 +17,9 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Plotting">
+<script src="../pkgdown.js"></script><script src="../extra.js"></script><meta property="og:title" content="Plotting">
 <meta property="og:description" content="faux">
-<meta property="og:image" content="/reference/figures/card.png">
+<meta property="og:image" content="https://debruine.github.io/faux/reference/figures/card.png">
 <meta property="og:image:alt" content="Blue hexagon with the word FAUX in white">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@lisadebruine">
@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -83,10 +83,16 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
       <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -111,7 +117,7 @@
 
       
 
-      </header><script src="plots_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="plots_files/header-attrs-2.10.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Plotting</h1>
@@ -125,7 +131,8 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></code></pre></div>
 <div id="plotting-designs" class="section level2">
 <h2 class="hasAnchor">
 <a href="#plotting-designs" class="anchor"></a>Plotting Designs</h2>
@@ -222,25 +229,99 @@
 <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span></code></pre></div>
 <p><img src="plots_files/figure-html/unnamed-chunk-14-1.png" width="100%"></p>
 </div>
+<div id="palettes" class="section level3">
+<h3 class="hasAnchor">
+<a href="#palettes" class="anchor"></a>Palettes</h3>
+<p>You can change the default brewer palette from “Dark2” to any of the options (see <code><a href="https://ggplot2.tidyverse.org/reference/scale_brewer.html">?ggplot2::scale_colour_brewer</a></code> for the options).</p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fl">5</span>, n <span class="op">=</span> <span class="fl">20</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span>
+  <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, palette <span class="op">=</span> <span class="st">"Purples"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Purples"</span><span class="op">)</span>,
+  <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, palette <span class="op">=</span> <span class="st">"Pastel2"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Pastel2"</span><span class="op">)</span>,
+  <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Spectral"</span><span class="op">)</span>,
+  nrow <span class="op">=</span> <span class="fl">1</span>
+<span class="op">)</span></code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-15-1.png" width="100%"></p>
+<p>You can also add a non-brewer palette (or any other ggplot function). You will get a message about a duplicate scale, but you can suppress this with <code><a href="https://rdrr.io/r/base/message.html">suppressMessages()</a></code> or in the r chunk.</p>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/scale_viridis.html">scale_fill_viridis_d</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_classic</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">xlab</a></span><span class="op">(</span><span class="st">""</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"Plot with viridis fill and classic theme"</span><span class="op">)</span>
+<span class="co">#&gt; Scale for 'fill' is already present. Adding another scale for 'fill', which</span>
+<span class="co">#&gt; will replace the existing scale.</span></code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-16-1.png" width="100%"></p>
+</div>
 <div id="change-order-of-factors" class="section level3">
 <h3 class="hasAnchor">
 <a href="#change-order-of-factors" class="anchor"></a>Change order of factors</h3>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<p>List the factors you want to show in the order of fill/colour, x-axis, facet row(s), facet column(s).</p>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">50</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">8</span>, sd <span class="op">=</span> <span class="fl">16</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">abc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
-<span class="va">acb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
-<span class="va">bac</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, <span class="st">"C"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
-<span class="va">bca</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
-<span class="va">cab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"C"</span>, <span class="st">"A"</span>, <span class="st">"B"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
-<span class="va">cba</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"C"</span>, <span class="st">"B"</span>, <span class="st">"A"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">abc</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W1"</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">acb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W1"</span>, <span class="st">"W3"</span>, <span class="st">"W2"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">bac</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W2"</span>, <span class="st">"W1"</span>, <span class="st">"W3"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">bca</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span>, <span class="st">"W1"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">cab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W3"</span>, <span class="st">"W1"</span>, <span class="st">"W2"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
+<span class="va">cba</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W3"</span>, <span class="st">"W2"</span>, <span class="st">"W1"</span>, geoms <span class="op">=</span> <span class="st">"violin"</span><span class="op">)</span>
 
 <span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">abc</span>, <span class="va">acb</span>, <span class="va">bac</span>, <span class="va">bca</span>, <span class="va">cab</span>, <span class="va">cba</span>, nrow <span class="op">=</span> <span class="fl">3</span>, 
-                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"abc"</span>, <span class="st">"acb"</span>, <span class="st">"bac"</span>, <span class="st">"bca"</span>, <span class="st">"cab"</span>, <span class="st">"cba"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-15-1.png" width="100%"></p>
-<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">5</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">40</span>, sd <span class="op">=</span> <span class="fl">5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="st">"D"</span>, <span class="st">"B"</span>, <span class="st">"C"</span>, <span class="st">"A"</span><span class="op">)</span></code></pre></div>
-<p><img src="plots_files/figure-html/unnamed-chunk-16-1.png" width="100%"></p>
+                   labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"123"</span>, <span class="st">"132"</span>, <span class="st">"213"</span>, <span class="st">"231"</span>, <span class="st">"312"</span>, <span class="st">"321"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-17-1.png" width="100%"></p>
+<p>You can also plot a subset of the factors.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># main effects, no interactions</span>
+<span class="va">intercept</span> <span class="op">&lt;-</span> <span class="fl">0</span>
+<span class="va">effect_code</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>a <span class="op">=</span> <span class="op">-</span><span class="fl">.5</span>, b <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>
+<span class="va">W1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">effect_code</span>, <span class="va">`*`</span>, <span class="fl">2</span><span class="op">)</span>
+<span class="va">W2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">effect_code</span>, <span class="va">`*`</span>, <span class="op">-</span><span class="fl">1</span><span class="op">)</span>
+<span class="va">W3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">effect_code</span>, <span class="va">`*`</span>, <span class="fl">0</span><span class="op">)</span>
+
+<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>W1a_W2a_W3a <span class="op">=</span> <span class="va">intercept</span> <span class="op">+</span> <span class="va">W1</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="va">W2</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="va">W3</span><span class="op">$</span><span class="va">a</span>,
+           W1b_W2a_W3a <span class="op">=</span> <span class="va">intercept</span> <span class="op">+</span> <span class="va">W1</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="va">W2</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="va">W3</span><span class="op">$</span><span class="va">a</span>,
+           W1a_W2b_W3a <span class="op">=</span> <span class="va">intercept</span> <span class="op">+</span> <span class="va">W1</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="va">W2</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="va">W3</span><span class="op">$</span><span class="va">a</span>,
+           W1b_W2b_W3a <span class="op">=</span> <span class="va">intercept</span> <span class="op">+</span> <span class="va">W1</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="va">W2</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="va">W3</span><span class="op">$</span><span class="va">a</span>,
+           W1a_W2a_W3b <span class="op">=</span> <span class="va">intercept</span> <span class="op">+</span> <span class="va">W1</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="va">W2</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="va">W3</span><span class="op">$</span><span class="va">b</span>,
+           W1b_W2a_W3b <span class="op">=</span> <span class="va">intercept</span> <span class="op">+</span> <span class="va">W1</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="va">W2</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="va">W3</span><span class="op">$</span><span class="va">b</span>,
+           W1a_W2b_W3b <span class="op">=</span> <span class="va">intercept</span> <span class="op">+</span> <span class="va">W1</span><span class="op">$</span><span class="va">a</span> <span class="op">+</span> <span class="va">W2</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="va">W3</span><span class="op">$</span><span class="va">b</span>,
+           W1b_W2b_W3b <span class="op">=</span> <span class="va">intercept</span> <span class="op">+</span> <span class="va">W1</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="va">W2</span><span class="op">$</span><span class="va">b</span> <span class="op">+</span> <span class="va">W3</span><span class="op">$</span><span class="va">b</span><span class="op">)</span>
+
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="fl">50</span>, mu <span class="op">=</span> <span class="va">mu</span>, sd <span class="op">=</span> <span class="fl">2</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+
+<span class="co"># make plots</span>
+<span class="va">geoms</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pointrangeSD"</span><span class="op">)</span>
+<span class="va">W1</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W1"</span>, geoms <span class="op">=</span> <span class="va">geoms</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"W1"</span><span class="op">)</span>
+<span class="va">W2</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W2"</span>, geoms <span class="op">=</span> <span class="va">geoms</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"W2"</span><span class="op">)</span>
+<span class="va">W3</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W3"</span>, geoms <span class="op">=</span> <span class="va">geoms</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"W3"</span><span class="op">)</span>
+<span class="va">W12</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W1"</span>, <span class="st">"W2"</span>, geoms <span class="op">=</span> <span class="va">geoms</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"W1 &amp; W2"</span><span class="op">)</span>
+<span class="va">W13</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W1"</span>, <span class="st">"W3"</span>, geoms <span class="op">=</span> <span class="va">geoms</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"W1 &amp; W3"</span><span class="op">)</span>
+<span class="va">W23</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">data</span>, <span class="st">"W2"</span>, <span class="st">"W3"</span>, geoms <span class="op">=</span> <span class="va">geoms</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">ggtitle</a></span><span class="op">(</span><span class="st">"W2 &amp; W3"</span><span class="op">)</span>
+
+<span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">W1</span>, <span class="va">W2</span>, <span class="va">W3</span>, <span class="va">W12</span>, <span class="va">W13</span>, <span class="va">W23</span>, nrow <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-18-1.png" width="100%"></p>
+</div>
+<div id="facet-labels" class="section level3">
+<h3 class="hasAnchor">
+<a href="#facet-labels" class="anchor"></a>Facet Labels</h3>
+<p>Set the labeller to “label_both” if you want facets to include the factor label.</p>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+  pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Cats"</span>, dog <span class="op">=</span> <span class="st">"Dogs"</span><span class="op">)</span>,
+  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>am <span class="op">=</span> <span class="st">"Morning"</span>, pm <span class="op">=</span> <span class="st">"Night"</span><span class="op">)</span>,
+  grp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>ctl <span class="op">=</span> <span class="st">"Control"</span>, exp <span class="op">=</span> <span class="st">"Experimental"</span><span class="op">)</span>,
+  dose <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>
+<span class="op">)</span>
+  
+<span class="va">factor_labels</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="st">"Type of Pet"</span>,
+                       time <span class="op">=</span> <span class="st">"Time of Day"</span>,
+                       grp <span class="op">=</span> <span class="st">"Group"</span>,
+                       dose <span class="op">=</span> <span class="st">"Treatment Dose"</span><span class="op">)</span>
+
+<span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, vardesc <span class="op">=</span> <span class="va">factor_labels</span>,
+           mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">40</span>, sd <span class="op">=</span> <span class="fl">5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="st">"dose"</span>, <span class="st">"pet"</span>, <span class="st">"time"</span>, <span class="st">"grp"</span>, labeller <span class="op">=</span> <span class="st">"label_both"</span>, palette <span class="op">=</span> <span class="st">"Spectral"</span><span class="op">)</span></code></pre></div>
+<p><img src="plots_files/figure-html/unnamed-chunk-19-1.png" width="100%"></p>
 </div>
 </div>
   </div>

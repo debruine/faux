@@ -45,10 +45,12 @@
 
 
 
+  
+  <script src="../extra.js"></script>
 
 <meta property="og:title" content="Simulate data from design (internal) — sim_data" />
 <meta property="og:description" content="Simulate data from design (internal)" />
-<meta property="og:image" content="/reference/figures/card.png" />
+<meta property="og:image" content="https://debruine.github.io/faux/reference/figures/card.png" />
 <meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@lisadebruine" />
@@ -84,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -125,10 +127,16 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
       <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -165,7 +173,14 @@
     <p>Simulate data from design (internal)</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sim_data</span><span class='op'>(</span><span class='va'>design</span>, empirical <span class='op'>=</span> <span class='cn'>FALSE</span>, long <span class='op'>=</span> <span class='cn'>FALSE</span>, rep <span class='op'>=</span> <span class='fl'>1</span>, seed <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>sim_data</span><span class='op'>(</span>
+  <span class='va'>design</span>,
+  empirical <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  long <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  rep <span class='op'>=</span> <span class='fl'>1</span>,
+  nested <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  seed <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,6 +200,10 @@
     <tr>
       <th>rep</th>
       <td><p>the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep</p></td>
+    </tr>
+    <tr>
+      <th>nested</th>
+      <td><p>Whether to nest data frames by rep if rep &gt; 1</p></td>
     </tr>
     <tr>
       <th>seed</th>

@@ -19,20 +19,18 @@ It is useful to be able to simulate data with a specified structure. The `faux` 
 
 ## Installation
 
-You can install the released version of faux (1.0.0) from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of faux from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("faux")
 ```
 
-And the development version (1.0.0.9006) from [GitHub](https://github.com/debruine/faux) with:
+And the development version from [GitHub](https://github.com/debruine/faux) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("debruine/faux")
 ```
-
-See the [development version manual](https://debruine.github.io/faux/dev/).
 
 ## Quick overview
 
@@ -103,12 +101,12 @@ data <- add_random(class = 20) %>%
 
 |school_type |gender |   n|
 |:-----------|:------|---:|
-|private     |M      |  65|
-|private     |F      |  65|
+|private     |M      |  66|
+|private     |F      |  54|
 |private     |NB     |   1|
-|public      |M      | 171|
-|public      |F      | 174|
-|public      |NB     |   4|
+|public      |M      | 186|
+|public      |F      | 187|
+|public      |NB     |   8|
 
 
 

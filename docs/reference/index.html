@@ -45,9 +45,11 @@
 
 
 
+  
+  <script src="../extra.js"></script>
 
 <meta property="og:title" content="Function reference" />
-<meta property="og:image" content="/reference/figures/card.png" />
+<meta property="og:image" content="https://debruine.github.io/faux/reference/figures/card.png" />
 <meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@lisadebruine" />
@@ -83,7 +85,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -124,10 +126,16 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
       <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -205,6 +213,55 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="sim_joint_dist.html">sim_joint_dist()</a></code> </p>
+        </td>
+        <td><p>Simulate category joint distribution</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-mixed-effects-functions" class="hasAnchor"><a href="#section-mixed-effects-functions" class="anchor"></a>Mixed effects functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="add_random.html">add_random()</a></code> </p>
+        </td>
+        <td><p>Add random factors to a data structure</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="add_within.html">add_within()</a></code> </p>
+        </td>
+        <td><p>Add within factors</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="add_between.html">add_between()</a></code> </p>
+        </td>
+        <td><p>Add between factors</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="add_recode.html">add_recode()</a></code> </p>
+        </td>
+        <td><p>Recode a categorical column</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="add_ranef.html">add_ranef()</a></code> </p>
+        </td>
+        <td><p>Add random effects to a data frame</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="sim_mixed_cc.html">sim_mixed_cc()</a></code> </p>
         </td>
         <td><p>Generate a cross-classified sample</p></td>
@@ -214,12 +271,61 @@
           <p><code><a href="sim_mixed_df.html">sim_mixed_df()</a></code> </p>
         </td>
         <td><p>Generate a mixed design from existing data</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-contrasts" class="hasAnchor"><a href="#section-contrasts" class="anchor"></a>Contrasts</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="add_contrast.html">add_contrast()</a></code> </p>
+        </td>
+        <td><p>Add a contrast to a data frame</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="sim_joint_dist.html">sim_joint_dist()</a></code> </p>
+          <p><code><a href="contr_code_treatment.html">contr_code_treatment()</a></code> </p>
         </td>
-        <td><p>Simulate category joint distribution</p></td>
+        <td><p>Treatment code a factor</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="contr_code_anova.html">contr_code_anova()</a></code> </p>
+        </td>
+        <td><p>Anova code a factor</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="contr_code_sum.html">contr_code_sum()</a></code> </p>
+        </td>
+        <td><p>Sum code a factor</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="contr_code_difference.html">contr_code_difference()</a></code> </p>
+        </td>
+        <td><p>Difference code a factor</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="contr_code_helmert.html">contr_code_helmert()</a></code> </p>
+        </td>
+        <td><p>Helmert code a factor</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="contr_code_poly.html">contr_code_poly()</a></code> </p>
+        </td>
+        <td><p>Polynomial code a factor</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -352,6 +458,12 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="get_design.html">get_design()</a></code> </p>
+        </td>
+        <td><p>Get design</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="get_design_long.html">get_design_long()</a></code> </p>
         </td>
         <td><p>Get design from long data</p></td>
@@ -406,9 +518,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="sim_data.html">sim_data()</a></code> </p>
+          <p><code><a href="set_design.html">set_design()</a></code> </p>
         </td>
-        <td><p>Simulate data from design (internal)</p></td>
+        <td><p>Set design</p></td>
       </tr><tr>
         
         <td>

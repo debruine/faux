@@ -45,10 +45,12 @@
 
 
 
+  
+  <script src="../extra.js"></script>
 
 <meta property="og:title" content="Convert design to JSON — json_design" />
 <meta property="og:description" content="Convert a design list to JSON notation for archiving (e.g. in scienceverse)" />
-<meta property="og:image" content="/reference/figures/card.png" />
+<meta property="og:image" content="https://debruine.github.io/faux/reference/figures/card.png" />
 <meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@lisadebruine" />
@@ -84,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -125,10 +127,16 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
       <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -199,18 +207,18 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='va'>des</span> <span class='op'>&lt;-</span> <span class='fu'><a href='check_design.html'>check_design</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>2</span><span class='op'>)</span>
 </div><div class='img'><img src='json_design-1.png' alt='' width='700' height='433' /></div><div class='input'><span class='fu'>json_design</span><span class='op'>(</span><span class='va'>des</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; {"within":{"A":{"A1":"A1","A2":"A2"}},"between":{"B":{"B1":"B1","B2":"B2"}},"dv":{"y":"value"},"id":{"id":"id"},"n":{"B1":100,"B2":100},"mu":{"B1":{"A1":0,"A2":0},"B2":{"A1":0,"A2":0}},"sd":{"B1":{"A1":1,"A2":1},"B2":{"A1":1,"A2":1}},"r":{"B1":[[1,0],[0,1]],"B2":[[1,0],[0,1]]},"sep":"_"} </div><div class='input'><span class='fu'>json_design</span><span class='op'>(</span><span class='va'>des</span>, pretty <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; {"within":{"W1":{"W1a":"W1a","W1b":"W1b"}},"between":{"B1":{"B1a":"B1a","B1b":"B1b"}},"dv":{"y":"value"},"id":{"id":"id"},"vardesc":{"W1":"W1","B1":"B1"},"n":{"B1a":100,"B1b":100},"mu":{"B1a":{"W1a":0,"W1b":0},"B1b":{"W1a":0,"W1b":0}},"sd":{"B1a":{"W1a":1,"W1b":1},"B1b":{"W1a":1,"W1b":1}},"r":{"B1a":[[1,0],[0,1]],"B1b":[[1,0],[0,1]]},"sep":"_"} </div><div class='input'><span class='fu'>json_design</span><span class='op'>(</span><span class='va'>des</span>, pretty <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; {
 #&gt;   "within": {
-#&gt;     "A": {
-#&gt;       "A1": "A1",
-#&gt;       "A2": "A2"
+#&gt;     "W1": {
+#&gt;       "W1a": "W1a",
+#&gt;       "W1b": "W1b"
 #&gt;     }
 #&gt;   },
 #&gt;   "between": {
-#&gt;     "B": {
-#&gt;       "B1": "B1",
-#&gt;       "B2": "B2"
+#&gt;     "B1": {
+#&gt;       "B1a": "B1a",
+#&gt;       "B1b": "B1b"
 #&gt;     }
 #&gt;   },
 #&gt;   "dv": {
@@ -219,36 +227,40 @@
 #&gt;   "id": {
 #&gt;     "id": "id"
 #&gt;   },
+#&gt;   "vardesc": {
+#&gt;     "W1": "W1",
+#&gt;     "B1": "B1"
+#&gt;   },
 #&gt;   "n": {
-#&gt;     "B1": 100,
-#&gt;     "B2": 100
+#&gt;     "B1a": 100,
+#&gt;     "B1b": 100
 #&gt;   },
 #&gt;   "mu": {
-#&gt;     "B1": {
-#&gt;       "A1": 0,
-#&gt;       "A2": 0
+#&gt;     "B1a": {
+#&gt;       "W1a": 0,
+#&gt;       "W1b": 0
 #&gt;     },
-#&gt;     "B2": {
-#&gt;       "A1": 0,
-#&gt;       "A2": 0
+#&gt;     "B1b": {
+#&gt;       "W1a": 0,
+#&gt;       "W1b": 0
 #&gt;     }
 #&gt;   },
 #&gt;   "sd": {
-#&gt;     "B1": {
-#&gt;       "A1": 1,
-#&gt;       "A2": 1
+#&gt;     "B1a": {
+#&gt;       "W1a": 1,
+#&gt;       "W1b": 1
 #&gt;     },
-#&gt;     "B2": {
-#&gt;       "A1": 1,
-#&gt;       "A2": 1
+#&gt;     "B1b": {
+#&gt;       "W1a": 1,
+#&gt;       "W1b": 1
 #&gt;     }
 #&gt;   },
 #&gt;   "r": {
-#&gt;     "B1": [
+#&gt;     "B1a": [
 #&gt;       [1, 0],
 #&gt;       [0, 1]
 #&gt;     ],
-#&gt;     "B2": [
+#&gt;     "B1b": [
 #&gt;       [1, 0],
 #&gt;       [0, 1]
 #&gt;     ]

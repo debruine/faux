@@ -3,14 +3,13 @@ output: github_document
 always_allow_html: yes
 ---
 
-# faux 
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/163506566.svg)](https://zenodo.org/badge/latestdoi/163506566)
-[![CRAN version](https://www.r-pkg.org/badges/version-last-release/faux)]()
-[![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/faux)]()
+![CRAN version](https://www.r-pkg.org/badges/version-last-release/faux)
+![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/faux)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Travis build status](https://travis-ci.org/debruine/faux.svg?branch=master)](https://travis-ci.org/debruine/faux)
 [![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/debruine/faux?branch=master)
@@ -38,7 +37,5 @@ And the development version from [GitHub](https://github.com/debruine/faux) with
 devtools::install_github("debruine/faux")
 ```
 
-See the [development version manual](https://debruine.github.io/faux/dev/).
-
-Please note that the [34m'faux'[39m project is released with a [Contributor Code of Conduct](https://github.com/debruine/faux/blob/master/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
+Please note that the 'faux' project is released with a [Contributor Code of Conduct](https://github.com/debruine/faux/blob/master/CODE_OF_CONDUCT.md). By contributing to this project, you agree to abide by its terms.
 

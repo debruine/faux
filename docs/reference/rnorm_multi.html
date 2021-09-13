@@ -45,10 +45,12 @@
 
 
 
+  
+  <script src="../extra.js"></script>
 
 <meta property="og:title" content="Multiple correlated normal distributions — rnorm_multi" />
 <meta property="og:description" content="Make normally distributed vectors with specified relationships. See vignette(&quot;rnorm_multi&quot;, package = &quot;faux&quot;) for details." />
-<meta property="og:image" content="/reference/figures/card.png" />
+<meta property="og:image" content="https://debruine.github.io/faux/reference/figures/card.png" />
 <meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@lisadebruine" />
@@ -84,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -125,10 +127,16 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
       <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -225,26 +233,26 @@
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># 4 10-item vectors each correlated r = .5</span>
 <span class='fu'>rnorm_multi</span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span>, r <span class='op'>=</span> <span class='fl'>0.5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;             X1         X2          X3          X4
-#&gt; 1   0.45739527  0.8994046 -0.96948437  0.03884443
-#&gt; 2   0.22708900  1.1959369  1.45527042  2.29606358
-#&gt; 3  -0.06813446 -0.2700352  0.01537602 -0.26163959
-#&gt; 4  -0.57440414 -1.7155499 -1.20389427 -1.50454873
-#&gt; 5  -0.70123083 -1.2190659  0.21736094 -0.40004893
-#&gt; 6   1.48536823  1.6847372  1.00499651  0.20763006
-#&gt; 7  -0.34937463  0.1976291 -0.75879876  0.09282251
-#&gt; 8  -1.15331203 -0.3250870 -0.29305162 -2.21427244
-#&gt; 9   0.07559776  0.6463190  0.91047591  0.78581872
-#&gt; 10 -0.67463688  1.2230990 -0.62793740 -0.34783835</div><div class='input'>
+</div><div class='output co'>#&gt;             X1          X2         X3          X4
+#&gt; 1   0.61095292 -1.26859860 -1.0473425 -0.93833481
+#&gt; 2   1.00786700 -0.01045278  0.8011351  0.07257914
+#&gt; 3   0.82667232  1.04795522  0.4644770 -0.28091812
+#&gt; 4  -0.05394007 -1.44029737 -0.6811783 -0.30994736
+#&gt; 5  -1.41605036 -1.64280302 -0.4406393 -1.01325211
+#&gt; 6   0.46223117  2.18896422  1.5182443  0.46917235
+#&gt; 7   0.78039022  0.39089482 -0.2903739 -0.13676273
+#&gt; 8   0.63844483  0.07108052  0.5376613 -0.53491812
+#&gt; 9   0.72890749 -1.52370263  0.8834245  0.55849515
+#&gt; 10 -0.04290407 -0.28051289 -0.5307138  1.53489728</div><div class='input'>
 <span class='co'># set r with the upper right triangle</span>
 <span class='va'>b</span> <span class='op'>&lt;-</span> <span class='fu'>rnorm_multi</span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>3</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>.5</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fl'>1</span>, 
                  r <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0.2</span>, <span class='op'>-</span><span class='fl'>0.5</span>, <span class='fl'>0.5</span><span class='op'>)</span>, 
                  varnames<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"A"</span>, <span class='st'>"B"</span>, <span class='st'>"C"</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>b</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           A         B          C
-#&gt; A  1.000000 0.4183250 -0.2670150
-#&gt; B  0.418325 1.0000000  0.4560207
-#&gt; C -0.267015 0.4560207  1.0000000</div><div class='input'>
+</div><div class='output co'>#&gt;            A         B          C
+#&gt; A  1.0000000 0.3994863 -0.5147966
+#&gt; B  0.3994863 1.0000000  0.3896981
+#&gt; C -0.5147966 0.3896981  1.0000000</div><div class='input'>
 <span class='co'># set r with a correlation matrix and column names from mu names</span>
 <span class='va'>c</span> <span class='op'>&lt;-</span> <span class='fu'>rnorm_multi</span><span class='op'>(</span>
   n <span class='op'>=</span> <span class='fl'>100</span>, 
@@ -255,9 +263,9 @@
 <span class='op'>)</span>
 <span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>c</span><span class='op'>)</span>
 </div><div class='output co'>#&gt;            A         B          C
-#&gt; A  1.0000000 0.1866261 -0.6052581
-#&gt; B  0.1866261 1.0000000  0.3732939
-#&gt; C -0.6052581 0.3732939  1.0000000</div><div class='input'>
+#&gt; A  1.0000000 0.1615419 -0.5165878
+#&gt; B  0.1615419 1.0000000  0.5451974
+#&gt; C -0.5165878 0.5451974  1.0000000</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -17,9 +17,9 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Simulate from Existing Data">
+<script src="../pkgdown.js"></script><script src="../extra.js"></script><meta property="og:title" content="Simulate from Existing Data">
 <meta property="og:description" content="faux">
-<meta property="og:image" content="/reference/figures/card.png">
+<meta property="og:image" content="https://debruine.github.io/faux/reference/figures/card.png">
 <meta property="og:image:alt" content="Blue hexagon with the word FAUX in white">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@lisadebruine">
@@ -42,7 +42,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -83,10 +83,16 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
       <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -111,13 +117,13 @@
 
       
 
-      </header><script src="sim_df_files/header-attrs-2.7/header-attrs.js"></script><div class="row">
+      </header><script src="sim_df_files/header-attrs-2.10.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulate from Existing Data</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2021-03-27</h4>
+            <h4 class="date">2021-09-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/sim_df.Rmd"><code>vignettes/sim_df.Rmd</code></a></small>
       <div class="hidden name"><code>sim_df.Rmd</code></div>
@@ -209,65 +215,65 @@ Simulated iris dataset (rounded)
 <div id="missing-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#missing-data" class="anchor"></a>Missing data</h2>
-<p>As of faux 0.0.1.8, if you want to simulate missing data, set <code>missing = TRUE</code> and <code>sim_df</code> will simulate missing data with the same joint probabilities as your data. In the dataset below, in condition B1 30% of A1 values are missing and 60% of A2 values are missing. This is correlated so that there is a 100% chance that A2 is missing if A1 is. There is no missing data for condition B2.</p>
+<p>As of faux 0.0.1.8, if you want to simulate missing data, set <code>missing = TRUE</code> and <code>sim_df</code> will simulate missing data with the same joint probabilities as your data. In the dataset below, in condition B1a, 30% of W1a values are missing and 60% of W1b values are missing. This is correlated so that there is a 100% chance that W1b is missing if W1a is. There is no missing data for condition B1b.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, n <span class="op">=</span> <span class="fl">10</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="va">data</span><span class="op">$</span><span class="va">A1</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
-<span class="va">data</span><span class="op">$</span><span class="va">A2</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
+<span class="va">data</span><span class="op">$</span><span class="va">W1a</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">3</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
+<span class="va">data</span><span class="op">$</span><span class="va">W1b</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">6</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="cn">NA</span>
 <span class="va">data</span>
-<span class="co">#&gt;     id  B          A1          A2</span>
-<span class="co">#&gt; 1  S01 B1          NA          NA</span>
-<span class="co">#&gt; 2  S02 B1          NA          NA</span>
-<span class="co">#&gt; 3  S03 B1          NA          NA</span>
-<span class="co">#&gt; 4  S04 B1 -0.87577954          NA</span>
-<span class="co">#&gt; 5  S05 B1  0.27931928          NA</span>
-<span class="co">#&gt; 6  S06 B1  0.46277729          NA</span>
-<span class="co">#&gt; 7  S07 B1 -0.11678369 -0.66795544</span>
-<span class="co">#&gt; 8  S08 B1  1.34454748  2.30398889</span>
-<span class="co">#&gt; 9  S09 B1 -1.26771349  0.55738252</span>
-<span class="co">#&gt; 10 S10 B1 -0.71258675  0.09183975</span>
-<span class="co">#&gt; 11 S11 B2 -0.39607245  0.85023624</span>
-<span class="co">#&gt; 12 S12 B2 -1.15357665 -0.18013489</span>
-<span class="co">#&gt; 13 S13 B2 -0.21533313  1.08873598</span>
-<span class="co">#&gt; 14 S14 B2 -0.42370435  0.94812875</span>
-<span class="co">#&gt; 15 S15 B2 -0.05717782  0.63667947</span>
-<span class="co">#&gt; 16 S16 B2 -0.12733224 -1.47331528</span>
-<span class="co">#&gt; 17 S17 B2  0.21208884  0.69005635</span>
-<span class="co">#&gt; 18 S18 B2 -0.20401676 -1.01059002</span>
-<span class="co">#&gt; 19 S19 B2 -1.14885697 -0.50127757</span>
-<span class="co">#&gt; 20 S20 B2  0.87586766  1.47606428</span></code></pre></div>
+<span class="co">#&gt;     id  B1         W1a         W1b</span>
+<span class="co">#&gt; 1  S01 B1a          NA          NA</span>
+<span class="co">#&gt; 2  S02 B1a          NA          NA</span>
+<span class="co">#&gt; 3  S03 B1a          NA          NA</span>
+<span class="co">#&gt; 4  S04 B1a -0.87577954          NA</span>
+<span class="co">#&gt; 5  S05 B1a  0.27931928          NA</span>
+<span class="co">#&gt; 6  S06 B1a  0.46277729          NA</span>
+<span class="co">#&gt; 7  S07 B1a -0.11678369 -0.66795544</span>
+<span class="co">#&gt; 8  S08 B1a  1.34454748  2.30398889</span>
+<span class="co">#&gt; 9  S09 B1a -1.26771349  0.55738252</span>
+<span class="co">#&gt; 10 S10 B1a -0.71258675  0.09183975</span>
+<span class="co">#&gt; 11 S11 B1b -0.39607245  0.85023624</span>
+<span class="co">#&gt; 12 S12 B1b -1.15357665 -0.18013489</span>
+<span class="co">#&gt; 13 S13 B1b -0.21533313  1.08873598</span>
+<span class="co">#&gt; 14 S14 B1b -0.42370435  0.94812875</span>
+<span class="co">#&gt; 15 S15 B1b -0.05717782  0.63667947</span>
+<span class="co">#&gt; 16 S16 B1b -0.12733224 -1.47331528</span>
+<span class="co">#&gt; 17 S17 B1b  0.21208884  0.69005635</span>
+<span class="co">#&gt; 18 S18 B1b -0.20401676 -1.01059002</span>
+<span class="co">#&gt; 19 S19 B1b -1.14885697 -0.50127757</span>
+<span class="co">#&gt; 20 S20 B1b  0.87586766  1.47606428</span></code></pre></div>
 <p>The simulated data will have the same pattern of missingness (sampled from the joint distribution, so it won’t be exact).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">simdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">data</span>, between <span class="op">=</span> <span class="st">"B"</span>, n <span class="op">=</span> <span class="fl">1000</span>, 
+<code class="sourceCode R"><span class="va">simdat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">data</span>, between <span class="op">=</span> <span class="st">"B1"</span>, n <span class="op">=</span> <span class="fl">1000</span>, 
                  missing <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
-<th align="left">B</th>
-<th align="left">A1</th>
-<th align="left">A2</th>
+<th align="left">B1</th>
+<th align="left">W1a</th>
+<th align="left">W1b</th>
 <th align="right">n</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
-<td align="left">B1</td>
+<td align="left">B1a</td>
 <td align="left">NA</td>
 <td align="left">NA</td>
 <td align="right">0.31</td>
 </tr>
 <tr class="even">
-<td align="left">B1</td>
+<td align="left">B1a</td>
 <td align="left">not NA</td>
 <td align="left">NA</td>
 <td align="right">0.31</td>
 </tr>
 <tr class="odd">
-<td align="left">B1</td>
+<td align="left">B1a</td>
 <td align="left">not NA</td>
 <td align="left">not NA</td>
 <td align="right">0.38</td>
 </tr>
 <tr class="even">
-<td align="left">B2</td>
+<td align="left">B1b</td>
 <td align="left">not NA</td>
 <td align="left">not NA</td>
 <td align="right">1.00</td>

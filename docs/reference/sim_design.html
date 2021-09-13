@@ -45,10 +45,12 @@
 
 
 
+  
+  <script src="../extra.js"></script>
 
 <meta property="og:title" content="Simulate data from design — sim_design" />
 <meta property="og:description" content="Generates a data table with a specified within and between design. See vignette(&quot;sim_design&quot;, package = &quot;faux&quot;) for examples and details." />
-<meta property="og:image" content="/reference/figures/card.png" />
+<meta property="og:image" content="https://debruine.github.io/faux/reference/figures/card.png" />
 <meta property="og:image:alt" content="Blue hexagon with the word FAUX in white" />
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:creator" content="@lisadebruine" />
@@ -84,7 +86,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.0</span>
       </span>
     </div>
 
@@ -125,10 +127,16 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
       <a href="../articles/codebook.html">Codebook Demo</a>
+    </li>
+    <li>
+      <a href="../articles/contrasts.html">Contrasts</a>
     </li>
   </ul>
 </li>
@@ -162,7 +170,7 @@
     </div>
 
     <div class="ref-description">
-    <p>Generates a data table with a specified within and between design. See <a href='../doc/sim_design.html'><code><a href='../articles/sim_design.html'>vignette("sim_design", package = "faux")</a></code></a> for examples and details.</p>
+    <p>Generates a data table with a specified within and between design. See <a href='https://debruine.github.io/faux/articles/sim_design.html'><code><a href='../articles/sim_design.html'>vignette("sim_design", package = "faux")</a></code></a> for examples and details.</p>
     </div>
 
     <pre class="usage"><span class='fu'>sim_design</span><span class='op'>(</span>
@@ -176,10 +184,12 @@
   long <span class='op'>=</span> <span class='cn'>FALSE</span>,
   dv <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"value"</span><span class='op'>)</span>,
   id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>id <span class='op'>=</span> <span class='st'>"id"</span><span class='op'>)</span>,
+  vardesc <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
   plot <span class='op'>=</span> <span class='fu'><a href='faux_options.html'>faux_options</a></span><span class='op'>(</span><span class='st'>"plot"</span><span class='op'>)</span>,
   interactive <span class='op'>=</span> <span class='cn'>FALSE</span>,
   design <span class='op'>=</span> <span class='cn'>NULL</span>,
   rep <span class='op'>=</span> <span class='fl'>1</span>,
+  nested <span class='op'>=</span> <span class='cn'>TRUE</span>,
   seed <span class='op'>=</span> <span class='cn'>NULL</span>,
   sep <span class='op'>=</span> <span class='fu'><a href='faux_options.html'>faux_options</a></span><span class='op'>(</span><span class='st'>"sep"</span><span class='op'>)</span>
 <span class='op'>)</span></pre>
@@ -209,7 +219,7 @@
     </tr>
     <tr>
       <th>r</th>
-      <td><p>the correlations among the variables (can be a single number, full correlation matrix as a matric or vector, or a vector of the upper right triangle of the correlation matrix</p></td>
+      <td><p>the correlations among the variables (can be a single number, full correlation matrix as a matrix or vector, or a vector of the upper right triangle of the correlation matrix</p></td>
     </tr>
     <tr>
       <th>empirical</th>
@@ -228,6 +238,10 @@
       <td><p>the name of the id column (defaults to id)</p></td>
     </tr>
     <tr>
+      <th>vardesc</th>
+      <td><p>a list of variable descriptions having the names of the within- and between-subject factors</p></td>
+    </tr>
+    <tr>
       <th>plot</th>
       <td><p>whether to show a plot of the design</p></td>
     </tr>
@@ -237,11 +251,15 @@
     </tr>
     <tr>
       <th>design</th>
-      <td><p>a design list including within, between, n, mu, sd, r, dv, id</p></td>
+      <td><p>a design list including within, between, n, mu, sd, r, dv, id, and vardesc</p></td>
     </tr>
     <tr>
       <th>rep</th>
-      <td><p>the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep</p></td>
+      <td><p>the number of data frames to return (default 1); if greater than 1, the returned data frame is nested by rep (if nested = TRUE)</p></td>
+    </tr>
+    <tr>
+      <th>nested</th>
+      <td><p>Whether to nest data frames by rep if rep &gt; 1</p></td>
     </tr>
     <tr>
       <th>seed</th>

@@ -27,6 +27,7 @@
 ^Makefile$
 ^revdep$
 ^vignettes/template_instructions.txt$
-^vignettes/random_reports.txt$
-^vignettes/plots.txt$
-^vignettes/distributions.txt$
+^vignettes/random_reports.Rmd$
+^vignettes/plots.Rmd$
+^vignettes/distributions.Rmd$
+^vignettes/sim_mixed.Rmd$

@@ -17,13 +17,13 @@ knitr::opts_chunk$set(
 library(kableExtra)
 ```
 
-Have you ever wanted to create unique versions of datasets for each student in a class? This vignette walks through the proess of setting up a simple study with a subject table and a questionnaire table. 
+Have you ever wanted to create unique versions of datasets for each student in a class? This vignette walks through the process of setting up a simple study with a subject table and a questionnaire table. 
 
 The subjects have varying demographic attributes and are assigned to a counterbalanced condition and version of the study. Some of the demographic data is missing.
 
 The questionnaire has a variable number of questions, answered on a 7-point Likert scale. Some of the questions are reverse-coded, indicated by the column names. There are some missing observations.
 
-The data is set up with fixed effects for condition, version, and subject language that you can vary between students. The DV is created using a mixed effects model formula to simulate realistic random interpects and slopes, so these data would be suitable for analysis with mixed effects models, or you can instruct students to aggregate the questionnaire data to analyse with t-tests, correlations, and ANOVAs.
+The data is set up with fixed effects for condition, version, and subject language that you can vary between students. The DV is created using a mixed effects model formula to simulate realistic random intercepts and slopes, so these data would be suitable for analysis with mixed effects models, or you can instruct students to aggregate the questionnaire data to analyse with single-level models.
 
 A custom assignment is created for each student, where they are told the questionnaire contains scores on one of three topics, and are asked to determine if there is an effect of one factor for a subgroup of another factor. The categories chosen here are pretty arbitrary, but you can change this to make sense for your subject area.
 
@@ -32,10 +32,10 @@ Finally, the subject table, questionnaire table, and instructions are saved to a
 
 ## Setup
 
-Some of the functions below currently require the development version of faux (`add_random()`, `add_between()`, `add_ranef()` and `add_contrast()`). I am working on submitting the new version to CRAN, so any feedback would be welcome.
+Some of the functions below require version 1.1.0 of faux (`add_random()`, `add_between()`, `add_ranef()` and `add_contrast()`). This version has been submitted to CRAN, and is available on github. Any feedback would be welcome.
 
 ```{r setup, message=FALSE}
-# devtools::install_github("debruine/faux", ref = "dev")
+# devtools::install_github("debruine/faux")
 library(faux)
 library(dplyr)
 library(tidyr)
@@ -46,17 +46,22 @@ library(glue)
 theme_set(theme_minimal())
 ```
 
-Start your script by setting a seed that is unique to each student. Below is a useful pattern to generate a seed from a student ID, even if it contains letters.
+Start your script by setting a seed that is unique to each student. Below is a useful function you can use to generate a seed from a student ID, even if it contains letters.
 
 ```{r}
-student_id <- "8675309J"
+seed_from_string <- function(seed) {
+  if (is.numeric(seed)) return(set.seed(seed))
+  
+  # otherwise set from characters
+  seed %>%
+    openssl::md5() %>%       # turn into something with lots of numbers
+    gsub("[a-z]", "", .) %>% # get rid of letters
+    substr(1, 8) %>%         # select the first 8 numbers
+    set.seed()
+}
 
-student_id %>%
-  as.character() %>%       # has to be a character string to start
-  openssl::md5() %>%       # turn into something with lots of numbers
-  gsub("[a-z]", "", .) %>% # get rid of letters
-  substr(1, 8) %>%         # select the first 8 numbers
-  set.seed()
+student_id <- "8675309J"
+seed_from_string(student_id)
 ```
 
 
@@ -419,9 +424,10 @@ I sample a topic from "stress", "extroversion", and "disgust". You can choose re
 I also sample an alpha level and power for the power calculation aspect of the assessment. This reinforces a lesson I want to teach about alpha = 0.5 and target power = 0.8 being mindless defaults that we should question. [Justify everything](https://osf.io/j4s3c/).
 
 ```{r}
-factors <- sample(c("language", "condition", "version"), 2)
-iv <- factors[[1]]
-subset <- factors[[2]]
+factors <- c("language", "condition", "version")
+two_factors <- sample(factors, 2)
+iv <- two_factors[[1]]
+subset <- two_factors[[2]]
 level <- subjects[[subset]] %>% unique() %>% sample(1)
 topic <- sample(c("stress", "extroversion", "disgust"), 1)
 alpha <- sample(c(.005, .01, .05), 1)
@@ -431,16 +437,38 @@ power <- sample(c(80, 85, 90), 1)
 This will produce the following text.
 
 ```{r}
-research_question <- readLines("template_instructions.txt") %>%
+instructions <- readLines("template_instructions.txt") %>%
   paste(collapse = "\n") %>%
   glue::glue()
 ```
 
 <blockquote>
 
-`r research_question`
+`r instructions`
 
 </blockquote>
+
+
+### Instructions function
+
+As before, wrap this code in a function.
+
+```{r}
+make_instructions <- function(template, 
+                              factors = c("language", "condition", "version")) {
+  two_factors <- sample(factors, 2)
+  iv <- two_factors[[1]]
+  subset <- two_factors[[2]]
+  level <- subjects[[subset]] %>% unique() %>% sample(1)
+  topic <- sample(c("stress", "extroversion", "disgust"), 1)
+  alpha <- sample(c(.005, .01, .05), 1)
+  power <- sample(c(80, 85, 90), 1)
+
+  readLines(template) %>%
+    paste(collapse = "\n") %>%
+    glue::glue()
+}
+```
 
 
 ## Save files
@@ -452,7 +480,7 @@ dir <- paste0("exam_", student_id)
 dir.create(dir, showWarnings = FALSE)
 readr::write_csv(subjects, file.path(dir, "subjects.csv"))
 readr::write_csv(questions, file.path(dir, "questions.csv"))
-write(research_question, file.path(dir, "instructions.txt"))
+write(instructions, file.path(dir, "instructions.txt"))
 ```
 
 
@@ -463,12 +491,7 @@ Once you've debugged your code above, put each step inside a function with the a
 ```{r function}
 random_project <- function(student_id) {
   # set seed using student ID
-  student_id %>%
-    as.character() %>%
-    openssl::md5() %>%
-    gsub("[a-z]", "", .) %>%
-    substr(1, 8) %>%
-    set.seed()
+  seed_from_string(student_id)
   
   # simulate subjects
   subjects <- make_subjects()
@@ -476,26 +499,15 @@ random_project <- function(student_id) {
   # simulate questionnaire
   questions <- make_quest(subjects)
   
-  # sample research question variables
-  factors <- sample(c("language", "condition", "version"), 2)
-  iv <- factors[[1]]
-  subset <- factors[[2]]
-  level <- subjects[[subset]] %>% unique() %>% sample(1)
-  topic <- sample(c("stress", "extroversion", "disgust"), 1)
-  alpha <- sample(c(.005, .01, .05), 1)
-  power <- sample(c(80, 85, 90), 1)
+  # customise instructions
+  instructions <- make_instructions("template_instructions.txt")
   
-  # create random research question text
-  research_question <- readLines("template_instructions.txt") %>%
-    paste(collapse = "\n") %>%
-    glue::glue()
-  
-  # write files
+  # write files to a new directory
   dir <- paste0("exam_", student_id)
   dir.create(dir, showWarnings = FALSE)
   readr::write_csv(subjects, file.path(dir, "subjects.csv"))
   readr::write_csv(questions, file.path(dir, "questions.csv"))
-  write(research_question, file.path(dir, "instructions.txt"))
+  write(instructions, file.path(dir, "instructions.txt"))
   
   return(dir)
 }
