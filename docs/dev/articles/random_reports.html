@@ -142,10 +142,15 @@
 <a href="#setup" class="anchor"></a>Setup</h2>
 <p>Some of the functions below currently require the development version of faux (<code><a href="../reference/add_random.html">add_random()</a></code>, <code><a href="../reference/add_between.html">add_between()</a></code>, <code><a href="../reference/add_ranef.html">add_ranef()</a></code> and <code><a href="../reference/add_contrast.html">add_contrast()</a></code>). I am working on submitting the new version to CRAN, so any feedback would be welcome.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span>
-<span class="co"># devtools::install_github("debruine/faux", ref = "dev")</span>
+<code class="sourceCode R"><span class="co"># devtools::install_github("debruine/faux", ref = "dev")</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span>
-<span class="fu">theme_set</span><span class="op">(</span><span class="fu">theme_minimal</span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://readr.tidyverse.org">readr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/tidyverse/glue">glue</a></span><span class="op">)</span>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Start your script by setting a seed that is unique to each student. Below is a useful pattern to generate a seed from a student ID, even if it contains letters.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">student_id</span> <span class="op">&lt;-</span> <span class="st">"8675309J"</span>
@@ -309,7 +314,7 @@ NA
 <p>Now add an age column. I’m using <code>18 + rpois(nrow(.), 3)</code> to make a distribution that’s pretty typical of undergraduate students, but you can choose a simulation function that is relevant to your questions. I’m also replacing 5% of the values with the word “missing”, which will convert this to a chaacter column because I want students to practice dealing with non-standard missing values.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">subjects</span> <span class="op">&lt;-</span> <span class="va">subjects</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>age <span class="op">=</span> <span class="fl">18</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>age <span class="op">=</span> <span class="fl">18</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
   <span class="fu"><a href="../reference/messy.html">messy</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.05</span>, <span class="st">"age"</span>, replace <span class="op">=</span> <span class="st">"missing"</span><span class="op">)</span></code></pre></div>
 <p><img src="random_reports_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
@@ -324,7 +329,7 @@ NA
 </div>
 <div id="experiment-factors" class="section level3">
 <h3 class="hasAnchor">
-<a href="#experiment-factors" class="anchor"></a>Experiment Factors</h3>
+<a href="#experiment-factors" class="anchor"></a>Experiment factors</h3>
 <p>I want condition and version to be crossed so that there’s an equal number of subjects in each cell. Specifying both in the same <code><a href="../reference/add_between.html">add_between()</a></code> accomplishes this.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">subjects</span> <span class="op">&lt;-</span> <span class="va">subjects</span> <span class="op">%&gt;%</span>
@@ -390,23 +395,28 @@ V2
 </tbody>
 </table>
 </div>
-<div id="subject-pipleine" class="section level3">
+<div id="subject-function" class="section level3">
 <h3 class="hasAnchor">
-<a href="#subject-pipleine" class="anchor"></a>Subject pipleine</h3>
-<p>Now our full subject table pipeline looks like this:</p>
+<a href="#subject-function" class="anchor"></a>Subject function</h3>
+<p>Now wrap the code for making the subject table in a function. This makes it easy to make more than one subject table for a simulated study, for example, to have students practice combining tables.</p>
+<p>You can also add other arguments that you might want to vary, like the names of the condition and version levels. Set the defaults to what we used in the example above.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">subj_n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">300</span><span class="op">:</span><span class="fl">400</span>, <span class="fl">1</span><span class="op">)</span>
-  
-  <span class="va">subjects</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj_id <span class="op">=</span> <span class="va">subj_n</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">make_subjects</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">subj_n</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">300</span><span class="op">:</span><span class="fl">400</span>, <span class="fl">1</span><span class="op">)</span>,
+                          <span class="va">cond_levels</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
+                          <span class="va">vers_levels</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"V1"</span>, <span class="st">"V2"</span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj_id <span class="op">=</span> <span class="va">subj_n</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span>gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"female"</span>, <span class="st">"male"</span>, <span class="st">"nonbinary"</span><span class="op">)</span>,
                 .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.3</span>, <span class="fl">.6</span>, <span class="fl">.1</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/messy.html">messy</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.05</span>, <span class="st">"gender"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">mutate</span><span class="op">(</span>age <span class="op">=</span> <span class="fl">18</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>age <span class="op">=</span> <span class="fl">18</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/messy.html">messy</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.05</span>, <span class="st">"age"</span>, replace <span class="op">=</span> <span class="st">"missing"</span><span class="op">)</span> <span class="op">%&gt;%</span>
     <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span>language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span>,
                 .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.7</span>, <span class="fl">.3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span>condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-                version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"V1"</span>, <span class="st">"V2"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+    <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span>condition <span class="op">=</span> <span class="va">cond_levels</span>,
+                version <span class="op">=</span> <span class="va">vers_levels</span><span class="op">)</span>
+<span class="op">}</span>
+
+<span class="va">subjects</span> <span class="op">&lt;-</span> <span class="fu">make_subjects</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -734,7 +744,7 @@ q1
 </div>
 <div id="question-reversing" class="section level3">
 <h3 class="hasAnchor">
-<a href="#question-reversing" class="anchor"></a>Question Reversing</h3>
+<a href="#question-reversing" class="anchor"></a>Question reversing</h3>
 <p>I want some of the questions to be reverse-coded, so I’m adding a between-question factor of <code>reversed</code> with levels “F” and “R”. Here, we specify the <code>.by =</code> argument to show that this factor should vary by question. We didn’t need this in the code above because there was only one random factor to vary over, but by default this function varies over all random factors if there is more than one.</p>
 <p>I set <code>.shuffle = TRUE</code> so that the questions are randomly assigned forward and reversed values, rather than odd questions being forward and even questions being reversed. This will require a more sophisticated method to wrangle the resulting data, and the randomisation means that different students’ datasets need different code.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
@@ -838,7 +848,7 @@ F
 <p>Finally, we add the error term (<code>sigma</code>).</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">questions</span> <span class="op">&lt;-</span> <span class="va">questions</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>dv <span class="op">=</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">s0i</span> <span class="op">+</span> <span class="va">q0i</span> <span class="op">+</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dv <span class="op">=</span> <span class="fl">0</span> <span class="op">+</span> <span class="va">s0i</span> <span class="op">+</span> <span class="va">q0i</span> <span class="op">+</span>
            <span class="op">(</span><span class="va">s_lang</span> <span class="op">+</span> <span class="va">lang_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">lang</span> <span class="op">+</span> 
            <span class="op">(</span><span class="va">s_cond</span> <span class="op">+</span> <span class="va">cond_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">cond</span> <span class="op">+</span> 
            <span class="op">(</span><span class="va">s_vers</span> <span class="op">+</span> <span class="va">vers_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">vers</span> <span class="op">+</span>
@@ -851,68 +861,79 @@ F
 <p>For this assignment, I want the DV to be from a Likert scale, so I’m going to convert <code>dv</code> from a normal distribution to a Likert scale with 7 points with the proportions below. The second mutate reverses the questions that should be reverse-coded.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">questions</span> <span class="op">&lt;-</span> <span class="va">questions</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>dv <span class="op">=</span> <span class="fu"><a href="../reference/norm2likert.html">norm2likert</a></span><span class="op">(</span><span class="va">dv</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dv <span class="op">=</span> <span class="fu"><a href="../reference/norm2likert.html">norm2likert</a></span><span class="op">(</span><span class="va">dv</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">10</span>, <span class="fl">5</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,
          dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">reversed</span> <span class="op">==</span> <span class="st">"R"</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">dv</span> <span class="op">-</span> <span class="fl">8</span><span class="op">)</span>, <span class="va">dv</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
 <p><img src="random_reports_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 </div>
 <div id="reshape-data" class="section level3">
 <h3 class="hasAnchor">
-<a href="#reshape-data" class="anchor"></a>Reshape Data</h3>
+<a href="#reshape-data" class="anchor"></a>Reshape data</h3>
 <p>Here, I’m creating a <code>quest_name</code> column from the <code>quest_id</code> and <code>reversed</code> columns. <code><a href="https://rdrr.io/r/base/sample.html">sample(2:3)</a></code> returns these columns in a random order. I then unite the columns with a randomly sampled separator. This will produce question names like <code>F-q04</code> or <code>q10 R</code>. While putting information about the questions in the name isn’t great practice for recording data, it’s unfortunately very common and dealing with it is a skill I want my students to practice.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">""</span>, <span class="st">"-"</span>, <span class="st">" "</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
 
 <span class="va">questions</span> <span class="op">&lt;-</span> <span class="va">questions</span> <span class="op">%&gt;%</span> 
-  <span class="fu">select</span><span class="op">(</span><span class="va">subj_id</span>, <span class="va">quest_id</span>, <span class="va">reversed</span>, <span class="va">dv</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">unite</span><span class="op">(</span>col <span class="op">=</span> <span class="va">quest_name</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, sep <span class="op">=</span> <span class="va">sep</span><span class="op">)</span> </code></pre></div>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">subj_id</span>, <span class="va">quest_id</span>, <span class="va">reversed</span>, <span class="va">dv</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span>col <span class="op">=</span> <span class="va">quest_name</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, sep <span class="op">=</span> <span class="va">sep</span><span class="op">)</span> </code></pre></div>
 <p>I then make 0.5% of the observations missing, pivot the table from long to wide format, and sample 95% of the subjects, so that the number of subjects in the subjects table doesn’t exactly match the number in the questions table, and is in a different order.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">questions</span> <span class="op">&lt;-</span> <span class="va">questions</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/messy.html">messy</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.005</span>, <span class="st">"dv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">quest_name</span>, values_from <span class="op">=</span> <span class="va">dv</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">slice_sample</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">quest_name</span>, values_from <span class="op">=</span> <span class="va">dv</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="question-pipeline" class="section level3">
+<div id="questionnaire-function" class="section level3">
 <h3 class="hasAnchor">
-<a href="#question-pipeline" class="anchor"></a>Question pipeline</h3>
-<p>Now our full question table pipeline looks like this:</p>
+<a href="#questionnaire-function" class="anchor"></a>Questionnaire function</h3>
+<p>Now wrap the code for making the questionnaire table in a function. You can use this to make several questionnaires per student to practice joining tables.</p>
+<p>This code needs the subjects table as an argument. You can add the other randomised values as arguments. I also added <code>likert_prob</code> as an argument so you can easily customise the number of points on the Likert scale and their relative proportions.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># randomise between students</span>
-<span class="va">quest_n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">15</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="va">sep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">""</span>, <span class="st">"-"</span>, <span class="st">" "</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="va">make_quest</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">subjects</span>,
+                       <span class="va">quest_n</span> <span class="op">=</span> <span class="fl">5</span><span class="op">:</span><span class="fl">15</span>,
+                       <span class="va">sep</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">""</span>, <span class="st">"-"</span>, <span class="st">" "</span><span class="op">)</span>,
+                       <span class="va">lang_effect</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+                       <span class="va">cond_effect</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+                       <span class="va">vers_effect</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>,
+                       <span class="va">likert_prob</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.05</span>, <span class="fl">.1</span>, <span class="fl">.2</span>, <span class="fl">.3</span>, <span class="fl">.2</span>, <span class="fl">.1</span>, <span class="fl">.05</span><span class="op">)</span>
+                       <span class="op">)</span> <span class="op">{</span>
+  <span class="co"># sample values</span>
+  <span class="va">quest_n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">quest_n</span>, <span class="fl">1</span><span class="op">)</span>
+  <span class="va">sep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">sep</span>, <span class="fl">1</span><span class="op">)</span>
+  <span class="va">lang_effect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">lang_effect</span>, <span class="fl">1</span><span class="op">)</span>
+  <span class="va">cond_effect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">cond_effect</span>, <span class="fl">1</span><span class="op">)</span>
+  <span class="va">vers_effect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="va">vers_effect</span>, <span class="fl">1</span><span class="op">)</span>
 
-<span class="va">lang_effect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="va">cond_effect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="va">vers_effect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
+  <span class="va">subjects</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>quest_id <span class="op">=</span> <span class="va">quest_n</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"quest_id"</span>, reversed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"R"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"subj_id"</span>, 
+              s0i <span class="op">=</span> <span class="fl">2</span>, 
+              s_lang <span class="op">=</span> <span class="fl">1</span>,
+              s_cond <span class="op">=</span> <span class="fl">1</span>,
+              s_vers <span class="op">=</span> <span class="fl">1</span>, 
+              .cors <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"quest_id"</span>, q0i <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span>sigma <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"language"</span>, add_cols <span class="op">=</span> <span class="cn">T</span>, colnames <span class="op">=</span> <span class="st">"lang"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, add_cols <span class="op">=</span> <span class="cn">T</span>, colnames <span class="op">=</span> <span class="st">"cond"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"version"</span>, add_cols <span class="op">=</span> <span class="cn">T</span>, colnames <span class="op">=</span> <span class="st">"vers"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>dv <span class="op">=</span> <span class="va">s0i</span> <span class="op">+</span> <span class="va">q0i</span> <span class="op">+</span> <span class="va">sigma</span> <span class="op">+</span>
+             <span class="op">(</span><span class="va">s_lang</span> <span class="op">+</span> <span class="va">lang_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">lang</span> <span class="op">+</span> 
+             <span class="op">(</span><span class="va">s_cond</span> <span class="op">+</span> <span class="va">cond_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">cond</span> <span class="op">+</span> 
+             <span class="op">(</span><span class="va">s_vers</span> <span class="op">+</span> <span class="va">vers_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">vers</span>,
+           dv <span class="op">=</span> <span class="fu"><a href="../reference/norm2likert.html">norm2likert</a></span><span class="op">(</span><span class="va">dv</span>, prob <span class="op">=</span> <span class="va">likert_prob</span><span class="op">)</span>,
+           dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">reversed</span> <span class="op">==</span> <span class="st">"R"</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">dv</span> <span class="op">-</span> <span class="fl">8</span><span class="op">)</span>, <span class="va">dv</span><span class="op">)</span>
+    <span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html">select</a></span><span class="op">(</span><span class="va">subj_id</span>, <span class="va">quest_id</span>, <span class="va">reversed</span>, <span class="va">dv</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unite.html">unite</a></span><span class="op">(</span><span class="va">quest_name</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, sep <span class="op">=</span> <span class="va">sep</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/messy.html">messy</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.005</span>, <span class="st">"dv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_wider.html">pivot_wider</a></span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">quest_name</span>, values_from <span class="op">=</span> <span class="va">dv</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/slice.html">slice_sample</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span>
+<span class="op">}</span>
 
-<span class="va">questions</span> <span class="op">&lt;-</span> <span class="va">subjects</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>quest_id <span class="op">=</span> <span class="va">quest_n</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"quest_id"</span>, reversed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"R"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"subj_id"</span>, 
-            s0i <span class="op">=</span> <span class="fl">2</span>, 
-            s_lang <span class="op">=</span> <span class="fl">1</span>,
-            s_cond <span class="op">=</span> <span class="fl">1</span>,
-            s_vers <span class="op">=</span> <span class="fl">1</span>, 
-            .cors <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"quest_id"</span>, q0i <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span>sigma <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"language"</span>, add_cols <span class="op">=</span> <span class="cn">T</span>, colnames <span class="op">=</span> <span class="st">"lang"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, add_cols <span class="op">=</span> <span class="cn">T</span>, colnames <span class="op">=</span> <span class="st">"cond"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"version"</span>, add_cols <span class="op">=</span> <span class="cn">T</span>, colnames <span class="op">=</span> <span class="st">"vers"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">mutate</span><span class="op">(</span>dv <span class="op">=</span> <span class="va">s0i</span> <span class="op">+</span> <span class="va">q0i</span> <span class="op">+</span> <span class="va">sigma</span> <span class="op">+</span>
-           <span class="op">(</span><span class="va">s_lang</span> <span class="op">+</span> <span class="va">lang_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">lang</span> <span class="op">+</span> 
-           <span class="op">(</span><span class="va">s_cond</span> <span class="op">+</span> <span class="va">cond_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">cond</span> <span class="op">+</span> 
-           <span class="op">(</span><span class="va">s_vers</span> <span class="op">+</span> <span class="va">vers_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">vers</span>,
-         dv <span class="op">=</span> <span class="fu"><a href="../reference/norm2likert.html">norm2likert</a></span><span class="op">(</span><span class="va">dv</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.05</span>, <span class="fl">.1</span>, <span class="fl">.2</span>, <span class="fl">.3</span>, <span class="fl">.2</span>, <span class="fl">.1</span>, <span class="fl">.05</span><span class="op">)</span><span class="op">)</span>,
-         dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">reversed</span> <span class="op">==</span> <span class="st">"R"</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">dv</span> <span class="op">-</span> <span class="fl">8</span><span class="op">)</span>, <span class="va">dv</span><span class="op">)</span>
-  <span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">select</span><span class="op">(</span><span class="va">subj_id</span>, <span class="va">quest_id</span>, <span class="va">reversed</span>, <span class="va">dv</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="co"># randomise sep and order of uniting quest_id and reversed</span>
-  <span class="fu">unite</span><span class="op">(</span><span class="va">quest_name</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, sep <span class="op">=</span> <span class="va">sep</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/messy.html">messy</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.005</span>, <span class="st">"dv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">quest_name</span>, values_from <span class="op">=</span> <span class="va">dv</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">slice_sample</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span></code></pre></div>
+<span class="va">questions</span> <span class="op">&lt;-</span> <span class="fu">make_quest</span><span class="op">(</span><span class="va">subjects</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr>
 <th style="text-align:left;">
@@ -1121,6 +1142,10 @@ s008
   
   <span class="st">"The report should be written like a summary document for your PI. You don't need to show your code in the rendered report. Include summary tables and/or plots with subject demographics from both the full data set and the subset you'll analyse. Visualise the relationship of interest. Conduct a GLM analysis to answer the research question above. Finally, do a power analysis to determine the sample size you would need to have {power}% power to detect a 0.5-point difference between the levels of {iv} with an alpha criterion of {alpha}."</span>
 <span class="op">)</span></code></pre></div>
+<p>You can save this to an external file if you want and read it from there. In this way, you can create more than one set of template instructions and also randomly assign that.</p>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># write to a template file</span>
+<span class="fu"><a href="https://rdrr.io/r/base/write.html">write</a></span><span class="op">(</span><span class="va">research_question_text</span>, <span class="st">"template_instructions.txt"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="define-random-aspects" class="section level3">
 <h3 class="hasAnchor">
@@ -1128,7 +1153,7 @@ s008
 <p>Now define the variables from the text above. I want the <code>iv</code> and <code>subset</code> to be two different factors from the list of “language”, “condition”, and “version”. Then I sample one of the levels of the <code>subset</code> factor.</p>
 <p>I sample a topic from “stress”, “extroversion”, and “disgust”. You can choose relevant topics for your discipline, of course.</p>
 <p>I also sample an alpha level and power for the power calculation aspect of the assessment. This reinforces a lesson I want to teach about alpha = 0.5 and target power = 0.8 being mindless defaults that we should question. <a href="https://osf.io/j4s3c/">Justify everything</a>.</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">factors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"language"</span>, <span class="st">"condition"</span>, <span class="st">"version"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
 <span class="va">iv</span> <span class="op">&lt;-</span> <span class="va">factors</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
 <span class="va">subset</span> <span class="op">&lt;-</span> <span class="va">factors</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
@@ -1137,12 +1162,14 @@ s008
 <span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.005</span>, <span class="fl">.01</span>, <span class="fl">.05</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
 <span class="va">power</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span>, <span class="fl">85</span>, <span class="fl">90</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span></code></pre></div>
 <p>This will produce the following text.</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">research_question</span> <span class="op">&lt;-</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="va">research_question_text</span><span class="op">)</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">research_question</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"template_instructions.txt"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span>collapse <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <blockquote>
 <p>=== Reproducible Report for 8675309J ===</p>
 <p>Your questionnaire measures extroversion. Your research question is to determine if the extroversion score differs by version for the subset of the sample where condition is A.</p>
-<p>The 7 extroversion questionnaire items are on a scale from 1 (low) to 7 (high), but some of the items need to be reverse-coded. This is indicated by the letter R in the question column name. You create the extroversion score by summing the questions.</p>
+<p>The 5 extroversion questionnaire items are on a scale from 1 (low) to 7 (high), but some of the items need to be reverse-coded. This is indicated by the letter R in the question column name. You create the extroversion score by summing the questions.</p>
 <p>Watch out for missing data. You can decide whether to omit subjects with missing data or replace the missing data; just explain your choice and its consequences in the report.</p>
 <p>The report should be written like a summary document for your PI. You don’t need to show your code in the rendered report. Include summary tables and/or plots with subject demographics from both the full data set and the subset you’ll analyse. Visualise the relationship of interest. Conduct a GLM analysis to answer the research question above. Finally, do a power analysis to determine the sample size you would need to have 80% power to detect a 0.5-point difference between the levels of version with an alpha criterion of 0.01.</p>
 </blockquote>
@@ -1152,18 +1179,18 @@ s008
 <h2 class="hasAnchor">
 <a href="#save-files" class="anchor"></a>Save files</h2>
 <p>Now you need to create a directory for the student’s files and save the subject table, question table, and instructions. I’m saving the files in a directory that contains the student ID so I can upload them to Moodle easily.</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"exam_"</span>, <span class="va">student_id</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="va">dir</span>, showWarnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu">write_csv</span><span class="op">(</span><span class="va">subjects</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"subjects.csv"</span><span class="op">)</span><span class="op">)</span>
-<span class="fu">write_csv</span><span class="op">(</span><span class="va">questions</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"questions.csv"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">subjects</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"subjects.csv"</span><span class="op">)</span><span class="op">)</span>
+<span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">questions</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"questions.csv"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/write.html">write</a></span><span class="op">(</span><span class="va">research_question</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"instructions.txt"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="make-a-function" class="section level2">
+<div id="simulation-function" class="section level2">
 <h2 class="hasAnchor">
-<a href="#make-a-function" class="anchor"></a>Make a function</h2>
-<p>Once you’ve debugged your code above, put it all inside a function with the argument <code>student_id</code></p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<a href="#simulation-function" class="anchor"></a>Simulation function</h2>
+<p>Once you’ve debugged your code above, put each step inside a function with the argument <code>student_id</code>.</p>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">random_project</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">student_id</span><span class="op">)</span> <span class="op">{</span>
   <span class="co"># set seed using student ID</span>
   <span class="va">student_id</span> <span class="op">%&gt;%</span>
@@ -1174,69 +1201,12 @@ s008
     <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="op">)</span>
   
   <span class="co"># simulate subjects</span>
-  <span class="va">subj_n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">300</span><span class="op">:</span><span class="fl">400</span>, <span class="fl">1</span><span class="op">)</span>
-  
-  <span class="va">subjects</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj_id <span class="op">=</span> <span class="va">subj_n</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span>gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"female"</span>, <span class="st">"male"</span>, <span class="st">"nonbinary"</span><span class="op">)</span>,
-                .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.3</span>, <span class="fl">.6</span>, <span class="fl">.1</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/messy.html">messy</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.05</span>, <span class="st">"gender"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">mutate</span><span class="op">(</span>age <span class="op">=</span> <span class="fl">18</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/Poisson.html">rpois</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">.</span><span class="op">)</span>, <span class="fl">3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/messy.html">messy</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">0.05</span>, <span class="st">"age"</span>, replace <span class="op">=</span> <span class="st">"missing"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span>language <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"monolingual"</span>, <span class="st">"bilingual"</span><span class="op">)</span>,
-                .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.7</span>, <span class="fl">.3</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span>condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span>,
-                version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"V1"</span>, <span class="st">"V2"</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">subjects</span> <span class="op">&lt;-</span> <span class="fu">make_subjects</span><span class="op">(</span><span class="op">)</span>
   
   <span class="co"># simulate questionnaire</span>
-  <span class="va">quest_n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">5</span><span class="op">:</span><span class="fl">15</span>, <span class="fl">1</span><span class="op">)</span>
-  <span class="va">sep</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"_"</span>, <span class="st">""</span>, <span class="st">"-"</span>, <span class="st">" "</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
+  <span class="va">questions</span> <span class="op">&lt;-</span> <span class="fu">make_quest</span><span class="op">(</span><span class="va">subjects</span><span class="op">)</span>
   
-  <span class="va">lang_effect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
-  <span class="va">cond_effect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
-  <span class="va">vers_effect</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0</span>, <span class="fl">0.5</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
-  
-  <span class="va">questions</span> <span class="op">&lt;-</span> <span class="va">subjects</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>quest_id <span class="op">=</span> <span class="va">quest_n</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"quest_id"</span>, reversed <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"F"</span>, <span class="st">"R"</span><span class="op">)</span>, .shuffle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"subj_id"</span>, 
-              s0i <span class="op">=</span> <span class="fl">2</span>, 
-              s_lang <span class="op">=</span> <span class="fl">1</span>,
-              s_cond <span class="op">=</span> <span class="fl">1</span>,
-              s_vers <span class="op">=</span> <span class="fl">1</span>, 
-              .cors <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"quest_id"</span>, q0i <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span>sigma <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"language"</span>, add_cols <span class="op">=</span> <span class="cn">T</span>, colnames <span class="op">=</span> <span class="st">"lang"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, add_cols <span class="op">=</span> <span class="cn">T</span>, colnames <span class="op">=</span> <span class="st">"cond"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"version"</span>, add_cols <span class="op">=</span> <span class="cn">T</span>, colnames <span class="op">=</span> <span class="st">"vers"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">mutate</span><span class="op">(</span>dv <span class="op">=</span> <span class="va">s0i</span> <span class="op">+</span> <span class="va">q0i</span> <span class="op">+</span> <span class="va">sigma</span> <span class="op">+</span>
-             <span class="op">(</span><span class="va">s_lang</span> <span class="op">+</span> <span class="va">lang_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">lang</span> <span class="op">+</span> 
-             <span class="op">(</span><span class="va">s_cond</span> <span class="op">+</span> <span class="va">cond_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">cond</span> <span class="op">+</span> 
-             <span class="op">(</span><span class="va">s_vers</span> <span class="op">+</span> <span class="va">vers_effect</span><span class="op">)</span> <span class="op">*</span> <span class="va">vers</span>,
-           dv <span class="op">=</span> <span class="fu"><a href="../reference/norm2likert.html">norm2likert</a></span><span class="op">(</span><span class="va">dv</span>, prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.05</span>, <span class="fl">.1</span>, <span class="fl">.2</span>, <span class="fl">.3</span>, <span class="fl">.2</span>, <span class="fl">.1</span>, <span class="fl">.05</span><span class="op">)</span><span class="op">)</span>,
-           dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="va">reversed</span> <span class="op">==</span> <span class="st">"R"</span>, <span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">abs</a></span><span class="op">(</span><span class="va">dv</span> <span class="op">-</span> <span class="fl">8</span><span class="op">)</span>, <span class="va">dv</span><span class="op">)</span>
-    <span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">select</span><span class="op">(</span><span class="va">subj_id</span>, <span class="va">quest_id</span>, <span class="va">reversed</span>, <span class="va">dv</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="co"># randomise sep and order of uniting quest_id and reversed</span>
-    <span class="fu">unite</span><span class="op">(</span><span class="va">quest_name</span>, <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">2</span><span class="op">:</span><span class="fl">3</span><span class="op">)</span>, sep <span class="op">=</span> <span class="va">sep</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/messy.html">messy</a></span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.005</span>, <span class="st">"dv"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">pivot_wider</span><span class="op">(</span>names_from <span class="op">=</span> <span class="va">quest_name</span>, values_from <span class="op">=</span> <span class="va">dv</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu">slice_sample</span><span class="op">(</span>prop <span class="op">=</span> <span class="fl">.95</span><span class="op">)</span>
-  
-  <span class="co"># create random research question text</span>
-  <span class="va">research_question_text</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n\n"</span>,
-    <span class="st">"=== Reproducible Report for {student_id} ==="</span>,
-    
-    <span class="st">"Your questionnaire measures {topic}. Your research question is to determine if the {topic} score differs by {iv} for the subset of the sample where {subset} is {level}."</span>,
-    
-    <span class="st">"The {quest_n} {topic} questionnaire items are on a scale from 1 (low) to 7 (high), but some of the items need to be reverse-coded. This is indicated by the letter R in the question column name. You create the {topic} score by summing the questions."</span>,
-    
-    <span class="st">"Watch out for missing data. You can decide whether to omit subjects with missing data or replace the missing data; just explain your choice and its consequences in the report."</span>,
-    
-    <span class="st">"The report should be written like a summary document for your PI. You don't need to show your code in the rendered report. Include summary tables and/or plots with subject demographics from both the full data set and the subset you'll analyse. Visualise the relationship of interest. Conduct a GLM analysis to answer the research question above. Finally, do a power analysis to determine the sample size you would need to have {power}% power to detect a 0.5-point difference between the levels of {iv} with an alpha criterion of {alpha}."</span>
-  <span class="op">)</span>
-  
-  <span class="co"># sample text variables</span>
+  <span class="co"># sample research question variables</span>
   <span class="va">factors</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"language"</span>, <span class="st">"condition"</span>, <span class="st">"version"</span><span class="op">)</span>, <span class="fl">2</span><span class="op">)</span>
   <span class="va">iv</span> <span class="op">&lt;-</span> <span class="va">factors</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span>
   <span class="va">subset</span> <span class="op">&lt;-</span> <span class="va">factors</span><span class="op">[[</span><span class="fl">2</span><span class="op">]</span><span class="op">]</span>
@@ -1245,21 +1215,24 @@ s008
   <span class="va">alpha</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.005</span>, <span class="fl">.01</span>, <span class="fl">.05</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
   <span class="va">power</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">80</span>, <span class="fl">85</span>, <span class="fl">90</span><span class="op">)</span>, <span class="fl">1</span><span class="op">)</span>
   
-  <span class="va">research_question</span> <span class="op">&lt;-</span> <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="va">research_question_text</span><span class="op">)</span>
+  <span class="co"># create random research question text</span>
+  <span class="va">research_question</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span><span class="op">(</span><span class="st">"template_instructions.txt"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span>collapse <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu">glue</span><span class="fu">::</span><span class="fu"><a href="https://glue.tidyverse.org/reference/glue.html">glue</a></span><span class="op">(</span><span class="op">)</span>
   
   <span class="co"># write files</span>
   <span class="va">dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"exam_"</span>, <span class="va">student_id</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/files2.html">dir.create</a></span><span class="op">(</span><span class="va">dir</span>, showWarnings <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-  <span class="fu">write_csv</span><span class="op">(</span><span class="va">subjects</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"subjects.csv"</span><span class="op">)</span><span class="op">)</span>
-  <span class="fu">write_csv</span><span class="op">(</span><span class="va">questions</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"questions.csv"</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">subjects</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"subjects.csv"</span><span class="op">)</span><span class="op">)</span>
+  <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/write_delim.html">write_csv</a></span><span class="op">(</span><span class="va">questions</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"questions.csv"</span><span class="op">)</span><span class="op">)</span>
   <span class="fu"><a href="https://rdrr.io/r/base/write.html">write</a></span><span class="op">(</span><span class="va">research_question</span>, <span class="fu"><a href="https://rdrr.io/r/base/file.path.html">file.path</a></span><span class="op">(</span><span class="va">dir</span>, <span class="st">"instructions.txt"</span><span class="op">)</span><span class="op">)</span>
   
   <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span><span class="op">(</span><span class="va">dir</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Now you can map over a list of student IDs to create personalised data and research questions for each student. Here is the pattern if you have student IDs in a table in a column called <code>Student ID</code>.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># load student IDs</span>
-<span class="va">student_list</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>
+<span class="va">student_list</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span><span class="op">(</span>
   `Student ID` <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>
 <span class="op">)</span>
 
