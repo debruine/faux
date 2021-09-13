@@ -17,8 +17,26 @@ knitr::opts_chunk$set(
 library(kableExtra)
 ```
 
+Have you ever wanted to create unique versions of datasets for each student in a class? This vignette walks through the proess of setting up a simple study with a subject table and a questionnaire table. 
+
+The subjects have varying demographic attributes and are assigned to a counterbalanced condition and version of the study. Some of the demographic data is missing.
+
+The questionnaire has a variable number of questions, answered on a 7-point Likert scale. Some of the questions are reverse-coded, indicated by the column names. There are some missing observations.
+
+The data is set up with fixed effects for condition, version, and subject language that you can vary between students. The DV is created using a mixed effects model formula to simulate realistic random interpects and slopes, so these data would be suitable for analysis with mixed effects models, or you can instruct students to aggregate the questionnaire data to analyse with t-tests, correlations, and ANOVAs.
+
+A custom assignment is created for each student, where they are told the questionnaire contains scores on one of three topics, and are asked to determine if there is an effect of one factor for a subgroup of another factor. The categories chosen here are pretty arbitrary, but you can change this to make sense for your subject area.
+
+Finally, the subject table, questionnaire table, and instructions are saved to a folder with the student ID for distribution to each student. The simulation is seeded with the student ID, ensuring that each student gets a unique, but reproducible assignment.
+
+
+## Setup
+
+Some of the functions below currently require the development version of faux (`add_random()`, `add_between()`, `add_ranef()` and `add_contrast()`). I am working on submitting the new version to CRAN, so any feedback would be welcome.
+
 ```{r setup, message=FALSE}
 library(tidyverse)
+# devtools::install_github("debruine/faux", ref = "dev")
 library(faux)
 theme_set(theme_minimal())
 ```
@@ -228,7 +246,7 @@ questions <- questions %>%
   add_contrast("version", add_cols = T, colnames = "vers")
 ```
 
-### Caluclate DV
+### Calculate DV
 
 Now, we can calculate the DV as the sum of the grand mean (`0`), plus the random intercepts (`s0i` and `q0i`). This simulates how some subjects tend to use higher or lower points on the scale, and some questions have higher or lower mean values. 
 
@@ -294,7 +312,6 @@ questions <- questions %>%
   slice_sample(prop = .95)
 ```
 
-`r kable(head(questions))`
 
 ### Question pipeline
 
@@ -349,18 +366,20 @@ I also want each student to have a different research question to answer with th
 
 ### Write text
 
-First, write the text you want to give to the students. You can use fancier methods for this, like parametrised R Markdown reports, but this is a simple and effective strategy. Put variables you want to randomise inside curly brackets, and we'll sample those and insert the using `glue::glue()`.
+First, write the text you want to give to the students. You can use fancier methods for this, like [parametrised R Markdown reports](https://bookdown.org/yihui/rmarkdown/parameterized-reports.html), but this is a simple and effective strategy. Put variables you want to randomise inside curly brackets, and we'll sample those and insert the using `glue::glue()`.
 
 ```{r}
-research_question_text <- "=== Reproducible Report for {student_id} ==
+research_question_text <- paste(sep = "\n\n",
+  "=== Reproducible Report for {student_id} ===",
   
-Your questionnaire measures {topic}. Your research question is to determine if the {topic} score differs by {iv} for the subset of the sample where {subset} is {level}. 
-
-The {quest_n} {topic} questionnaire items are on a scale from 1 (low) to 7 (high), but some of the items need to be reverse-coded. This is indicated by the letter R in the question column name. You create the {topic} score by summing the questions.
-
-Watch out for missing data. You can decide whether to omit subjects with missing data or replace the missing data; just explain your choice and its consequences in the report.
-
-The report should be written like a summary document for your PI. You don't need to show your code in the rendered report. Include summary tables and/or plots with subject demographics from both the full data set and the subset you'll analyse. Visualise the relationship of interest. Conduct a GLM analysis to answer the research question above. Finally, do a power analysis to determine the sample size you would need to have {power}% power to detect a 0.5-point difference between the levels of {iv} with an alpha criterion of {alpha}."
+  "Your questionnaire measures {topic}. Your research question is to determine if the {topic} score differs by {iv} for the subset of the sample where {subset} is {level}.",
+  
+  "The {quest_n} {topic} questionnaire items are on a scale from 1 (low) to 7 (high), but some of the items need to be reverse-coded. This is indicated by the letter R in the question column name. You create the {topic} score by summing the questions.",
+  
+  "Watch out for missing data. You can decide whether to omit subjects with missing data or replace the missing data; just explain your choice and its consequences in the report.",
+  
+  "The report should be written like a summary document for your PI. You don't need to show your code in the rendered report. Include summary tables and/or plots with subject demographics from both the full data set and the subset you'll analyse. Visualise the relationship of interest. Conduct a GLM analysis to answer the research question above. Finally, do a power analysis to determine the sample size you would need to have {power}% power to detect a 0.5-point difference between the levels of {iv} with an alpha criterion of {alpha}."
+)
 ```
 
 ### Define random aspects
@@ -387,7 +406,11 @@ This will produce the following text.
 research_question <- glue::glue(research_question_text)
 ```
 
+<blockquote>
+
 `r research_question`
+
+</blockquote>
 
 
 ## Save files
@@ -468,15 +491,17 @@ random_project <- function(student_id) {
     slice_sample(prop = .95)
   
   # create random research question text
-  research_question_text <- "=== Reproducible Report for {student_id} ==
-  
-Your questionnaire measures {topic}. Your research question is to determine if the {topic} score differs by {iv} for the subset of the sample where {subset} is {level}. 
-
-The {quest_n} {topic} questionnaire items are on a scale from 1 (low) to 7 (high), but some of the items need to be reverse-coded. This is indicated by the letter R in the question column name. You create the {topic} score by summing the questions.
-
-Watch out for missing data. You can decide whether to omit subjects with missing data or replace the missing data; just explain your choice and its consequences in the report.
-
-The report should be written like a summary document for your PI. You don't need to show your code in the rendered report. Include summary tables and/or plots with subject demographics from both the full data set and the subset you'll analyse. Visualise the relationship of interest. Conduct a GLM analysis to answer the research question above. Finally, do a power analysis to determine the sample size you would need to have {power}% power to detect a 0.5-point difference between the levels of {iv} with an alpha criterion of {alpha}."
+  research_question_text <- paste(sep = "\n\n",
+    "=== Reproducible Report for {student_id} ===",
+    
+    "Your questionnaire measures {topic}. Your research question is to determine if the {topic} score differs by {iv} for the subset of the sample where {subset} is {level}.",
+    
+    "The {quest_n} {topic} questionnaire items are on a scale from 1 (low) to 7 (high), but some of the items need to be reverse-coded. This is indicated by the letter R in the question column name. You create the {topic} score by summing the questions.",
+    
+    "Watch out for missing data. You can decide whether to omit subjects with missing data or replace the missing data; just explain your choice and its consequences in the report.",
+    
+    "The report should be written like a summary document for your PI. You don't need to show your code in the rendered report. Include summary tables and/or plots with subject demographics from both the full data set and the subset you'll analyse. Visualise the relationship of interest. Conduct a GLM analysis to answer the research question above. Finally, do a power analysis to determine the sample size you would need to have {power}% power to detect a 0.5-point difference between the levels of {iv} with an alpha criterion of {alpha}."
+  )
   
   # sample text variables
   factors <- sample(c("language", "condition", "version"), 2)
