@@ -26,3 +26,7 @@
 ^_make\.R$
 ^Makefile$
 ^revdep$
+^vignettes/template_instructions.txt$
+^vignettes/random_reports.txt$
+^vignettes/plots.txt$
+^vignettes/distributions.txt$

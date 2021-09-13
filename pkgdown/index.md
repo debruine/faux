@@ -12,17 +12,7 @@
 <!-- badges: end -->
 
 
-```{r setup, include = FALSE}
-knitr::opts_chunk$set(
-  fig.width = 8,
-  fig.height = 5,
-  collapse = TRUE,
-  comment = "#>",
-  fig.path = "man/figures/"
-)
-library(faux)
-library(ggplot2)
-```
+
 
 
 It is useful to be able to simulate data with a specified structure. The `faux` package provides some functions to make this process easier. See the [vignettes](articles/) for more details.
@@ -48,7 +38,10 @@ See the [development version manual](https://debruine.github.io/faux/dev/).
 
 ### Simulate data for a factorial design
 
-```{r plot-sim-design, fig.width = 8, fig.height = 4, fig.cap="Default design plot"}
+See the [Simulate by Design vignette](articles/sim_design.html) for more details.
+
+
+```r
 between <- list(pet = c(cat = "Cat Owners", 
                         dog = "Dog Owners"))
 within <- list(time = c("morning", 
@@ -65,31 +58,59 @@ df <- sim_design(within, between,
                  sd = 5, r = .5)
 ```
 
+![Default design plot](man/figures/plot-sim-design-1.png)
 
-```{r plot-design, fig.cap="Plot the data with different visualisations."}
+
+
+```r
 p1 <- plot_design(df)
 p2 <- plot_design(df, "pet", "time")
 
 cowplot::plot_grid(p1, p2, nrow = 2, align = "v")
 ```
 
+![Plot the data with different visualisations.](man/figures/plot-design-1.png)
+
 ### Simulate new data from an existing data table
 
-```{r sim-df}
+See the [Simulate from Existing Data vignette](articles/sim_df.html) for more details.
+
+
+```r
 new_iris <- sim_df(iris, 50, between = "Species") 
 ```
 
-```{r plot-iris-sim, echo = FALSE, fig.cap="Simulated iris dataset"}
+![Simulated iris dataset](man/figures/plot-iris-sim-1.png)
 
-new_iris %>%
-  dplyr::mutate_if(is.numeric, round, 1) %>%
-  dplyr::mutate(data = "Simulated") %>%
-  dplyr::bind_rows(dplyr::mutate(iris, data = "Original")) %>%
-  ggplot(aes(Sepal.Width, Sepal.Length, color = Species)) +
-  geom_point() +
-  geom_smooth(method = "lm", formula = "y~x") +
-  facet_wrap(~data)
+### Simulate data for a mixed design
+
+You can build up a cross-classified or nested mixed effects design using piped functions. See the [contrasts vignette](articles/contrasts.html) for more details.
+
+
+```r
+# simulate 20 classes with 20 to 30 students per class
+data <- add_random(class = 20) %>%
+  add_random(student = sample(20:30, 20, replace = TRUE), 
+             .nested_in = "class") %>%
+  add_between(.by = "class", 
+              school_type = c("private","public"), 
+              .prob = c(5, 15)) %>%
+  add_between(.by = "student",
+              gender = c("M", "F", "NB"),
+              .prob = c(.49, .49, .02))
 ```
+
+
+|school_type |gender |   n|
+|:-----------|:------|---:|
+|private     |M      |  65|
+|private     |F      |  65|
+|private     |NB     |   1|
+|public      |M      | 171|
+|public      |F      | 174|
+|public      |NB     |   4|
+
+
 
 ## Other simulation packages
 

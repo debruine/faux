@@ -49,7 +49,10 @@ Suggests:
     broom.mixed,
     psych,
     lmerTest,
-    kableExtra
+    kableExtra,
+    glue,
+    openssl,
+    readr
 VignetteBuilder: knitr
 RoxygenNote: 7.1.1
 Encoding: UTF-8
