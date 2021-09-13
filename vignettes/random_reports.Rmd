@@ -1,0 +1,517 @@
+---
+title: "Randomised Reports"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Randomised Reports}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  message = FALSE,
+  warning = FALSE,
+  collapse = TRUE,
+  comment = "#>"
+)
+library(kableExtra)
+```
+
+```{r setup, message=FALSE}
+library(tidyverse)
+library(faux)
+theme_set(theme_minimal())
+```
+
+Start your script by setting a seed that is unique to each student. Below is a useful pattern to generate a seed from a student ID, even if it contains letters.
+
+```{r}
+student_id <- "8675309J"
+
+student_id %>%
+  as.character() %>%       # has to be a character string to start
+  openssl::md5() %>%       # turn into something with lots of numbers
+  gsub("[a-z]", "", .) %>% # get rid of letters
+  substr(1, 8) %>%         # select the first 8 numbers
+  set.seed()
+```
+
+
+## Simulate subjects
+
+Now, make a table of subjects. 
+
+### Random factor
+
+In this example, I'm going to choose a random number of subjects between 300 and 400.
+
+```{r}
+subj_n <- sample(300:400, 1)
+```
+
+The function `add_random()` creates the random effects structure. 
+
+```{r}
+subjects <- add_random(subj_id = subj_n)
+```
+
+`r kable(head(subjects))`
+
+### Gender
+
+Now add a between-subject factor of gender with three levels: "female", "male", and "nonbinary". If you set the probability of each as proportions, they will be randomly sampled.
+
+```{r}
+subjects <- subjects %>%
+  add_between(gender = c("female", "male", "nonbinary"),
+              .prob = c(.3, .6, .1))
+```
+
+`r count(subjects, gender) %>% kable()`
+
+It's realistic for some people to not want to disclose their gender, so you can use `messy()` to set some proportion of the `gender` column to `NA`s.
+
+```{r}
+subjects <- subjects %>%
+  messy(prop = 0.05, "gender")
+```
+
+`r count(subjects, gender) %>% kable()`
+
+### Age
+
+Now add an age column. I'm using `18 + rpois(nrow(.), 3)` to make a distribution that's pretty typical of undergraduate students, but you can choose a simulation function that is relevant to your questions. I'm also replacing 5% of the values with the word "missing", which will convert this to a chaacter column because I want students to practice dealing with non-standard missing values.
+
+```{r}
+subjects <- subjects %>%
+  mutate(age = 18 + rpois(nrow(.), 3)) %>%
+  messy(prop = 0.05, "age", replace = "missing")
+```
+
+```{r, echo = FALSE}
+s <- subjects %>%
+  mutate(age = as.integer(age)) %>%
+  filter(!is.na(age))
+
+ggplot(s, aes(age)) + 
+  geom_histogram(binwidth = 1, 
+                 fill = "dodgerblue", 
+                 color = "black", 
+                 alpha = 0.8) +
+  scale_x_continuous(breaks = min(s$age):max(s$age)) +
+  scale_y_continuous(breaks = seq(0, 500, 20)) +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+```
+
+
+### Language
+
+Add a between-subjects factor of language, with 70% monolingual and 30% bilingual.
+
+```{r}
+subjects <- subjects %>%
+  add_between(language = c("monolingual", "bilingual"),
+              .prob = c(.7, .3))
+```
+
+
+### Experiment Factors
+
+I want condition and version to be crossed so that there's an equal number of subjects in each cell. Specifying both in the same `add_between()` accomplishes this.
+
+```{r}
+subjects <- subjects %>%
+  add_between(condition = c("A", "B"),
+              version = c("V1", "V2"))
+```
+
+`r count(subjects, condition, version) %>% kable()`
+
+### Subject pipleine
+
+Now our full subject table pipeline looks like this:
+
+```{r}
+subj_n <- sample(300:400, 1)
+  
+  subjects <- add_random(subj_id = subj_n) %>%
+    add_between(gender = c("female", "male", "nonbinary"),
+                .prob = c(.3, .6, .1)) %>%
+    messy(prop = 0.05, "gender") %>%
+    mutate(age = 18 + rpois(nrow(.), 3)) %>%
+    messy(prop = 0.05, "age", replace = "missing") %>%
+    add_between(language = c("monolingual", "bilingual"),
+                .prob = c(.7, .3)) %>%
+    add_between(condition = c("A", "B"),
+                version = c("V1", "V2"))
+```
+
+`r kable(head(subjects))`
+
+
+## Simulate questions
+
+Next, we need to set up the questionnaire. I'm going to do this by adding the question data to the subject table. We'll extract the questions into a separate table later, but this will make it easier to set up the DV using a mixed effects model equation.
+
+### Random factor
+
+First, we'll add the random factor of question, randomly creating 5 to 15 question IDs. The code below adds a cross-classified random factor, where each subject sees all of the questions. See the [Mixed Design Simulation](sim_mixed.html) tutorial to see how to add nested random factors.
+
+```{r}
+quest_n <- sample(5:15, 1)
+
+questions <- subjects %>%
+  add_random(quest_id = quest_n)
+```
+
+`r kable(head(questions))`
+
+### Question Reversing
+
+I want some of the questions to be reverse-coded, so I'm adding a between-question factor of `reversed` with levels "F" and "R". Here, we specify the `.by = ` argument to show that this factor should vary by question. We didn't need this in the code above because there was only one random factor to vary over, but by default this function varies over all random factors if there is more than one. 
+
+I set `.shuffle = TRUE` so that the questions are randomly assigned forward and reversed values, rather than odd questions being forward and even questions being reversed. This will require a more sophisticated method to wrangle the resulting data, and the randomisation means that different students' datasets need different code.
+
+```{r}
+questions <- questions %>%
+  add_between(.by = "quest_id", reversed = c("F", "R"), .shuffle = TRUE)
+```
+
+```{r, echo = FALSE}
+questions %>%
+  select(quest_id, reversed) %>%
+  unique() %>%
+  kable()
+```
+
+### Random effects
+
+Now we set the random effects structure. The function `add_ranef()` lets you add columns that sample values from a normal distribution with a mean of 0 and the specified SD. If you have example data, you can get realistic values for the random effects SDs from a mixed effects model (see [this tutorial](https://debruine.github.io/lmem_sim/)).
+
+Here, we're setting the SD for the subject's random intercept to 2, and the SDs for the random slopes of language, condition, and version to 1. We set a small, positive correlation among all of these random effect. Each time you run this function, different values from this joint distribution will be sampled.
+
+We also add a random intercept by question to account for the fact that some questions will have higher or lower values than the mean.
+
+Finally add an overall error term, `sigma`, which will vary by subject and question (so you can skip the first `.by` argument).
+
+```{r}
+questions <- questions %>%
+  add_ranef(.by = "subj_id", 
+            s0i = 2, 
+            s_lang = 1,
+            s_cond = 1,
+            s_vers = 1, 
+            .cors = 0.2) %>%
+  add_ranef(.by = "quest_id", q0i = 1) %>%
+  add_ranef(sigma = 3)
+```
+
+### Fixed effects
+
+Now we can calculate the DV. First, I want the fixed effects in each dataset to vary, so I'm setting the fixed effect values by sampling from -05., 0 and +0.5 for each of language, condition, and version.
+
+```{r}
+lang_effect <- sample(c(-0.5, 0, 0.5), 1)
+cond_effect <- sample(c(-0.5, 0, 0.5), 1)
+vers_effect <- sample(c(-0.5, 0, 0.5), 1)
+```
+
+### Factor contrasts
+
+Next, we add contrasts to recode the fixed factors into numbers. See the [contrasts vignette](contrasts.html) for more details. For a 2-level factor, this sets the first level of the factor to a value of -0.5 and the second level to +0.5.
+
+```{r}
+questions <- questions %>%
+  add_contrast("language", add_cols = T, colnames = "lang") %>%
+  add_contrast("condition", add_cols = T, colnames = "cond") %>%
+  add_contrast("version", add_cols = T, colnames = "vers")
+```
+
+### Caluclate DV
+
+Now, we can calculate the DV as the sum of the grand mean (`0`), plus the random intercepts (`s0i` and `q0i`). This simulates how some subjects tend to use higher or lower points on the scale, and some questions have higher or lower mean values. 
+
+Next, we add the coded versions of each fixed factor, multiplied by their effect size plus the subject's random slope for that effect. This simulates how some subjects show systematically larger or smaller effects.
+
+Finally, we add the error term (`sigma`).
+
+```{r}
+questions <- questions %>%
+  mutate(dv = 0 + s0i + q0i +
+           (s_lang + lang_effect) * lang + 
+           (s_cond + cond_effect) * cond + 
+           (s_vers + vers_effect) * vers +
+           sigma)
+```
+
+```{r, echo = FALSE}
+ggplot(questions, aes(x = dv, color = quest_id)) +
+  geom_density()
+```
+
+
+### Recode DV
+
+For this assignment, I want the DV to be from a Likert scale, so I'm going to convert `dv` from a normal distribution to a Likert scale with 7 points with the proportions below. The second mutate reverses the questions that should be reverse-coded.
+
+```{r}
+questions <- questions %>%
+  mutate(dv = norm2likert(dv, prob = c(1, 2, 4, 6, 10, 5, 1)),
+         dv = ifelse(reversed == "R", abs(dv - 8), dv)
+  )
+```
+
+```{r, echo = FALSE}
+ggplot(questions, aes(x = dv, fill = reversed)) +
+  geom_histogram(binwidth = 1, color = "black", 
+                 alpha = 0.8) +
+  scale_x_continuous(breaks = 1:7) +
+  scale_fill_manual(values = c("dodgerblue", "purple")) +
+  facet_wrap(~quest_id) +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank())
+```
+
+### Reshape Data
+
+Here, I'm creating a `quest_name` column from the `quest_id` and `reversed` columns. `sample(2:3)` returns these columns in a random order. I then unite the columns with a randomly sampled separator. This will produce question names like `F-q04` or `q10 R`. While putting information about the questions in the name isn't great practice for recording data, it's unfortunately very common and dealing with it is a skill I want my students to practice.
+
+```{r}
+sep <- sample(c("_", "", "-", " "), 1)
+
+questions <- questions %>% 
+  select(subj_id, quest_id, reversed, dv) %>%
+  unite(col = quest_name, sample(2:3), sep = sep) 
+```
+
+I then make 0.5% of the observations missing, pivot the table from long to wide format, and sample 95% of the subjects, so that the number of subjects in the subjects table doesn't exactly match the number in the questions table, and is in a different order.
+
+```{r}
+questions <- questions %>% 
+  messy(prop = .005, "dv") %>%
+  pivot_wider(names_from = quest_name, values_from = dv) %>%
+  slice_sample(prop = .95)
+```
+
+`r kable(head(questions))`
+
+### Question pipeline
+
+Now our full question table pipeline looks like this:
+
+```{r}
+# randomise between students
+quest_n <- sample(5:15, 1)
+sep <- sample(c("_", "", "-", " "), 1)
+
+lang_effect <- sample(c(-0.5, 0, 0.5), 1)
+cond_effect <- sample(c(-0.5, 0, 0.5), 1)
+vers_effect <- sample(c(-0.5, 0, 0.5), 1)
+
+questions <- subjects %>%
+  add_random(quest_id = quest_n) %>%
+  add_between("quest_id", reversed = c("F", "R")) %>%
+  add_ranef("subj_id", 
+            s0i = 2, 
+            s_lang = 1,
+            s_cond = 1,
+            s_vers = 1, 
+            .cors = 0.2) %>%
+  add_ranef("quest_id", q0i = 1) %>%
+  add_ranef(sigma = 3) %>%
+  add_contrast("language", add_cols = T, colnames = "lang") %>%
+  add_contrast("condition", add_cols = T, colnames = "cond") %>%
+  add_contrast("version", add_cols = T, colnames = "vers") %>%
+  mutate(dv = s0i + q0i + sigma +
+           (s_lang + lang_effect) * lang + 
+           (s_cond + cond_effect) * cond + 
+           (s_vers + vers_effect) * vers,
+         dv = norm2likert(dv, prob = c(.05, .1, .2, .3, .2, .1, .05)),
+         dv = ifelse(reversed == "R", abs(dv - 8), dv)
+  ) %>%
+  select(subj_id, quest_id, reversed, dv) %>%
+  # randomise sep and order of uniting quest_id and reversed
+  unite(quest_name, sample(2:3), sep = sep) %>%
+  messy(prop = .005, "dv") %>%
+  pivot_wider(names_from = quest_name, values_from = dv) %>%
+  slice_sample(prop = .95)
+```
+
+`r kable(head(questions))`
+
+
+
+## Generate random assignment
+
+
+I also want each student to have a different research question to answer with these data.
+
+### Write text
+
+First, write the text you want to give to the students. You can use fancier methods for this, like parametrised R Markdown reports, but this is a simple and effective strategy. Put variables you want to randomise inside curly brackets, and we'll sample those and insert the using `glue::glue()`.
+
+```{r}
+research_question_text <- "=== Reproducible Report for {student_id} ==
+  
+Your questionnaire measures {topic}. Your research question is to determine if the {topic} score differs by {iv} for the subset of the sample where {subset} is {level}. 
+
+The {quest_n} {topic} questionnaire items are on a scale from 1 (low) to 7 (high), but some of the items need to be reverse-coded. This is indicated by the letter R in the question column name. You create the {topic} score by summing the questions.
+
+Watch out for missing data. You can decide whether to omit subjects with missing data or replace the missing data; just explain your choice and its consequences in the report.
+
+The report should be written like a summary document for your PI. You don't need to show your code in the rendered report. Include summary tables and/or plots with subject demographics from both the full data set and the subset you'll analyse. Visualise the relationship of interest. Conduct a GLM analysis to answer the research question above. Finally, do a power analysis to determine the sample size you would need to have {power}% power to detect a 0.5-point difference between the levels of {iv} with an alpha criterion of {alpha}."
+```
+
+### Define random aspects
+
+Now define the variables from the text above. I want the `iv` and `subset` to be two different factors from the list of "language", "condition", and "version". Then I sample one of the levels of the `subset` factor. 
+
+I sample a topic from "stress", "extroversion", and "disgust". You can choose relevant topics for your discipline, of course.
+
+I also sample an alpha level and power for the power calculation aspect of the assessment. This reinforces a lesson I want to teach about alpha = 0.5 and target power = 0.8 being mindless defaults that we should question. [Justify everything](https://osf.io/j4s3c/).
+
+```{r}
+factors <- sample(c("language", "condition", "version"), 2)
+iv <- factors[[1]]
+subset <- factors[[2]]
+level <- subjects[[subset]] %>% unique() %>% sample(1)
+topic <- sample(c("stress", "extroversion", "disgust"), 1)
+alpha <- sample(c(.005, .01, .05), 1)
+power <- sample(c(80, 85, 90), 1)
+```
+
+This will produce the following text.
+
+```{r}
+research_question <- glue::glue(research_question_text)
+```
+
+`r research_question`
+
+
+## Save files
+
+Now you need to create a directory for the student's files and save the subject table, question table, and instructions. I'm saving the files in a directory that contains the student ID so I can upload them to Moodle easily.
+
+```{r, eval = FALSE}
+dir <- paste0("exam_", student_id)
+dir.create(dir, showWarnings = FALSE)
+write_csv(subjects, file.path(dir, "subjects.csv"))
+write_csv(questions, file.path(dir, "questions.csv"))
+write(research_question, file.path(dir, "instructions.txt"))
+```
+
+
+## Make a function
+
+Once you've debugged your code above, put it all inside a function with the argument `student_id`
+
+```{r function}
+random_project <- function(student_id) {
+  # set seed using student ID
+  student_id %>%
+    as.character() %>%
+    openssl::md5() %>%
+    gsub("[a-z]", "", .) %>%
+    substr(1, 8) %>%
+    set.seed()
+  
+  # simulate subjects
+  subj_n <- sample(300:400, 1)
+  
+  subjects <- add_random(subj_id = subj_n) %>%
+    add_between(gender = c("female", "male", "nonbinary"),
+                .prob = c(.3, .6, .1)) %>%
+    messy(prop = 0.05, "gender") %>%
+    mutate(age = 18 + rpois(nrow(.), 3)) %>%
+    messy(prop = 0.05, "age", replace = "missing") %>%
+    add_between(language = c("monolingual", "bilingual"),
+                .prob = c(.7, .3)) %>%
+    add_between(condition = c("A", "B"),
+                version = c("V1", "V2"))
+  
+  # simulate questionnaire
+  quest_n <- sample(5:15, 1)
+  sep <- sample(c("_", "", "-", " "), 1)
+  
+  lang_effect <- sample(c(-0.5, 0, 0.5), 1)
+  cond_effect <- sample(c(-0.5, 0, 0.5), 1)
+  vers_effect <- sample(c(-0.5, 0, 0.5), 1)
+  
+  questions <- subjects %>%
+    add_random(quest_id = quest_n) %>%
+    add_between("quest_id", reversed = c("F", "R"), .shuffle = TRUE) %>%
+    add_ranef("subj_id", 
+              s0i = 2, 
+              s_lang = 1,
+              s_cond = 1,
+              s_vers = 1, 
+              .cors = 0.2) %>%
+    add_ranef("quest_id", q0i = 1) %>%
+    add_ranef(sigma = 3) %>%
+    add_contrast("language", add_cols = T, colnames = "lang") %>%
+    add_contrast("condition", add_cols = T, colnames = "cond") %>%
+    add_contrast("version", add_cols = T, colnames = "vers") %>%
+    mutate(dv = s0i + q0i + sigma +
+             (s_lang + lang_effect) * lang + 
+             (s_cond + cond_effect) * cond + 
+             (s_vers + vers_effect) * vers,
+           dv = norm2likert(dv, prob = c(.05, .1, .2, .3, .2, .1, .05)),
+           dv = ifelse(reversed == "R", abs(dv - 8), dv)
+    ) %>%
+    select(subj_id, quest_id, reversed, dv) %>%
+    # randomise sep and order of uniting quest_id and reversed
+    unite(quest_name, sample(2:3), sep = sep) %>%
+    messy(prop = .005, "dv") %>%
+    pivot_wider(names_from = quest_name, values_from = dv) %>%
+    slice_sample(prop = .95)
+  
+  # create random research question text
+  research_question_text <- "=== Reproducible Report for {student_id} ==
+  
+Your questionnaire measures {topic}. Your research question is to determine if the {topic} score differs by {iv} for the subset of the sample where {subset} is {level}. 
+
+The {quest_n} {topic} questionnaire items are on a scale from 1 (low) to 7 (high), but some of the items need to be reverse-coded. This is indicated by the letter R in the question column name. You create the {topic} score by summing the questions.
+
+Watch out for missing data. You can decide whether to omit subjects with missing data or replace the missing data; just explain your choice and its consequences in the report.
+
+The report should be written like a summary document for your PI. You don't need to show your code in the rendered report. Include summary tables and/or plots with subject demographics from both the full data set and the subset you'll analyse. Visualise the relationship of interest. Conduct a GLM analysis to answer the research question above. Finally, do a power analysis to determine the sample size you would need to have {power}% power to detect a 0.5-point difference between the levels of {iv} with an alpha criterion of {alpha}."
+  
+  # sample text variables
+  factors <- sample(c("language", "condition", "version"), 2)
+  iv <- factors[[1]]
+  subset <- factors[[2]]
+  level <- subjects[[subset]] %>% unique() %>% sample(1)
+  topic <- sample(c("stress", "extroversion", "disgust"), 1)
+  alpha <- sample(c(.005, .01, .05), 1)
+  power <- sample(c(80, 85, 90), 1)
+  
+  research_question <- glue::glue(research_question_text)
+  
+  # write files
+  dir <- paste0("exam_", student_id)
+  dir.create(dir, showWarnings = FALSE)
+  write_csv(subjects, file.path(dir, "subjects.csv"))
+  write_csv(questions, file.path(dir, "questions.csv"))
+  write(research_question, file.path(dir, "instructions.txt"))
+  
+  return(dir)
+}
+
+```
+
+Now you can map over a list of student IDs to create personalised data and research questions for each student. Here is the pattern if you have student IDs in a table in a column called `Student ID`.
+
+
+```{r, eval = FALSE}
+# load student IDs
+student_list <- tibble(
+  `Student ID` = 1:5
+)
+
+# iterate over the IDs to create a random project
+purrr::map_chr(student_list$`Student ID`, random_project)
+```
+
+

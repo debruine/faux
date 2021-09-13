@@ -1,3 +1,7 @@
+# faux 1.0.9006 (2021-09-13)
+
+* Added a vignette about creating random reports using the mixed effects building functions.
+
 # faux 1.0.9006 (2021-08-30)
 
 * fixed a bug in `sim_design()` when setting n with an unnamed vector and within-subjects factors (wouldn't run before).

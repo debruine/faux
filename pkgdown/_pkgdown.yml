@@ -27,6 +27,7 @@ articles:
   - continuous
   - plots
   - sim_mixed
+  - random_reports
   - distributions
   - codebook
   - contrasts
