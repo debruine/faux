@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9004</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9006</span>
       </span>
     </div>
 
@@ -84,6 +84,9 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
@@ -115,13 +118,13 @@
 
       
 
-      </header><script src="rnorm_multi_files/header-attrs-2.9.4/header-attrs.js"></script><div class="row">
+      </header><script src="rnorm_multi_files/header-attrs-2.10.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulate Correlated Variables</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2021-08-30</h4>
+            <h4 class="date">2021-09-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/rnorm_multi.Rmd"><code>vignettes/rnorm_multi.Rmd</code></a></small>
       <div class="hidden name"><code>rnorm_multi.Rmd</code></div>
@@ -141,8 +144,7 @@
 <a href="#quick-example" class="anchor"></a>Quick example</h2>
 <p>For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5. A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, 
+<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, 
                   mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span>, <span class="fl">20</span><span class="op">)</span>,
                   sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>,
                   r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span><span class="op">)</span>, 

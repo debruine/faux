@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9004</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9006</span>
       </span>
     </div>
 
@@ -84,6 +84,9 @@
       <a href="../articles/sim_mixed.html">Mixed Design Simulation</a>
     </li>
     <li>
+      <a href="../articles/random_reports.html">Randomised Reports</a>
+    </li>
+    <li>
       <a href="../articles/distributions.html">Distribution Conversions</a>
     </li>
     <li>
@@ -115,7 +118,7 @@
 
       
 
-      </header><script src="codebook_files/header-attrs-2.9.4/header-attrs.js"></script><div class="row">
+      </header><script src="codebook_files/header-attrs-2.10.6/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Codebook Demo</h1>
@@ -244,8 +247,7 @@
 <a href="#variable-parameters" class="anchor"></a>Variable parameters</h3>
 <p>Above you saw messages about the data type that codebook guesses for each column. You can override this by setting the values manually. Below, we’ll create a new column called <code>followup</code> consisting of 0 and 1 values, change the data type of the column from integer to boolean (T/F) and also set descriptions for <code>id</code>, <code>pet</code> and <code>followup</code>. The <code>id</code> column had a description of “Subject ID” from the <code>sim_design</code> function, but properties set in using <code>vardesc</code> will override this. You can also add unobserved levels to a factor.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">pet_data</span><span class="op">$</span><span class="va">followup</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">pet_data</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">pet_data</span><span class="op">$</span><span class="va">followup</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">0</span><span class="op">:</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span><span class="op">(</span><span class="va">pet_data</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   dataType <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>followup <span class="op">=</span> <span class="st">"b"</span><span class="op">)</span>,
@@ -263,7 +265,6 @@
 <span class="co">#&gt; id set to dataType string</span>
 <span class="co">#&gt; pet set to dataType string</span>
 <span class="co">#&gt; happy set to dataType float</span>
-
 <span class="va">cb</span>
 <span class="co">#&gt; Codebook for pets (Psych-DS 0.1.0)</span>
 <span class="co">#&gt; </span>
@@ -297,7 +298,6 @@
 <span class="co">#&gt; happy set to dataType float</span>
 <span class="co">#&gt; Converting pet from int to string</span>
 <span class="co">#&gt; Converting followup from int to bool</span>
-
 <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">converted_data</span><span class="op">)</span>
 <span class="co">#&gt;    id pet     happy followup</span>
 <span class="co">#&gt; 1 S01 cat  6.013671     TRUE</span>
@@ -492,8 +492,7 @@
 <a href="#existing-data" class="anchor"></a>Existing Data</h2>
 <p>You can run the codebook function on existing data not created in faux, but will need to manually input column descriptions and factor levels.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
   description <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
     mpg <span class="op">=</span> <span class="st">"Miles/(US) gallon"</span>,
     cyl <span class="op">=</span> <span class="st">"Number of cylinders"</span>,
@@ -567,8 +566,7 @@
 <a href="#interactive-editing" class="anchor"></a>Interactive Editing</h2>
 <p>There is an experimental argument to edit the codebook interactively. It runs the codebook function, then asks you to confirm types and edit descriptions. Only run this in the console, not in an RMarkdown file or a script meant to be run non-interactively.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R">
-<span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">mtcars</span>, interactive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">cb</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/codebook.html">codebook</a></span><span class="op">(</span><span class="va">mtcars</span>, interactive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
   </div>
 

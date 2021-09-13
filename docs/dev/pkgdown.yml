@@ -7,11 +7,12 @@ articles:
   contrasts: contrasts.html
   distributions: distributions.html
   plots: plots.html
+  random_reports: random_reports.html
   rnorm_multi: rnorm_multi.html
   sim_design: sim_design.html
   sim_df: sim_df.html
   sim_mixed: sim_mixed.html
-last_built: 2021-08-30T12:06Z
+last_built: 2021-09-13T10:24Z
 urls:
   reference: https://debruine.github.io/faux/reference
   article: https://debruine.github.io/faux/articles
