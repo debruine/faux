@@ -1,3 +1,20 @@
+# faux 1.1.0 (2021-09-13)
+
+## Breaking changes
+
+* `sim_design()` now names anonymous within and between factors like W and B or W1, W2, W3, ..., and B1, B2, ... instead of A, B, C, ... 
+
+## New features
+
+* `add_contrast()` and associated contr_code_*** functions
+* `add_random()` and associated mixed design building functions
+
+## Minor improvements and fixes
+
+* `get_params()` doesn't need between, within, id, and dv set for date created by `sim_design()`
+* `plot_design()` can display a subset of factors
+* `sim_design()` fixed a bug in when setting n with an unnamed vector and within-subjects factors
+
 # faux 1.0.0.9006 (2021-09-13)
 
 * Added a vignette about creating random reports using the mixed effects building functions.
