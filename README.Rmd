@@ -1,8 +1,3 @@
----
-output: github_document
-always_allow_html: yes
----
-
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
