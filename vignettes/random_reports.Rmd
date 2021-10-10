@@ -32,7 +32,7 @@ Finally, the subject table, questionnaire table, and instructions are saved to a
 
 ## Setup
 
-Some of the functions below require version 1.1.0 of faux (`add_random()`, `add_between()`, `add_ranef()` and `add_contrast()`). This version has been submitted to CRAN, and is available on github. Any feedback would be welcome.
+Some of the functions below require version 1.1.0 of faux (`add_random()`, `add_between()`, `add_ranef()` and `add_contrast()`). Any feedback would be welcome.
 
 ```{r setup, message=FALSE}
 # devtools::install_github("debruine/faux")
@@ -108,7 +108,7 @@ subjects <- subjects %>%
 
 ### Age
 
-Now add an age column. I'm using `18 + rpois(nrow(.), 3)` to make a distribution that's pretty typical of undergraduate students, but you can choose a simulation function that is relevant to your questions. I'm also replacing 5% of the values with the word "missing", which will convert this to a chaacter column because I want students to practice dealing with non-standard missing values.
+Now add an age column. I'm using `18 + rpois(nrow(.), 3)` to make a distribution that's pretty typical of undergraduate students, but you can choose a simulation function that is relevant to your questions. I'm also replacing 5% of the values with the word "missing", which will convert this to a character column because I want students to practice dealing with non-standard missing values.
 
 ```{r}
 subjects <- subjects %>%
@@ -455,12 +455,16 @@ As before, wrap this code in a function.
 
 ```{r}
 make_instructions <- function(template, 
-                              factors = c("language", "condition", "version")) {
+                              subjects,
+                              factors = c("language", "condition", "version"),
+                              topics = c("stress", "extroversion", "disgust"),
+                              ... # other values you need for the template, like student_id
+                              ) {
   two_factors <- sample(factors, 2)
   iv <- two_factors[[1]]
   subset <- two_factors[[2]]
   level <- subjects[[subset]] %>% unique() %>% sample(1)
-  topic <- sample(c("stress", "extroversion", "disgust"), 1)
+  topic <- sample(topics, 1)
   alpha <- sample(c(.005, .01, .05), 1)
   power <- sample(c(80, 85, 90), 1)
 
@@ -468,6 +472,14 @@ make_instructions <- function(template,
     paste(collapse = "\n") %>%
     glue::glue()
 }
+```
+
+
+```{r}
+make_instructions(template = "template_instructions.txt",
+                  subjects = subjects,
+                  student_id = student_id,
+                  quest_n = ncol(questions) - 1)
 ```
 
 
@@ -500,7 +512,12 @@ random_project <- function(student_id) {
   questions <- make_quest(subjects)
   
   # customise instructions
-  instructions <- make_instructions("template_instructions.txt")
+  instructions <- make_instructions(
+    template = "template_instructions.txt",
+    subjects = subjects,
+    student_id = student_id,
+    quest_n = ncol(questions) - 1
+  )
   
   # write files to a new directory
   dir <- paste0("exam_", student_id)
