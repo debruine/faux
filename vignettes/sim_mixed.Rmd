@@ -49,6 +49,16 @@ data <- add_random(subj = 2, item = 3)
 
 `r knitr::kable(data)`
 
+You can also name the items directly if you don't like the default names. Crossed factors can be named with a vector of names, while nested factors need to be a list with one vector of names for each nesting level.
+
+```{r}
+data <- add_random(school = c("Hyndland Primary", "Hyndland Secondary")) %>%
+  add_random(class = list(paste0("P", 1:2),
+                          paste0("S", 1:2)),
+             .nested_in = "school")
+```
+
+`r knitr::kable(data)`
 
 ## Adding fixed factors
 

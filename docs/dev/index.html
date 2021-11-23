@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9006</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9001</span>
       </span>
     </div>
 
@@ -131,14 +131,13 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the released version of faux (1.0.0) from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
+<p>You can install the released version of faux from <a href="https://CRAN.R-project.org">CRAN</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"faux"</span><span class="op">)</span></code></pre></div>
-<p>And the development version (1.0.0.9006) from <a href="https://github.com/debruine/faux">GitHub</a> with:</p>
+<p>And the development version from <a href="https://github.com/debruine/faux">GitHub</a> with:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"debruine/faux"</span><span class="op">)</span></code></pre></div>
-<p>See the <a href="https://debruine.github.io/faux/dev/">development version manual</a>.</p>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/devtools/man/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"debruine/faux"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="quick-overview" class="section level2">
 <h2 class="hasAnchor">
@@ -146,6 +145,7 @@
 <div id="simulate-data-for-a-factorial-design" class="section level3">
 <h3 class="hasAnchor">
 <a href="#simulate-data-for-a-factorial-design" class="anchor"></a>Simulate data for a factorial design</h3>
+<p>See the <a href="articles/sim_design.html">Simulate by Design vignette</a> for more details.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Cat Owners"</span>, 
                         dog <span class="op">=</span> <span class="st">"Dog Owners"</span><span class="op">)</span><span class="op">)</span>
@@ -166,15 +166,71 @@
 <code class="sourceCode R"><span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
 <span class="va">p2</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/plot_design.html">plot_design</a></span><span class="op">(</span><span class="va">df</span>, <span class="st">"pet"</span>, <span class="st">"time"</span><span class="op">)</span>
 
-<span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://wilkelab.org/cowplot/reference/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>, nrow <span class="op">=</span> <span class="fl">2</span>, align <span class="op">=</span> <span class="st">"v"</span><span class="op">)</span></code></pre></div>
+<span class="fu">cowplot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/cowplot/man/plot_grid.html">plot_grid</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">p2</span>, nrow <span class="op">=</span> <span class="fl">2</span>, align <span class="op">=</span> <span class="st">"v"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/plot-design-1.png" alt="Plot the data with different visualisations."></p>
 </div>
 <div id="simulate-new-data-from-an-existing-data-table" class="section level3">
 <h3 class="hasAnchor">
 <a href="#simulate-new-data-from-an-existing-data-table" class="anchor"></a>Simulate new data from an existing data table</h3>
+<p>See the <a href="articles/sim_df.html">Simulate from Existing Data vignette</a> for more details.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">new_iris</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">iris</span>, <span class="fl">50</span>, between <span class="op">=</span> <span class="st">"Species"</span><span class="op">)</span> </code></pre></div>
 <p><img src="reference/figures/plot-iris-sim-1.png" alt="Simulated iris dataset"></p>
+</div>
+<div id="simulate-data-for-a-mixed-design" class="section level3">
+<h3 class="hasAnchor">
+<a href="#simulate-data-for-a-mixed-design" class="anchor"></a>Simulate data for a mixed design</h3>
+<p>You can build up a cross-classified or nested mixed effects design using piped functions. See the <a href="articles/contrasts.html">contrasts vignette</a> for more details.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># simulate 20 classes with 20 to 30 students per class</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/add_random.html">add_random</a></span><span class="op">(</span>class <span class="op">=</span> <span class="fl">20</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/add_random.html">add_random</a></span><span class="op">(</span>student <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">20</span><span class="op">:</span><span class="fl">30</span>, <span class="fl">20</span>, replace <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>, 
+             .nested_in <span class="op">=</span> <span class="st">"class"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/add_between.html">add_between</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="st">"class"</span>, 
+              school_type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"private"</span>,<span class="st">"public"</span><span class="op">)</span>, 
+              .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">15</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="reference/add_between.html">add_between</a></span><span class="op">(</span>.by <span class="op">=</span> <span class="st">"student"</span>,
+              gender <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"M"</span>, <span class="st">"F"</span>, <span class="st">"NB"</span><span class="op">)</span>,
+              .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.49</span>, <span class="fl">.49</span>, <span class="fl">.02</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<table class="table">
+<thead><tr class="header">
+<th align="left">school_type</th>
+<th align="left">gender</th>
+<th align="right">n</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">private</td>
+<td align="left">M</td>
+<td align="right">66</td>
+</tr>
+<tr class="even">
+<td align="left">private</td>
+<td align="left">F</td>
+<td align="right">54</td>
+</tr>
+<tr class="odd">
+<td align="left">private</td>
+<td align="left">NB</td>
+<td align="right">1</td>
+</tr>
+<tr class="even">
+<td align="left">public</td>
+<td align="left">M</td>
+<td align="right">186</td>
+</tr>
+<tr class="odd">
+<td align="left">public</td>
+<td align="left">F</td>
+<td align="right">187</td>
+</tr>
+<tr class="even">
+<td align="left">public</td>
+<td align="left">NB</td>
+<td align="right">8</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div id="other-simulation-packages" class="section level2">

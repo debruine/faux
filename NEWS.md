@@ -1,3 +1,8 @@
+# faux 1.1.0.9001 (2021-11-23)
+
+* `add_random()` now names random factor items with the full random factor name (e.g., "class1", not "c1")
+* `add_random()` allows you to set specific factor item names (see vignette)
+
 # faux 1.1.0 (2021-09-13)
 
 ## Breaking changes
