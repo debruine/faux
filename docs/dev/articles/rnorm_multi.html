@@ -43,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.0.0.9006</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9001</span>
       </span>
     </div>
 
@@ -118,13 +118,13 @@
 
       
 
-      </header><script src="rnorm_multi_files/header-attrs-2.10.6/header-attrs.js"></script><div class="row">
+      </header><script src="rnorm_multi_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulate Correlated Variables</h1>
                         <h4 class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2021-09-13</h4>
+            <h4 class="date">2021-12-01</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/rnorm_multi.Rmd"><code>vignettes/rnorm_multi.Rmd</code></a></small>
       <div class="hidden name"><code>rnorm_multi.Rmd</code></div>
@@ -144,7 +144,8 @@
 <a href="#quick-example" class="anchor"></a>Quick example</h2>
 <p>For example, the following creates a sample that has 100 observations of 3 variables, drawn from a population where A has a mean of 0 and SD of 1, while B and C have means of 20 and SDs of 5. A correlates with B and C with r = 0.5, and B and C correlate with r = 0.25.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, 
+<code class="sourceCode R">
+<span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">100</span>, 
                   mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">20</span>, <span class="fl">20</span><span class="op">)</span>,
                   sd <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">5</span>, <span class="fl">5</span><span class="op">)</span>,
                   r <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="fl">0.25</span><span class="op">)</span>, 
@@ -553,7 +554,7 @@
 <p>Us <code><a href="../reference/rnorm_pre.html">rnorm_pre()</a></code> to create a vector with a specified correlation to one or more pre-existing variables. The following code creates a new column called <code>B</code> with a mean of 10, SD of 2 and a correlation of r = 0.5 to the <code>A</code> column.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rnorm_multi.html">rnorm_multi</a></span><span class="op">(</span>varnames <span class="op">=</span> <span class="st">"A"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>B <span class="op">=</span> <span class="fu"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span><span class="op">(</span><span class="va">A</span>, mu <span class="op">=</span> <span class="fl">10</span>, sd <span class="op">=</span> <span class="fl">2</span>, r <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>B <span class="op">=</span> <span class="fu"><a href="../reference/rnorm_pre.html">rnorm_pre</a></span><span class="op">(</span><span class="va">A</span>, mu <span class="op">=</span> <span class="fl">10</span>, sd <span class="op">=</span> <span class="fl">2</span>, r <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="right">n</th>

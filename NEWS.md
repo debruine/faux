@@ -1,3 +1,8 @@
+# faux 1.1.0.9002 (2021-12-01)
+
+* Likert distribution functions `rlikert()`, `dlikert()`, `plikert()` and `qlikert()`
+
+
 # faux 1.1.0.9001 (2021-11-23)
 
 * `add_random()` now names random factor items with the full random factor name (e.g., "class1", not "c1")

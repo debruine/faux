@@ -101,6 +101,10 @@ reference:
   desc: ~
   contents:
   - '`std_alpha2average_r`'
+  - '`rlikert`'
+  - '`dlikert`'
+  - '`plikert`'
+  - '`qlikert`'
   - '`norm2likert`'
   - '`norm2beta`'
   - '`norm2binom`'

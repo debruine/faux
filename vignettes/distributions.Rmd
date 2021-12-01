@@ -74,10 +74,10 @@ You can convert a normal distribution to any sample distribution if you can spec
 ```{r}
 mu = 0
 sd = 1
-prob = c('very low' = 50, 
-         'low' = 80, 
-         'medium' = 100, 
-         'high' = 40, 
+prob = c('very low'  = 50, 
+         'low'       = 80, 
+         'medium'    = 100, 
+         'high'      = 40, 
          'very high' = 20)
 
 
@@ -92,6 +92,58 @@ n2l <- ggplot() + geom_point(aes(x_n, as.numeric(y_l))) +
 ggMarginal(n2l, type = "histogram")
 ```
 
+Faux also provides distribution functions for Likert distributions that you define with the probabilities of each value. 
+
+### rlikert
+
+`rlikert()` returns a random sample from a distribution of Likert levels with the specified probabilities.
+
+If you set `prob` as a named vector, it will return a vector of factors.
+
+```{r}
+rlikert(n = 10, prob = c(A = 10, B = 20, C = 30))
+```
+
+If you set `prob` as an unnamed vector, it will return a vector of integers.
+
+```{r}
+rlikert(n = 10, prob = c(.1, .2, .4, .2, .1))
+```
+
+Specify `labels` if `prob` is not named and you don't want a vector of integers starting with 1. If the labels are numeric, it will return a vector of numbers. If the labels are characters, it will return a vector of factors. 
+
+```{r}
+rlikert(n = 10, prob = c(10, 20, 30, 20, 10), labels = -2:2)
+rlikert(n = 10, prob = c(10, 20, 30, 20, 10), labels = LETTERS[1:5])
+```
+
+### dlikert
+
+`dlikert()` returns the density function.
+
+```{r}
+d <- dlikert(x = 1:5, c(10, 20, 40, 20, 10))
+d
+```
+
+### plikert
+
+`plikert()` returns the probability function, which is just the cumulative sum of the distribution function.
+
+```{r}
+p <- plikert(q = 1:5, c(10, 20, 40, 20, 10))
+p
+cumsum(d)
+```
+
+### qlikert
+
+`qlikert()` returns the quantile function, which is the inverse of the probability function.
+
+```{r}
+q <- qlikert(p = p, c(10, 20, 40, 20, 10))
+q
+```
 
 ## Uniform
 

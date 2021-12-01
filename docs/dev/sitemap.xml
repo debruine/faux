@@ -70,10 +70,16 @@
     <loc>https://debruine.github.io/faux/reference/convert_param.html</loc>
   </url>
   <url>
+    <loc>https://debruine.github.io/faux/reference/convert_r.html</loc>
+  </url>
+  <url>
     <loc>https://debruine.github.io/faux/reference/cormat.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/cormat_from_triangle.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/dlikert.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/faceratings.html</loc>
@@ -142,6 +148,9 @@
     <loc>https://debruine.github.io/faux/reference/norm2likert.html</loc>
   </url>
   <url>
+    <loc>https://debruine.github.io/faux/reference/norm2norm.html</loc>
+  </url>
+  <url>
     <loc>https://debruine.github.io/faux/reference/norm2pois.html</loc>
   </url>
   <url>
@@ -152,6 +161,9 @@
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/plikert.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/plot_design.html</loc>
@@ -169,7 +181,13 @@
     <loc>https://debruine.github.io/faux/reference/print.psychds_codebook.html</loc>
   </url>
   <url>
+    <loc>https://debruine.github.io/faux/reference/qlikert.html</loc>
+  </url>
+  <url>
     <loc>https://debruine.github.io/faux/reference/readline_check.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/rlikert.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/rnorm_multi.html</loc>
