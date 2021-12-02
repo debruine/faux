@@ -1,12 +1,14 @@
 #' Convert r for NORTA
 #' 
-#' Given a target r-value, what is the correlation you need to induce in a bivariate normal distribution to have the target correlation after converting distributions.
+#' Given a target r-value, returns the correlation you need to induce in a bivariate normal distribution to have the target correlation after converting distributions. 
+#' 
+#' See \link[stats:Distributions]{Distributions} for distributions and their various arguments to specify in params1 and params2.
 #'
 #' @param target_r The target correlation
-#' @param dist1 The target distribution function for variable 1
+#' @param dist1 The target distribution function for variable 1 (e.g., norm, binom, gamma, truncnorm, cauchy)
 #' @param dist2 The target distribution function for variable 2
-#' @param params1 Parameters for distribution 1
-#' @param params2 Parameters for distribution 2
+#' @param params1 Arguments to pass to the functions for distribution 1
+#' @param params2 Arguments to pass to the functions for distribution 2
 #' @param package1 The package that contains the r{dist} and q{dist} functions for dist1 
 #' @param package2 The package that contains the r{dist} and q{dist} functions for dist2 
 #'
@@ -56,9 +58,9 @@ convert_r <- function(target_r = 0,
   
   # generate target distributions
   params1$n <- 1e6
-  D1 <- sort(do.call(rfunc1, params1))
+  D1 <- sort(do.call(rfunc1, params1)) %>% as.numeric()
   params2$n <- 1e6
-  D2 <- sort(do.call(rfunc2, params2))
+  D2 <- sort(do.call(rfunc2, params2)) %>% as.numeric()
   params1$n <- NULL
   params2$n <- NULL
   
@@ -82,8 +84,9 @@ convert_r <- function(target_r = 0,
     params2$p <- stats::pnorm(mvn$X2, 0, 1)
     
     # convert dist1 & dist2 
-    X1 <- do.call(qfunc1, params1)
-    X2 <- do.call(qfunc2, params2)
+    # make numeric in case likert
+    X1 <- do.call(qfunc1, params1) %>% as.numeric()
+    X2 <- do.call(qfunc2, params2) %>% as.numeric()
     
     # check new correlation
     conv_r <- cor(X1, X2)

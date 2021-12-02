@@ -17,13 +17,13 @@ convert_r(
 \arguments{
 \item{target_r}{The target correlation}
 
-\item{dist1}{The target distribution function for variable 1}
+\item{dist1}{The target distribution function for variable 1 (e.g., norm, binom, gamma, truncnorm, cauchy)}
 
 \item{dist2}{The target distribution function for variable 2}
 
-\item{params1}{Parameters for distribution 1}
+\item{params1}{Arguments to pass to the functions for distribution 1}
 
-\item{params2}{Parameters for distribution 2}
+\item{params2}{Arguments to pass to the functions for distribution 2}
 
 \item{package1}{The package that contains the r{dist} and q{dist} functions for dist1}
 
@@ -33,7 +33,10 @@ convert_r(
 r-value to induce in the bivariate normal variables
 }
 \description{
-Given a target r-value, what is the correlation you need to induce in a bivariate normal distribution to have the target correlation after converting distributions.
+Given a target r-value, returns the correlation you need to induce in a bivariate normal distribution to have the target correlation after converting distributions.
+}
+\details{
+See \link[stats:Distributions]{Distributions} for distributions and their various arguments to specify in params1 and params2.
 }
 \examples{
 convert_r(target_r = 0.5, 
