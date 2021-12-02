@@ -200,3 +200,23 @@ test_that("convert_r norm:likert", {
   diff <- abs(recovered_r - r)
   expect_true(all(diff < .01))
 })
+
+# rmulti ----
+test_that("rmulti", {
+  r <- seq(.1, .6, .1)
+  dist <- c(A = "norm", B = "binom", C = "beta", D = "pois")
+  params <- list(A = list(mean = 10, sd = 5), 
+                 B = list(size = 6, prob = 0.5),
+                 C = list(shape1 = 2, shape2 = 2),
+                 D = list(lambda = 10))
+  
+  x <- rmulti(n = 100, 
+              dist = dist, 
+              params = params, 
+              r = r, 
+              empirical = TRUE)
+  
+  recov_r <- cor(x)
+  diff <- abs(recov_r[upper.tri(recov_r)] - r)
+  expect_true(all(diff < .05))
+})

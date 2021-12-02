@@ -36,6 +36,7 @@ reference:
 - title: Simulation functions
   desc: ~
   contents:
+  - '`rmulti`'
   - '`rnorm_multi`'
   - '`rnorm_pre`'
   - '`sim_design`'
@@ -101,6 +102,7 @@ reference:
   desc: ~
   contents:
   - '`std_alpha2average_r`'
+  - '`convert_r`'
   - '`rlikert`'
   - '`dlikert`'
   - '`plikert`'
@@ -109,6 +111,7 @@ reference:
   - '`norm2beta`'
   - '`norm2binom`'
   - '`norm2gamma`'
+  - '`norm2norm`'
   - '`norm2pois`'
   - '`norm2trunc`'
   - '`trunc2norm`'

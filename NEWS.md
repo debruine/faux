@@ -1,7 +1,10 @@
+# faux 1.1.0.9003 (2021-12-02)
+
+* `rmulti()` function for multivariate distributions that aren't all normal (experimental)
+
 # faux 1.1.0.9002 (2021-12-01)
 
 * Likert distribution functions `rlikert()`, `dlikert()`, `plikert()` and `qlikert()`
-
 
 # faux 1.1.0.9001 (2021-11-23)
 
