@@ -1,3 +1,8 @@
+# faux 1.1.0.9004 (2022-02-13)
+
+* Improvements for `rmulti()` and associated helper functions `convert_r()` and `fh_bounds()`.
+* A vignette for NORTA
+
 # faux 1.1.0.9003 (2021-12-02)
 
 * `rmulti()` function for multivariate distributions that aren't all normal (experimental)

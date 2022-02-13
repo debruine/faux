@@ -1,7 +1,7 @@
 Package: faux
 Title: Simulation for Factorial Designs
-Version: 1.1.0.9003
-Date: 2021-12-02
+Version: 1.1.0.9004
+Date: 2022-02-13
 Authors@R: c(
     person(
         given = "Lisa", 
@@ -52,7 +52,8 @@ Suggests:
     kableExtra,
     glue,
     openssl,
-    readr
+    readr,
+    patchwork
 VignetteBuilder: knitr
 RoxygenNote: 7.1.2
 Encoding: UTF-8

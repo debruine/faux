@@ -10,14 +10,13 @@ convert_r(
   dist2 = "norm",
   params1 = list(),
   params2 = list(),
-  package1 = "stats",
-  package2 = "stats"
+  tol = 0.01
 )
 }
 \arguments{
 \item{target_r}{The target correlation}
 
-\item{dist1}{The target distribution function for variable 1 (e.g., norm, binom, gamma, truncnorm, cauchy)}
+\item{dist1}{The target distribution function for variable 1 (e.g., norm, binom, gamma, truncnorm)}
 
 \item{dist2}{The target distribution function for variable 2}
 
@@ -25,9 +24,7 @@ convert_r(
 
 \item{params2}{Arguments to pass to the functions for distribution 2}
 
-\item{package1}{The package that contains the r{dist} and q{dist} functions for dist1}
-
-\item{package2}{The package that contains the r{dist} and q{dist} functions for dist2}
+\item{tol}{Tolerance for optimise function}
 }
 \value{
 r-value to induce in the bivariate normal variables

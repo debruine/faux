@@ -31,6 +31,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -43,18 +45,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9004</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -103,7 +99,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/debruine/faux/">
+  <a href="https://github.com/debruine/faux/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -118,13 +114,13 @@
 
       
 
-      </header><script src="sim_mixed_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Mixed Design Simulation</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/sim_mixed.Rmd"><code>vignettes/sim_mixed.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/HEAD/vignettes/sim_mixed.Rmd" class="external-link"><code>vignettes/sim_mixed.Rmd</code></a></small>
       <div class="hidden name"><code>sim_mixed.Rmd</code></div>
 
     </div>
@@ -132,22 +128,22 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org">purrr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/">lme4</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR">lmerTest</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bbolker/broom.mixed">broom.mixed</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span></code></pre></div>
-<p>This <a href="https://osf.io/3cz2e/">paper</a> provides a tutorial and examples for more complex designs.</p>
-<div id="building-multilevel-designs" class="section level2">
-<h2 class="hasAnchor">
-<a href="#building-multilevel-designs" class="anchor"></a>Building multilevel designs</h2>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="http://purrr.tidyverse.org" class="external-link">purrr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/lme4/lme4/" class="external-link">lme4</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/runehaubo/lmerTestR" class="external-link">lmerTest</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/bbolker/broom.mixed" class="external-link">broom.mixed</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux" class="external-link">faux</a></span><span class="op">)</span></code></pre></div>
+<p>This <a href="https://osf.io/3cz2e/" class="external-link">paper</a> provides a tutorial and examples for more complex designs.</p>
+<div class="section level2">
+<h2 id="building-multilevel-designs">Building multilevel designs<a class="anchor" aria-label="anchor" href="#building-multilevel-designs"></a>
+</h2>
 <p>You can build up a mixed effects model by adding random factors in a stepwise fashion using <code><a href="../reference/add_random.html">add_random()</a></code>. The example below simulates 3 schools with 2, 3 and 4 classes nested in each school.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>school <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, .nested_in <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>school <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, .nested_in <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">school</th>
@@ -229,9 +225,9 @@
 </table>
 <p>You can also name the items directly if you don’t like the default names. Crossed factors can be named with a vector of names, while nested factors need to be a list with one vector of names for each nesting level.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>school <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Hyndland Primary"</span>, <span class="st">"Hyndland Secondary"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"P"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,
-                          <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>school <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Hyndland Primary"</span>, <span class="st">"Hyndland Secondary"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>class <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"P"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span>,
+                          <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">"S"</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span><span class="op">)</span>,
              .nested_in <span class="op">=</span> <span class="st">"school"</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -258,14 +254,14 @@
 </tbody>
 </table>
 </div>
-<div id="adding-fixed-factors" class="section level2">
-<h2 class="hasAnchor">
-<a href="#adding-fixed-factors" class="anchor"></a>Adding fixed factors</h2>
+<div class="section level2">
+<h2 id="adding-fixed-factors">Adding fixed factors<a class="anchor" aria-label="anchor" href="#adding-fixed-factors"></a>
+</h2>
 <p>Add within factors with <code><a href="../reference/add_within.html">add_within()</a></code>.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_within.html">add_within</a></span><span class="op">(</span><span class="st">"subj"</span>, time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"pre"</span>, <span class="st">"post"</span><span class="op">)</span>,
-             condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_within.html">add_within</a></span><span class="op">(</span><span class="st">"subj"</span>, time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"pre"</span>, <span class="st">"post"</span><span class="op">)</span>,
+             condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">subj</th>
@@ -317,11 +313,11 @@
 </table>
 <p>Add between factors with <code><a href="../reference/add_between.html">add_between()</a></code>. If you have more than one factor, they will be crossed. If you set <code>.shuffle = TRUE</code>, the factors will be added randomly (not in “order”), and separately added factors may end up confounded. This simulates true random allocation.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">4</span>, item <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span>, gen <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X"</span>, <span class="st">"Z"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"item"</span>, version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, shuffled <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, .shuffle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, not_shuffled <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, .shuffle <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">4</span>, item <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span>, gen <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"X"</span>, <span class="st">"Z"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"item"</span>, version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, shuffled <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, .shuffle <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, not_shuffled <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, .shuffle <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">subj</th>
@@ -407,14 +403,14 @@
 </tr>
 </tbody>
 </table>
-<div id="unequal-cells" class="section level3">
-<h3 class="hasAnchor">
-<a href="#unequal-cells" class="anchor"></a>Unequal cells</h3>
+<div class="section level3">
+<h3 id="unequal-cells">Unequal cells<a class="anchor" aria-label="anchor" href="#unequal-cells"></a>
+</h3>
 <p>If the levels of a factor don’t have equal probability, set the probability with <code>.prob</code>. If the sum of the values equals the number of groups, you will always get those exact numbers (e.g., always 8 control and 2 test; set shuffle = TRUE to get them in a random order). Otherwise, the values are sampled and the exact proportions will change for each simulation.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span>, .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"young"</span>, <span class="st">"old"</span><span class="op">)</span>, .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">.2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span>, .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">8</span>, <span class="fl">2</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"young"</span>, <span class="st">"old"</span><span class="op">)</span>, .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.8</span>, <span class="fl">.2</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">subj</th>
@@ -476,11 +472,11 @@
 </table>
 <p>If you have more than one between-subject factor, setting them together allows you to set joint proportions for each cell.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, 
-              cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span>,
-              age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"young"</span>, <span class="st">"old"</span><span class="op">)</span>, 
-              .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+              cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span>,
+              age <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"young"</span>, <span class="st">"old"</span><span class="op">)</span>, 
+              .prob <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">subj</th>
@@ -541,15 +537,15 @@
 </tbody>
 </table>
 </div>
-<div id="counterbalanced-designs" class="section level3">
-<h3 class="hasAnchor">
-<a href="#counterbalanced-designs" class="anchor"></a>Counterbalanced designs</h3>
-<p>You can use the <code><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter()</a></code> function from dplyr to create counterbalanced designs. For example, if your items are grouped into A and B counterbalanced groups, add a between-subjects and a between-items factor with the same levels and filter only rows where the subject value matches the item value. In the example below, odd-numbered subjects only respond to odd-numbered items.</p>
+<div class="section level3">
+<h3 id="counterbalanced-designs">Counterbalanced designs<a class="anchor" aria-label="anchor" href="#counterbalanced-designs"></a>
+</h3>
+<p>You can use the <code><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter()</a></code> function from dplyr to create counterbalanced designs. For example, if your items are grouped into A and B counterbalanced groups, add a between-subjects and a between-items factor with the same levels and filter only rows where the subject value matches the item value. In the example below, odd-numbered subjects only respond to odd-numbered items.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">4</span>, item <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, subj_cb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"odd"</span>, <span class="st">"even"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"item"</span>, item_cb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"odd"</span>, <span class="st">"even"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">subj_cb</span> <span class="op">==</span> <span class="va">item_cb</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">4</span>, item <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, subj_cb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"odd"</span>, <span class="st">"even"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"item"</span>, item_cb <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"odd"</span>, <span class="st">"even"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">subj_cb</span> <span class="op">==</span> <span class="va">item_cb</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">subj</th>
@@ -609,20 +605,20 @@
 </tbody>
 </table>
 </div>
-<div id="recoding" class="section level3">
-<h3 class="hasAnchor">
-<a href="#recoding" class="anchor"></a>Recoding</h3>
+<div class="section level3">
+<h3 id="recoding">Recoding<a class="anchor" aria-label="anchor" href="#recoding"></a>
+</h3>
 <p>To set up data for analysis, you often need to recode categorical variables. Use the helper function <code><a href="../reference/add_contrast.html">add_contrast()</a></code> for this. The code below creates anova-coded and treatment-coded versions of “cond” and the two variables needed to treatment-code the 3-level variable “type”. See the <a href="contrasts.html">contrasts vignette</a> for more details.</p>
 <p>You can <code><a href="../reference/add_recode.html">add_recode()</a></code> for setting a manual contrast that isn’t available in <code><a href="../reference/add_contrast.html">add_contrast()</a></code>, such as weighted contrasts.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">2</span>, item <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"item"</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"X"</span>, <span class="st">"Y"</span>, <span class="st">"Z"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">2</span>, item <span class="op">=</span> <span class="fl">3</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"item"</span>, type <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"X"</span>, <span class="st">"Y"</span>, <span class="st">"Z"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="co"># add contrasts</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"cond"</span>, <span class="st">"anova"</span>, add_cols <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"cond"</span>, <span class="st">"treatment"</span>, add_cols <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"cond"</span>, <span class="st">"anova"</span>, add_cols <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"cond"</span>, <span class="st">"treatment"</span>, add_cols <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="co"># you can change the default column names</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"treatment"</span>, add_cols <span class="op">=</span> <span class="cn">TRUE</span>, colnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Y"</span>, <span class="st">"Z"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"treatment"</span>, add_cols <span class="op">=</span> <span class="cn">TRUE</span>, colnames <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Y"</span>, <span class="st">"Z"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/add_recode.html">add_recode</a></span><span class="op">(</span><span class="st">"type"</span>, <span class="st">"type.w"</span>, X <span class="op">=</span> <span class="op">-</span><span class="fl">1.3</span>, Y <span class="op">=</span> <span class="fl">0</span>, Z <span class="op">=</span> <span class="fl">0.92</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
@@ -707,20 +703,20 @@
 </table>
 </div>
 </div>
-<div id="adding-random-effects" class="section level2">
-<h2 class="hasAnchor">
-<a href="#adding-random-effects" class="anchor"></a>Adding random effects</h2>
+<div class="section level2">
+<h2 id="adding-random-effects">Adding random effects<a class="anchor" aria-label="anchor" href="#adding-random-effects"></a>
+</h2>
 <p>To simulate multilevel data, you need to add random intercepts and slopes for each random factor (or combination of random factors). These are randomly sampled each time you simulate a new sample, so you can only characterise them by their standard deviation. You can use the function <code><a href="../reference/add_ranef.html">add_ranef()</a></code> to add random effects with specified SDs. If you add more than one random effect for the same group (e.g., a random intercept and a random slope), you can specify their correlation with <code>.cors</code> (you can specify correlations in the same way as for <code><a href="../reference/rnorm_multi.html">rnorm_multi()</a></code>).</p>
 <p>The code below sets up a simple cross-classified design where 2 subjects are crossed with 2 items. It adds a between-subject, within-item factor of “version”. Then it adds random effects by subject, item, and their interaction, as well as an error term (<code>sigma</code>).</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">4</span>, item <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, version <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="fl">4</span>, item <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, version <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">2</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="co"># add by-subject random intercept</span>
-  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"subj"</span>, u0s <span class="op">=</span> <span class="fl">1.3</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"subj"</span>, u0s <span class="op">=</span> <span class="fl">1.3</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="co"># add by-item random intercept and slope</span>
-  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"item"</span>, u0i <span class="op">=</span> <span class="fl">1.5</span>, u1i <span class="op">=</span> <span class="fl">1.5</span>, .cors <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"item"</span>, u0i <span class="op">=</span> <span class="fl">1.5</span>, u1i <span class="op">=</span> <span class="fl">1.5</span>, .cors <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="co"># add by-subject:item random intercept</span>
-  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, u0si <span class="op">=</span> <span class="fl">1.7</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"subj"</span>, <span class="st">"item"</span><span class="op">)</span>, u0si <span class="op">=</span> <span class="fl">1.7</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="co"># add error term (by observation)</span>
   <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span>sigma <span class="op">=</span> <span class="fl">2.2</span><span class="op">)</span></code></pre></div>
 <table class="table">
@@ -818,9 +814,9 @@
 </tbody>
 </table>
 </div>
-<div id="simulating-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#simulating-data" class="anchor"></a>Simulating data</h2>
+<div class="section level2">
+<h2 id="simulating-data">Simulating data<a class="anchor" aria-label="anchor" href="#simulating-data"></a>
+</h2>
 <p>Now you can define your data-generating parameters and put everything together to simulate a dataset. In this example,subject are crossed with items, and there is a single treatment-coded between-subject, within-item fixed factor of condition with levels “control” and “test”. The intercept and effect of condition are both set to 0. The SDs of the random intercepts and slopes are all set to 1 (you will need pilot data to estimate realistic values for your design), the correlation between the random intercept and slope by items is set to 0. The SD of the error term is set to 2.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># define parameters</span>
@@ -835,16 +831,16 @@
 <span class="va">sigma_sd</span> <span class="op">=</span> <span class="fl">2</span> <span class="co"># error SD</span>
   
 <span class="co"># set up data structure</span>
-<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="va">subj_n</span>, item <span class="op">=</span> <span class="va">item_n</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="va">subj_n</span>, item <span class="op">=</span> <span class="va">item_n</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="co"># add and recode categorical variables</span>
-  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_recode.html">add_recode</a></span><span class="op">(</span><span class="st">"cond"</span>, <span class="st">"cond.t"</span>, control <span class="op">=</span> <span class="fl">0</span>, test <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_recode.html">add_recode</a></span><span class="op">(</span><span class="st">"cond"</span>, <span class="st">"cond.t"</span>, control <span class="op">=</span> <span class="fl">0</span>, test <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="co"># add random effects </span>
-  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"subj"</span>, u0s <span class="op">=</span> <span class="va">u0s_sd</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"item"</span>, u0i <span class="op">=</span> <span class="va">u0i_sd</span>, u1i <span class="op">=</span> <span class="va">u1i_sd</span>, .cors <span class="op">=</span> <span class="va">r01i</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span>sigma <span class="op">=</span> <span class="va">sigma_sd</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"subj"</span>, u0s <span class="op">=</span> <span class="va">u0s_sd</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"item"</span>, u0i <span class="op">=</span> <span class="va">u0i_sd</span>, u1i <span class="op">=</span> <span class="va">u1i_sd</span>, .cors <span class="op">=</span> <span class="va">r01i</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span>sigma <span class="op">=</span> <span class="va">sigma_sd</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="co"># calculate DV</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>dv <span class="op">=</span> <span class="va">b0</span> <span class="op">+</span> <span class="va">u0s</span> <span class="op">+</span> <span class="va">u0i</span> <span class="op">+</span> <span class="op">(</span><span class="va">b1</span> <span class="op">+</span> <span class="va">u1i</span><span class="op">)</span> <span class="op">*</span> <span class="va">cond.t</span> <span class="op">+</span> <span class="va">sigma</span><span class="op">)</span></code></pre></div>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>dv <span class="op">=</span> <span class="va">b0</span> <span class="op">+</span> <span class="va">u0s</span> <span class="op">+</span> <span class="va">u0i</span> <span class="op">+</span> <span class="op">(</span><span class="va">b1</span> <span class="op">+</span> <span class="va">u1i</span><span class="op">)</span> <span class="op">*</span> <span class="va">cond.t</span> <span class="op">+</span> <span class="va">sigma</span><span class="op">)</span></code></pre></div>
 <table class="table">
 <thead><tr class="header">
 <th align="left">subj</th>
@@ -927,14 +923,14 @@
 </tbody>
 </table>
 </div>
-<div id="analysing-your-multilevel-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#analysing-your-multilevel-data" class="anchor"></a>Analysing your multilevel data</h2>
+<div class="section level2">
+<h2 id="analysing-your-multilevel-data">Analysing your multilevel data<a class="anchor" aria-label="anchor" href="#analysing-your-multilevel-data"></a>
+</h2>
 <p>You can analyse these data with lme4::lmer().</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">dv</span> <span class="op">~</span> <span class="va">cond.t</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">subj</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">cond.t</span> <span class="op">|</span> <span class="va">item</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">dv</span> <span class="op">~</span> <span class="va">cond.t</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">subj</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">cond.t</span> <span class="op">|</span> <span class="va">item</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/summary.html" class="external-link">summary</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
 <span class="co">#&gt; Linear mixed model fit by REML. t-tests use Satterthwaite's method [</span>
 <span class="co">#&gt; lmerModLmerTest]</span>
 <span class="co">#&gt; Formula: dv ~ cond.t + (1 | subj) + (1 + cond.t | item)</span>
@@ -963,9 +959,9 @@
 <span class="co">#&gt;        (Intr)</span>
 <span class="co">#&gt; cond.t -0.690</span></code></pre></div>
 </div>
-<div id="power-simulation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#power-simulation" class="anchor"></a>Power simulation</h2>
+<div class="section level2">
+<h2 id="power-simulation">Power simulation<a class="anchor" aria-label="anchor" href="#power-simulation"></a>
+</h2>
 <p>Include this code in a function so you can easily change the Ns, fixed effects, and random effects to any values. Then run a mixed effects model on the data and return the model.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">sim</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">subj_n</span> <span class="op">=</span> <span class="fl">10</span>, <span class="va">item_n</span> <span class="op">=</span> <span class="fl">10</span>,
@@ -977,57 +973,57 @@
                 <span class="op">)</span> <span class="op">{</span>
 
   <span class="co"># set up data structure</span>
-  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="va">subj_n</span>, item <span class="op">=</span> <span class="va">item_n</span><span class="op">)</span> <span class="op">%&gt;%</span>
+  <span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/add_random.html">add_random</a></span><span class="op">(</span>subj <span class="op">=</span> <span class="va">subj_n</span>, item <span class="op">=</span> <span class="va">item_n</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
     <span class="co"># add and recode categorical variables</span>
-    <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_recode.html">add_recode</a></span><span class="op">(</span><span class="st">"cond"</span>, <span class="st">"cond.t"</span>, control <span class="op">=</span> <span class="fl">0</span>, test <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/add_between.html">add_between</a></span><span class="op">(</span><span class="st">"subj"</span>, cond <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"test"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="../reference/add_recode.html">add_recode</a></span><span class="op">(</span><span class="st">"cond"</span>, <span class="st">"cond.t"</span>, control <span class="op">=</span> <span class="fl">0</span>, test <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
     <span class="co"># add random effects </span>
-    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"subj"</span>, u0s <span class="op">=</span> <span class="va">u0s_sd</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"item"</span>, u0i <span class="op">=</span> <span class="va">u0i_sd</span>, u1i <span class="op">=</span> <span class="va">u1i_sd</span>, .cors <span class="op">=</span> <span class="va">r01i</span><span class="op">)</span> <span class="op">%&gt;%</span>
-    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span>sigma <span class="op">=</span> <span class="va">sigma_sd</span><span class="op">)</span> <span class="op">%&gt;%</span>
+    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"subj"</span>, u0s <span class="op">=</span> <span class="va">u0s_sd</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span><span class="st">"item"</span>, u0i <span class="op">=</span> <span class="va">u0i_sd</span>, u1i <span class="op">=</span> <span class="va">u1i_sd</span>, .cors <span class="op">=</span> <span class="va">r01i</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+    <span class="fu"><a href="../reference/add_ranef.html">add_ranef</a></span><span class="op">(</span>sigma <span class="op">=</span> <span class="va">sigma_sd</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
     <span class="co"># calculate DV</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>dv <span class="op">=</span> <span class="va">b0</span> <span class="op">+</span> <span class="va">u0s</span> <span class="op">+</span> <span class="va">u0i</span> <span class="op">+</span> <span class="op">(</span><span class="va">b1</span> <span class="op">+</span> <span class="va">u1i</span><span class="op">)</span> <span class="op">*</span> <span class="va">cond.t</span> <span class="op">+</span> <span class="va">sigma</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>dv <span class="op">=</span> <span class="va">b0</span> <span class="op">+</span> <span class="va">u0s</span> <span class="op">+</span> <span class="va">u0i</span> <span class="op">+</span> <span class="op">(</span><span class="va">b1</span> <span class="op">+</span> <span class="va">u1i</span><span class="op">)</span> <span class="op">*</span> <span class="va">cond.t</span> <span class="op">+</span> <span class="va">sigma</span><span class="op">)</span>
 
   <span class="co"># run mixed effect model and return relevant values</span>
-  <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html">lmer</a></span><span class="op">(</span><span class="va">dv</span> <span class="op">~</span> <span class="va">cond.t</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">subj</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">cond.t</span> <span class="op">|</span> <span class="va">item</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span>
+  <span class="va">m</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/lme4/man/lmer.html" class="external-link">lmer</a></span><span class="op">(</span><span class="va">dv</span> <span class="op">~</span> <span class="va">cond.t</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">|</span> <span class="va">subj</span><span class="op">)</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span> <span class="op">+</span> <span class="va">cond.t</span> <span class="op">|</span> <span class="va">item</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span>
 
-  <span class="fu">broom.mixed</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
+  <span class="fu">broom.mixed</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span>
 <span class="op">}</span></code></pre></div>
 <p>Check the function. Here, we’re simulating a fixed effect of condition (b1) of 0.5 for 50 subjects and 40 items, with a correlation between the random intercept and slope for items of 0.2, and the default values for all other parameters that we set above.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">sim</span><span class="op">(</span>subj_n <span class="op">=</span> <span class="fl">50</span>, item_n <span class="op">=</span> <span class="fl">40</span>, b1 <span class="op">=</span> <span class="fl">0.5</span>, r01i <span class="op">=</span> <span class="fl">0.2</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 7 × 8</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 8</span></span>
 <span class="co">#&gt;   effect   group    term              estimate std.error statistic    df p.value</span>
-<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;                &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;</span>
-<span class="co">#&gt; 1 fixed    &lt;NA&gt;     (Intercept)        -0.0715     0.286    -0.250  71.4   0.803</span>
-<span class="co">#&gt; 2 fixed    &lt;NA&gt;     cond.t              0.499      0.395     1.27   68.1   0.210</span>
-<span class="co">#&gt; 3 ran_pars subj     sd__(Intercept)     1.19      NA        NA      NA    NA    </span>
-<span class="co">#&gt; 4 ran_pars item     sd__(Intercept)     0.913     NA        NA      NA    NA    </span>
-<span class="co">#&gt; 5 ran_pars item     cor__(Intercept)…   0.256     NA        NA      NA    NA    </span>
-<span class="co">#&gt; 6 ran_pars item     sd__cond.t          1.16      NA        NA      NA    NA    </span>
-<span class="co">#&gt; 7 ran_pars Residual sd__Observation     2.08      NA        NA      NA    NA</span></code></pre></div>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> fixed    <span style="color: #BB0000;">NA</span>       (Intercept)        -<span style="color: #BB0000;">0.071</span><span style="color: #BB0000; text-decoration: underline;">5</span>     0.286    -<span style="color: #BB0000;">0.250</span>  71.4   0.803</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> fixed    <span style="color: #BB0000;">NA</span>       cond.t              0.499      0.395     1.27   68.1   0.210</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> ran_pars subj     sd__(Intercept)     1.19      <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> ran_pars item     sd__(Intercept)     0.913     <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> ran_pars item     cor__(Intercept)…   0.256     <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> ran_pars item     sd__cond.t          1.16      <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">7</span> ran_pars Residual sd__Observation     2.08      <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>      <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span></span></code></pre></div>
 <p>Run the simulation repeatedly. I’m only running it 50 times per parameter combination here so my demo doesn’t take forever to run, but once you are done testing a range of parameters, you probably want to run the final simulation 100-1000 times. You might get a few warnings like “Model failed to converge” or “singular boundary”. You don’t need to worry too much if you only get a few of these. If most of your models have warnings, the simulation parameters are likely to be off.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/expand.html">crossing</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/expand.html" class="external-link">crossing</a></span><span class="op">(</span>
   rep <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">50</span>, <span class="co"># number of replicates</span>
-  subj_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span>, <span class="co"># range of subject N</span>
+  subj_n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">100</span><span class="op">)</span>, <span class="co"># range of subject N</span>
   item_n <span class="op">=</span> <span class="fl">25</span>, <span class="co"># fixed item N</span>
-  b1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="co"># range of effects</span>
+  b1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.25</span>, <span class="fl">0.5</span>, <span class="fl">0.75</span><span class="op">)</span>, <span class="co"># range of effects</span>
   r01i <span class="op">=</span> <span class="fl">0.2</span> <span class="co"># fixed correlation</span>
-<span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>analysis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/purrr/man/map2.html">pmap</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">sim</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/nest.html">unnest</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></code></pre></div>
+<span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>analysis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/purrr/man/map2.html" class="external-link">pmap</a></span><span class="op">(</span><span class="va">.</span>, <span class="va">sim</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/nest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span></code></pre></div>
 <p>Filter and/or group the resulting table and calculate the proportion of p.values above your alpha threshold to get power for the fixed effects.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># calculate power for alpha = 0.05</span>
-<span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html">filter</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">effect</span> <span class="op">==</span> <span class="st">"fixed"</span>, <span class="va">term</span> <span class="op">==</span> <span class="st">"cond.t"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html">group_by</a></span><span class="op">(</span><span class="va">b1</span>, <span class="va">subj_n</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html">summarise</a></span><span class="op">(</span>power <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">p.value</span> <span class="op">&lt;</span> <span class="fl">.05</span><span class="op">)</span>, 
-            .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span><span class="va">b1</span>, <span class="va">subj_n</span>, fill <span class="op">=</span> <span class="va">power</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_tile.html">geom_tile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_text.html">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html">sprintf</a></span><span class="op">(</span><span class="st">"%.2f"</span>, <span class="va">power</span><span class="op">)</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"white"</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/scale_viridis.html">scale_fill_viridis_c</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">x</span>, <span class="va">effect</span> <span class="op">==</span> <span class="st">"fixed"</span>, <span class="va">term</span> <span class="op">==</span> <span class="st">"cond.t"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">b1</span>, <span class="va">subj_n</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/summarise.html" class="external-link">summarise</a></span><span class="op">(</span>power <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/mean.html" class="external-link">mean</a></span><span class="op">(</span><span class="va">p.value</span> <span class="op">&lt;</span> <span class="fl">.05</span><span class="op">)</span>, 
+            .groups <span class="op">=</span> <span class="st">"drop"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">b1</span>, <span class="va">subj_n</span>, fill <span class="op">=</span> <span class="va">power</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_tile.html" class="external-link">geom_tile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_text.html" class="external-link">geom_text</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sprintf.html" class="external-link">sprintf</a></span><span class="op">(</span><span class="st">"%.2f"</span>, <span class="va">power</span><span class="op">)</span><span class="op">)</span>, color <span class="op">=</span> <span class="st">"white"</span>, size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/scale_viridis.html" class="external-link">scale_fill_viridis_c</a></span><span class="op">(</span>limits <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="sim_mixed_files/figure-html/powerplot-1.png" width="100%"></p>
 </div>
   </div>
@@ -1043,11 +1039,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Lisa DeBruine.</p>
+  <p></p>
+<p>Developed by Lisa DeBruine.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -1055,6 +1053,8 @@
 
   
 
+
+  
 
   </body>
 </html>

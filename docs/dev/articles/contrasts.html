@@ -31,6 +31,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -43,18 +45,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9004</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -103,7 +99,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/debruine/faux/">
+  <a href="https://github.com/debruine/faux/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -118,14 +114,14 @@
 
       
 
-      </header><script src="contrasts_files/header-attrs-2.11/header-attrs.js"></script><script src="contrasts_files/kePrint-0.0.1/kePrint.js"></script><link href="contrasts_files/lightable-0.0.1/lightable.css" rel="stylesheet">
+      </header><script src="contrasts_files/kePrint-0.0.1/kePrint.js"></script><link href="contrasts_files/lightable-0.0.1/lightable.css" rel="stylesheet">
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Contrasts</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/contrasts.Rmd"><code>vignettes/contrasts.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/HEAD/vignettes/contrasts.Rmd" class="external-link"><code>vignettes/contrasts.Rmd</code></a></small>
       <div class="hidden name"><code>contrasts.Rmd</code></div>
 
     </div>
@@ -142,23 +138,23 @@
 <p>I thought it was just me, but some recent Twitter discussion showed me I’m not alone. There’s a serious jingle-jangle problem with contrasts. Here are some of the explainers that I found useful (thanks to everyone who recommended them).</p>
 <ol style="list-style-type: decimal">
 <li>
-<a href="https://marissabarlaz.github.io/portfolio/contrastcoding/">Contrasts in R</a> by Marissa Barlaz</li>
+<a href="https://marissabarlaz.github.io/portfolio/contrastcoding/" class="external-link">Contrasts in R</a> by Marissa Barlaz</li>
 <li>
-<a href="https://talklab.psy.gla.ac.uk/tvw/catpred/">Coding categorical predictor variables in factorial designs</a> by Dale Barr</li>
+<a href="https://talklab.psy.gla.ac.uk/tvw/catpred/" class="external-link">Coding categorical predictor variables in factorial designs</a> by Dale Barr</li>
 <li>
-<a href="https://doi.org/10.6339/JDS.2010.08(1).563">Contrast Coding in Multiple Regression Analysis</a> by Matthew Davis</li>
+<a href="https://doi.org/10.6339/JDS.2010.08(1).563" class="external-link">Contrast Coding in Multiple Regression Analysis</a> by Matthew Davis</li>
 <li>
-<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/">R Library Contrast Coding Systems for categorical variables</a> by UCLA Statistical Consulting</li>
+<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/" class="external-link">R Library Contrast Coding Systems for categorical variables</a> by UCLA Statistical Consulting</li>
 <li>
-<a href="https://gamlj.github.io/rosetta_contrasts.html">Rosetta store: Contrasts</a> by GAMLj</li>
+<a href="https://gamlj.github.io/rosetta_contrasts.html" class="external-link">Rosetta store: Contrasts</a> by GAMLj</li>
 <li>
-<a href="https://phillipalday.com/stats/coding.html">Coding Schemes for Categorical Variables</a> by Phillip Alday</li>
+<a href="https://phillipalday.com/stats/coding.html" class="external-link">Coding Schemes for Categorical Variables</a> by Phillip Alday</li>
 <li>
-<a href="https://doi.org/10.1111/j.1467-6494.1996.tb00813.x">Experimental personality designs: analyzing categorical by continuous variable interactions</a> by West, Aiken &amp; Krull</li>
+<a href="https://doi.org/10.1111/j.1467-6494.1996.tb00813.x" class="external-link">Experimental personality designs: analyzing categorical by continuous variable interactions</a> by West, Aiken &amp; Krull</li>
 </ol>
-<div id="terminology" class="section level2">
-<h2 class="hasAnchor">
-<a href="#terminology" class="anchor"></a>Terminology</h2>
+<div class="section level2">
+<h2 id="terminology">Terminology<a class="anchor" aria-label="anchor" href="#terminology"></a>
+</h2>
 <p>Contrasts often have multiple names. The names I’m using try to maintain the relationship with the base R function, apart from anova coding, which was suggested by Dale Barr after I got frustrated that people use so many different labels for that (extremely useful) coding and each of the terms used is also used to refer to totally different codings by others.</p>
 <table class="table">
 <colgroup>
@@ -176,51 +172,51 @@
 <tbody>
 <tr class="odd">
 <td align="left"><a href="#treatment">Treatment</a></td>
-<td align="left">Treatment (<a href="https://talklab.psy.gla.ac.uk/tvw/catpred/#what-are-the-key-coding-schemes">2</a>), Dummy (<a href="https://marissabarlaz.github.io/portfolio/contrastcoding/#dummy-coding">1</a>, <a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#dummy">4</a>, <a href="https://phillipalday.com/stats/coding.html#simple-regression-dummy-coding">6</a>), Simple (<a href="https://gamlj.github.io/rosetta_contrasts.html#Contrast:_Simple__Dummy">5</a>)</td>
+<td align="left">Treatment (<a href="https://talklab.psy.gla.ac.uk/tvw/catpred/#what-are-the-key-coding-schemes" class="external-link">2</a>), Dummy (<a href="https://marissabarlaz.github.io/portfolio/contrastcoding/#dummy-coding" class="external-link">1</a>, <a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#dummy" class="external-link">4</a>, <a href="https://phillipalday.com/stats/coding.html#simple-regression-dummy-coding" class="external-link">6</a>), Simple (<a href="https://gamlj.github.io/rosetta_contrasts.html#Contrast:_Simple__Dummy" class="external-link">5</a>)</td>
 <td align="left"><code>contr.treatment</code></td>
 <td align="left"><code>contr_code_treatment</code></td>
 </tr>
 <tr class="even">
 <td align="left"><a href="#anova">Anova</a></td>
-<td align="left">Deviation (<a href="https://talklab.psy.gla.ac.uk/tvw/catpred/#what-are-the-key-coding-schemes">2</a>), Contrast (<a href="https://marissabarlaz.github.io/portfolio/contrastcoding/#contrast-coding">1</a>), Simple (<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#SIMPLE">4</a>)</td>
+<td align="left">Deviation (<a href="https://talklab.psy.gla.ac.uk/tvw/catpred/#what-are-the-key-coding-schemes" class="external-link">2</a>), Contrast (<a href="https://marissabarlaz.github.io/portfolio/contrastcoding/#contrast-coding" class="external-link">1</a>), Simple (<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#SIMPLE" class="external-link">4</a>)</td>
 <td align="left"><code>contr.treatment - 1/k</code></td>
 <td align="left"><code>contr_code_anova</code></td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="#sum">Sum</a></td>
-<td align="left">Sum (<a href="https://marissabarlaz.github.io/portfolio/contrastcoding/#sum-coding">1</a>, <a href="https://talklab.psy.gla.ac.uk/tvw/catpred/#what-are-the-key-coding-schemes">2</a>, <a href="https://phillipalday.com/stats/coding.html#simple-regression-sum-coding">6</a>), Effects (<a href="https://doi.org/10.6339/JDS.2010.08(1).563">3</a>), Deviation (<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#SIMPLE">4</a>, <a href="https://gamlj.github.io/rosetta_contrasts.html#Contrast:_Deviation">5</a>), Unweighted Effects (<a href="https://doi.org/10.1111/j.1467-6494.1996.tb00813.x">7</a>)</td>
+<td align="left">Sum (<a href="https://marissabarlaz.github.io/portfolio/contrastcoding/#sum-coding" class="external-link">1</a>, <a href="https://talklab.psy.gla.ac.uk/tvw/catpred/#what-are-the-key-coding-schemes" class="external-link">2</a>, <a href="https://phillipalday.com/stats/coding.html#simple-regression-sum-coding" class="external-link">6</a>), Effects (<a href="https://doi.org/10.6339/JDS.2010.08(1).563" class="external-link">3</a>), Deviation (<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#SIMPLE" class="external-link">4</a>, <a href="https://gamlj.github.io/rosetta_contrasts.html#Contrast:_Deviation" class="external-link">5</a>), Unweighted Effects (<a href="https://doi.org/10.1111/j.1467-6494.1996.tb00813.x" class="external-link">7</a>)</td>
 <td align="left"><code>contr.sum</code></td>
 <td align="left"><code>contr_code_sum</code></td>
 </tr>
 <tr class="even">
 <td align="left"><a href="#difference">Difference</a></td>
-<td align="left">Contrast (<a href="https://doi.org/10.6339/JDS.2010.08(1).563">3</a>), Forward/Backward (<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#forward">4</a>), Repeated (<a href="https://gamlj.github.io/rosetta_contrasts.html#Contrast:_Repeated">5</a>)</td>
-<td align="left"><code><a href="https://rdrr.io/pkg/MASS/man/contr.sdif.html">MASS::contr.sdif</a></code></td>
+<td align="left">Contrast (<a href="https://doi.org/10.6339/JDS.2010.08(1).563" class="external-link">3</a>), Forward/Backward (<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#forward" class="external-link">4</a>), Repeated (<a href="https://gamlj.github.io/rosetta_contrasts.html#Contrast:_Repeated" class="external-link">5</a>)</td>
+<td align="left"><code><a href="https://rdrr.io/pkg/MASS/man/contr.sdif.html" class="external-link">MASS::contr.sdif</a></code></td>
 <td align="left"><code>contr_code_difference</code></td>
 </tr>
 <tr class="odd">
 <td align="left"><a href="#helmert">Helmert</a></td>
-<td align="left">Reverse Helmert (<a href="https://marissabarlaz.github.io/portfolio/contrastcoding/#reverse-helmert-coding">1</a>, <a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#reverse">4</a>), Difference (<a href="https://gamlj.github.io/rosetta_contrasts.html#Contrast:_Difference">5</a>), Contrast (<a href="https://doi.org/10.1111/j.1467-6494.1996.tb00813.x">7</a>)</td>
+<td align="left">Reverse Helmert (<a href="https://marissabarlaz.github.io/portfolio/contrastcoding/#reverse-helmert-coding" class="external-link">1</a>, <a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#reverse" class="external-link">4</a>), Difference (<a href="https://gamlj.github.io/rosetta_contrasts.html#Contrast:_Difference" class="external-link">5</a>), Contrast (<a href="https://doi.org/10.1111/j.1467-6494.1996.tb00813.x" class="external-link">7</a>)</td>
 <td align="left"><code>contr.helmert / (column_i+1)</code></td>
 <td align="left"><code>contr_code_helmert</code></td>
 </tr>
 <tr class="even">
 <td align="left"><a href="#poly">Polynomial</a></td>
-<td align="left">Polynomial (<a href="https://gamlj.github.io/rosetta_contrasts.html#Contrast:_Polynomial">5</a>), Orthogonal Polynomial (<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#ORTHOGONAL">4</a>), Trend (<a href="https://doi.org/10.6339/JDS.2010.08(1).563">3</a>)</td>
+<td align="left">Polynomial (<a href="https://gamlj.github.io/rosetta_contrasts.html#Contrast:_Polynomial" class="external-link">5</a>), Orthogonal Polynomial (<a href="https://stats.idre.ucla.edu/r/library/r-library-contrast-coding-systems-for-categorical-variables/#ORTHOGONAL" class="external-link">4</a>), Trend (<a href="https://doi.org/10.6339/JDS.2010.08(1).563" class="external-link">3</a>)</td>
 <td align="left"><code>contr.poly</code></td>
 <td align="left"><code>contr_code_poly</code></td>
 </tr>
 </tbody>
 </table>
 </div>
-<div id="faux-contrast-functions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#faux-contrast-functions" class="anchor"></a>Faux Contrast Functions</h2>
+<div class="section level2">
+<h2 id="faux-contrast-functions">Faux Contrast Functions<a class="anchor" aria-label="anchor" href="#faux-contrast-functions"></a>
+</h2>
 <p><strong>These functions are under development</strong></p>
-<p>First, we’ll set up a simple experimental design and analyse it with <code><a href="https://rdrr.io/r/stats/lm.html">lm()</a></code>. I set <code>empirical = TRUE</code> to make interpreting the estimates easier.</p>
+<p>First, we’ll set up a simple experimental design and analyse it with <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm()</a></code>. I set <code>empirical = TRUE</code> to make interpreting the estimates easier.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"ferret"</span><span class="op">)</span><span class="op">)</span>, 
-                 n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">9</span><span class="op">)</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"ferret"</span><span class="op">)</span><span class="op">)</span>, 
+                 n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span><span class="op">)</span>, mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">4</span>, <span class="fl">9</span><span class="op">)</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="contrasts_files/figure-html/unnamed-chunk-1-1.png" width="100%"></p>
 <p>Notice that the default contrast is treatment coding, with “cat” as the baseline condition. The estimate for the intercept is the mean value for cats (<span class="math inline">\(2\)</span>), while the term <code>petdog</code> is the mean value for dogs minus cats (<span class="math inline">\(4 - 2\)</span>), and the term <code>petferret</code> is the mean value for ferrets minus cats (<span class="math inline">\(9 - 2\)</span>).</p>
 <table class="table ctable table">
@@ -234,7 +230,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -283,7 +279,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -359,12 +355,12 @@ petferret
 </tr></tbody>
 </table>
 <p>In all the subsequent examples, try putting into words what the estimates for the intercept and terms mean in relation to the mean values for each group in the data.</p>
-<div id="section" class="section level3 tabset unnumbered">
-<h3 class="tabset unnumbered"></h3>
-<div id="treatment" class="section level4 unnumbered">
-<h4 class="hasAnchor">
-<a href="#treatment" class="anchor"></a>Treatment</h4>
-<p>Treatment coding (also called dummy coding) sets the mean of the reference group as the intercept. It is straightforward to interpret, especially when your factors have an obvious default or baseline value. This is the same type of coding as the default for factors shown above (unless you change your default using <code><a href="https://rdrr.io/r/base/options.html">options()</a></code>), but with clearer term labels.</p>
+<div class="section level3 tabset unnumbered">
+<h3 class="tabset unnumbered" id="section"></h3>
+<div class="section level4 unnumbered">
+<h4 class="unnumbered" id="treatment">Treatment<a class="anchor" aria-label="anchor" href="#treatment"></a>
+</h4>
+<p>Treatment coding (also called dummy coding) sets the mean of the reference group as the intercept. It is straightforward to interpret, especially when your factors have an obvious default or baseline value. This is the same type of coding as the default for factors shown above (unless you change your default using <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code>), but with clearer term labels.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contr_code_treatment.html">contr_code_treatment</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
 <table class="table ctable table">
@@ -378,7 +374,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -427,7 +423,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -516,7 +512,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -565,7 +561,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -654,7 +650,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -703,7 +699,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -779,9 +775,9 @@ pet.dog-ferret
 </tr></tbody>
 </table>
 </div>
-<div id="anova" class="section level4 unnumbered">
-<h4 class="hasAnchor">
-<a href="#anova" class="anchor"></a>Anova</h4>
+<div class="section level4 unnumbered">
+<h4 class="unnumbered" id="anova">Anova<a class="anchor" aria-label="anchor" href="#anova"></a>
+</h4>
 <p>Anova coding is identical to treatment coding, but sets the grand mean as the intercept. Each contrast compares one level with a reference level. This gives us values that are relatively easy to interpret and map onto ANOVA values.</p>
 <p>Below is anova coding with the first level (“cat”) as the default base. Now the intercept is the grand mean, which is the mean of the three group means (<span class="math inline">\((2 + 4 + 9)/3\)</span>). Notice that this is different from the mean value of y in our dataset (5, since the number of pets in each group is unbalanced. The term <code>pet_dog-cat</code> is the mean value for dogs minus cats (<span class="math inline">\(4 - 2\)</span>) and the term <code>pet_ferret-cat</code> is the mean value for ferrets minus cats (<span class="math inline">\(9 - 2\)</span>).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -797,7 +793,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -846,7 +842,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -935,7 +931,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -984,7 +980,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -1073,7 +1069,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -1122,7 +1118,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -1198,9 +1194,9 @@ pet.dog-ferret
 </tr></tbody>
 </table>
 </div>
-<div id="sum" class="section level4 unnumbered">
-<h4 class="hasAnchor">
-<a href="#sum" class="anchor"></a>Sum</h4>
+<div class="section level4 unnumbered">
+<h4 class="unnumbered" id="sum">Sum<a class="anchor" aria-label="anchor" href="#sum"></a>
+</h4>
 <p>Sum coding also sets the grand mean as the intercept. Each contrast compares one level with the grand mean. Therefore, the estimate for <code>pet_cat-intercept</code> is the difference between the mean value for cats and the grand mean (<span class="math inline">\(2 - 5\)</span>).</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contr_code_sum.html">contr_code_sum</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
@@ -1215,7 +1211,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -1264,7 +1260,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -1353,7 +1349,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -1402,7 +1398,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -1491,7 +1487,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -1540,7 +1536,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -1616,9 +1612,9 @@ pet.ferret-intercept
 </tr></tbody>
 </table>
 </div>
-<div id="difference" class="section level4 unnumbered">
-<h4 class="hasAnchor">
-<a href="#difference" class="anchor"></a>Difference</h4>
+<div class="section level4 unnumbered">
+<h4 class="unnumbered" id="difference">Difference<a class="anchor" aria-label="anchor" href="#difference"></a>
+</h4>
 <p>A slightly different form of contrast coding is difference coding, also called forward, backward, or successive differences coding. It compares each level to the previous one, rather than to a baseline level.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contr_code_difference.html">contr_code_difference</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
@@ -1633,7 +1629,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -1682,7 +1678,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -1759,7 +1755,7 @@ pet.ferret-dog
 </table>
 <p>If you want to change which levels are compared, you can re-order the factor levels.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contr_code_difference.html">contr_code_difference</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ferret"</span>, <span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contr_code_difference.html">contr_code_difference</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ferret"</span>, <span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table ctable table">
 <thead><tr>
 <th>
@@ -1771,7 +1767,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -1820,7 +1816,7 @@ dog
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -1896,10 +1892,10 @@ pet.dog-cat
 </tr></tbody>
 </table>
 </div>
-<div id="helmert" class="section level4 unnumbered">
-<h4 class="hasAnchor">
-<a href="#helmert" class="anchor"></a>Helmert</h4>
-<p>Helmert coding sets the grand mean as the intercept. Each contrast compares one level with the mean of previous levels. This coding is somewhat different than the results from <code><a href="https://rdrr.io/r/stats/contrast.html">stats::contr.helmert()</a></code> to make it easier to interpret the estimates. Thus, <code>pet_ferret-cat.dog</code> is the mean value for ferrets minus the mean value for cats and dogs averaged together (<span class="math inline">\(9-(2+4)/2\)</span>).</p>
+<div class="section level4 unnumbered">
+<h4 class="unnumbered" id="helmert">Helmert<a class="anchor" aria-label="anchor" href="#helmert"></a>
+</h4>
+<p>Helmert coding sets the grand mean as the intercept. Each contrast compares one level with the mean of previous levels. This coding is somewhat different than the results from <code><a href="https://rdrr.io/r/stats/contrast.html" class="external-link">stats::contr.helmert()</a></code> to make it easier to interpret the estimates. Thus, <code>pet_ferret-cat.dog</code> is the mean value for ferrets minus the mean value for cats and dogs averaged together (<span class="math inline">\(9-(2+4)/2\)</span>).</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contr_code_helmert.html">contr_code_helmert</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span><span class="op">)</span></code></pre></div>
 <table class="table ctable table">
@@ -1913,7 +1909,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -1962,7 +1958,7 @@ ferret
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -2039,7 +2035,7 @@ pet.ferret-cat.dog
 </table>
 <p>You can change the comparisons by reordering the levels.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contr_code_helmert.html">contr_code_helmert</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"ferret"</span>, <span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contr_code_helmert.html">contr_code_helmert</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"ferret"</span>, <span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <table class="table ctable table">
 <thead><tr>
 <th>
@@ -2051,7 +2047,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 </th>
@@ -2100,7 +2096,7 @@ cat
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -2176,16 +2172,16 @@ pet.cat-ferret.dog
 </tr></tbody>
 </table>
 </div>
-<div id="poly" class="section level4 unnumbered">
-<h4 class="hasAnchor">
-<a href="#poly" class="anchor"></a>Polynomial</h4>
+<div class="section level4 unnumbered">
+<h4 class="unnumbered" id="poly">Polynomial<a class="anchor" aria-label="anchor" href="#poly"></a>
+</h4>
 <p>Polynomial coding is the default for ordered factors in R. We’ll set up a new data simulation with five ordered times.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,
                  mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">*</span> <span class="fl">0.25</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="fl">0.5</span>,
                  sd <span class="op">=</span> <span class="fl">5</span>, long <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="contrasts_files/figure-html/unnamed-chunk-16-1.png" width="100%"></p>
-<p>The function <code><a href="../reference/contr_code_poly.html">contr_code_poly()</a></code> uses <code><a href="https://rdrr.io/r/stats/contrast.html">contr.poly()</a></code> to set up the polynomial contrasts for the linear (<code>^1</code>), quadratic (<code>^2</code>), cubic (<code>^3</code>), and quartic (<code>^4</code>) components.</p>
+<p>The function <code><a href="../reference/contr_code_poly.html">contr_code_poly()</a></code> uses <code><a href="https://rdrr.io/r/stats/contrast.html" class="external-link">contr.poly()</a></code> to set up the polynomial contrasts for the linear (<code>^1</code>), quadratic (<code>^2</code>), cubic (<code>^3</code>), and quartic (<code>^4</code>) components.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span><span class="op">$</span><span class="va">time</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/contr_code_poly.html">contr_code_poly</a></span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">time</span><span class="op">)</span></code></pre></div>
 <table class="table ctable table">
@@ -2199,7 +2195,7 @@ lm(y ~ pet, df)
 </tr></thead>
 <tbody><tr>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:right;">
 ^1
@@ -2289,7 +2285,7 @@ lm(y ~ pet, df)
 </table>
 </td>
 <td>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -2401,19 +2397,19 @@ time^4
 </div>
 </div>
 </div>
-<div id="add-contrasts" class="section level2">
-<h2 class="hasAnchor">
-<a href="#add-contrasts" class="anchor"></a>Add Contrasts</h2>
+<div class="section level2">
+<h2 id="add-contrasts">Add Contrasts<a class="anchor" aria-label="anchor" href="#add-contrasts"></a>
+</h2>
 <p>The function <code>add_contrasts()</code> lets you add contrasts to a column in a data frame and also adds new columns for each contrast (unless <code>add_cols = FALSE</code>). This is especially helpful if you want to test only a subset of the contrasts.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>,
                  mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">*</span> <span class="fl">0.25</span> <span class="op">+</span> <span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span> <span class="op">-</span> <span class="fl">3</span><span class="op">)</span><span class="op">^</span><span class="fl">2</span> <span class="op">*</span> <span class="fl">0.5</span>,
-                 sd <span class="op">=</span> <span class="fl">5</span>, long <span class="op">=</span> <span class="cn">TRUE</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
+                 sd <span class="op">=</span> <span class="fl">5</span>, long <span class="op">=</span> <span class="cn">TRUE</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"poly"</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># test only the linear and quadratic contrasts</span>
-<span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">`time^1`</span> <span class="op">+</span> <span class="va">`time^2`</span>, <span class="va">df</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">`time^1`</span> <span class="op">+</span> <span class="va">`time^2`</span>, <span class="va">df</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -2487,16 +2483,16 @@ p.value
 </table>
 <p>You can set <code>colnames</code> to change the default column names for the contrasts. This can be useful if you want to add different codings for the same factor or if the default names are too long.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">btwn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"experimental"</span><span class="op">)</span><span class="op">)</span> 
+<code class="sourceCode R"><span class="va">btwn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"control"</span>, <span class="st">"experimental"</span><span class="op">)</span><span class="op">)</span> 
 
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="va">btwn</span>, n <span class="op">=</span> <span class="fl">1</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"treatment"</span>, colnames <span class="op">=</span> <span class="st">"cond.tr"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"anova"</span>, colnames <span class="op">=</span> <span class="st">"cond.aov"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"difference"</span>, colnames <span class="op">=</span> <span class="st">"cond.dif"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"sum"</span>, colnames <span class="op">=</span> <span class="st">"cond.sum"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"helmert"</span>, colnames <span class="op">=</span> <span class="st">"cond.hmt"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="va">btwn</span>, n <span class="op">=</span> <span class="fl">1</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"treatment"</span>, colnames <span class="op">=</span> <span class="st">"cond.tr"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"anova"</span>, colnames <span class="op">=</span> <span class="st">"cond.aov"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"difference"</span>, colnames <span class="op">=</span> <span class="st">"cond.dif"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"sum"</span>, colnames <span class="op">=</span> <span class="st">"cond.sum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"helmert"</span>, colnames <span class="op">=</span> <span class="st">"cond.hmt"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"condition"</span>, <span class="st">"poly"</span>, colnames <span class="op">=</span> <span class="st">"cond.poly"</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 id
@@ -2589,16 +2585,16 @@ experimental
 </table>
 <p>However, if a new column has a duplicate name to an existing column, <code><a href="../reference/add_contrast.html">add_contrast()</a></code> will automatically add a contrast suffix to the new column.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">btwn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"ferret"</span><span class="op">)</span><span class="op">)</span> 
+<code class="sourceCode R"><span class="va">btwn</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"ferret"</span><span class="op">)</span><span class="op">)</span> 
 
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="va">btwn</span>, n <span class="op">=</span> <span class="fl">1</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"treatment"</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"anova"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"sum"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"difference"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"helmert"</span><span class="op">)</span> <span class="op">%&gt;%</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="va">btwn</span>, n <span class="op">=</span> <span class="fl">1</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"treatment"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"anova"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"sum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"difference"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"helmert"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
   <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"poly"</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 id
@@ -2791,18 +2787,18 @@ ferret
 </tbody>
 </table>
 </div>
-<div id="examples" class="section level2">
-<h2 class="hasAnchor">
-<a href="#examples" class="anchor"></a>Examples</h2>
-<div id="x2-design" class="section level3">
-<h3 class="hasAnchor">
-<a href="#x2-design" class="anchor"></a>2x2 Design</h3>
+<div class="section level2">
+<h2 id="examples">Examples<a class="anchor" aria-label="anchor" href="#examples"></a>
+</h2>
+<div class="section level3">
+<h3 id="x2-design">2x2 Design<a class="anchor" aria-label="anchor" href="#x2-design"></a>
+</h3>
 <p>Let’s use simulated data with <code>empirical = TRUE</code> to explore how to interpret interactions between two 2-level factors coded in different ways.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span>
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"am"</span>, <span class="st">"pm"</span><span class="op">)</span>,
-                                pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span>,
-                 n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span><span class="op">)</span>, mu <span class="op">=</span> <span class="va">mu</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4</span>, <span class="fl">6</span>, <span class="fl">10</span><span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"am"</span>, <span class="st">"pm"</span><span class="op">)</span>,
+                                pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span>,
+                 n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span><span class="op">)</span>, mu <span class="op">=</span> <span class="va">mu</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="contrasts_files/figure-html/unnamed-chunk-23-1.png" width="100%"></p>
 <p>The table below shows the cell and marginal means. The notation <span class="math inline">\(Y_{..}\)</span> is used to denote a mean for a specific grouping. The <code>.</code> is used to indicate the mean over all groups of that factor; <code>Y..</code> is the grand mean. While you’ll usually see the subscripts written as numbers to indicate the factor levels, we’re using letters here so you don’t have to keep referring to the order of factors and levels.</p>
 <table class="table">
@@ -2833,11 +2829,11 @@ ferret
 </tr>
 </tbody>
 </table>
-<div id="section-1" class="section level4 tabset">
-<h4 class="tabset"></h4>
-<div id="treatment-1" class="section level5 unnumbered">
-<h5 class="hasAnchor">
-<a href="#treatment-1" class="anchor"></a>Treatment</h5>
+<div class="section level4 tabset">
+<h4 class="tabset" id="section-1"></h4>
+<div class="section level5 unnumbered">
+<h5 class="unnumbered" id="treatment-1">Treatment<a class="anchor" aria-label="anchor" href="#treatment-1"></a>
+</h5>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -2879,12 +2875,12 @@ ferret
 </tbody>
 </table>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"treatment"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"treatment"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"treatment"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"treatment"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -2974,9 +2970,9 @@ pet.dog-cat:time.pm-am
 </tbody>
 </table>
 </div>
-<div id="anova-1" class="section level5 unnumbered">
-<h5 class="hasAnchor">
-<a href="#anova-1" class="anchor"></a>Anova</h5>
+<div class="section level5 unnumbered">
+<h5 class="unnumbered" id="anova-1">Anova<a class="anchor" aria-label="anchor" href="#anova-1"></a>
+</h5>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -3018,12 +3014,12 @@ pet.dog-cat:time.pm-am
 </tbody>
 </table>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"anova"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"anova"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"anova"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"anova"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -3113,9 +3109,9 @@ pet.dog-cat:time.pm-am
 </tbody>
 </table>
 </div>
-<div id="sum-1" class="section level5 unnumbered">
-<h5 class="hasAnchor">
-<a href="#sum-1" class="anchor"></a>Sum</h5>
+<div class="section level5 unnumbered">
+<h5 class="unnumbered" id="sum-1">Sum<a class="anchor" aria-label="anchor" href="#sum-1"></a>
+</h5>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -3157,12 +3153,12 @@ pet.dog-cat:time.pm-am
 </tbody>
 </table>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"sum"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"sum"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span>  
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"sum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"sum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>  
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -3252,9 +3248,9 @@ pet.cat-intercept:time.am-intercept
 </tbody>
 </table>
 </div>
-<div id="difference-1" class="section level5 unnumbered">
-<h5 class="hasAnchor">
-<a href="#difference-1" class="anchor"></a>Difference</h5>
+<div class="section level5 unnumbered">
+<h5 class="unnumbered" id="difference-1">Difference<a class="anchor" aria-label="anchor" href="#difference-1"></a>
+</h5>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -3296,12 +3292,12 @@ pet.cat-intercept:time.am-intercept
 </tbody>
 </table>
 <div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"difference"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"difference"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"difference"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"difference"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -3391,9 +3387,9 @@ pet.dog-cat:time.pm-am
 </tbody>
 </table>
 </div>
-<div id="helmert-1" class="section level5 unnumbered">
-<h5 class="hasAnchor">
-<a href="#helmert-1" class="anchor"></a>Helmert</h5>
+<div class="section level5 unnumbered">
+<h5 class="unnumbered" id="helmert-1">Helmert<a class="anchor" aria-label="anchor" href="#helmert-1"></a>
+</h5>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -3435,12 +3431,12 @@ pet.dog-cat:time.pm-am
 </tbody>
 </table>
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"helmert"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"helmert"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"helmert"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"helmert"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -3532,20 +3528,20 @@ pet.dog-cat:time.pm-am
 </div>
 </div>
 </div>
-<div id="section-2" class="section level3 unnumbered">
-<h3 class="unnumbered"></h3>
+<div class="section level3 unnumbered">
+<h3 class="unnumbered" id="section-2"></h3>
 <p><strong>N.B. In the case of 2-level factors, anova, difference, and Helmert coding are identical. Treatment coding differs only in the intercept.</strong></p>
 <p>Remember that interactions can always be described in two ways, since <code>(A1 - A2) - (B1 - B2) == (A1 - B1) - (A2 - B2)</code>. Therefore, “dog minus cat when pm, minus dog minus cat when am” is the same as “pm minus am for dogs, minus pm minus am for cats”. The way you describe it in a paper depends on which version maps onto your hypothesis more straightforwardly. The examples above might be written as “the difference between dogs and cats was bigger in the evening than the morning” or “the difference between evening and morning was bigger for dogs than for cats”. Make sure you check the plots to make sure you are describing the relationships in the right direction.</p>
 </div>
-<div id="x3-design" class="section level3">
-<h3 class="hasAnchor">
-<a href="#x3-design" class="anchor"></a>2x3 Design</h3>
+<div class="section level3">
+<h3 id="x3-design">2x3 Design<a class="anchor" aria-label="anchor" href="#x3-design"></a>
+</h3>
 <p>Let’s use simulated data with <code>empirical = TRUE</code> to explore how to interpret interactions between a 2-level factor and a 3-level factor coded in different ways.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">6</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>
-<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"am"</span>, <span class="st">"pm"</span><span class="op">)</span>,
-                                pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"ferret"</span><span class="op">)</span><span class="op">)</span>,
-                 n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span>, <span class="fl">90</span>, <span class="fl">100</span><span class="op">)</span>, mu <span class="op">=</span> <span class="va">mu</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">5</span>, <span class="fl">7</span>, <span class="fl">6</span>, <span class="fl">2</span>, <span class="fl">1</span><span class="op">)</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"am"</span>, <span class="st">"pm"</span><span class="op">)</span>,
+                                pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span>, <span class="st">"ferret"</span><span class="op">)</span><span class="op">)</span>,
+                 n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span>, <span class="fl">90</span>, <span class="fl">100</span><span class="op">)</span>, mu <span class="op">=</span> <span class="va">mu</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="contrasts_files/figure-html/unnamed-chunk-30-1.png" width="100%"></p>
 <table class="table">
 <thead><tr class="header">
@@ -3579,11 +3575,11 @@ pet.dog-cat:time.pm-am
 </tr>
 </tbody>
 </table>
-<div id="section-3" class="section level4 tabset unnumbered">
-<h4 class="tabset unnumbered"></h4>
-<div id="treatment-2" class="section level5 unnumbered">
-<h5 class="hasAnchor">
-<a href="#treatment-2" class="anchor"></a>Treatment</h5>
+<div class="section level4 tabset unnumbered">
+<h4 class="tabset unnumbered" id="section-3"></h4>
+<div class="section level5 unnumbered">
+<h5 class="unnumbered" id="treatment-2">Treatment<a class="anchor" aria-label="anchor" href="#treatment-2"></a>
+</h5>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -3637,12 +3633,12 @@ pet.dog-cat:time.pm-am
 </tbody>
 </table>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"treatment"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"treatment"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"treatment"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"treatment"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -3766,9 +3762,9 @@ pet.ferret-cat:time.pm-am
 </tbody>
 </table>
 </div>
-<div id="anova-2" class="section level5 unnumbered">
-<h5 class="hasAnchor">
-<a href="#anova-2" class="anchor"></a>Anova</h5>
+<div class="section level5 unnumbered">
+<h5 class="unnumbered" id="anova-2">Anova<a class="anchor" aria-label="anchor" href="#anova-2"></a>
+</h5>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -3822,12 +3818,12 @@ pet.ferret-cat:time.pm-am
 </tbody>
 </table>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"anova"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"anova"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"anova"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"anova"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -3951,9 +3947,9 @@ pet.ferret-cat:time.pm-am
 </tbody>
 </table>
 </div>
-<div id="sum-2" class="section level5 unnumbered">
-<h5 class="hasAnchor">
-<a href="#sum-2" class="anchor"></a>Sum</h5>
+<div class="section level5 unnumbered">
+<h5 class="unnumbered" id="sum-2">Sum<a class="anchor" aria-label="anchor" href="#sum-2"></a>
+</h5>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -4007,12 +4003,12 @@ pet.ferret-cat:time.pm-am
 </tbody>
 </table>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"sum"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"sum"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"sum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"sum"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -4136,9 +4132,9 @@ pet.dog-intercept:time.am-intercept
 </tbody>
 </table>
 </div>
-<div id="difference-2" class="section level5 unnumbered">
-<h5 class="hasAnchor">
-<a href="#difference-2" class="anchor"></a>Difference</h5>
+<div class="section level5 unnumbered">
+<h5 class="unnumbered" id="difference-2">Difference<a class="anchor" aria-label="anchor" href="#difference-2"></a>
+</h5>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -4192,12 +4188,12 @@ pet.dog-intercept:time.am-intercept
 </tbody>
 </table>
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"difference"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"difference"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"difference"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"difference"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -4321,9 +4317,9 @@ pet.ferret-dog:time.pm-am
 </tbody>
 </table>
 </div>
-<div id="helmert-2" class="section level5 unnumbered">
-<h5 class="hasAnchor">
-<a href="#helmert-2" class="anchor"></a>Helmert</h5>
+<div class="section level5 unnumbered">
+<h5 class="unnumbered" id="helmert-2">Helmert<a class="anchor" aria-label="anchor" href="#helmert-2"></a>
+</h5>
 <table class="table">
 <colgroup>
 <col width="15%">
@@ -4377,12 +4373,12 @@ pet.ferret-dog:time.pm-am
 </tbody>
 </table>
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"helmert"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"helmert"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<table class="table table">
+<code class="sourceCode R"><span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"pet"</span>, <span class="st">"helmert"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="../reference/add_contrast.html">add_contrast</a></span><span class="op">(</span><span class="st">"time"</span>, <span class="st">"helmert"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span> <span class="op">*</span> <span class="va">time</span>, <span class="va">.</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+  <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable</span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu">kable_styling</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<table class="table table" style="margin-left: auto; margin-right: auto;">
 <thead><tr>
 <th style="text-align:left;">
 term
@@ -4508,13 +4504,13 @@ pet.ferret-cat.dog:time.pm-am
 </div>
 </div>
 </div>
-<div id="section-4" class="section level3 unnumbered">
-<h3 class="unnumbered"></h3>
+<div class="section level3 unnumbered">
+<h3 class="unnumbered" id="section-4"></h3>
 <p><strong>N.B. In this case, difference coding is identical to anova coding except that the second pet contrast is ferret versus dog instead of ferret versus cat.</strong></p>
 </div>
-<div id="x3-design-1" class="section level3">
-<h3 class="hasAnchor">
-<a href="#x3-design-1" class="anchor"></a>3x3 Design</h3>
+<div class="section level3">
+<h3 id="x3-design-1">3x3 Design<a class="anchor" aria-label="anchor" href="#x3-design-1"></a>
+</h3>
 <p>Please just don’t. You’re going to break my head.</p>
 </div>
 </div>
@@ -4531,11 +4527,13 @@ pet.ferret-cat.dog:time.pm-am
 
 
       <footer><div class="copyright">
-  <p>Developed by Lisa DeBruine.</p>
+  <p></p>
+<p>Developed by Lisa DeBruine.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -4543,6 +4541,8 @@ pet.ferret-cat.dog:time.pm-am
 
   
 
+
+  
 
   </body>
 </html>

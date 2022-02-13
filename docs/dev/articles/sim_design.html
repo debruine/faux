@@ -31,6 +31,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -43,18 +45,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9004</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -103,7 +99,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/debruine/faux/">
+  <a href="https://github.com/debruine/faux/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -118,15 +114,15 @@
 
       
 
-      </header><script src="sim_design_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulate by Design</h1>
-                        <h4 class="author">Lisa DeBruine</h4>
+                        <h4 data-toc-skip class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2021-12-01</h4>
+            <h4 data-toc-skip class="date">2022-02-13</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/sim_design.Rmd"><code>vignettes/sim_design.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/HEAD/vignettes/sim_design.Rmd" class="external-link"><code>vignettes/sim_design.Rmd</code></a></small>
       <div class="hidden name"><code>sim_design.Rmd</code></div>
 
     </div>
@@ -134,24 +130,24 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux" class="external-link">faux</a></span><span class="op">)</span></code></pre></div>
 <p>The <code><a href="../reference/sim_design.html">sim_design()</a></code> function creates a dataset with a specific between- and within-subjects design.</p>
-<div id="quick-example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#quick-example" class="anchor"></a>Quick example</h2>
+<div class="section level2">
+<h2 id="quick-example">Quick example<a class="anchor" aria-label="anchor" href="#quick-example"></a>
+</h2>
 <p>For example, the following creates a 2w*2b design with 100 observations in each cell. The between-subject factor is <code>pet</code> with two levels (<code>cat</code> and <code>dog</code>). The within-subject factor is <code>time</code> with two levels (<code>day</code> and <code>night</code>).</p>
 <p>The data is sampled from a population where the mean for the <code>cat_day</code> cell is 10, the mean for the <code>cat_night</code> cell is 20, the mean for the <code>dog_day</code> cell is 15, and the mean for the <code>dog_night</code> cell is 25. All cells have a SD of 5 and all within-subject cells are correlated <code>r = 0.5</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Cat Owners"</span>, 
+<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Cat Owners"</span>, 
                         dog <span class="op">=</span> <span class="st">"Dog Owners"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"morning"</span>, <span class="st">"noon"</span>, <span class="st">"evening"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  cat    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">12</span>, <span class="fl">14</span>, <span class="fl">16</span><span class="op">)</span>,
-  dog    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">20</span>, <span class="fl">25</span><span class="op">)</span>,
+<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"morning"</span>, <span class="st">"noon"</span>, <span class="st">"evening"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+  cat    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">12</span>, <span class="fl">14</span>, <span class="fl">16</span><span class="op">)</span>,
+  dog    <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">15</span>, <span class="fl">20</span>, <span class="fl">25</span><span class="op">)</span>,
   row.names <span class="op">=</span> <span class="va">within</span><span class="op">$</span><span class="va">time</span>
 <span class="op">)</span>
 <span class="co"># add factor labels for plotting</span>
-<span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="st">"Type of Pet"</span>,
+<span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="st">"Type of Pet"</span>,
              time <span class="op">=</span> <span class="st">"Time of Day"</span><span class="op">)</span>
 
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, 
@@ -159,45 +155,45 @@
                  empirical <span class="op">=</span> <span class="cn">TRUE</span>, vardesc <span class="op">=</span> <span class="va">vardesc</span>, plot <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 <p><img src="sim_design_files/figure-html/plot-sim-design-1.png" width="100%"></p>
 </div>
-<div id="specification-of-design-parameters" class="section level2">
-<h2 class="hasAnchor">
-<a href="#specification-of-design-parameters" class="anchor"></a>Specification of design parameters</h2>
-<div id="factor-and-level-names" class="section level3">
-<h3 class="hasAnchor">
-<a href="#factor-and-level-names" class="anchor"></a>Factor and level names</h3>
-<div id="anonymous" class="section level4">
-<h4 class="hasAnchor">
-<a href="#anonymous" class="anchor"></a>Anonymous</h4>
+<div class="section level2">
+<h2 id="specification-of-design-parameters">Specification of design parameters<a class="anchor" aria-label="anchor" href="#specification-of-design-parameters"></a>
+</h2>
+<div class="section level3">
+<h3 id="factor-and-level-names">Factor and level names<a class="anchor" aria-label="anchor" href="#factor-and-level-names"></a>
+</h3>
+<div class="section level4">
+<h4 id="anonymous">Anonymous<a class="anchor" aria-label="anchor" href="#anonymous"></a>
+</h4>
 <p>If you don’t feel like naming your factors and levels, you can just put in a vector of levels. So you can make a quick 2w*3w*2b with the following code.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, 
+<code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>within <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, between <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span><span class="op">)</span>, 
                  n <span class="op">=</span> <span class="fl">10</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">12</span>, sd <span class="op">=</span> <span class="fl">1</span>, r <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></code></pre></div>
 <p><img src="sim_design_files/figure-html/anon-1.png" width="100%"></p>
 </div>
-<div id="list-of-vectors" class="section level4">
-<h4 class="hasAnchor">
-<a href="#list-of-vectors" class="anchor"></a>List of vectors</h4>
+<div class="section level4">
+<h4 id="list-of-vectors">List of vectors<a class="anchor" aria-label="anchor" href="#list-of-vectors"></a>
+</h4>
 <p>You can specify between-subject and within-subject factors as a list of vectors where the item names are the factor labels and the vectors are the level labels.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span>
+<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span>
 <span class="op">)</span>
 
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p><img src="sim_design_files/figure-html/vlist-1.png" width="100%"></p>
 </div>
-<div id="levels-with-underscores" class="section level4">
-<h4 class="hasAnchor">
-<a href="#levels-with-underscores" class="anchor"></a>Levels with underscores</h4>
+<div class="section level4">
+<h4 id="levels-with-underscores">Levels with underscores<a class="anchor" aria-label="anchor" href="#levels-with-underscores"></a>
+</h4>
 <p>In wide format, faux uses an underscore to separate level names. Therefore, any underscores in factor level names will generate an error.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># with default sep = _</span>
-<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A_1"</span>, <span class="st">"A_2"</span><span class="op">)</span>,
-  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B_1"</span>, <span class="st">"B_2"</span><span class="op">)</span>
+<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A_1"</span>, <span class="st">"A_2"</span><span class="op">)</span>,
+  B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"B_1"</span>, <span class="st">"B_2"</span><span class="op">)</span>
 <span class="op">)</span>
 
 <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, n <span class="op">=</span> <span class="fl">5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -219,32 +215,32 @@
 <code class="sourceCode R"><span class="co"># put the separator back to _ for the rest of this vignette</span>
 <span class="fu"><a href="../reference/faux_options.html">faux_options</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"_"</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="list-of-named-vectorslists" class="section level4">
-<h4 class="hasAnchor">
-<a href="#list-of-named-vectorslists" class="anchor"></a>List of named vectors/lists</h4>
+<div class="section level4">
+<h4 id="list-of-named-vectorslists">List of named vectors/lists<a class="anchor" aria-label="anchor" href="#list-of-named-vectorslists"></a>
+</h4>
 <p>You can also specify factors as a list of named vectors or lists where the item names are the factor labels, the vector names are the level labels that are used in the data table, and the vector items are the long labels for a codebook or plot.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Is a cat person"</span>, dog <span class="op">=</span> <span class="st">"Is a dog person"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Is a cat person"</span>, dog <span class="op">=</span> <span class="st">"Is a dog person"</span><span class="op">)</span>
 <span class="op">)</span>
-<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="st">"Tested during the day"</span>, night <span class="op">=</span> <span class="st">"Tested at night"</span><span class="op">)</span>
+<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="st">"Tested during the day"</span>, night <span class="op">=</span> <span class="st">"Tested at night"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">)</span></code></pre></div>
 <p><img src="sim_design_files/figure-html/named-vectors-1.png" width="100%"> #### Factor labels</p>
-<p>Add factor labels with the <code>vardesc</code> argument. You can also customise the ID and DV column names (they default to <code><a href="https://rdrr.io/r/base/c.html">c(id = "id")</a></code> and <code><a href="https://rdrr.io/r/base/c.html">c(y = "value")</a></code>).</p>
+<p>Add factor labels with the <code>vardesc</code> argument. You can also customise the ID and DV column names (they default to <code>c(id = "id")</code> and <code>c(y = "value")</code>).</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="st">"Type of Pet"</span>,
+<code class="sourceCode R"><span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="st">"Type of Pet"</span>,
              time <span class="op">=</span> <span class="st">"Time of Day"</span><span class="op">)</span>
 
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, 
-                 id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>pet_id <span class="op">=</span> <span class="st">"Pet ID"</span><span class="op">)</span>,
-                 dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>score <span class="op">=</span> <span class="st">"Score on the Test"</span><span class="op">)</span>,
+                 id <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>pet_id <span class="op">=</span> <span class="st">"Pet ID"</span><span class="op">)</span>,
+                 dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>score <span class="op">=</span> <span class="st">"Score on the Test"</span><span class="op">)</span>,
                  vardesc <span class="op">=</span> <span class="va">vardesc</span><span class="op">)</span></code></pre></div>
 <p><img src="sim_design_files/figure-html/unnamed-chunk-5-1.png" width="100%"></p>
 <p>If you have any within-subjects factors and your table is in wide format, you will only see the DV name in plots. But it will be used if you convert the table from wide to long.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/wide2long.html">wide2long</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span>
+<code class="sourceCode R"><span class="fu"><a href="../reference/wide2long.html">wide2long</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span>
 <span class="co">#&gt;   pet_id pet time      score</span>
 <span class="co">#&gt; 1   S001 cat  day  2.1304574</span>
 <span class="co">#&gt; 2   S002 cat  day  2.1080727</span>
@@ -254,56 +250,56 @@
 <span class="co">#&gt; 6   S006 cat  day  1.1489877</span></code></pre></div>
 </div>
 </div>
-<div id="specifying-n" class="section level3">
-<h3 class="hasAnchor">
-<a href="#specifying-n" class="anchor"></a>Specifying N</h3>
+<div class="section level3">
+<h3 id="specifying-n">Specifying N<a class="anchor" aria-label="anchor" href="#specifying-n"></a>
+</h3>
 <p>You can specify the Ns for each between-subject cell as a single number, named list, or data frame.</p>
-<div id="single-number" class="section level4">
-<h4 class="hasAnchor">
-<a href="#single-number" class="anchor"></a>Single number</h4>
+<div class="section level4">
+<h4 id="single-number">Single number<a class="anchor" aria-label="anchor" href="#single-number"></a>
+</h4>
 <p>You usually want to specify <code>n</code> as a single number. This is N per cell, not total sample size.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fl">20</span> <span class="co"># n per cell, not total</span>
-<span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">n</span><span class="op">)</span>
+<span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">n</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ B1a_B2a: num 20</span>
 <span class="co">#&gt;  $ B1a_B2b: num 20</span>
 <span class="co">#&gt;  $ B1b_B2a: num 20</span>
 <span class="co">#&gt;  $ B1b_B2b: num 20</span></code></pre></div>
 </div>
-<div id="named-list" class="section level4">
-<h4 class="hasAnchor">
-<a href="#named-list" class="anchor"></a>Named list</h4>
+<div class="section level4">
+<h4 id="named-list">Named list<a class="anchor" aria-label="anchor" href="#named-list"></a>
+</h4>
 <p>You can also specify <code>n</code> as a named list of Ns per between-subject cell.</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
   B1a_B2a <span class="op">=</span> <span class="fl">10</span>, 
   B1a_B2b <span class="op">=</span> <span class="fl">20</span>, 
   B1b_B2a <span class="op">=</span> <span class="fl">30</span>, 
   B1b_B2b <span class="op">=</span> <span class="fl">40</span>
 <span class="op">)</span>
-<span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">n</span><span class="op">)</span>
+<span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">n</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ B1a_B2a: num 10</span>
 <span class="co">#&gt;  $ B1a_B2b: num 20</span>
 <span class="co">#&gt;  $ B1b_B2a: num 30</span>
 <span class="co">#&gt;  $ B1b_B2b: num 40</span></code></pre></div>
 </div>
-<div id="dataframe" class="section level4">
-<h4 class="hasAnchor">
-<a href="#dataframe" class="anchor"></a>Dataframe</h4>
+<div class="section level4">
+<h4 id="dataframe">Dataframe<a class="anchor" aria-label="anchor" href="#dataframe"></a>
+</h4>
 <p>Or as a data frame. You just need to get the row or column names right, but they don’t have to be in the right order.</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
   B1b_B2b <span class="op">=</span> <span class="fl">40</span>,
   B1a_B2a <span class="op">=</span> <span class="fl">10</span>, 
   B1a_B2b <span class="op">=</span> <span class="fl">20</span>, 
   B1b_B2a <span class="op">=</span> <span class="fl">30</span>
 <span class="op">)</span>
-<span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">n</span><span class="op">)</span>
+<span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">n</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ B1a_B2a: num 10</span>
 <span class="co">#&gt;  $ B1a_B2b: num 20</span>
@@ -311,10 +307,10 @@
 <span class="co">#&gt;  $ B1b_B2b: num 40</span></code></pre></div>
 <p>You can specify the cells as row names or column names and <code><a href="../reference/check_design.html">check_design()</a></code> will fix them. Since <code>n</code> <strong>has</strong> to be the same for each within-subject factor, you can specify n as a single column with any name.</p>
 <div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span><span class="op">)</span>,
-                row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"B1a_B2a"</span>, <span class="st">"B1a_B2b"</span>, <span class="st">"B1b_B2a"</span>, <span class="st">"B1b_B2b"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">n</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">n</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span><span class="op">)</span>,
+                row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"B1a_B2a"</span>, <span class="st">"B1a_B2b"</span>, <span class="st">"B1b_B2a"</span>, <span class="st">"B1b_B2b"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>,<span class="fl">2</span><span class="op">)</span>, n <span class="op">=</span> <span class="va">n</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">n</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ B1a_B2a: num 10</span>
 <span class="co">#&gt;  $ B1a_B2b: num 20</span>
@@ -322,21 +318,21 @@
 <span class="co">#&gt;  $ B1b_B2b: num 40</span></code></pre></div>
 </div>
 </div>
-<div id="mu-and-sd" class="section level3">
-<h3 class="hasAnchor">
-<a href="#mu-and-sd" class="anchor"></a>Mu and SD</h3>
+<div class="section level3">
+<h3 id="mu-and-sd">Mu and SD<a class="anchor" aria-label="anchor" href="#mu-and-sd"></a>
+</h3>
 <p>The specifications for <code>mu</code> and <code>sd</code> need both within-subject and between-subject cells. You can specify these as a single numbers, a vector, a named list of named vectors or a data frame.</p>
-<div id="unnamed-vector" class="section level4">
-<h4 class="hasAnchor">
-<a href="#unnamed-vector" class="anchor"></a>Unnamed vector</h4>
+<div class="section level4">
+<h4 id="unnamed-vector">Unnamed vector<a class="anchor" aria-label="anchor" href="#unnamed-vector"></a>
+</h4>
 <p>An unnamed vector is a quick way to specify means and SDs, but the order relative to your between- and within-subject cells can be confusing.</p>
 <div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span>, 
-                condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"A"</span>,   <span class="st">"B"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">within</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pet       <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span>, 
+                condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>,   <span class="st">"B"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">within</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>time      <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span>, <span class="fl">30</span>, <span class="fl">40</span>, <span class="fl">50</span>, <span class="fl">60</span>, <span class="fl">70</span>, <span class="fl">80</span><span class="op">)</span>
 <span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, mu <span class="op">=</span> <span class="va">mu</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">mu</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">mu</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ cat_A:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 10</span>
@@ -351,19 +347,19 @@
 <span class="co">#&gt;   ..$ day  : num 70</span>
 <span class="co">#&gt;   ..$ night: num 80</span></code></pre></div>
 </div>
-<div id="named-list-of-named-vectors" class="section level4">
-<h4 class="hasAnchor">
-<a href="#named-list-of-named-vectors" class="anchor"></a>Named list of named vectors</h4>
+<div class="section level4">
+<h4 id="named-list-of-named-vectors">Named list of named vectors<a class="anchor" aria-label="anchor" href="#named-list-of-named-vectors"></a>
+</h4>
 <p>A named list of named vectors prevents confusion due to order. The levels of the between-subject factors are the list names and the levels of the within-subject factors are the vector names, but their order doesn’t matter.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  cat_B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>night <span class="op">=</span> <span class="fl">40</span>, day <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,
-  cat_A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">10</span>, night <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,
-  dog_A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">50</span>, night <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>,
-  dog_B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">70</span>, night <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  cat_B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>night <span class="op">=</span> <span class="fl">40</span>, day <span class="op">=</span> <span class="fl">30</span><span class="op">)</span>,
+  cat_A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">10</span>, night <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,
+  dog_A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">50</span>, night <span class="op">=</span> <span class="fl">60</span><span class="op">)</span>,
+  dog_B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">70</span>, night <span class="op">=</span> <span class="fl">80</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, mu <span class="op">=</span> <span class="va">mu</span>, sd <span class="op">=</span> <span class="fl">1</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">mu</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">mu</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ cat_A:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 10</span>
@@ -379,15 +375,15 @@
 <span class="co">#&gt;   ..$ night: num 80</span></code></pre></div>
 <p>Alternatively, you can specify them as data frames.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  cat_A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span>,
-  cat_B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">40</span><span class="op">)</span>,
-  dog_A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span><span class="op">)</span>,
-  dog_B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">70</span>, <span class="fl">80</span><span class="op">)</span>,
-  row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+  cat_A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">20</span><span class="op">)</span>,
+  cat_B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">30</span>, <span class="fl">40</span><span class="op">)</span>,
+  dog_A <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">50</span>, <span class="fl">60</span><span class="op">)</span>,
+  dog_B <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">70</span>, <span class="fl">80</span><span class="op">)</span>,
+  row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, mu <span class="op">=</span> <span class="va">mu</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">mu</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">mu</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ cat_A:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 10</span>
@@ -403,13 +399,13 @@
 <span class="co">#&gt;   ..$ night: num 80</span></code></pre></div>
 <p>If you transpose the dataframe, this works out fine unless your within- and between-subject cells have identical names.</p>
 <div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">30</span>, <span class="fl">50</span>, <span class="fl">70</span><span class="op">)</span>,
-  night <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span><span class="op">)</span>,
-  row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat_A"</span>, <span class="st">"cat_B"</span>, <span class="st">"dog_A"</span>, <span class="st">"dog_B"</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+  day <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">10</span>, <span class="fl">30</span>, <span class="fl">50</span>, <span class="fl">70</span><span class="op">)</span>,
+  night <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">20</span>, <span class="fl">40</span>, <span class="fl">60</span>, <span class="fl">80</span><span class="op">)</span>,
+  row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cat_A"</span>, <span class="st">"cat_B"</span>, <span class="st">"dog_A"</span>, <span class="st">"dog_B"</span><span class="op">)</span>
 <span class="op">)</span>
 <span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, mu <span class="op">=</span> <span class="va">mu</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">mu</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">design</span><span class="op">$</span><span class="va">mu</span><span class="op">)</span>
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ cat_A:List of 2</span>
 <span class="co">#&gt;   ..$ day  : num 10</span>
@@ -425,12 +421,12 @@
 <span class="co">#&gt;   ..$ night: num 80</span></code></pre></div>
 </div>
 </div>
-<div id="correlations" class="section level3">
-<h3 class="hasAnchor">
-<a href="#correlations" class="anchor"></a>Correlations</h3>
+<div class="section level3">
+<h3 id="correlations">Correlations<a class="anchor" aria-label="anchor" href="#correlations"></a>
+</h3>
 <p>If you have any within-subject factors, you need to set the correlation for each between-cell. Here, we only have two levels of one within-subject factor, so can only set one correlation per between-cell.</p>
 <div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
   cat_A <span class="op">=</span> <span class="fl">.5</span>,
   cat_B <span class="op">=</span> <span class="fl">.5</span>,
   dog_A <span class="op">=</span> <span class="fl">.6</span>,
@@ -457,16 +453,16 @@
 <span class="co">#&gt;       day night</span>
 <span class="co">#&gt; day   1.0   0.4</span>
 <span class="co">#&gt; night 0.4   1.0</span></code></pre></div>
-<div id="upper-right-triangle" class="section level4">
-<h4 class="hasAnchor">
-<a href="#upper-right-triangle" class="anchor"></a>Upper right triangle</h4>
+<div class="section level4">
+<h4 id="upper-right-triangle">Upper right triangle<a class="anchor" aria-label="anchor" href="#upper-right-triangle"></a>
+</h4>
 <p>If you have more than 2 within-subject cells, you can specify each specific correlation in the upper right triangle of the correlation matrix as a vector.</p>
 <div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  B1a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.10</span>, <span class="fl">.20</span>, <span class="fl">.30</span>, 
+<code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  B1a <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.10</span>, <span class="fl">.20</span>, <span class="fl">.30</span>, 
               <span class="fl">.40</span>, <span class="fl">.50</span>, 
                    <span class="fl">.60</span><span class="op">)</span>,
-  B1b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">.15</span>, <span class="fl">.25</span>, <span class="fl">.35</span>, 
+  B1b <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.15</span>, <span class="fl">.25</span>, <span class="fl">.35</span>, 
               <span class="fl">.45</span>, <span class="fl">.55</span>, 
                    <span class="fl">.65</span><span class="op">)</span>
 <span class="op">)</span>
@@ -486,16 +482,16 @@
 <span class="co">#&gt; W1c 0.25 0.45 1.00 0.65</span>
 <span class="co">#&gt; W1d 0.35 0.55 0.65 1.00</span></code></pre></div>
 </div>
-<div id="correlation-matrix" class="section level4">
-<h4 class="hasAnchor">
-<a href="#correlation-matrix" class="anchor"></a>Correlation matrix</h4>
-<p>You can also enter the correlation matrix from <code><a href="https://rdrr.io/r/stats/cor.html">cor()</a></code>.</p>
+<div class="section level4">
+<h4 id="correlation-matrix">Correlation matrix<a class="anchor" aria-label="anchor" href="#correlation-matrix"></a>
+</h4>
+<p>You can also enter the correlation matrix from <code><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor()</a></code>.</p>
 <div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"speed"</span>, <span class="st">"dist"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>half <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"last"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">cars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>,<span class="op">]</span><span class="op">)</span>,
-  last <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html">cor</a></span><span class="op">(</span><span class="va">cars</span><span class="op">[</span><span class="fl">26</span><span class="op">:</span><span class="fl">50</span>,<span class="op">]</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cars <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"speed"</span>, <span class="st">"dist"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>half <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"first"</span>, <span class="st">"last"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">cars</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">25</span>,<span class="op">]</span><span class="op">)</span>,
+  last <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">cars</span><span class="op">[</span><span class="fl">26</span><span class="op">:</span><span class="fl">50</span>,<span class="op">]</span><span class="op">)</span>
 <span class="op">)</span>
 
 <span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, r <span class="op">=</span> <span class="va">r</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -511,24 +507,24 @@
 <span class="co">#&gt; dist  0.6687654 1.0000000</span></code></pre></div>
 </div>
 </div>
-<div id="empirical" class="section level3">
-<h3 class="hasAnchor">
-<a href="#empirical" class="anchor"></a>Empirical</h3>
+<div class="section level3">
+<h3 id="empirical">Empirical<a class="anchor" aria-label="anchor" href="#empirical"></a>
+</h3>
 <p>If you set <code>empirical = TRUE</code>, you will get the <em>exact</em> means, SDs and correlations you specified. If you set <code>empirical = FALSE</code> or omit that argument, your data will be sampled from a population with those parameters, but your dataset will not have exactly those values (just on average).</p>
 <div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">within</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  cat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">10</span>, night <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,
-  dog <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">30</span>, night <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>
+<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pet  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">within</span>  <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  cat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">10</span>, night <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>,
+  dog <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">30</span>, night <span class="op">=</span> <span class="fl">40</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="va">sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  cat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">5</span>, night <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
-  dog <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">15</span>, night <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
+<span class="va">sd</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  cat <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">5</span>, night <span class="op">=</span> <span class="fl">10</span><span class="op">)</span>,
+  dog <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="fl">15</span>, night <span class="op">=</span> <span class="fl">20</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="fl">.5</span>, dog <span class="op">=</span> <span class="fl">.6</span><span class="op">)</span>
+<span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="fl">.5</span>, dog <span class="op">=</span> <span class="fl">.6</span><span class="op">)</span>
 
 <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, n <span class="op">=</span> <span class="fl">100</span>, 
                  mu <span class="op">=</span> <span class="va">mu</span>, sd <span class="op">=</span> <span class="va">sd</span>, r <span class="op">=</span> <span class="va">r</span>,
@@ -585,28 +581,28 @@
 </table>
 </div>
 </div>
-<div id="more-factors" class="section level2">
-<h2 class="hasAnchor">
-<a href="#more-factors" class="anchor"></a>More factors</h2>
+<div class="section level2">
+<h2 id="more-factors">More factors<a class="anchor" aria-label="anchor" href="#more-factors"></a>
+</h2>
 <p>Here is a 2w*3w*2b*2b example. When you have multiple within or between factors, you need to specify parameters by cell. Cell names are the level names, in the order they are listed in the <code>within</code> or <code>between</code> arguments, separated by underscores.</p>
 <p>Foe example, if you have one within-subject factor of condition with levels <code>con</code> and <code>inc</code>, and another within-subject factor of version with levels <code>easy</code>, <code>med</code>, and <code>hard</code>, your cell labels will be: <code>con_easy</code>, <code>inc_easy</code>, <code>con_med</code>, <code>inc_med</code>, <code>con_hard</code>, and <code>inc_hard</code>.</p>
 <p>If you have any characters in your level names except letters and numbers, they will be replaced by a full stop (e.g., <code>my super-good level_name</code> will become <code>my.super.good.level.name</code>).</p>
 <div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>con <span class="op">=</span> <span class="st">"Mean of congruent trials"</span>, 
+<code class="sourceCode R"><span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  condition <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>con <span class="op">=</span> <span class="st">"Mean of congruent trials"</span>, 
                 inc <span class="op">=</span> <span class="st">"Mean of incongruent trials"</span><span class="op">)</span>,
-  version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>easy <span class="op">=</span> <span class="st">"Easy"</span>, 
+  version <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>easy <span class="op">=</span> <span class="st">"Easy"</span>, 
               med  <span class="op">=</span> <span class="st">"Medium"</span>, 
               hard <span class="op">=</span> <span class="st">"Difficult"</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
-  experience <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>novice <span class="op">=</span> <span class="st">"Novice"</span>, expert <span class="op">=</span> <span class="st">"Expert"</span><span class="op">)</span>,
-  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="st">"Before 5pm"</span>, night <span class="op">=</span> <span class="st">"After 5pm"</span><span class="op">)</span>
+<span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
+  experience <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>novice <span class="op">=</span> <span class="st">"Novice"</span>, expert <span class="op">=</span> <span class="st">"Expert"</span><span class="op">)</span>,
+  time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>day <span class="op">=</span> <span class="st">"Before 5pm"</span>, night <span class="op">=</span> <span class="st">"After 5pm"</span><span class="op">)</span>
 <span class="op">)</span>
 
-<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
-  row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"con_easy"</span>, <span class="st">"con_med"</span>, <span class="st">"con_hard"</span>,
+<span class="va">mu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a></span><span class="op">(</span>
+  row.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"con_easy"</span>, <span class="st">"con_med"</span>, <span class="st">"con_hard"</span>,
                 <span class="st">"inc_easy"</span>, <span class="st">"inc_med"</span>,  <span class="st">"inc_hard"</span><span class="op">)</span>,
   novice_day <span class="op">=</span> <span class="fl">10</span><span class="op">:</span><span class="fl">15</span>,
   novice_night <span class="op">=</span> <span class="fl">11</span><span class="op">:</span><span class="fl">16</span>,
@@ -615,7 +611,7 @@
 <span class="op">)</span></code></pre></div>
 <p>You can set the correlation for each between-cell to a single number.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<code class="sourceCode R"><span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
   novice_day <span class="op">=</span> <span class="fl">0.3</span>,
   novice_night <span class="op">=</span> <span class="fl">0.2</span>,
   expert_day <span class="op">=</span> <span class="fl">0.5</span>,
@@ -626,14 +622,14 @@
 <code class="sourceCode R"><span class="co"># upper right triangle correlation specification</span>
 <span class="co"># inc and con have r = 0.5 within each difficultly level, 0.2 otherwise</span>
 <span class="co">#          ce,  ie,  cm,  im,  ch,  ih</span>
-<span class="va">triangle</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="co">#con_easy</span>
+<span class="va">triangle</span> <span class="op">&lt;-</span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="co">#con_easy</span>
                     <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="co">#inc_easy</span>
                          <span class="fl">0.5</span>, <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="co">#con_med</span>
                               <span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="co">#inc_med</span>
                                    <span class="fl">0.5</span><span class="op">)</span> <span class="co">#con_hard</span>
                                         <span class="co">#inc_hard</span>
 
-<span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>
+<span class="va">r</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>
   novice_day <span class="op">=</span> <span class="va">triangle</span>,
   novice_night <span class="op">=</span> <span class="va">triangle</span>,
   expert_day <span class="op">=</span> <span class="va">triangle</span>,
@@ -643,10 +639,10 @@
 <div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, n <span class="op">=</span> <span class="fl">100</span>, 
                  mu <span class="op">=</span> <span class="va">mu</span>, sd <span class="op">=</span> <span class="fl">2</span>, r <span class="op">=</span> <span class="va">r</span>, 
-                 dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>rt <span class="op">=</span> <span class="st">"Reaction Time"</span><span class="op">)</span>, 
+                 dv <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>rt <span class="op">=</span> <span class="st">"Reaction Time"</span><span class="op">)</span>, 
                  plot <span class="op">=</span> <span class="cn">FALSE</span>, long <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span>
 <span class="co">#&gt;     id experience time condition version        rt</span>
 <span class="co">#&gt; 1 S001     novice  day       con    easy  9.612842</span>
 <span class="co">#&gt; 2 S002     novice  day       con    easy  9.339860</span>
@@ -655,18 +651,18 @@
 <span class="co">#&gt; 5 S005     novice  day       con    easy  7.536527</span>
 <span class="co">#&gt; 6 S006     novice  day       con    easy 11.726081</span></code></pre></div>
 </div>
-<div id="multiple-datasets" class="section level2">
-<h2 class="hasAnchor">
-<a href="#multiple-datasets" class="anchor"></a>Multiple datasets</h2>
+<div class="section level2">
+<h2 id="multiple-datasets">Multiple datasets<a class="anchor" aria-label="anchor" href="#multiple-datasets"></a>
+</h2>
 <p>You might want to make multiple datasets with the same design for simulations. It can be inefficient to just put <code><a href="../reference/sim_design.html">sim_design()</a></code> in an apply function or a for loop (especially if you leave plot = TRUE). The patterns below make this faster.</p>
-<div id="rep-argument" class="section level3">
-<h3 class="hasAnchor">
-<a href="#rep-argument" class="anchor"></a>rep argument</h3>
+<div class="section level3">
+<h3 id="rep-argument">rep argument<a class="anchor" aria-label="anchor" href="#rep-argument"></a>
+</h3>
 <p>You can simulate multiple datasets by setting the <code>rep</code> argument of <code><a href="../reference/sim_design.html">sim_design()</a></code> to a number greater than 1. This will return a nested data frame with one column called <code>rep</code> and another column called <code>data</code>, that contains each individual data frame. This method is faster than repeatedly calling <code><a href="../reference/sim_design.html">sim_design()</a></code>, which will check the syntax of your design each time, and returns a nested dataset that makes it easy to apply the same analysis to each replicate.</p>
 <p>The code below creates 5 data frames with a 2W*2B design.</p>
 <div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>within <span class="op">=</span> <span class="fl">2</span>, between <span class="op">=</span> <span class="fl">2</span>, 
-                 n <span class="op">=</span> <span class="fl">50</span>, mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1.5</span><span class="op">)</span>, 
+                 n <span class="op">=</span> <span class="fl">50</span>, mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1.5</span><span class="op">)</span>, 
                  sd <span class="op">=</span> <span class="fl">1</span>, r <span class="op">=</span> <span class="fl">0.5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span>, 
                  long <span class="op">=</span> <span class="cn">TRUE</span>, rep <span class="op">=</span> <span class="fl">5</span><span class="op">)</span>
 
@@ -687,36 +683,36 @@
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># using tidyverse functions</span>
 <span class="va">analyse</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">data</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/aov.html">aov</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">B1</span> <span class="op">*</span> <span class="va">W1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html">Error</a></span><span class="op">(</span><span class="va">id</span><span class="op">/</span><span class="va">W1</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html">tidy</a></span><span class="op">(</span><span class="op">)</span>
+  <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">aov</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">B1</span> <span class="op">*</span> <span class="va">W1</span> <span class="op">+</span> <span class="fu"><a href="https://rdrr.io/r/stats/aov.html" class="external-link">Error</a></span><span class="op">(</span><span class="va">id</span><span class="op">/</span><span class="va">W1</span><span class="op">)</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span> 
+    <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/generics/man/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span>
 <span class="op">}</span>
 
-<span class="va">df</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>analysis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">analyse</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">data</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/nest.html">unnest</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 25 × 8</span>
+<span class="va">df</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>analysis <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="va">data</span>, <span class="va">analyse</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/select.html" class="external-link">select</a></span><span class="op">(</span><span class="op">-</span><span class="va">data</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/tidyr/man/nest.html" class="external-link">unnest</a></span><span class="op">(</span><span class="va">analysis</span><span class="op">)</span>
+<span class="co">#&gt; <span style="color: #949494;"># A tibble: 25 × 8</span></span>
 <span class="co">#&gt;      rep stratum term         df   sumsq meansq statistic  p.value</span>
-<span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;   &lt;chr&gt;     &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;</span>
-<span class="co">#&gt;  1     1 id      B1            1  11.9   11.9       8.52   0.00436</span>
-<span class="co">#&gt;  2     1 id      Residuals    98 137.     1.40     NA     NA      </span>
-<span class="co">#&gt;  3     1 id:W1   W1            1   0.550  0.550     1.01   0.316  </span>
-<span class="co">#&gt;  4     1 id:W1   B1:W1         1   0.464  0.464     0.855  0.357  </span>
-<span class="co">#&gt;  5     1 id:W1   Residuals    98  53.2    0.542    NA     NA      </span>
-<span class="co">#&gt;  6     2 id      B1            1  12.4   12.4       8.03   0.00558</span>
-<span class="co">#&gt;  7     2 id      Residuals    98 151.     1.54     NA     NA      </span>
-<span class="co">#&gt;  8     2 id:W1   W1            1   1.39   1.39      3.18   0.0776 </span>
-<span class="co">#&gt;  9     2 id:W1   B1:W1         1   0.266  0.266     0.611  0.436  </span>
-<span class="co">#&gt; 10     2 id:W1   Residuals    98  42.8    0.436    NA     NA      </span>
-<span class="co">#&gt; # … with 15 more rows</span></code></pre></div>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     1 id      B1            1  11.9   11.9       8.52   0.004<span style="text-decoration: underline;">36</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>     1 id      Residuals    98 137.     1.40     <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     1 id:W1   W1            1   0.550  0.550     1.01   0.316  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     1 id:W1   B1:W1         1   0.464  0.464     0.855  0.357  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>     1 id:W1   Residuals    98  53.2    0.542    <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     2 id      B1            1  12.4   12.4       8.03   0.005<span style="text-decoration: underline;">58</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     2 id      Residuals    98 151.     1.54     <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>     2 id:W1   W1            1   1.39   1.39      3.18   0.077<span style="text-decoration: underline;">6</span> </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     2 id:W1   B1:W1         1   0.266  0.266     0.611  0.436  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     2 id:W1   Residuals    98  42.8    0.436    <span style="color: #BB0000;">NA</span>     <span style="color: #BB0000;">NA</span>      </span>
+<span class="co">#&gt; <span style="color: #949494;"># … with 15 more rows</span></span></code></pre></div>
 </div>
-<div id="unnested-reps" class="section level3">
-<h3 class="hasAnchor">
-<a href="#unnested-reps" class="anchor"></a>Unnested reps</h3>
+<div class="section level3">
+<h3 id="unnested-reps">Unnested reps<a class="anchor" aria-label="anchor" href="#unnested-reps"></a>
+</h3>
 <p>You can also get an unnested data frame by setting <code>nested = FALSE</code>. This is a bit faster to return, but less useful for the pattern above.</p>
 <div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span>within <span class="op">=</span> <span class="fl">2</span>, between <span class="op">=</span> <span class="fl">2</span>, 
-                 n <span class="op">=</span> <span class="fl">2</span>, mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1.5</span><span class="op">)</span>, 
+                 n <span class="op">=</span> <span class="fl">2</span>, mu <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1</span>, <span class="fl">1.5</span><span class="op">)</span>, 
                  sd <span class="op">=</span> <span class="fl">1</span>, r <span class="op">=</span> <span class="fl">0.5</span>, plot <span class="op">=</span> <span class="cn">FALSE</span>, 
                  long <span class="op">=</span> <span class="cn">TRUE</span>, rep <span class="op">=</span> <span class="fl">2</span>, nested <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
 
@@ -739,14 +735,14 @@
 <span class="co">#&gt; 15   2 S3 B1b W1b  1.9668646</span>
 <span class="co">#&gt; 16   2 S4 B1b W1b  2.5087846</span></code></pre></div>
 </div>
-<div id="simulate-by-design" class="section level3">
-<h3 class="hasAnchor">
-<a href="#simulate-by-design" class="anchor"></a>Simulate by design</h3>
+<div class="section level3">
+<h3 id="simulate-by-design">Simulate by design<a class="anchor" aria-label="anchor" href="#simulate-by-design"></a>
+</h3>
 <p>The <code><a href="../reference/check_design.html">check_design()</a></code> function converts any abbreviated design specification to the fully expanded version; it checks your design specification when you run <code><a href="../reference/sim_design.html">sim_design()</a></code> or you can run it on its own to create a validated design list.</p>
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
-<span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="st">"Type of Pet"</span>,
+<code class="sourceCode R"><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"cat"</span>, <span class="st">"dog"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">within</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>time <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"day"</span>, <span class="st">"night"</span><span class="op">)</span><span class="op">)</span>
+<span class="va">vardesc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="st">"Type of Pet"</span>,
              time <span class="op">=</span> <span class="st">"Time of Day"</span><span class="op">)</span>
 <span class="va">design</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/check_design.html">check_design</a></span><span class="op">(</span><span class="va">within</span>, <span class="va">between</span>, n <span class="op">=</span> <span class="fl">10</span>, 
                        mu <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, r <span class="op">=</span> <span class="fl">0.5</span>, 
@@ -798,11 +794,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Lisa DeBruine.</p>
+  <p></p>
+<p>Developed by Lisa DeBruine.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -810,6 +808,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -5,12 +5,11 @@
 #' See \link[stats:Distributions]{Distributions} for distributions and their various arguments to specify in params1 and params2.
 #'
 #' @param target_r The target correlation
-#' @param dist1 The target distribution function for variable 1 (e.g., norm, binom, gamma, truncnorm, cauchy)
+#' @param dist1 The target distribution function for variable 1 (e.g., norm, binom, gamma, truncnorm)
 #' @param dist2 The target distribution function for variable 2
 #' @param params1 Arguments to pass to the functions for distribution 1
 #' @param params2 Arguments to pass to the functions for distribution 2
-#' @param package1 The package that contains the r{dist} and q{dist} functions for dist1 
-#' @param package2 The package that contains the r{dist} and q{dist} functions for dist2 
+#' @param tol Tolerance for optimise function
 #'
 #' @return r-value to induce in the bivariate normal variables
 #' @export
@@ -32,51 +31,31 @@ convert_r <- function(target_r = 0,
                       dist2 = "norm",
                       params1 = list(), 
                       params2 = list(),
-                      package1 = "stats",
-                      package2 = "stats") {
+                      tol = .01) {
   if (target_r == 0) return(0)
+  params1 <- as.list(params1)
+  params2 <- as.list(params2)
   
-  if (dist1 == "truncnorm") package1 = "truncnorm"
-  if (dist2 == "truncnorm") package2 = "truncnorm"
-  if (dist1 == "likert") package1 = "faux"
-  if (dist2 == "likert") package2 = "faux"
-  
-  # check if r and q functions exist
-  tryCatch({
-    rfunc1 <- utils::getFromNamespace(paste0("r", dist1), package1)
-    qfunc1 <- utils::getFromNamespace(paste0("q", dist1), package1)
-  }, error = function(e) {
-    stop(dist1, " isn't a valid distribution")
-  })
-  
-  tryCatch({
-    rfunc2 <- utils::getFromNamespace(paste0("r", dist2), package2)
-    qfunc2 <- utils::getFromNamespace(paste0("q", dist2), package2)
-  }, error = function(e) {
-    stop(dist2, " isn't a valid distribution")
-  })
-  
-  # generate target distributions
-  params1$n <- 1e6
-  D1 <- sort(do.call(rfunc1, params1)) %>% as.numeric()
-  params2$n <- 1e6
-  D2 <- sort(do.call(rfunc2, params2)) %>% as.numeric()
-  params1$n <- NULL
-  params2$n <- NULL
-  
+  if ("cauchy" %in% c(dist1, dist2)) {
+    stop("The cauchy distribution has undefined variance, so cannot use the NORTA method.")
+  }
+
   # check if target_r is possible
-  max_r <- cor(D1, D2)
-  min_r <- cor(D1, rev(D2))
-  if (target_r > max_r) {
-    warning("Maximum target_r is ", round(max_r, 3))
+  bounds <- fh_bounds(dist1, dist2, params1, params2)
+  
+  if (target_r > bounds$max) {
+    warning("Maximum target_r is ", round(bounds$max, 3))
     return(NA)
   }
-  if (target_r < min_r) {
-    warning("Minimum target_r is ", round(min_r, 3))
+  if (target_r < bounds$min) {
+    warning("Minimum target_r is ", round(bounds$min, 3))
     return(NA)
   }
   
   # define function
+  qfunc1 <- distfuncs(dist1)$q
+  qfunc2 <- distfuncs(dist2)$q
+  
   f <- function(r) {
     # simulate bivariate normal with specified r
     mvn <- rnorm_multi(5e4, 2, r = r, empirical = TRUE)
@@ -98,7 +77,20 @@ convert_r <- function(target_r = 0,
   # optimise to find converted r
   if (target_r > 0) min_r <- 0; max_r <- 0.99
   if (target_r < 0) max_r <- 0; min_r <- -.99
-  opt <- stats::optimise(f, interval = c(min_r, max_r), tol = .001)
+  
+  # set seed and reinstate system seed after simulation
+  # makes sure the results are always the same
+  sysSeed <- .GlobalEnv$.Random.seed
+  on.exit({
+    if (!is.null(sysSeed)) {
+      .GlobalEnv$.Random.seed <- sysSeed
+    } else {
+      rm(".Random.seed", envir = .GlobalEnv)
+    }
+  })
+  set.seed(8675309, kind = "Mersenne-Twister", normal.kind = "Inversion")
+  
+  opt <- stats::optimise(f, interval = c(min_r, max_r), tol = tol)
   
   # check if found
   if (abs(opt$objective) > .01) {
@@ -106,7 +98,7 @@ convert_r <- function(target_r = 0,
             round(opt$objective, 3))
   }
   
-  opt$minimum
+  round(opt$minimum, 3)
 }
 
 
@@ -132,13 +124,14 @@ convert_r <- function(target_r = 0,
 #' x <- rmulti(100, dist, params, c(0.2, 0.4, 0.6), empirical = TRUE)
 #' get_params(x)
 rmulti <- function(n = 100, 
-                   dist = "norm", 
+                   dist = c(A = "norm", B = "norm"), 
                    params = list(),
                    r = 0,
                    empirical = FALSE, 
                    as.matrix = FALSE) {
   vars <- length(dist)
-  varnames <- names(dist)
+  if (vars < 2) stop("You must specify at least 2 variables in `dist`")
+  varnames <- names(dist) %||% LETTERS[1:vars]
   
   # get all possible pairs of variables
   v <- factor(varnames, levels = varnames)
@@ -155,14 +148,35 @@ rmulti <- function(n = 100,
   pairs$dist2 <- dist[pairs$v2]
   
   # add params
+  if (length(params) == 0) {
+    params <- rep(list(list()), length.out = vars)
+  }
   if (is.null(names(params))) names(params) <- varnames
   pairs$params1 <- params[pairs$v1]
   pairs$params2 <- params[pairs$v2]
   
   # calculate adjusted r-values
-  pairs <- pairs %>%
-    dplyr::rowwise(r, dist1, dist2, params1, params2) %>%
-    dplyr::mutate(adj_r = convert_r(r, dist1, dist2, params1, params2))
+  suppressWarnings({
+    pairs <- pairs %>%
+      dplyr::rowwise() %>%
+      dplyr::mutate(adj_r = convert_r(r, dist1, dist2, params1, params2))
+  })
+  
+  # quit if any params are impossible
+  if (any(is.na(pairs$adj_r))) {
+    impossible_r <- which(is.na(pairs$adj_r))
+    imp_pairs <- lapply(impossible_r, function(i) {
+      b <- fh_bounds(dist1 = pairs$dist1[[i]], 
+                    dist2 = pairs$dist2[[i]],
+                    params1 = params[[pairs$v1[[i]]]],
+                    params2 = params[[pairs$v2[[i]]]])
+      paste0(pairs$v1[i], "&", pairs$v2[i], " (", 
+             round(b$min, 3), " to ", round(b$max, 3), ")")
+    })
+  
+    stop("Some of the correlations are not possible:\n  *  ", 
+         paste(imp_pairs, collapse = "\n  *  "))
+  }
   
   adj_norm <- rnorm_multi(n, vars, 0, 1, 
                           r = pairs$adj_r, 
@@ -172,18 +186,97 @@ rmulti <- function(n = 100,
   
   for (i in 1:vars) {
     #get params
-    qparam <- params[[varnames[i]]]
+    qparam <- as.list(params[[varnames[i]]])
     x <- adj_norm[, i]
-    qparam$p <- pnorm(x, mean = 0, sd = 1)
+    qparam$p <- stats::pnorm(x, mean = 0, sd = 1)
     
-    # get quantile function (already error-checked in convert_r)
-    package = "stats"
-    if (dist[i] == "truncnorm") package = "truncnorm"
-    if (dist[i] == "likert") package = "faux"
-    qfunc <- utils::getFromNamespace(paste0("q", dist[i]), package)
+    # get quantile function
+    qfunc <- distfuncs(dist[i])$q
     
-    adj_norm[, i] <- do.call(qfunc, qparam)
+    adj_norm[, i] <- tryCatch({
+      do.call(qfunc, qparam)
+    }, error = function(e) {
+      stop("Check the `params` argument for variable '", varnames[i],"'.\n", e)
+    })
   }
   
   adj_norm
+}
+
+
+#' Get distribution functions
+#'
+#' @param dist The target distribution function (e.g., norm, binom, gamma, truncnorm, likert). If the distribution isn't definited in the packages stats, truncnorm, or faux, use the format "package::dist".
+#'
+#' @return a list with the r and q functions
+#' @export
+#'
+#' @examples
+#' qfunc <- distfuncs("norm")$q # returns qnorm
+#' p <- seq(0.1, 0.9, .1)
+#' qfunc(p) == qnorm(p)
+#' 
+#' rfunc <- distfuncs("norm")$r # returns rnorm
+#' rfunc(n = 10, mean = 100, sd = 10)
+distfuncs <- function(dist = "norm") {
+  # get package
+  package <- "stats" # default
+  if (dist == "truncnorm") package = "truncnorm"
+  if (dist == "likert") package = "faux"
+  if (grepl("::", dist)) {
+    package <- strsplit(dist, "::")[[1]][[1]]
+    dist <- strsplit(dist, "::")[[1]][[2]]
+  }
+  
+  # check if r and q functions exist
+  tryCatch({
+    rfunc <- utils::getFromNamespace(paste0("r", dist), package)
+    qfunc <- utils::getFromNamespace(paste0("q", dist), package)
+  }, error = function(e) {
+    stop("The probability functions for the '", dist, "' distribution could not be found in the package {", package, "}. Check the `dist` argument.", call. = FALSE)
+  })
+  
+  list(r = rfunc,
+       q = qfunc)
+}
+
+#' Get Fréchet-Hoefding bounds 
+#' 
+#' Fréchet-Hoefding bounds are the limits to a correlation between different distributions.
+#'
+#' @param dist1 The target distribution function for variable 1 (e.g., norm, binom, gamma, truncnorm)
+#' @param dist2 The target distribution function for variable 2
+#' @param params1 Arguments to pass to the r{dist} function for distribution 1
+#' @param params2 Arguments to pass to the r{dist} function for distribution 2
+#'
+#' @return
+#' @export
+#'
+#' @examples
+#' fh_bounds(dist1 = "pois", 
+#'          dist2 = "unif", 
+#'          params1 = list(lambda = 3), 
+#'          params2 = list(min = 0, max = 100))
+fh_bounds <- function(dist1 = "norm",
+                     dist2 = "norm", 
+                     params1 = list(),
+                     params2 = list()) {
+  params1 <- as.list(params1)
+  params2 <- as.list(params2)
+  
+  # get random generation functions
+  rfunc1 <- distfuncs(dist1)$r
+  rfunc2 <- distfuncs(dist2)$r
+  
+  # generate target distributions
+  params1$n <- 1e6
+  D1 <- sort(do.call(rfunc1, params1)) %>% as.numeric()
+  params2$n <- 1e6
+  D2 <- sort(do.call(rfunc2, params2)) %>% as.numeric()
+  
+  # return min and max
+  list(
+    min = cor(D1, rev(D2)),
+    max = cor(D1, D2)
+  )
 }

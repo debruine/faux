@@ -31,6 +31,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -43,18 +45,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9001</span>
+        <span class="version label label-danger" data-toggle="tooltip" data-placement="bottom" title="In-development version">1.1.0.9004</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -103,7 +99,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/debruine/faux/">
+  <a href="https://github.com/debruine/faux/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -118,15 +114,15 @@
 
       
 
-      </header><script src="sim_df_files/header-attrs-2.11/header-attrs.js"></script><div class="row">
+      </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Simulate from Existing Data</h1>
-                        <h4 class="author">Lisa DeBruine</h4>
+                        <h4 data-toc-skip class="author">Lisa DeBruine</h4>
             
-            <h4 class="date">2021-12-01</h4>
+            <h4 data-toc-skip class="date">2022-02-13</h4>
       
-      <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/master/vignettes/sim_df.Rmd"><code>vignettes/sim_df.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/debruine/faux/blob/HEAD/vignettes/sim_df.Rmd" class="external-link"><code>vignettes/sim_df.Rmd</code></a></small>
       <div class="hidden name"><code>sim_df.Rmd</code></div>
 
     </div>
@@ -134,43 +130,43 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org">dplyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org">tidyr</a></span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux">faux</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/debruine/faux" class="external-link">faux</a></span><span class="op">)</span></code></pre></div>
 <p>The <code><a href="../reference/sim_df.html">sim_df()</a></code> function produces a data table with the same distributions and correlations as an existing data table. It simulates all numeric variables from a continuous normal distribution (for now).</p>
 <p>For example, here is the relationship between speed and distance in the built-in dataset <code>cars</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">cars</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span><span class="va">speed</span>, <span class="va">dist</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="st">"y~x"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">cars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">speed</span>, <span class="va">dist</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="st">"y~x"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="sim_df_files/figure-html/plot-cars-orig-1.png" alt="Original cars dataset" width="100%"><p class="caption">
 Original cars dataset
 </p>
 </div>
-<p>You can create a new sample with the same parameters and 500 rows with the code <code><a href="../reference/sim_df.html">sim_df(cars, 500)</a></code>.</p>
+<p>You can create a new sample with the same parameters and 500 rows with the code <code>sim_df(cars, 500)</code>.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">cars</span>, <span class="fl">500</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span><span class="va">speed</span>, <span class="va">dist</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-    <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="st">"y~x"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">cars</span>, <span class="fl">500</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">speed</span>, <span class="va">dist</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="st">"y~x"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="sim_df_files/figure-html/plot-cars-sim-1.png" alt="Simulated cars dataset" width="100%"><p class="caption">
 Simulated cars dataset
 </p>
 </div>
-<div id="between-subject-variables" class="section level2">
-<h2 class="hasAnchor">
-<a href="#between-subject-variables" class="anchor"></a>Between-subject variables</h2>
+<div class="section level2">
+<h2 id="between-subject-variables">Between-subject variables<a class="anchor" aria-label="anchor" href="#between-subject-variables"></a>
+</h2>
 <p>You can also optionally add between-subject variables. For example, here is the relationship between horsepower (<code>hp</code>) and weight (<code>wt</code>) for automatic (<code>am = 0</code>) versus manual (<code>am = 1</code>) transmission in the built-in dataset <code>mtcars</code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">mtcars</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>transmission <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">am</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"automatic"</span>, <span class="st">"manual"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span><span class="va">hp</span>, <span class="va">wt</span>, color <span class="op">=</span> <span class="va">transmission</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="st">"y~x"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="va">mtcars</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>transmission <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">am</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"automatic"</span>, <span class="st">"manual"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">hp</span>, <span class="va">wt</span>, color <span class="op">=</span> <span class="va">transmission</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="st">"y~x"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="sim_df_files/figure-html/plot-mtcars-orig-1.png" alt="Original mtcars dataset" width="100%"><p class="caption">
 Original mtcars dataset
@@ -178,44 +174,44 @@ Original mtcars dataset
 </div>
 <p>And here is a new sample with 50 observations of each.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fl">50</span> , between <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>transmission <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">am</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"automatic"</span>, <span class="st">"manual"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span><span class="va">hp</span>, <span class="va">wt</span>, color <span class="op">=</span> <span class="va">transmission</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="st">"y~x"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fl">50</span> , between <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>transmission <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">am</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"automatic"</span>, <span class="st">"manual"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">hp</span>, <span class="va">wt</span>, color <span class="op">=</span> <span class="va">transmission</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="st">"y~x"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="sim_df_files/figure-html/plot-iris-sim-1.png" alt="Simulated iris dataset" width="100%"><p class="caption">
 Simulated iris dataset
 </p>
 </div>
 </div>
-<div id="empirical" class="section level2">
-<h2 class="hasAnchor">
-<a href="#empirical" class="anchor"></a>Empirical</h2>
+<div class="section level2">
+<h2 id="empirical">Empirical<a class="anchor" aria-label="anchor" href="#empirical"></a>
+</h2>
 <p>Set <code>empirical = TRUE</code> to return a data frame with <em>exactly</em> the same means, SDs, and correlations as the original dataset.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">exact_mtcars</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fl">50</span>, between <span class="op">=</span> <span class="st">"am"</span>, empirical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
-<div id="rounding" class="section level2">
-<h2 class="hasAnchor">
-<a href="#rounding" class="anchor"></a>Rounding</h2>
+<div class="section level2">
+<h2 id="rounding">Rounding<a class="anchor" aria-label="anchor" href="#rounding"></a>
+</h2>
 <p>For now, the function only creates new variables sampled from a continuous normal distribution. I hope to add in other sampling distributions in the future. So you’d need to do any rounding or truncating yourself.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fl">50</span>, between <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html">mutate</a></span><span class="op">(</span>hp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">hp</span><span class="op">)</span>,
-         transmission <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">am</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"automatic"</span>, <span class="st">"manual"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html">aes</a></span><span class="op">(</span><span class="va">hp</span>, <span class="va">wt</span>, color <span class="op">=</span> <span class="va">transmission</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="st">"y~x"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu"><a href="../reference/sim_df.html">sim_df</a></span><span class="op">(</span><span class="va">mtcars</span>, <span class="fl">50</span>, between <span class="op">=</span> <span class="st">"am"</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/dplyr/man/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>hp <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Round.html" class="external-link">round</a></span><span class="op">(</span><span class="va">hp</span><span class="op">)</span>,
+         transmission <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html" class="external-link">factor</a></span><span class="op">(</span><span class="va">am</span>, labels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"automatic"</span>, <span class="st">"manual"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/aes.html" class="external-link">aes</a></span><span class="op">(</span><span class="va">hp</span>, <span class="va">wt</span>, color <span class="op">=</span> <span class="va">transmission</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/ggplot2/man/geom_smooth.html" class="external-link">geom_smooth</a></span><span class="op">(</span>method <span class="op">=</span> <span class="st">"lm"</span>, formula <span class="op">=</span> <span class="st">"y~x"</span><span class="op">)</span></code></pre></div>
 <div class="figure">
 <img src="sim_df_files/figure-html/plot-iris-sim-round-1.png" alt="Simulated iris dataset (rounded)" width="100%"><p class="caption">
 Simulated iris dataset (rounded)
 </p>
 </div>
 </div>
-<div id="missing-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#missing-data" class="anchor"></a>Missing data</h2>
+<div class="section level2">
+<h2 id="missing-data">Missing data<a class="anchor" aria-label="anchor" href="#missing-data"></a>
+</h2>
 <p>As of faux 0.0.1.8, if you want to simulate missing data, set <code>missing = TRUE</code> and <code>sim_df</code> will simulate missing data with the same joint probabilities as your data. In the dataset below, in condition B1a, 30% of W1a values are missing and 60% of W1b values are missing. This is correlated so that there is a 100% chance that W1b is missing if W1a is. There is no missing data for condition B1b.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/sim_design.html">sim_design</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">2</span>, n <span class="op">=</span> <span class="fl">10</span>, plot <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
@@ -295,11 +291,13 @@ Simulated iris dataset (rounded)
 
 
       <footer><div class="copyright">
-  <p>Developed by Lisa DeBruine.</p>
+  <p></p>
+<p>Developed by Lisa DeBruine.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -307,6 +305,8 @@ Simulated iris dataset (rounded)
 
   
 
+
+  
 
   </body>
 </html>

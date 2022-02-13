@@ -6,7 +6,7 @@
 \usage{
 rmulti(
   n = 100,
-  dist = "norm",
+  dist = c(A = "norm", B = "norm"),
   params = list(),
   r = 0,
   empirical = FALSE,

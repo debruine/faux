@@ -1,7 +1,71 @@
 r <- c(-.5, .2, .5)
 set.seed(8675309)
 
+# distfuncs ----
+test_that("distfuncs", {
+  func <- distfuncs("norm")
+  expect_equal(func$q, qnorm)
+  expect_equal(func$r, rnorm)
+  
+  func <- distfuncs("pois")
+  expect_equal(func$q, qpois)
+  expect_equal(func$r, rpois)
+  
+  func <- distfuncs("truncnorm")
+  expect_equal(func$q, truncnorm::qtruncnorm)
+  expect_equal(func$r, truncnorm::rtruncnorm)
+  
+  ## with :: notation
+  func <- distfuncs("stats::norm")
+  expect_equal(func$q, qnorm)
+  expect_equal(func$r, rnorm)
+  
+  expect_error( distfuncs("normz") )
+  expect_error( distfuncs("nopkg::norm") )
+})
+
+# fh_bounds ----
+test_that("fh_bounds", {
+  set.seed(8675309)
+  
+  b <- fh_bounds("norm", "unif")
+  expect_equal(b$max, 0.977, tol = .005)
+  expect_equal(b$min, -0.977, tol = .005)
+  
+  b <- fh_bounds("norm", "unif", 
+                list(mean = 100, sd = 10), 
+                list(min = 0, max = 100))
+  expect_equal(b$max, 0.977, tol = .005)
+  expect_equal(b$min, -0.977, tol = .005)
+  
+  b <- fh_bounds("pois", "truncnorm", 
+                list(lambda = 1), 
+                list(a = 0, b = 10, mean = 5, sd = 2))
+  expect_equal(b$max, 0.913, tol = .005)
+  expect_equal(b$min, -0.914, tol = .005)
+  
+  b <- fh_bounds("pois", "binom", 
+                list(lambda = 3),
+                list(size = 1, prob = 0.5))
+  expect_equal(b$max, 0.776, tol = .005)
+  expect_equal(b$min, -0.776, tol = .005)
+})
+
+test_that("fh_bounds variation check", {
+  skip("long checking function")
+  
+  x <- lapply(1:50, function(x) {
+    fh_bounds("pois", "binom",  
+             list(lambda = 3),
+             list(size = 1, prob = 0.5))
+  })
+  
+  hist(sapply(x, `[[`, "min"))
+})
+
+
 # convert_r ----
+set.seed(8675309)
 test_that("convert_r warnings", {
   # warnings and errors
   expect_warning(convert_r(.95, "binom", params1 = list(size = 1, prob = 0.5)))
@@ -13,14 +77,14 @@ test_that("convert_r warnings", {
 test_that("convert_r norm:norm", {
   x <- sapply(r, convert_r)
   #plot(r, x)
-  expect_true(all(abs(r - x) < .001))
+  expect_true(all(abs(r - x) < .005))
   
   # norm with changed SD
   x <- sapply(r, convert_r, 
               params1 = list(mean = 10, sd = 5),
               params2 = list(mean = -10, sd = 2))
   #plot(r, x)
-  expect_true(all(abs(r - x) < .001))
+  expect_true(all(abs(r - x) < .005))
 })
 
 ## norm:binom ----
@@ -157,27 +221,6 @@ test_that("convert_r norm:gamma", {
   expect_true(all(diff < .01))
 })
 
-## norm:cauchy ----
-test_that("convert_r norm:cauchy", {
-  skip("cauchy max r depends on n")
-  location <- 0
-  scale <- 1
-  x <- sapply(r, convert_r, dist2 = "cauchy",
-              params2 = list(location = location,
-                             scale = scale))
-  #plot(r, x)
-  
-  recovered_r <- sapply(x, function(adj_r) {
-    check_dist <- rnorm_multi(1e5, 2, r = adj_r, empirical = TRUE)
-    X1 <- check_dist$X1
-    X2 <- pnorm(check_dist$X2, mean = 0, sd = 1) %>%
-      qcauchy(location, scale)
-    cor(X1, X2)
-  })
-  diff <- abs(recovered_r - r)
-  expect_true(all(diff < .01))
-})
-
 
 ## norm:likert ----
 test_that("convert_r norm:likert", {
@@ -202,6 +245,45 @@ test_that("convert_r norm:likert", {
 })
 
 # rmulti ----
+
+test_that("rmulti errors", {
+  expect_error( rmulti(n = "A") )
+  expect_error( rmulti(dist = c(A = "norm")) )
+  expect_error( rmulti(dist = c("norm", "blue")) )
+  
+  # error when params don't match dist
+  badparams <- list(A = c(mu = 10, stdev = 3), 
+                    B = c(meh = 0, so = 1))
+  expect_error( rmulti(params = badparams) )
+})
+
+test_that("rmulti default", {
+  set.seed(8675309)
+  x <- rmulti()
+  expect_equal(nrow(x), 100L)
+  expect_equal(names(x), c("A", "B"))
+  expect_true(abs(mean(x$A)) < .1)
+  expect_true(abs(1 - sd(x$A)) < .1)
+  
+  set.seed(8675309)
+  x2 <- rmulti()
+  expect_identical(x$A, x2$A)
+  expect_identical(x$B, x2$B)
+  
+  y <- rmulti()
+  expect_false(all(x$A == y$A))
+  
+  # no names, but right order
+  set.seed(8675309)
+  nonameparams <- list(A = c(100, 10), 
+                   B = c(0, 1))
+  x <- rmulti(params = nonameparams)
+  expect_true(mean(x$A) > 80)
+  expect_true(sd(x$A) > 5)
+  expect_true(sd(x$A) < 15)
+  expect_true(mean(x$B) < 5)
+})
+
 test_that("rmulti", {
   r <- seq(.1, .6, .1)
   dist <- c(A = "norm", B = "binom", C = "beta", D = "pois")
@@ -219,4 +301,19 @@ test_that("rmulti", {
   recov_r <- cor(x)
   diff <- abs(recov_r[upper.tri(recov_r)] - r)
   expect_true(all(diff < .05))
+})
+
+test_that("rmulti impossible r", {
+  dist <- c(A = "pois", B = "binom")
+  params <- list(A = list(lambda = 3), 
+                 B = list(size = 1, prob = 0.5))
+  r = 0.8
+  
+  expect_error({
+    x <- rmulti(n = 100, 
+              dist = dist, 
+              params = params, 
+              r = r, 
+              empirical = TRUE)
+  })
 })

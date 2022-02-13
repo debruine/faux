@@ -23,6 +23,7 @@ articles:
   contents:
   - sim_design
   - rnorm_multi
+  - norta
   - sim_df
   - continuous
   - plots
@@ -103,6 +104,7 @@ reference:
   contents:
   - '`std_alpha2average_r`'
   - '`convert_r`'
+  - '`fh_bounds`'
   - '`rlikert`'
   - '`dlikert`'
   - '`plikert`'
