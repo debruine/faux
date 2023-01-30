@@ -15,6 +15,7 @@
 #' @param long whether to return the data table in long format
 #' @param seed DEPRECATED use set.seed() instead before running this function
 #' @param missing simulate missing data?
+#' @param sep separator for factor levels
 #' 
 #' @return a tbl
 #' @examples
@@ -25,7 +26,7 @@
 sim_df <- function (data, n = 100, within = c(), between = c(), 
                     id = "id", dv = "value",
                     empirical = FALSE, long = FALSE, seed = NULL, 
-                    missing = FALSE) {
+                    missing = FALSE, sep = faux_options("sep")) {
   if (!is.null(seed)) {
     warning("The seed argument is deprecated. Please set seed using set.seed() instead")
   #   # reinstate system seed after simulation
@@ -46,7 +47,7 @@ sim_df <- function (data, n = 100, within = c(), between = c(),
     stop("data must be a data frame or matrix")
   }
   
-  if (length(within) > 0) {
+  if (length(within) > 0 & all(within %in% names(data))) {
     # convert long to wide
     data <- long2wide(data = data, within = within, between = between, dv = dv, id = id)
   }
@@ -98,6 +99,15 @@ sim_df <- function (data, n = 100, within = c(), between = c(),
   simdat[id] <- make_id(nrow(simdat))
   simdat <- simdat[c(id, nm)]
   rownames(simdat) <- c()
+  
+  # convert to long
+  if (long) {
+    if (sep == ".") sep <- "\\."
+    simdat <- wide2long(simdat, 
+                        within_factors = within, 
+                        within_cols = numvars,
+                        dv = dv, id = id, sep = sep)
+  }
   
   return(simdat)
 }

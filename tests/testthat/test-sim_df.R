@@ -165,3 +165,16 @@ test_that("seed", {
   df5 <- sim_df(iris, n = 10)
   expect_equal(df4, df5)
 })
+
+
+# long ----
+test_that("long", {
+  longdf <- sim_df(iris, 
+                   between = "Species", 
+                   within = c("type", "dim"),
+                   sep = ".",
+                   long = TRUE)
+  
+  expect_equal(names(longdf), c("id", "Species", "type", "dim", "value"))
+  
+})
