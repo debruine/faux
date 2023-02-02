@@ -1,3 +1,7 @@
+# faux 1.1.0.9005 (2023-02-02)
+
+* Fixed the `long` argument for `sim_df()`
+
 # faux 1.1.0.9004 (2022-02-13)
 
 * Improvements for `rmulti()` and associated helper functions `convert_r()` and `fh_bounds()`.

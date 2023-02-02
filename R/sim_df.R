@@ -21,6 +21,20 @@
 #' @examples
 #' iris100 <- sim_df(iris, 100)
 #' iris_species <- sim_df(iris, 100, between = "Species")
+#' 
+#' # set the names of within factors and (the separator character) 
+#' # if you want to return a long version
+#' longdf <- sim_df(iris, 
+#'                  between = "Species", 
+#'                  within = c("type", "dim"),
+#'                  sep = ".",
+#'                  long = TRUE)
+#'                  
+#' # or if you are simulating data from a table in long format
+#' widedf <- sim_df(longdf, 
+#'                  between = "Species", 
+#'                  within = c("type", "dim"),
+#'                  sep = ".")
 #' @export
 
 sim_df <- function (data, n = 100, within = c(), between = c(), 
@@ -49,7 +63,10 @@ sim_df <- function (data, n = 100, within = c(), between = c(),
   
   if (length(within) > 0 & all(within %in% names(data))) {
     # convert long to wide
-    data <- long2wide(data = data, within = within, between = between, dv = dv, id = id)
+    data <- long2wide(data = data, 
+                      within = within, 
+                      between = between, 
+                      dv = dv, id = id, sep = sep)
   }
   
   if (is.numeric(between)) between <- names(data)[between]
@@ -102,7 +119,6 @@ sim_df <- function (data, n = 100, within = c(), between = c(),
   
   # convert to long
   if (long) {
-    if (sep == ".") sep <- "\\."
     simdat <- wide2long(simdat, 
                         within_factors = within, 
                         within_cols = numvars,
