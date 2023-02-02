@@ -121,7 +121,8 @@ dplyr::count(data, school_type, gender) %>%
 
 I started this project as a collection of functions I was writing to help with my own work. It's one of many, many simulation packages in R; here are some others. I haven't used most of them, so I can't vouch for them, but if faux doesn't meet your needs, one of these might.
 
-* [simstudy](https://www.rdatagen.net/page/simstudy/): Simulation of Study Data
+* [SimDesign](https://cran.r-project.org/web/packages/SimDesign/vignettes/SimDesign-intro.html): generate, analyse and summarise data from models or probability density functions
+* [simstudy](https://kgoldfeld.github.io/simstudy/): Simulation of Study Data
 * [simr](https://github.com/pitakakariki/simr): Power Analysis of Generalised Linear Mixed Models by Simulation
 * [simulator](http://github.com/jacobbien/simulator): streamlines the process of performing simulations by creating a common infrastructure that can be easily used and reused across projects
 * [lsasim](https://github.com/tmatta/lsasim): Simulate large scale assessment data 

@@ -102,11 +102,11 @@ data <- add_random(class = 20) %>%
 |school_type |gender |   n|
 |:-----------|:------|---:|
 |private     |M      |  66|
-|private     |F      |  54|
-|private     |NB     |   1|
-|public      |M      | 186|
-|public      |F      | 187|
-|public      |NB     |   8|
+|private     |F      |  58|
+|private     |NB     |   3|
+|public      |M      | 173|
+|public      |F      | 175|
+|public      |NB     |   7|
 
 
 
@@ -114,7 +114,8 @@ data <- add_random(class = 20) %>%
 
 I started this project as a collection of functions I was writing to help with my own work. It's one of many, many simulation packages in R; here are some others. I haven't used most of them, so I can't vouch for them, but if faux doesn't meet your needs, one of these might.
 
-* [simstudy](https://www.rdatagen.net/page/simstudy/): Simulation of Study Data
+* [SimDesign](https://cran.r-project.org/web/packages/SimDesign/vignettes/SimDesign-intro.html): generate, analyse and summarise data from models or probability density functions
+* [simstudy](https://kgoldfeld.github.io/simstudy/): Simulation of Study Data
 * [simr](https://github.com/pitakakariki/simr): Power Analysis of Generalised Linear Mixed Models by Simulation
 * [simulator](http://github.com/jacobbien/simulator): streamlines the process of performing simulations by creating a common infrastructure that can be easily used and reused across projects
 * [lsasim](https://github.com/tmatta/lsasim): Simulate large scale assessment data 
