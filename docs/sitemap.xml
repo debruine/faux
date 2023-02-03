@@ -1,7 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://debruine.github.io/faux/404.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/CODE_OF_CONDUCT.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/codebook.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/continuous.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/contrasts.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/distributions.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/norta.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/plots.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/random_reports.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/rnorm_multi.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/sim_design.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/sim_df.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/articles/sim_mixed.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/authors.html</loc>
+  </url>
+  <url>
     <loc>https://debruine.github.io/faux/index.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/news/index.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/OR.html</loc>
@@ -70,10 +124,19 @@
     <loc>https://debruine.github.io/faux/reference/convert_param.html</loc>
   </url>
   <url>
+    <loc>https://debruine.github.io/faux/reference/convert_r.html</loc>
+  </url>
+  <url>
     <loc>https://debruine.github.io/faux/reference/cormat.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/cormat_from_triangle.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/distfuncs.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/dlikert.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/faceratings.html</loc>
@@ -83,6 +146,9 @@
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/faux_options.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/fh_bounds.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/fix_name_labels.html</loc>
@@ -104,6 +170,9 @@
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/getcols.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/index.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/interactive_design.html</loc>
@@ -142,6 +211,9 @@
     <loc>https://debruine.github.io/faux/reference/norm2likert.html</loc>
   </url>
   <url>
+    <loc>https://debruine.github.io/faux/reference/norm2norm.html</loc>
+  </url>
+  <url>
     <loc>https://debruine.github.io/faux/reference/norm2pois.html</loc>
   </url>
   <url>
@@ -152,6 +224,9 @@
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/plikert.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/plot_design.html</loc>
@@ -169,7 +244,16 @@
     <loc>https://debruine.github.io/faux/reference/print.psychds_codebook.html</loc>
   </url>
   <url>
+    <loc>https://debruine.github.io/faux/reference/qlikert.html</loc>
+  </url>
+  <url>
     <loc>https://debruine.github.io/faux/reference/readline_check.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/rlikert.html</loc>
+  </url>
+  <url>
+    <loc>https://debruine.github.io/faux/reference/rmulti.html</loc>
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/rnorm_multi.html</loc>
@@ -215,35 +299,5 @@
   </url>
   <url>
     <loc>https://debruine.github.io/faux/reference/wide2long.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/articles/codebook.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/articles/continuous.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/articles/contrasts.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/articles/distributions.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/articles/plots.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/articles/random_reports.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/articles/rnorm_multi.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/articles/sim_design.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/articles/sim_df.html</loc>
-  </url>
-  <url>
-    <loc>https://debruine.github.io/faux/articles/sim_mixed.html</loc>
   </url>
 </urlset>

@@ -156,10 +156,10 @@ rmulti <- function(n = 100,
   pairs$params2 <- params[pairs$v2]
   
   # calculate adjusted r-values
-  suppressWarnings({
-    pairs <- pairs %>%
-      dplyr::rowwise() %>%
-      dplyr::mutate(adj_r = convert_r(r, dist1, dist2, params1, params2))
+  suppressWarnings({ # take care of warnings later
+    pairs$adj_r <- mapply(convert_r, pairs$r, 
+                          pairs$dist1, pairs$dist2, 
+                          pairs$params1, pairs$params2)
   })
   
   # quit if any params are impossible
@@ -249,7 +249,7 @@ distfuncs <- function(dist = "norm") {
 #' @param params1 Arguments to pass to the r{dist} function for distribution 1
 #' @param params2 Arguments to pass to the r{dist} function for distribution 2
 #'
-#' @return
+#' @return a list of the min and max possible values
 #' @export
 #'
 #' @examples

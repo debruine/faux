@@ -82,11 +82,14 @@ reference:
 - title: Helper functions
   desc: ~
   contents:
+  - '`average_r2tau_0`'
   - '`check_design`'
   - '`check_mixed_design`'
   - '`cormat`'
   - '`cormat_from_triangle`'
+  - '`faux`'
   - '`fix_name_labels`'
+  - '`get_coefs`'
   - '`get_design`'
   - '`get_design_long`'
   - '`getcols`'
@@ -104,6 +107,7 @@ reference:
   contents:
   - '`std_alpha2average_r`'
   - '`convert_r`'
+  - '`distfuncs`'
   - '`fh_bounds`'
   - '`rlikert`'
   - '`dlikert`'

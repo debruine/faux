@@ -1,3 +1,7 @@
+# faux 1.2.0 (2023-02-03)
+
+* Fixed minor vignette bugs for CRAN
+
 # faux 1.1.0.9005 (2023-02-02)
 
 * Fixed the `long` argument for `sim_df()`

@@ -2,9 +2,9 @@
     "description": "Create datasets with factorial structure through simulation by specifying variable parameters.", 
     "license": "MIT", 
     "title": "faux: Simulation for Factorial Designs", 
-    "version": "0.0.1.2",
+    "version": "1.2.0",
     "upload_type": "software", 
-    "publication_date": "2020-08-03", 
+    "publication_date": "2023-02-03", 
     "creators": [
         {
             "name": "Lisa DeBruine",

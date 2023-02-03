@@ -16,7 +16,7 @@ fh_bounds(dist1 = "norm", dist2 = "norm", params1 = list(), params2 = list())
 \item{params2}{Arguments to pass to the r{dist} function for distribution 2}
 }
 \value{
-
+a list of the min and max possible values
 }
 \description{
 Fréchet-Hoefding bounds are the limits to a correlation between different distributions.
