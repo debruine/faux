@@ -1,0 +1,20 @@
+citHeader("To cite faux in publications use:")
+
+year <- sub("-.*", "", meta$Date)
+note <- sprintf("R package version %s", meta$Version)
+textVersion <- paste0("Lisa DeBruine, (", year, ").",
+  " faux: Simulation for Factorial Designs ",
+  note, ".",
+  " Zenodo. http://doi.org/10.5281/zenodo.2669586")
+
+citEntry(
+  entry    = "Manual",
+  title    = "faux: Simulation for Factorial Designs",
+  author   = "Lisa DeBruine",
+  doi      = "10.5281/zenodo.2669586",
+  publisher = "Zenodo",
+  year     = year,
+  note     = note,
+  url      = "https://debruine.github.io/faux/",
+  textVersion = textVersion
+)

@@ -1,0 +1,303 @@
+
+R version 4.2.1 (2022-06-23) -- "Funny-Looking Kid"
+Copyright (C) 2022 The R Foundation for Statistical Computing
+Platform: x86_64-apple-darwin17.0 (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "ordbetareg"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('ordbetareg')
+Loading required package: faux
+
+************
+Welcome to faux. For support and examples visit:
+https://debruine.github.io/faux/
+- Get and set global package options with: faux_options()
+************
+Loading required package: dplyr
+
+Attaching package: ‘dplyr’
+
+The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+Loading required package: brms
+Loading required package: Rcpp
+Loading 'brms' package (version 2.18.0). Useful instructions
+can be found by typing help('brms'). A more detailed introduction
+to the package is available through vignette('brms_overview').
+
+Attaching package: ‘brms’
+
+The following object is masked from ‘package:stats’:
+
+    ar
+
+Loading required package: tidyr
+Loading required package: ggplot2
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> base::assign(".old_wd", base::getwd(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("normalize")
+> ### * normalize
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: normalize
+> ### Title: Normalize Outcome/Response to \[0,1\] Interval
+> ### Aliases: normalize
+> 
+> ### ** Examples
+> 
+> # set up arbitrary upper and lower-bounded vector
+> outcome <- runif(1000, min=-33, max=445)
+> 
+> # normalize to \[0,1\]
+> 
+> trans_outcome <- normalize(outcome=outcome)
+[1] "Normalizing using the observed bounds of -32.3715941566043 - 444.966823765077. If these are incorrect, please pass the bounds to use to the true_bounds parameter."
+> summary(trans_outcome)
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ 0.0000  0.2572  0.4826  0.4991  0.7467  1.0000 
+> 
+> # only works with numeric vectors and factors
+> ## Not run: 
+> ##D   normalize(outcome=c('a','b'))
+> ## End(Not run)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ordbetareg")
+> ### * ordbetareg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ordbetareg
+> ### Title: Fit Ordered Beta Regression Model
+> ### Aliases: ordbetareg
+> 
+> ### ** Examples
+> 
+> # load survey data that comes with the package
+> 
+> data("pew")
+> 
+> # prepare data
+> 
+> model_data <- select(pew,therm,
++              education="F_EDUCCAT2_FINAL",
++              region="F_CREGION_FINAL",
++              income="F_INCOME_FINAL")
+> 
+> # It takes a while to fit the models. Run the code
+> # below if you want to load a saved fitted model from the
+> # package, otherwise use the model-fitting code
+> 
+> data("ord_fit_mean")
+> 
+> 
+> # access values of the coefficients
+> 
+> summary(ord_fit_mean)
+ Family: ord_beta_reg 
+  Links: mu = identity; phi = identity; cutzero = identity; cutone = identity 
+Formula: therm ~ 0 + Intercept + mo(education) * mo(income) + (1 | region) 
+   Data: data (Number of observations: 2431) 
+  Draws: 2 chains, each with iter = 1000; warmup = 500; thin = 1;
+         total post-warmup draws = 1000
+
+Group-Level Effects: 
+~region (Number of levels: 4) 
+              Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+sd(Intercept)     0.12      0.12     0.01     0.41 1.00      254      391
+
+Population-Level Effects: 
+                     Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+Intercept                0.17      0.11    -0.04     0.38 1.01      287
+moeducation              0.11      0.04     0.02     0.19 1.01      198
+moincome                -0.05      0.02    -0.09    -0.01 1.01      215
+moeducation:moincome     0.01      0.01    -0.01     0.02 1.02      181
+                     Tail_ESS
+Intercept                 228
+moeducation               608
+moincome                  295
+moeducation:moincome      409
+
+Simplex Parameters: 
+                         Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS
+moeducation1[1]              0.08      0.08     0.00     0.31 1.00      743
+moeducation1[2]              0.14      0.09     0.01     0.38 1.00      802
+moeducation1[3]              0.12      0.10     0.01     0.37 1.00      791
+moeducation1[4]              0.33      0.13     0.07     0.64 1.00      623
+moeducation1[5]              0.33      0.14     0.02     0.56 1.01      354
+moincome1[1]                 0.12      0.10     0.00     0.34 1.00      627
+moincome1[2]                 0.08      0.06     0.00     0.23 1.00      839
+moincome1[3]                 0.15      0.11     0.01     0.40 1.00      912
+moincome1[4]                 0.15      0.12     0.01     0.43 1.00      811
+moincome1[5]                 0.13      0.10     0.01     0.39 1.00      913
+moincome1[6]                 0.18      0.11     0.01     0.43 1.01      985
+moincome1[7]                 0.11      0.08     0.00     0.32 1.00      947
+moincome1[8]                 0.09      0.07     0.00     0.28 1.00     1148
+moeducation:moincome1[1]     0.17      0.16     0.00     0.61 1.00      516
+moeducation:moincome1[2]     0.18      0.14     0.01     0.53 1.00      854
+moeducation:moincome1[3]     0.14      0.13     0.00     0.48 1.00      730
+moeducation:moincome1[4]     0.20      0.16     0.01     0.61 1.00      824
+moeducation:moincome1[5]     0.31      0.20     0.01     0.71 1.00      333
+moeducation:moincome2[1]     0.16      0.13     0.00     0.51 1.00      872
+moeducation:moincome2[2]     0.15      0.13     0.00     0.47 1.00      584
+moeducation:moincome2[3]     0.12      0.11     0.00     0.38 1.00     1174
+moeducation:moincome2[4]     0.14      0.12     0.00     0.43 1.00      986
+moeducation:moincome2[5]     0.12      0.10     0.00     0.40 1.00      886
+moeducation:moincome2[6]     0.10      0.09     0.00     0.35 1.00      864
+moeducation:moincome2[7]     0.11      0.09     0.00     0.35 1.00      827
+moeducation:moincome2[8]     0.10      0.09     0.00     0.35 1.00     1029
+                         Tail_ESS
+moeducation1[1]               430
+moeducation1[2]               392
+moeducation1[3]               651
+moeducation1[4]               434
+moeducation1[5]               356
+moincome1[1]                  446
+moincome1[2]                  396
+moincome1[3]                  472
+moincome1[4]                  438
+moincome1[5]                  647
+moincome1[6]                  547
+moincome1[7]                  644
+moincome1[8]                  636
+moeducation:moincome1[1]      492
+moeducation:moincome1[2]      556
+moeducation:moincome1[3]      646
+moeducation:moincome1[4]      613
+moeducation:moincome1[5]      622
+moeducation:moincome2[1]      528
+moeducation:moincome2[2]      312
+moeducation:moincome2[3]      502
+moeducation:moincome2[4]      529
+moeducation:moincome2[5]      594
+moeducation:moincome2[6]      503
+moeducation:moincome2[7]      608
+moeducation:moincome2[8]      627
+
+Family Specific Parameters: 
+        Estimate Est.Error l-95% CI u-95% CI Rhat Bulk_ESS Tail_ESS
+phi         2.97      0.08     2.81     3.15 1.00     1465      791
+cutzero    -2.71      0.10    -2.91    -2.53 1.00      671      720
+cutone      1.68      0.02     1.64     1.72 1.00      709      647
+
+Draws were sampled using sampling(NUTS). For each parameter, Bulk_ESS
+and Tail_ESS are effective sample size measures, and Rhat is the potential
+scale reduction factor on split chains (at convergence, Rhat = 1).
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pp_check_ordbeta")
+> ### * pp_check_ordbeta
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pp_check_ordbeta
+> ### Title: Accurate Posterior Predictive Plots for Ordbetareg Models
+> ### Aliases: pp_check_ordbeta
+> 
+> ### ** Examples
+> 
+> 
+> # need a fitted ordbetareg model
+> 
+> data("ord_fit_mean")
+> 
+> out_plots <- pp_check_ordbeta(ord_fit_mean)
+> 
+> # view discrete bar plot
+> 
+> out_plots$discrete
+> 
+> # view continuous density plot
+> 
+> out_plots$continuous
+> 
+> # change title using ggplot2 ggtitle function
+> 
+> out_plots$discrete + ggplot2::ggtitle("New title")
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("sim_ordbeta")
+> ### * sim_ordbeta
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sim_ordbeta
+> ### Title: Power Calculation via Simulation of the Ordered Beta Regression
+> ###   Model
+> ### Aliases: sim_ordbeta
+> 
+> ### ** Examples
+> 
+> # This function takes a while to run as it has
+> # to fit an ordered beta regression to each
+> # draw. The package comes with a saved
+> # simulation dataset you can inspect to see what the
+> # result looks like
+> 
+> data("sim_data")
+> 
+> # will take a while to run this
+> 
+> # to get the power values by N, simply summarize/group
+> # by N with functions from the R package dplyr
+> 
+> sim_data %>%
++   group_by(N) %>%
++   summarize(mean_power=mean(power))
+# A tibble: 3 × 2
+      N mean_power
+  <dbl>      <dbl>
+1   100        0.9
+2   500        1  
+3  1000        1  
+> 
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cleanEx()
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  9.661 0.53 12.682 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
