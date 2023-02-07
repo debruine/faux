@@ -1,3 +1,8 @@
+## Note
+
+- Omitted a test that only failed on aarch64-apple-darwin20 (64-bit) [I can't figure out why]
+- All other failures in https://cran.r-project.org/web/checks/check_results_faux.html are for version 1.1.0 
+
 ## Test environments
 
 * local R installation, Mac OS 12.3.1, R 4.2.1

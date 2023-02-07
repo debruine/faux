@@ -31,3 +31,4 @@
 ^vignettes/plots.Rmd$
 ^vignettes/distributions.Rmd$
 ^vignettes/sim_mixed.Rmd$
+^CRAN-SUBMISSION$
