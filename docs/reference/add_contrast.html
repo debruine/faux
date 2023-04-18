@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -151,21 +151,21 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term        estimate std.error statistic p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept) -<span style="color: #BB0000;">0.008</span><span style="color: #BB0000; text-decoration: underline;">10</span>    0.041<span style="text-decoration: underline;">7</span>   -<span style="color: #BB0000;">0.194</span>    0.846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> time^1      -<span style="color: #BB0000;">0.001</span><span style="color: #BB0000; text-decoration: underline;">98</span>    0.102    -<span style="color: #BB0000;">0.019</span><span style="color: #BB0000; text-decoration: underline;">4</span>   0.985</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> time^2      -<span style="color: #BB0000;">0.065</span><span style="color: #BB0000; text-decoration: underline;">3</span>     0.102    -<span style="color: #BB0000;">0.639</span>    0.523</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> time^3       0.030<span style="text-decoration: underline;">6</span>     0.102     0.300    0.765</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> time^4      -<span style="color: #BB0000;">0.025</span><span style="color: #BB0000; text-decoration: underline;">4</span>     0.102    -<span style="color: #BB0000;">0.249</span>    0.804</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> time^5      -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">1</span>     0.102    -<span style="color: #BB0000;">0.235</span>    0.814</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept)  -<span style="color: #BB0000;">0.032</span><span style="color: #BB0000; text-decoration: underline;">8</span>    0.041<span style="text-decoration: underline;">7</span>    -<span style="color: #BB0000;">0.786</span>   0.432</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> time^1        0.037<span style="text-decoration: underline;">0</span>    0.102      0.362   0.718</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> time^2       -<span style="color: #BB0000;">0.053</span><span style="color: #BB0000; text-decoration: underline;">4</span>    0.102     -<span style="color: #BB0000;">0.522</span>   0.602</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> time^3        0.092<span style="text-decoration: underline;">8</span>    0.102      0.909   0.364</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> time^4       -<span style="color: #BB0000;">0.022</span><span style="color: #BB0000; text-decoration: underline;">9</span>    0.102     -<span style="color: #BB0000;">0.224</span>   0.823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> time^5       -<span style="color: #BB0000;">0.020</span><span style="color: #BB0000; text-decoration: underline;">5</span>    0.102     -<span style="color: #BB0000;">0.201</span>   0.841</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># test only the linear and quadratic contrasts</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">`time^1`</span> <span class="op">+</span> <span class="va">`time^2`</span>, <span class="va">df</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 3 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term        estimate std.error statistic p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept) -<span style="color: #BB0000;">0.008</span><span style="color: #BB0000; text-decoration: underline;">10</span>    0.041<span style="text-decoration: underline;">6</span>   -<span style="color: #BB0000;">0.194</span>    0.846</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> `time^1`    -<span style="color: #BB0000;">0.001</span><span style="color: #BB0000; text-decoration: underline;">98</span>    0.102    -<span style="color: #BB0000;">0.019</span><span style="color: #BB0000; text-decoration: underline;">4</span>   0.984</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> `time^2`    -<span style="color: #BB0000;">0.065</span><span style="color: #BB0000; text-decoration: underline;">3</span>     0.102    -<span style="color: #BB0000;">0.641</span>    0.522</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept)  -<span style="color: #BB0000;">0.032</span><span style="color: #BB0000; text-decoration: underline;">8</span>    0.041<span style="text-decoration: underline;">6</span>    -<span style="color: #BB0000;">0.787</span>   0.431</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> `time^1`      0.037<span style="text-decoration: underline;">0</span>    0.102      0.363   0.717</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> `time^2`     -<span style="color: #BB0000;">0.053</span><span style="color: #BB0000; text-decoration: underline;">4</span>    0.102     -<span style="color: #BB0000;">0.523</span>   0.601</span>
 </code></pre></div>
     </div>
   </div>

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -122,19 +122,19 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># no names or labels returns integer vector of values 1:length(prob)</span></span></span>
 <span class="r-in"><span><span class="va">prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">.1</span>, <span class="fl">.2</span>, <span class="fl">.4</span>, <span class="fl">.2</span>, <span class="fl">.1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">rlikert</span><span class="op">(</span><span class="fl">10</span>, <span class="va">prob</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 4 3 3 3 3 4 3 3 3 3</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] 4 1 4 4 3 4 2 4 4 2</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># named prob returns factor </span></span></span>
 <span class="r-in"><span><span class="va">prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>A <span class="op">=</span> <span class="fl">10</span>, B <span class="op">=</span> <span class="fl">20</span>, C <span class="op">=</span> <span class="fl">30</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">rlikert</span><span class="op">(</span><span class="fl">10</span>, <span class="va">prob</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] C B A B A C C A C C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] A B B C C C B A C C</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> Levels: A B C</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># specify labels if prob not named and not 1:length(prob)</span></span></span>
 <span class="r-in"><span><span class="va">labels</span> <span class="op">&lt;-</span> <span class="op">-</span><span class="fl">2</span><span class="op">:</span><span class="fl">2</span> </span></span>
 <span class="r-in"><span><span class="va">prob</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">labels</span><span class="op">)</span><span class="op">)</span> <span class="co"># uniform probability</span></span></span>
 <span class="r-in"><span><span class="fu">rlikert</span><span class="op">(</span><span class="fl">10</span>, <span class="va">prob</span>, <span class="va">labels</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [1] -1  1 -2  0 -1 -2  2  2 -2  0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [1]  0  0 -1  0  0  0 -1  1 -1  0</span>
 </code></pre></div>
     </div>
   </div>

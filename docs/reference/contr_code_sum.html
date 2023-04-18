@@ -18,7 +18,7 @@ Each contrast compares one level with the grand mean."><meta property="og:image"
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -129,7 +129,7 @@ Each contrast compares one level with the grand mean.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term               estimate std.error statistic   p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept)            7       0.05       140   0   <span style="color: #949494;"> </span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept)            7.00    0.050      140.  0   <span style="color: #949494;"> </span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> pet.cat-intercept     -<span style="color: #BB0000;">5.00</span>    0.086<span style="text-decoration: underline;">6</span>     -<span style="color: #BB0000;">57.7</span> 6.13<span style="color: #949494;">e</span><span style="color: #BB0000;">-195</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> pet.dog-intercept     -<span style="color: #BB0000;">3.00</span>    0.086<span style="text-decoration: underline;">6</span>     -<span style="color: #BB0000;">34.6</span> 6.42<span style="color: #949494;">e</span><span style="color: #BB0000;">-122</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> pet.bird-intercept     2.00    0.086<span style="text-decoration: underline;">6</span>      23.1 2.33<span style="color: #949494;">e</span><span style="color: #BB0000;">- 75</span></span>
@@ -139,20 +139,20 @@ Each contrast compares one level with the grand mean.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term                 estimate std.error statistic   p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept)              7       0.05       140   0   <span style="color: #949494;"> </span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept)              7.00    0.050<span style="text-decoration: underline;">0</span>     140.  0   <span style="color: #949494;"> </span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> pet.dog-intercept       -<span style="color: #BB0000;">3.00</span>    0.086<span style="text-decoration: underline;">6</span>     -<span style="color: #BB0000;">34.6</span> 6.42<span style="color: #949494;">e</span><span style="color: #BB0000;">-122</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> pet.bird-intercept       2.00    0.086<span style="text-decoration: underline;">6</span>      23.1 2.33<span style="color: #949494;">e</span><span style="color: #BB0000;">- 75</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> pet.ferret-intercept     6.00    0.086<span style="text-decoration: underline;">6</span>      69.3 1.82<span style="color: #949494;">e</span><span style="color: #BB0000;">-223</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> pet.ferret-intercept     6       0.086<span style="text-decoration: underline;">6</span>      69.3 1.82<span style="color: #949494;">e</span><span style="color: #BB0000;">-223</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">df</span><span class="op">$</span><span class="va">pet</span> <span class="op">&lt;-</span> <span class="fu">contr_code_sum</span><span class="op">(</span><span class="va">df</span><span class="op">$</span><span class="va">pet</span>, omit <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></span><span class="op">(</span><span class="va">y</span> <span class="op">~</span> <span class="va">pet</span>, <span class="va">df</span><span class="op">)</span> <span class="op"><a href="pipe.html">%&gt;%</a></span> <span class="fu">broom</span><span class="fu">::</span><span class="fu"><a href="https://generics.r-lib.org/reference/tidy.html" class="external-link">tidy</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 4 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term                 estimate std.error statistic   p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept)              7       0.05       140   0   <span style="color: #949494;"> </span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept)              7.00    0.050<span style="text-decoration: underline;">0</span>     140.  0   <span style="color: #949494;"> </span>    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> pet.dog-intercept       -<span style="color: #BB0000;">3.00</span>    0.086<span style="text-decoration: underline;">6</span>     -<span style="color: #BB0000;">34.6</span> 6.42<span style="color: #949494;">e</span><span style="color: #BB0000;">-122</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> pet.bird-intercept       2.00    0.086<span style="text-decoration: underline;">6</span>      23.1 2.33<span style="color: #949494;">e</span><span style="color: #BB0000;">- 75</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> pet.ferret-intercept     6.00    0.086<span style="text-decoration: underline;">6</span>      69.3 1.82<span style="color: #949494;">e</span><span style="color: #BB0000;">-223</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> pet.ferret-intercept     6       0.086<span style="text-decoration: underline;">6</span>      69.3 1.82<span style="color: #949494;">e</span><span style="color: #BB0000;">-223</span></span>
 </code></pre></div>
     </div>
   </div>

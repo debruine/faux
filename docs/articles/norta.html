@@ -44,7 +44,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -169,7 +169,7 @@ correlation of 0.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dat</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/rmulti.html">rmulti</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/get_params.html">check_sim_stats</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/get_params.html">get_params</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     n var     A     B mean   sd</span></span>
 <span><span class="co">#&gt; 1 100   A  1.00 -0.06 0.05 0.99</span></span>
 <span><span class="co">#&gt; 2 100   B -0.06  1.00 0.05 0.93</span></span></code></pre></div>
@@ -181,7 +181,7 @@ correlation of 0.</p>
 <span>              empirical <span class="op">=</span> <span class="cn">TRUE</span>, </span>
 <span>              as.matrix <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/get_params.html">check_sim_stats</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/get_params.html">get_params</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     n var   A   B mean sd</span></span>
 <span><span class="co">#&gt; 1 200   A 1.0 0.5    0  1</span></span>
 <span><span class="co">#&gt; 2 200   B 0.5 1.0    0  1</span></span></code></pre></div>
@@ -208,7 +208,7 @@ from a poisson distribution. Don’t set <code>n</code> in
 <span>                            poisson_var <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>lambda <span class="op">=</span> <span class="fl">3</span><span class="op">)</span><span class="op">)</span>,</span>
 <span>              r <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="../reference/get_params.html">check_sim_stats</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/get_params.html">get_params</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      n         var uniform_var poisson_var  mean    sd</span></span>
 <span><span class="co">#&gt; 1 1000 uniform_var        1.00        0.49 50.62 28.67</span></span>
 <span><span class="co">#&gt; 2 1000 poisson_var        0.49        1.00  2.98  1.75</span></span></code></pre></div>
@@ -236,7 +236,7 @@ pilot dataset you’re trying to simulate).</p>
 <span></span>
 <span><span class="co"># convert likert-scale variable to integer</span></span>
 <span><span class="va">dat</span><span class="op">$</span><span class="va">L</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/integer.html" class="external-link">as.integer</a></span><span class="op">(</span><span class="va">dat</span><span class="op">$</span><span class="va">L</span><span class="op">)</span></span>
-<span><span class="fu"><a href="../reference/get_params.html">check_sim_stats</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/get_params.html">get_params</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      n var     N     T     L   mean   sd</span></span>
 <span><span class="co">#&gt; 1 1000   N  1.00 -0.47 -0.57 100.32 9.70</span></span>
 <span><span class="co">#&gt; 2 1000   T -0.47  1.00  0.67   3.80 1.43</span></span>
@@ -324,7 +324,7 @@ variable to the target distribution.</p>
 <span>                    mu <span class="op">=</span> <span class="fl">0</span>, sd <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># check</span></span>
-<span><span class="fu"><a href="../reference/get_params.html">check_sim_stats</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/get_params.html">get_params</a></span><span class="op">(</span><span class="va">dat</span><span class="op">)</span></span>
 <span><span class="co">#&gt;      n var   N1   N2   T1   B2 mean   sd</span></span>
 <span><span class="co">#&gt; 1 1000  N1 1.00 0.91 0.99 0.73 0.00 1.00</span></span>
 <span><span class="co">#&gt; 2 1000  N2 0.91 1.00 0.90 0.79 0.00 1.00</span></span>

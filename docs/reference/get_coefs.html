@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">faux</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.2.1</span>
       </span>
     </div>
 
@@ -132,7 +132,7 @@
 <span class="r-in"><span><span class="co"># get coefs for the full factorial model</span></span></span>
 <span class="r-in"><span><span class="fu">get_coefs</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   (Intercept)            W1            B1         W1:B1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1.000000e+00 -1.000000e+00  1.953993e-15  1.000000e+00 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.000000e+00 -1.000000e+00  1.776357e-15  1.000000e+00 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># a reduced model</span></span></span>
 <span class="r-in"><span><span class="fu">get_coefs</span><span class="op">(</span><span class="va">data</span>, <span class="va">y</span> <span class="op">~</span> <span class="va">B1</span> <span class="op">+</span> <span class="va">W1</span><span class="op">)</span></span></span>
@@ -143,7 +143,7 @@
 <span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="norm2binom.html">norm2binom</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">get_coefs</span><span class="op">(</span><span class="va">data</span>, fun <span class="op">=</span> <span class="va">glm</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)          W1          B1       W1:B1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.4473122  -1.6556234   0.2159820   1.2741804 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  0.44731222 -1.65562342 -0.04184711  1.73970654 </span>
 </code></pre></div>
     </div>
   </div>
