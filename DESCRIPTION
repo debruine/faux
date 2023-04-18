@@ -1,6 +1,6 @@
 Package: faux
 Title: Simulation for Factorial Designs
-Version: 1.2.0
+Version: 1.2.1
 Date: 2023-04-18
 Authors@R: c(
     person(
