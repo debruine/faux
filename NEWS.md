@@ -1,3 +1,5 @@
+# faux (development version)
+
 # faux 1.2.1 (2023-04-18)
 
 * `add_between()` and `add_within()` don't convert non-character levels to factors any more * submitting to CRAN (sorry for letting it get archived!)
