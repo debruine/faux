@@ -1,3 +1,10 @@
+---
+output: github_document
+always_allow_html: true
+---
+
+# faux <a href="https://debruine.github.io/faux"><img src="man/figures/logo.png" align="right" height="120" /></a>
+
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 

@@ -101,11 +101,11 @@ data <- add_random(class = 20) %>%
 
 |school_type |gender |   n|
 |:-----------|:------|---:|
-|private     |M      |  66|
-|private     |F      |  58|
-|private     |NB     |   3|
-|public      |M      | 173|
-|public      |F      | 175|
+|private     |M      |  58|
+|private     |F      |  65|
+|private     |NB     |   2|
+|public      |M      | 164|
+|public      |F      | 191|
 |public      |NB     |   7|
 
 

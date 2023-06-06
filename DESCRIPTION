@@ -58,5 +58,6 @@ VignetteBuilder: knitr
 RoxygenNote: 7.2.1
 Encoding: UTF-8
 LazyData: true
-URL: https://github.com/debruine/faux
+URL: https://github.com/debruine/faux,
+    https://debruine.github.io/faux/
 BugReports: https://github.com/debruine/faux/issues

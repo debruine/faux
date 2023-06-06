@@ -30,3 +30,4 @@ rsconnect/
 inst/doc
 .Rprofile
 tests/testthat/Rplots.pdf
+docs

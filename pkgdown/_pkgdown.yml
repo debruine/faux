@@ -8,10 +8,11 @@ home:
   description: Create datasets with factorial structure through simulation by specifying variable parameters.
   
 template:
+  bootstrap: 5
   opengraph:
     image:
       src: man/figures/card.png
-      alt: "Blue hexagon with the word FAUX in white"
+      alt: "Rainbow hexagon with the word FAUX"
     twitter:
       creator: "@lisadebruine"
       site: "@lisadebruine"
