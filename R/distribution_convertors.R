@@ -245,6 +245,39 @@ norm2binom <- function(x, size = 1, prob = 0.5, mu = mean(x), sd = stats::sd(x))
   stats::qbinom(p, size, prob)
 }
 
+#' Convert normal to negative binomial
+#' 
+#' See the help for `qnbinom()` for further info about prob versus mu parameter specification. Thanks for the suggested code, David Hugh-Jones!
+#' 
+#' @param x the normally distributed vector
+#' @param size target for number of successful trials, or dispersion parameter (the shape parameter of the gamma mixing distribution). (size > 0)
+#' @param prob the probability of success on each trial (0 to 1)
+#' @param mu alternative parametrization via mean (only specify one of prob or mu)
+#' @param lower.tail logical; if TRUE (default), probabilities are P[X \le x], otherwise, P[X > x]
+#' @param log.p logical; if TRUE, probabilities p are given as log(p)
+#' @param x_mu the mean of x (calculated from x if not given)
+#' @param x_sd the SD of x (calculated from x if not given)
+#'
+#' @return a vector with a negative binomial distribution
+#' @export
+#'
+#' @examples
+#' 
+#' x <- rnorm(10000)
+#' y <- norm2nbinom(x, 1, prob = 0.5)
+#' z <- norm2nbinom(x, 1, mu = 1)
+#' g <- ggplot2::ggplot() + ggplot2::geom_point(ggplot2::aes(x, y))
+#' ggExtra::ggMarginal(g, type = "histogram")
+#' 
+norm2nbinom <- function (x, size, prob, mu, lower.tail = TRUE, log.p = FALSE, x_mu = mean(x), x_sd = stats::sd(x)) {
+  # https://github.com/debruine/faux/issues/105
+  
+  p <- stats::pnorm(x, x_mu, x_sd)
+  stats::qnbinom(p, size, prob, mu,
+                 lower.tail = lower.tail, 
+                 log.p = log.p)
+}
+
 
 #' Convert normal to uniform
 #' 

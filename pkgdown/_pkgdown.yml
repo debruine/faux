@@ -118,6 +118,7 @@ reference:
   - '`norm2beta`'
   - '`norm2binom`'
   - '`norm2gamma`'
+  - '`norm2nbinom`'
   - '`norm2norm`'
   - '`norm2pois`'
   - '`norm2trunc`'

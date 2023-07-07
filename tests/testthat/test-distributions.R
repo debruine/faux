@@ -11,11 +11,13 @@ test_that("error", {
   expect_error(gamma2norm(), missing_x)
   expect_error(norm2gamma(), missing_x)
   expect_error(binom2norm(), missing_x)
+  expect_error(norm2nbinom(), missing_x)
   
   expect_error(norm2pois(1), "argument \"lambda\" is missing, with no default")
   expect_error(norm2beta(1), "argument \"shape1\" is missing, with no default")
   expect_error(norm2beta(1, 1), "argument \"shape2\" is missing, with no default")
   expect_error(norm2gamma(1), "argument \"shape\" is missing, with no default")
+  expect_error(norm2nbinom(1), "argument \"size\" is missing, with no default")
   
   expect_error(binom2norm(c(1,2,3.3)), "all values in x must be integers or NA")
   expect_error(binom2norm(c(1,2,-3)), "the smallest possible value in a binomial distribution is 0")
@@ -308,6 +310,28 @@ test_that("norm2binom", {
     expect_true(mean(s$p < .05) < .1)
     summ <- dplyr::summarise_all(s[1:2], mean) %>% unlist() %>% unname()
     expect_equal(summ, c(prob*size, prob*size), tolerance = tol)
+  }
+})
+
+# norm2nbinom ----
+test_that("norm2nbinom", {
+  skip_on_cran()
+  
+  for (i in 1:reps) {
+    prob <- runif(1)
+    size <- sample(1:10, 1)
+    
+    s <- purrr::map_df(mapreps, ~{
+      x <- rnorm(1000)
+      y <- norm2nbinom(x, size, prob)
+      
+      y2 <- rnbinom(1000, size, prob)
+      list(m_1 = mean(y), 
+           m_2 = mean(y2),
+           p = suppressWarnings(ks.test(y, y2)$p.value))
+    })
+    
+    expect_true(mean(s$p < .05) < .1)
   }
 })
 
