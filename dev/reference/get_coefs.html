@@ -106,7 +106,7 @@
 <span class="r-in"><span><span class="co"># get coefs for the full factorial model</span></span></span>
 <span class="r-in"><span><span class="fu">get_coefs</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   (Intercept)            W1            B1         W1:B1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1.000000e+00 -1.000000e+00 -3.552714e-16  1.000000e+00 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.000000e+00 -1.000000e+00 -7.327472e-16  1.000000e+00 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># a reduced model</span></span></span>
 <span class="r-in"><span><span class="fu">get_coefs</span><span class="op">(</span><span class="va">data</span>, <span class="va">y</span> <span class="op">~</span> <span class="va">B1</span> <span class="op">+</span> <span class="va">W1</span><span class="op">)</span></span></span>
@@ -117,7 +117,7 @@
 <span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="norm2binom.html">norm2binom</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">get_coefs</span><span class="op">(</span><span class="va">data</span>, fun <span class="op">=</span> <span class="va">glm</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)          W1          B1       W1:B1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.5322168  -1.5781854  -0.2094434   1.7449602 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.4895482  -1.6422277   0.1294910   1.4286536 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>

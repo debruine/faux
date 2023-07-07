@@ -112,16 +112,21 @@ specific between- and within-subjects design.</p>
 <div class="section level2">
 <h2 id="quick-example">Quick example<a class="anchor" aria-label="anchor" href="#quick-example"></a>
 </h2>
-<p>For example, the following creates a 2w*2b design with 100
+<p>For example, the following creates a 4w*2b design with 100
 observations in each cell. The between-subject factor is
-<code>pet</code> with two levels (<code>cat</code> and
-<code>dog</code>). The within-subject factor is <code>time</code> with
-two levels (<code>day</code> and <code>night</code>).</p>
+<code>pet</code> with two levels (“cat” and “dog”). The within-subject
+factor is <code>time</code> with four levels (“morning”, “noon”,
+“evening” and “night”).</p>
 <p>The data is sampled from a population where the mean for the
-<code>cat_day</code> cell is 10, the mean for the <code>cat_night</code>
-cell is 20, the mean for the <code>dog_day</code> cell is 15, and the
-mean for the <code>dog_night</code> cell is 25. All cells have a SD of 5
-and all within-subject cells are correlated <code>r = 0.5</code>.</p>
+<code>cat_morning</code> cell is 10, the mean for the
+<code>cat_noon</code> cell is 12, the mean for the
+<code>cat_evening</code> cell is 14, and the mean for the
+<code>cat_night</code> cell is 16. The mean for the
+<code>dog_morning</code> cell is 10, the mean for the
+<code>dog_noon</code> cell is 15, the mean for the
+<code>dog_evening</code> cell is 20, and the mean for the
+<code>dog_night</code> cell is 25. All cells have a SD of 5 and all
+within-subject cells are correlated <code>r = 0.5</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">between</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pet <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span>cat <span class="op">=</span> <span class="st">"Cat Owners"</span>, </span>
 <span>                        dog <span class="op">=</span> <span class="st">"Dog Owners"</span><span class="op">)</span><span class="op">)</span></span>
@@ -684,12 +689,12 @@ format, which is usually easier for plotting.</p>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">df</span><span class="op">)</span></span>
 <span><span class="co">#&gt;     id experience time condition version        rt</span></span>
-<span><span class="co">#&gt; 1 S001     novice  day       con    easy  4.759576</span></span>
-<span><span class="co">#&gt; 2 S002     novice  day       con    easy 11.289406</span></span>
-<span><span class="co">#&gt; 3 S003     novice  day       con    easy  6.125361</span></span>
-<span><span class="co">#&gt; 4 S004     novice  day       con    easy 10.927413</span></span>
-<span><span class="co">#&gt; 5 S005     novice  day       con    easy 10.896662</span></span>
-<span><span class="co">#&gt; 6 S006     novice  day       con    easy 10.233686</span></span></code></pre></div>
+<span><span class="co">#&gt; 1 S001     novice  day       con    easy  8.955105</span></span>
+<span><span class="co">#&gt; 2 S002     novice  day       con    easy 11.444310</span></span>
+<span><span class="co">#&gt; 3 S003     novice  day       con    easy  9.951363</span></span>
+<span><span class="co">#&gt; 4 S004     novice  day       con    easy  9.840359</span></span>
+<span><span class="co">#&gt; 5 S005     novice  day       con    easy  7.108761</span></span>
+<span><span class="co">#&gt; 6 S006     novice  day       con    easy 13.018959</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="multiple-datasets">Multiple datasets<a class="anchor" aria-label="anchor" href="#multiple-datasets"></a>
