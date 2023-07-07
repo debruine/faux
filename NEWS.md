@@ -1,4 +1,6 @@
-# faux (development version)
+# faux 1.2.1.9001 (2023-07-07)
+
+* Fixed a bug in `interactive_design()` that didn't allow mu, sd or r with more than 0.1 accuracy, and gave incorrect error messages for r specifications with more than 1 value.
 
 # faux 1.2.1 (2023-04-18)
 

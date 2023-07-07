@@ -1,7 +1,7 @@
 Package: faux
 Title: Simulation for Factorial Designs
-Version: 1.2.1.9000
-Date: 2023-04-18
+Version: 1.2.1.9001
+Date: 2023-07-07
 Authors@R: c(
     person(
         given = "Lisa", 
@@ -55,7 +55,7 @@ Suggests:
     readr,
     patchwork
 VignetteBuilder: knitr
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 LazyData: true
 URL: https://github.com/debruine/faux,
