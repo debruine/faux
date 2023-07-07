@@ -10,7 +10,7 @@
     
     <a class="navbar-brand me-2" href="../index.html">faux</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1.9000</small>
+    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="In-development version">1.2.1.9001</small>
 
     
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -106,7 +106,7 @@
 <span class="r-in"><span><span class="co"># get coefs for the full factorial model</span></span></span>
 <span class="r-in"><span><span class="fu">get_coefs</span><span class="op">(</span><span class="va">data</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   (Intercept)            W1            B1         W1:B1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  1.000000e+00 -1.000000e+00 -6.661338e-16  1.000000e+00 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  1.000000e+00 -1.000000e+00 -4.440892e-16  1.000000e+00 </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># a reduced model</span></span></span>
 <span class="r-in"><span><span class="fu">get_coefs</span><span class="op">(</span><span class="va">data</span>, <span class="va">y</span> <span class="op">~</span> <span class="va">B1</span> <span class="op">+</span> <span class="va">W1</span><span class="op">)</span></span></span>
@@ -117,7 +117,7 @@
 <span class="r-in"><span><span class="va">data</span><span class="op">$</span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="norm2binom.html">norm2binom</a></span><span class="op">(</span><span class="va">data</span><span class="op">$</span><span class="va">y</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">get_coefs</span><span class="op">(</span><span class="va">data</span>, fun <span class="op">=</span> <span class="va">glm</span>, family <span class="op">=</span> <span class="va">binomial</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> (Intercept)          W1          B1       W1:B1 </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   0.4054651  -1.6711315  -0.1643031   1.8772816 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   0.2818512  -1.4345307   0.1654611   1.4345307 </span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
