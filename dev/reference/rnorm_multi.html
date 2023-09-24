@@ -129,17 +129,17 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># 4 10-item vectors each correlated r = .5</span></span></span>
 <span class="r-in"><span><span class="fu">rnorm_multi</span><span class="op">(</span><span class="fl">10</span>, <span class="fl">4</span>, r <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>              X1          X2          X3         X4</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 1  -1.915558022 -1.25744957 -1.36470718 -1.3464358</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 2  -0.085085731 -2.58337594 -1.75934451 -1.4135198</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 3  -0.285582895 -0.64346464 -0.76596172 -1.2488853</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1.651995778  1.02826356  0.53797181  0.3161727</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 5   0.319384881 -0.07161582 -1.23114895 -0.1264480</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 6   0.004801431 -0.32864181  0.68200148  0.7564554</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 7  -0.094065624 -0.49766388 -0.06976054  0.3958792</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 8  -0.153435094 -0.37432714 -0.57339272 -0.3089152</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 9  -0.944378139 -1.08256475  0.31865110 -0.1529880</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> 10  0.867728851 -0.54409633 -1.00849751 -0.4406222</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            X1          X2         X3         X4</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 1   1.4328938  0.71046741 -0.3545094  0.3296056</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 2   0.5499955 -0.04515263  0.5200758  0.3126072</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 3   1.2332014  0.84059575  1.4636452  1.2133793</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 4   1.5940614  0.33277182  1.1490795  1.5716986</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 5  -0.5075202 -1.20328029 -1.6145986 -1.5344455</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 6  -0.7985165 -1.96248137 -1.7310021 -2.4968725</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 7  -2.6613942 -1.51496840 -0.1958377 -1.1080823</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 8   1.5503841  0.22264712 -0.4416368  0.7515796</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 9  -0.1089382 -1.19677372  0.3412923  0.9013702</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> 10 -0.4104137  0.06785565 -0.1272144 -0.8141842</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># set r with the upper right triangle</span></span></span>
 <span class="r-in"><span><span class="va">b</span> <span class="op">&lt;-</span> <span class="fu">rnorm_multi</span><span class="op">(</span><span class="fl">100</span>, <span class="fl">3</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">.5</span>, <span class="fl">1</span><span class="op">)</span>, <span class="fl">1</span>, </span></span>
@@ -147,9 +147,9 @@
 <span class="r-in"><span>                 varnames<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"A"</span>, <span class="st">"B"</span>, <span class="st">"C"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">b</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>            A         B          C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A  1.0000000 0.0211610 -0.5552886</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B  0.0211610 1.0000000  0.6283561</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C -0.5552886 0.6283561  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A  1.0000000 0.2612873 -0.4747722</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B  0.2612873 1.0000000  0.5104176</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C -0.4747722 0.5104176  1.0000000</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># set r with a correlation matrix and column names from mu names</span></span></span>
 <span class="r-in"><span><span class="va">c</span> <span class="op">&lt;-</span> <span class="fu">rnorm_multi</span><span class="op">(</span></span></span>
@@ -160,10 +160,10 @@
 <span class="r-in"><span>        <span class="op">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>,  <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html" class="external-link">cor</a></span><span class="op">(</span><span class="va">c</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>             A          B          C</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> A  1.00000000 0.09647784 -0.5201676</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> B  0.09647784 1.00000000  0.5893188</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> C -0.52016757 0.58931876  1.0000000</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>            A         B          C</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> A  1.0000000 0.3562369 -0.4429172</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> B  0.3562369 1.0000000  0.4324168</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> C -0.4429172 0.4324168  1.0000000</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

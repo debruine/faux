@@ -70,7 +70,7 @@ Each contrast tests a trend (linear, quadratic, cubic, etc.). This is only suita
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">contr_code_poly</span><span class="op">(</span><span class="va">fct</span>, levels <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">contr_code_poly</span><span class="op">(</span><span class="va">fct</span>, levels <span class="op">=</span> <span class="cn">NULL</span>, colnames <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -81,6 +81,10 @@ Each contrast tests a trend (linear, quadratic, cubic, etc.). This is only suita
 
 <dt>levels</dt>
 <dd><p>the levels of the factor in order</p></dd>
+
+
+<dt>colnames</dt>
+<dd><p>optional list of column names for the added contrasts</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -101,12 +105,12 @@ Each contrast tests a trend (linear, quadratic, cubic, etc.). This is only suita
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   term        estimate std.error statistic   p.value</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept)   6.43      0.040<span style="text-decoration: underline;">5</span>   159.    0   <span style="color: #949494;"> </span>    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> time^1        4.16      0.099<span style="text-decoration: underline;">3</span>    41.9   1.74<span style="color: #949494;">e</span><span style="color: #BB0000;">-179</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> time^2        6.29      0.099<span style="text-decoration: underline;">3</span>    63.3   3.04<span style="color: #949494;">e</span><span style="color: #BB0000;">-266</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> time^3       -<span style="color: #BB0000;">0.024</span><span style="color: #BB0000; text-decoration: underline;">2</span>    0.099<span style="text-decoration: underline;">3</span>    -<span style="color: #BB0000;">0.244</span> 8.08<span style="color: #949494;">e</span><span style="color: #BB0000;">-  1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> time^4       -<span style="color: #BB0000;">0.150</span>     0.099<span style="text-decoration: underline;">3</span>    -<span style="color: #BB0000;">1.51</span>  1.31<span style="color: #949494;">e</span><span style="color: #BB0000;">-  1</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> time^5        0.168     0.099<span style="text-decoration: underline;">3</span>     1.69  9.17<span style="color: #949494;">e</span><span style="color: #BB0000;">-  2</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span> (Intercept)   6.37      0.039<span style="text-decoration: underline;">4</span>   162.    0   <span style="color: #949494;"> </span>    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span> time^1        4.26      0.096<span style="text-decoration: underline;">6</span>    44.1   1.07<span style="color: #949494;">e</span><span style="color: #BB0000;">-189</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> time^2        6.03      0.096<span style="text-decoration: underline;">6</span>    62.4   3.75<span style="color: #949494;">e</span><span style="color: #BB0000;">-263</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span> time^3       -<span style="color: #BB0000;">0.109</span>     0.096<span style="text-decoration: underline;">6</span>    -<span style="color: #BB0000;">1.13</span>  2.59<span style="color: #949494;">e</span><span style="color: #BB0000;">-  1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span> time^4        0.049<span style="text-decoration: underline;">4</span>    0.096<span style="text-decoration: underline;">6</span>     0.512 6.09<span style="color: #949494;">e</span><span style="color: #BB0000;">-  1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span> time^5        0.015<span style="text-decoration: underline;">6</span>    0.096<span style="text-decoration: underline;">6</span>     0.162 8.72<span style="color: #949494;">e</span><span style="color: #BB0000;">-  1</span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
