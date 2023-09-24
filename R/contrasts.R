@@ -6,6 +6,7 @@
 #' @param fct the factor to contrast code (or a vector)
 #' @param levels the levels of the factor in order
 #' @param base the index of the level to use as baseline
+#' @param colnames optional list of column names for the added contrasts
 #'
 #' @return the factor with contrasts set
 #' @export
@@ -27,7 +28,7 @@
 #' 
 #' df$pet <- contr_code_anova(df$pet, base = "ferret")
 #' lm(y ~ pet, df) %>% broom::tidy()
-contr_code_anova <- function(fct, levels = NULL, base = 1) {
+contr_code_anova <- function(fct, levels = NULL, base = 1, colnames = NULL) {
   # make sure fct is a factor with correct levels
   if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels)
@@ -39,7 +40,9 @@ contr_code_anova <- function(fct, levels = NULL, base = 1) {
   my_code <- tr_code - 1/n
   
   # create column names
-  colnames <- paste0(".", levels[-base], "-", levels[base])
+  colnames <- colnames %||% paste0("." , levels[-base], "-", levels[base])
+  n_cols <- ncol(my_code)
+  if (length(colnames) != n_cols) colnames <- paste0(rep(colnames, n_cols), 1:n_cols)
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -56,6 +59,7 @@ contr_code_anova <- function(fct, levels = NULL, base = 1) {
 #' @param fct the factor to contrast code (or a vector)
 #' @param levels the levels of the factor in order
 #' @param omit the level to omit (defaults to the last level)
+#' @param colnames optional list of column names for the added contrasts
 #'
 #' @return the factor with contrasts set
 #'
@@ -73,7 +77,7 @@ contr_code_anova <- function(fct, levels = NULL, base = 1) {
 #' 
 #' df$pet <- contr_code_sum(df$pet, omit = 1)
 #' lm(y ~ pet, df) %>% broom::tidy()
-contr_code_sum <- function(fct, levels = NULL, omit = length(levels)) {
+contr_code_sum <- function(fct, levels = NULL, omit = length(levels), colnames = NULL) {
   # make sure fct is a factor with correct levels
   if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels)
@@ -89,7 +93,9 @@ contr_code_sum <- function(fct, levels = NULL, omit = length(levels)) {
   }
   
   # create column names
-  colnames <- paste0(".", levels[-omit], "-intercept")
+  colnames <- colnames %||% paste0("." , levels[-omit], "-intercept")
+  n_cols <- ncol(my_code)
+  if (length(colnames) != n_cols) colnames <- paste0(rep(colnames, n_cols), 1:n_cols)
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -106,6 +112,7 @@ contr_code_sum <- function(fct, levels = NULL, omit = length(levels)) {
 #' @param fct the factor to contrast code (or a vector)
 #' @param levels the levels of the factor in order
 #' @param base the index of the level to use as baseline
+#' @param colnames optional list of column names for the added contrasts
 #'
 #' @return the factor with contrasts set
 #' @export
@@ -127,7 +134,7 @@ contr_code_sum <- function(fct, levels = NULL, omit = length(levels)) {
 #' 
 #' df$pet <- contr_code_treatment(df$pet, base = "ferret")
 #' lm(y ~ pet, df) %>% broom::tidy()
-contr_code_treatment <- function(fct, levels = NULL, base = 1) {
+contr_code_treatment <- function(fct, levels = NULL, base = 1, colnames = NULL) {
   # make sure fct is a factor with correct levels
   if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels)
@@ -138,7 +145,9 @@ contr_code_treatment <- function(fct, levels = NULL, base = 1) {
   my_code <- stats::contr.treatment(n, base)
   
   # create column names
-  colnames <- paste0(".", levels[-base], "-", levels[base])
+  colnames <- colnames %||% paste0("." , levels[-base], "-", levels[base])
+  n_cols <- ncol(my_code)
+  if (length(colnames) != n_cols) colnames <- paste0(rep(colnames, n_cols), 1:n_cols)
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -155,6 +164,7 @@ contr_code_treatment <- function(fct, levels = NULL, base = 1) {
 #'
 #' @param fct the factor to contrast code (or a vector)
 #' @param levels the levels of the factor in order
+#' @param colnames optional list of column names for the added contrasts
 #'
 #' @return the factor with contrasts set
 #' @export
@@ -177,7 +187,7 @@ contr_code_treatment <- function(fct, levels = NULL, base = 1) {
 #' 
 #' df$pet <- contr_code_helmert(df$pet, levels = c("ferret", "dog", "cat"))
 #' lm(y ~ pet, df) %>% broom::tidy()
-contr_code_helmert <- function(fct, levels = NULL) {
+contr_code_helmert <- function(fct, levels = NULL, colnames = NULL) {
   # make sure fct is a factor with correct levels
   if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels)
@@ -193,7 +203,9 @@ contr_code_helmert <- function(fct, levels = NULL) {
   comparison <- lapply(1:(n-1), function(x) {
     paste(levels[1:x], collapse = ".")
   })
-  colnames <- paste0(".", levels[-1], "-", comparison)
+  colnames <- colnames %||% paste0("." , levels[-1], "-", comparison)
+  n_cols <- ncol(my_code)
+  if (length(colnames) != n_cols) colnames <- paste0(rep(colnames, n_cols), 1:n_cols)
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -209,6 +221,7 @@ contr_code_helmert <- function(fct, levels = NULL) {
 #'
 #' @param fct the factor to contrast code (or a vector)
 #' @param levels the levels of the factor in order
+#' @param colnames optional list of column names for the added contrasts
 #'
 #' @return the factor with contrasts set
 #' @export
@@ -221,7 +234,7 @@ contr_code_helmert <- function(fct, levels = NULL) {
 #' df$time <- contr_code_poly(df$time)
 #' lm(y ~ time, df) %>% broom::tidy()
 #' 
-contr_code_poly <- function(fct, levels = NULL) {
+contr_code_poly <- function(fct, levels = NULL, colnames = NULL) {
   # make sure fct is an ordered factor with correct levels
   if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels, ordered = TRUE)
@@ -231,7 +244,9 @@ contr_code_poly <- function(fct, levels = NULL) {
   my_code <- stats::contr.poly(n)
   
   # create column names
-  colnames <- paste0("^", 1:(n-1))
+  colnames <- colnames %||% paste0("^", 1:(n-1))
+  n_cols <- ncol(my_code)
+  if (length(colnames) != n_cols) colnames <- paste0(rep(colnames, n_cols), 1:n_cols)
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -247,6 +262,7 @@ contr_code_poly <- function(fct, levels = NULL) {
 #'
 #' @param fct the factor to contrast code (or a vector)
 #' @param levels the levels of the factor in order
+#' @param colnames optional list of column names for the added contrasts
 #'
 #' @return the factor with contrasts set
 #' @export
@@ -258,7 +274,7 @@ contr_code_poly <- function(fct, levels = NULL) {
 #' df$pet <- contr_code_difference(df$pet)
 #' lm(y ~ pet, df) %>% broom::tidy()
 #' 
-contr_code_difference <- function(fct, levels = NULL) {
+contr_code_difference <- function(fct, levels = NULL, colnames = NULL) {
   # make sure fct is a factor with correct levels
   if (is.null(levels)) levels <- levels(fct) %||% sort(unique(fct))
   fct <- factor(fct, levels)
@@ -271,7 +287,9 @@ contr_code_difference <- function(fct, levels = NULL) {
   my_code <- dif_code / n
   
   # create column names
-  colnames <- paste0(".", levels[2:n], "-", levels[1:(n-1)])
+  colnames <- colnames %||% paste0("." , levels[2:n], "-", levels[1:(n-1)])
+  n_cols <- ncol(my_code)
+  if (length(colnames) != n_cols) colnames <- paste0(rep(colnames, n_cols), 1:n_cols)
   dimnames(my_code) <- list(levels, colnames)
   
   # set contrast and return factor
@@ -307,12 +325,11 @@ add_contrast <- function(data, col, contrast = c("anova", "sum", "treatment", "h
   contrast <- match.arg(contrast)
   
   f <- match.fun(paste0("contr_code_", contrast))
-  newfct <- f(fct, levels, ...)
+  newfct <- f(fct, levels, colnames = colnames, ...)
   
-  if (isTRUE(add_cols)) {
+  if (isTRUE(add_cols) & !col %in% colnames) {
     contr <- stats::contrasts(newfct)
-    colnames(contr) <- colnames %||% paste0(col, colnames(contr))
-    contr <- dplyr::as_tibble(contr, rownames = col)
+    
     suffix <- switch(contrast, 
                      anova = ".aov", 
                      sum = ".sum", 
@@ -320,15 +337,26 @@ add_contrast <- function(data, col, contrast = c("anova", "sum", "treatment", "h
                      helmert = ".hmt", 
                      poly = ".poly", 
                      difference = ".dif")
+    colnames(contr) <- colnames %||% paste0(col, colnames(contr))
+    
+    contr <- dplyr::as_tibble(contr, rownames = col)
+
     # match column types
     data[col] <- as.character(data[[col]])
-    contr[col]<- as.character(contr[[col]])
     
-    data <- dplyr::left_join(data, contr, by = col, suffix = c("", suffix))
+    data <- dplyr::left_join(data, contr, 
+                             by = col, 
+                             suffix = c("", suffix))
   }
   
-  # add col as factor after join, which removes factor from col
-  data[col] <- newfct 
+  if (col %in% colnames) {
+    contr <- stats::contrasts(newfct)
+    recodings <- setNames(as.vector(contr), rownames(contr))
+    data[col] <- dplyr::recode(data[[col]], !!!recodings)
+  } else {
+    # add col as factor after join, which removes factor from col
+    data[col] <- newfct 
+  }
   
   data
 }

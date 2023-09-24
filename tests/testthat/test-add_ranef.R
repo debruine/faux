@@ -240,3 +240,4 @@ test_that("add_within", {
   expect_true(is.factor(x$letter))
   expect_equal(levels(x$letter), c("A", "B"))
 })
+
