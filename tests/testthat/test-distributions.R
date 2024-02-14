@@ -335,6 +335,28 @@ test_that("norm2nbinom", {
   }
 })
 
+test_that("nbinom", {
+  # convert between nbinom and normal and back to check 
+  set.seed(8675309)
+  
+  nbinom_check = function(size = 100, prob = .5, mu = 0, sd = 1) {
+    x = rnbinom(1000, size, prob)
+    y = nbinom2norm(x, mu, sd, size = size, prob = prob)
+    z = norm2nbinom(y, size, prob, x_mu = mu, x_sd = sd)
+    mean(x == z)
+  }
+  
+  checks <- expand.grid(
+    size = seq(5, 20, 5),
+    prob = seq(.1, .9, .1),
+    mu = -1:1,
+    sd = 1:2
+  )
+  pcnt_identical = mapply(nbinom_check, checks$size, checks$prob, checks$mu, checks$sd)
+  
+  expect_true(all(pcnt_identical > .98))
+})
+
 # trunc ----
 test_that("trunc", {
   # convert between normal and truncnorm and back to check 
@@ -398,7 +420,7 @@ test_that("trunc2norm", {
   expect_message(suppressWarnings(trunc2norm(x)), 
                  "-2\\.987\\d+ \\(min\\(x\\) = -3\\.056\\d+\\)")
   expect_message(suppressWarnings(trunc2norm(x)), 
-                 "max was set to 3\\.000\\d+ \\(max\\(x\\) = 3\\.519\\d+\\)")
+                 "max was not set, so guessed as 3\\.000\\d+ \\(max\\(x\\) = 3\\.519\\d+\\)")
   expect_warning(suppressMessages(trunc2norm(x)), 
                  "min was > min\\(x\\), so min was set to -3\\.066\\d+")
   expect_warning(suppressMessages(trunc2norm(x)), 
@@ -407,8 +429,8 @@ test_that("trunc2norm", {
   set.seed(8675309)
   x <- truncnorm::rtruncnorm(100, mean = 10, sd = 5)
   
-  expect_message(trunc2norm(x), "min was set to -3\\.675\\d+ \\(min\\(x\\) = -2\\.984\\d+\\)")
-  expect_message(trunc2norm(x), "max was set to 24\\.198\\d+ \\(max\\(x\\) = 20\\.146\\d+\\)")
+  expect_message(trunc2norm(x), "min was not set, so guessed as -3\\.675\\d+ \\(min\\(x\\) = -2\\.984\\d+\\)")
+  expect_message(trunc2norm(x), "max was not set, so guessed as 24\\.198\\d+ \\(max\\(x\\) = 20\\.146\\d+\\)")
   
   # defaults
   for (i in 1:reps) {

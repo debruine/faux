@@ -1,0 +1,147 @@
+---
+title: "mess"
+author: "Lisa DeBruine"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+devtools::load_all(".")
+library(tidyverse)
+```
+
+## Spearman Correlations
+
+```{r}
+simcor = function(r = 0) {
+  x = rnorm_multi(n = 1e4, vars = 2, r = r, empirical = TRUE)
+  
+  data.frame(
+    #p = cor(x$X1, x$X2, method = "pearson"), 
+    k = cor(x$X1, x$X2, method = "kendall"), 
+    s = cor(x$X1, x$X2, method = "spearman")
+  )
+}
+
+
+iterations = 10
+df = data.frame(
+  r = seq(-.9, .9, .1)
+) |>
+  crossing(i = 1:iterations) |>
+  mutate(cor = map(r, simcor)) |>
+  unnest(cor) |>
+  pivot_longer(k:s, names_to = "method", values_to = "cor")
+
+ggplot(df, aes(x = r, y = cor, color = method)) +
+  geom_abline(slope = 1, intercept = 0, color = "grey30") +
+  geom_point(size = 0.25) +
+  scale_color_manual(values = c("darkorchid4", "firebrick"))
+```
+
+
+
+```{r}
+simcorlikert = function(r = 0) {
+  x = rmulti(n = 1e4, 
+             dist = c(X1 = "likert", X2 = "likert"),
+             params = list(
+               X1 = list(prob = c(2, 3, 4, 3, 2)),
+               X2 = list(prob = c(1, 2, 3, 4, 3, 2, 1))
+             ),
+             r = r, empirical = TRUE)
+  
+  data.frame(
+    p = cor(x$X1, x$X2, method = "pearson"), 
+    k = cor(x$X1, x$X2, method = "kendall"), 
+    s = cor(x$X1, x$X2, method = "spearman")
+  )
+}
+
+
+iterations = 1
+df = data.frame(
+  r = seq(0, .75, .25)
+) |>
+  crossing(i = 1:iterations) |>
+  mutate(cor = map(r, simcorlikert)) |>
+  unnest(cor) |>
+  pivot_longer(p:s, names_to = "method", values_to = "cor")
+
+ggplot(df, aes(x = r, y = cor, color = method)) +
+  geom_abline(slope = 1, intercept = 0, color = "grey30") +
+  geom_point(size = 0.5) +
+  scale_color_manual(values = c("firebrick", "dodgerblue3", "darkorchid4"))
+```
+
+```{r}
+ggplot(x, aes(X1, X2)) +
+  geom_bin_2d(binwidth = 0.5)
+```
+
+
+
+## Mixed designs
+
+- better mixed designs
+
+```{r}
+
+```
+
+## Bug
+
+```{r}
+cmat <- matrix(c(1, 0.30, 0.10,
+                 0.30, 1, 0.30,
+                 0.10, 0.30, 1), 3, 3)
+
+set.seed(1)
+
+perf_dat_1 <- rmulti(
+  n = 20,
+  dist = c(education = "norm",
+           OA = "norm",
+           job_perf = "norm"),
+  params = list(education = c(mean = 15, sd = 3),
+                OA = c(mean = 30, sd = 5),
+                job_perf = c(mean = 4, sd = 1.5),
+                r = cmat,
+                empirical = TRUE
+  ))
+
+perf_dat_2 <- rnorm_multi(
+  n = 20,
+  mu = c(15, 30, 4),
+  sd = c(3, 5, 1.5),
+  r = cmat,
+  varnames = c("education", "OA", "job_perf"),
+  empirical = TRUE
+)
+
+get_params(perf_dat_1); get_params(perf_dat_2)
+```
+
+## nbinom
+
+```{r}
+
+df = crossing(
+  size = 1:10,
+  prob = 1:10/10
+) |>
+  rowwise()|>
+  mutate(data = list(x = rnbinom(1e4, size, prob)),
+         mean = mean(data),
+         sd = sd(data),
+         max = max(data))
+
+df |>
+  unnest(data) |>
+  ggplot(aes(data, fill = factor(size))) +
+  geom_histogram(binwidth = 1) +
+  facet_grid(prob ~ size, scales = "free")
+```
+
+

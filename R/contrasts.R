@@ -326,37 +326,41 @@ add_contrast <- function(data, col, contrast = c("anova", "sum", "treatment", "h
   
   f <- match.fun(paste0("contr_code_", contrast))
   newfct <- f(fct, levels, colnames = colnames, ...)
+  data[col] <- newfct
   
-  if (isTRUE(add_cols) & !col %in% colnames) {
-    contr <- stats::contrasts(newfct)
+  if (isTRUE(add_cols)) {
+    newvals <- get_contrast_vals(newfct)
+    if (is.null(colnames)) {
+      colnames(newvals) <- paste0(col, colnames(newvals))
+    }
     
-    suffix <- switch(contrast, 
-                     anova = ".aov", 
-                     sum = ".sum", 
-                     treatment = ".tr", 
-                     helmert = ".hmt", 
-                     poly = ".poly", 
-                     difference = ".dif")
-    colnames(contr) <- colnames %||% paste0(col, colnames(contr))
-    
-    contr <- dplyr::as_tibble(contr, rownames = col)
+    data[colnames(newvals)] <- newvals
+  }
 
-    # match column types
-    data[col] <- as.character(data[[col]])
-    
-    data <- dplyr::left_join(data, contr, 
-                             by = col, 
-                             suffix = c("", suffix))
-  }
-  
-  if (col %in% colnames) {
-    contr <- stats::contrasts(newfct)
-    recodings <- setNames(as.vector(contr), rownames(contr))
-    data[col] <- dplyr::recode(data[[col]], !!!recodings)
-  } else {
-    # add col as factor after join, which removes factor from col
-    data[col] <- newfct 
-  }
-  
   data
+}
+
+#' Get contrast values
+#' 
+#' Get a data frame of contrast values from a factor vector
+#'
+#' @param v a factor vector
+#'
+#' @return a data frame
+#' @export
+#'
+#' @examples
+#' dat <- sim_design(
+#'   between = list(group = c("A", "B")), 
+#'   n = 5, plot = FALSE)
+#' 
+#' get_contrast_vals(dat$group)
+#' 
+get_contrast_vals <- function(v) {
+  contr <- stats::contrasts(v)
+  recodes <- apply(contr, 2, function(x) {
+    recodings <- stats::setNames(as.vector(x), rownames(contr))
+    dplyr::recode(v, !!!recodings)
+  })
+  as.data.frame(recodes)
 }

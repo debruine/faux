@@ -158,7 +158,7 @@ max = 100
 x_n <- rnorm(1e3, mu, sd)
 y_u <- norm2unif(x_n, min, max)
 
-x_u <- runif(1e3, min, max)
+x_u <- y_u # runif(1e3, min, max)
 y_n <- unif2norm(x_u, mu, sd)
 ```
 
@@ -214,7 +214,7 @@ prob = 0.75
 x_n <- rnorm(1e4, mu, sd)
 y_b <- norm2binom(x_n, size, prob)
 
-x_b <- rbinom(1e4, size, prob)
+x_b <- y_b # rbinom(1e4, size, prob)
 y_n <- binom2norm(x_b, mu, sd, size)
 ```
 
@@ -226,6 +226,37 @@ gm_n2b <- ggMarginal(n2b, type = "histogram")
 b2n <- ggplot() + geom_point(aes(x_b, y_n)) +
   labs(y = "Normal", x = "Binomial", title = "Binomial to Normal")
 gm_b2n <- ggMarginal(b2n, type = "histogram")
+
+cowplot::plot_grid(gm_n2b, gm_b2n)
+```
+
+## Negative Binomial
+
+Convert between a normal distribution with a mean of 0 and SD of 1 to a negative binomial distribution with size of 20 and probability of 0.75 (e.g., sum scores on a 20-trial test with a mean of 75% correct). 
+
+If you don't specify the probability, it will be estimated from your data. If you don't specify the size, it will be set to the maximum value of x (which can be wrong, so set it yourself).
+
+```{r}
+mu = 0
+sd = 1
+size = 20
+prob = 0.75
+
+x_n <- rnorm(1e4, mu, sd)
+y_b <- norm2nbinom(x_n, size, prob)
+
+x_b <- y_b # rnbinom(1e4, size, prob)
+y_n <- nbinom2norm(x_b, mu, sd, size, prob)
+```
+
+```{r binom-plot, echo = FALSE, fig.width = 10}
+n2b <- ggplot() + geom_point(aes(x_n, y_b)) +
+  labs(x = "Normal", y = "Negative Binomial", title = "Normal to Negative Binomial")
+gm_n2b <- ggMarginal(n2b, type = "histogram", yparams = list(binwidth = 1))
+
+b2n <- ggplot() + geom_point(aes(x_b, y_n)) +
+  labs(y = "Normal", x = "Negative Binomial", title = "Negative Binomial to Normal")
+gm_b2n <- ggMarginal(b2n, type = "histogram", xparams = list(binwidth = 1))
 
 cowplot::plot_grid(gm_n2b, gm_b2n)
 ```
@@ -258,6 +289,9 @@ gm_b2n <- ggMarginal(b2n, type = "histogram")
 
 cowplot::plot_grid(gm_n2b, gm_b2n)
 ```
+
+
+
 
 ## Gamma
 

@@ -244,12 +244,6 @@ test_that("colnames", {
 test_that("add_contrast", {
   btwn <- list(pet = c("cat", "dog", "ferret")) 
   df <- sim_design(between = btwn, n = 1, plot = FALSE)
-  suffix <- c(anova = ".aov", 
-             sum = ".sum", 
-             treatment = ".tr", 
-             helmert = ".hmt", 
-             poly = ".poly", 
-             difference = ".dif")
   names <- list(anova = c("pet.dog-cat", "pet.ferret-cat"), 
                 sum = c("pet.cat-intercept", "pet.dog-intercept"), 
                 treatment = c("pet.dog-cat", "pet.ferret-cat"), 
@@ -264,10 +258,9 @@ test_that("add_contrast", {
   for (ctrst in contrasts) {
     df1 <- add_contrast(df, "pet", ctrst)
     df2 <- add_contrast(df1, "pet", ctrst)
-    cnames1 <- c(colnames(df), names[[ctrst]])
-    cnames2 <- c(cnames1, paste0(names[[ctrst]], suffix[[ctrst]]))
-    expect_equal(colnames(df1), cnames1)
-    expect_equal(colnames(df2), cnames2)
+    cnames <- c(colnames(df), names[[ctrst]])
+    expect_equal(colnames(df1), cnames)
+    expect_equal(colnames(df2), cnames)
   }
 })
 
@@ -300,3 +293,30 @@ test_that("same name levels", {
   expect_equal(names(cont), c("id", "B1", "y"))
   expect_equal(rep(c(-0.5, 0.5), each = 10), cont$B1)
 })
+
+
+test_that("get_contrast_vals", {
+  dat <- sim_design(between = list(group = c("A", "B")), 
+                    n = 5, plot = FALSE)
+              
+  obs <- get_contrast_vals(dat$group)
+  exp <- data.frame(B = rep(0:1, each = 5))
+  expect_equal(obs, exp) 
+  
+  dat2 <- sim_design(between = list(group = c("A", "B", "C")), 
+                    n = 2, plot = FALSE)
+  
+  obs <- get_contrast_vals(dat2$group)
+  exp <- data.frame(B = c(0,0,1,1,0,0),
+                    C = c(0,0,0,0,1,1))
+  expect_equal(obs, exp) 
+  
+  dat3 <- add_contrast(dat2, "group", "anova", add_cols = FALSE)
+  
+  obs <- get_contrast_vals(dat3$group)
+  exp <- data.frame(`.B-A` = c(0,0,1,1,0,0)-(1/3),
+                    `.C-A` = c(0,0,0,0,1,1)-(1/3))
+  colnames(exp) <- c(".B-A", ".C-A")
+  expect_equal(obs, exp) 
+})
+

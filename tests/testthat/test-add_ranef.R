@@ -223,8 +223,8 @@ test_that("add_within", {
   
   # 2b2b
   data <- add_within(base, "subj", 
-                      cond = c("A", "B"),
-                      time = c("morning", "evening"))
+                     cond = c("A", "B"),
+                     time = c("morning", "evening"))
   cond <- rep(LETTERS[1:2], each = 2, times = 8) %>% factor()
   time <- rep(c("morning", "evening"), 16) %>% 
     factor(levels = c("morning", "evening"))

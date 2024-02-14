@@ -33,6 +33,7 @@ convert_r <- function(target_r = 0,
                       params2 = list(),
                       tol = .01) {
   if (target_r == 0) return(0)
+  if (dist1 == "norm" & dist2 == "norm") return(target_r)
   params1 <- as.list(params1)
   params2 <- as.list(params2)
   
@@ -138,10 +139,11 @@ rmulti <- function(n = 100,
   all <- expand.grid(v1 = v, v2 = v)
   a_less <- as.integer(all$v1) < as.integer(all$v2)
   pairs <- all[a_less, ]
+  pairs <- pairs[order(pairs$v1, pairs$v2), ] # put in order (thanks @yann1cks!)
   
   # add correlations
   cormat <- cormat(r, vars)
-  pairs$r <- cormat[upper.tri(cormat)]
+  pairs$r <- cormat[lower.tri(cormat)]
   
   # add distributions
   pairs$dist1 <- dist[pairs$v1]
