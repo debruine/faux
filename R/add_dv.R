@@ -14,7 +14,7 @@
 #' @param ranef A list of random effects parameters (see Details)
 #'
 #' @return a data frame with new DV column
-#' @export
+#' @keywords internal
 #'
 #' @examples
 #' add_random(id = 1000) |> 
@@ -26,11 +26,11 @@
 #'          fixef = list(a = 5, b = 10, "a:b" = 0),
 #'          ranef = list(id = list(intercept = 10, b = 5, .cors = 0.4))
 #'   )
-add_dv <- function(.data, formula = y ~ 1, 
-                   intercept = 0, 
-                   error = 1,
-                   fixef = list(), 
-                   ranef = list()) {
+# add_dv <- function(.data, formula = y ~ 1, 
+#                    intercept = 0, 
+#                    error = 1,
+#                    fixef = list(), 
+#                    ranef = list()) {
   # if (is.character(formula)) formula <- stats::as.formula(formula)
   # dv <- all.vars(formula[[2]])
   # .data[dv] <- 0
@@ -41,6 +41,6 @@ add_dv <- function(.data, formula = y ~ 1,
   # m$coefficients <- setNames(coefs, conames)
   # err <- rnorm(nrow(.data), 0, error)
   # .data[dv] <- predict(m) + err
-  
-  return(.data)
-}
+#   
+#   return(.data)
+# }

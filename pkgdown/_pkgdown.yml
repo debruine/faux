@@ -91,6 +91,7 @@ reference:
   - '`faux`'
   - '`fix_name_labels`'
   - '`get_coefs`'
+  - '`get_contrast_vals`'
   - '`get_design`'
   - '`get_design_long`'
   - '`getcols`'

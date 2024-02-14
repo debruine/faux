@@ -1,5 +1,5 @@
-pandoc: '2.13'
-pkgdown: 2.0.2
+pandoc: 3.1.1
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   codebook: codebook.html
@@ -13,7 +13,7 @@ articles:
   sim_design: sim_design.html
   sim_df: sim_df.html
   sim_mixed: sim_mixed.html
-last_built: 2022-02-13T20:13Z
+last_built: 2024-02-14T15:14Z
 urls:
   reference: https://debruine.github.io/faux/reference
   article: https://debruine.github.io/faux/articles

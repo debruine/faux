@@ -10,7 +10,7 @@ always_allow_html: true
 
 <!-- badges: start -->
 [![DOI](https://zenodo.org/badge/163506566.svg)](https://zenodo.org/badge/latestdoi/163506566)
-![CRAN version](https://www.r-pkg.org/badges/version-last-release/faux)
+[![CRAN status](https://www.r-pkg.org/badges/version-last-release/faux)](https://CRAN.R-project.org/package=faux)
 ![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/faux)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/debruine/faux?branch=master)
