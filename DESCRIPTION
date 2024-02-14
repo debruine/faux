@@ -28,13 +28,12 @@ Description: Create datasets with factorial structure through simulation by spec
 Depends:
     R (>= 3.2.4)
 Imports:
-    lme4 (>= 1.1-35.1),
+    lme4,
     dplyr (>= 1.1.1),
     ggplot2 (>= 3.3.0),
     jsonlite,
     truncnorm,
-    rlang,
-    Matrix (>= 1.6-2)
+    rlang
 License: MIT + file LICENSE
 Suggests:
     testthat (>= 2.1.0),
