@@ -4,7 +4,7 @@
 \alias{getcols}
 \title{Get data columns}
 \usage{
-getcols(data, ..., as_index = FALSE)
+getcols(data = NULL, ..., as_index = FALSE)
 }
 \arguments{
 \item{data}{the existing tbl}
