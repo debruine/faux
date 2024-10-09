@@ -246,10 +246,11 @@ distfuncs <- function(dist = "norm") {
 #' 
 #' Fréchet-Hoefding bounds are the limits to a correlation between different distributions.
 #'
+#' @md
 #' @param dist1 The target distribution function for variable 1 (e.g., norm, binom, gamma, truncnorm)
 #' @param dist2 The target distribution function for variable 2
-#' @param params1 Arguments to pass to the r{dist} function for distribution 1
-#' @param params2 Arguments to pass to the r{dist} function for distribution 2
+#' @param params1 Arguments to pass to the `dist` function for distribution 1
+#' @param params2 Arguments to pass to the `dist` function for distribution 2
 #'
 #' @return a list of the min and max possible values
 #' @export
