@@ -11,7 +11,10 @@
 #'
 #' @examples
 #' getcols(mtcars, 1, cyl, "disp", 5:7)
-getcols <- function(data, ..., as_index = FALSE) {
+getcols <- function(data=NULL, ..., as_index = FALSE) {
+  if (is.null(data)){
+    stop('argument "data" is missing, with no default')
+  }
   cols <- sapply(rlang::enexprs(...), function(v) {
     switch(
       typeof(v),
