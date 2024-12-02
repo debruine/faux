@@ -3,7 +3,7 @@ output: github_document
 always_allow_html: true
 ---
 
-# faux <a href="https://debruine.github.io/faux"><img src="man/figures/logo.png" align="right" height="120" /></a>
+# faux <a href="https://debruine.github.io/faux/"><img src="man/figures/logo.png" align="right" height="120" /></a>
 
 <!-- rmarkdown v1 -->
 <!-- README.md is generated from README.Rmd. Please edit that file -->
@@ -13,7 +13,7 @@ always_allow_html: true
 [![CRAN status](https://www.r-pkg.org/badges/version-last-release/faux)](https://CRAN.R-project.org/package=faux)
 ![Downloads](https://cranlogs.r-pkg.org/badges/grand-total/faux)
 [![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
-[![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://codecov.io/github/debruine/faux?branch=master)
+[![Coverage status](https://codecov.io/gh/debruine/faux/branch/master/graph/badge.svg)](https://app.codecov.io/github/debruine/faux?branch=master)
 [![R-CMD-check](https://github.com/debruine/faux/workflows/R-CMD-check/badge.svg)](https://github.com/debruine/faux/actions)
 [![R-CMD-check](https://github.com/debruine/faux/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/debruine/faux/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
