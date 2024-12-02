@@ -1,12 +1,12 @@
 Package: faux
 Title: Simulation for Factorial Designs
-Version: 1.2.1.9002
-Date: 2024-02-14
+Version: 1.2.2
+Date: 2024-12-02
 Authors@R: c(
     person(
         given = "Lisa", 
         family = "DeBruine", 
-        role = c("aut", "cre"), 
+        role = c("aut", "cre", "cph"), 
         email = "debruine@gmail.com", 
         comment = c(ORCID = "0000-0002-7523-5539")
     ),

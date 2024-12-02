@@ -248,8 +248,8 @@ distfuncs <- function(dist = "norm") {
 #'
 #' @param dist1 The target distribution function for variable 1 (e.g., norm, binom, gamma, truncnorm)
 #' @param dist2 The target distribution function for variable 2
-#' @param params1 Arguments to pass to the r{dist} function for distribution 1
-#' @param params2 Arguments to pass to the r{dist} function for distribution 2
+#' @param params1 Arguments to pass to the random generation function (e.g., rnorm) for distribution 1
+#' @param params2 Arguments to pass to the random generation function (e.g., rnorm) for distribution 2
 #'
 #' @return a list of the min and max possible values
 #' @export
