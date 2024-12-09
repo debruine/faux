@@ -20,12 +20,6 @@
 #'           dist2 = "binom", 
 #'           params1 = list(mean = 100, sd = 10),
 #'           params2 = list(size = 1, prob = 0.5))
-#'           
-#' convert_r(target_r = 0.5, 
-#'           dist1 = "norm", 
-#'           dist2 = "likert", 
-#'           params1 = list(mean = 100, sd = 10),
-#'           params2 = list(prob = c(5, 10, 20, 30, 20)))
 convert_r <- function(target_r = 0,
                       dist1 = "norm", 
                       dist2 = "norm",
@@ -81,15 +75,16 @@ convert_r <- function(target_r = 0,
   
   # set seed and reinstate system seed after simulation
   # makes sure the results are always the same
-  sysSeed <- .GlobalEnv$.Random.seed
-  on.exit({
-    if (!is.null(sysSeed)) {
-      .GlobalEnv$.Random.seed <- sysSeed
-    } else {
-      rm(".Random.seed", envir = .GlobalEnv)
-    }
-  })
-  set.seed(8675309, kind = "Mersenne-Twister", normal.kind = "Inversion")
+  # CRAN says I can't do this :(
+  # sysSeed <- .GlobalEnv$.Random.seed
+  # on.exit({
+  #   if (!is.null(sysSeed)) {
+  #     .GlobalEnv$.Random.seed <- sysSeed
+  #   } else {
+  #     rm(".Random.seed", envir = .GlobalEnv)
+  #   }
+  # })
+  # set.seed(8675309, kind = "Mersenne-Twister", normal.kind = "Inversion")
   
   opt <- stats::optimise(f, interval = c(min_r, max_r), tol = tol)
   

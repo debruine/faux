@@ -575,7 +575,12 @@ plikert <- function(q, prob, labels = names(prob)) {
 qlikert <- function(p, prob, labels = names(prob)) {
   labels <- labels %||% 1:length(prob)
   ptrans <- stats::setNames(cumsum(prob/sum(prob)), labels)
-  q <- lapply(p, `>`, ptrans) %>%
+  q <- lapply(p, function(psub) {
+      greater <- psub > ptrans
+      # deal with floating point inequalities where x != x
+      noneq <- sapply(ptrans, all.equal, current = psub) != TRUE
+      greater & noneq
+    }) %>%
     sapply(sum) %>%
     sapply(`+`, 1) %>%
     `[`(labels, .)

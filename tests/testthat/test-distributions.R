@@ -612,13 +612,10 @@ test_that("likert labels", {
   #plot(q3, p)
   expect_equal(q, q3)
   
-  skip_on_cran() # todo: figure out why this errored:  
-  #   cumsum(counts$n) not equal to floor(unname(p) * 100) + 1. 
-  #   Lengths differ: 6 is not 5
   p4 <- seq(0, 1, .01)
   q4 <- qlikert(p4, prob, labels)
   #plot(as.numeric(q4), p4)
   
   counts <- data.frame(q = q4) %>% dplyr::count(q)
-  expect_equal(cumsum(counts$n), floor(unname(p)*100) + 1)
+  expect_equal(cumsum(counts$n), floor(unname(p)*100) + 2)
 })
