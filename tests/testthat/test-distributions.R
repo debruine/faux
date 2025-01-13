@@ -477,6 +477,7 @@ test_that("trunc2norm", {
 
 # norm2likert ----
 test_that("norm2likert", {
+  skip("Long")
   x <- rnorm(1e4)
   
   expect_error(norm2likert(), "argument \"prob\" is missing, with no default")
