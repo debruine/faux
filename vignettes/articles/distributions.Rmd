@@ -249,7 +249,7 @@ x_b <- y_b # rnbinom(1e4, size, prob)
 y_n <- nbinom2norm(x_b, mu, sd, size, prob)
 ```
 
-```{r binom-plot, echo = FALSE, fig.width = 10}
+```{r binom-plot2, echo = FALSE, fig.width = 10}
 n2b <- ggplot() + geom_point(aes(x_n, y_b)) +
   labs(x = "Normal", y = "Negative Binomial", title = "Normal to Negative Binomial")
 gm_n2b <- ggMarginal(n2b, type = "histogram", yparams = list(binwidth = 1))

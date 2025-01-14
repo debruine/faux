@@ -60,3 +60,4 @@ LazyData: true
 URL: https://github.com/debruine/faux,
     https://debruine.github.io/faux/
 BugReports: https://github.com/debruine/faux/issues
+Config/Needs/website: rmarkdown

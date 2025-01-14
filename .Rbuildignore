@@ -32,3 +32,4 @@
 ^vignettes/distributions.Rmd$
 ^vignettes/sim_mixed.Rmd$
 ^CRAN-SUBMISSION$
+^vignettes/articles$

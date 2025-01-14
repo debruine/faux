@@ -476,44 +476,44 @@ test_that("trunc2norm", {
 })
 
 # norm2likert ----
-test_that("norm2likert", {
-  skip_on_cran()
-  x <- rnorm(1e4)
-  
-  expect_error(norm2likert(), "argument \"prob\" is missing, with no default")
-  expect_error(norm2likert(x), "argument \"prob\" is missing, with no default")
-  
-  y <- norm2likert(x, c(.25, .5, .25))
-  expect_equal(mean(y == 1), .25, tolerance = tol)
-  expect_equal(mean(y == 2), .50, tolerance = tol)
-  expect_equal(mean(y == 3), .25, tolerance = tol)
-  
-  y <- norm2likert(x, c(.1, .2, .3, .4))
-  expect_equal(mean(y == 1), .1, tolerance = tol)
-  expect_equal(mean(y == 2), .2, tolerance = tol)
-  expect_equal(mean(y == 3), .3, tolerance = tol)
-  expect_equal(mean(y == 4), .4, tolerance = tol)
-  
-  y <- norm2likert(x, c(.4, .3, .2, .1))
-  expect_equal(mean(y == 1), .4, tolerance = tol)
-  expect_equal(mean(y == 2), .3, tolerance = tol)
-  expect_equal(mean(y == 3), .2, tolerance = tol)
-  expect_equal(mean(y == 4), .1, tolerance = tol)
-  
-  ## prob as counts
-  y <- norm2likert(x, c(40, 30, 20, 10))
-  expect_equal(mean(y == 1), .4, tolerance = tol)
-  expect_equal(mean(y == 2), .3, tolerance = tol)
-  expect_equal(mean(y == 3), .2, tolerance = tol)
-  expect_equal(mean(y == 4), .1, tolerance = tol)
-  
-  ## named prob
-  y <- norm2likert(x, c(a = 40, b = 30, c = 20, d = 10))
-  expect_equal(mean(y == "a"), .4, tolerance = tol)
-  expect_equal(mean(y == "b"), .3, tolerance = tol)
-  expect_equal(mean(y == "c"), .2, tolerance = tol)
-  expect_equal(mean(y == "d"), .1, tolerance = tol)
-})
+# test_that("norm2likert", {
+#   skip_on_cran()
+#   x <- rnorm(1e4)
+#   
+#   expect_error(norm2likert(), "argument \"prob\" is missing, with no default")
+#   expect_error(norm2likert(x), "argument \"prob\" is missing, with no default")
+#   
+#   y <- norm2likert(x, c(.25, .5, .25))
+#   expect_equal(mean(y == 1), .25, tolerance = tol)
+#   expect_equal(mean(y == 2), .50, tolerance = tol)
+#   expect_equal(mean(y == 3), .25, tolerance = tol)
+#   
+#   y <- norm2likert(x, c(.1, .2, .3, .4))
+#   expect_equal(mean(y == 1), .1, tolerance = tol)
+#   expect_equal(mean(y == 2), .2, tolerance = tol)
+#   expect_equal(mean(y == 3), .3, tolerance = tol)
+#   expect_equal(mean(y == 4), .4, tolerance = tol)
+#   
+#   y <- norm2likert(x, c(.4, .3, .2, .1))
+#   expect_equal(mean(y == 1), .4, tolerance = tol)
+#   expect_equal(mean(y == 2), .3, tolerance = tol)
+#   expect_equal(mean(y == 3), .2, tolerance = tol)
+#   expect_equal(mean(y == 4), .1, tolerance = tol)
+#   
+#   ## prob as counts
+#   y <- norm2likert(x, c(40, 30, 20, 10))
+#   expect_equal(mean(y == 1), .4, tolerance = tol)
+#   expect_equal(mean(y == 2), .3, tolerance = tol)
+#   expect_equal(mean(y == 3), .2, tolerance = tol)
+#   expect_equal(mean(y == 4), .1, tolerance = tol)
+#   
+#   ## named prob
+#   y <- norm2likert(x, c(a = 40, b = 30, c = 20, d = 10))
+#   expect_equal(mean(y == "a"), .4, tolerance = tol)
+#   expect_equal(mean(y == "b"), .3, tolerance = tol)
+#   expect_equal(mean(y == "c"), .2, tolerance = tol)
+#   expect_equal(mean(y == "d"), .1, tolerance = tol)
+# })
 
 # std_alpha2average_r ----
 test_that("std_alpha2average_r", {

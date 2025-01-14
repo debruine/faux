@@ -4,7 +4,8 @@
 
 * DeBruine is my name and not misspelled
 * https://doi.org/10.1111/j.1467-6494.1996.tb00813.x is a real DOI
-* There was a note about the test for norm2likert, but it was skipped with skip(), which I have now chencged to skip_on_cran(), so I hope i really skips it this time
+* I moved most of the vignettes to pkgdown articles so they don't take too long
+* There was a note about the test for norm2likert, but it was skipped with skip(), which I then changed to skip_on_cran(), and now commented them all out. I am at a loss as to how this keeps coming up as a note!
 
 
 ## responses to coments

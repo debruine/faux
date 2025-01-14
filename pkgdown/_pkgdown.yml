@@ -23,16 +23,16 @@ articles:
   navbar: ~
   contents:
   - sim_design
-  - rnorm_multi
-  - norta
-  - sim_df
-  - continuous
+  - articles/rnorm_multi
+  - articles/norta
+  - articles/sim_df
+  - articles/continuous
   - plots
-  - sim_mixed
-  - random_reports
-  - distributions
-  - codebook
-  - contrasts
+  - articles/sim_mixed
+  - articles/random_reports
+  - articles/distributions
+  - articles/codebook
+  - articles/contrasts
 
 reference:
 - title: Simulation functions
