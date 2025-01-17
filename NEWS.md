@@ -1,4 +1,7 @@
-# faux (development version)
+# faux 1.2.2 (2025-01-17)
+
+* Fixed some tests that were suddenly erroring on some platforms (hence the removal from CRAN)
+* Removed some vignettes to make package size smaller for CRAN (they are still available on the website)
 
 # faux 1.2.1.9002 (2024-02-10)
 
