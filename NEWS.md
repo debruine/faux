@@ -1,3 +1,5 @@
+# faux (development version)
+
 # faux 1.2.1.9002 (2024-02-10)
 
 * Fixed a [bug](https://github.com/debruine/faux/issues/107) in `rmulti()` that assigned correlations to the wrong pairs with more than 3 variables (thanks @yann1cks!)
